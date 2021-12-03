@@ -14,10 +14,10 @@
 
 ignore테스트
 
+ 	
+MANIFEST.MF ignore테스트3ㅉ
 
-MANIFEST.MF ignore테스트3
-
-깃허브좀 켜주세여ㄴㅇㄹㅇㄴㄹㅇ
+깃허브좀 켜주세여ㄴㅇㄹㅇㄴㄹㅇ 시펄
 
 Last ignore Test Tltqkrj
 
