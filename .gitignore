@@ -155,6 +155,7 @@ pom.properties
 
 ### Maven ###
 target/
+/target/
 pom.xml.tag
 pom.xml.releaseBackup
 pom.xml.versionsBackup
@@ -186,3 +187,4 @@ spring-*/src/main/java/META-INF/MANIFEST.MF
 spring-*/src/target/m2e-wtp/META-INF/maven/MANIFEST.MF
 spring-*/target/m2e-wtp/web-resources/META-INF/MANIFEST.MF
 spring-*/src/target/m2e-wtp/web-resources/META-INF/MANIFEST.MF
+/META-INF/
