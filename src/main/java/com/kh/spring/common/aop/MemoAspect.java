@@ -9,8 +9,8 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.kh.spring.memo.model.service.MemoService;
-import com.kh.spring.memo.model.vo.Memo;
+import com.kh.cosmos.memo.model.service.MemoService;
+import com.kh.cosmos.memo.model.vo.Memo;
 
 import lombok.extern.slf4j.Slf4j;
 
