@@ -182,3 +182,5 @@ MANIFEST
 
 *.manifest
 *.spec
+spring-*/src/main/java/META-INF/MANIFEST.MF
+spring-*/src/target/m2e-wtp/META-INF/maven/MANIFEST.MF
