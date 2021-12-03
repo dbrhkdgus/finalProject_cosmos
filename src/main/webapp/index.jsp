@@ -13,3 +13,5 @@
 ㅇㅇㅇㅇ
 
 ignore테스트
+
+MANIFEST.MF ignore테스트
