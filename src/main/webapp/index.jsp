@@ -14,7 +14,7 @@
 
 ignore테스트
 
-
-MANIFEST.MF ignore테스트3
+ 	
+MANIFEST.MF ignore테스트3ㅉ
 
 깃허브좀 켜주세여ㄴㅇㄹㅇㄴㄹㅇ
