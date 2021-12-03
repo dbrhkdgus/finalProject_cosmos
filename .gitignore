@@ -173,7 +173,7 @@ buildNumber.properties
 # JDT-specific (Eclipse Java Development Tools)
 .classpath
 
-
+MANIFEST.MF
 *.MF
 MANIFEST
 /MANIFEST.MF
@@ -182,3 +182,7 @@ MANIFEST
 
 *.manifest
 *.spec
+spring-*/src/main/java/META-INF/MANIFEST.MF
+spring-*/src/target/m2e-wtp/META-INF/maven/MANIFEST.MF
+spring-*/target/m2e-wtp/web-resources/META-INF/MANIFEST.MF
+spring-*/src/target/m2e-wtp/web-resources/META-INF/MANIFEST.MF
