@@ -15,7 +15,6 @@ local.properties
 .recommenders
 .project
 .classpath
-.MF
 # External tool builders
 .externalToolBuilders/
 
@@ -173,3 +172,10 @@ buildNumber.properties
 .project
 # JDT-specific (Eclipse Java Development Tools)
 .classpath
+
+
+*.MF
+MANIFEST
+/MANIFEST.MF
+**/MANIFEST.MF
+**/MANIFEST.*
