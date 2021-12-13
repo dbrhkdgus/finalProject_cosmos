@@ -21,16 +21,18 @@
 		<property name="username" value="${datasource.username}"/>
 		<property name="password" value="${datasource.password}"/>
 	</bean>
+	
 	<!-- #10.1 log4jdbc ProxyDataSource빈 설정 #realDataSource를 참조 -->
-        <bean id="dataSource" class="net.sf.log4jdbc.Log4jdbcProxyDataSource">  
-            <constructor-arg ref="realDataSource" />
-            <property name="logFormatter">
-                <bean class="net.sf.log4jdbc.tools.Log4JdbcCustomFormatter">    
-                    <property name="loggingType" value="MULTI_LINE" />
-                    <property name="sqlPrefix" value="[SQL] " />
-                </bean>
-            </property>
-        </bean>
+    <bean id="dataSource" class="net.sf.log4jdbc.Log4jdbcProxyDataSource">  
+        <constructor-arg ref="realDataSource" />
+        <property name="logFormatter">
+            <bean class="net.sf.log4jdbc.tools.Log4JdbcCustomFormatter">    
+                <property name="loggingType" value="MULTI_LINE" />
+                <property name="sqlPrefix" value="[SQL] " />
+            </bean>
+        </property>
+    </bean>
+
 	<!-- #6.2. myBatis(JDBC)설정 : SqlSessionFactory -->
 	<bean id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource"/>
@@ -44,11 +46,14 @@
 		<constructor-arg index="0" ref="sqlSessionFactoryBean"/>
 	</bean>
 	
-	<!-- #13.1 트랜잭션 매니저 빈 등록 -->
+	<!-- #13.1 트랜잭션 매니져 빈등록 -->
 	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource"></property>
 	</bean>
 	
-	<!-- #13.2 @Transactional 어노테이션 처리 -->
+	<!-- #13.2 @Transactional 어노테이션처리 -->
 	<tx:annotation-driven transaction-manager="transactionManager"/>
+	
+	
+	
 </beans>
