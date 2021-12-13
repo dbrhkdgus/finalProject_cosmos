@@ -3,7 +3,9 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
-	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
+	xmlns:websocket="http://www.springframework.org/schema/websocket"
+	xsi:schemaLocation="http://www.springframework.org/schema/websocket http://www.springframework.org/schema/websocket/spring-websocket-4.3.xsd
+		http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
 
@@ -22,52 +24,48 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
-	<context:component-scan base-package="com.kh.cosmos" />
+	<context:component-scan base-package="com.kh.spring" />
 	
 	<!-- #9. HandlerInterceptor 등록 -->
 	<interceptors>
 		<interceptor>
-		<!-- /** level 수 상관없이 모든 요청 -->
+			<!-- /** level수 상관없이 모든 요청 -->
 			<mapping path="/**"/>
-			<beans:bean  class="com.kh.spring.common.interceptor.LogInterceptor"/>
+			<beans:bean class="com.kh.spring.common.interceptor.LogInterceptor"/>
 		</interceptor>
 		<interceptor>
-			<mapping path="/member/**"/>
-			<mapping path="/board/boardForm.do"/>
-				<exclude-mapping path="/member/memberLogin.do"/>
-				<exclude-mapping path="/member/memberEnroll.do"/>
-				<exclude-mapping path="/member/checkIdDuplicate.do"/>
-				<exclude-mapping path="/member/checkIdDuplicate2.do"/>
-				<exclude-mapping path="/member/selectOneMember.do"/>
-				<exclude-mapping path="/member/one/**"/>
-				<exclude-mapping path="/member/selectMemberList.do/**"/>
+				<mapping path=""/>
+<!-- 			<mapping path="/board/boardForm.do"/> -->
+<!-- 			<exclude-mapping path="/member/memberLogin.do"/> -->
 			<beans:bean class="com.kh.spring.common.interceptor.LoginInterceptor"/>
 		</interceptor>
 	</interceptors>
-	<!-- #12.1 파일 업로드를 처리할 Resolver빈 등록 -->
+	
+	<!-- #12.1 파일업로드를 처리할 MultipartResolver빈 등록 -->
 	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-	<!-- multipart요청당 최대 파일 크기 : 50M(50 * 1024 * 1024) -->
-		<beans:property name="maxUploadSize" value="52428800"></beans:property>
-	<!-- 파일하 하나당 최대 파일 크기 : 10M(10 * 1024 * 1024) -->
-		<beans:property name="maxUploadSizePerFile" value="10485760"></beans:property>
+		<!-- multipart요청당 최대파일크기 : 50MB(50 * 1024 * 1024) -->
+		<beans:property name="maxUploadSize" value="52428800"/>
+		<!-- 파일 하나당 최대크기 : 10MB(10 * 1024 * 1024)  -->
+		<beans:property name="maxUploadSizePerFile" value="10485760"/>
 	</beans:bean>
 	
-	<!-- #14.1 jsonView 빈등록 -->
+	<!-- #14.1 jsonView빈 등록 -->
 	<beans:bean id="jsonView" class="net.sf.json.spring.web.servlet.view.JsonView">
 		<beans:property name="contentType" value="application/json; charset=utf-8"/>
 	</beans:bean>
 	
 	<!-- #14.2 BeanNameViewResolver 등록 -->
 	<beans:bean id="viewResolver" class="org.springframework.web.servlet.view.BeanNameViewResolver">
-		<beans:property name="order" value="1"></beans:property>
+		<beans:property name="order" value="1"/>
 	</beans:bean>
 	
-	    <!-- 
-	    #15.1 @Responsebody사용을 위한 의존 : 빈등록 (스프링 5.x => MappingJackson2HttpMessageConverter) 
-	    3.1 이후는 mvc:annotation-driven태그에서 아래 설정을 대신함. 
-	    -->
-<!-- 	<beans:bean id="jacksonMessageConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter" />
-
+	
+	<!-- 
+		#15.1 @Responsebody사용을 위한 의존 : 빈등록 (스프링 5.x => MappingJackson2HttpMessageConverter) 
+		3.1이후는 mvc:annotation-driven태그에서 아래 설정을 대신함.
+	-->
+	<!-- 
+	<beans:bean id="jacksonMessageConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter" />
 
 	<beans:bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
 		<beans:property name="messageConverters">
@@ -76,5 +74,26 @@
                 <beans:bean class="org.springframework.http.converter.ByteArrayHttpMessageConverter" />
 			</beans:list>
 		</beans:property>
-	</beans:bean> -->
+	</beans:bean> 
+	-->
+	
+	<!-- #16.2 핸들러 및 Endpoint 등록 -->
+	<websocket:handlers>
+		<websocket:mapping handler="echoHandler" path="/echo"/>
+		<websocket:sockjs />
+	</websocket:handlers>
+	<!-- stomp관련 -->
+	<websocket:message-broker application-destination-prefix="/app">
+		<websocket:stomp-endpoint path="/stomp">
+			<!-- HttpSession객체 접근을 위한 설정 -->
+			<websocket:handshake-interceptors>
+				<beans:bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor"></beans:bean>
+			</websocket:handshake-interceptors>
+			<websocket:sockjs />
+		</websocket:stomp-endpoint>
+		<websocket:simple-broker prefix="/foo,/topic,/notice,/chat"/>
+		
+	</websocket:message-broker>
+	
+	
 </beans:beans>
