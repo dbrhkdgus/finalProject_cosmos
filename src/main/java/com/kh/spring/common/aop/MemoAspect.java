@@ -9,8 +9,6 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.kh.cosmos.memo.model.service.MemoService;
-import com.kh.cosmos.memo.model.vo.Memo;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -18,8 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 @Aspect
 @Slf4j
 public class MemoAspect {
-	@Autowired
-	private MemoService memoService;
+	
 	
 	@Pointcut("execution(* com.kh.spring.memo.model.service..deleteMemo(..))")
 	public void deletePointcut() {}
@@ -36,10 +33,10 @@ public class MemoAspect {
 		log.debug("no = {}, password = {}",no,password);
 		
 		// no 레코드 가져오기
-		Memo memo = memoService.selectOneMemo(no);
-		log.debug("memo = {}",memo);
-		if(memo != null && !password.equals(memo.getPassword())) {
-			throw new InvalidParameterException("비밀번호가 일치하지 않습니다.");
-		}
+		/*
+		 * Memo memo = memoService.selectOneMemo(no); log.debug("memo = {}",memo);
+		 * if(memo != null && !password.equals(memo.getPassword())) { throw new
+		 * InvalidParameterException("비밀번호가 일치하지 않습니다."); }
+		 */
 	}
 }
