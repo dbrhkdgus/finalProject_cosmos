@@ -10,12 +10,12 @@
   </settings>
   
   <typeAliases>
-  	<package name="com.kh.spring"/>
+  	<package name="com.kh.cosmos"/>
   </typeAliases>
   
   <typeHandlers>
   	<!-- <typeHandler handler="com.kh.spring.common.typehandler.StringArrayTypeHandler"/> -->
-  	<package name="com.kh.spring.common.typehandler"/>
+  	<package name="com.kh.cosmos.common.typehandler"/>
   </typeHandlers>
 
 </configuration>
