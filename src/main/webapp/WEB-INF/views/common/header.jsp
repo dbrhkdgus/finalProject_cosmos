@@ -25,7 +25,6 @@
 	alert("${msg}");
 </script>
 </c:if>
-
 </head>
 <body>
 <div id="container">
@@ -44,24 +43,12 @@
 			<div class="collapse navbar-collapse" id="navbarNav">
 				<ul class="navbar-nav mr-auto">
 			    	<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/board/boardList.do">게시판</a></li>
-                    <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/board/resource.do">Resource</a></li>
-                    <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/memo/memo.do">메모 AOP</a></li>
-                    <!-- 데모메뉴 DropDown -->
-                    <!--https://getbootstrap.com/docs/4.1/components/navbar/#supported-content-->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Demo
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="${pageContext.request.contextPath}/demo/devForm.do">Dev 등록</a>
-                            <a class="dropdown-item" href="${pageContext.request.contextPath}/demo/devList.do">Dev 목록</a>
-                        </div>
-				    </li>
+                    <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/board/board.do">게시판</a></li>
+                    <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/admin/admin.do">관리자</a></li>
 			    </ul>
-			    <!-- 비로그인시 -->
-			    <c:if test="${empty loginMember }">
-				    <button 
+			    <%-- 로그인하지 않았을때 --%>
+			    <c:if test="${empty loginMember}">
+			    	<button 
 				    	class="btn btn-outline-success my-2 my-sm-0" 
 				    	type="button"
 				    	onclick="location.href='${pageContext.request.contextPath}/member/memberLogin.do';">로그인</button>
@@ -71,16 +58,18 @@
 	                	type="button"
 	                	onclick="location.href='${pageContext.request.contextPath}/member/memberEnroll.do';">회원가입</button>
 			    </c:if>
-			    <!-- 로그인 시 -->
-			    <c:if test="${not empty loginMember }">
-			    	<span><a href="${pageContext.request.contextPath }/member/memberDetail.do">${loginMember.name }</a>님 안녕하세요.</span>
+			    <%-- 로그인했을때 --%>
+			    <c:if test="${not empty loginMember}">
+			    	<span><a href="${pageContext.request.contextPath}/member/memberDetail.do">${loginMember.name}</a>님 안녕하세요.</span>
 			    	&nbsp;&nbsp;
 			    	<button 
 				    	class="btn btn-outline-success my-2 my-sm-0" 
 				    	type="button"
 				    	onclick="location.href='${pageContext.request.contextPath}/member/memberLogout.do';">로그아웃</button>
-	                
 			    </c:if>
+			    
+			    
+			    
 			 </div>
 		</nav>
 	</header>
