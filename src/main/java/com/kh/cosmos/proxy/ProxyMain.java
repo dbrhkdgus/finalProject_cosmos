@@ -1,4 +1,4 @@
-package com.kh.spring.proxy;
+package com.kh.cosmos.proxy;
 
 public class ProxyMain {
 	public static void main(String[] args) {

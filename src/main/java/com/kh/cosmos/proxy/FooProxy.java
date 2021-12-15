@@ -1,4 +1,4 @@
-package com.kh.spring.proxy;
+package com.kh.cosmos.proxy;
 
 public class FooProxy implements Foo {
 	

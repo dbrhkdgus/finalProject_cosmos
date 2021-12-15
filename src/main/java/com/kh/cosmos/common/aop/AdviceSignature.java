@@ -1,4 +1,4 @@
-package com.kh.spring.common.aop;
+package com.kh.cosmos.common.aop;
 
 import org.apache.log4j.Logger;
 import org.aspectj.lang.JoinPoint;
