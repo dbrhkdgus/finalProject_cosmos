@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 import lombok.extern.slf4j.Slf4j;
 
 @Component
-@Aspect
+//@Aspect
 @Slf4j
 public class MemoAspect {
 	

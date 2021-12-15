@@ -26,7 +26,7 @@ import org.aspectj.lang.annotation.Pointcut;
 public class AdviceSignature {
 	private Logger logger = Logger.getLogger(AdviceSignature.class);
 	
-	@Pointcut("execution(* com.kh.aop..*Impl.*(..))")
+	@Pointcut("execution(* com.cosmos.aop..*Impl.*(..))")
 	public void pointcut() {}
 	
 	@Before("pointcut()")

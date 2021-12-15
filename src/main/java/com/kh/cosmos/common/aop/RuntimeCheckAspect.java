@@ -13,22 +13,22 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 @Aspect
 public class RuntimeCheckAspect {
-
-	/*
-	 * @Pointcut("execution(* com.kh.spring.memo.controller.MemoController.insertMemo(..))"
-	 * ) public void pointcut() {}
-	 * 
-	 * @Around("pointcut()")
-	 * 
-	 * @Around("execution(* com.kh.spring.memo.controller.MemoController.insertMemo(..))"
-	 * ) public Object runtimeCheck(ProceedingJoinPoint joinPoint) throws Throwable{
-	 * 
-	 * StopWatch stopWatch = new StopWatch(); stopWatch.start();
-	 * 
-	 * Object obj = joinPoint.proceed();
-	 * 
-	 * stopWatch.stop();
-	 * 
-	 * log.debug("소요시간 : {}ms", stopWatch.getTotalTimeMillis()); return obj; }
-	 */
+//	
+//	@Pointcut("execution(* com.kh.cosmos.memo.controller.MemoController.insertMemo(..))")
+//	public void pointcut() {}
+//	
+//	/* @Around("pointcut()") */
+//	@Around("execution(* com.kh.cosmos.memo.controller.MemoController.insertMemo(..))")
+//	public Object runtimeCheck(ProceedingJoinPoint joinPoint) throws Throwable{
+//		
+//		StopWatch stopWatch = new StopWatch();
+//		stopWatch.start();
+//		
+//		Object obj = joinPoint.proceed();
+//		
+//		stopWatch.stop();
+//		
+//		log.debug("소요시간 : {}ms", stopWatch.getTotalTimeMillis());
+//		return obj;
+//	}
 }
