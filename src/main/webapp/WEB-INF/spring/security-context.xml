@@ -19,26 +19,26 @@
 	<http auto-config="true">
 		<intercept-url pattern="/" access="permitAll"/>
 		<intercept-url pattern="/index.jsp" access="permitAll"/>
-		<intercept-url pattern="/member/memberLogin.do" access="permitAll"/>
-		<intercept-url pattern="/admin/**" access="hasRole('ADMIN')"/>
+		<!-- <intercept-url pattern="/member/memberLogin.do" access="permitAll"/>
+		<intercept-url pattern="/admin/**" access="hasRole('ADMIN')"/> -->
 		<intercept-url pattern="/**" access="isAuthenticated()"/>
 		
 		<!-- 커스텀로그인 설정 -->
 		<!-- login-page : 커스텀 로그인폼페이지. 핸들러작성 필요 -->
 		<!-- login-processing-url : security가 인증을 처리할 주소. loginForm이 제출(POST)될 주소. 핸들러 작성 불필요 -->
-		<form-login 
+		<!-- <form-login 
 			login-page="/member/memberLogin.do"
 			login-processing-url="/member/memberLogin.do"
 			username-parameter="id"
 			password-parameter="password"
-			/>
+			/> -->
 			
 		<!-- logout-url : 핸들러 작성불필요 -->
 		<!-- logout-success-url : 로그아웃이후 리다이렉트 url (기본값: /login?logout) -->
-		<logout 
+		<!-- <logout 
 			logout-url="/member/memberLogout.do"
 			logout-success-url="/"/>
-		<access-denied-handler error-page="/error/accessDenied.do"/>
+		<access-denied-handler error-page="/error/accessDenied.do"/> -->
 		
 		<!-- csrf공격대비 기능 -->
 		<!-- 
