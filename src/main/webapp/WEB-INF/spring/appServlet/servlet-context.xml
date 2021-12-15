@@ -31,13 +31,13 @@
 		<interceptor>
 			<!-- /** level수 상관없이 모든 요청 -->
 			<mapping path="/**"/>
-			<beans:bean class="com.kh.spring.common.interceptor.LogInterceptor"/>
+			<beans:bean class="com.kh.cosmos.common.interceptor.LogInterceptor"/>
 		</interceptor>
 		<interceptor>
 				<mapping path=""/>
 <!-- 			<mapping path="/board/boardForm.do"/> -->
 <!-- 			<exclude-mapping path="/member/memberLogin.do"/> -->
-			<beans:bean class="com.kh.spring.common.interceptor.LoginInterceptor"/>
+			<beans:bean class="com.kh.cosmos.common.interceptor.LoginInterceptor"/>
 		</interceptor>
 	</interceptors>
 	

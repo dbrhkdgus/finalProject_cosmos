@@ -1,4 +1,4 @@
-package com.kh.spring;
+package com.kh.cosmos;
 
 import java.util.Locale;
 

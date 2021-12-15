@@ -1,4 +1,4 @@
-package com.kh.spring.common.aop;
+package com.kh.cosmos.common.aop;
 
 import java.security.InvalidParameterException;
 

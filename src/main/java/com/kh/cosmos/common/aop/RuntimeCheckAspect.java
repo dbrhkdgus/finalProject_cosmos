@@ -1,4 +1,4 @@
-package com.kh.spring.common.aop;
+package com.kh.cosmos.common.aop;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;

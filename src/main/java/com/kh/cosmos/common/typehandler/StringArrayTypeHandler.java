@@ -1,4 +1,4 @@
-package com.kh.spring.common.typehandler;
+package com.kh.cosmos.common.typehandler;
 
 import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
