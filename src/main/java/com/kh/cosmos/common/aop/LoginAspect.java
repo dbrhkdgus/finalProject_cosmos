@@ -13,7 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 @Aspect
 @Component
 public class LoginAspect {
-	@Pointcut("execution(* com.kh.spring.memo..*(..))")
+	@Pointcut("execution(* com.kh.cosmos.memo..*(..))")
 	public void pointcut() {}
 	
 	/**
