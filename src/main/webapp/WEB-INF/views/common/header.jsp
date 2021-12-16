@@ -53,7 +53,7 @@
                                 <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
                                 <li class="nav-item"><a class="nav-link" href="#!">Search</a></li>
                                 <li class="nav-item"><a class="nav-link" href="#!">문의사항</a></li>
-                                <li class="nav-item"><a class="nav-link" href="#!">공지사항</a></li>
+                                <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/main/noticeList.do">공지사항</a></li>
                             </ul>
                         </div>
                     </div>
