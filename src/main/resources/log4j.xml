@@ -62,7 +62,7 @@
 	
 	<!-- Application Loggers -->
 	<!-- additivity : 부모패키지의 Logger로 전파 -->
-	<logger name="com.kh.spring" additivity="true">
+	<logger name="com.kh.cosmos" additivity="true">
 		<level value="debug" />
 	</logger>
 <!-- 	<logger name="com.kh.spring.log4j">

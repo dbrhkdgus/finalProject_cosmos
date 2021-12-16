@@ -24,20 +24,20 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
-	<context:component-scan base-package="com.kh.spring" />
+	<context:component-scan base-package="com.kh.cosmos" />
 	
 	<!-- #9. HandlerInterceptor 등록 -->
 	<interceptors>
 		<interceptor>
 			<!-- /** level수 상관없이 모든 요청 -->
 			<mapping path="/**"/>
-			<beans:bean class="com.kh.spring.common.interceptor.LogInterceptor"/>
+			<beans:bean class="com.kh.cosmos.common.interceptor.LogInterceptor"/>
 		</interceptor>
 		<interceptor>
 				<mapping path=""/>
 <!-- 			<mapping path="/board/boardForm.do"/> -->
 <!-- 			<exclude-mapping path="/member/memberLogin.do"/> -->
-			<beans:bean class="com.kh.spring.common.interceptor.LoginInterceptor"/>
+			<beans:bean class="com.kh.cosmos.common.interceptor.LoginInterceptor"/>
 		</interceptor>
 	</interceptors>
 	
@@ -78,10 +78,10 @@
 	-->
 	
 	<!-- #16.2 핸들러 및 Endpoint 등록 -->
-	<websocket:handlers>
+<!-- 	<websocket:handlers>
 		<websocket:mapping handler="echoHandler" path="/echo"/>
 		<websocket:sockjs />
-	</websocket:handlers>
+	</websocket:handlers> -->
 	<!-- stomp관련 -->
 	<websocket:message-broker application-destination-prefix="/app">
 		<websocket:stomp-endpoint path="/stomp">
