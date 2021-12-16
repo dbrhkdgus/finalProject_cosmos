@@ -92,10 +92,9 @@
 											name="permanent-address">
 									</div>
 								</div>
-
-
-								<div class="group-form-check">
-									<input class="form-check-input float-left" type="checkbox" value="" id="flexCheckDefault">
+								
+								<div class="form-check text-center">
+									<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
 									<label for="flexCheckDefault"> &nbsp;조회에서 제외되는 비밀그룹으로 생성하기 </label>
 								</div>
 								

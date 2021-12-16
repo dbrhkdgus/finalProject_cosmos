@@ -20,4 +20,9 @@ public class MemberController {
 	public String memberLogin() {
 		return "member/memberLogin";
 	}
+	@GetMapping("/memberEnroll.do")
+	public String memberEnroll() {
+		
+		return "member/memberEnroll";
+	}
 }
