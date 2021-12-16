@@ -1,0 +1,148 @@
+#login-form-div {
+  height: 120px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+}
+
+.nav-logo-img{
+  width: 150px;
+}
+
+.nav-item{
+  margin-right: 50px;
+  margin-left: 50px;
+}
+
+.nav-container{
+
+  display: flex;
+  flex-wrap: inherit;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.category{
+  margin-left: 15px;
+  width: 100%;
+  border: 1px solid #eee;
+  border-radius: 6px;
+  background-color: #fff;
+  height: 300px;
+}
+.cate-list{
+  display: flex;
+  flex-wrap: wrap;
+}
+.category li {
+  position: relative;
+  width: 33.333%;
+  background-repeat: no-repeat;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  font-style: #846CD9;
+}
+.category ul {
+  text-align: center;
+  
+}
+
+
+.btn-category{
+  width: 100%;
+  height: 50px;
+  border: none;
+  color: #846CD9;
+  font-weight: bold;
+}
+
+
+
+.slick-items{
+  width: 854px;
+  height: 300px;
+}
+
+.main-slide{
+  height: 50vh;
+  width: 100%;
+  object-fit: cover;
+}
+
+
+.index-row {
+  --bs-gutter-x: 1.5rem;
+  --bs-gutter-y: 0;
+  display: flex;
+  /* flex-wrap: wrap; */
+  margin-top: calc(-1 * var(--bs-gutter-y));
+  margin-right: calc(-0.5 * var(--bs-gutter-x));
+  margin-left: calc(-0.5 * var(--bs-gutter-x));
+}
+
+.index-outer1{
+  display: flex;
+  margin-left: -12px;
+ padding-right: 12px;
+}
+
+.index-outer2{
+  display: flex;
+    flex-direction: row;
+    flex-wrap: wrap
+}
+
+/*footer*/
+
+.footer-container{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.footer-up-box {
+  flex-wrap: wrap;
+  display: flex;
+  justify-content: space-evenly;
+}
+.footer-down-box{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.footer-list-content{
+  font-size: 1.5em;
+  font-weight: bold;
+  margin-right: 30px;
+}
+#footer_logo{
+  width: 30%;
+}
+.footer-list{
+  width: 50%;
+}
+
+/*스터디 서칭 css시작부분*/
+.nav-tabs{
+  border-bottom: 1px solid #dee2e6;
+  display: flex;
+  justify-content: center;
+}
+.child-category-all{
+  display: flex;
+  justify-content: space-evenly;
+  height: 217px;
+  padding:20px 0;
+}
+
+.inner1{
+  display: flex;
+}
+#categoryTab{border: 1px solid black;}
+#navbarSupportedContent{display: flex;justify-content: center;}
+#navbar{display: flex;}
+.sns_logo{height: 40px;margin-right: 20px;}
+
+li{list-style-type: none;}
+a:link {color: red; text-decoration: none;}
+a:visited {color: black; text-decoration: none;}
+footer{display: flex;}
