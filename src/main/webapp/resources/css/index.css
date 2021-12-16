@@ -130,13 +130,188 @@
 .child-category-all{
   display: flex;
   justify-content: space-evenly;
-  height: 217px;
   padding:20px 0;
 }
 
 .inner1{
   display: flex;
 }
+.search-inner{
+  display: flex;
+}
+.search-card{
+  margin-right: 20px;
+}
+
+.search-outer-top{
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+ 
+}
+
+.search-input{
+  width: 300px;
+  margin-left: 10px;
+}
+
+.search-select{
+  width: 150px;
+}
+
+.search-outer-top .right{
+  margin-right: 20px;
+}
+
+#class-amount{
+  padding-top: 5px;
+  margin-right: 10px;
+}
+
+
+
+/*그룹 생성하기 css*/
+
+.group-create-button{
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.group-text-input{
+  margin-top: 10px;
+}
+
+
+.group-form-check{
+  display: flex;
+  justify-content: center;
+}
+
+
+.group-text-form{
+  justify-content: center;
+}
+
+
+/* 회원가입 입력폼 */
+
+.gender-radio{
+  display: flex; 
+  justify-content: space-evenly;
+}
+
+/*그룹가입 입력폼*/
+.group-join-notice  li{
+  list-style-type: disc;
+}
+
+/*나의그룹목록*/
+.my-group-list{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 40px;
+  
+}
+
+.my-group-list h2{
+  margin-left: 40px;
+}
+
+.member-group-list{
+  display: flex;
+}
+
+.member-group-list-outer{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/*스터디 디테일 뷰*/
+
+.class-detail-wrap{
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    width: 1200px;
+    margin: 40px auto 0;
+    justify-content: space-between;
+}
+.class-img{
+    width: 700px;
+    margin-bottom: 50px;
+}
+.class-detail-left-container{
+    float: left;
+    width: 700px;
+
+}
+.class-detail-right-container{
+    position: sticky;
+}
+.sticky-button-area{
+    display: flex;
+}
+.leader-profile-img {
+    width: 5%;
+    border-radius: 70%;
+    overflow: hidden;
+    margin-right: 10px;
+}
+.profile {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.leader-profile{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-top: 30px;
+    margin-bottom: 30px;
+
+}
+#group-leader-name{
+    color: #843C9F;
+    font-weight: bold;
+}
+#sticky-content{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+.class-info-comm{
+    display: flex;
+    margin-bottom: 100px;
+}
+.comm-left-box{
+    width: 152px;
+}
+.comm-left-box .class-left-title{
+    font-size: 26px;
+    text-align: left;
+    line-height: 34px;
+    color: #333;
+    font-weight: bold;
+    word-break: keep-all;
+}
+.comm-right-box{
+    margin-left: 60px;
+    width: calc(100% - 212px);
+}
+
+.class-info-first{
+    margin-bottom: 50px;
+}
+
+#detail-inputbox{
+    width: 350px;
+    height: 38px;
+}
+
 #categoryTab{border: 1px solid black;}
 #navbarSupportedContent{display: flex;justify-content: center;}
 #navbar{display: flex;}
