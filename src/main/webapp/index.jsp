@@ -14,8 +14,7 @@
 		<div class="col-lg-8">
 			<!-- Featured blog post-->
 			<div class="card mb-4">
-				<div id="carouselExampleControls" class="carousel slide"
-					data-bs-ride="carousel">
+				<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
 					<div class="carousel-inner ">
 						<div class="carousel-item active">
 							<a href="#!"> <img src="https://img1.daumcdn.net/thumb/R1280x0.fjpg/?fname=http://t1.daumcdn.net/brunch/service/user/zZX/image/PoUmWOJMQg8DHzrn9PIuCIuwCwk" class="d-block  main-slide" alt="...">
