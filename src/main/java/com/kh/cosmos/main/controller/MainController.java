@@ -15,7 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Controller
 @RequestMapping("/main")
-public class controller {
+public class MainController {
 	@Autowired
 	private MainService mainService;
 	
@@ -29,5 +29,11 @@ public class controller {
 	public String noticeList() {
 		
 		return "main/notice";
+	}
+	
+	@GetMapping("/qa.do")
+	public String qa() {
+		
+		return "main/qa";
 	}
 }
