@@ -6,7 +6,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="description" content="" />
+<meta name="author" content="" />
 <title>${param.title}</title>
 
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
@@ -18,8 +21,15 @@
 <!-- bootstrap css -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
 
-<!-- 사용자작성 css -->
-<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/style.css" />
+<!-- Favicon-->
+<link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+<!-- Core theme CSS (includes Bootstrap)-->
+<link href="${pageContext.request.contextPath }/resources/css/index.css" rel="stylesheet" />
+<link href="${pageContext.request.contextPath }/resources/css/styles.css" rel="stylesheet" />
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
 <c:if test="${not empty msg}">
 <script>
 	alert("${msg}");
@@ -27,61 +37,37 @@
 </c:if>
 
 </head>
-<body>
-<div id="container">
-	<header>
-		<div id="header-container">
-			<h2>${param.title}</h2>
-		</div>
-		<!-- https://getbootstrap.com/docs/4.0/components/navbar/ -->
-		<nav class="navbar navbar-expand-lg navbar-light bg-light">
-			<a class="navbar-brand" href="#">
-				<img src="${pageContext.request.contextPath }/resources/images/logo-spring.png" alt="스프링로고" width="50px" />
-			</a>
-			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-		  	</button>
-			<div class="collapse navbar-collapse" id="navbarNav">
-				<ul class="navbar-nav mr-auto">
-			    	<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/board/boardList.do">게시판</a></li>
-                    <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/board/resource.do">Resource</a></li>
-                    <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/memo/memo.do">메모 AOP</a></li>
-                    <!-- 데모메뉴 DropDown -->
-                    <!--https://getbootstrap.com/docs/4.1/components/navbar/#supported-content-->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Demo
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="${pageContext.request.contextPath}/demo/devForm.do">Dev 등록</a>
-                            <a class="dropdown-item" href="${pageContext.request.contextPath}/demo/devList.do">Dev 목록</a>
+    <body>
+        <header>
+            <!-- Responsive navbar-->
+            <nav class="navbar navbar-expand-lg">
+                <div class="container" id="headerContainer">
+                    <div id="navbar">
+                        <div class="nav-logo">
+                            <a href="">
+                                <img src="${pageContext.request.contextPath }/resources/images/cosmoslogo_black.png" class="nav-logo-img" alt="">
+                            </a>
                         </div>
-				    </li>
-			    </ul>
-			    <!-- 비로그인시 -->
-			    <c:if test="${empty loginMember }">
-				    <button 
-				    	class="btn btn-outline-success my-2 my-sm-0" 
-				    	type="button"
-				    	onclick="location.href='${pageContext.request.contextPath}/member/memberLogin.do';">로그인</button>
-	                &nbsp;
-	                <button 
-	                	class="btn btn-outline-success my-2 my-sm-0" 
-	                	type="button"
-	                	onclick="location.href='${pageContext.request.contextPath}/member/memberEnroll.do';">회원가입</button>
-			    </c:if>
-			    <!-- 로그인 시 -->
-			    <c:if test="${not empty loginMember }">
-			    	<span><a href="${pageContext.request.contextPath }/member/memberDetail.do">${loginMember.name }</a>님 안녕하세요.</span>
-			    	&nbsp;&nbsp;
-			    	<button 
-				    	class="btn btn-outline-success my-2 my-sm-0" 
-				    	type="button"
-				    	onclick="location.href='${pageContext.request.contextPath}/member/memberLogout.do';">로그아웃</button>
-	                
-			    </c:if>
-			 </div>
-		</nav>
-	</header>
-	<section id="content">
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="navbar-nav mb-2 mb-lg-0">
+                                <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#!">Search</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#!">문의사항</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#!">공지사항</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                <div id="login-form-div">
+                  
+                    <div class="card-body">
+                        <div class="login-form">
+                            <button type="button" class="btn btn-outline-primary">로그인</button>
+                            <button type="button" class="btn btn-outline-primary">회원가입</button>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
