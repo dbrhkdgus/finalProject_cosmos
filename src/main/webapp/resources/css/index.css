@@ -28,7 +28,8 @@
   border: 1px solid #eee;
   border-radius: 6px;
   background-color: #fff;
-  height: 300px;
+  height: 360px;
+  /* margin: auto; */
 }
 .cate-list{
   display: flex;
@@ -64,7 +65,7 @@
 }
 
 .main-slide{
-  height: 50vh;
+  height: 400px;
   width: 100%;
   object-fit: cover;
 }
@@ -84,6 +85,7 @@
   display: flex;
   margin-left: -12px;
  padding-right: 12px;
+ 
 }
 
 .index-outer2{

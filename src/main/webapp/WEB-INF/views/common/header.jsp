@@ -37,7 +37,7 @@
 </c:if>
 </head>
     <body>
-        <header style="box-shadow: 12px -7px 22px #ccc;">
+        <header style="box-shadow: 12px -7px 22px #ccc; margin-bottom: 50px;">
             <!-- Responsive navbar-->
             <nav class="navbar navbar-expand-lg">
                 <div class="container" id="headerContainer">
@@ -62,7 +62,7 @@
                     <div class="card-body">
                         <div class="login-form">
                             <button type="button" class="btn btn-outline-primary" onclick="location.href='${pageContext.request.contextPath}/member/memberLogin.do';">로그인</button>
-                            <button type="button" class="btn btn-outline-primary">회원가입</button>
+                            <button type="button" class="btn btn-outline-primary" onclick="location.href='${pageContext.request.contextPath}/member/memberEnroll.do';">회원가입</button>
                             
                         </div>
                     </div>

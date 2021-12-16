@@ -44,19 +44,34 @@
 		<!-- Side widgets-->
 		<!-- Search widget-->
 		<!-- 카테고리코드-->
-		<div class="category">
-			<ul class="cate-list" style="padding-left: 0;">
-				<li class="popular"><a href="">인기</a></li>
-				<li class="popular"><a href="">프론트</a></li>
-				<li class="popular"><a href="">백엔드</a></li>
-				<li class="popular"><a href="">풀스택</a></li>
-				<li class="popular"><a href="">알고리즘</a></li>
-				<li class="popular"><a href="">db</a></li>
-			</ul>
-			<button type="button" class="btn-category">전체 카테고리</button>
+		<div class="category" style="margin-bottom:5px;">
+			<div class="category2">
+				<ul class="cate-list" style="padding-left: 0;">
+					<li class="popular"><a href="">인기</a></li>
+					<li class="popular"><a href="">프론트</a></li>
+					<li class="popular"><a href="">백엔드</a></li>
+					<li class="popular"><a href="">풀스택</a></li>
+					<li class="popular"><a href="">알고리즘</a></li>
+					<li class="popular"><a href="">db</a></li>
+				</ul>
+				<button type="button" class="btn-category">전체 카테고리</button>
+			</div>
+			<div class="category2">
+				<ul class="cate-list" style="padding-left: 0;">
+					<li class="popular"><a href="">인기</a></li>
+					<li class="popular"><a href="">프론트</a></li>
+					<li class="popular"><a href="">백엔드</a></li>
+					<li class="popular"><a href="">풀스택</a></li>
+					<li class="popular"><a href="">알고리즘</a></li>
+					<li class="popular"><a href="">db</a></li>
+				</ul>
+				<button type="button" class="btn-category">전체 카테고리</button>
+			</div>
 		</div>
 		<!-- Categories widget-->
 	</div>
+	<hr />
+	<h2>BEST</h2>
 	<div class="index-outer2">
 		<!-- Nested row for non-featured blog posts-->
 		<div class="row">
@@ -92,6 +107,8 @@
 					</div>
 				</div>
 			</div>
+			<hr />
+			<h2>NEW</h2>
 			<div class="row row-cols-2 row-cols-lg-3">
 				<!-- Blog post-->
 				<div class="card mb-4">

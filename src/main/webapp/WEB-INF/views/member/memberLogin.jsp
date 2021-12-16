@@ -29,7 +29,7 @@
 
 <!-- 사용자작성 css -->
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath }/resources/css/style.css" />
+	href="${pageContext.request.contextPath }/resources/css/styles.css" />
 <script>
 <c:if test="${not empty msg}">
 alert("${msg}");
