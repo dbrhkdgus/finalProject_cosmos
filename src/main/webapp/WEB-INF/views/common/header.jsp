@@ -35,7 +35,6 @@
 	alert("${msg}");
 </script>
 </c:if>
-
 </head>
     <body>
         <header>
@@ -71,3 +70,4 @@
             </div>
         </nav>
     </header>
+
