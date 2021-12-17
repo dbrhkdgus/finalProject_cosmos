@@ -30,10 +30,20 @@ public class MainController {
 		
 		return "main/notice";
 	}
+	@GetMapping("/noticeForm.do")
+	public String noticeForm() {
+		
+		return "main/noticeForm";
+	}
 	
 	@GetMapping("/qa.do")
 	public String qa() {
 		
 		return "main/qa";
+	}
+	@GetMapping("/qaForm.do")
+	public String qaForm() {
+		
+		return "main/qaForm";
 	}
 }
