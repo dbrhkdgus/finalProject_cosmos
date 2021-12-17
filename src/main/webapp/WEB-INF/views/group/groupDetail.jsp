@@ -141,7 +141,7 @@
 	<!-- 오른쪽 sticky 클래스정보 -->
 	<div class="class-detail-right-container">
 		<div class="card"
-			style="width: 410px; height: 490px; border-radius: 30px;">
+			style="width: 410px; height: 490px; border-radius: 30px; position: fixed; margin-left: 50px;">
 			<div class="card-body" id="sticky-content">
 				<div class="card-text">
 					<h5 class="card-title">Special title treatment</h5>
