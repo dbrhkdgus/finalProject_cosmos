@@ -45,27 +45,24 @@
 		<!-- Search widget-->
 		<!-- 카테고리코드-->
 		<div class="category" style="margin-bottom:5px;">
+			
 			<div class="category2">
-				<ul class="cate-list" style="padding-left: 0;">
-					<li class="popular"><a href="">인기</a></li>
+				<button type="button" class="btn-category">카테고리</button>
+				<ul class="cate-list" style="padding-left: 0;  height: 270px;">
+					<li class="popular"><a href="">웹개발</a></li>
 					<li class="popular"><a href="">프론트</a></li>
 					<li class="popular"><a href="">백엔드</a></li>
 					<li class="popular"><a href="">풀스택</a></li>
+					<li class="popular"><a href="">모바일 앱 개발</a></li>
+					<li class="popular"><a href="">프로그래밍 언어</a></li>
 					<li class="popular"><a href="">알고리즘</a></li>
-					<li class="popular"><a href="">db</a></li>
+					<li class="popular"><a href="">데이터베이스</a></li>
+					<li class="popular"><a href="">게임개발</a></li>
 				</ul>
-				<button type="button" class="btn-category">전체 카테고리</button>
-			</div>
-			<div class="category2">
-				<ul class="cate-list" style="padding-left: 0;">
-					<li class="popular"><a href="">인기</a></li>
-					<li class="popular"><a href="">프론트</a></li>
-					<li class="popular"><a href="">백엔드</a></li>
-					<li class="popular"><a href="">풀스택</a></li>
-					<li class="popular"><a href="">알고리즘</a></li>
-					<li class="popular"><a href="">db</a></li>
-				</ul>
-				<button type="button" class="btn-category">전체 카테고리</button>
+				<form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" style="display:flex; margin-left:10px;">
+	          		<input type="search" class="form-control form-control-dark" placeholder="찾고있는 스터디그룹을 검색해보세요!" aria-label="Search">
+	          		<button type="button" class="btn btn-info" style="margin-left:10px; background-color:#6D8EF2 ; color:white;"><i class="fas fa-search"></i></button>
+	        	</form>
 			</div>
 		</div>
 		<!-- Categories widget-->
