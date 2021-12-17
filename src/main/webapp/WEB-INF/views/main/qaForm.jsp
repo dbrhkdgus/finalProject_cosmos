@@ -49,6 +49,7 @@ $(document).ready(function() {
 				focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
 				lang: "ko-KR",					// 한글 설정
 				placeholder: '공지사항 내용 작성란',	//placeholder 설정
+				spellCheck: false,
 				callbacks: {	//여기 부분이 이미지를 첨부하는 부분
 					onImageUpload : function(files) {
 						uploadSummernoteImageFile(files[0],this);
@@ -64,9 +65,6 @@ $(document).ready(function() {
 					}
 				}
 	});
-	/**
-	* 이미지 파일 업로드
-	*/
 	function uploadSummernoteImageFile(file, editor) {
 		data = new FormData();
 		data.append("file", file);

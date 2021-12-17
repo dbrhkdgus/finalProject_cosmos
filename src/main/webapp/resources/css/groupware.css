@@ -172,6 +172,27 @@ main {
     height: 70%;
     object-fit:cover;
  }
+ /* to do list css */
+div.list-group{
+  margin: 30px;
+  width: 350px;
+  height: 300px;
+  background-color:rgb(255, 255, 241);
+}
+div.list-group1{
+  float:left;
+  margin: 30px;
+  width: 350px;
+  height: 300px;
+  background-color:rgb(255, 234, 237);        
+}
+ b{
+  font-size: 20px;
+  color:orange;
+}
+ h4{
+  text-align: center;
+ }
 /* 스터디 목록 css */
 .study-thumbnail-box {
   display: inline-table;
