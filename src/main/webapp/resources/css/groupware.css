@@ -592,3 +592,19 @@ main {
   text-align: center;
   margin-top: 1rem;
 }
+/* 스터디 그룹 통계 관리 css */
+.study-admin-box {
+  overflow: auto;
+  padding: 2rem;
+}
+
+.goal-fulfillment-rate {
+  margin-top: 2rem;
+}
+
+#goalChart, #activityChart {
+  margin:auto;
+  display: block;
+  margin-top: 2rem;
+  margin-bottom: 4rem;
+}
