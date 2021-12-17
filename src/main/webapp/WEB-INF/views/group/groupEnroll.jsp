@@ -75,13 +75,24 @@
 								</div>
 
 								<div class="form-group row">
-									<label for="permanent_address"
-										class="col-md-4 col-form-label text-md-right">프리미엄(유/무료)</label>
-									<div class="col-md-6 group-text-input">
-										<input type="text" id="premium" class="form-control"
-											name="permanent-address">
+								<label for="permanent_address"
+									class="col-md-4 col-form-label text-md-right">프리미엄여부</label>
+								<div class="col-md-6 group-text-input gender-radio">
+									<div class="form-check">
+										<input class="form-check-input" type="radio"
+											name="flexR`adioDefault" id="flexRadioDefault1"> <label
+											class="form-check-label" for="flexRadioDefault1"> 유료
+										</label>
+									</div>
+
+									<div class="form-check">
+										<input class="form-check-input" type="radio"
+											name="flexR`adioDefault" id="flexRadioDefault1"> <label
+											class="form-check-label" for="flexRadioDefault1"> 무료
+										</label>
 									</div>
 								</div>
+							</div>
 
 
 								<div class="form-group row">

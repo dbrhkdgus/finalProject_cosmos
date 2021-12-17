@@ -157,6 +157,55 @@ main {
   display: flex;
   height: 89vh;
 }
+ div.main-group1{
+   margin: 20px;
+   text-align: center;
+   width: 1000px;
+   height: 200px;
+   background-color:rgb(255, 255, 241);
+}
+ div.main-group2{
+   margin: 30px;
+   float:left;
+   text-align: justify;
+   width: 350px;
+   height: 300px;
+   background-color:rgb(255, 234, 237);        
+      }
+ div.main-group3{
+   margin: 30px;
+   text-align: center;
+   widthh: 550px;
+   height: 300px;
+   float:right;
+   background-color: rgb(241, 248, 250);
+ }
+ .calendar-img{
+    width: 60%;
+    height: 70%;
+    object-fit:cover;
+ }
+ /* to do list css */
+div.list-group{
+  margin: 30px;
+  width: 350px;
+  height: 300px;
+  background-color:rgb(255, 255, 241);
+}
+div.list-group1{
+  float:left;
+  margin: 30px;
+  width: 350px;
+  height: 300px;
+  background-color:rgb(255, 234, 237);        
+}
+ b{
+  font-size: 20px;
+  color:orange;
+}
+ h4{
+  text-align: center;
+ }
 /* 스터디 목록 css */
 .study-thumbnail-box {
   display: inline-table;
@@ -432,6 +481,9 @@ main {
 .groupware-saved-file-content div{
   
     margin-right: 20px;
+}
+.groupware-saved-file-content p{
+  font-size: 13px;
 }
 
 /* 게시글 디테일 페이지 css */

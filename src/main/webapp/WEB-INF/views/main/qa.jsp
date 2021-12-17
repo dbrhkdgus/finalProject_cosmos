@@ -19,6 +19,7 @@
 	  <thead>
 	    <tr>
 	      <th scope="col">NO</th>
+	      <th scope="col">카테고리</th>
 	      <th class="w-50" scope="col">제목</th>
 	      <th scope="col">작성자</th>
 	      <th scope="col">날짜</th>
@@ -28,6 +29,7 @@
 	  <tbody>
 	    <tr>
 	      <th scope="row">7</th>
+	      <td>기타</td>
 	      <td>출력시마스킹처리방법사용 ==>>></td>
 	      <td>유**</td>
 	      <td>2021-12-15</td>
@@ -35,6 +37,7 @@
 	    </tr>
 	    <tr>
 	      <th scope="row">6</th>
+	      <td>오류</td>
 	      <td>출력시마스킹처리방법사용 ==>>></td>
 	      <td>이**</td>
 	      <td>2021-12-15</td>
@@ -42,6 +45,7 @@
 	    </tr>
 	    <tr>
 	      <th scope="row">5</th>
+	      <td>신고</td>
 	      <td>출력시마스킹처리방법사용 ==>>></td>
 	      <td>이**</td>
 	      <td>2021-12-15</td>
@@ -49,6 +53,7 @@
 	    </tr>
 	    <tr>
 	      <th scope="row">4</th>
+	      <td>게시판</td>
 	      <td>출력시마스킹처리방법사용 ==>>></td>
 	      <td>유**</td>
 	      <td>2021-12-15</td>
@@ -56,6 +61,7 @@
 	    </tr>
 	    <tr>
 	      <th scope="row">3</th>
+	      <td>그룹</td>
 	      <td>출력시마스킹처리방법사용 ==>>></td>
 	      <td>김**</td>
 	      <td>2021-12-15</td>
@@ -63,6 +69,7 @@
 	    </tr>
 	    <tr>
 	      <th scope="row">2</th>
+	      <td>화상채팅</td>
 	      <td>출력시마스킹처리방법사용 ==>>></td>
 	      <td>백**</td>
 	      <td>2021-12-15</td>
@@ -70,6 +77,7 @@
 	    </tr>
 	    <tr>
 	      <th scope="row">1</th>
+	      <td>그룹웨어</td>
 	      <td>출력시마스킹처리방법사용 ==>>></td>
 	      <td>강**</td>
 	      <td>2021-12-14</td>
@@ -77,7 +85,7 @@
 	    </tr>
 	  </tbody>
 	</table>
-	<button type="button" class="btn btn-primary float-right">작성하기</button>
+	<button type="button" class="btn btn-primary float-right" onclick="location.href='${pageContext.request.contextPath}/main/qaForm.do';">작성하기</button>
 	<nav aria-label="Page navigation example">
 	  <ul class="pagination justify-content-center">
 	    <li class="page-item">

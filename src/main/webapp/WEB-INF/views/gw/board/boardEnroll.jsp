@@ -5,9 +5,11 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <fmt:requestEncoding value="utf-8"/> 
 <jsp:include page="/WEB-INF/views/common/gw_header.jsp">
-<div class="groupware-board-detail-outter">
+	<jsp:param value="" name="title"/>
+</jsp:include>
+<div class="groupware-board-enroll-outter">
   <!-- form 안에 에디터를 사용하는 경우 (보통 이경우를 많이 사용하는듯)-->
-<h2 class="text-center">게시글 작성</h2>
+<h2 class="text-center mt-3">게시글 작성</h2>
 <div class="container">
   <form method="post">
       <div class="input-group mb-3 w-50 mx-auto">

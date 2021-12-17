@@ -22,23 +22,27 @@
                       <a class="nav-link" href="#">프론트엔드</a>
                     </li>
                     <li class="nav-item" style="margin: 0;">
-                      <a class="nav-link disabled">백엔드</a>
+                      <a class="nav-link href="#">백엔드</a>
                     </li>
                     <li class="nav-item" style="margin: 0;">
-                        <a class="nav-link disabled">풀스택</a>
+                        <a class="nav-link href="#">풀스택</a>
                       </li>
                       <li class="nav-item" style="margin: 0;">
-                        <a class="nav-link disabled">모바일 앱 개발</a>
+                        <a class="nav-link href="#">모바일 앱 개발</a>
                       </li>
                       <li class="nav-item" style="margin: 0;">
-                        <a class="nav-link disabled">프로그래밍 언어</a>
+                        <a class="nav-link href="#">프로그래밍 언어</a>
                       </li>
                       <li class="nav-item" style="margin: 0;">
-                        <a class="nav-link disabled">알고리즘</a>
+                        <a class="nav-link href="#">알고리즘</a>
                       </li>
                       <li class="nav-item" style="margin: 0;">
-                        <a class="nav-link disabled">데이터베이스</a>
+                        <a class="nav-link href="#">데이터베이스</a>
                       </li>
+                       <li class="nav-item" style="margin: 0;">
+                        <a class="nav-link href="#">게임개발</a>
+                      </li>
+                  
                   </ul>
             </div>
             <div class="search-child-category">
