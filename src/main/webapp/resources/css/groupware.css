@@ -282,16 +282,6 @@ main {
   text-align: center;
 }
 
-/* 스터디 그룹 통계 관리 css */
-.study-admin-box {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  height: 100vh;
-  overflow: auto;
-  padding: 2rem;
-}
-
 /* 스터디 가입 신청 관리 css*/
 .study-join-admin-box {
   display: flex;
