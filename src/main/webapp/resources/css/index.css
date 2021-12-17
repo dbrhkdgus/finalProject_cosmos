@@ -319,6 +319,25 @@
     height: 38px;
 }
 
+/* API회원가입/로그인창  */
+.API-outer{
+	display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#naver_id_login{
+	margin-bottom:15px;
+}
+.kakao-login{
+	margin-bottom:15px;
+}
+.g-signin2{
+	margin-bottom:15px;
+	
+}
+
+
+
 #categoryTab{border: 1px solid black;}
 #navbarSupportedContent{display: flex;align-items: flex-end;}
 #navbar{display: flex;}
