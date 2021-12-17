@@ -3,18 +3,25 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+
 <fmt:requestEncoding value="utf-8" />
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	<jsp:param value="" name="title" />
 </jsp:include>
+<script type = "text/javascript" src = "https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
+
 
 <body>
 	<div class="container">
     	<div class="API-outer">
+       	 <div id = "naver_id_login"></div>
+			<div class="kakao-login"><a href="javascript:kakaoLogin();"><img src="https://i.ibb.co/3Fkxghp/kakao-login-medium-narrow.png" alt="카카오계정 로그인" /></a></div>
        	 	<div class="g-signin2" data-onsuccess="onSignIn"></div>
-			<a href="javascript:kakaoLogin();"><img src="https://i.ibb.co/3Fkxghp/kakao-login-medium-narrow.png" alt="카카오계정 로그인" /></a>
+    	<button type="button" class="btn btn-outline-primary" onclick="location.href='${pageContext.request.contextPath}/member/memberEnroll.do';">사이트 회원가입</button>
     	</div>
     </div>
+    
+    
     <!--  카카오 로그인 API  script-->
     <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
     <script>
@@ -83,6 +90,24 @@
     </script>
    
     <script src="https://apis.google.com/js/platform.js?onload=init" async defer></script>
+    
+    
+    <!--네이버 로그인 API script  -->
+    
+    <script type="text/javascript">
+ 
+         var naver_id_login = new naver_id_login("t6ywrFn9RAlIgZNsmGII", "http://localhost:9090");    // Client ID, CallBack URL 삽입
+                                            // 단 'localhost'가 포함된 CallBack URL
+         var state = naver_id_login.getUniqState();
+        
+         naver_id_login.setButton("white", 4, 40);
+         naver_id_login.setDomain("http://localhost:9090");    //  URL
+         naver_id_login.setState(state);
+         naver_id_login.setPopup();
+         naver_id_login.init_naver_id_login();
+ 
+</script>
+    
     
 </body>
 
