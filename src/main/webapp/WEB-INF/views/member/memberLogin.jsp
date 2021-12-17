@@ -49,26 +49,25 @@ $(() => {
 <body>
 	<div class="modal fade" id="loginModal" tabindex="-1" role="dialog"
 		aria-labelledby="loginModalLabel" aria-hidden="true">
-		<div class="modal-dialog card align-middle"
-			style="width: 22rem; border-radius: 20px;">
+		<div class="modal-dialog align-middle"
+			style="width: 22rem;">
+			<div class="modal-content" style="margin-top: 10px;">
 			<div class="float-right">
 				<button type="button" class="close pull-right float-right"
 					data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
-			<div class="modal-content" style="margin-top: 10px;">
 				<h2 class="modal-title text-center" style="color: #113366;">COSMOS</h2>
-			</div>
-			<div class="card-body">
+			
+			<div class="modal-body">
 				<form class="form-signin" method="POST"
 					onSubmit="logincall();return false">
 					<h5 class="form-signin-heading text-center">로그인</h5>
-					<label for="inputEmail" class="sr-only">Your ID</label> <input
-						type="text" id="uid" class="form-control" placeholder="Your ID"
-						required autofocus><BR> <label for="inputPassword"
-						class="sr-only">Password</label> <input type="password" id="upw"
-						class="form-control" placeholder="Password" required><br>
+					<label for="inputEmail" class="sr-only">Your ID</label>
+					<input type="text" id="uid" class="form-control" placeholder="Your ID" required autofocus><BR>
+						<label for="inputPassword" class="sr-only">Password</label>
+						<input type="password" id="upw" class="form-control" placeholder="Password" required><br>
 					<div class="checkbox">
 						<label> <input type="checkbox" value="remember-me">
 							기억하기
@@ -86,6 +85,7 @@ $(() => {
 					</div>
 				</form>
 
+			</div>
 			</div>
 		</div>
 	</div>
