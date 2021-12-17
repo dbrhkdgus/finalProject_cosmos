@@ -234,12 +234,11 @@
 /*스터디 디테일 뷰*/
 
 .class-detail-wrap{
-    display: flex;
+  	display: flex;
     flex-direction: row;
     position: relative;
     width: 1200px;
     margin: 40px auto 0;
-    justify-content: space-between;
 }
 .class-img{
     width: 700px;
