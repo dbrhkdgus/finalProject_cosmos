@@ -100,6 +100,7 @@
 
 		</section>
 
+
 		<section class="class-info-comm">
 			<div class="comm-left-box">
 				<p class="class-left-title" id="class-graph">통계</p>
@@ -140,11 +141,11 @@
 	</div>
 	<!-- 오른쪽 sticky 클래스정보 -->
 	<div class="class-detail-right-container">
-		<div class="card"
-			style="width: 410px; height: 490px; border-radius: 30px; position: fixed; margin-left: 50px;">
+		<div class="card" id="quickmenu"
+			style="width: 410px; height: 450px; border-radius: 30px; position: fixed; margin-left: 50px; ">
 			<div class="card-body" id="sticky-content">
 				<div class="card-text">
-					<h5 class="card-title">Special title treatment</h5>
+					<h5 class="card-title">Special title5 treatment</h5>
 					<p class="card-text">With supporting text below as a natural
 						lead-in to additional content dsaldkjasldjsakldjqwlijlwq</p>
 				</div>
@@ -155,11 +156,11 @@
 				</div>
 			</div>
 		</div>
-<script>
-	
-</script>
+
 
 	</div>
 
 </div>
+
+﻿
 <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
