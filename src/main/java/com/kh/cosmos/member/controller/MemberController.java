@@ -25,4 +25,11 @@ public class MemberController {
 		
 		return "member/memberEnroll";
 	}
+	
+	@GetMapping("/memberAPIEnroll.do")
+	public String memberAPIEnroll() {
+		return "member/memberAPIEnroll";
+	}
+	
+	
 }

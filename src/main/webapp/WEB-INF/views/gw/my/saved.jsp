@@ -7,7 +7,7 @@
 <jsp:include page="/WEB-INF/views/common/gw_header.jsp">
 	<jsp:param value="" name="title"/>
 </jsp:include>
-   <div class="groupware-saved-outter">
+  <div class="groupware-saved-outter">
     <div class="groupware-saved-title-container">
       <div class="test-my-title">
         <h2>저장된 항목</h2>
@@ -18,10 +18,10 @@
           <div class="groupware-saved-content-container">
               <div class="groupware-title-container">
                 <h3>다이렉트 메시지</h3>
-                <span><span>오늘</span>오후 3:36</span>
+                <span class="text-secondary"><span>오늘 </span>오후 3:36</span>
               </div>
           </div>
-          <div class="groupware-saved-contents">
+          <div class="groupware-saved-contents mb-3">
               <img src="https://i.ibb.co/Y0GQzXW/dinosaur.png" alt="">
               <div class="groupware-saved-content">
                 <h4>홍길동</h4>
@@ -46,10 +46,10 @@
           <div class="groupware-saved-content-container">
               <div class="groupware-title-container">
                 <h3>채팅방</h3>
-                <span><span></span>오후 3:36</span>
+                <span class="text-secondary"><span></span>오후 3:36</span>
               </div>
           </div>
-          <div class="groupware-saved-contents">
+          <div class="groupware-saved-contents mb-3">
               <img src="https://i.ibb.co/Y0GQzXW/dinosaur.png" alt="">
               <div class="groupware-saved-content">
                 <h4>홍길동</h4>
@@ -69,10 +69,10 @@
           <div class="groupware-saved-content-container">
               <div class="groupware-title-container">
                 <h3>채팅방</h3>
-                <span><span></span>오후 3:36</span>
+                <span class="text-secondary"><span></span>오후 3:36</span>
               </div>
           </div>
-          <div class="groupware-saved-contents">
+          <div class="groupware-saved-contents mb-3">
               <img src="https://i.ibb.co/Y0GQzXW/dinosaur.png" alt="">
               <div class="groupware-saved-content">
                 <h4>홍길동</h4>
@@ -97,10 +97,10 @@
           <div class="groupware-saved-content-container">
               <div class="groupware-title-container">
                 <h3>채팅방</h3>
-                <span><span></span>오후 3:36</span>
+                <span class="text-secondary"><span></span>오후 3:36</span>
               </div>
           </div>
-          <div class="groupware-saved-contents">
+          <div class="groupware-saved-contents mb-3">
               <img src="https://i.ibb.co/Y0GQzXW/dinosaur.png" alt="">
               <div class="groupware-saved-content">
                 <h4>홍길동</h4>
