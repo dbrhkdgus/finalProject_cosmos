@@ -144,6 +144,34 @@ main {
   display: flex;
   height: 89vh;
 }
+ div.main-group1{
+   margin: 20px;
+   text-align: center;
+   width: 1000px;
+   height: 200px;
+   background-color:rgb(255, 255, 241);
+}
+ div.main-group2{
+   margin: 30px;
+   float:left;
+   text-align: justify;
+   width: 350px;
+   height: 300px;
+   background-color:rgb(255, 234, 237);        
+      }
+ div.main-group3{
+   margin: 30px;
+   text-align: center;
+   widthh: 550px;
+   height: 300px;
+   float:right;
+   background-color: rgb(241, 248, 250);
+ }
+ .calendar-img{
+    width: 60%;
+    height: 70%;
+    object-fit:cover;
+ }
 /* 스터디 목록 css */
 .study-thumbnail-box {
   display: inline-table;
@@ -427,7 +455,6 @@ main {
     flex-direction: column;
     width: 100%;
     position: relative;
-    overflow: auto;
 }
 .groupware-board-detail-title hr{
   margin: 0px;
@@ -445,35 +472,24 @@ main {
 }
 .groupware-board-detail-title-btns{
 
-  top: 9%;
+  top: 6%;
   position: absolute;
-  right: 3%;
+  right: 1%;
 }
 .groupware-board-detail-title-btns svg{
   margin: 10px;
   overflow: auto;
 }
 .groupware-board-detail-content{
-  
+  overflow: auto;
   padding: 10px;
   padding-bottom: 40px;
 }
 .groupware-board-detail-rep{
   padding: 0px;
 }
-.groupware-board-detail-rep ul li{
-  display: flex;
-  align-items: flex-start;
-}
-.groupware-board-detail-rep-profile{
-  width: 30px;
-  height: 30px; 
-  border-radius: 70%;
-  margin-right: 0.5rem;
-  overflow: hidden;
-}
-#exampleFormControlTextarea1 {
-  width: 85%;
+.groupware-board-detail-rep-name{
+  height: 20px;
 }
 .groupware-board-detail-rep-btn-enroll{
   float: right;
@@ -609,11 +625,4 @@ main {
   display: block;
   margin-top: 2rem;
   margin-bottom: 4rem;
-}
-/* 게시판 enroll용 css */
-.groupware-board-enroll-outter{
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  overflow: auto;
 }
