@@ -12,4 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 public class GwAdminController {
 	@GetMapping("/memberManager.do")
 	public void memberManager() {}
+	
+	@GetMapping("/groupManager.do")
+	public void groupManager() {}
 }
