@@ -9,7 +9,6 @@
 </jsp:include>
   <div class="workspace-box" >
     <div class="chat-content">
-      <div class="chat-content-container">
 
         <!-- 채팅1 시작 -->
         <div class="chat-profile-container">
@@ -22,11 +21,12 @@
               <span>11:10</span>
             </div>
             <div class="chat-message-content">
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Labore ea iusto possimus culpa soluta recusandae? Repellendus ad ea sunt asperiores dolores repudiandae sequi iure architecto, quibusdam ipsum veritatis vero error.
+              <p>가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하</p>
             </div>
           </div>
         </div>
         <!-- 채팅1  끝 -->
+        
         <div class="chat-profile-container">
           <div class="chat-user-profile">
             <img class="chat-user-profile-img" src="https://i.pinimg.com/564x/9e/60/60/9e6060db90687be57c52ca5c5566c487.jpg" alt="">
@@ -37,42 +37,184 @@
               <span>11:10</span>
             </div>
             <div class="chat-message-content">
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Labore ea iusto possimus culpa soluta recusandae? Repellendus ad ea sunt asperiores dolores repudiandae sequi iure architecto, quibusdam ipsum veritatis vero error.
+              <p>가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하</p>
+            </div>
+          </div>
+        </div><div class="chat-profile-container">
+          <div class="chat-user-profile">
+            <img class="chat-user-profile-img" src="https://i.pinimg.com/564x/9e/60/60/9e6060db90687be57c52ca5c5566c487.jpg" alt="">
+          </div>
+          <div class="chat-message-box">
+            <div class="chat-message-sender">
+              <span><strong>홍길동</strong></span>
+              <span>11:10</span>
+            </div>
+            <div class="chat-message-content">
+              <p>가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하</p>
+            </div>
+          </div>
+        </div><div class="chat-profile-container">
+          <div class="chat-user-profile">
+            <img class="chat-user-profile-img" src="https://i.pinimg.com/564x/9e/60/60/9e6060db90687be57c52ca5c5566c487.jpg" alt="">
+          </div>
+          <div class="chat-message-box">
+            <div class="chat-message-sender">
+              <span><strong>홍길동</strong></span>
+              <span>11:10</span>
+            </div>
+            <div class="chat-message-content">
+              <p>가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하</p>
+            </div>
+          </div>
+        </div><div class="chat-profile-container">
+          <div class="chat-user-profile">
+            <img class="chat-user-profile-img" src="https://i.pinimg.com/564x/9e/60/60/9e6060db90687be57c52ca5c5566c487.jpg" alt="">
+          </div>
+          <div class="chat-message-box">
+            <div class="chat-message-sender">
+              <span><strong>홍길동</strong></span>
+              <span>11:10</span>
+            </div>
+            <div class="chat-message-content">
+              <p>가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하</p>
+            </div>
+          </div>
+        </div><div class="chat-profile-container">
+          <div class="chat-user-profile">
+            <img class="chat-user-profile-img" src="https://i.pinimg.com/564x/9e/60/60/9e6060db90687be57c52ca5c5566c487.jpg" alt="">
+          </div>
+          <div class="chat-message-box">
+            <div class="chat-message-sender">
+              <span><strong>홍길동</strong></span>
+              <span>11:10</span>
+            </div>
+            <div class="chat-message-content">
+              <p>가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하</p>
+            </div>
+          </div>
+        </div><div class="chat-profile-container">
+          <div class="chat-user-profile">
+            <img class="chat-user-profile-img" src="https://i.pinimg.com/564x/9e/60/60/9e6060db90687be57c52ca5c5566c487.jpg" alt="">
+          </div>
+          <div class="chat-message-box">
+            <div class="chat-message-sender">
+              <span><strong>홍길동</strong></span>
+              <span>11:10</span>
+            </div>
+            <div class="chat-message-content">
+              <p>가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하</p>
+            </div>
+          </div>
+        </div><div class="chat-profile-container">
+          <div class="chat-user-profile">
+            <img class="chat-user-profile-img" src="https://i.pinimg.com/564x/9e/60/60/9e6060db90687be57c52ca5c5566c487.jpg" alt="">
+          </div>
+          <div class="chat-message-box">
+            <div class="chat-message-sender">
+              <span><strong>홍길동</strong></span>
+              <span>11:10</span>
+            </div>
+            <div class="chat-message-content">
+              <p>가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하</p>
+            </div>
+          </div>
+        </div><div class="chat-profile-container">
+          <div class="chat-user-profile">
+            <img class="chat-user-profile-img" src="https://i.pinimg.com/564x/9e/60/60/9e6060db90687be57c52ca5c5566c487.jpg" alt="">
+          </div>
+          <div class="chat-message-box">
+            <div class="chat-message-sender">
+              <span><strong>홍길동</strong></span>
+              <span>11:10</span>
+            </div>
+            <div class="chat-message-content">
+              <p>가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하</p>
+            </div>
+          </div>
+        </div><div class="chat-profile-container">
+          <div class="chat-user-profile">
+            <img class="chat-user-profile-img" src="https://i.pinimg.com/564x/9e/60/60/9e6060db90687be57c52ca5c5566c487.jpg" alt="">
+          </div>
+          <div class="chat-message-box">
+            <div class="chat-message-sender">
+              <span><strong>홍길동</strong></span>
+              <span>11:10</span>
+            </div>
+            <div class="chat-message-content">
+              <p>가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하</p>
+            </div>
+          </div>
+        </div><div class="chat-profile-container">
+          <div class="chat-user-profile">
+            <img class="chat-user-profile-img" src="https://i.pinimg.com/564x/9e/60/60/9e6060db90687be57c52ca5c5566c487.jpg" alt="">
+          </div>
+          <div class="chat-message-box">
+            <div class="chat-message-sender">
+              <span><strong>홍길동</strong></span>
+              <span>11:10</span>
+            </div>
+            <div class="chat-message-content">
+              <p>가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하</p>
+            </div>
+          </div>
+        </div><div class="chat-profile-container">
+          <div class="chat-user-profile">
+            <img class="chat-user-profile-img" src="https://i.pinimg.com/564x/9e/60/60/9e6060db90687be57c52ca5c5566c487.jpg" alt="">
+          </div>
+          <div class="chat-message-box">
+            <div class="chat-message-sender">
+              <span><strong>홍길동</strong></span>
+              <span>11:10</span>
+            </div>
+            <div class="chat-message-content">
+              <p>가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하</p>
+            </div>
+          </div>
+        </div><div class="chat-profile-container">
+          <div class="chat-user-profile">
+            <img class="chat-user-profile-img" src="https://i.pinimg.com/564x/9e/60/60/9e6060db90687be57c52ca5c5566c487.jpg" alt="">
+          </div>
+          <div class="chat-message-box">
+            <div class="chat-message-sender">
+              <span><strong>홍길동</strong></span>
+              <span>11:10</span>
+            </div>
+            <div class="chat-message-content">
+              <p>가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하</p>
+            </div>
+          </div>
+        </div><div class="chat-profile-container">
+          <div class="chat-user-profile">
+            <img class="chat-user-profile-img" src="https://i.pinimg.com/564x/9e/60/60/9e6060db90687be57c52ca5c5566c487.jpg" alt="">
+          </div>
+          <div class="chat-message-box">
+            <div class="chat-message-sender">
+              <span><strong>홍길동</strong></span>
+              <span>11:10</span>
+            </div>
+            <div class="chat-message-content">
+              <p>가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하</p>
+            </div>
+          </div>
+        </div><div class="chat-profile-container">
+          <div class="chat-user-profile">
+            <img class="chat-user-profile-img" src="https://i.pinimg.com/564x/9e/60/60/9e6060db90687be57c52ca5c5566c487.jpg" alt="">
+          </div>
+          <div class="chat-message-box">
+            <div class="chat-message-sender">
+              <span><strong>홍길동</strong></span>
+              <span>11:10</span>
+            </div>
+            <div class="chat-message-content">
+              <p>가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하</p>
             </div>
           </div>
         </div>
-        <div class="chat-profile-container">
-          <div class="chat-user-profile">
-            <img class="chat-user-profile-img" src="https://i.pinimg.com/564x/9e/60/60/9e6060db90687be57c52ca5c5566c487.jpg" alt="">
-          </div>
-          <div class="chat-message-box">
-            <div class="chat-message-sender">
-              <span><strong>홍길동</strong></span>
-              <span>11:10</span>
-            </div>
-            <div class="chat-message-content">
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Labore ea iusto possimus culpa soluta recusandae? Repellendus ad ea sunt asperiores dolores repudiandae sequi iure architecto, quibusdam ipsum veritatis vero error.
-            </div>
-          </div>
-        </div>
-        <div class="chat-profile-container">
-          <div class="chat-user-profile">
-            <img class="chat-user-profile-img" src="https://i.pinimg.com/564x/9e/60/60/9e6060db90687be57c52ca5c5566c487.jpg" alt="">
-          </div>
-          <div class="chat-message-box">
-            <div class="chat-message-sender">
-              <span><strong>홍길동</strong></span>
-              <span>11:10</span>
-            </div>
-            <div class="chat-message-content">
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Labore ea iusto possimus culpa soluta recusandae? Repellendus ad ea sunt asperiores dolores repudiandae sequi iure architecto, quibusdam ipsum veritatis vero error.
-            </div>
-          </div>
-        </div>  
+        
+        
       </div>
 
       
-    </div>
     <div class="chat-input-box">
 
       <div class="chat-txt border-top">

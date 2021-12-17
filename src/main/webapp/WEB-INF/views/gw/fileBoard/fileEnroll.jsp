@@ -10,7 +10,7 @@
 <div class="workspace-box">
   <div class="groupware-board-detail-outter">
     <h4>파일 업로드</h4>
-    <form action="">
+    <form class="file-board-form" action="">
       <div class="form-group row">
 
         <label for="file-category" class="col-sm-2 col-form-label">카테고리</label>
@@ -60,7 +60,7 @@
           <img src="#" class="upload-thumb">
         </div>
       </div>
-
+		
       <div class="upload-except-img">
         
       </div>
