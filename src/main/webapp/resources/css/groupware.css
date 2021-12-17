@@ -479,6 +479,12 @@ main {
 }
 
 /* file게시판 enroll용 css */
+.groupware-board-detail-outter {
+  padding: 2rem;
+}
+.groupware-board-detail-outter h4 {
+  margin-bottom: 1.8rem;
+}
 .where {
   display: block;
   margin: 25px 15px;
@@ -489,7 +495,7 @@ main {
   font-style: italic;
 } 
 .filebox input[type="file"] {
-  position: absolute;
+  /* position: absolute; */
   width: 1px;
   height: 1px;
   padding: 0;
@@ -500,7 +506,7 @@ main {
 }
 
 .filebox label {
-  display: inline-block;
+  /* display: inline-block; */
   padding: .5em .75em;
   color: #999;
   font-size: inherit;
@@ -552,12 +558,12 @@ main {
   border-radius: 5px;
   background-color: #fff;
 }
-.filebox{
+/* .filebox{
   display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 50px;
-}
+  align-items: center;
+  justify-content: center;
+  margin-top: 50px;
+} */
 
 .filebox .upload-display img {
   display: block;
@@ -578,4 +584,11 @@ main {
 
 .upload-thumb-wrap{
   text-align: center;
+}
+.upload-thumb-wrap img{
+  width: 10rem;
+}
+.board-form-buttons {
+  text-align: center;
+  margin-top: 1rem;
 }
