@@ -64,7 +64,7 @@
                     <div class="card-body">
                         <div class="login-form">
                             <button type="button" class="btn btn-outline-primary" onclick="location.href='${pageContext.request.contextPath}/member/memberLogin.do';">로그인</button>
-                            <button type="button" class="btn btn-outline-primary" onclick="location.href='${pageContext.request.contextPath}/member/memberEnroll.do';">회원가입</button>
+                            <button type="button" class="btn btn-outline-primary" onclick="location.href='${pageContext.request.contextPath}/member/memberAPIEnroll.do';">회원가입</button>
                             
                         </div>
                     </div>
@@ -73,5 +73,4 @@
         </nav>
     </header>
 <script>
-
 </script>
