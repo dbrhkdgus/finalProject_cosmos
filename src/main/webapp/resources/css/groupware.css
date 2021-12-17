@@ -441,35 +441,16 @@ div.list-group1{
 }
 
 /* 저장된 항목 css */
+
 .groupware-saved-outter{
   display: flex;
   flex-direction: column;
+  width: 100%;
   overflow: auto;
 }
-.groupware-title-container{
-  display: flex;
-  justify-content: space-between;
-  padding-right: 110px;
-}
-.groupware-saved-inner{
-  display: flex;
-    flex-direction: column;
-    margin-left: 20px;
-}
-
-.groupware-title-container{
-  margin-bottom: 15px;
-}
-.groupware-saved-contents img{
-  width: 30px;
-    height: 30px;
-    margin: 15px;
-    margin-right: 20px;
-}
-.groupware-saved-contents{
-  display: flex;
-  align-items: center;
-  width: 85%;
+.groupware-saved{
+  width: 90%;
+  background-color: lightgoldenrodyellow;
 }
 .groupware-saved-file-content{
   display: flex;
@@ -481,6 +462,31 @@ div.list-group1{
 }
 .groupware-saved-file-content p{
   font-size: 13px;
+}
+.groupware-saved-inner{
+  display: flex;
+  flex-direction: row;
+}
+.groupware-saved-user-name-fileType{
+  width:100%;
+}
+.groupware-saved-file-info{
+  border: 1.5px solid #E9E9E9;
+    border-radius: 5px;
+    overflow: hidden;
+    padding: 8px;
+  text-align: center;
+  width: 39%;
+  margin-left: 5%;
+  display: flex;
+  align-items: center;
+}
+.groupware-saved-card-box{
+  display: flex;
+  justify-content: center;
+}
+.card-header span{
+  color: #8B6AD3;
 }
 
 /* 게시글 디테일 페이지 css */

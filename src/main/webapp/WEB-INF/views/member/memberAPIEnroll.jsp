@@ -13,12 +13,28 @@
 
 <body>
 	<div class="container">
-    	<div class="API-outer">
-       	 <div id = "naver_id_login"></div>
-			<div class="kakao-login"><a href="javascript:kakaoLogin();"><img src="https://i.ibb.co/3Fkxghp/kakao-login-medium-narrow.png" alt="카카오계정 로그인" /></a></div>
-       	 	<div class="g-signin2" data-onsuccess="onSignIn"></div>
+    	
+       	
+		
     	<button type="button" class="btn btn-outline-primary" onclick="location.href='${pageContext.request.contextPath}/member/memberEnroll.do';">사이트 회원가입</button>
+		
+		<div class="box_login login_main">
+		<img src="https://t4.ftcdn.net/jpg/03/75/58/15/360_F_375581544_r5aDqkhnhrqy15AdaqKXUI30MMtL8IIq.jpg" width="41%" alt="welcome coupon">
+           
+            <h3 class="tit text-center" >소셜 계정으로 가입하기</h3>
+			
+			<div class="API-outer">
+			 <div id = "naver_id_login"></div>
+			 	<div class="kakao-login"><a href="javascript:kakaoLogin();"><img src="https://i.ibb.co/3Fkxghp/kakao-login-medium-narrow.png" alt="카카오계정 로그인" /></a></div>
+       	 	<div class="g-signin2" data-onsuccess="onSignIn"></div>
+			<div class="box_btn">
+				<a class="btn" href="${pageContext.request.contextPath}/member/memberEnroll.do">이메일 회원가입</a>
+			</div>                
+		</div>
+				
     	</div>
+    	
+    	
     </div>
     
     

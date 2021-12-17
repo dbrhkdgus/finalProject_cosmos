@@ -46,39 +46,49 @@ $(() => {
 
 </script>
 </head>
-<body cellpadding="0" cellspacing="0" marginleft="0" margintop="0"
-	width="100%" height="100%" align="center">
+<body>
+	<div class="modal fade" id="loginModal" tabindex="-1" role="dialog"
+		aria-labelledby="loginModalLabel" aria-hidden="true">
+		<div class="modal-dialog align-middle"
+			style="width: 22rem;">
+			<div class="modal-content" style="margin-top: 10px;">
+			<div class="float-right">
+				<button type="button" class="close pull-right float-right"
+					data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+				<h2 class="modal-title text-center" style="color: #113366;">COSMOS</h2>
+			
+			<div class="modal-body">
+				<form class="form-signin" method="POST"
+					onSubmit="logincall();return false">
+					<h5 class="form-signin-heading text-center">로그인</h5>
+					<label for="inputEmail" class="sr-only">Your ID</label>
+					<input type="text" id="uid" class="form-control" placeholder="Your ID" required autofocus><BR>
+						<label for="inputPassword" class="sr-only">Password</label>
+						<input type="password" id="upw" class="form-control" placeholder="Password" required><br>
+					<div class="checkbox">
+						<label> <input type="checkbox" value="remember-me">
+							기억하기
+						</label>
+					</div>
+					<div class="mx-auto d-block">
+						<button id="btn-Yes" class="btn btn-lg btn-warning btn-block"
+							type="button" style="width: 97%; margin-bottom: 3%;">카카오
+							로 그 인</button>
+						<button id="btn-Yes" class="btn btn-lg btn-primary" type="submit">로
+							그 인</button>
+						<button id="btn-Yes" class="btn btn-lg btn-primary" type="button">회원가입</button>
+						<button id="btn-Yes" class="btn btn-lg btn-secondary"
+							type="button">취소</button>
+					</div>
+				</form>
 
-	<div class="card align-middle"
-		style="width: 22rem; border-radius: 20px;">
-		<div class="card-title" style="margin-top: 30px;">
-			<h2 class="card-title text-center" style="color: #113366;">COSMOS</h2>
-		</div>
-		<div class="card-body">
-			<form class="form-signin" method="POST"
-				onSubmit="logincall();return false">
-				<h5 class="form-signin-heading text-center">로그인</h5>
-				<label for="inputEmail" class="sr-only">Your ID</label> <input
-					type="text" id="uid" class="form-control" placeholder="Your ID"
-					required autofocus><BR> <label for="inputPassword"
-					class="sr-only">Password</label> <input type="password" id="upw"
-					class="form-control" placeholder="Password" required><br>
-				<div class="checkbox">
-					<label> <input type="checkbox" value="remember-me">
-						기억하기
-					</label>
-				</div>
-				<div class="mx-auto d-block">
-					<button id="btn-Yes" class="btn btn-lg btn-warning btn-block" type="submit" style="width:97%; margin-bottom: 3%;">카카오 로 그 인</button>
-					<button id="btn-Yes" class="btn btn-lg btn-primary" type="submit">로 그 인</button>
-					<button id="btn-Yes" class="btn btn-lg btn-primary" type="submit">회원가입</button>
-					<button id="btn-Yes" class="btn btn-lg btn-secondary" type="submit">취소</button>
-				</div>
-			</form>
-
+			</div>
+			</div>
 		</div>
 	</div>
-
 	<div class="modal"></div>
 	<!-- Optional JavaScript -->
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
