@@ -427,6 +427,7 @@ main {
     flex-direction: column;
     width: 100%;
     position: relative;
+    overflow: auto;
 }
 .groupware-board-detail-title hr{
   margin: 0px;
@@ -444,24 +445,35 @@ main {
 }
 .groupware-board-detail-title-btns{
 
-  top: 6%;
+  top: 9%;
   position: absolute;
-  right: 1%;
+  right: 3%;
 }
 .groupware-board-detail-title-btns svg{
   margin: 10px;
   overflow: auto;
 }
 .groupware-board-detail-content{
-  overflow: auto;
+  
   padding: 10px;
   padding-bottom: 40px;
 }
 .groupware-board-detail-rep{
   padding: 0px;
 }
-.groupware-board-detail-rep-name{
-  height: 20px;
+.groupware-board-detail-rep ul li{
+  display: flex;
+  align-items: flex-start;
+}
+.groupware-board-detail-rep-profile{
+  width: 30px;
+  height: 30px; 
+  border-radius: 70%;
+  margin-right: 0.5rem;
+  overflow: hidden;
+}
+#exampleFormControlTextarea1 {
+  width: 85%;
 }
 .groupware-board-detail-rep-btn-enroll{
   float: right;
