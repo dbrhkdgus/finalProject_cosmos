@@ -326,14 +326,38 @@
     align-items: center;
 }
 #naver_id_login{
-	margin-bottom:15px;
+	margin:20px 0  15px 0;
 }
 .kakao-login{
 	margin-bottom:15px;
 }
 .g-signin2{
 	margin-bottom:15px;
-	
+}
+
+.box_login {
+    width: 420px;
+    margin: 0 auto;
+    padding: 35px 20px;
+    border: 1px solid #eee;
+}
+
+.login_main > img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.box_login .box_btn .btn {
+    display: inline-block;
+    position: relative;
+    height: 20px;
+    margin-top: 10px;
+    padding: 0 17px 0 14px;
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: -0.35px;
+    color: #666;
 }
 
 
