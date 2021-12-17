@@ -27,7 +27,8 @@
         <!-- 메인페이지 달력-->
            <div class="main-group3">
                 <h3>Calendar</h3>
-                <img class="image" src="resources/달력.PNG" alt="">
+                <img src="${pageContext.request.contextPath }/resources/images/calendar.PNG" class="calendar-img" alt="">
+               
                
             </div>
         </div>
