@@ -7,26 +7,71 @@
 <jsp:include page="/WEB-INF/views/common/gw_header.jsp">
 	<jsp:param value="" name="title"/>
 </jsp:include>
-<div class="groupware-board-detail-outter">
-  <h1>파일 업로드</h1>
+<div class="workspace-box">
+  <div class="groupware-board-detail-outter">
+    <h4>파일 업로드</h4>
+    <form action="">
+      <div class="form-group row">
 
+        <label for="file-category" class="col-sm-2 col-form-label">카테고리</label>
+        <div class="col-sm-10">
 
-  
-  <div class="upload-display">
-    <div class="upload-thumb-wrap">
-      <img src="#" class="upload-thumb">
-    </div>
+          <select class="form-control" id="file-category">
+            <option>공부자료</option>
+            <option>코드파일</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="file-board-writer" class="col-sm-2 col-form-label">제목</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="file-board-writer" placeholder="제목을 입력하세요.">
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="file-board-title" class="col-sm-2 col-form-label">작성자</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control-plaintext" id="file-board-title" value="홍길동" readonly>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="file-board-reg-date" class="col-sm-2 col-form-label">등록일</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control-plaintext" id="file-board-reg-date" value="2021-12-16" readonly>
+        </div>
+      </div>
+      
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label">파일 선택</label>
+        <div class="filebox bs3-primary preview-image col-sm-10">
+          <input class="upload-name form-control" value="선택된 파일 없음" disabled="disabled" style="width: 250px;">
+          
+          <label for="input_file">업로드</label>
+          <input type="file" id="input_file" class="upload-hidden"> 
+        </div>
+      </div>
+      
+      
+      <div class="upload-display">
+        <div class="upload-thumb-wrap">
+          <img src="#" class="upload-thumb">
+        </div>
+      </div>
+
+      <div class="upload-except-img">
+        
+      </div>
+
+      <div class="board-form-buttons">
+        <button type="submit" class="btn btn-primary">작성하기</button>
+        <button type="submit" class="btn btn-secondary">취소하기</button>
+
+      </div>
+    </form>
   </div>
-  <div class="upload-except-img">
-
-  </div>
-  <div class="filebox bs3-primary preview-image">
-    <input class="upload-name" value="파일선택" disabled="disabled" style="width: 250px;">
-
-    <label for="input_file">업로드</label> 
-    <input type="file" id="input_file" class="upload-hidden"> 
-  </div>
-
 
 </div>
 <script>
