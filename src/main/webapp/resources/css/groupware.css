@@ -448,6 +448,9 @@ main {
   
     margin-right: 20px;
 }
+.groupware-saved-file-content p{
+  font-size: 13px;
+}
 
 /* 게시글 디테일 페이지 css */
 .groupware-board-detail-outter{
