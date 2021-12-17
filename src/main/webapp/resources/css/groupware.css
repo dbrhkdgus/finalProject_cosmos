@@ -89,18 +89,26 @@ main {
 .fw-semibold { font-weight: 600; }
 .lh-tight { line-height: 1.25; }
 
-/* 채팅 css */
+/* gw 작업환경 css */
 .workspace-box {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   width: 98%;
+  overflow: auto;
 }
 
+/* 채팅 css */
+.chat-content {
+  padding: 1rem;
+}
+.chat-message-box {
+  width: 95%;
+}
 .chat-profile-container {
   display: -webkit-box;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  /* margin-top: 10px;
+  margin-bottom: 10px; */
 }
 .chat-user-profile {
   width: 40px;
@@ -124,6 +132,11 @@ main {
 
 .lobby {
   padding: 0 !important;
+}
+.chat-input-box {
+    position: fixed;
+    bottom: 0;
+    width: inherit;
 }
 
 /* 그룹웨어 header */
@@ -431,35 +444,16 @@ div.list-group1{
 }
 
 /* 저장된 항목 css */
+
 .groupware-saved-outter{
   display: flex;
   flex-direction: column;
+  width: 100%;
   overflow: auto;
 }
-.groupware-title-container{
-  display: flex;
-  justify-content: space-between;
-  padding-right: 110px;
-}
-.groupware-saved-inner{
-  display: flex;
-    flex-direction: column;
-    margin-left: 20px;
-}
-
-.groupware-title-container{
-  margin-bottom: 15px;
-}
-.groupware-saved-contents img{
-  width: 30px;
-    height: 30px;
-    margin: 15px;
-    margin-right: 20px;
-}
-.groupware-saved-contents{
-  display: flex;
-  align-items: center;
-  width: 85%;
+.groupware-saved{
+  width: 90%;
+  background-color: lightgoldenrodyellow;
 }
 .groupware-saved-file-content{
   display: flex;
@@ -471,6 +465,31 @@ div.list-group1{
 }
 .groupware-saved-file-content p{
   font-size: 13px;
+}
+.groupware-saved-inner{
+  display: flex;
+  flex-direction: row;
+}
+.groupware-saved-user-name-fileType{
+  width:100%;
+}
+.groupware-saved-file-info{
+  border: 1.5px solid #E9E9E9;
+    border-radius: 5px;
+    overflow: hidden;
+    padding: 8px;
+  text-align: center;
+  width: 39%;
+  margin-left: 5%;
+  display: flex;
+  align-items: center;
+}
+.groupware-saved-card-box{
+  display: flex;
+  justify-content: center;
+}
+.card-header span{
+  color: #8B6AD3;
 }
 
 /* 게시글 디테일 페이지 css */
@@ -521,6 +540,12 @@ div.list-group1{
 }
 
 /* file게시판 enroll용 css */
+.form-group {
+	margin-bottom: 1rem;
+}
+.file-board-form {
+    padding: 1rem 12rem 0rem 12rem;
+}
 .groupware-board-detail-outter {
   padding: 2rem;
 }
@@ -581,6 +606,7 @@ div.list-group1{
 /* imaged preview */
 .filebox .upload-display {
   margin-bottom: 5px;
+
 }
 
 @media(min-width: 768px) {
@@ -620,25 +646,36 @@ div.list-group1{
   border-color: #2e6da4;
   margin-top: 7px;
 }
+.upload-except-img-box{
+  text-align: center;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
 .upload-except-img{
   text-align: center;
+  
 }
 
 .upload-thumb-wrap{
   text-align: center;
+  margin: auto;
+  width: 10rem;
+  height: 10rem; 
+  overflow: hidden;
 }
 .upload-thumb-wrap img{
-  width: 10rem;
+  
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 .board-form-buttons {
   text-align: center;
   margin-top: 1rem;
 }
 /* 스터디 그룹 통계 관리 css */
-.study-admin-box {
-  overflow: auto;
-  padding: 2rem;
-}
+
 
 .goal-fulfillment-rate {
   margin-top: 2rem;
