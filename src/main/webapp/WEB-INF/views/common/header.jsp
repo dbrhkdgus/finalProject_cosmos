@@ -39,7 +39,7 @@
 </c:if>
 </head>
     <body>
-        <header style="box-shadow: 12px -7px 22px #ccc; margin-bottom: 50px;">
+        <header style="box-shadow: 12px -7px 22px #ccc; margin-bottom: 50px; font-family: 'SBAggroB'; font-size: 20px; ">
             <!-- Responsive navbar-->
             <nav class="navbar navbar-expand-lg">
                 <div class="container" id="headerContainer">
@@ -51,7 +51,7 @@
                         </div>
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                            <ul class="navbar-nav mb-2 mb-lg-0">
+                            <ul class="navbar-nav mb-2 mb-lg-0" style="margin-left:20px;">
                                 <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/index.jsp">Home</a></li>
                                 <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/group/groupSearch.do">Search</a></li>
                                 <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/main/qa.do">문의사항</a></li>
@@ -64,7 +64,7 @@
                     <div class="card-body">
                         <div class="login-form">
                             <button type="button" class="btn btn-outline-primary" onclick="location.href='${pageContext.request.contextPath}/member/memberLogin.do';">로그인</button>
-                            <button type="button" class="btn btn-outline-primary" onclick="location.href='${pageContext.request.contextPath}/member/memberEnroll.do';">회원가입</button>
+                            <button type="button" class="btn btn-outline-primary" onclick="location.href='${pageContext.request.contextPath}/member/memberAPIEnroll.do';">회원가입</button>
                             
                         </div>
                     </div>
@@ -73,5 +73,4 @@
         </nav>
     </header>
 <script>
-
 </script>
