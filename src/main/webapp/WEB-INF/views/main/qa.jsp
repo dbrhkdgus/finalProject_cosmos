@@ -85,7 +85,7 @@
 	    </tr>
 	  </tbody>
 	</table>
-	<button type="button" class="btn btn-primary float-right">작성하기</button>
+	<button type="button" class="btn btn-primary float-right" onclick="location.href='${pageContext.request.contextPath}/main/qaForm.do';">작성하기</button>
 	<nav aria-label="Page navigation example">
 	  <ul class="pagination justify-content-center">
 	    <li class="page-item">

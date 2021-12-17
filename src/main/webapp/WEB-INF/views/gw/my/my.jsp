@@ -12,7 +12,7 @@
     <div class="test-my-title">
       <h1>내가 작성한 글</h1>
     </div>
-    <div class="test-my-select">
+    <div class="test-my-select ml-3">
       <select class="form-select" aria-label="Default select example">
         <option selected>정렬방식</option>
         <option value="1">게시판별</option>
