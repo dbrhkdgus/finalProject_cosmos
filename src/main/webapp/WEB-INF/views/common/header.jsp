@@ -29,6 +29,8 @@
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
 <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+<!--구글로그인 API  -->
+ <meta name ="google-signin-client_id" content="611668923155-aqcahiheiq1rb5jijp442dgdgoicbe5j.apps.googleusercontent.com">
 
 <c:if test="${not empty msg}">
 <script>
