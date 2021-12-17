@@ -50,7 +50,7 @@ $(() => {
 	width="100%" height="100%" align="center">
 
 	<div class="card align-middle"
-		style="width: 20rem; border-radius: 20px;">
+		style="width: 22rem; border-radius: 20px;">
 		<div class="card-title" style="margin-top: 30px;">
 			<h2 class="card-title text-center" style="color: #113366;">COSMOS</h2>
 		</div>
@@ -68,8 +68,12 @@ $(() => {
 						기억하기
 					</label>
 				</div>
-				<button id="btn-Yes" class="btn btn-lg btn-primary btn-block"
-					type="submit">로 그 인</button>
+				<div class="mx-auto d-block">
+					<button id="btn-Yes" class="btn btn-lg btn-warning btn-block" type="submit" style="width:97%; margin-bottom: 3%;">카카오 로 그 인</button>
+					<button id="btn-Yes" class="btn btn-lg btn-primary" type="submit">로 그 인</button>
+					<button id="btn-Yes" class="btn btn-lg btn-primary" type="submit">회원가입</button>
+					<button id="btn-Yes" class="btn btn-lg btn-secondary" type="submit">취소</button>
+				</div>
 			</form>
 
 		</div>
