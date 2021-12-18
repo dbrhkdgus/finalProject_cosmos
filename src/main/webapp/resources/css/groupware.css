@@ -349,17 +349,14 @@ div.list-group1{
   display: flex;
   flex-direction: column;
   justify-content: center;
-  height: 100vh;
-  overflow: auto;
+  /* height: 100vh;
+  overflow: auto; */
   padding: 2rem;
 }
 .study-join-buttons {
   margin-top: 0.5rem;
 }
 
-.study-member-table {
-  padding-top: 7rem;
-}
 .study-member-table h4 {
   margin-bottom: 1rem;
 }
@@ -675,7 +672,9 @@ div.list-group1{
   margin-top: 1rem;
 }
 /* 스터디 그룹 통계 관리 css */
-
+.study-admin-box {
+	padding: 2rem;
+}
 
 .goal-fulfillment-rate {
   margin-top: 2rem;
