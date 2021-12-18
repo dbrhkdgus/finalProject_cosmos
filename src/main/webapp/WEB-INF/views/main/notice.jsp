@@ -7,6 +7,19 @@
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	<jsp:param value="공지사항" name="title"/>
 </jsp:include>
+<script>
+function goNoticeForm(){
+	location.href = "${pageContext.request.contextPath}/main/noticeForm.do";
+}
+
+$(()=>{
+	$("tr[data-no]").click((e) => {
+		const $tr = $(e.target).parents("tr");
+		const no = $tr.data("no");
+		location.href = `${pageContext.request.contextPath}/main/noticeDetail.do?no=\${no}`;
+	});
+});
+</script>
 <div class="container">
 <div>
 	<h2 class="text-center">공지사항</h2>
@@ -26,74 +39,18 @@
 	    </tr>
 	  </thead>
 	  <tbody>
-	    <tr>
-	      <th scope="row">1</th>
-	      <td>Mark</td>
-	      <td>Otto</td>
-	      <td>2021-12-15</td>
-	      <td>@mdo</td>
-	    </tr>
-	    <tr>
-	      <th scope="row">2</th>
-	      <td>Jacob</td>
-	      <td>Thornton</td>
-	      <td>2021-12-15</td>
-	      <td>@fat</td>
-	    </tr>
-	    <tr>
-	      <th scope="row">3</th>
-	      <td>Larry the Bird</td>
-	      <td>@twitter</td>
-	      <td>2021-12-15</td>
-	      <td>@twitter</td>
-	    </tr>
-	    <tr>
-	      <th scope="row">4</th>
-	      <td>Larry the Bird</td>
-	      <td>@twitter</td>
-	      <td>2021-12-15</td>
-	      <td>@twitter</td>
-	    </tr>
-	    <tr>
-	      <th scope="row">5</th>
-	      <td>Larry the Bird</td>
-	      <td>@twitter</td>
-	      <td>2021-12-15</td>
-	      <td>@twitter</td>
-	    </tr>
-	    <tr>
-	      <th scope="row">6</th>
-	      <td>Larry the Bird</td>
-	      <td>@twitter</td>
-	      <td>2021-12-15</td>
-	      <td>@twitter</td>
-	    </tr>
-	    <tr>
-	      <th scope="row">7</th>
-	      <td>Larry the Bird</td>
-	      <td>@twitter</td>
-	      <td>2021-12-15</td>
-	      <td>@twitter</td>
-	    </tr>
+	  <c:forEach items="${list}" var="notice">
+			<tr data-no="${notice.noticeNo}">
+				<td>${notice.noticeNo}</td>
+				<td>${notice.noticeTitle}</td>
+				<td>${notice.memberId}</td>
+				<td><fmt:formatDate value="${notice.regDate}" pattern="yy-MM-dd"/> </td>
+				<td>${notice.readCount}</td>
+			</tr>
+		</c:forEach>
 	  </tbody>
 	</table>
-	<button type="button" class="btn btn-primary float-right" onclick="location.href='${pageContext.request.contextPath}/main/noticeForm.do';">작성하기(관리자만)</button>
-	<nav aria-label="Page navigation example">
-	  <ul class="pagination justify-content-center">
-	    <li class="page-item">
-	      <a class="page-link" href="#" aria-label="Previous">
-	        <span aria-hidden="true">&laquo;</span>
-	      </a>
-	    </li>
-	    <li class="page-item"><a class="page-link" href="#">1</a></li>
-	    <li class="page-item"><a class="page-link" href="#">2</a></li>
-	    <li class="page-item"><a class="page-link" href="#">3</a></li>
-	    <li class="page-item">
-	      <a class="page-link" href="#" aria-label="Next">
-	        <span aria-hidden="true">&raquo;</span>
-	      </a>
-	    </li>
-	  </ul>
-	</nav>
+	<button type="button" class="btn btn-primary float-right" onclick="goBoardForm();">작성하기(관리자만)</button>
+	${pagebar}
 </div>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>

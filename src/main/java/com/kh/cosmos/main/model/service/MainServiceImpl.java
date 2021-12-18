@@ -29,6 +29,11 @@ public class MainServiceImpl implements MainService {
 	public List<Notice> selectNoticeList(int offset, int limit) {
 		return mainDao.selectNoticeList(offset, limit);
 	}
+
+	@Override
+	public int selectNoticeTotalCount() {
+		return mainDao.selectNoticeTotalCount();
+	}
 	
 	
 
