@@ -14,14 +14,14 @@
 					<div class="card">
 						<div class="card-header">스터디 그룹 생성</div>
 						<div class="card-body">
-							<form name="my-form" onsubmit="return validform()"
-								action="success.php" method="POST">
+							<form name="my-form"
+								action="${pageContext.request.contextPath}/group/insertGroup.do" method="POST">
 								<div class="form-group row">
 									<label for="full_name"
 										class="col-md-4 col-form-label text-md-right">그룹명</label>
 									<div class="col-md-6 group-text-input">
 										<input type="text" id="group-name" class="form-control"
-											name="full-name">
+											name="groupName">
 									</div>
 								</div>
 
@@ -58,8 +58,14 @@
 										</div>
 									</div>
 								</div>
-
-
+								
+								<div class="form-group row">
+									<label for="present_address"
+										class="col-md-4 col-form-label text-md-right">모집글 제목</label>
+									<div class="col-md-6 group-text-input">
+										<input type="text" id="study-title" class="form-control">
+									</div>
+								</div>
 
 								<div class="form-group row">
 									<label for="phone_number"
@@ -74,7 +80,7 @@
 									<label for="present_address"
 										class="col-md-4 col-form-label text-md-right">모집정원</label>
 									<div class="col-md-6 group-text-input">
-										<input type="text" id="member-number" class="form-control">
+										<input type="text" id="member-number" name="groupPool" class="form-control">
 									</div>
 								</div>
 
@@ -84,14 +90,14 @@
 								<div class="col-md-6 group-text-input gender-radio">
 									<div class="form-check">
 										<input class="form-check-input" type="radio"
-											name="flexR`adioDefault" id="flexRadioDefault1"> <label
+											name="groupCharge" id="flexRadioDefault1" value="P"> <label
 											class="form-check-label" for="flexRadioDefault1"> 유료
 										</label>
 									</div>
 
 									<div class="form-check">
 										<input class="form-check-input" type="radio"
-											name="flexR`adioDefault" id="flexRadioDefault1"> <label
+											name="groupCharge" id="flexRadioDefault1" value="F"> <label
 											class="form-check-label" for="flexRadioDefault1"> 무료
 										</label>
 									</div>
@@ -104,13 +110,13 @@
 										class="col-md-4 col-form-label text-md-right">위치</label>
 									<div class="col-md-6 group-text-input">
 										<input type="text" id="location" class="form-control"
-											name="permanent-address">
+											name="groupLocation">
 									</div>
 								</div>
 								
 								<div class="form-check text-center">
-									<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-									<label for="flexCheckDefault"> &nbsp;조회에서 제외되는 비밀그룹으로 생성하기 </label>
+									<input class="form-check-input" type="checkbox" id="groupPrivate" name="groupPrivate" onchange="YnCheck(this);">
+									<label for="groupPrivate"> &nbsp;조회에서 제외되는 비밀그룹으로 생성하기 </label>
 								</div>
 								
 								<div class="form-group row">
@@ -170,5 +176,27 @@
 		</div>
 
 	</main>
+	<script type="text/javascript">
+		function YnCheck(obj) {
+			var checked = obj.checked;
+			if(checked) {
+				obj.value="L";
+			} else {
+				obj.value="U";
+			}
+		}
+		var checkYn="${data.groupPrivate}";
+		/* if(checkYn=="L") {
+			$("#groupPrivate").prop("checked", true);
+		} else {
+			$("#groupPrivate").prop("checked", false);
+		} */
+		if($("#groupPrivate").is(':checked')==true) {
+			data.set("groupPrivate", 'L');
+		} else {
+			data.set("groupPrivate", 'U');
+		}
+	
+	</script>
 
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
