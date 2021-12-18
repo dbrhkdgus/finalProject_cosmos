@@ -1,0 +1,689 @@
+body {
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
+}
+
+html {
+  height: -webkit-fill-available;
+}
+
+main {
+  display: flex;
+  flex-wrap: nowrap;
+  height: 100vh;
+  height: -webkit-fill-available;
+  max-height: 100vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+  flex-direction: column;
+}
+
+.b-example-divider {
+  flex-shrink: 0;
+  /* width: 1.5rem; */
+  height: 100vh;
+  background-color: rgba(0, 0, 0, .1);
+  border: solid rgba(0, 0, 0, .15);
+  border-width: 1px 0;
+  box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+}
+
+.bi {
+  vertical-align: -.125em;
+  pointer-events: none;
+  fill: currentColor;
+}
+
+.dropdown-toggle { outline: 0; }
+
+.nav-flush .nav-link {
+  border-radius: 0;
+}
+
+.btn-toggle {
+  display: inline-flex;
+  align-items: center;
+  padding: .25rem .5rem;
+  font-weight: 600;
+  color: rgba(0, 0, 0, .65);
+  background-color: transparent;
+  border: 0;
+}
+.btn-toggle:hover,
+.btn-toggle:focus {
+  color: rgba(0, 0, 0, .85);
+  background-color: #d2f4ea;
+}
+
+.btn-toggle::before {
+  width: 1.25em;
+  line-height: 0;
+  content: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='rgba%280,0,0,.5%29' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M5 14l6-6-6-6'/%3e%3c/svg%3e");
+  transition: transform .35s ease;
+  transform-origin: .5em 50%;
+}
+
+.btn-toggle[aria-expanded="true"] {
+  color: rgba(0, 0, 0, .85);
+}
+.btn-toggle[aria-expanded="true"]::before {
+  transform: rotate(90deg);
+}
+
+.btn-toggle-nav a {
+  display: inline-flex;
+  padding: .1875rem .5rem;
+  margin-top: .125rem;
+  margin-left: 1.25rem;
+  text-decoration: none;
+}
+.btn-toggle-nav a:hover,
+.btn-toggle-nav a:focus {
+  background-color: #d2f4ea;
+}
+
+.scrollarea {
+  overflow-y: auto;
+}
+
+.fw-semibold { font-weight: 600; }
+.lh-tight { line-height: 1.25; }
+
+/* gw 작업환경 css */
+.workspace-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 98%;
+  overflow: auto;
+}
+
+/* 채팅 css */
+.chat-content {
+  padding: 1rem;
+}
+.chat-message-box {
+  width: 95%;
+}
+.chat-profile-container {
+  display: -webkit-box;
+  /* margin-top: 10px;
+  margin-bottom: 10px; */
+}
+.chat-user-profile {
+  width: 40px;
+  height: 40px; 
+  border-radius: 70%;
+  overflow: hidden;
+  margin-right: 10px;
+  margin-top: 5px;
+}
+.chat-user-profile-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.chat-txt {
+  float: left;
+  width: 70%;
+  margin-right: 5px;
+}
+
+.lobby {
+  padding: 0 !important;
+}
+.chat-input-box {
+    position: fixed;
+    bottom: 0;
+    width: inherit;
+}
+
+/* 그룹웨어 header */
+.groupwear-header-box {
+  display: flex;
+  align-items: center;
+}
+.groupwear-study-title {
+  padding: 1rem 1rem 0rem 1rem;
+}
+.groupwear-channel-title {
+  margin-left: 1rem;
+  padding-bottom: 0.5rem;
+}
+
+/* 그룹웨어 css */
+#cosmos-groupwear-workspace {
+  display: flex;
+  height: 89vh;
+}
+ div.main-group1{
+   margin: 20px;
+   text-align: center;
+   width: 1000px;
+   height: 200px;
+   background-color:rgb(255, 255, 241);
+}
+ div.main-group2{
+   margin: 30px;
+   float:left;
+   text-align: justify;
+   width: 350px;
+   height: 300px;
+   background-color:rgb(255, 234, 237);        
+      }
+ div.main-group3{
+   margin: 30px;
+   text-align: center;
+   widthh: 550px;
+   height: 300px;
+   float:right;
+   background-color: rgb(241, 248, 250);
+ }
+ .calendar-img{
+    width: 60%;
+    height: 70%;
+    object-fit:cover;
+ }
+ /* to do list css */
+div.list-group{
+  margin: 30px;
+  width: 350px;
+  height: 300px;
+  background-color:rgb(255, 255, 241);
+}
+div.list-group1{
+  float:left;
+  margin: 30px;
+  width: 350px;
+  height: 300px;
+  background-color:rgb(255, 234, 237);        
+}
+ b{
+  font-size: 20px;
+  color:orange;
+}
+ h4{
+  text-align: center;
+ }
+/* 스터디 목록 css */
+.study-thumbnail-box {
+  display: inline-table;
+  width: 40px;
+  height: 40px;
+  border-radius: 70%;
+  overflow: hidden;
+}
+.study-thumbnail {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* 음성채팅 css*/
+.voice-chat-workspace {
+  display: flex;
+  align-content: center;
+  flex-wrap: wrap;
+}
+
+.voice-chat-thumbnail-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.voice-chat-display-share {
+  margin: 5px;
+}
+
+.voice-chat-display-box {
+  width: 100%;
+  height: 200px;
+  border-radius: 5%;
+  overflow: hidden;
+}
+
+.voice-chat-display {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.voice-chat-participant {
+  margin: 5px;
+}
+
+.voice-chat-thumbnail-box {
+  width: 100%;
+  height: 200px;
+  border-radius: 5%;
+  overflow: hidden;
+}
+
+.voice-chat-thumbnail {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.voice-chat-icon-box{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.voice-chat-icon {
+  width: 4rem;
+  margin: 0.5rem;
+}
+
+/* dm css */
+.user-dm-list {
+  margin-bottom: 0.5rem;
+}
+
+.user-dm-profile {
+  display: flex;
+  align-items: center;
+}
+.user-dm-profile-img-box {
+  width: 30px;
+  height: 30px; 
+  border-radius: 70%;
+  overflow: hidden;
+  margin-right: 10px;
+  margin-top: 5px;
+}
+
+.user-dm-profile-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.user-dm-profile-name{
+  margin: 0px;
+}
+
+/* 그룹원 리스트 css */
+.on-off-text p{
+  margin: 1rem 0rem 0.5rem 0rem;
+  padding-left: 1rem;
+}
+
+.test-member-profile{
+  display: flex;
+  padding-left: 1rem;
+  margin-bottom: 0.6rem;
+}
+.test-member-list{
+  width: 20%;
+}
+.member-profile-img-box{
+  width: 30px;
+  height: 30px; 
+  border-radius: 70%;
+  margin-right: 0.5rem;
+  overflow: hidden;
+}
+.member-profile-img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.offline {
+  -webkit-filter: grayscale(100%);
+  filter: gray;
+}
+
+/* 그룹원 리스트(축소) css */
+.test-member-list-small{
+  padding-top: 1rem;
+  width: 6%;
+  text-align: center;
+}
+
+/* 스터디 가입 신청 관리 css*/
+.study-join-admin-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100vh;
+  overflow: auto;
+  padding: 2rem;
+}
+.study-join-buttons {
+  margin-top: 0.5rem;
+}
+
+.study-member-table {
+  padding-top: 7rem;
+}
+.study-member-table h4 {
+  margin-bottom: 1rem;
+}
+.study-join-table {
+  margin-top: 2rem;
+}
+.study-join-table h4 {
+  margin-bottom: 1rem;
+}
+/* 그룹웨어 게시판 css */
+.test-board-outter{
+  width: 100%;
+  display: flex ; 
+  flex-direction: column;
+ 
+}
+.test-board-search{
+  margin-right: 15px;
+}
+.test-board-search img{
+  width: 30px;
+  height: 30px;
+}
+.test-board-title-container{
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+.test-board-outter table{
+  text-align: center;
+  margin: 15px;
+  border: 1px solid black;
+}
+.test-board-outter table th,.test-board-outter table td{
+  border: 1px solid black;
+}
+.test-board-outter table tbody tr{
+  cursor: pointer;
+}
+
+.test-board-pagebar{
+  display: flex;
+    justify-content: center;
+}
+
+/* 공지 게시판 css */
+.test-notice-outter{
+  width: 100%;
+  display: flex ; 
+  flex-direction: column;
+  overflow: hidden;
+}
+.test-notice-outter table{
+  margin: 15px;
+}
+
+/* 파일 게시판 css */
+.file-board-table th, .file-board-table td{
+  text-align: center;
+}
+
+/* 마이 게시판 */
+.test-my-title{
+  margin: 15px;
+  margin-bottom: 20px;
+}
+.test-my-search{
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-right: 20px;
+}
+.test-my-select{
+  display: flex;
+  float: left;
+  flex-direction: row;
+}
+.test-my-select select{
+  display: flex;
+  align-items: center;
+  width: 50%;
+}
+
+/* 저장된 항목 css */
+
+.groupware-saved-outter{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  overflow: auto;
+}
+.groupware-saved{
+  width: 90%;
+  background-color: lightgoldenrodyellow;
+}
+.groupware-saved-file-content{
+  display: flex;
+  align-items: center;
+}
+.groupware-saved-file-content div{
+  
+    margin-right: 20px;
+}
+.groupware-saved-file-content p{
+  font-size: 13px;
+}
+.groupware-saved-inner{
+  display: flex;
+  flex-direction: row;
+}
+.groupware-saved-user-name-fileType{
+  width:100%;
+}
+.groupware-saved-file-info{
+  border: 1.5px solid #E9E9E9;
+    border-radius: 5px;
+    overflow: hidden;
+    padding: 8px;
+  text-align: center;
+  width: 39%;
+  margin-left: 5%;
+  display: flex;
+  align-items: center;
+}
+.groupware-saved-card-box{
+  display: flex;
+  justify-content: center;
+}
+.card-header span{
+  color: #8B6AD3;
+}
+
+/* 게시글 디테일 페이지 css */
+.groupware-board-detail-outter{
+  display: flex;
+    flex-direction: column;
+    width: 100%;
+    position: relative;
+}
+.groupware-board-detail-title hr{
+  margin: 0px;
+
+}
+.groupware-board-detail-title h3{
+  margin-bottom: 13px;
+}
+.groupware-board-detail-title p {
+  margin-bottom: 8px;
+  font-size: 10px;
+}
+.groupware-board-detail-title p span{
+  margin-left: 25px;
+}
+.groupware-board-detail-title-btns{
+
+  top: 6%;
+  position: absolute;
+  right: 1%;
+}
+.groupware-board-detail-title-btns svg{
+  margin: 10px;
+  overflow: auto;
+}
+.groupware-board-detail-content{
+  overflow: auto;
+  padding: 10px;
+  padding-bottom: 40px;
+}
+.groupware-board-detail-rep{
+  padding: 0px;
+}
+.groupware-board-detail-rep-name{
+  height: 20px;
+}
+.groupware-board-detail-rep-btn-enroll{
+  float: right;
+  margin: 0px;
+}
+
+/* file게시판 enroll용 css */
+.form-group {
+	margin-bottom: 1rem;
+}
+.file-board-form {
+    padding: 1rem 12rem 0rem 12rem;
+}
+.groupware-board-detail-outter {
+  padding: 2rem;
+}
+.groupware-board-detail-outter h4 {
+  margin-bottom: 1.8rem;
+}
+.where {
+  display: block;
+  margin: 25px 15px;
+  font-size: 11px;
+  color: #000;
+  text-decoration: none;
+  font-family: verdana;
+  font-style: italic;
+} 
+.filebox input[type="file"] {
+  /* position: absolute; */
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip:rect(0,0,0,0);
+  border: 0;
+}
+
+.filebox label {
+  /* display: inline-block; */
+  padding: .5em .75em;
+  color: #999;
+  font-size: inherit;
+  line-height: normal;
+  vertical-align: middle;
+  background-color: #fdfdfd;
+  cursor: pointer;
+  border: 1px solid #ebebeb;
+  border-bottom-color: #e2e2e2;
+  border-radius: .25em;
+}
+
+/* named upload */
+.filebox .upload-name {
+  display: inline-block;
+  padding: .5em .75em;
+  font-size: inherit;
+  font-family: inherit;
+  line-height: normal;
+  vertical-align: middle;
+  background-color: #f5f5f5;
+  border: 1px solid #ebebeb;
+  border-bottom-color: #e2e2e2;
+  border-radius: .25em;
+  -webkit-appearance: none; /* 네이티브 외형 감추기 */
+  -moz-appearance: none;
+  appearance: none;
+}
+
+/* imaged preview */
+.filebox .upload-display {
+  margin-bottom: 5px;
+
+}
+
+@media(min-width: 768px) {
+  .filebox .upload-display {
+    display: inline-block;
+    margin-right: 5px;
+    margin-bottom: 0;
+  }
+}
+
+.filebox .upload-thumb-wrap {
+  display: inline-block;
+  width: 100px;
+  padding: 2px;
+  vertical-align: middle;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #fff;
+}
+/* .filebox{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 50px;
+} */
+
+.filebox .upload-display img {
+  display: block;
+  max-width: 100%;
+  width: 100% \9;
+  height: auto;
+}
+
+.filebox.bs3-primary label {
+  color: #fff;
+  background-color: #337ab7;
+  border-color: #2e6da4;
+  margin-top: 7px;
+}
+.upload-except-img-box{
+  text-align: center;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.upload-except-img{
+  text-align: center;
+  
+}
+
+.upload-thumb-wrap{
+  text-align: center;
+  margin: auto;
+  width: 10rem;
+  height: 10rem; 
+  overflow: hidden;
+}
+.upload-thumb-wrap img{
+  
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.board-form-buttons {
+  text-align: center;
+  margin-top: 1rem;
+}
+/* 스터디 그룹 통계 관리 css */
+
+
+.goal-fulfillment-rate {
+  margin-top: 2rem;
+}
+
+#goalChart, #activityChart {
+  margin:auto;
+  display: block;
+  margin-top: 2rem;
+  margin-bottom: 4rem;
+}

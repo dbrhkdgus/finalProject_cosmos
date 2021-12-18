@@ -1,0 +1,373 @@
+@font-face {
+    font-family: 'NanumSquareRound';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumSquareRound.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+#login-form-div {
+  height: 120px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+}
+
+.nav-logo-img{
+  width: 150px;
+}
+
+.nav-item{
+  margin-right: 50px;
+  margin-left: 50px;
+}
+
+.nav-container{
+
+  display: flex;
+  flex-wrap: inherit;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.category{
+  margin-left: 15px;
+  width: 100%;
+  border: 1px solid #eee;
+  border-radius: 6px;
+  background-color: #fff;
+  height:400px;
+  /* margin: auto; */
+}
+.cate-list{
+  display: flex;
+  flex-wrap: wrap;
+}
+.category li {
+  position: relative;
+  width: 33.333%;
+  background-repeat: no-repeat;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  font-style: #846CD9;
+}
+.category ul {
+  text-align: center;
+  
+}
+
+
+.btn-category{
+  width: 100%;
+  height: 50px;
+  border: none;
+  color: #846CD9;
+  font-weight: bold;
+}
+
+
+
+.slick-items{
+  width: 854px;
+  height: 300px;
+}
+
+.main-slide{
+  height: 400px;
+  width: 100%;
+  object-fit: cover;
+}
+
+
+.index-row {
+  --bs-gutter-x: 1.5rem;
+  --bs-gutter-y: 0;
+  display: flex;
+  /* flex-wrap: wrap; */
+  margin-top: calc(-1 * var(--bs-gutter-y));
+  margin-right: calc(-0.5 * var(--bs-gutter-x));
+  margin-left: calc(-0.5 * var(--bs-gutter-x));
+}
+
+.index-outer1{
+  display: flex;
+  margin-left: -12px;
+ padding-right: 12px;
+ 
+}
+
+.index-outer2{
+  display: flex;
+    flex-direction: row;
+    flex-wrap: wrap
+}
+
+/*footer*/
+
+.footer-container{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.footer-up-box {
+  flex-wrap: wrap;
+  display: flex;
+  justify-content: space-evenly;
+}
+.footer-down-box{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.footer-list-content{
+  font-size: 1.5em;
+  font-weight: bold;
+  margin-right: 30px;
+}
+#footer_logo{
+  width: 30%;
+}
+.footer-list{
+  width: 50%;
+}
+
+/*스터디 서칭 css시작부분*/
+.nav-tabs{
+  border-bottom: 1px solid #dee2e6;
+  display: flex;
+  justify-content: center;
+}
+.child-category-all{
+  display: flex;
+  justify-content: space-evenly;
+  padding:20px 0;
+}
+
+.inner1{
+  display: flex;
+}
+.search-inner{
+  display: flex;
+}
+.search-card{
+  margin-right: 20px;
+}
+
+.search-outer-top{
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+ 
+}
+
+.search-input{
+  width: 300px;
+  margin-left: 10px;
+}
+
+.search-select{
+  width: 150px;
+}
+
+.search-outer-top .right{
+  margin-right: 20px;
+}
+
+#class-amount{
+  padding-top: 5px;
+  margin-right: 10px;
+}
+
+
+
+/*그룹 생성하기 css*/
+
+.group-create-button{
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.group-text-input{
+  margin-top: 10px;
+}
+
+
+.group-form-check{
+  display: flex;
+  justify-content: center;
+}
+
+
+.group-text-form{
+  justify-content: center;
+}
+
+
+/* 회원가입 입력폼 */
+
+.gender-radio{
+  display: flex; 
+  justify-content: space-evenly;
+}
+
+/*그룹가입 입력폼*/
+.group-join-notice  li{
+  list-style-type: disc;
+}
+
+/*나의그룹목록*/
+.my-group-list{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 40px;
+  
+}
+
+.my-group-list h2{
+  margin-left: 40px;
+}
+
+.member-group-list{
+  display: flex;
+}
+
+.member-group-list-outer{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/*스터디 디테일 뷰*/
+
+.class-detail-wrap{
+  	display: flex;
+    flex-direction: row;
+    position: relative;
+    width: 1200px;
+    margin: 40px auto 0;
+}
+.class-img{
+    width: 700px;
+    margin-bottom: 50px;
+}
+.class-detail-left-container{
+    float: left;
+    width: 700px;
+
+}
+.class-detail-right-container{
+    position: sticky;
+}
+.sticky-button-area{
+    display: flex;
+}
+.leader-profile-img {
+    width: 5%;
+    border-radius: 70%;
+    overflow: hidden;
+    margin-right: 10px;
+}
+.profile {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.leader-profile{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-top: 30px;
+    margin-bottom: 30px;
+
+}
+#group-leader-name{
+    color: #843C9F;
+    font-weight: bold;
+}
+#sticky-content{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+.class-info-comm{
+    display: flex;
+    margin-bottom: 100px;
+}
+.comm-left-box{
+    width: 152px;
+}
+.comm-left-box .class-left-title{
+    font-size: 26px;
+    text-align: left;
+    line-height: 34px;
+    color: #333;
+    font-weight: bold;
+    word-break: keep-all;
+}
+.comm-right-box{
+    margin-left: 60px;
+    width: calc(100% - 212px);
+}
+
+.class-info-first{
+    margin-bottom: 50px;
+}
+
+#detail-inputbox{
+    width: 350px;
+    height: 38px;
+}
+
+/* API회원가입/로그인창  */
+.API-outer{
+	display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#naver_id_login{
+	margin:20px 0  15px 0;
+}
+.kakao-login{
+	margin-bottom:15px;
+}
+.g-signin2{
+	margin-bottom:15px;
+}
+
+.box_login {
+    width: 420px;
+    margin: 0 auto;
+    padding: 35px 20px;
+    border: 1px solid #eee;
+}
+
+.login_main > img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.box_login .box_btn .btn {
+    display: inline-block;
+    position: relative;
+    height: 20px;
+    margin-top: 10px;
+    padding: 0 17px 0 14px;
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: -0.35px;
+    color: #666;
+}
+
+
+
+#categoryTab{border: 1px solid black;}
+#navbarSupportedContent{display: flex;align-items: flex-end;}
+#navbar{display: flex;}
+.sns_logo{height: 40px;margin-right: 20px;}
+
+li{list-style-type: none;}
+a:link {color: red; text-decoration: none;}
+a:visited {color: black; text-decoration: none;}
+footer{display: flex;}
