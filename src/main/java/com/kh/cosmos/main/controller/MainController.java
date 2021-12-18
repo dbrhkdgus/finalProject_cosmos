@@ -10,6 +10,7 @@ import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -72,5 +73,10 @@ public class MainController {
 	public String qaForm() {
 		
 		return "main/qaForm";
+	}
+	@PostMapping("/queEnroll.do")
+	public String queEnroll(Question que) {
+	
+		return "redirect:qa.do";
 	}
 }
