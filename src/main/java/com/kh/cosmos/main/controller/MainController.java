@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kh.cosmos.main.model.service.MainService;
+import com.kh.cosmos.main.model.vo.Question;
 import com.kh.cosmos.common.HiSpringUtils;
 
 import lombok.extern.slf4j.Slf4j;
@@ -24,7 +25,7 @@ import lombok.extern.slf4j.Slf4j;
 public class MainController {
 	@Autowired
 	private MainService mainService;
-	
+
 	@Autowired
 	ServletContext application;
 	
@@ -60,8 +61,10 @@ public class MainController {
 	}
 	
 	@GetMapping("/qa.do")
-	public String qa() {
-		
+	public String qa(Model model) {
+		List<Question> list = mainService.selectQuestionList();
+		log.debug("list = {}", list);
+		model.addAttribute("list", list);
 		return "main/qa";
 	}
 	@GetMapping("/qaForm.do")
