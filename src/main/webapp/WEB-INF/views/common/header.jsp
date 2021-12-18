@@ -63,8 +63,20 @@
                   
                     <div class="card-body">
                         <div class="login-form">
-                            <button type="button" class="btn btn-outline-primary" onclick="location.href='${pageContext.request.contextPath}/member/memberLogin.do';">로그인</button>
-                            <button type="button" class="btn btn-outline-primary" onclick="location.href='${pageContext.request.contextPath}/member/memberAPIEnroll.do';">회원가입</button>
+                            <%-- 로그인하지 않았을때 --%>
+			 				<c:if test="${empty loginMember}">
+	                            <button type="button" class="btn btn-outline-primary" onclick="location.href='${pageContext.request.contextPath}/member/memberLogin.do';">로그인</button>
+	                            <button type="button" class="btn btn-outline-primary" onclick="location.href='${pageContext.request.contextPath}/member/memberAPIEnroll.do';">회원가입</button>
+							</c:if>
+						    <%-- 로그인했을때 --%>
+						    <c:if test="${not empty loginMember}">
+						    	<span>${loginMember.memberId}님 안녕하세요.</span>
+						    	&nbsp;&nbsp;
+						    	<button 
+							    	class="btn btn-outline-primary" 
+							    	type="button"
+							    	onclick="location.href='${pageContext.request.contextPath}/member/memberLogout.do';">로그아웃</button>
+						    </c:if>							                        
                             
                         </div>
                     </div>
