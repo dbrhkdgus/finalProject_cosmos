@@ -44,13 +44,13 @@ $(()=>{
 				<td>${notice.noticeNo}</td>
 				<td>${notice.noticeTitle}</td>
 				<td>${notice.memberId}</td>
-				<td><fmt:formatDate value="${notice.regDate}" pattern="yy-MM-dd"/> </td>
+				<td><fmt:formatDate value="${notice.regDate}" pattern="yy-MM-dd"/></td>
 				<td>${notice.readCount}</td>
 			</tr>
 		</c:forEach>
 	  </tbody>
 	</table>
-	<button type="button" class="btn btn-primary float-right" onclick="goBoardForm();">작성하기(관리자만)</button>
+	<button type="button" class="btn btn-primary float-right" onclick="goNoticeForm();">작성하기(관리자만)</button>
 	${pagebar}
 </div>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
