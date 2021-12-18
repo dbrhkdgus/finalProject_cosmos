@@ -4,6 +4,6 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="question">
   <select id="selectQuestionList" resultType="question">
-  	select * from question
+  	select * from question q join tb_member m using(member_id)
   </select>
 </mapper>
