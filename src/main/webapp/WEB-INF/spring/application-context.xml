@@ -65,8 +65,7 @@
          <property name="redirectUri" value="http://localhost:9090/cosmos" />
     </bean>
     
-    <bean id="memberController" class="com.kh.cosmos.member.MemberController">
-    </bean>
+    
     
     
 </beans>
