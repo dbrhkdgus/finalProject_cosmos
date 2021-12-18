@@ -74,14 +74,14 @@ $(() => {
 						</label>
 					</div>
 					<div class="mx-auto d-block">
-						<button id="btn-Yes" class="btn btn-lg btn-warning btn-block"
-							type="button" style="width: 97%; margin-bottom: 3%;">카카오
-							로 그 인</button>
-						<button id="btn-Yes" class="btn btn-lg btn-primary" type="submit">로
-							그 인</button>
-						<button id="btn-Yes" class="btn btn-lg btn-primary" type="button">회원가입</button>
-						<button id="btn-Yes" class="btn btn-lg btn-secondary"
-							type="button">취소</button>
+						<button id="btn-Yes" class="btn btn-lg btn-outline-success btn-block" type="button" style="color: #04CF5C;">NAVER login</button>
+						<button id="btn-Yes" class="btn btn-lg btn-outline-warning btn-block" type="button">카카오 login</button>
+						<button id="btn-Yes" class="btn btn-lg btn-outline-primary btn-block" type="button" style="color: #000000;">google login</button>
+						<button id="btn-Yes" class="btn btn-lg btn-outline-info btn-block" type="button" style=" font-weight: bold; background: linear-gradient(to right top, #000BA9, #52E3FF); color: transparent; -webkit-background-clip: text; margin-bottom: 3%;">COSMOS login</button>
+					<div class="float-right">
+						<button id="btn-Yes" class="btn btn-lg btn-outline-primary" type="button">회원가입</button>
+						<button id="btn-Yes" class="btn btn-lg btn-outline-secondary" type="button">취소</button>
+					</div>
 					</div>
 				</form>
 
