@@ -61,13 +61,13 @@ $(() => {
 				<h2 class="modal-title text-center" style="color: #113366;">COSMOS</h2>
 			
 			<div class="modal-body">
-				<form class="form-signin" method="POST"
-					onSubmit="logincall();return false">
+				<form name="loginForm" class="form-signin" method="POST"
+					onSubmit="${pageContext.request.contextPath}/member/memberLogin.do">
 					<h5 class="form-signin-heading text-center">로그인</h5>
 					<label for="inputEmail" class="sr-only">Your ID</label>
-					<input type="text" id="uid" class="form-control" placeholder="Your ID" required autofocus><BR>
+					<input type="text" id="uid" class="form-control" placeholder="Your ID" required autofocus name="id"><BR>
 						<label for="inputPassword" class="sr-only">Password</label>
-						<input type="password" id="upw" class="form-control" placeholder="Password" required><br>
+						<input type="password" id="upw" class="form-control" placeholder="Password" name="password" required ><br>
 					<div class="checkbox">
 						<label> <input type="checkbox" value="remember-me">
 							기억하기
@@ -77,7 +77,7 @@ $(() => {
 						<button id="btn-Yes" class="btn btn-lg btn-outline-success btn-block" type="button" style="color: #04CF5C;">NAVER login</button>
 						<button id="btn-Yes" class="btn btn-lg btn-outline-warning btn-block" type="button">카카오 login</button>
 						<button id="btn-Yes" class="btn btn-lg btn-outline-primary btn-block" type="button" style="color: #000000;">google login</button>
-						<button id="btn-Yes" class="btn btn-lg btn-outline-info btn-block" type="button" style=" font-weight: bold; background: linear-gradient(to right top, #000BA9, #52E3FF); color: transparent; -webkit-background-clip: text; margin-bottom: 3%;">COSMOS login</button>
+						<button id="btn_Yes_Basic" class="btn btn-lg btn-outline-info btn-block" type="button" style=" font-weight: bold; background: linear-gradient(to right top, #000BA9, #52E3FF); color: transparent; -webkit-background-clip: text; margin-bottom: 3%;">COSMOS login</button>
 					<div class="float-right">
 						<button id="btn-Yes" class="btn btn-lg btn-outline-primary" type="button">회원가입</button>
 						<button id="btn-Yes" class="btn btn-lg btn-outline-secondary" type="button">취소</button>
@@ -103,6 +103,16 @@ $(() => {
 		src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
 		integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
 		crossorigin="anonymous"></script>
+		
+	
+	<script>
+	$(btn_Yes_Basic).click((e)=>{
+		console.log("로그인 버튼 클릭!");
+		$("[name=loginForm]").submit();
+		
+	});
+	
+	</script>
 </body>
 </html>
 

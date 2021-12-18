@@ -33,23 +33,25 @@
               <input class="form-check-input" type="radio" name="flexRadioDefault" id="NewMembers">
               <label class="form-check-label mr-5 statisticsOf" for="flexRadioDefault1">가입자</label>
               
-              <input class="form-check-input" type="radio" name="flexRadioDefault" id="NewMembers">
-              <label class="form-check-label mr-5 statisticsOf" for="flexRadioDefault1">모임</label>
-              
-              <input class="form-check-input" type="radio" name="flexRadioDefault" id="NewMembers">
-              <label class="form-check-label mr-5 statisticsOf" for="flexRadioDefault1">생성 모임</label>
 
-              <input class="form-check-input" type="radio" name="flexRadioDefault" id="NewMembers">
-              <label class="form-check-label mr-5 statisticsOf" for="flexRadioDefault1">프리미엄 모임</label>
             </div>
             <br>
-            성별
+            <p class="text-white mt-3">- 성별</p>
             <select class="form-select" aria-label="Default select example">
               <option selected>전체</option>
               <option value="1">남</option>
               <option value="2">여</option>
             </select>
-
+            <p class="text-white mt-3">- 연령</p>
+            <select class="form-select" aria-label="Default select example">
+              <option selected>전체</option>
+              <option value="1">10대</option>
+              <option value="2">20대</option>
+              <option value="3">30대</option>
+              <option value="4">40대</option>
+              <option value="5">50대</option>
+              <option value="6">기타</option>
+            </select>
 
 
               <br><br>

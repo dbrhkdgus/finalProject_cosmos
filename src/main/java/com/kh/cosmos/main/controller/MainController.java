@@ -120,4 +120,9 @@ public class MainController {
 		
 		return "main/qaForm";
 	}
+	@PostMapping("/queEnroll.do")
+	public String queEnroll(Question que) {
+	
+		return "redirect:qa.do";
+	}
 }
