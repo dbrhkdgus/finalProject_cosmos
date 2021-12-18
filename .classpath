@@ -53,6 +53,5 @@
 			<attribute name="m2e-apt" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/dev/sts-4.11.1.RELEASE/ojdbc8.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
