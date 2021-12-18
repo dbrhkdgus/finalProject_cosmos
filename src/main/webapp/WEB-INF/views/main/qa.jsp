@@ -27,62 +27,27 @@
 	    </tr>
 	  </thead>
 	  <tbody>
-	    <tr>
-	      <th scope="row">7</th>
-	      <td>기타</td>
-	      <td>출력시마스킹처리방법사용 ==>>></td>
-	      <td>유**</td>
-	      <td>2021-12-15</td>
-	      <td>미답변(N)</td>
-	    </tr>
-	    <tr>
-	      <th scope="row">6</th>
-	      <td>오류</td>
-	      <td>출력시마스킹처리방법사용 ==>>></td>
-	      <td>이**</td>
-	      <td>2021-12-15</td>
-	       <td>미답변(N)</td>
-	    </tr>
-	    <tr>
-	      <th scope="row">5</th>
-	      <td>신고</td>
-	      <td>출력시마스킹처리방법사용 ==>>></td>
-	      <td>이**</td>
-	      <td>2021-12-15</td>
-	       <td>미답변(N)</td>
-	    </tr>
-	    <tr>
-	      <th scope="row">4</th>
-	      <td>게시판</td>
-	      <td>출력시마스킹처리방법사용 ==>>></td>
-	      <td>유**</td>
-	      <td>2021-12-15</td>
-	       <td>미답변(N)</td>
-	    </tr>
-	    <tr>
-	      <th scope="row">3</th>
-	      <td>그룹</td>
-	      <td>출력시마스킹처리방법사용 ==>>></td>
-	      <td>김**</td>
-	      <td>2021-12-15</td>
-	       <td>미답변(N)</td>
-	    </tr>
-	    <tr>
-	      <th scope="row">2</th>
-	      <td>화상채팅</td>
-	      <td>출력시마스킹처리방법사용 ==>>></td>
-	      <td>백**</td>
-	      <td>2021-12-15</td>
-	      <td>미답변(N)</td>
-	    </tr>
-	    <tr>
-	      <th scope="row">1</th>
-	      <td>그룹웨어</td>
-	      <td>출력시마스킹처리방법사용 ==>>></td>
-	      <td>강**</td>
-	      <td>2021-12-14</td>
-	       <td>답변완료(Y)</td>
-	    </tr>
+		<c:forEach var="que" items="${list }">
+		    <tr>
+		      <th scope="row">${que.queNo }</th>
+		      <td>${que.queCategory }</td>
+		      <td>
+		      <c:choose>
+		      	<c:when test="${fn:length(que.queTitle) gt 4 }"> ${fn:substring(que.queTitle,0,4) }
+		      		<c:forEach begin="2" end="${fn:length(que.queTitle)}" step="1">*</c:forEach></c:when>
+		      	<c:otherwise>
+		      		<c:forEach begin="2" end="${fn:length(que.queTitle)}" step="1">*</c:forEach>
+		      	</c:otherwise>
+		      </c:choose>
+		      </td>
+		      <td>
+		      ${fn:substring(que.memberName,0,1) } 
+		      <c:forEach begin="2" end="${fn:length(que.memberName)}" step="1">*</c:forEach>
+			  </td>
+		      <td><fmt:formatDate value="${que.regDate }" pattern="yy-MM-dd"/></td>
+		      <td>${que.status eq 'N' ? '미답변' : '답변완료' }</td>
+		    </tr>
+		</c:forEach>
 	  </tbody>
 	</table>
 	<button type="button" class="btn btn-primary float-right" onclick="location.href='${pageContext.request.contextPath}/main/qaForm.do';">작성하기</button>
