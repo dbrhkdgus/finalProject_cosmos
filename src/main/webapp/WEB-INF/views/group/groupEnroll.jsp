@@ -109,7 +109,7 @@
 								</div>
 								
 								<div class="form-check text-center">
-									<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+									<input class="form-check-input" type="checkbox"id="flexCheckDefault">
 									<label for="flexCheckDefault"> &nbsp;조회에서 제외되는 비밀그룹으로 생성하기 </label>
 								</div>
 								
@@ -170,5 +170,5 @@
 		</div>
 
 	</main>
-
+<script>
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
