@@ -11,4 +11,6 @@ public interface MainService {
 
 	List<Notice> selectNoticeList(int offset, int limit);
 
+	int selectNoticeTotalCount();
+
 }

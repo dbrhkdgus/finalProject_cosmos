@@ -14,9 +14,10 @@ public class Notice implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 
-	private int no;
-	private String title;
-	private String content;
+	private int noticeNo;
+	private String noticeTitle;
+	private String noticeContent;
+	private String memberId;
 	private Date regDate;
 	private int readCount;
 	
