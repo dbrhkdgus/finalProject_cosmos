@@ -14,7 +14,7 @@
 		#{groupCharge},
 		default,
 		#{groupPool},
-		default,
+		#{groupPrivate},
 		default,
 		#{groupLocation}
 	)
