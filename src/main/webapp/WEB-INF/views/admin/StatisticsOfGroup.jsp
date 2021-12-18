@@ -27,11 +27,15 @@
             <h2 class="tm-block-title">그룹 통계</h2>
 
             <div class="form-check mb-3">
+              <input class="form-check-input" type="radio" name="flexRadioDefault" id="GroupCount" onclick="viewDateForm()" checked>
+              <label class="form-check-label mr-5 statisticsOf" for="flexRadioDefault1">모임 수</label>
+            
+              <input class="form-check-input" type="radio" name="flexRadioDefault" id="premiumGroupCount" onclick="viewDateForm()">
+              <label class="form-check-label mr-5 statisticsOf" for="flexRadioDefault1">프리미엄 모임 수</label>
+              
               <input class="form-check-input" type="radio" name="flexRadioDefault" id="boardCount" onclick="viewDateForm()" checked>
               <label class="form-check-label mr-5 statisticsOf" for="flexRadioDefault1">게시글 수</label>
               
-              <input class="form-check-input" type="radio" name="flexRadioDefault" id="premiumGroupCount" onclick="viewDateForm()">
-              <label class="form-check-label mr-5 statisticsOf" for="flexRadioDefault1">프리미엄 모임 수</label>
 
               <input class="form-check-input" type="radio" name="flexRadioDefault" id="reviewCount" onclick="viewDateForm()">
               <label class="form-check-label mr-5 statisticsOf" for="flexRadioDefault1">리뷰 수</label>
@@ -58,7 +62,7 @@
           </form>
             </div>
             
-            <!--비동기로 차트가 바뀌어야 함. include로 상황에 맞춰서  -->
+            <!-- 차트가 바뀌어야 함. include로 상황에 맞춰서  -->
             <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
             <script type="text/javascript">
               google.charts.load('current', {'packages':['corechart']});

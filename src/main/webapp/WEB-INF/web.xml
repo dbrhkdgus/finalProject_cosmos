@@ -14,6 +14,7 @@
 		<param-value>
 					/WEB-INF/spring/application-context.xml 
 					/WEB-INF/spring/security-context.xml
+					/WEB-INF/spring/google-context.xml
 		</param-value>
 	</context-param>
 	

@@ -22,30 +22,15 @@
         <!-- 음성채팅 참가자 썸네일 1 시작-->
         <div class="voice-chat-participant">
           <div class="voice-chat-thumbnail-box">
-            <img class="voice-chat-thumbnail" src="https://i.pinimg.com/564x/99/51/63/9951637d5cf332dfbdbe9d3dfabec361.jpg" alt="">
+            <img 
+            	class="voice-chat-thumbnail" 
+            	src="https://i.pinimg.com/564x/99/51/63/9951637d5cf332dfbdbe9d3dfabec361.jpg"
+            	
+            	alt="">
           </div>
         </div>
         <!-- 음성채팅 참가자 썸네일 1 끝-->
-        <div class="voice-chat-participant">
-          <div class="voice-chat-thumbnail-box">
-            <img class="voice-chat-thumbnail" src="https://i.pinimg.com/564x/99/51/63/9951637d5cf332dfbdbe9d3dfabec361.jpg" alt="">
-          </div>
-        </div>
-        <div class="voice-chat-participant">
-          <div class="voice-chat-thumbnail-box">
-            <img class="voice-chat-thumbnail" src="https://i.pinimg.com/564x/99/51/63/9951637d5cf332dfbdbe9d3dfabec361.jpg" alt="">
-          </div>
-        </div>
-        <div class="voice-chat-participant">
-          <div class="voice-chat-thumbnail-box">
-            <img class="voice-chat-thumbnail" src="https://i.pinimg.com/564x/99/51/63/9951637d5cf332dfbdbe9d3dfabec361.jpg" alt="">
-          </div>
-        </div>
-        <div class="voice-chat-participant">
-          <div class="voice-chat-thumbnail-box">
-            <img class="voice-chat-thumbnail" src="https://i.pinimg.com/564x/99/51/63/9951637d5cf332dfbdbe9d3dfabec361.jpg" alt="">
-          </div>
-        </div>
+        
 
 
       </div>

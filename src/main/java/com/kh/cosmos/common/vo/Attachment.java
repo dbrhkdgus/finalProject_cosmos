@@ -1,4 +1,4 @@
-package com.kh.cosmos.main.model.vo;
+package com.kh.cosmos.common.vo;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -10,15 +10,17 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Notice implements Serializable{
+public class Attachment implements Serializable{
 
 	private static final long serialVersionUID = 1L;
-
-	private int noticeNo;
-	private String noticeTitle;
-	private String noticeContent;
+	
+	private int attachNo;
 	private String memberId;
+	private int groupNo;
+	private String originalFilename;
+	private String renamedFilename;
 	private Date regDate;
-	private int readCount;
+	private String imgFlag;
+	private String attachDeleted;
 	
 }
