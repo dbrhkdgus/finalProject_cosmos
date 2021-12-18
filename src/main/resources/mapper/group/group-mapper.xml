@@ -10,11 +10,11 @@
 		seq_group_no.nextval,
 		1,
 		#{groupName},
+		default,
 		#{groupCharge},
 		default,
-		default,
 		#{groupPool},
-		#{groupPrivate},
+		default,
 		default,
 		#{groupLocation}
 	)
