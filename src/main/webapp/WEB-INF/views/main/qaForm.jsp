@@ -20,6 +20,7 @@
 			<div class="dropdown float-left mx-auto d-block">
 			  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
 			    카테고리를 선택해 주세요.
+			    <!-- test-->
 			  </button>
 			  <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
 			    <li><button class="dropdown-item" type="button">불편사항</button></li>
