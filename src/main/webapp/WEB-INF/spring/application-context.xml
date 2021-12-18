@@ -55,9 +55,17 @@
 	<tx:annotation-driven transaction-manager="transactionManager"/>
 	
 	
-	    <bean id="googleConnectionFactory" class="org.springframework.social.google.connect.GoogleConnectionFactory">
+	<bean id="googleConnectionFactory" class="org.springframework.social.google.connect.GoogleConnectionFactory">
       <constructor-arg value="611668923155-aqcahiheiq1rb5jijp442dgdgoicbe5j.apps.googleusercontent.com" />
       <constructor-arg value="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" />
+    </bean>
+    
+    <bean id="googleOAuth2Parameters" class="org.springframework.social.oauth2.OAuth2Parameters">
+        <property name="scope" value="https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/userinfo.email" />
+         <property name="redirectUri" value="http://localhost:9090/cosmos" />
+    </bean>
+    
+    <bean id="memberController" class="com.kh.cosmos.member.MemberController">
     </bean>
     
     
