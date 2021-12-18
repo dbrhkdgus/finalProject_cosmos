@@ -62,7 +62,7 @@ $(() => {
 			
 			<div class="modal-body">
 				<form name="loginForm" class="form-signin" method="POST"
-					onSubmit="${pageContext.request.contextPath}/member/memberLogin.do">
+					action="">
 					<h5 class="form-signin-heading text-center">로그인</h5>
 					<label for="inputEmail" class="sr-only">Your ID</label>
 					<input type="text" id="uid" class="form-control" placeholder="Your ID" required autofocus name="id"><BR>
@@ -83,6 +83,11 @@ $(() => {
 						<button id="btn-Yes" class="btn btn-lg btn-outline-primary" type="button">회원가입</button>
 						<button id="btn-Yes" class="btn btn-lg btn-outline-secondary" type="button">취소</button>
 					</div>
+						<input type="hidden" name="memberId" val="" />
+						<input type="hidden" name="memberName" val="" />
+						<input type="hidden" name="gender" val="" />
+						<input type="hidden" name="_birthDay" val="" />
+						<input type="hidden" name="profile_img" val="" />
 					</div>
 				</form>
 
@@ -122,7 +127,22 @@ $(() => {
 	        Kakao.API.request({
 	          url: '/v2/user/me',
 	          success: function (response) {
-	        	  console.log(response)
+	        	  console.log("여기", response);
+	        	  $("input[name=memberId]").val(response.id);
+	        	  console.log($("input[name=memberId]").val());
+	        	  $("input[name=gender]").val(response.kakao_account.gender == 'male' ? 'M' : 'F');
+	        	  console.log($("input[name=gender]").val());
+	        	  $("input[name=_birthDay]").val(response.kakao_account.birthday);
+	        	  console.log( $("input[name=_birthDay]").val());
+	        	  $("input[name=memberName]").val(response.kakao_account.profile.nickname);
+	        	  console.log($("input[name=memberName]").val());
+	        	  $("input[name=profile_img]").val(response.kakao_account.profile.thumbnail_image_url);
+	        	  console.log($("input[name=profile_img]").val());
+	        	  
+	        	  $(document.loginForm).attr('action',"${pageContext.request.contextPath}/member/memberLoginKakao.do");
+	        	  console.log(document.loginForm.action);
+	        	  
+	        	  $(document.loginForm).submit();
 	          },
 	          fail: function (error) {
 	            console.log(error)
@@ -148,7 +168,7 @@ $(() => {
 	      })
 	      Kakao.Auth.setAccessToken(undefined)
 	    }
-	  }  
+	  };
 	</script>
 </body>
 </html>
