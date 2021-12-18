@@ -4,6 +4,9 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="question">
   <select id="selectQuestionList" resultType="question">
-  	select * from question q join tb_member m using(member_id)
+  	select * from question q join tb_member m using(member_id) order by que_no desc
+  </select>
+  <select id="selectQuestionTotalCount" resultType="_int">
+  	select count(*) from question
   </select>
 </mapper>
