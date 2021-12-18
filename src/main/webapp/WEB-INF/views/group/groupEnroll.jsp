@@ -33,27 +33,31 @@
 										<select class="form-select"
 											aria-label="Default select example">
 											<option selected>상위 카테고리</option>
-											<option value="1">One</option>
-											<option value="2">Two</option>
-											<option value="3">Three</option>
+											<option value="1">웹 개발</option>
+											<option value="2">프론트엔드</option>
+											<option value="3">백엔드</option>
 										</select>
 									</div>
 								</div>
-
+	
 								<div class="form-group row">
 									<label for="full_name"
 										class="col-md-4 col-form-label text-md-right">하위 카테고리</label>
 									<div class="col-md-6 group-text-input">
-										<select class="form-select"
-											aria-label="Default select example">
-											<option selected>하위 카테고리</option>
-											<option value="1">One</option>
-											<option value="2">Two</option>
-											<option value="3">Three</option>
-										</select>
+										<div class="form-check form-check-inline">
+										  <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+										  <label class="form-check-label" for="inlineCheckbox1">JAVA</label>
+										</div>
+										<div class="form-check form-check-inline">
+										  <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
+										  <label class="form-check-label" for="inlineCheckbox2">HTML/CSS</label>
+										</div>
+										<div class="form-check form-check-inline">
+										  <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3">
+										  <label class="form-check-label" for="inlineCheckbox3">JavaScript</label>
+										</div>
 									</div>
 								</div>
-
 
 
 
