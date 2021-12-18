@@ -18,9 +18,9 @@
 	<form name="noticeFrm" action="${pageContext.request.contextPath}/main/noticeEnroll.do" method="post" enctype="multipart/form-data" onsubmit="return noticeValidate();">
 		<div class="input-group mb-3 w-50 mx-auto">
 			<span class="input-group-text" id="inputGroup-sizing-default">제목</span>
-			<input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="제목을 입력해 주세요.">
+			<input name="noticeTitle" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="제목을 입력해 주세요.">
 		</div>
-		<textarea id="summernote" name="content"></textarea>
+		<textarea id="summernote" name="noticeContent"></textarea>
 		<div class="input-group mb-3" style="padding:0px; padding-top: 5px;">
 			<div class="input-group-prepend" style="padding:0px;">
 			    <span class="input-group-text">첨부파일1</span>
