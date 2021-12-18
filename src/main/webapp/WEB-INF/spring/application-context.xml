@@ -55,5 +55,10 @@
 	<tx:annotation-driven transaction-manager="transactionManager"/>
 	
 	
-	
+	    <bean id="googleConnectionFactory" class="org.springframework.social.google.connect.GoogleConnectionFactory">
+      <constructor-arg value="611668923155-aqcahiheiq1rb5jijp442dgdgoicbe5j.apps.googleusercontent.com" />
+      <constructor-arg value="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" />
+    </bean>
+    
+    
 </beans>
