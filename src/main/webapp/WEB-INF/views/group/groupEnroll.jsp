@@ -115,7 +115,7 @@
 								</div>
 								
 								<div class="form-check text-center">
-									<input class="form-check-input" type="checkbox" id="groupPrivate" name="groupPrivate" onchange="YnCheck(this);">
+									<input class="form-check-input" type="checkbox" id="groupPrivate" name="groupPrivate" onchange="YnCheck(this);" value="">
 									<label for="groupPrivate"> &nbsp;조회에서 제외되는 비밀그룹으로 생성하기 </label>
 								</div>
 								
@@ -185,18 +185,26 @@
 				obj.value="U";
 			}
 		}
+		
 		var checkYn="${data.groupPrivate}";
-		/* if(checkYn=="L") {
+		if(checkYn=="L") {
 			$("#groupPrivate").prop("checked", true);
 		} else {
 			$("#groupPrivate").prop("checked", false);
-		} */
-		if($("#groupPrivate").is(':checked')==true) {
-			data.set("groupPrivate", 'L');
-		} else {
-			data.set("groupPrivate", 'U');
 		}
-	
+		if($("#groupPrivate").is(':checked')==true) {
+			data.set("groupPrivate", "L");
+		} else {
+			data.set("groupPrivate", "U");
+		}
+	 
+		var charged = document.getElementByName('groupCharge');
+		var isCharged;
+		for(var i = 0; i < charged.length; i++) {
+			if(charged[i].checked) {
+				isCharged = charged[i].value;
+			}
+		}
 	</script>
 
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
