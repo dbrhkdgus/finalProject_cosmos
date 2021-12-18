@@ -72,10 +72,11 @@ $(() => {
 						<label> <input type="checkbox" value="remember-me">
 							기억하기
 						</label>
+						<input type="button" value="카카오 로그아웃" onclick="kakaoLogout();" />
 					</div>
 					<div class="mx-auto d-block">
 						<button id="btn-Yes" class="btn btn-lg btn-outline-success btn-block" type="button" style="color: #04CF5C;">NAVER login</button>
-						<button id="btn-Yes" class="btn btn-lg btn-outline-warning btn-block" type="button">카카오 login</button>
+						<button id="btn-Yes" class="btn btn-lg btn-outline-warning btn-block" type="button" onclick="kakaoLogin();">카카오 login</button>
 						<button id="btn-Yes" class="btn btn-lg btn-outline-primary btn-block" type="button" style="color: #000000;">google login</button>
 						<button id="btn_Yes_Basic" class="btn btn-lg btn-outline-info btn-block" type="button" style=" font-weight: bold; background: linear-gradient(to right top, #000BA9, #52E3FF); color: transparent; -webkit-background-clip: text; margin-bottom: 3%;">COSMOS login</button>
 					<div class="float-right">
@@ -104,14 +105,50 @@ $(() => {
 		integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
 		crossorigin="anonymous"></script>
 		
-	
+	<!-- 카카오 스크립트 -->
+	<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 	<script>
 	$(btn_Yes_Basic).click((e)=>{
 		console.log("로그인 버튼 클릭!");
 		$("[name=loginForm]").submit();
 		
 	});
-	
+	Kakao.init('753f0f237470af5e83541545d143b9c3'); //발급받은 키 중 javascript키를 사용해준다.
+	console.log(Kakao.isInitialized()); // sdk초기화여부판단
+	//카카오로그인
+	function kakaoLogin() {
+	    Kakao.Auth.login({
+	      success: function (response) {
+	        Kakao.API.request({
+	          url: '/v2/user/me',
+	          success: function (response) {
+	        	  console.log(response)
+	          },
+	          fail: function (error) {
+	            console.log(error)
+	          },
+	        })
+	      },
+	      fail: function (error) {
+	        console.log(error)
+	      },
+	    })
+	  }
+	//카카오로그아웃  
+	function kakaoLogout() {
+	    if (Kakao.Auth.getAccessToken()) {
+	      Kakao.API.request({
+	        url: '/v1/user/unlink',
+	        success: function (response) {
+	        	console.log(response)
+	        },
+	        fail: function (error) {
+	          console.log(error)
+	        },
+	      })
+	      Kakao.Auth.setAccessToken(undefined)
+	    }
+	  }  
 	</script>
 </body>
 </html>
