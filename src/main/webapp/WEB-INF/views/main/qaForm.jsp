@@ -15,11 +15,12 @@
 <!-- form 안에 에디터를 사용하는 경우 (보통 이경우를 많이 사용하는듯)-->
 <h2 class="text-center">문의 사항 작성</h2>
 <div class="container">
-	<form method="post">
+	<form name="queFrm" action="${pageContext.request.contextPath }/main/queEnroll.do" method="post">
 		<div class="input-group mb-3 mx-auto">
 			<div class="dropdown float-left mx-auto d-block">
 			  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
 			    카테고리를 선택해 주세요.
+			    <!-- safas-->
 			  </button>
 			  <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
 			    <li><button class="dropdown-item" type="button">불편사항</button></li>
@@ -31,12 +32,13 @@
 			  </ul>
 			</div>
 			<span class="input-group-text" id="inputGroup-sizing-default">제목</span>
-			<input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="제목을 입력해 주세요.">
+			<input id="title" name="queTitle" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="제목을 입력해 주세요.">
+			<input type="hidden" name="queCategory" value="" />
 		</div>
-		<textarea id="summernote" name="editordata"></textarea>
+		<textarea id="summernote" name="queContent"></textarea>
 	</form>
 	<div class="d-grid gap-2 col-6 mx-auto">
-		<button class="btn btn-primary" type="button">작성 완료</button>
+		<button id="btn-send" class="btn btn-primary" type="button">작성 완료</button>
 	</div>
 </div>
 <script>
@@ -48,7 +50,7 @@ $(document).ready(function() {
 				maxHeight: null,             // 최대 높이
 				focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
 				lang: "ko-KR",					// 한글 설정
-				placeholder: '공지사항 내용 작성란',	//placeholder 설정
+				placeholder: '문의사항 내용 작성란',	//placeholder 설정
 				spellCheck: false,
 				callbacks: {	//여기 부분이 이미지를 첨부하는 부분
 					onImageUpload : function(files) {
@@ -73,7 +75,7 @@ $(document).ready(function() {
 				    ['table', ['table']],
 				    ['para', ['ul', 'ol', 'paragraph']],
 				    ['height', ['height']],
-				    ['insert', ['picture','link']],
+//				    ['insert', ['picture','link']],
 				    ['view', ['fullscreen', 'help']]
 				  ],
 				fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋움체','바탕체'],
@@ -93,7 +95,33 @@ $(document).ready(function() {
 				$(editor).summernote('insertImage', data.url);
 			}
 		});
-	}
+	};
+	$("#btn-send").click((e)=>{
+	
+		
+		if($(title).val() != null && $(title).val() != ''){
+		}else{
+			alert("제목을 입력해주세요.");
+			return;
+		}
+		if($(summernote).val() != null && $(summernote).val() != ''){	
+		}else{
+			alert("내용을 입력해주세요.");
+			return;
+		}
+		if($("input[name=queCategory]").val() != null && $("input[name=queCategory]").val() != ''){
+			
+		}else{
+			alert("카테고리를 선택해주세요.");
+			return;
+		}
+		
+		$(document.queFrm).submit();
+	});
+	$(".dropdown-item").click((e)=>{
+		$("input[name=queCategory]").val($(e.target).text());
+		
+	});
 });
 </script>
 

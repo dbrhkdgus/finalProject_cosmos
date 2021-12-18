@@ -11,4 +11,6 @@ public interface MainDao {
 
 	List<Notice> selectNoticeList(int offset, int limit);
 
+	int selectNoticeTotalCount();
+
 }
