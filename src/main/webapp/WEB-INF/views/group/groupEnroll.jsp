@@ -176,6 +176,9 @@
 		</div>
 
 	</main>
+<<<<<<< HEAD
+<script>
+=======
 	<script type="text/javascript">
 		function YnCheck(obj) {
 			var checked = obj.checked;
@@ -199,4 +202,5 @@
 	
 	</script>
 
+>>>>>>> branch 'master' of https://github.com/dbrhkdgus/finalProject_cosmos.git
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
