@@ -9,7 +9,7 @@
   	from
 		tb_member
 	where
-		id=#{id}
+		member_id=#{id}
   </select>
 
 </mapper>

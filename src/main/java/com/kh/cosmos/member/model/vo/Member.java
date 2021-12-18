@@ -19,17 +19,17 @@ public class Member implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private String id;
-	private String name;
+	private String memberId;
+	private String memberName;
 	private String nickname;
 	private String password;
-	private String email;
+	private String memberEmail;
 	private Date birthDay;
 	private String phone;
 	private String gender;
-	private Date enrollDate;
-	private String job;
-	private String achieve;
+	private Date memberEnrollDate;
+	private String memberJob;
+	private String memberAchieve;
 	
 
 }
