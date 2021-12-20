@@ -48,4 +48,20 @@
 			#{giTitle}
 		)
  	</insert>
+ 	<insert id="insertGroupInfo">
+ 		<selectKey keyProperty="seqNo" resultType="_int" order="BEFORE">
+			select
+				seq_g_gi_no.currval
+			from
+				dual
+		</selectKey>
+		insert into
+			groupinfo
+		values(
+			seq_gi_no_no.nextval,
+			#{seqNo},
+			#{giSubTitle},
+			#{giContent}
+		)
+	</insert>
 </mapper>

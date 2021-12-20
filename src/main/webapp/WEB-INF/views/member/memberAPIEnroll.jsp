@@ -13,16 +13,9 @@
 
 <body>
 	<div class="container">
-    	
-       	
-		
-    	<button type="button" class="btn btn-outline-primary" onclick="location.href='${pageContext.request.contextPath}/member/memberEnroll.do';">사이트 회원가입</button>
-		
 		<div class="box_login login_main">
 		<img src="https://t4.ftcdn.net/jpg/03/75/58/15/360_F_375581544_r5aDqkhnhrqy15AdaqKXUI30MMtL8IIq.jpg" width="41%" alt="welcome coupon">
-           
             <h3 class="tit text-center" >Cosmos 회원가입</h3>
-			
 			<div class="API-outer">
 			<div class="box_btn">
 				<a class="btn" href="${pageContext.request.contextPath}/member/memberEnroll.do">이메일 회원가입</a>
@@ -33,9 +26,8 @@
 		</div>
 				
     	</div>
-    					<form name="loginForm" class="form-signin" method="request"
+ 					<form name="loginForm" class="form-signin" method="request"
 					action="">
-					
 					
 						<input type="hidden" name="memberId" val="" />
 						<input type="hidden" name="memberName" val="" />

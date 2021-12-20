@@ -110,7 +110,7 @@ public class MemberController {
 		
 		return "member/memberEnroll";
 	}
-	
+
 //	@PostMapping("/memberEnroll.do")
 //	public String memberEnroll(Member member, RedirectAttributes redirectAttr) {
 //		log.debug("member = {}", member);
@@ -136,6 +136,7 @@ public class MemberController {
 //		return "redirect:/";
 //	}
 //	
+
 	@GetMapping("/memberAPIEnroll.do")
 	public String memberAPIEnroll() {
 		return "member/memberAPIEnroll";
@@ -227,6 +228,9 @@ public class MemberController {
 		
 		return "member/memberGroupList";
 	}
+	
+	
+	
 	
 	@PostMapping("memberEnroll.do")
 	public String memberEnrollPost(Member member, RedirectAttributes redirectAttr, HttpServletRequest request) {
