@@ -5,7 +5,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <fmt:requestEncoding value="utf-8"/>
 <jsp:include page="/WEB-INF/views/common/header.jsp">
-	<jsp:param value="공지사항 상세보기" name="title"/>
+	<jsp:param value="문의사항 상세보기" name="title"/>
 </jsp:include>
 <style>
 div#board-container{width: 80%;}
@@ -24,31 +24,18 @@ div#board-container label.custom-file-label{text-align:left;}
 			</thead>
 			<tbody>
 				<tr>
-					<td>${notice.noticeTitle}</td>
+					<td>${que.queTitle} <span class="mr-5 text-secondary"><fmt:formatDate value="${que.regDate}" pattern="yy-MM-dd" /></span></td>
 				</tr>
 			</tbody>
 		</table>
 	</div>
-		<span class="text-right">작성자 : ${notice.memberId}</span>
+		<span class="text-right">작성자 : ${que.memberId}</span>
 	<div class="card text-center">
 		<div class="card-body">
-			<img src="${pageContext.request.contextPath }/resources/upFile/notice/${attach.renamedFilename}" alt="" style="width: 50%" /> ${notice.noticeContent}
+			<img src="${pageContext.request.contextPath }/resources/upFile/question/${att.renamedFilename}" alt="" style="width: 50%" /> ${que.queContent}
 		</div>
 	</div>
-	<table class="table text-center">
-		<thead>
-			<tr>
-				<th scope="col">날짜</th>
-				<th scope="col">조회수</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<td><fmt:formatDate value="${notice.regDate}" pattern="yy-MM-dd" /></td>
-				<td>${notice.readCount}</td>
-			</tr>
-		</tbody>
-	</table>
+	
 
 </div>
 
