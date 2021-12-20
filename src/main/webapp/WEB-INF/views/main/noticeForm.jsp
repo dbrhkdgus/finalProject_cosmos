@@ -99,6 +99,11 @@ function noticeValidate(){
 		alert("내용을 입력하세요");
 		return false;
 	}
+	var $upFile = $("[name=upFile]");
+	if(/^(.|\n)+$/.test($upFile.val()) == false){
+		alert("파일을 첨부하세요");
+		return false;
+	}
 	return true;
 }
 $(()=>{
