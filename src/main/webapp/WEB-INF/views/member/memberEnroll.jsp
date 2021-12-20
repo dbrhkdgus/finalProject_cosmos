@@ -66,11 +66,11 @@
 									class="col-md-4 col-form-label text-md-right">이메일</label>
 								<div class="col-md-6 group-text-input">
 									<div class="input-group mb-3">
-										<input type="text" id="email1" class="form-control" placeholder="Username"
-											aria-label="Username" name="email1" value="gogd"> <span class="input-group-text">@</span>
-										<input type="text" id="email2" class="form-control" placeholder="Server"
-											aria-label="Server" name="email2" value="naver.com">
-										<input type="hidden" name="memberEmail"/>
+										<input type="text" class="form-control" 
+											aria-label="Username" required="required" name="emailId" id="emailId">
+											 <span class="input-group-text">@</span>
+										<input type="text" class="form-control" 
+											aria-label="Server" required="required" name="email-server" id="emailServer">
 									</div>
 								</div>
 							</div>
@@ -92,15 +92,15 @@
 								<div class="col-md-6 group-text-input gender-radio">
 									<div class="form-check">
 										<input class="form-check-input" type="radio"
-											name="gender" id="flexRadioDefault1"> <label
-											class="form-check-label" for="flexRadioDefault1" value="F"> 여성
+											name="memberGender" id="flexRadioDefault1" value="F"> <label
+											class="form-check-label" for="flexRadioDefault1" > 여성
 										</label>
 									</div>
 
 									<div class="form-check">
 										<input class="form-check-input" type="radio"
-											name="gender" id="flexRadioDefault1"> <label
-											class="form-check-label" for="flexRadioDefault1" value="M"> 남성
+											name="memberGender" id="flexRadioDefault1" value="M" checked="checked"> <label
+											class="form-check-label" for="flexRadioDefault1"> 남성
 										</label>
 									</div>
 								</div>
@@ -112,7 +112,7 @@
 									class="col-md-4 col-form-label text-md-right">생년월일</label>
 								<div class="col-md-6 group-text-input">
 									<input type="date" id="birthday" class="form-control"
-										name="birthday" value="2020-01-01">
+										name="birthday" value="1999-01-01">
 								</div>
 							</div>
 
