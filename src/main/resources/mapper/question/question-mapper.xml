@@ -9,7 +9,15 @@
   <select id="selectQuestionTotalCount" resultType="_int">
   	select count(*) from question
   </select>
-  <insert id="insertQuestion" parameterType="question">
-  	insert into question values(seq_question_no.nextval, #{memberId}, default, #{queTitle}, #{queContent}, default, null, #{queCategory})
-  </insert>
+  
+  	<insert id="insertQuestion">
+		<selectKey keyProperty="attachNo" resultType="_int" order="BEFORE">
+			select
+				seq_attach_no_no.currval
+			from
+				dual
+		</selectKey>
+		insert into question values(seq_question_no.nextval, #{memberId}, default, #{queTitle}, #{queContent}, default, #{queCategory}, #{attachNo})
+		
+	</insert>
 </mapper>
