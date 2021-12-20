@@ -7,19 +7,19 @@
   	select
   		*
   	from
-  		member m left join authorities a on m.member_id = a.member_id
+  		tb_member m left join authorities a on m.member_id = a.member_id
   		where m.member_id = #{username}
   </select>
   <resultMap type="member" id="memberMap">
-  	<id column="member_id" property="id"/>
-  	<result column="member_name" property="name"/>
+  	<id column="member_id" property="memberId"/>
+  	<result column="member_name" property="memberName"/>
   	<result column="nickname" property="nickname"/>
   	<result column="password" property="password"/>
   	<result column="MEMBER_EMAIL" property="memberEmail"/>
   	<result column="birthday" property="birthday"/>
   	<result column="phone" property="phone"/>
   	<result column="member_enrill_date" property="memberEnrollDate"/>
-  	<result column="member_gender" property="gender"/>
+  	<result column="member_gender" property="memberGender"/>
   	<result column="member_job" property="memberJob"/>
   	<result column="member_achieve" property="memberAchieve"/>
   	<result column="attach_no" property="attach"/>

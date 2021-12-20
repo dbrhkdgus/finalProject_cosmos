@@ -46,7 +46,6 @@ public class MemberController {
 		binder.registerCustomEditor(Date.class, editor);
 	}
 	
-	
 	@Autowired
 	private MemberService memberService;
 	
@@ -203,10 +202,7 @@ public class MemberController {
 		
 		return "member/memberGroupList";
 	}
-	
-	
-	
-	
+
 	@PostMapping("memberEnroll.do")
 	public String memberEnrollPost(Member member, RedirectAttributes redirectAttr, HttpServletRequest request) {
 		String email = (request.getParameter("emailId")) + "@" + (request.getParameter("email-server"));

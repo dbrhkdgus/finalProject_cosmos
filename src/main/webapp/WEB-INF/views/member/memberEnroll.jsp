@@ -15,13 +15,13 @@
 				<div class="card">
 					<div class="card-header">회원가입</div>
 					<div class="card-body">
-						<form name="memberEnrollFrm" method="POST">
+						<form name="memberEnrollFrm" method="POST" action="<%=request.getContextPath()%>/member/emailMemberEnroll.do">
 							<div class="form-group row">
 								<label for="full_name"
 									class="col-md-4 col-form-label text-md-right">아이디</label>
 								<div class="col-md-6 group-text-input">
 									<input type="text" id="member-id" class="form-control"
-										name="memberId" value="gogd">
+										name="memberId" value="hoho">
 								</div>
 							</div>
 
@@ -71,6 +71,7 @@
 											 <span class="input-group-text">@</span>
 										<input type="text" class="form-control" 
 											aria-label="Server" required="required" name="email-server" id="emailServer">
+										<input type="hidden" id="memberEmail" name="memberEmail"/>
 									</div>
 								</div>
 							</div>
@@ -145,13 +146,14 @@
 $("#passwordCheck").blur(function(){
 	var $password = $("#password"),
 	$passwordCheck = $("$passwordCheck");
-	if($password.val*() != $passwordCheck.val()){
+	if($password.val() != $passwordCheck.val()){
 		alert("패스워드가 일치하지 않습니다.");
 		$password.select();
 	}
 });
 
-$("[name=memberEnrollFrm]").submit(function(){
+/* $("[name=memberEnrollFrm]").submit(function(){
+	console.log("테스트");
 	$("#memberEmail").val() = $("#email1")+$("#email2");
 	
 	var $id = $("#id");
@@ -161,10 +163,8 @@ $("[name=memberEnrollFrm]").submit(function(){
 		return false;
 	}
 	
-	
-	
 	return true;
-});
+}); */
 
 </script>
 
