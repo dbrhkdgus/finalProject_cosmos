@@ -65,6 +65,11 @@ public class GroupController {
 			) throws IllegalStateException, IOException {
 		log.debug("group = {}", group);
 		
+		String[] groupInfoArray = groupInfo.getGiContent().split(",");
+		for(String g : groupInfoArray) {
+			log.debug("g = {}", g);
+		}
+		
 		char groupPrivate = group.getGroupPrivate();
 		if(groupPrivate != 'L') {
 			group.setGroupPrivate('U');
@@ -103,8 +108,15 @@ public class GroupController {
 			
 			
 			int result = groupService.insertGroup(group);
-//			result = groupService.insertGroupInfoConnect(groupInfoConnect);
-//			result = groupService.insertGroupInfo(groupInfo);
+			result = groupService.insertGroupInfoConnect(groupInfoConnect);
+			
+			for(int i = 1; i < 4 ; i++) {
+				GroupInfo gi = new GroupInfo();
+				gi.setGiContent(groupInfoArray[i]);
+				gi.setGiSubTitle(Integer.toString(i));
+				result = groupService.insertGroupInfo(gi);
+				
+			}
 			
 			String msg = result > 0 ? "그룹 신청 성공!" : "그룹 신청 실패!";
 			redirectAttributes.addFlashAttribute("msg", msg);
