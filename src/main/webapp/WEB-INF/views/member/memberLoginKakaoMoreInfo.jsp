@@ -221,9 +221,7 @@
 	    return false;
 	  }
 	  
-	  function setEmailDomain(domain){
-	        $("#email_server").val(domain);
-	    }
+	 
 	}
 	</script>
 

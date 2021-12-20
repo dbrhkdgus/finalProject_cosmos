@@ -122,7 +122,7 @@ public class MemberController {
 		
 		kakaoMember.setMemberId(request.getParameter("memberId"));
 		kakaoMember.setMemberName(request.getParameter("memberName"));
-		kakaoMember.setGender(request.getParameter("gender"));
+		kakaoMember.setMemberGender(request.getParameter("gender"));
 		
 		model.addAttribute("kakaoMember",kakaoMember);
 		model.addAttribute("_birthDay",request.getParameter("_birthDay"));
@@ -163,10 +163,10 @@ public class MemberController {
 		
 		APIMember.setMemberId(session.getId());
 		APIMember.setMemberName(request.getParameter("name"));
-		APIMember.setGender(request.getParameter("gender"));
+		APIMember.setMemberGender(request.getParameter("gender"));
 		APIMember.setPhone(request.getParameter("phone"));
 		APIMember.setMemberJob(request.getParameter("job"));
-		APIMember.setBirthDay(formatDate);
+		APIMember.setBirthday(formatDate);
 		APIMember.setMemberEmail(email);
 		APIMember.setPassword("1234");
 		
