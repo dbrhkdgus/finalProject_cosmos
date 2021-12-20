@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import com.kh.cosmos.common.vo.Attachment;
 import com.kh.cosmos.group.model.dao.GroupDao;
 import com.kh.cosmos.group.model.vo.Group;
+import com.kh.cosmos.group.model.vo.GroupInfoConnect;
 
 @Service
 public class GroupServiceImpl implements GroupService {
@@ -21,5 +22,10 @@ public class GroupServiceImpl implements GroupService {
 	@Override
 	public int insertAttach(Attachment attach) {
 		return groupDao.insertAttach(attach);
+	}
+
+	@Override
+	public int insertGroupInfoConnect(GroupInfoConnect groupInfoConnect) {
+		return groupDao.insertGroupInfoConnect(groupInfoConnect);
 	}
 }

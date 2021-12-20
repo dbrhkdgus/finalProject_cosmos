@@ -122,7 +122,7 @@ public class MemberController {
 		
 		kakaoMember.setMemberId(request.getParameter("memberId"));
 		kakaoMember.setMemberName(request.getParameter("memberName"));
-		kakaoMember.setGender(request.getParameter("gender"));
+		kakaoMember.setMemberGender(request.getParameter("gender"));
 		
 		model.addAttribute("kakaoMember",kakaoMember);
 		model.addAttribute("_birthDay",request.getParameter("_birthDay"));
@@ -141,17 +141,16 @@ public class MemberController {
 	}
 	
 	@PostMapping("/memberAPImoreInfoEnroll.do")
-	public String memberAPImoreInfoEnroll(HttpServletRequest request, Model model ,HttpSession session) {
-		String email = (request.getParameter("email")) + "@" + (request.getParameter("email-server"));
+	public String memberAPImoreInfoEnroll(Member member, HttpServletRequest request, Model model) {
+		String email = (request.getParameter("emailId")) + "@" + (request.getParameter("email-server"));
 		String birthDay = (request.getParameter("birtYear")) + (request.getParameter("birthMonth"))+ (request.getParameter("birthDate")); 
-		
 		 
 		
 			SimpleDateFormat dtFormat = new SimpleDateFormat("yyyyMMdd"); 
 			SimpleDateFormat newDtFormat = new SimpleDateFormat("yyyy-MM-dd"); // String 타입을 Date 타입으로 변환
 			Date formatDate = new Date();
 			try {
-				formatDate = dtFormat.parse(birthDay);
+				formatDate = newDtFormat.parse(birthDay);
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -159,24 +158,35 @@ public class MemberController {
 		log.debug("formatDate = {}",formatDate);
 
 		
-		Member APIMember = new Member();
+		member.setMemberEmail(email);
+		member.setBirthday(formatDate);
+		member.setPassword("1234");
 		
-		APIMember.setMemberId(session.getId());
-		APIMember.setMemberName(request.getParameter("name"));
-		APIMember.setGender(request.getParameter("gender"));
-		APIMember.setPhone(request.getParameter("phone"));
-		APIMember.setMemberJob(request.getParameter("job"));
-		APIMember.setBirthDay(formatDate);
-		APIMember.setMemberEmail(email);
-		APIMember.setPassword("1234");
-		
-		
-		
-		
-		log.debug("loginMember = {}",APIMember);
+		log.debug("member = {}", member);
+		memberService.insertMember(member);
 		
 		return "redirect:/";
 	}
 	
+
+	@GetMapping("/memberGroupList.do")
+	public String memberGroupList() {
+		
+		return "member/memberGroupList";
+	}
 	
+	@PostMapping("memberEnroll.do")
+	public String memberEnrollPost(Member member, RedirectAttributes redirectAttr, HttpServletRequest request) {
+		String email = (request.getParameter("emailId")) + "@" + (request.getParameter("email-server"));
+		member.setMemberEmail(email);
+		log.debug("member.birthday = {}", member.getBirthday());
+		try {
+			int result = memberService.insertMember(member);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			redirectAttr.addFlashAttribute("msg", "회원가입 실패");
+		}
+		
+		return "redirect:/";
+	}
 }

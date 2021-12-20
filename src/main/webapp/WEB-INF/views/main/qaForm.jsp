@@ -146,6 +146,13 @@ $(document).ready(function() {
 				$label.html("파일을 선택하세요.");
 		});
 	});
+	
+	$(dropdownMenu2).click((e)=>{
+		$(e.target).parent().find("li").click((e)=>{
+			console.log($(e.target).text());
+			$(dropdownMenu2).text($(e.target).text());
+		})
+	});
 });
 </script>
 

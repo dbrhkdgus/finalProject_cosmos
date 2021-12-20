@@ -7,6 +7,7 @@
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	<jsp:param value="문의사항" name="title"/>
 </jsp:include>
+
 <div class="container">
 <div>
 	<h2 class="text-center">문의사항</h2>
@@ -31,18 +32,35 @@
 		    <tr>
 		      <th scope="row">${que.queNo }</th>
 		      <td>${que.queCategory }</td>
+		      
 		      <td> <a href="${pageContext.request.contextPath }/main/qaDetail.do?queNo=${que.queNo}"> 
 		      <c:choose>
-		      	<c:when test="${fn:length(que.queTitle) gt 4 }"> ${fn:substring(que.queTitle,0,4) }
-		      		<c:forEach begin="2" end="${fn:length(que.queTitle)}" step="1">*</c:forEach></c:when>
+		      	<c:when test="${loginMember.memberId eq que.memberId}">
+		      		${que.queTitle}
+		      	</c:when>
 		      	<c:otherwise>
-		      		<c:forEach begin="2" end="${fn:length(que.queTitle)}" step="1">*</c:forEach>
+			      <c:choose>
+			      	<c:when test="${fn:length(que.queTitle) gt 4 }"> ${fn:substring(que.queTitle,0,4) }
+			      		<c:forEach begin="2" end="${fn:length(que.queTitle)}" step="1">*</c:forEach></c:when>
+			      	<c:otherwise>
+			      		<c:forEach begin="2" end="${fn:length(que.queTitle)}" step="1">*</c:forEach>
+			      	</c:otherwise>
+			      </c:choose>
 		      	</c:otherwise>
-		      </c:choose></a>
-		      </td>
+		      
+		      </c:choose>
+		      </a></td>
+		      
 		      <td>
-		      ${fn:substring(que.memberName,0,1) } 
-		      <c:forEach begin="2" end="${fn:length(que.memberName)}" step="1">*</c:forEach>
+		      <c:choose>
+		      	<c:when test="${loginMember.memberId eq que.memberId }">
+					${que.memberName }		      	
+		      	</c:when>
+		      	<c:otherwise>
+			      ${fn:substring(que.memberName,0,1) } 
+			      <c:forEach begin="2" end="${fn:length(que.memberName)}" step="1">*</c:forEach>
+		      	</c:otherwise>
+		      </c:choose>
 			  </td>
 		      <td><fmt:formatDate value="${que.regDate }" pattern="yy-MM-dd"/></td>
 		      <td>${que.status eq 'N' ? '미답변' : '답변완료' }</td>

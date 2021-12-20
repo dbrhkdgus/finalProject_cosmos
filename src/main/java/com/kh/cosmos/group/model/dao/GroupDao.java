@@ -2,11 +2,14 @@ package com.kh.cosmos.group.model.dao;
 
 import com.kh.cosmos.common.vo.Attachment;
 import com.kh.cosmos.group.model.vo.Group;
+import com.kh.cosmos.group.model.vo.GroupInfoConnect;
 
 public interface GroupDao {
 
 	int insertGroup(Group group);
 
 	int insertAttach(Attachment attach);
+
+	int insertGroupInfoConnect(GroupInfoConnect groupInfoConnect);
 
 }
