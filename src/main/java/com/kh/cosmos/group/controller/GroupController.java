@@ -19,7 +19,6 @@ import com.kh.cosmos.common.CosmosUtils;
 import com.kh.cosmos.common.vo.Attachment;
 import com.kh.cosmos.group.model.service.GroupService;
 import com.kh.cosmos.group.model.vo.Group;
-import com.kh.cosmos.group.model.vo.GroupFail;
 import com.kh.cosmos.group.model.vo.GroupInfo;
 import com.kh.cosmos.group.model.vo.GroupInfoConnect;
 
@@ -59,16 +58,17 @@ public class GroupController {
 	}
 	
 	@PostMapping("/insertGroup.do")
-	public String insertGroup(Group group, GroupInfo groupInfo, GroupInfoConnect groupInfoConnect, @RequestParam(value="upFile", required=false) MultipartFile upFile, RedirectAttributes redirectAttributes) throws IllegalStateException, IOException {
+	public String insertGroup(
+			Group group,
+			@RequestParam(value="upFile", required=false) MultipartFile upFile, 
+			RedirectAttributes redirectAttributes
+			) throws IllegalStateException, IOException {
 		log.debug("group = {}", group);
-		log.debug("groupInfo = {}", groupInfo);
-		log.debug("groupInfoConnect = {}", groupInfoConnect);
 		
 		char groupPrivate = group.getGroupPrivate();
 		if(groupPrivate != 'L') {
 			group.setGroupPrivate('U');
 		}
-		
 		try {
 			
 			// application객체(ServletContext)
