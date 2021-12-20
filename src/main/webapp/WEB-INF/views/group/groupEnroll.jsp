@@ -15,7 +15,7 @@
 						<div class="card-header">스터디 그룹 생성</div>
 						<div class="card-body">
 							<form name="my-form"
-								action="${pageContext.request.contextPath}/group/insertGroup.do" method="POST">
+								action="${pageContext.request.contextPath}/group/insertGroup.do" method="POST" enctype="multipart/form-data">
 								<div class="form-group row">
 									<label for="full_name"
 										class="col-md-4 col-form-label text-md-right">그룹명</label>
@@ -63,7 +63,7 @@
 									<label for="present_address"
 										class="col-md-4 col-form-label text-md-right">모집글 제목</label>
 									<div class="col-md-6 group-text-input">
-										<input type="text" id="study-title" class="form-control">
+										<input type="text" id="study-title" class="form-control" name="giTitle">
 									</div>
 								</div>
 
@@ -71,8 +71,7 @@
 									<label for="phone_number"
 										class="col-md-4 col-form-label text-md-right">배너 이미지</label>
 									<div class="col-md-6 group-text-input">
-										<input class="form-control" type="file" id="formFileMultiple" name="upFile" id="upFile1"
-	multiple>
+										<input class="form-control" type="file" id="upFile" name="upFile">
 									</div>
 								</div>
 

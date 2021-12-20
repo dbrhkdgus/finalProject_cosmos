@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.cosmos.common.vo.Attachment;
 import com.kh.cosmos.group.model.vo.Group;
+import com.kh.cosmos.group.model.vo.GroupInfoConnect;
 
 @Repository
 public class GroupDaoImpl implements GroupDao {
@@ -21,5 +22,10 @@ public class GroupDaoImpl implements GroupDao {
 	@Override
 	public int insertAttach(Attachment attach) {
 		return session.insert("group.insertAttach", attach);
+	}
+
+	@Override
+	public int insertGroupInfoConnect(GroupInfoConnect groupInfoConnect) {
+		return session.insert("group.insertGroupInfoConnect", groupInfoConnect);
 	}
 }

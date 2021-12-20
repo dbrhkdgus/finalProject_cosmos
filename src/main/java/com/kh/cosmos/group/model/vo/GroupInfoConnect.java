@@ -1,8 +1,27 @@
 package com.kh.cosmos.group.model.vo;
 
-public class GroupInfoConnect {
+import java.io.Serializable;
+import java.util.Date;
 
-	private int no;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
+public class GroupInfoConnect implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	private int seqNo;
 	private int groupNo;
 	private String giTitle;
 	
