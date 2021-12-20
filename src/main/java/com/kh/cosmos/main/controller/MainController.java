@@ -2,11 +2,11 @@ package com.kh.cosmos.main.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ResourceLoader;
@@ -17,13 +17,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.FlashMap;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.kh.cosmos.common.CosmosUtils;
+import com.kh.cosmos.common.vo.Attachment;
 import com.kh.cosmos.main.model.service.MainService;
 import com.kh.cosmos.main.model.vo.Notice;
 import com.kh.cosmos.main.model.vo.Question;
-import com.kh.cosmos.common.CosmosUtils;
-import com.kh.cosmos.common.vo.Attachment;
+import com.kh.cosmos.member.model.vo.Member;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -187,11 +189,26 @@ public class MainController {
 		return "redirect:/main/qa.do";
 	}
 	@GetMapping("/qaDetail.do")
-	public String queDetail(@RequestParam int queNo, Model model) {
+	public String queDetail(@RequestParam int queNo, Model model, HttpServletRequest request, RedirectAttributes redirectAttr) {
 		log.debug("queNo = {}", queNo);
+		HttpSession session = request.getSession();
 		Question que = mainService.selectOneQuestionByNo(queNo);
+		Attachment att = mainService.selectOneAttach(que.getAttachNo());
+		
+		Member loginMember = (Member) session.getAttribute("loginMember");			
+		
+		log.debug("loginMemberId = {}", loginMember.getMemberId());
+		log.debug("queMemberId = {}", que.getMemberId());
+		
+		if(!que.getMemberId().equals(loginMember.getMemberId()) || "admin".equals(loginMember.getMemberId()) || loginMember == null) {
+			redirectAttr.addFlashAttribute("msg", "작성자만 확인 가능합니다.");
+			return "redirect:/main/qa.do";
+		}
+		
 		log.debug("que = {} ", que);
 		model.addAttribute("que",que);
+		model.addAttribute("att",att);
+		
 		return "main/qaDetail";
 	}
 }
