@@ -109,8 +109,33 @@ public class MemberController {
 		
 		return "member/memberEnroll";
 	}
-	
-	
+
+//	@PostMapping("/memberEnroll.do")
+//	public String memberEnroll(Member member, RedirectAttributes redirectAttr) {
+//		log.debug("member = {}", member);
+//		
+//		try {
+//			// 0.비밀번호 암호화 처리
+//			log.info("{}", passwordEncoder);
+//			String rawPassword = member.getPassword();
+//			String encryptedPassword = passwordEncoder.encode(rawPassword);
+//			member.setPassword(encryptedPassword);
+//			log.info("{} -> {}", rawPassword, encryptedPassword);
+//			
+//			// 1.업무로직
+//			int result = memberService.insertMember(member);
+//			
+//			// 2.리다이렉트 & 사용자피드백전달
+//			redirectAttr.addFlashAttribute("msg", "회원가입 성공!");
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			throw e;
+//		}
+//		
+//		return "redirect:/";
+//	}
+//	
+
 	@GetMapping("/memberAPIEnroll.do")
 	public String memberAPIEnroll() {
 		return "member/memberAPIEnroll";

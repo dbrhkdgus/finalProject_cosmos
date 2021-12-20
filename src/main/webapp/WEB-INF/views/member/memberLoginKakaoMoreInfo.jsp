@@ -87,7 +87,15 @@
 								<p class="required" style="width: 185px; color:#666; font-size: 14px; line-height: 35px;">필수입력 항목입니다</p>
 								<div id="errMsg" style="color: red; font-size: 14px;text-align: center; margin-left: 100px;"></div>								
 							</div>
-
+								
+							<div class="form-group row">
+									<label for="phone_number"
+										class="col-md-3 col-form-label text-md-right">프로필 이미지</label>
+									<div class="col-md-6 group-text-input">
+										<input class="form-control" type="file" id="upFile" name="upFile">
+									</div>
+								</div>
+									
 							<div class="form-group row">
 								<label for="permanent_address"
 									class="col-md-3 col-form-label text-md-right">연락처</label>
@@ -174,7 +182,7 @@
 							</div>
 
 
-							<div class="col-md-6 offset-md-4 group-create-button">
+							<div class="col-md-6 offset-md-3 group-create-button">
 								<button type="submit" class="btn btn-primary">회원가입</button>
 							</div>
 						</form>
@@ -232,4 +240,4 @@
 </main>
 	
 </html>
-
+<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>

@@ -75,6 +75,14 @@
 									</div>
 								</div>
 							</div>
+							
+							<div class="form-group row">
+									<label for="phone_number"
+										class="col-md-4 col-form-label text-md-right">프로필 이미지</label>
+									<div class="col-md-6 group-text-input">
+										<input class="form-control" type="file" id="upFile" name="upFile">
+									</div>
+								</div>
 
 							<div class="form-group row">
 								<label for="permanent_address"
