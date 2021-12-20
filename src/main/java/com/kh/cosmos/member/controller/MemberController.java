@@ -45,7 +45,7 @@ public class MemberController {
 		PropertyEditor editor = new CustomDateEditor(sdf, true);
 		binder.registerCustomEditor(Date.class, editor);
 	}
-
+	
 	
 	@Autowired
 	private MemberService memberService;
@@ -110,6 +110,7 @@ public class MemberController {
 		
 		return "member/memberEnroll";
 	}
+	
 	
 	@GetMapping("/memberAPIEnroll.do")
 	public String memberAPIEnroll() {
@@ -202,6 +203,9 @@ public class MemberController {
 		
 		return "member/memberGroupList";
 	}
+	
+	
+	
 	
 	@PostMapping("memberEnroll.do")
 	public String memberEnrollPost(Member member, RedirectAttributes redirectAttr, HttpServletRequest request) {
