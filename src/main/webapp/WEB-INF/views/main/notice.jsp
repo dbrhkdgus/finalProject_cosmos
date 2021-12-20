@@ -50,7 +50,9 @@ $(()=>{
 		</c:forEach>
 	  </tbody>
 	</table>
+	<c:if test="${loginMember.memberId eq 'admin' && not empty loginMember}">
 	<button type="button" class="btn btn-primary float-right" onclick="goNoticeForm();">작성하기(관리자만)</button>
+	</c:if>
 	${pagebar}
 </div>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>

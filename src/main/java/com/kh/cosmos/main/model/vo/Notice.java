@@ -20,5 +20,6 @@ public class Notice implements Serializable{
 	private String memberId;
 	private Date regDate;
 	private int readCount;
+	private int attachNo;
 	
 }
