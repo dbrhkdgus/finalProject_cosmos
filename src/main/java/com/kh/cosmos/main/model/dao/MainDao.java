@@ -20,4 +20,8 @@ public interface MainDao {
 
 	int insertNotice(Notice notice);
 
+	Notice selectOneNotice(int no);
+
+	Attachment selectOneAttach(int attachNo);
+
 }

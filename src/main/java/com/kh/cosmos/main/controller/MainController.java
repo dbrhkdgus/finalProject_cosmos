@@ -108,6 +108,17 @@ public class MainController {
 		 
 		return "redirect:/main/noticeList.do";
 	}
+	@GetMapping("/noticeDetail.do")
+	public void noticeDetail(@RequestParam("no") int no, Model model) {
+		log.debug("noticeNo = {}", no);
+		
+		Notice notice = mainService.selectOneNotice(no);
+		log.debug("notice = {}", notice);
+		int attachNo = notice.getAttachNo();
+		Attachment attach = mainService.selectOneAttach(attachNo);
+		model.addAttribute("notice", notice);
+		model.addAttribute("attach", attach);
+	}
 	
 	@GetMapping("/qa.do")
 	public String qa(@RequestParam(defaultValue = "1") int cPage, Model model, HttpServletRequest request) {
