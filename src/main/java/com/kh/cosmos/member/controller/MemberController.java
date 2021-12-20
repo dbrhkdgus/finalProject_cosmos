@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -21,6 +22,8 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 @Slf4j
 @RequestMapping("/member")
+@SessionAttributes({"loginMember"}) // session에 저장될 model data 지정
+
 public class MemberController {
 	@Autowired
 	private MemberService memberService;
@@ -53,6 +56,7 @@ public class MemberController {
 		if(member != null && password.equals(member.getPassword())) {
 			// 로그인 성공 : loginMember객체를 세션에 저장해서 로그인상태유지
 			model.addAttribute("loginMember", member);
+			log.debug("loginMember = {}", member);
 			
 			// redirect주소 세션에서 가져오기
 			String redirect = (String) session.getAttribute("redirect");
@@ -64,6 +68,7 @@ public class MemberController {
 		}
 		else {
 			// 로그인 실패
+			log.debug("로그인 실패");
 			redirectAttr.addFlashAttribute("msg", "아이디 또는 비밀번호가 다릅니다.");
 		}
 		return "redirect:" + location;

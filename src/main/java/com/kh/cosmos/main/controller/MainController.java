@@ -102,10 +102,21 @@ public class MainController {
 	}
 	
 	@GetMapping("/qa.do")
-	public String qa(Model model) {
-		List<Question> list = mainService.selectQuestionList();
+	public String qa(@RequestParam(defaultValue = "1") int cPage, Model model, HttpServletRequest request) {
+		int limit = 10;
+		int offset = (cPage - 1) * limit;
+		
+		List<Question> list = mainService.selectQuestionList(limit, offset);
 		log.debug("list = {}", list);
 		model.addAttribute("list", list);
+		
+		int totalContent = mainService.selectQuestionTotalCount();
+		model.addAttribute("totalContent", totalContent);
+		
+		String url = request.getRequestURI();
+		String pagebar = HiSpringUtils.getPagebar(cPage, limit, totalContent, url);
+		
+		model.addAttribute("pagebar", pagebar);
 		return "main/qa";
 	}
 	@GetMapping("/qaForm.do")
