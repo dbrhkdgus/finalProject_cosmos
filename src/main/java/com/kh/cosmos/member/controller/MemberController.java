@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.servlet.FlashMap;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.cosmos.member.model.service.MemberService;
@@ -44,7 +45,7 @@ public class MemberController {
 		PropertyEditor editor = new CustomDateEditor(sdf, true);
 		binder.registerCustomEditor(Date.class, editor);
 	}
-
+	
 	
 	@Autowired
 	private MemberService memberService;
@@ -110,6 +111,31 @@ public class MemberController {
 		return "member/memberEnroll";
 	}
 	
+	@PostMapping("/memberEnroll.do")
+	public String memberEnroll(Member member, RedirectAttributes redirectAttr) {
+		log.debug("member = {}", member);
+		
+		try {
+			// 0.비밀번호 암호화 처리
+			log.info("{}", passwordEncoder);
+			String rawPassword = member.getPassword();
+			String encryptedPassword = passwordEncoder.encode(rawPassword);
+			member.setPassword(encryptedPassword);
+			log.info("{} -> {}", rawPassword, encryptedPassword);
+			
+			// 1.업무로직
+			int result = memberService.insertMember(member);
+			
+			// 2.리다이렉트 & 사용자피드백전달
+			redirectAttr.addFlashAttribute("msg", "회원가입 성공!");
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+		
+		return "redirect:/";
+	}
+	
 	@GetMapping("/memberAPIEnroll.do")
 	public String memberAPIEnroll() {
 		return "member/memberAPIEnroll";
@@ -135,6 +161,33 @@ public class MemberController {
 		return "member/memberLoginKakaoMoreInfo";
 		} else {
 			return "redirect:/";
+		}
+			
+		
+	}
+	@RequestMapping("/memberLoginKakaoMoreInfo.do")
+	public String memberLoginKakao(HttpServletRequest request, Model model,HttpSession session, RedirectAttributes redirectAttr) {
+		log.debug("{}","requestMapping");
+		Member kakaoMember = new Member();
+		if(memberService.selectOneMember(request.getParameter("memberId")) == null) {
+		
+		kakaoMember.setMemberId(request.getParameter("memberId"));
+		kakaoMember.setMemberName(request.getParameter("memberName"));
+		kakaoMember.setMemberGender(request.getParameter("gender"));
+		
+		model.addAttribute("kakaoMember",kakaoMember);
+		model.addAttribute("_birthDay",request.getParameter("_birthDay"));
+		model.addAttribute("profile_img",request.getParameter("profile_img"));
+		
+		
+		session.setAttribute("kakaoMemeber", kakaoMember);
+//		log.debug("loginMember = {}",kakaoMember);
+		
+		return "member/memberLoginKakaoMoreInfo";
+		} else {
+			redirectAttr.addFlashAttribute("msg", "이미 가입한 카카오 아이디입니다.");
+			//flashMap.put("msg", "이미 가입한 카카오 아이디입니다.");
+			return "redirect:/member/memberAPIEnroll.do";
 		}
 			
 		

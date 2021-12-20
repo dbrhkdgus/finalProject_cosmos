@@ -1,3 +1,4 @@
+
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE log4j:configuration PUBLIC "-//APACHE//DTD LOG4J 1.2//EN" "log4j.dtd">
 <log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
@@ -11,9 +12,14 @@
 	</appender>
 	
 	<!-- Application Loggers -->
-	<logger name="com.kh.spring">
+	<logger name="com.kh.spring" additivity="true">
 		<level value="info" />
 	</logger>
+	
+	<logger name="com.kh.security" additivity="true">
+		<level value="debug" />
+	</logger>
+	
 	
 	<!-- 3rdparty Loggers -->
 	<logger name="org.springframework.core">
