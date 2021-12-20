@@ -47,7 +47,8 @@
 							<form 
 							name="memberAPIEnrollFrm" 
 							action="${pageContext.request.contextPath}/member/memberAPImoreInfoEnroll.do" 
-							method="post">	
+							method="post"
+							onsubmit="">	
 								<div class="form-group row">
 								<label for="permanent_address"
 									class="col-md-4 col-form-label text-md-right">이름</label>
@@ -73,20 +74,21 @@
 								<div class="col-md-6 group-text-input">
 									<div class="input-group mb-3">
 										<input type="text" class="form-control" placeholder="Username"
-											aria-label="Username" required="required" name="email">
+											aria-label="Username" required="required" name="emailId" id="emailId">
 											 <span class="input-group-text">@</span>
 										<input type="text" class="form-control" placeholder="Server"
-											aria-label="Server" required="required" name="email-server">
+											aria-label="Server" required="required" name="email-server" id="emailServer">
 									</div>
 								</div>
 								<p class="required" style="width: 185px; color:#666; font-size: 14px; line-height: 35px;">필수입력 항목입니다</p>
+								<div id="errMsg" style="color: red; font-size: 14px;text-align: center; margin-left: 100px;"></div>								
 							</div>
 
 							<div class="form-group row">
 								<label for="permanent_address"
 									class="col-md-4 col-form-label text-md-right">연락처</label>
 								<div class="col-md-6 group-text-input" required="required" >
-									<input type="text" id="phone_number" class="form-control"
+									<input type="text" id="phone" class="form-control"
 										name="phone">
 								</div>
 								<p class="required" style="width: 185px; color:#666; font-size: 14px; line-height: 35px;">필수입력 항목입니다</p>
@@ -177,24 +179,52 @@
 				</div>
 			</div>
 		</div>
+		
+		
 	<script>
-	
-	phone_number.onblur = function(){
-		  errMsg.innerHTML = "";
-	if(! /^[0-9]/g.test(this.value))
-	    errMsg.innerHTML += "<p>숫자만 입력 가능합니다.</p>";
+	document.memberAPIEnrollFrm.onsubmit = e => {
+	 
+	  var phone_rule =  /^[0-9]/g;
+	  var email_rule =  /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+	  var email_id = $("#emailId").val();
+	  var email_server =$("#emailServer").val();
+	  var phone =$("#phone").val();
+	  var mail ="";
+	 
+	 
+	  if(!phone){
+	      alert("연락처를 입력해주세요");
+	    $("#phone").focus();
+	    return false;
 	  }
-	
-	const birth = $(birthYear).val() + $(birthMonth).val() + $(birthDate).val()
-	console.log(birth);
-	
-    var regExpArr = [/^.{8,15}$/, /\d/, /[a-zA-Z]/, /[\*!&]/];
-	//5.이메일 검사
-    // 4글자 이상(\w = [a-zA-Z0-9_], [\w-\.]) @가 나오고
-    // 1글자 이상(주소). 글자 가 1~3번 반복됨
-    if(!regExpTest(/^[\w]{4,}@[\w]+(\.[\w]+){1,3}$/, email, "이메일 형식에 어긋납니다."))
-            return false;
-	
+	  if(!email_id){
+	      alert("이메일을 입력해주세요");
+	    $("#emailId").focus();
+	    return false;
+	  }
+	  if(!email_server){
+	      alert("도메인을 입력해주세요");
+	    $("#emailServer").focus();
+	    return false;
+	  }
+	  
+	  mail = email_id+"@"+email_server;
+	  $("#mail").val(mail);  
+	  
+	  if(!email_rule.test(mail)){
+	      alert("이메일을 형식에 맞게 입력해주세요.");
+	    return false;
+	  }
+
+	  if(!phone_rule.test(phone)){
+	      alert("연락처는 숫자만 입력가능합니다.");
+	    return false;
+	  }
+	  
+	  function setEmailDomain(domain){
+	        $("#email_server").val(domain);
+	    }
+	}
 	</script>
 
 </main>

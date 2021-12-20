@@ -128,7 +128,7 @@ public class MemberController {
 	
 	@PostMapping("/memberAPImoreInfoEnroll.do")
 	public String memberAPImoreInfoEnroll(HttpServletRequest request, Model model ,HttpSession session) {
-		String email = (request.getParameter("email")) + "@" + (request.getParameter("email-server"));
+		String email = (request.getParameter("emailId")) + "@" + (request.getParameter("email-server"));
 		String birthDay = (request.getParameter("birtYear")) + (request.getParameter("birthMonth"))+ (request.getParameter("birthDate")); 
 		
 		 
