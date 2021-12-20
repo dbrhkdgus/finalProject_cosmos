@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -26,6 +27,11 @@ public class HomeController {
 		
 		// welcompage를 직접가지 않고, handler를 거쳐가는 설정
 		return "forward:/index.jsp";
+	}
+	
+	@GetMapping("/error/accessDenied.do")
+	public void accessDenied() {
+		logger.debug("/error/accessDenied.do");
 	}
 	
 }

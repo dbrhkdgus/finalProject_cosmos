@@ -1,5 +1,6 @@
 package com.kh.cosmos.member.controller;
 
+import java.beans.PropertyEditor;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -9,10 +10,13 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.http.HttpRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -32,6 +36,16 @@ import oracle.jdbc.proxy.annotation.Post;
 @SessionAttributes({"loginMember"}) // session에 저장될 model data 지정
 
 public class MemberController {
+	
+	@InitBinder
+	public void initBinder(WebDataBinder binder) {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		// 형식객체, 빈값허용여부("" -> null)
+		PropertyEditor editor = new CustomDateEditor(sdf, true);
+		binder.registerCustomEditor(Date.class, editor);
+	}
+
+	
 	@Autowired
 	private MemberService memberService;
 	
