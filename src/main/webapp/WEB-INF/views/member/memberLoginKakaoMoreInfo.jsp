@@ -36,8 +36,7 @@
 
 		
 	<main class="my-form">
-		${fn:substring(_birthDay,0,2)}
-		${fn:substring(_birthDay,2,4)} 
+		
 	<div class="cotainer">
 		<div class="row justify-content-center">
 			<div class="col-md-8">
@@ -49,12 +48,13 @@
 							action="${pageContext.request.contextPath}/member/memberAPImoreInfoEnroll.do" 
 							method="post"
 							onsubmit="">	
+							<input type="hidden" name="memberId" value ="${kakaoMember.memberId }" />
 								<div class="form-group row">
 								<label for="permanent_address"
 									class="col-md-4 col-form-label text-md-right">이름</label>
 								<div class="col-md-6 group-text-input">
 									<input type="text" id="name" class="form-control"
-										name="name" placeholder="${kakaoMember.memberName}"
+										name="memberName" placeholder="${kakaoMember.memberName}"
 										value="${kakaoMember.memberName}">
 								</div>
 							</div>
@@ -64,7 +64,7 @@
 									class="col-md-4 col-form-label text-md-right">닉네임</label>
 								<div class="col-md-6 group-text-input">
 									<input type="text" id="nickname" class="form-control"
-										name="permanent-address" placeholder="선택사항입니다">
+										name="nickname" placeholder="선택사항입니다">
 								</div>
 							</div>
 
@@ -73,10 +73,10 @@
 									class="col-md-4 col-form-label text-md-right">이메일</label>
 								<div class="col-md-6 group-text-input">
 									<div class="input-group mb-3">
-										<input type="text" class="form-control" placeholder="Username"
+										<input type="text" class="form-control" 
 											aria-label="Username" required="required" name="emailId" id="emailId">
 											 <span class="input-group-text">@</span>
-										<input type="text" class="form-control" placeholder="Server"
+										<input type="text" class="form-control" 
 											aria-label="Server" required="required" name="email-server" id="emailServer">
 									</div>
 								</div>
@@ -89,7 +89,7 @@
 									class="col-md-4 col-form-label text-md-right">연락처</label>
 								<div class="col-md-6 group-text-input" required="required" >
 									<input type="text" id="phone" class="form-control"
-										name="phone">
+										name="phone" placeholder="'-'을 제외한 숫자만 입력해주세요.">
 								</div>
 								<p class="required" style="width: 185px; color:#666; font-size: 14px; line-height: 35px;">필수입력 항목입니다</p>
 								<div id="errMsg" style="color: red; font-size: 14px;text-align: center; margin-left: 100px;"></div>								
@@ -104,9 +104,9 @@
 									<div class="form-check">
 											
 										<input class="form-check-input" type="radio"
-											name="gender" id="flexRadioDefault1"
+											name="memberGender" id="flexRadioDefault1"
 											value="F"
-											<c:if test="${kakaoMember.gender eq 'F'}">checked</c:if>> 
+											<c:if test="${kakaoMember.memberGender eq 'F'}">checked</c:if>> 
 											<label
 											class="form-check-label" for="flexRadioDefault1"> 여성
 											
@@ -117,8 +117,8 @@
 									<div class="form-check">
 										<input class="form-check-input" type="radio"
 										value="M"
-										<c:if test="${kakaoMember.gender eq 'M'}">checked</c:if>
-											name="gender" id="flexRadioDefault1"> <label
+										<c:if test="${kakaoMember.memberGender eq 'M'}">checked</c:if>
+											name="memberGender" id="flexRadioDefault1"> <label
 											class="form-check-label" for="flexRadioDefault1"
 											> 남성
 										</label>
@@ -160,7 +160,7 @@
 								<label for="full_name"
 									class="col-md-4 col-form-label text-md-right">직업</label>
 								<div class="col-md-6 group-text-input">
-									<select class="form-select" aria-label="Default select example" name="job">
+									<select class="form-select" aria-label="Default select example" name="memberJob">
 										<option selected  value=null>직업선택</option>
 										<option value="개발자">개발자</option>
 										<option value="학생">학생</option>
