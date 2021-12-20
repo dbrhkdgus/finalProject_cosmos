@@ -190,8 +190,10 @@ public class MainController {
 	public String queDetail(@RequestParam int queNo, Model model) {
 		log.debug("queNo = {}", queNo);
 		Question que = mainService.selectOneQuestionByNo(queNo);
+		Attachment att = mainService.selectOneAttach(que.getAttachNo());
 		log.debug("que = {} ", que);
 		model.addAttribute("que",que);
+		model.addAttribute("att",att);
 		return "main/qaDetail";
 	}
 }
