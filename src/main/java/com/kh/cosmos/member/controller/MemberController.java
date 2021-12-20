@@ -1,5 +1,9 @@
 package com.kh.cosmos.member.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -98,8 +102,10 @@ public class MemberController {
 	}
 	
 	@PostMapping("/memberLoginKakaoMoreInfo.do")
-	public String memberLoginKakao(HttpServletRequest request, Model model) {
+	public String memberLoginKakao(HttpServletRequest request, Model model,HttpSession session) {
 		Member kakaoMember = new Member();
+		if(memberService.selectOneMember(request.getParameter("memberId")) == null) {
+		
 		kakaoMember.setMemberId(request.getParameter("memberId"));
 		kakaoMember.setMemberName(request.getParameter("memberName"));
 		kakaoMember.setGender(request.getParameter("gender"));
@@ -108,9 +114,54 @@ public class MemberController {
 		model.addAttribute("_birthDay",request.getParameter("_birthDay"));
 		model.addAttribute("profile_img",request.getParameter("profile_img"));
 		
-		log.debug("loginMember = {}",kakaoMember);
+		
+		session.setAttribute("kakaoMemeber", kakaoMember);
+//		log.debug("loginMember = {}",kakaoMember);
 		
 		return "member/memberLoginKakaoMoreInfo";
+		} else {
+			return "redirect:/";
+		}
+			
+		
+	}
+	
+	@PostMapping("/memberAPImoreInfoEnroll.do")
+	public String memberAPImoreInfoEnroll(HttpServletRequest request, Model model ,HttpSession session) {
+		String email = (request.getParameter("email")) + "@" + (request.getParameter("email-server"));
+		String birthDay = (request.getParameter("birtYear")) + (request.getParameter("birthMonth"))+ (request.getParameter("birthDate")); 
+		
+		 
+		
+			SimpleDateFormat dtFormat = new SimpleDateFormat("yyyyMMdd"); 
+			SimpleDateFormat newDtFormat = new SimpleDateFormat("yyyy-MM-dd"); // String 타입을 Date 타입으로 변환
+			Date formatDate = new Date();
+			try {
+				formatDate = dtFormat.parse(birthDay);
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		log.debug("formatDate = {}",formatDate);
+
+		
+		Member APIMember = new Member();
+		
+		APIMember.setMemberId(session.getId());
+		APIMember.setMemberName(request.getParameter("name"));
+		APIMember.setGender(request.getParameter("gender"));
+		APIMember.setPhone(request.getParameter("phone"));
+		APIMember.setMemberJob(request.getParameter("job"));
+		APIMember.setBirthDay(formatDate);
+		APIMember.setMemberEmail(email);
+		APIMember.setPassword("1234");
+		
+		
+		
+		
+		log.debug("loginMember = {}",APIMember);
+		
+		return "redirect:/";
 	}
 	
 	

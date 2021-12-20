@@ -22,7 +22,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.kh.cosmos.main.model.service.MainService;
 import com.kh.cosmos.main.model.vo.Notice;
 import com.kh.cosmos.main.model.vo.Question;
-import com.kh.cosmos.common.HiSpringUtils;
+import com.kh.cosmos.common.CosmosUtils;
 import com.kh.cosmos.common.vo.Attachment;
 
 import lombok.extern.slf4j.Slf4j;
@@ -56,7 +56,7 @@ public class MainController {
 		model.addAttribute("totalContent", totalContent);
 		
 		String url = request.getRequestURI();
-		String pagebar = HiSpringUtils.getPagebar(cPage, limit, totalContent, url);
+		String pagebar = CosmosUtils.getPagebar(cPage, limit, totalContent, url);
 		log.debug("pagebar = {}", pagebar);
 		model.addAttribute("pagebar", pagebar);
 		
@@ -83,7 +83,7 @@ public class MainController {
 			 log.debug("upFile.size = {}",upFile.getSize());
 		 
 			 String originalFilename = upFile.getOriginalFilename();
-			 String renamedFilename = HiSpringUtils.getRenamedFilename(originalFilename);
+			 String renamedFilename = CosmosUtils.getRenamedFilename(originalFilename);
 			 
 			 // 1.서버컴퓨터에 저장
 			 File dest = new File(saveDirectory, renamedFilename);
@@ -133,7 +133,7 @@ public class MainController {
 		model.addAttribute("totalContent", totalContent);
 		
 		String url = request.getRequestURI();
-		String pagebar = HiSpringUtils.getPagebar(cPage, limit, totalContent, url);
+		String pagebar = CosmosUtils.getPagebar(cPage, limit, totalContent, url);
 		
 		model.addAttribute("pagebar", pagebar);
 		return "main/qa";
@@ -159,7 +159,7 @@ public class MainController {
 			 log.debug("upFile.size = {}",upFile.getSize());
 		 
 			 String originalFilename = upFile.getOriginalFilename();
-			 String renamedFilename = HiSpringUtils.getRenamedFilename(originalFilename);
+			 String renamedFilename = CosmosUtils.getRenamedFilename(originalFilename);
 			 
 			 // 1.서버컴퓨터에 저장
 			 File dest = new File(saveDirectory, renamedFilename);
