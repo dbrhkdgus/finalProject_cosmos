@@ -108,9 +108,27 @@ public class MemberController {
 		model.addAttribute("_birthDay",request.getParameter("_birthDay"));
 		model.addAttribute("profile_img",request.getParameter("profile_img"));
 		
-		log.debug("loginMember = {}",kakaoMember);
+//		log.debug("loginMember = {}",kakaoMember);
 		
 		return "member/memberLoginKakaoMoreInfo";
+	}
+	
+	@PostMapping("/memberAPImoreInfoEnroll")
+	public String memberAPImoreInfoEnroll(HttpServletRequest request, Model model ,HttpSession session) {
+		String email = (request.getParameter("email")) + (request.getParameter("email-server"));;
+
+		Member APIMember = new Member();
+		APIMember.setMemberId(request.getParameter("memberId"));
+		APIMember.setMemberName(request.getParameter("name"));
+		APIMember.setGender(request.getParameter("gender"));
+		APIMember.setPhone(request.getParameter("phone"));
+		APIMember.setMemberJob(request.getParameter("job"));
+		APIMember.setMemberJob(request.getParameter("job"));
+		
+		log.debug("loginMember = {}",APIMember);
+		log.debug("email = {}",email);
+		
+		return "member/memberAPImoreInfoEnroll";
 	}
 	
 	

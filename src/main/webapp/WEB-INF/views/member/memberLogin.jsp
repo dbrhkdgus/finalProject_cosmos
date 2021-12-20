@@ -120,7 +120,7 @@ $(() => {
 	});
 	Kakao.init('753f0f237470af5e83541545d143b9c3'); //발급받은 키 중 javascript키를 사용해준다.
 	//console.log(Kakao.isInitialized()); // sdk초기화여부판단
-	//카카오로그인
+	//카카오
 	function kakaoLogin() {
 	    Kakao.Auth.login({
 	      success: function (response) {

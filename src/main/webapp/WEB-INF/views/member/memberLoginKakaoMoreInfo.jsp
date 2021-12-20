@@ -42,14 +42,17 @@
 				<div class="card">
 					<div class="card-header">소셜계정 추가 정보입력</div>
 					<div class="card-body">
-						<form name="my-form" onsubmit="return validform()" action="success.php" method="POST">
-							
+							<form 
+							name="memberAPIEnrollFrm" 
+							action="${pageContext.request.contextPath}/member/memberAPImoreInfoEnroll" 
+							method="post">	
 								<div class="form-group row">
 								<label for="permanent_address"
 									class="col-md-4 col-form-label text-md-right">이름</label>
 								<div class="col-md-6 group-text-input">
 									<input type="text" id="name" class="form-control"
-										name="permanent-address" placeholder="${kakaoMember.memberName}">
+										name="name" placeholder="${kakaoMember.memberName}"
+										value="${kakaoMember.memberName}">
 								</div>
 							</div>
 
@@ -68,10 +71,10 @@
 								<div class="col-md-6 group-text-input">
 									<div class="input-group mb-3">
 										<input type="text" class="form-control" placeholder="Username"
-											aria-label="Username" required="required">
+											aria-label="Username" required="required" value="email">
 											 <span class="input-group-text">@</span>
 										<input type="text" class="form-control" placeholder="Server"
-											aria-label="Server" required="required">
+											aria-label="Server" required="required" value="email-server">
 									</div>
 								</div>
 								<p class="required" style="width: 185px; color:#666; font-size: 14px; line-height: 35px;">필수입력 항목입니다</p>
@@ -82,7 +85,7 @@
 									class="col-md-4 col-form-label text-md-right">연락처</label>
 								<div class="col-md-6 group-text-input" required="required" >
 									<input type="text" id="phone_number" class="form-control"
-										name="permanent-address">
+										name="phone">
 								</div>
 								<p class="required" style="width: 185px; color:#666; font-size: 14px; line-height: 35px;">필수입력 항목입니다</p>
 								<div id="errMsg" style="color: red; font-size: 14px;text-align: center; margin-left: 100px;"></div>								
@@ -116,6 +119,7 @@
 									</div>
 								</div>
 							</div>
+							${kakaoMember}
 
 
 							<div class="form-group row">
@@ -145,16 +149,18 @@
 								</div>
 								<p class="required" style="width: 185px; color:#666; font-size: 14px; line-height: 35px;">필수입력 항목입니다</p>
 							</div>
-						
+							
+							
+						 
 							<div class="form-group row">
 								<label for="full_name"
 									class="col-md-4 col-form-label text-md-right">직업</label>
 								<div class="col-md-6 group-text-input">
-									<select class="form-select" aria-label="Default select example">
+									<select class="form-select" aria-label="Default select example" name="job">
 										<option selected>직업</option>
-										<option value="1">개발자</option>
-										<option value="2">학생</option>
-										<option value="3">직장인</option>
+										<option value="개발자">개발자</option>
+										<option value="학생">학생</option>
+										<option value="직장인">직장인</option>
 									</select>
 								</div>
 							</div>
@@ -176,6 +182,10 @@
 	if(! /^[0-9]/g.test(this.value))
 	    errMsg.innerHTML += "<p>숫자만 입력 가능합니다.</p>";
 	  }
+	
+	const birth = $(birthYear).val() + $(birthMonth).val() + $(birthDate).val()
+	console.log(birth);
+	
 	</script>
 
 </main>
