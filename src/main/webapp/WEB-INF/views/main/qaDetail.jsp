@@ -35,6 +35,20 @@ div#board-container label.custom-file-label{text-align:left;}
 			<img src="${pageContext.request.contextPath }/resources/upFile/question/${att.renamedFilename}" alt="" style="width: 50%" /> ${que.queContent}
 		</div>
 	</div>
+	<br />
+	
+		<div class="input-group mb-3">
+		  <input type="text" class="form-control" placeholder="댓글을 입력하세요" aria-label="Recipient's username" aria-describedby="button-addon2">
+		  <button class="btn btn-outline-secondary" type="button" id="button-addon2" style="margin-bottom: 0px;">댓글작성</button>
+		</div>
+		
+	<!--댓글유무분기처리  -->
+	<div class="card text-center">
+		<div class="reply-outer d-flex">
+		<p id="reply-writer">작성자 :</p>
+		<p id="reply-content">내용</p>
+		</div>
+	</div>
 	
 
 </div>
