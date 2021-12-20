@@ -79,7 +79,7 @@
 							</c:if>
 						    <%-- 로그인했을때 --%>
 						    <c:if test="${loginMember.memberId != 'admin' && not empty loginMember}">
-						    	<span class="fs-6 ">
+						    	
 							    	<div class="btn-group">
 									  <button type="button" class="btn btn-outline-info dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
 									    ${loginMember.memberId}
@@ -92,7 +92,7 @@
 									    <li><a class="dropdown-item" href="#" style="color: blue;">내 정보 수정</a></li>
 									  </ul>
 									</div>
-						    	님 안녕하세요.</span>
+						    	<span class="fs-6 ">님 안녕하세요.</span>
 						    	<button 
 							    	class="btn btn-outline-primary" 
 							    	type="button"
