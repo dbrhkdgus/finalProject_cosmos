@@ -7,10 +7,12 @@ import com.kh.cosmos.main.model.vo.Question;
 
 public interface MainDao {
 
-	List<Question> selectQuestionList();
+	List<Question> selectQuestionList(int limit, int offset);
 
 	List<Notice> selectNoticeList(int offset, int limit);
 
 	int selectNoticeTotalCount();
+
+	int selectQuestionTotalCount();
 
 }

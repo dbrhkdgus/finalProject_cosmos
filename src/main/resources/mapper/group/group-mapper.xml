@@ -3,21 +3,21 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="group">
-  <insert id="insertGroup">
-	insert into 
-		tb_group
-	values(
-		seq_group_no.nextval,
-		1,
-		#{groupName},
-		default,
-		#{groupCharge},
-		default,
-		#{groupPool},
-		#{groupPrivate},
-		default,
-		#{groupLocation}
-	)
+<insert id="insertGroup">
+
+    insert into 
+        tb_group
+    values(
+        seq_group_no.nextval,
+        1,
+        #{groupName},
+        default,
+        #{groupCharge},
+        default,
+        #{groupPool},
+        #{groupPrivate},
+        default,
+        #{groupLocation}
+    )
   </insert>
- 
 </mapper>

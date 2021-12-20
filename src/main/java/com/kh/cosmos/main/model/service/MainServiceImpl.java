@@ -21,8 +21,8 @@ public class MainServiceImpl implements MainService {
 	private MainDao mainDao;
 
 	@Override
-	public List<Question> selectQuestionList() {
-		return mainDao.selectQuestionList();
+	public List<Question> selectQuestionList(int limit, int offset) {
+		return mainDao.selectQuestionList(limit, offset);
 	}
 
 	@Override
@@ -33,6 +33,12 @@ public class MainServiceImpl implements MainService {
 	@Override
 	public int selectNoticeTotalCount() {
 		return mainDao.selectNoticeTotalCount();
+	}
+
+	@Override
+	public int selectQuestionTotalCount() {
+		// TODO Auto-generated method stub
+		return mainDao.selectQuestionTotalCount();
 	}
 	
 	

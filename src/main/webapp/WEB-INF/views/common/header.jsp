@@ -37,6 +37,15 @@
 	alert("${msg}");
 </script>
 </c:if>
+<!-- Failed to load resource: the server responded with a status of 404 () 오류 해결용 -->
+<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+<link rel="icon" href="/favicon.ico" type="image/x-icon">
+<style>
+.headerBtnText{
+	font-size: ;
+}
+</style>
+
 </head>
     <body>
         <header style="box-shadow: 12px -7px 22px #ccc; margin-bottom: 50px; font-family: 'SBAggroB'; font-size: 20px; ">
@@ -45,7 +54,7 @@
                 <div class="container" id="headerContainer">
                     <div id="navbar">
                         <div class="nav-logo">
-                            <a href="">
+                            <a href="${pageContext.request.contextPath}">
                                 <img src="${pageContext.request.contextPath }/resources/images/cosmoslogo_black.png" class="nav-logo-img" alt="">
                             </a>
                         </div>
@@ -69,14 +78,30 @@
 	                            <button type="button" class="btn btn-outline-primary" onclick="location.href='${pageContext.request.contextPath}/member/memberAPIEnroll.do';">회원가입</button>
 							</c:if>
 						    <%-- 로그인했을때 --%>
-						    <c:if test="${not empty loginMember}">
-						    	<span>${loginMember.memberId}님 안녕하세요.</span>
+						    <c:if test="${loginMember.memberId != 'admin' && not empty loginMember}">
+						    	<span class="fs-6 ">${loginMember.memberId}님 안녕하세요.</span>
 						    	&nbsp;&nbsp;
 						    	<button 
 							    	class="btn btn-outline-primary" 
 							    	type="button"
 							    	onclick="location.href='${pageContext.request.contextPath}/member/memberLogout.do';">로그아웃</button>
-						    </c:if>							                        
+						    </c:if>				
+						    <c:if test="${loginMember.memberId =='admin' && not empty loginMember}">
+						    	<span class="fs-6 ">${loginMember.memberId}계정&nbsp&nbsp</span>
+						    	<button 
+							    	class="btn btn-outline-primary" 
+							    	type="button"
+							    	onclick="location.href='${pageContext.request.contextPath}/admin/main.do';">
+							    	<span class="headerBtnText">사이트 관리</span> 
+							    	</button>
+						    	<button 
+							    	class="btn btn-outline-primary" 
+							    	type="button"
+							    	onclick="location.href='${pageContext.request.contextPath}/member/memberLogout.do';">
+							    	<span class="headerBtnText">로그아웃</span>
+							    	</button>						    	
+						    	
+						    </c:if>			                        
                             
                         </div>
                     </div>

@@ -17,9 +17,9 @@ public class MainDaoImpl implements MainDao {
 	private SqlSession session;
 
 	@Override
-	public List<Question> selectQuestionList() {
-		// TODO Auto-generated method stub
-		return session.selectList("question.selectQuestionList");
+	public List<Question> selectQuestionList(int limit, int offset) {
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		return session.selectList("question.selectQuestionList",null,rowBounds);
 	}
 
 	@Override
@@ -31,6 +31,12 @@ public class MainDaoImpl implements MainDao {
 	@Override
 	public int selectNoticeTotalCount() {
 		return session.selectOne("notice.selectNoticeTotalCount");
+	}
+
+	@Override
+	public int selectQuestionTotalCount() {
+		// TODO Auto-generated method stub
+		return session.selectOne("question.selectQuestionTotalCount");
 	}
 	
 	
