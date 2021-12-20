@@ -15,4 +15,6 @@ public interface MainService {
 
 	int selectQuestionTotalCount();
 
+	int insertQuestion(Question que);
+
 }

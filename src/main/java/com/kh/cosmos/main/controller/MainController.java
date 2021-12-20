@@ -125,8 +125,19 @@ public class MainController {
 		return "main/qaForm";
 	}
 	@PostMapping("/queEnroll.do")
-	public String queEnroll(Question que) {
-	
+	public String queEnroll(Question que, RedirectAttributes redirectAttr) {
+		
+//		try {
+//			int result = mainService.insertQuestion(que);
+//			
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			
+//			redirectAttr.addFlashAttribute("msg", "게시글 작성 실패");
+//			
+//		}
+		int result = mainService.insertQuestion(que);
+		log.debug("result = {}", result);
 		return "redirect:qa.do";
 	}
 }

@@ -15,4 +15,6 @@ public interface MainDao {
 
 	int selectQuestionTotalCount();
 
+	int insertQuestion(Question que);
+
 }

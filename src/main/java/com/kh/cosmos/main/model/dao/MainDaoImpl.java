@@ -38,6 +38,12 @@ public class MainDaoImpl implements MainDao {
 		// TODO Auto-generated method stub
 		return session.selectOne("question.selectQuestionTotalCount");
 	}
+
+	@Override
+	public int insertQuestion(Question que) {
+		// TODO Auto-generated method stub
+		return session.insert("question.insertQuestion", que);
+	}
 	
 	
 }

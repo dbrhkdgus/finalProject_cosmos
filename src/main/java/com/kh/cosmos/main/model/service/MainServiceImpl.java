@@ -40,6 +40,12 @@ public class MainServiceImpl implements MainService {
 		// TODO Auto-generated method stub
 		return mainDao.selectQuestionTotalCount();
 	}
+
+	@Override
+	public int insertQuestion(Question que) {
+		// TODO Auto-generated method stub
+		return mainDao.insertQuestion(que);
+	}
 	
 	
 
