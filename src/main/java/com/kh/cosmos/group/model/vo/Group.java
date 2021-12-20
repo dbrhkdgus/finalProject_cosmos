@@ -8,14 +8,13 @@ import com.kh.cosmos.common.vo.Attachment;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import lombok.ToString;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString(callSuper = true)
 public class Group extends GroupEntity implements Serializable {
 	
 	/**
