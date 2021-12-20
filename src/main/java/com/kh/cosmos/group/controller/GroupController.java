@@ -59,20 +59,18 @@ public class GroupController {
 	
 	@PostMapping("/insertGroup.do")
 	public String insertGroup(
-			Group group, GroupInfoConnect groupInfoConnect, GroupInfo groupInfo,
+			Group group,
 			@RequestParam(value="upFile", required=false) MultipartFile upFile, 
 			RedirectAttributes redirectAttributes
 			) throws IllegalStateException, IOException {
 		log.debug("group = {}", group);
-		log.debug("groupInfoConnect = {}", groupInfoConnect);
+		
 		char groupPrivate = group.getGroupPrivate();
 		if(groupPrivate != 'L') {
 			group.setGroupPrivate('U');
 		}
 		
 		try {
-			// 첨부파일 list생성
-			// List<Attachment> attachments = new ArrayList<>();
 			
 			// application객체(ServletContext)
 			String saveDirectory = application.getRealPath("/resources/upFile/group");
@@ -106,8 +104,8 @@ public class GroupController {
 			
 			
 			int result = groupService.insertGroup(group);
-			result = groupService.insertGroupInfoConnect(groupInfoConnect);
-			result = groupService.insertGroupInfo(groupInfo);
+//			result = groupService.insertGroupInfoConnect(groupInfoConnect);
+//			result = groupService.insertGroupInfo(groupInfo);
 			
 			String msg = result > 0 ? "그룹 신청 성공!" : "그룹 신청 실패!";
 			redirectAttributes.addFlashAttribute("msg", msg);

@@ -52,12 +52,13 @@
 							action="${pageContext.request.contextPath}/member/memberAPImoreInfoEnroll.do" 
 							method="post"
 							onsubmit="">	
+							<input type="hidden" name="memberId" value ="${kakaoMember.memberId }" />
 								<div class="form-group row">
 								<label for="permanent_address"
 									class="col-md-3 col-form-label text-md-right">이름</label>
 								<div class="col-md-6 group-text-input">
 									<input type="text" id="name" class="form-control"
-										name="name" placeholder="${kakaoMember.memberName}"
+										name="memberName" placeholder="${kakaoMember.memberName}"
 										value="${kakaoMember.memberName}">
 								</div>
 							</div>
@@ -67,7 +68,7 @@
 									class="col-md-3 col-form-label text-md-right">닉네임</label>
 								<div class="col-md-6 group-text-input">
 									<input type="text" id="nickname" class="form-control"
-										name="permanent-address" placeholder="선택사항입니다">
+										name="nickname" placeholder="선택사항입니다">
 								</div>
 							</div>
 
@@ -107,7 +108,7 @@
 									<div class="form-check">
 											
 										<input class="form-check-input" type="radio"
-											name="gender" id="flexRadioDefault1"
+											name="memberGender" id="flexRadioDefault1"
 											value="F"
 											<c:if test="${kakaoMember.memberGender eq 'F'}">checked</c:if>> 
 											<label
@@ -121,7 +122,7 @@
 										<input class="form-check-input" type="radio"
 										value="M"
 										<c:if test="${kakaoMember.memberGender eq 'M'}">checked</c:if>
-											name="gender" id="flexRadioDefault1"> <label
+											name="memberGender" id="flexRadioDefault1"> <label
 											class="form-check-label" for="flexRadioDefault1"
 											> 남성
 										</label>
@@ -163,7 +164,7 @@
 								<label for="full_name"
 									class="col-md-3 col-form-label text-md-right">직업</label>
 								<div class="col-md-6 group-text-input">
-									<select class="form-select" aria-label="Default select example" name="job">
+									<select class="form-select" aria-label="Default select example" name="memberJob">
 										<option selected  value=null>직업선택</option>
 										<option value="개발자">개발자</option>
 										<option value="학생">학생</option>
