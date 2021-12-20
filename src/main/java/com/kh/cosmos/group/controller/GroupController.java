@@ -101,6 +101,7 @@ public class GroupController {
 				attach.setImgFlag("Y");
 				int attachNo = groupService.insertAttach(attach);
 				log.debug("attachNo = {}", attachNo);
+				
 			}
 			
 			
