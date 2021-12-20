@@ -23,5 +23,7 @@ public interface MainDao {
 
 	int insertNotice(Notice notice);
 
+	Question selectOneQuestionByNo(int queNo);
+
 
 }

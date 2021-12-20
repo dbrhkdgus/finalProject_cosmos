@@ -58,6 +58,12 @@ public class MainServiceImpl implements MainService {
 		// TODO Auto-generated method stub
 		return mainDao.insertNotice(notice);
 	}
+
+	@Override
+	public Question selectOneQuestionByNo(int queNo) {
+		// TODO Auto-generated method stub
+		return mainDao.selectOneQuestionByNo(queNo);
+	}
 	
 	
 

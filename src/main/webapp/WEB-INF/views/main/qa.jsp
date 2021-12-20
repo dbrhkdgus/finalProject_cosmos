@@ -31,14 +31,14 @@
 		    <tr>
 		      <th scope="row">${que.queNo }</th>
 		      <td>${que.queCategory }</td>
-		      <td>
+		      <td> <a href="${pageContext.request.contextPath }/main/qaDetail.do?queNo=${que.queNo}"> 
 		      <c:choose>
 		      	<c:when test="${fn:length(que.queTitle) gt 4 }"> ${fn:substring(que.queTitle,0,4) }
 		      		<c:forEach begin="2" end="${fn:length(que.queTitle)}" step="1">*</c:forEach></c:when>
 		      	<c:otherwise>
 		      		<c:forEach begin="2" end="${fn:length(que.queTitle)}" step="1">*</c:forEach>
 		      	</c:otherwise>
-		      </c:choose>
+		      </c:choose></a>
 		      </td>
 		      <td>
 		      ${fn:substring(que.memberName,0,1) } 
