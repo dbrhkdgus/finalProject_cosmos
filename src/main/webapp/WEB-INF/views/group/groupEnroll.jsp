@@ -126,7 +126,7 @@
 										<div class="group-text-input form-floating col-md-6">
 
 											<textarea class="form-control"
-												placeholder="Leave a comment here" id="floatingTextarea2"
+												placeholder="Leave a comment here" id="giContent1" name="giContent"
 												style="height: 100px; width: 200%; resize: none;"></textarea>
 
 										</div>
@@ -141,7 +141,7 @@
 										<div class="group-text-input form-floating col-md-6">
 
 											<textarea class="form-control"
-												placeholder="Leave a comment here" id="floatingTextarea2"
+												placeholder="Leave a comment here" id="giContent2" name="giContent"
 												style="height: 100px; width: 200%; resize: none;"></textarea>
 
 										</div>
@@ -156,7 +156,7 @@
 										<div class="group-text-input form-floating col-md-6">
 
 											<textarea class="form-control"
-												placeholder="Leave a comment here" id="floatingTextarea2"
+												placeholder="Leave a comment here" id="giContent3" name="giContent"
 												style="height: 100px; width: 200%; resize: none;"></textarea>
 
 										</div>
