@@ -360,7 +360,15 @@
     color: #666;
 }
 
+.API-enroll-form{
+    text-align: center;
+    margin: 30px 0 50px 0;
+}
 
+.API-enroll-form >h3{
+	margin-top : 15px;
+	font-size: 20px;
+}
 
 
 #categoryTab{border: 1px solid black;}
