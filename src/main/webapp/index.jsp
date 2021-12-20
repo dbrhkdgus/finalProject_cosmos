@@ -58,6 +58,7 @@
 					<li class="popular"><a href="">알고리즘</a></li>
 					<li class="popular"><a href="">데이터베이스</a></li>
 					<li class="popular"><a href="">게임개발</a></li>
+					
 				</ul>
 				<form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" style="display:flex; margin-left:10px;">
 	          		<input type="search" class="form-control form-control-dark" placeholder="찾고있는 스터디그룹을 검색해보세요!" aria-label="Search">
