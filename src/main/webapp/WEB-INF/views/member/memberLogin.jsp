@@ -3,6 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>	
 <!DOCTYPE html>
 <html>
 <head>
@@ -61,11 +63,11 @@ $(() => {
 				<h2 class="modal-title text-center" style="color: #113366;">COSMOS</h2>
 			
 			<div class="modal-body">
-				<form name="loginForm" class="form-signin" method="POST"
-					action="">
+				<form:form name="loginForm" class="form-signin" method="POST"
+					action="${pageContext.request.contextPath}/member/memberLogin.do">
 					<h5 class="form-signin-heading text-center">로그인</h5>
 					<label for="inputEmail" class="sr-only">Your ID</label>
-					<input type="text" id="uid" class="form-control" placeholder="Your ID" required autofocus name="id"><BR>
+					<input type="text" id="uid" class="form-control" placeholder="Your ID" required autofocus name="memberId"><BR>
 						<label for="inputPassword" class="sr-only">Password</label>
 						<input type="password" id="upw" class="form-control" placeholder="Password" name="password" required ><br>
 					<div class="checkbox">
@@ -89,7 +91,7 @@ $(() => {
 						<input type="hidden" name="_birthDay" val="" />
 						<input type="hidden" name="profile_img" val="" />
 					</div>
-				</form>
+				</form:form>
 
 			</div>
 			</div>
