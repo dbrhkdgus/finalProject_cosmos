@@ -2,6 +2,7 @@ package com.kh.cosmos.group.model.service;
 
 import com.kh.cosmos.common.vo.Attachment;
 import com.kh.cosmos.group.model.vo.Group;
+import com.kh.cosmos.group.model.vo.GroupInfo;
 import com.kh.cosmos.group.model.vo.GroupInfoConnect;
 
 public interface GroupService {
@@ -11,6 +12,8 @@ public interface GroupService {
 	int insertAttach(Attachment attach);
 
 	int insertGroupInfoConnect(GroupInfoConnect groupInfoConnect);
+
+	int insertGroupInfo(GroupInfo gi);
 	
 	
 }
