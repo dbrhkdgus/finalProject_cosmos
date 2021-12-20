@@ -43,6 +43,11 @@ public class MainServiceImpl implements MainService {
 	}
 
 	@Override
+	public int insertQuestion(Question que) {
+		// TODO Auto-generated method stub
+		return mainDao.insertQuestion(que);
+	}
+	@Override
 	public int insertAttach(Attachment attach) {
 		// TODO Auto-generated method stub
 		return mainDao.insertAttach(attach);
