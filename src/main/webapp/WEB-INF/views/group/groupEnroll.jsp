@@ -71,8 +71,8 @@
 									<label for="phone_number"
 										class="col-md-4 col-form-label text-md-right">배너 이미지</label>
 									<div class="col-md-6 group-text-input">
-										<input class="form-control" type="file" id="formFileMultiple"
-											multiple>
+										<input class="form-control" type="file" id="formFileMultiple" name="upFile" id="upFile1"
+	multiple>
 									</div>
 								</div>
 
@@ -206,6 +206,27 @@
 				isCharged = charged[i].value;
 			}
 		}
+		
+		
+		$(() => {
+			$("[name=upFile]").change((e) => {
+				// 1.파일명 가져오기
+				const file = $(e.target).prop("files")[0];
+				const filename = file?.name; // optional chaining 객체가 undefined경우에도 오류가 나지 않는다.
+				console.dir(e.target);
+				console.log(filename);
+				
+				// 2.label에 설정하기
+				const $label = $(e.target).next();
+				if(file != undefined)
+					$label.html(filename);
+				else
+					$label.html("파일을 선택하세요.");
+				
+			});
+			
+			
+		});
 	</script>
 
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>

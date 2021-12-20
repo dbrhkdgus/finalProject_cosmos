@@ -56,6 +56,24 @@ public class MainDaoImpl implements MainDao {
 		return session.insert("notice.insertNotice",notice);
 
 	}
+
+	@Override
+	public Question selectOneQuestionByNo(int queNo) {
+		// TODO Auto-generated method stub
+		return session.selectOne("question.selectOneQuestionByNo", queNo);
+	}
+
+	@Override
+	public Notice selectOneNotice(int no) {
+		// TODO Auto-generated method stub
+		return session.selectOne("notice.selectOneNotice", no);
+	}
+
+	@Override
+	public Attachment selectOneAttach(int attachNo) {
+		// TODO Auto-generated method stub
+		return session.selectOne("notice.selectOneAttach", attachNo);
+	}
 	
 	
 }

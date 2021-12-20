@@ -44,10 +44,16 @@
 			seq_notice_no_no.nextval,
 			#{noticeTitle},
 			#{noticeContent},
-			sysdate,
+			current_date,
 			0,
 			#{memberId},
 			#{attachNo}
 		)
 	</insert>
+	<select id="selectOneNotice" resultType="notice">
+		select * from notice where notice_no = #{no}
+	</select>
+	<select id="selectOneAttach" resultType="attachment">
+		select * from attachment where attach_no = #{attachNo}
+	</select>
 </mapper>

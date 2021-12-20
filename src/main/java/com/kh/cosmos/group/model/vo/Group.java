@@ -29,4 +29,7 @@ public class Group implements Serializable {/**
 	private char groupPrivate;
 	private int groupLikeCount;
 	private String groupLocation;
+	private String giTitle;
+	private int attachNo;
+	
 }
