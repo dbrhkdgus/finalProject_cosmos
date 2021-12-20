@@ -115,7 +115,7 @@
 								</div>
 								
 								<div class="form-check text-center">
-									<input class="form-check-input" type="checkbox" id="groupPrivate" name="groupPrivate" onchange="YnCheck(this);" value="">
+									<input class="form-check-input" type="checkbox" id="groupPrivate" name="groupPrivate" value="L">
 									<label for="groupPrivate"> &nbsp;조회에서 제외되는 비밀그룹으로 생성하기 </label>
 								</div>
 								
@@ -176,11 +176,9 @@
 		</div>
 
 	</main>
-<<<<<<< HEAD
-<script>
-=======
-	<script type="text/javascript">
-		function YnCheck(obj) {
+
+	<script>
+		/* function YnCheck(obj) {
 			var checked = obj.checked;
 			if(checked) {
 				obj.value="L";
@@ -199,7 +197,7 @@
 			data.set("groupPrivate", "L");
 		} else {
 			data.set("groupPrivate", "U");
-		}
+		} */
 	 
 		var charged = document.getElementByName('groupCharge');
 		var isCharged;
@@ -210,5 +208,4 @@
 		}
 	</script>
 
->>>>>>> branch 'master' of https://github.com/dbrhkdgus/finalProject_cosmos.git
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
