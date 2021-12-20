@@ -144,8 +144,54 @@ public class MainController {
 		return "main/qaForm";
 	}
 	@PostMapping("/queEnroll.do")
-	public String queEnroll(Question que) {
-	
-		return "redirect:qa.do";
+	public String queEnroll(Question que, @RequestParam(value="upFile", required=false) MultipartFile upFile, RedirectAttributes redirectAttr) throws IllegalStateException, IOException {
+		log.debug("upFile = {}", upFile);
+		String memberId = que.getMemberId();
+		log.debug("memberId = {}", que.getMemberId());
+		 try {
+			 String saveDirectory = application.getRealPath("/resources/upFile/question");
+			 log.debug("saveDirectory = {}", saveDirectory);
+		 
+		 
+		 if(upFile != null && !upFile.isEmpty() && upFile.getSize() != 0) {
+			 log.debug("upFile = {}", upFile);
+			 log.debug("upFile.name = {}",upFile.getOriginalFilename());
+			 log.debug("upFile.size = {}",upFile.getSize());
+		 
+			 String originalFilename = upFile.getOriginalFilename();
+			 String renamedFilename = HiSpringUtils.getRenamedFilename(originalFilename);
+			 
+			 // 1.서버컴퓨터에 저장
+			 File dest = new File(saveDirectory, renamedFilename);
+			 log.debug("dest = {}", dest);
+			 upFile.transferTo(dest);
+			 
+			 // 2.DB에 attachment 레코드 등록
+			 Attachment attach = new Attachment();
+			 attach.setRenamedFilename(renamedFilename);
+			 attach.setOriginalFilename(originalFilename);
+			 attach.setMemberId(memberId);
+			 int attachNo = mainService.insertAttach(attach);
+			 log.debug("attachNo = {}", attachNo);
+			 
+		 }
+		 
+		 // 업무로직
+		 int result = mainService.insertQuestion(que);
+		 } catch (Exception e){
+		 	log.error(e.getMessage(), e); // 로깅 throw e; //spring container에게 던짐.
+		 	
+		 	redirectAttr.addFlashAttribute("msg", "문의사항 등록 실패");
+		 }
+		 
+		return "redirect:/main/qa.do";
+	}
+	@GetMapping("/qaDetail.do")
+	public String queDetail(@RequestParam int queNo, Model model) {
+		log.debug("queNo = {}", queNo);
+		Question que = mainService.selectOneQuestionByNo(queNo);
+		log.debug("que = {} ", que);
+		model.addAttribute("que",que);
+		return "main/qaDetail";
 	}
 }

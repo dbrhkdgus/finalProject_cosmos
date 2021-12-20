@@ -1,5 +1,10 @@
 package com.kh.cosmos.group.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.ServletContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,8 +14,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.kh.cosmos.common.HiSpringUtils;
+import com.kh.cosmos.common.vo.Attachment;
 import com.kh.cosmos.group.model.service.GroupService;
 import com.kh.cosmos.group.model.vo.Group;
 
@@ -52,6 +61,11 @@ public class GroupController {
 	@PostMapping("/insertGroup.do")
 	public String insertGroup(@ModelAttribute Group group, RedirectAttributes redirectAttributes) {
 		log.debug("group = {}", group);
+		char groupPrivate = group.getGroupPrivate();
+		if(groupPrivate != 'L') {
+			group.setGroupPrivate('U');
+		}
+		
 		try {
 			int result = groupService.insertGroup(group);
 			String msg = result > 0 ? "그룹 신청 성공!" : "그룹 신청 실패!";
@@ -62,6 +76,59 @@ public class GroupController {
 		}
 		
 		return "redirect:/";
+	}
+	
+	@PostMapping("/insertGroup.do")
+	public String bannerEnroll(
+			Group group, 
+			@RequestParam(value="upFile", required=false) MultipartFile[] upFiles, 
+			RedirectAttributes redirectAttr
+		) throws IllegalStateException, IOException {
+		
+		try {
+			// 첨부파일 list생성
+			List<Attachment> attachments = new ArrayList<>();
+			
+			// application객체(ServletContext)
+			String saveDirectory = application.getRealPath("/resources/upFile/group");
+			log.debug("saveDirectory = {}", saveDirectory);
+			
+			for(MultipartFile upFile : upFiles) {
+	
+				if(!upFile.isEmpty() && upFile.getSize() != 0) {
+					
+					log.debug("upFile = {}", upFile);
+					log.debug("upFile.name = {}", upFile.getOriginalFilename());
+					log.debug("upFile.size = {}", upFile.getSize());
+					
+					String originalFilename = upFile.getOriginalFilename();
+					String renamedFilename = HiSpringUtils.getRenamedFilename(originalFilename);
+	
+					// 1.서버컴퓨터에 저장
+					File dest = new File(saveDirectory, renamedFilename);
+					log.debug("dest = {}", dest);
+					upFile.transferTo(dest);
+					
+					// 2.DB에 attachment 레코드 등록
+					Attachment attach = new Attachment();
+					attach.setRenamedFilename(renamedFilename);
+					attach.setOriginalFilename(originalFilename);
+					attachments.add(attach);
+				}
+			}
+			
+			// 업무로직
+			if(!attachments.isEmpty())
+				group.setAttachments(attachments);
+			
+			int result = groupService.insertBoard(group);
+			String msg = result > 0 ? "게시글 등록 성공!" : "게시글 등록 실패!";
+			redirectAttr.addFlashAttribute("msg", msg);
+		} catch (Exception e) {
+			log.error(e.getMessage(), e); // 로깅
+			throw e; // spring container에게 던짐.
+		}
+		return "redirect:/board/boardList.do";
 	}
 	
 }

@@ -41,6 +41,10 @@ public class MainDaoImpl implements MainDao {
 	}
 
 	@Override
+	public int insertQuestion(Question que) {
+		return session.insert("question.insertQuestion", que);
+	}
+	@Override
 	public int insertAttach(Attachment attach) {
 		// TODO Auto-generated method stub
 		return session.insert("notice.insertAttach",attach);
@@ -50,6 +54,13 @@ public class MainDaoImpl implements MainDao {
 	public int insertNotice(Notice notice) {
 		// TODO Auto-generated method stub
 		return session.insert("notice.insertNotice",notice);
+
+	}
+
+	@Override
+	public Question selectOneQuestionByNo(int queNo) {
+		// TODO Auto-generated method stub
+		return session.selectOne("question.selectOneQuestionByNo", queNo);
 	}
 
 	@Override
