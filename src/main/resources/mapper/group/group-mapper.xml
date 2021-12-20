@@ -29,8 +29,23 @@
 			#{originalFilename},
 			#{renamedFilename},
 			sysdate,
-			default,
+			#{imgFlag},
 			default
 		)
 	</insert>
+ 	<insert id="insertGroupInfoConnect">
+ 		<selectKey keyProperty="groupNo" resultType="_int" order="BEFORE">
+			select
+				seq_group_no.currval
+			from
+				dual
+		</selectKey>
+		insert into 
+			group_groupinfo
+		values(
+			seq_g_gi_no.nextval,
+			#{groupNo},
+			#{giTitle}
+		)
+ 	</insert>
 </mapper>
