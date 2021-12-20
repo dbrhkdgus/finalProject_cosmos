@@ -23,5 +23,7 @@ public interface MainService {
 
 	int insertNotice(Notice notice);
 
+	Question selectOneQuestionByNo(int queNo);
+
 
 }

@@ -175,4 +175,12 @@ public class MainController {
 		 
 		return "redirect:/main/qa.do";
 	}
+	@GetMapping("/qaDetail.do")
+	public String queDetail(@RequestParam int queNo, Model model) {
+		log.debug("queNo = {}", queNo);
+		Question que = mainService.selectOneQuestionByNo(queNo);
+		log.debug("que = {} ", que);
+		model.addAttribute("que",que);
+		return "main/qaDetail";
+	}
 }
