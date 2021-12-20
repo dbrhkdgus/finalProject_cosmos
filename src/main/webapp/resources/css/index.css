@@ -370,6 +370,14 @@
 	font-size: 20px;
 }
 
+#reply-writer{
+	margin:10px;	
+}
+
+#reply-content{
+	margin: 10px 10px 10px 0px;
+}
+
 
 #categoryTab{border: 1px solid black;}
 #navbarSupportedContent{display: flex;}
