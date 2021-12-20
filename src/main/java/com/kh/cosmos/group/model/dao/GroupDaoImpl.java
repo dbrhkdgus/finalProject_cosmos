@@ -4,6 +4,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.kh.cosmos.common.vo.Attachment;
 import com.kh.cosmos.group.model.vo.Group;
 
 @Repository
@@ -15,5 +16,10 @@ public class GroupDaoImpl implements GroupDao {
 	@Override
 	public int insertGroup(Group group) {
 		return session.insert("group.insertGroup", group);
+	}
+
+	@Override
+	public int insertAttach(Attachment attach) {
+		return session.insert("group.insertAttach", attach);
 	}
 }
