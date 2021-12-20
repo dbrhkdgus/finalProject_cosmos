@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.servlet.FlashMap;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.cosmos.member.model.service.MemberService;
@@ -134,6 +135,33 @@ public class MemberController {
 		
 		return "member/memberLoginKakaoMoreInfo";
 		} else {
+			return "redirect:/";
+		}
+			
+		
+	}
+	@RequestMapping("/memberLoginKakaoMoreInfo.do")
+	public String memberLoginKakao(HttpServletRequest request, Model model,HttpSession session, RedirectAttributes redirectAttr) {
+		log.debug("{}","requestMapping");
+		Member kakaoMember = new Member();
+		if(memberService.selectOneMember(request.getParameter("memberId")) == null) {
+		
+		kakaoMember.setMemberId(request.getParameter("memberId"));
+		kakaoMember.setMemberName(request.getParameter("memberName"));
+		kakaoMember.setMemberGender(request.getParameter("gender"));
+		
+		model.addAttribute("kakaoMember",kakaoMember);
+		model.addAttribute("_birthDay",request.getParameter("_birthDay"));
+		model.addAttribute("profile_img",request.getParameter("profile_img"));
+		
+		
+		session.setAttribute("kakaoMemeber", kakaoMember);
+//		log.debug("loginMember = {}",kakaoMember);
+		
+		return "member/memberLoginKakaoMoreInfo";
+		} else {
+			FlashMap flashMap = new FlashMap();
+			flashMap.put("msg", "이미 가입한 카카오 아이디입니다.");
 			return "redirect:/";
 		}
 			
