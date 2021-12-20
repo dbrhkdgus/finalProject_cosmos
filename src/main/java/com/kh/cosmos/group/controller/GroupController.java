@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,6 +19,8 @@ import com.kh.cosmos.common.CosmosUtils;
 import com.kh.cosmos.common.vo.Attachment;
 import com.kh.cosmos.group.model.service.GroupService;
 import com.kh.cosmos.group.model.vo.Group;
+import com.kh.cosmos.group.model.vo.GroupInfo;
+import com.kh.cosmos.group.model.vo.GroupInfoConnect;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -58,11 +59,12 @@ public class GroupController {
 	
 	@PostMapping("/insertGroup.do")
 	public String insertGroup(
-			@ModelAttribute Group group, 
-			@RequestParam(value="upFile", required=false) MultipartFile[] upFiles, 
+			Group group, GroupInfoConnect groupInfoConnect, GroupInfo groupInfo,
+			@RequestParam(value="upFile", required=false) MultipartFile upFile, 
 			RedirectAttributes redirectAttributes
 			) throws IllegalStateException, IOException {
 		log.debug("group = {}", group);
+		log.debug("groupInfoConnect = {}", groupInfoConnect);
 		char groupPrivate = group.getGroupPrivate();
 		if(groupPrivate != 'L') {
 			group.setGroupPrivate('U');
@@ -75,34 +77,38 @@ public class GroupController {
 			// application객체(ServletContext)
 			String saveDirectory = application.getRealPath("/resources/upFile/group");
 			log.debug("saveDirectory = {}", saveDirectory);
-			
-			for(MultipartFile upFile : upFiles) {
 	
-				if(!upFile.isEmpty() && upFile.getSize() != 0) {
-					
-					log.debug("upFile = {}", upFile);
-					log.debug("upFile.name = {}", upFile.getOriginalFilename());
-					log.debug("upFile.size = {}", upFile.getSize());
-					
-					String originalFilename = upFile.getOriginalFilename();
-					String renamedFilename = CosmosUtils.getRenamedFilename(originalFilename);
-	
-					// 1.서버컴퓨터에 저장
-					File dest = new File(saveDirectory, renamedFilename);
-					log.debug("dest = {}", dest);
-					upFile.transferTo(dest);
-					
-					// 2.DB에 attachment 레코드 등록
-					Attachment attach = new Attachment();
-					attach.setRenamedFilename(renamedFilename);
-					attach.setOriginalFilename(originalFilename);
-					attach.setMemberId("sample");
-					int attachNo = groupService.insertAttach(attach);
-					log.debug("attachNo = {}", attachNo);
-				}
+			if(!upFile.isEmpty() && upFile.getSize() != 0) {
+				
+				log.debug("upFile = {}", upFile);
+				log.debug("upFile.name = {}", upFile.getOriginalFilename());
+				log.debug("upFile.size = {}", upFile.getSize());
+				
+				String originalFilename = upFile.getOriginalFilename();
+				String renamedFilename = CosmosUtils.getRenamedFilename(originalFilename);
+
+				// 1.서버컴퓨터에 저장
+				File dest = new File(saveDirectory, renamedFilename);
+				log.debug("dest = {}", dest);
+				upFile.transferTo(dest);
+				
+				// 2.DB에 attachment 레코드 등록
+				Attachment attach = new Attachment();
+				attach.setRenamedFilename(renamedFilename);
+				attach.setOriginalFilename(originalFilename);
+				attach.setMemberId("honggd");
+				attach.setGroupNo(group.getGroupNo());
+				attach.setImgFlag("Y");
+				int attachNo = groupService.insertAttach(attach);
+				log.debug("attachNo = {}", attachNo);
+				
 			}
 			
+			
 			int result = groupService.insertGroup(group);
+			result = groupService.insertGroupInfoConnect(groupInfoConnect);
+			result = groupService.insertGroupInfo(groupInfo);
+			
 			String msg = result > 0 ? "그룹 신청 성공!" : "그룹 신청 실패!";
 			redirectAttributes.addFlashAttribute("msg", msg);
 		} catch (Exception e) {

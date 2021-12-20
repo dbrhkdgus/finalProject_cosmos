@@ -14,7 +14,9 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class Group implements Serializable {/**
+public class Group implements Serializable {
+	
+	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
@@ -29,7 +31,5 @@ public class Group implements Serializable {/**
 	private char groupPrivate;
 	private int groupLikeCount;
 	private String groupLocation;
-	private String giTitle;
-	private int attachNo;
 	
 }
