@@ -160,9 +160,9 @@ public class MemberController {
 		
 		return "member/memberLoginKakaoMoreInfo";
 		} else {
-			FlashMap flashMap = new FlashMap();
-			flashMap.put("msg", "이미 가입한 카카오 아이디입니다.");
-			return "redirect:/";
+			redirectAttr.addFlashAttribute("msg", "이미 가입한 카카오 아이디입니다.");
+			//flashMap.put("msg", "이미 가입한 카카오 아이디입니다.");
+			return "redirect:/member/memberAPIEnroll.do";
 		}
 			
 		
