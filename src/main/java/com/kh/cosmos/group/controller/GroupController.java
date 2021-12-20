@@ -54,6 +54,11 @@ public class GroupController {
 	@PostMapping("/insertGroup.do")
 	public String insertGroup(@ModelAttribute Group group, RedirectAttributes redirectAttributes) {
 		log.debug("group = {}", group);
+		char groupPrivate = group.getGroupPrivate();
+		if(groupPrivate != 'L') {
+			group.setGroupPrivate('U');
+		}
+		
 		try {
 			int result = groupService.insertGroup(group);
 			String msg = result > 0 ? "그룹 신청 성공!" : "그룹 신청 실패!";

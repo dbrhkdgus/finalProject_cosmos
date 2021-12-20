@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.kh.cosmos.common.vo.Attachment;
 import com.kh.cosmos.main.model.vo.Notice;
 import com.kh.cosmos.main.model.vo.Question;
 
@@ -37,6 +38,23 @@ public class MainDaoImpl implements MainDao {
 	public int selectQuestionTotalCount() {
 		// TODO Auto-generated method stub
 		return session.selectOne("question.selectQuestionTotalCount");
+	}
+
+	@Override
+	public int insertQuestion(Question que) {
+		return session.insert("question.insertQuestion", que);
+	}
+	@Override
+	public int insertAttach(Attachment attach) {
+		// TODO Auto-generated method stub
+		return session.insert("notice.insertAttach",attach);
+	}
+
+	@Override
+	public int insertNotice(Notice notice) {
+		// TODO Auto-generated method stub
+		return session.insert("notice.insertNotice",notice);
+
 	}
 	
 	

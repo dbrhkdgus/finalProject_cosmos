@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.kh.cosmos.common.vo.Attachment;
 import com.kh.cosmos.main.model.dao.MainDao;
 import com.kh.cosmos.main.model.vo.Notice;
 import com.kh.cosmos.main.model.vo.Question;
@@ -39,6 +40,23 @@ public class MainServiceImpl implements MainService {
 	public int selectQuestionTotalCount() {
 		// TODO Auto-generated method stub
 		return mainDao.selectQuestionTotalCount();
+	}
+
+	@Override
+	public int insertQuestion(Question que) {
+		// TODO Auto-generated method stub
+		return mainDao.insertQuestion(que);
+	}
+	@Override
+	public int insertAttach(Attachment attach) {
+		// TODO Auto-generated method stub
+		return mainDao.insertAttach(attach);
+	}
+
+	@Override
+	public int insertNotice(Notice notice) {
+		// TODO Auto-generated method stub
+		return mainDao.insertNotice(notice);
 	}
 	
 	
