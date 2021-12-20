@@ -90,7 +90,7 @@ public class GroupController {
 			List<Attachment> attachments = new ArrayList<>();
 			
 			// application객체(ServletContext)
-			String saveDirectory = application.getRealPath("/resources/upload/group");
+			String saveDirectory = application.getRealPath("/resources/upFile/group");
 			log.debug("saveDirectory = {}", saveDirectory);
 			
 			for(MultipartFile upFile : upFiles) {
