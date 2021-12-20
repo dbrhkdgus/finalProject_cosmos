@@ -17,4 +17,37 @@
 		from 
 			notice
 	</select>
+	<insert id="insertAttach">
+		insert into
+			attachment
+		values(
+			seq_attach_no_no.nextval,
+			#{memberId},
+			null,
+			#{originalFilename},
+			#{renamedFilename},
+			sysdate,
+			default,
+			default
+		)
+	</insert>
+	<insert id="insertNotice">
+		<selectKey keyProperty="attachNo" resultType="_int" order="BEFORE">
+			select
+				seq_attach_no_no.currval
+			from
+				dual
+		</selectKey>
+		insert into
+			notice
+		values(
+			seq_notice_no_no.nextval,
+			#{noticeTitle},
+			#{noticeContent},
+			sysdate,
+			0,
+			#{memberId},
+			#{attachNo}
+		)
+	</insert>
 </mapper>
