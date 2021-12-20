@@ -34,8 +34,10 @@
 
 </head>
 
-
+		
 	<main class="my-form">
+		${fn:substring(_birthDay,0,2)}
+		${fn:substring(_birthDay,2,4)} 
 	<div class="cotainer">
 		<div class="row justify-content-center">
 			<div class="col-md-8">
@@ -44,7 +46,7 @@
 					<div class="card-body">
 							<form 
 							name="memberAPIEnrollFrm" 
-							action="${pageContext.request.contextPath}/member/memberAPImoreInfoEnroll" 
+							action="${pageContext.request.contextPath}/member/memberAPImoreInfoEnroll.do" 
 							method="post">	
 								<div class="form-group row">
 								<label for="permanent_address"
@@ -71,10 +73,10 @@
 								<div class="col-md-6 group-text-input">
 									<div class="input-group mb-3">
 										<input type="text" class="form-control" placeholder="Username"
-											aria-label="Username" required="required" value="email">
+											aria-label="Username" required="required" name="email">
 											 <span class="input-group-text">@</span>
 										<input type="text" class="form-control" placeholder="Server"
-											aria-label="Server" required="required" value="email-server">
+											aria-label="Server" required="required" name="email-server">
 									</div>
 								</div>
 								<p class="required" style="width: 185px; color:#666; font-size: 14px; line-height: 35px;">필수입력 항목입니다</p>
@@ -100,7 +102,8 @@
 									<div class="form-check">
 											
 										<input class="form-check-input" type="radio"
-											name="flexR`adioDefault" id="flexRadioDefault1"
+											name="gender" id="flexRadioDefault1"
+											value="F"
 											<c:if test="${kakaoMember.gender eq 'F'}">checked</c:if>> 
 											<label
 											class="form-check-label" for="flexRadioDefault1"> 여성
@@ -111,15 +114,15 @@
 
 									<div class="form-check">
 										<input class="form-check-input" type="radio"
+										value="M"
 										<c:if test="${kakaoMember.gender eq 'M'}">checked</c:if>
-											name="flexR`adioDefault" id="flexRadioDefault1"> <label
+											name="gender" id="flexRadioDefault1"> <label
 											class="form-check-label" for="flexRadioDefault1"
 											> 남성
 										</label>
 									</div>
 								</div>
 							</div>
-							${kakaoMember}
 
 
 							<div class="form-group row">
@@ -136,14 +139,13 @@
 								<select id="birthMonth" name="birthMonth" class="form-control" required="required">
 								<option value="">월</option>
 								<c:forEach var="i" begin="1" end="12">
-								    <option value="${i}">${i}</option>
-								</c:forEach>
+								<option  value="<fmt:formatNumber value='${i}' pattern="00" />" ${i eq fn:substring(_birthDay,0,2)? "selected" : ""}><fmt:formatNumber value='${i}' pattern="00"/></option>								</c:forEach>
 								</select>
 								 
 								<select id="birthDate" name="birthDate" class="form-control" required="required">
 								<option value="">일</option>
 								<c:forEach var="i" begin="1" end="31">
-								    <option value="${i}">${i}</option>
+								    <option  value="<fmt:formatNumber value='${i}' pattern="00" />" ${i eq fn:substring(_birthDay,2,4)? "selected" : ""}><fmt:formatNumber value='${i}' pattern="00"/></option>
 								</c:forEach>
 								</select>
 								</div>
@@ -157,7 +159,7 @@
 									class="col-md-4 col-form-label text-md-right">직업</label>
 								<div class="col-md-6 group-text-input">
 									<select class="form-select" aria-label="Default select example" name="job">
-										<option selected>직업</option>
+										<option selected  value=null>직업선택</option>
 										<option value="개발자">개발자</option>
 										<option value="학생">학생</option>
 										<option value="직장인">직장인</option>
@@ -185,6 +187,13 @@
 	
 	const birth = $(birthYear).val() + $(birthMonth).val() + $(birthDate).val()
 	console.log(birth);
+	
+    var regExpArr = [/^.{8,15}$/, /\d/, /[a-zA-Z]/, /[\*!&]/];
+	//5.이메일 검사
+    // 4글자 이상(\w = [a-zA-Z0-9_], [\w-\.]) @가 나오고
+    // 1글자 이상(주소). 글자 가 1~3번 반복됨
+    if(!regExpTest(/^[\w]{4,}@[\w]+(\.[\w]+){1,3}$/, email, "이메일 형식에 어긋납니다."))
+            return false;
 	
 	</script>
 
