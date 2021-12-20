@@ -2,6 +2,7 @@ package com.kh.cosmos.main.model.dao;
 
 import java.util.List;
 
+import com.kh.cosmos.common.vo.Attachment;
 import com.kh.cosmos.main.model.vo.Notice;
 import com.kh.cosmos.main.model.vo.Question;
 
@@ -14,5 +15,9 @@ public interface MainDao {
 	int selectNoticeTotalCount();
 
 	int selectQuestionTotalCount();
+
+	int insertAttach(Attachment attach);
+
+	int insertNotice(Notice notice);
 
 }
