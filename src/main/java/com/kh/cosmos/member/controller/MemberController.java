@@ -68,6 +68,7 @@ public class MemberController {
 		}
 		else {
 			// 로그인 실패
+			log.debug("로그인 실패");
 			redirectAttr.addFlashAttribute("msg", "아이디 또는 비밀번호가 다릅니다.");
 		}
 		return "redirect:" + location;
