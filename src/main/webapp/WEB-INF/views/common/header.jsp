@@ -79,8 +79,20 @@
 							</c:if>
 						    <%-- 로그인했을때 --%>
 						    <c:if test="${loginMember.memberId != 'admin' && not empty loginMember}">
-						    	<span class="fs-6 ">${loginMember.memberId}님 안녕하세요.</span>
-						    	&nbsp;&nbsp;
+						    	<span class="fs-6 ">
+							    	<div class="btn-group">
+									  <button type="button" class="btn btn-outline-info dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+									    ${loginMember.memberId}
+									  </button>
+									  <ul class="dropdown-menu">
+									    <li><a class="dropdown-item" href="#" style="color: blue;">가입한 그룹</a></li>
+									    <li><a class="dropdown-item" href="#" style="color: blue;">가입신청그룹</a></li>
+									    <li><a class="dropdown-item" href="#" style="color: blue;">관심 그룹</a></li>
+									    <li><hr class="dropdown-divider"></li>
+									    <li><a class="dropdown-item" href="#" style="color: blue;">내 정보 수정</a></li>
+									  </ul>
+									</div>
+						    	님 안녕하세요.</span>
 						    	<button 
 							    	class="btn btn-outline-primary" 
 							    	type="button"
