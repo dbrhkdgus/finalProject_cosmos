@@ -4,24 +4,32 @@ import java.io.Serializable;
 import java.util.Date;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class GroupInfoConnect implements Serializable {
-
+@ToString
+public class GroupEntity implements Serializable {
+	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
-	private int seqNo;
+
 	private int groupNo;
-	private String giTitle;
+	private int categoryNo;
+	private String groupName;
+	private Date groupEnrollDate;
+	private char groupCharge;
+	private char groupClose;
+	private int groupPool;
+	private char groupPrivate;
+	private int groupLikeCount;
+	private String groupLocation;
 	
 }
