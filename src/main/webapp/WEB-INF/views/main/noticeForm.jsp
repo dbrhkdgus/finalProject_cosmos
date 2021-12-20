@@ -16,6 +16,7 @@
 <h2 class="text-center">공지 사항 작성</h2>
 <div class="container">
 	<form name="noticeFrm" action="${pageContext.request.contextPath}/main/noticeEnroll.do" method="post" enctype="multipart/form-data" onsubmit="return noticeValidate();">
+		<input type="hidden" class="form-control" name="memberId" value="${loginMember.memberId}" readonly required>
 		<div class="input-group mb-3 w-50 mx-auto">
 			<span class="input-group-text" id="inputGroup-sizing-default">제목</span>
 			<input name="noticeTitle" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="제목을 입력해 주세요.">
