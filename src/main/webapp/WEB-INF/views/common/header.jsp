@@ -99,7 +99,7 @@
 							    	onclick="location.href='${pageContext.request.contextPath}/member/memberLogout.do';">로그아웃</button>
 						    </c:if>				
 						    <c:if test="${loginMember.memberId =='admin' && not empty loginMember}">
-						    	<span class="fs-6 ">${loginMember.memberId}계정&nbsp&nbsp</span>
+						    	<span class="fs-6 ">${loginMember.memberId}계정</span>
 						    	<button 
 							    	class="btn btn-outline-primary" 
 							    	type="button"
