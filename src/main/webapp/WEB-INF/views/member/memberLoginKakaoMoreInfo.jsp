@@ -27,149 +27,158 @@
 	integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
 	crossorigin="anonymous">
 
-<!-- 사용자작성 css -->
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath }/resources/css/styles.css" />
-<script>
-<c:if test="${not empty msg}">
-alert("${msg}");
-</c:if>
+	<jsp:include page="/WEB-INF/views/common/header.jsp">
+	<jsp:param value="" name="title" />
+</jsp:include>
 
-$(() => {
-	$(loginModal)
-		.modal()
-		.on("hide.bs.modal", (e) => {
-			location.href = '${empty header.referer ? pageContext.request.contextPath : header.referer}';
-		});
-		
-});
 
-</script>
 </head>
-<body>
-	<div class="modal fade" id="loginModal" tabindex="-1" role="dialog"
-		aria-labelledby="loginModalLabel" aria-hidden="true">
-		<div class="modal-dialog align-middle"
-			style="width: 22rem;">
-			<div class="modal-content" style="margin-top: 10px;">
-			<div class="float-right">
-				<button type="button" class="close pull-right float-right"
-					data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-				<h2 class="modal-title text-center" style="color: #113366;">COSMOS</h2>
-			
-			<div class="modal-body">
-				<form name="loginForm" class="form-signin" method="POST"
-					action="">
-					<h5 class="form-signin-heading text-center">카카오 로그인 페이지 테스트</h5>
-					<label for="inputEmail" class="sr-only">Your ID</label>
-					<input type="text" id="uid" class="form-control" placeholder="Your ID" required autofocus name="id"><BR>
-						<label for="inputPassword" class="sr-only">Password</label>
-						<input type="password" id="upw" class="form-control" placeholder="Password" name="password" required ><br>
-					<div class="checkbox">
-						<label> <input type="checkbox" value="remember-me">
-							기억하기
-						</label>
-						<input type="button" value="카카오 로그아웃" onclick="kakaoLogout();" />
-					</div>
-					<div class="mx-auto d-block">
-						<button id="btn-Yes" class="btn btn-lg btn-outline-success btn-block" type="button" style="color: #04CF5C;">NAVER login</button>
-						<button id="btn-Yes" class="btn btn-lg btn-outline-warning btn-block" type="button" onclick="kakaoLogin();">카카오 login</button>
-						<button id="btn-Yes" class="btn btn-lg btn-outline-primary btn-block" type="button" style="color: #000000;">google login</button>
-						<button id="btn_Yes_Basic" class="btn btn-lg btn-outline-info btn-block" type="button" style=" font-weight: bold; background: linear-gradient(to right top, #000BA9, #52E3FF); color: transparent; -webkit-background-clip: text; margin-bottom: 3%;">COSMOS login</button>
-					<div class="float-right">
-						<button id="btn-Yes" class="btn btn-lg btn-outline-primary" type="button">회원가입</button>
-						<button id="btn-Yes" class="btn btn-lg btn-outline-secondary" type="button">취소</button>
-					</div>
-						<input type="hidden" name="memberId" val="" />
-						<input type="hidden" name="memberName" val="" />
-						<input type="hidden" name="gender" val="" />
-						<input type="hidden" name="_birthDay" val="" />
-						<input type="hidden" name="profile_img" val="" />
-					</div>
-				</form>
 
-			</div>
+
+	<main class="my-form">
+	<div class="cotainer">
+		<div class="row justify-content-center">
+			<div class="col-md-8">
+				<div class="card">
+					<div class="card-header">소셜계정 추가 정보입력</div>
+					<div class="card-body">
+						<form name="my-form" onsubmit="return validform()" action="success.php" method="POST">
+							
+								<div class="form-group row">
+								<label for="permanent_address"
+									class="col-md-4 col-form-label text-md-right">이름</label>
+								<div class="col-md-6 group-text-input">
+									<input type="text" id="name" class="form-control"
+										name="permanent-address" placeholder="${kakaoMember.memberName}">
+								</div>
+							</div>
+
+							<div class="form-group row">
+								<label for="permanent_address"
+									class="col-md-4 col-form-label text-md-right">닉네임</label>
+								<div class="col-md-6 group-text-input">
+									<input type="text" id="nickname" class="form-control"
+										name="permanent-address" placeholder="선택사항입니다">
+								</div>
+							</div>
+
+							<div class="form-group row">
+								<label for="permanent_address"
+									class="col-md-4 col-form-label text-md-right">이메일</label>
+								<div class="col-md-6 group-text-input">
+									<div class="input-group mb-3">
+										<input type="text" class="form-control" placeholder="Username"
+											aria-label="Username" required="required">
+											 <span class="input-group-text">@</span>
+										<input type="text" class="form-control" placeholder="Server"
+											aria-label="Server" required="required">
+									</div>
+								</div>
+								<p class="required" style="width: 185px; color:#666; font-size: 14px; line-height: 35px;">필수입력 항목입니다</p>
+							</div>
+
+							<div class="form-group row">
+								<label for="permanent_address"
+									class="col-md-4 col-form-label text-md-right">연락처</label>
+								<div class="col-md-6 group-text-input" required="required" >
+									<input type="text" id="phone_number" class="form-control"
+										name="permanent-address">
+								</div>
+								<p class="required" style="width: 185px; color:#666; font-size: 14px; line-height: 35px;">필수입력 항목입니다</p>
+								<div id="errMsg" style="color: red; font-size: 14px;text-align: center; margin-left: 100px;"></div>								
+							</div>
+
+
+
+							<div class="form-group row">
+								<label for="permanent_address"
+									class="col-md-4 col-form-label text-md-right">성별</label>
+								<div class="col-md-6 group-text-input gender-radio">
+									<div class="form-check">
+											
+										<input class="form-check-input" type="radio"
+											name="flexR`adioDefault" id="flexRadioDefault1"
+											<c:if test="${kakaoMember.gender eq 'F'}">checked</c:if>> 
+											<label
+											class="form-check-label" for="flexRadioDefault1"> 여성
+											
+										</label>
+										
+									</div>
+
+									<div class="form-check">
+										<input class="form-check-input" type="radio"
+										<c:if test="${kakaoMember.gender eq 'M'}">checked</c:if>
+											name="flexR`adioDefault" id="flexRadioDefault1"> <label
+											class="form-check-label" for="flexRadioDefault1"
+											> 남성
+										</label>
+									</div>
+								</div>
+							</div>
+
+
+							<div class="form-group row">
+								<label for="permanent_address"
+									class="col-md-4 col-form-label text-md-right">생년월일</label>
+							<div class="col-md-6 group-text-input d-flex">
+							<select id="birthYear" name="birthYear" class="form-control" required="required" >
+								<option value="">년</option>
+								<c:forEach var="i" begin="1950" end="2022">
+								    <option value="${i}">${i}</option>
+								</c:forEach>
+								</select>
+								
+								<select id="birthMonth" name="birthMonth" class="form-control" required="required">
+								<option value="">월</option>
+								<c:forEach var="i" begin="1" end="12">
+								    <option value="${i}">${i}</option>
+								</c:forEach>
+								</select>
+								 
+								<select id="birthDate" name="birthDate" class="form-control" required="required">
+								<option value="">일</option>
+								<c:forEach var="i" begin="1" end="31">
+								    <option value="${i}">${i}</option>
+								</c:forEach>
+								</select>
+								</div>
+								<p class="required" style="width: 185px; color:#666; font-size: 14px; line-height: 35px;">필수입력 항목입니다</p>
+							</div>
+						
+							<div class="form-group row">
+								<label for="full_name"
+									class="col-md-4 col-form-label text-md-right">직업</label>
+								<div class="col-md-6 group-text-input">
+									<select class="form-select" aria-label="Default select example">
+										<option selected>직업</option>
+										<option value="1">개발자</option>
+										<option value="2">학생</option>
+										<option value="3">직장인</option>
+									</select>
+								</div>
+							</div>
+
+
+							<div class="col-md-6 offset-md-4 group-create-button">
+								<button type="submit" class="btn btn-primary">회원가입</button>
+							</div>
+						</form>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
-	</div>
-	<div class="modal"></div>
-	<!-- Optional JavaScript -->
-	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-		integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-		crossorigin="anonymous"></script>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-		integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-		crossorigin="anonymous"></script>
-	<script
-		src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-		integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-		crossorigin="anonymous"></script>
-		
-	<!-- 카카오 스크립트 -->
-	<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 	<script>
-	$(btn_Yes_Basic).click((e)=>{
-		console.log("로그인 버튼 클릭!");
-		$("[name=loginForm]").submit();
-		
-	});
-	Kakao.init('753f0f237470af5e83541545d143b9c3'); //발급받은 키 중 javascript키를 사용해준다.
-	//console.log(Kakao.isInitialized()); // sdk초기화여부판단
-	//카카오로그인
-	function kakaoLogin() {
-	    Kakao.Auth.login({
-	      success: function (response) {
-	        Kakao.API.request({
-	          url: '/v2/user/me',
-	          success: function (response) {
-	        	  console.log("여기", response);
-	        	  $("input[name=memberId]").val(response.id);
-	        	  console.log($("input[name=memberId]").val());
-	        	  $("input[name=gender]").val(response.kakao_account.gender == 'male' ? 'M' : 'F');
-	        	  console.log($("input[name=gender]").val());
-	        	  $("input[name=_birthDay]").val(response.kakao_account.birthday);
-	        	  console.log( $("input[name=_birthDay]").val());
-	        	  $("input[name=memberName]").val(response.kakao_account.profile.nickname);
-	        	  console.log($("input[name=memberName]").val());
-	        	  $("input[name=profile_img]").val(response.kakao_account.profile.thumbnail_image_url);
-	        	  console.log($("input[name=profile_img]").val());
-	        	  
-	        	  $(document.loginForm).attr('action',"${pageContext.request.contextPath}/member/memberLoginKakao.do");
-	        	  console.log(document.loginForm.action);
-	        	  
-	        	  $(document.loginForm).submit();
-	          },
-	          fail: function (error) {
-	            console.log(error)
-	          },
-	        })
-	      },
-	      fail: function (error) {
-	        console.log(error)
-	      },
-	    })
+	
+	phone_number.onblur = function(){
+		  errMsg.innerHTML = "";
+	if(! /^[0-9]/g.test(this.value))
+	    errMsg.innerHTML += "<p>숫자만 입력 가능합니다.</p>";
 	  }
-	//카카오로그아웃  
-	function kakaoLogout() {
-	    if (Kakao.Auth.getAccessToken()) {
-	      Kakao.API.request({
-	        url: '/v1/user/unlink',
-	        success: function (response) {
-	        	console.log(response)
-	        },
-	        fail: function (error) {
-	          console.log(error)
-	        },
-	      })
-	      Kakao.Auth.setAccessToken(undefined)
-	    }
-	  };
 	</script>
-</body>
+
+</main>
+	
 </html>
 
