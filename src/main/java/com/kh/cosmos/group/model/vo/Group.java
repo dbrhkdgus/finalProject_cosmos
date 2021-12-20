@@ -2,37 +2,34 @@ package com.kh.cosmos.group.model.vo;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
-
-import com.kh.cosmos.common.vo.Attachment;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString(callSuper = true)
-public class Group extends GroupEntity implements Serializable {
+@ToString
+public class Group implements Serializable {
 	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
-	private GroupInfoConnect groupInfoConnect;
-	private Attachment attachment;
-	private List<GroupInfo> groupInfo;
-	
-	public Group(int groupNo, int categoryNo, String groupName, Date groupEnrollDate, char groupCharge, char groupClose,
-			int groupPool, char groupPrivate, int groupLikeCount, String groupLocation) {
-		super(groupNo, categoryNo, groupName, groupEnrollDate, groupCharge, groupClose, groupPool, groupPrivate, groupLikeCount,
-				groupLocation);
-		// TODO Auto-generated constructor stub
-	}
-	
-	
+
+	private int groupNo;
+	private int categoryNo;
+	private String groupName;
+	private Date groupEnrollDate;
+	private char groupCharge;
+	private char groupClose;
+	private int groupPool;
+	private char groupPrivate;
+	private int groupLikeCount;
+	private String groupLocation;
 	
 }
