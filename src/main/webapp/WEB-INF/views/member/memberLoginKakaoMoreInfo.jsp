@@ -43,6 +43,10 @@
 				<div class="card">
 					<div class="card-header">소셜계정 추가 정보입력</div>
 					<div class="card-body">
+							<div class="API-enroll-form">
+							<h2>추가 정보 입력</h2>
+							<h3>소셜 계정 연결이 완료되었습니다.아래 추가정보를 입력해 주세요</h2>
+							</div>
 							<form 
 							name="memberAPIEnrollFrm" 
 							action="${pageContext.request.contextPath}/member/memberAPImoreInfoEnroll.do" 
@@ -50,7 +54,7 @@
 							onsubmit="">	
 								<div class="form-group row">
 								<label for="permanent_address"
-									class="col-md-4 col-form-label text-md-right">이름</label>
+									class="col-md-3 col-form-label text-md-right">이름</label>
 								<div class="col-md-6 group-text-input">
 									<input type="text" id="name" class="form-control"
 										name="name" placeholder="${kakaoMember.memberName}"
@@ -60,7 +64,7 @@
 
 							<div class="form-group row">
 								<label for="permanent_address"
-									class="col-md-4 col-form-label text-md-right">닉네임</label>
+									class="col-md-3 col-form-label text-md-right">닉네임</label>
 								<div class="col-md-6 group-text-input">
 									<input type="text" id="nickname" class="form-control"
 										name="permanent-address" placeholder="선택사항입니다">
@@ -69,7 +73,7 @@
 
 							<div class="form-group row">
 								<label for="permanent_address"
-									class="col-md-4 col-form-label text-md-right">이메일</label>
+									class="col-md-3 col-form-label text-md-right">이메일</label>
 								<div class="col-md-6 group-text-input">
 									<div class="input-group mb-3">
 										<input type="text" class="form-control" 
@@ -85,7 +89,7 @@
 
 							<div class="form-group row">
 								<label for="permanent_address"
-									class="col-md-4 col-form-label text-md-right">연락처</label>
+									class="col-md-3 col-form-label text-md-right">연락처</label>
 								<div class="col-md-6 group-text-input" required="required" >
 									<input type="text" id="phone" class="form-control"
 										name="phone" placeholder="'-'을 제외한 숫자만 입력해주세요.">
@@ -98,7 +102,7 @@
 
 							<div class="form-group row">
 								<label for="permanent_address"
-									class="col-md-4 col-form-label text-md-right">성별</label>
+									class="col-md-3 col-form-label text-md-right">성별</label>
 								<div class="col-md-6 group-text-input gender-radio">
 									<div class="form-check">
 											
@@ -128,7 +132,7 @@
 
 							<div class="form-group row">
 								<label for="permanent_address"
-									class="col-md-4 col-form-label text-md-right">생년월일</label>
+									class="col-md-3 col-form-label text-md-right">생년월일</label>
 							<div class="col-md-6 group-text-input d-flex">
 							<select id="birthYear" name="birthYear" class="form-control" required="required" >
 								<option value="">년</option>
@@ -157,7 +161,7 @@
 						 
 							<div class="form-group row">
 								<label for="full_name"
-									class="col-md-4 col-form-label text-md-right">직업</label>
+									class="col-md-3 col-form-label text-md-right">직업</label>
 								<div class="col-md-6 group-text-input">
 									<select class="form-select" aria-label="Default select example" name="job">
 										<option selected  value=null>직업선택</option>
