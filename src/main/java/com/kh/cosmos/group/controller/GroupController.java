@@ -2,8 +2,6 @@ package com.kh.cosmos.group.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.servlet.ServletContext;
 
@@ -18,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.kh.cosmos.common.HiSpringUtils;
+import com.kh.cosmos.common.CosmosUtils;
 import com.kh.cosmos.common.vo.Attachment;
 import com.kh.cosmos.group.model.service.GroupService;
 import com.kh.cosmos.group.model.vo.Group;
@@ -87,7 +85,7 @@ public class GroupController {
 					log.debug("upFile.size = {}", upFile.getSize());
 					
 					String originalFilename = upFile.getOriginalFilename();
-					String renamedFilename = HiSpringUtils.getRenamedFilename(originalFilename);
+					String renamedFilename = CosmosUtils.getRenamedFilename(originalFilename);
 	
 					// 1.서버컴퓨터에 저장
 					File dest = new File(saveDirectory, renamedFilename);
