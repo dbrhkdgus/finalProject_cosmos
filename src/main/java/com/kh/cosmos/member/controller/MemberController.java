@@ -178,5 +178,11 @@ public class MemberController {
 		return "redirect:/";
 	}
 	
+
+	@GetMapping("/memberGroupList.do")
+	public String memberGroupList() {
+		
+		return "member/memberGroupList";
+	}
 	
 }
