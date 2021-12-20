@@ -1,7 +1,9 @@
 package com.kh.cosmos.member.controller;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.http.HttpRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -18,6 +20,7 @@ import com.kh.cosmos.member.model.service.MemberService;
 import com.kh.cosmos.member.model.vo.Member;
 
 import lombok.extern.slf4j.Slf4j;
+import oracle.jdbc.proxy.annotation.Post;
 
 @Controller
 @Slf4j
@@ -92,6 +95,22 @@ public class MemberController {
 	@GetMapping("/memberAPIEnroll.do")
 	public String memberAPIEnroll() {
 		return "member/memberAPIEnroll";
+	}
+	
+	@PostMapping("/memberLoginKakaoMoreInfo.do")
+	public String memberLoginKakao(HttpServletRequest request, Model model) {
+		Member kakaoMember = new Member();
+		kakaoMember.setMemberId(request.getParameter("memberId"));
+		kakaoMember.setMemberName(request.getParameter("memberName"));
+		kakaoMember.setGender(request.getParameter("gender"));
+		
+		model.addAttribute("kakaoMember",kakaoMember);
+		model.addAttribute("_birthDay",request.getParameter("_birthDay"));
+		model.addAttribute("profile_img",request.getParameter("profile_img"));
+		
+		log.debug("loginMember = {}",kakaoMember);
+		
+		return "member/memberLoginKakaoMoreInfo";
 	}
 	
 	

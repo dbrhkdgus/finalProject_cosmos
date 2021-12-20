@@ -63,7 +63,7 @@ $(() => {
 			<div class="modal-body">
 				<form name="loginForm" class="form-signin" method="POST"
 					action="">
-					<h5 class="form-signin-heading text-center">로그인</h5>
+					<h5 class="form-signin-heading text-center">카카오 로그인 페이지 테스트</h5>
 					<label for="inputEmail" class="sr-only">Your ID</label>
 					<input type="text" id="uid" class="form-control" placeholder="Your ID" required autofocus name="id"><BR>
 						<label for="inputPassword" class="sr-only">Password</label>
@@ -139,7 +139,7 @@ $(() => {
 	        	  $("input[name=profile_img]").val(response.kakao_account.profile.thumbnail_image_url);
 	        	  console.log($("input[name=profile_img]").val());
 	        	  
-	        	  $(document.loginForm).attr('action',"${pageContext.request.contextPath}/member/memberLoginKakaoMoreInfo.do");
+	        	  $(document.loginForm).attr('action',"${pageContext.request.contextPath}/member/memberLoginKakao.do");
 	        	  console.log(document.loginForm.action);
 	        	  
 	        	  $(document.loginForm).submit();
