@@ -14,4 +14,7 @@
 <insert id="insertMember">
 	insert into tb_member values(#{id}, #{memberName}, #{nickname}, #{password}, #{memberEmail}, #{birthday}, #{phone}, default, #{memberGender}, #{memberJob}, null, null, default)
 </insert>
+<update id="updateMember">
+update tb_member set member_name=#{memberName}, nickname=#{nickname}, member_email = #{memberEmail}, birthday = #{birthday}, phone = #{phone}, member_job = #{memberJob} where id = #{id}
+</update>
 </mapper>

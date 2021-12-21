@@ -64,4 +64,12 @@
 			#{giContent}
 		)
 	</insert>
+	<select id="groupgroupContOne" resultType="CategoryOne">
+		select * from studygroup_category1 order by category1_no asc
+	</select>
+	
+	<select id="groupgroupContTwo" resultType="CategoryTwo">
+		select * from studygroup_category2 order by category2_no asc
+	</select>
+	
 </mapper>
