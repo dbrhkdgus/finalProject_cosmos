@@ -3,10 +3,17 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>	
 <fmt:requestEncoding value="utf-8"/>
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	<jsp:param value="공지사항" name="title"/>
 </jsp:include>
+<c:if test="${not empty msg}">
+	<script>
+		alert("${msg}");
+	</script>
+</c:if>
 <script>
 function goNoticeForm(){
 	location.href = "${pageContext.request.contextPath}/main/noticeForm.do";
@@ -50,9 +57,9 @@ $(()=>{
 		</c:forEach>
 	  </tbody>
 	</table>
-	<c:if test="${loginMember.memberId eq 'admin' && not empty loginMember}">
+	<sec:authorize access="hasRole('ADMIN')">
 	<button type="button" class="btn btn-primary float-right" onclick="goNoticeForm();">작성하기(관리자만)</button>
-	</c:if>
+	</sec:authorize>
 	${pagebar}
 </div>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
