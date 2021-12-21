@@ -3,7 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <fmt:requestEncoding value="utf-8" />
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	<jsp:param value="그룹 생성" name="title" />
@@ -67,8 +66,7 @@ window.addEventListener("load", function(){
 						<div class="card-header">스터디 그룹 생성</div>
 						<div class="card-body">
 							<form name="my-form"
-								action="${pageContext.request.contextPath}/group/insertGroup.do?${_csrf.parameterName}=${_csrf.token}" method="POST" enctype="multipart/form-data">
-								
+								action="${pageContext.request.contextPath}/group/insertGroup.do" method="POST" enctype="multipart/form-data">
 								<div class="form-group row">
 									<label for="full_name"
 										class="col-md-4 col-form-label text-md-right">그룹명</label>
@@ -204,7 +202,6 @@ window.addEventListener("load", function(){
 								<div class="col-md-6 offset-md-4 group-create-button">
 									<button type="submit" class="btn btn-primary">그룹생성</button>
 								</div>
-								
 							</form>
 						</div>
 					</div>
