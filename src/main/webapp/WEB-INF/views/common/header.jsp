@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>	
 <!DOCTYPE html>
 <html>
@@ -94,10 +95,12 @@
 									  </ul>
 									</div>
 						    	<span class="fs-6 ">님 안녕하세요.</span>
+						    	<form:form method="POST" action="${pageContext.request.contextPath}/member/memberLogout.do" id="memberLogoutFrm" class="d-inline">
 						    	<button 
-							    	class="btn btn-outline-primary" 
-							    	type="button"
-							    	onclick="location.href='${pageContext.request.contextPath}/member/memberLogout.do';">로그아웃</button>
+							    	class="btn btn-outline-success my-2 my-sm-0" 
+							    	type="submit">로그아웃</button>
+						    	</form:form>
+						    	
 						    </sec:authorize>				
 						    <c:if test="${loginMember.memberId =='admin' && not empty loginMember}">
 						    	<span class="fs-6 ">${loginMember.memberId}계정</span>
@@ -112,7 +115,8 @@
 							    	type="button"
 							    	onclick="location.href='${pageContext.request.contextPath}/member/memberLogout.do';">
 							    	<span class="headerBtnText">로그아웃</span>
-							    	</button>						    	
+							    	</button>
+							    						    	
 						    	
 						    </c:if>			                        
                             
