@@ -74,16 +74,16 @@
                     <div class="card-body">
                         <div class="login-form">
                             <%-- 로그인하지 않았을때 --%>
-			 				<c:if test="${empty loginMember}">
+			 				<sec:authorize access="isAnonymous()">
 	                            <button type="button" class="btn btn-outline-primary" onclick="location.href='${pageContext.request.contextPath}/member/memberLogin.do';">로그인</button>
 	                            <button type="button" class="btn btn-outline-primary" onclick="location.href='${pageContext.request.contextPath}/member/memberAPIEnroll.do';">회원가입</button>
-							</c:if>
+							</sec:authorize>
 						    <%-- 로그인했을때 --%>
-						    <c:if test="${loginMember.memberId != 'admin' && not empty loginMember}">
+						    <sec:authorize access="isAuthenticated()">
 						    	
 							    	<div class="btn-group">
 									  <button type="button" class="btn btn-outline-info dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-									    ${loginMember.memberId}
+									    <sec:authentication property="principal.id"/>
 									  </button>
 									  <ul class="dropdown-menu">
 									    <li><a class="dropdown-item" href="${pageContext.request.contextPath}/member/memberGroupList.do" style="color: blue;">가입한 그룹</a></li>
@@ -98,7 +98,7 @@
 							    	class="btn btn-outline-primary" 
 							    	type="button"
 							    	onclick="location.href='${pageContext.request.contextPath}/member/memberLogout.do';">로그아웃</button>
-						    </c:if>				
+						    </sec:authorize>				
 						    <c:if test="${loginMember.memberId =='admin' && not empty loginMember}">
 						    	<span class="fs-6 ">${loginMember.memberId}계정</span>
 						    	<button 
