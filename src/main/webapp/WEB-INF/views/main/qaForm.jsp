@@ -34,7 +34,7 @@
 			<span class="input-group-text" id="inputGroup-sizing-default">제목</span>
 			<input id="title" name="queTitle" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="제목을 입력해 주세요.">
 			<input type="hidden" name="queCategory" value="" />
-			<input type="hidden" name="memberId" value="${loginMember.memberId }" />
+			<input type="hidden" name="id" value="${loginMember.memberId }" />
 			<input type="hidden" name="memberName" value="${loginMember.memberName }" />
 		</div>
 		<textarea id="summernote" name="queContent"></textarea>

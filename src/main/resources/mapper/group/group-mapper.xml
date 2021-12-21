@@ -24,7 +24,7 @@
 			attachment
 		values(
 			seq_attach_no_no.nextval,
-			#{memberId},
+			#{id},
 			null,
 			#{originalFilename},
 			#{renamedFilename},

@@ -163,8 +163,8 @@
                 <div class="form-group col-lg-6">
                   <label for="name">아이디</label>
                   <input
-                    id="memberId"
-                    name="memberid"
+                    id="id"
+                    name="id"
                     type="text"
                     class="form-control validate"
                     value="kh1231"

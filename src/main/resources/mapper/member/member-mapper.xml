@@ -9,9 +9,9 @@
   	from
 		tb_member
 	where
-		member_id=#{id}
+		id=#{id}
   </select>
 <insert id="insertMember">
-insert into tb_member values(#{memberId}, #{memberName}, #{nickname}, #{password}, #{memberEmail}, #{birthday}, #{phone}, default, #{memberGender}, #{memberJob}, null, null)
+	insert into tb_member values(#{id}, #{memberName}, #{nickname}, #{password}, #{memberEmail}, #{birthday}, #{phone}, default, #{memberGender}, #{memberJob}, null, null, default)
 </insert>
 </mapper>
