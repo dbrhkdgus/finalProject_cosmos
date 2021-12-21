@@ -11,11 +11,9 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.security.core.Authentication;
-<<<<<<< HEAD
-=======
+
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
->>>>>>> branch 'master' of https://github.com/dbrhkdgus/finalProject_cosmos.git
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -102,7 +100,7 @@ public class MainController {
 			 Attachment attach = new Attachment();
 			 attach.setRenamedFilename(renamedFilename);
 			 attach.setOriginalFilename(originalFilename);
-			 attach.setMemberId(memberId);
+			 attach.setId(memberId);
 			 int attachNo = mainService.insertAttach(attach);
 			 log.debug("attachNo = {}", attachNo);
 		 }
@@ -179,7 +177,7 @@ public class MainController {
 			 Attachment attach = new Attachment();
 			 attach.setRenamedFilename(renamedFilename);
 			 attach.setOriginalFilename(originalFilename);
-			 attach.setMemberId(memberId);
+			 attach.setId(memberId);
 			 int attachNo = mainService.insertAttach(attach);
 			 log.debug("attachNo = {}", attachNo);
 			 
