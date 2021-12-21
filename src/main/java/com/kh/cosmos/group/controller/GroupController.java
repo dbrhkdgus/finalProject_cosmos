@@ -3,7 +3,9 @@ package com.kh.cosmos.group.controller;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -137,25 +139,29 @@ public class GroupController {
 	}
 	@GetMapping("/groupCategoryOne.do")
 	@ResponseBody
-	public String groupgroupContOne(Model model) {
+	public Map<String,String> groupgroupContOne(Model model) {
+		Map<String,String> map = new HashMap<String,String>();
 		List<CategoryOne> categoryOneList = new ArrayList<>();
 		categoryOneList = groupService.groupgroupContOne();
 		log.debug("categoryOneList = {}", categoryOneList);
 		String json = new Gson().toJson(categoryOneList);
 		log.debug("json = {}", json);
+		map.put("json",json);
 		
-		model.addAttribute("json", json);
-		
-		return "jsonView";
+		return map;
 	}
 	@GetMapping("/groupCategoryTwo.do")
 	@ResponseBody
-	public void groupgroupContTwo(Model model) {
+	public Map<String,String> groupgroupContTwo(Model model) {
+		Map<String,String> map = new HashMap<String,String>();
 		List<CategoryTwo> categoryTwoList = new ArrayList<>();
 		categoryTwoList = groupService.groupgroupContTwo();
 		log.debug("categoryTwoList = {}", categoryTwoList);
 		String json = new Gson().toJson(categoryTwoList);
 		log.debug("json = {}", json);
+		map.put("json",json);
+		
+		return map;
 	}
 	
 }
