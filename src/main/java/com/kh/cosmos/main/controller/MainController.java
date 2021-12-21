@@ -184,11 +184,12 @@ public class MainController {
 			 attach.setId(memberId);
 			 int attachNo = mainService.insertAttach(attach);
 			 
-			 
+			 int result = mainService.insertQuestionFile(que);
+		 }else {
+			 // 업무로직
+			 int result = mainService.insertQuestion(que);		 
 		 }
 		 
-		 // 업무로직
-		 int result = mainService.insertQuestion(que);
 		 } catch (Exception e){
 		 	log.error(e.getMessage(), e); // 로깅 throw e; //spring container에게 던짐.
 		 	

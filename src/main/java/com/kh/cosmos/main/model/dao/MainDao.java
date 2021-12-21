@@ -17,7 +17,7 @@ public interface MainDao {
 	int selectQuestionTotalCount();
 
 
-	int insertQuestion(Question que);
+	int insertQuestionFile(Question que);
 
 	int insertAttach(Attachment attach);
 
@@ -28,4 +28,6 @@ public interface MainDao {
 	Attachment selectOneAttach(int attachNo);
 	
 	Question selectOneQuestionByNo(int queNo);
+
+	int insertQuestion(Question que);
 }
