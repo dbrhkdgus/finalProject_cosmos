@@ -159,7 +159,6 @@ public class GroupController {
 		categoryTwoList = groupService.groupgroupContTwo(categoryOneNo);
 		
 		for(CategoryTwo cate : categoryTwoList) {
-			log.debug("cate = {}", cate);
 			map.put(Integer.toString(cate.getCategory2No()), cate.getCategory2Name());
 		}	
 		return map;
