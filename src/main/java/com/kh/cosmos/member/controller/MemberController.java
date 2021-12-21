@@ -13,6 +13,8 @@ import javax.servlet.http.HttpSession;
 import org.apache.http.HttpRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -27,6 +29,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.FlashMap;
@@ -222,9 +225,11 @@ public class MemberController {
 	
 	@PostMapping("/memberUpdate.do")
 	public ResponseEntity<?> memberUpdatePost(@RequestBody Member updateMember, Authentication oldAuthentication, HttpServletRequest request) {
-		log.debug("member = {}", updateMember);
 		
-		int result = memberService.updateMember(updateMember);
+		if(!updateMember.getPassword().equals("")) {
+			updateMember.setPassword(passwordEncoder.encode(updateMember.getPassword()));			
+		}
+		
 		
 		Member principal = (Member)oldAuthentication.getPrincipal();
 		principal.setMemberName(updateMember.getMemberName()); 
@@ -233,7 +238,11 @@ public class MemberController {
 		principal.setMemberEmail(updateMember.getMemberEmail());
 		principal.setPhone(updateMember.getPhone());
 		principal.setMemberJob(updateMember.getMemberJob());
+		principal.setPassword(updateMember.getPassword());
+		
 
+		int result = memberService.updateMember(updateMember);
+		
 		Authentication newAuthentication = new UsernamePasswordAuthenticationToken(principal, oldAuthentication.getCredentials(), updateMember.getAuthorities());
 		
 		SecurityContextHolder.getContext().setAuthentication(newAuthentication);
@@ -241,5 +250,18 @@ public class MemberController {
 		map.put("msg", "회원정보 수정 성공!");
 		
 		return ResponseEntity.ok(null);
+	}
+	@PostMapping("/pwdCheck.do")
+	@ResponseBody
+	public ResponseEntity<?> pwdCheck(@RequestBody Member member, Authentication auth){
+		log.debug("{}",member);
+		Member loginMember = memberService.selectOneMember(member.getId());
+		HttpHeaders header = new HttpHeaders();
+		header.add("cosmos", "pwdCheck");
+		if(passwordEncoder.matches(member.getPassword(), loginMember.getPassword())) {
+			return new ResponseEntity<Boolean>(true, header, HttpStatus.OK);
+		}else {
+			return new ResponseEntity<Boolean>(false, header, HttpStatus.OK);
+		}
 	}
 }
