@@ -112,7 +112,7 @@ public class GroupController {
 			
 			for(int i = 1; i < 4 ; i++) {
 				GroupInfo gi = new GroupInfo();
-				gi.setGiContent(groupInfoArray[i]);
+				gi.setGiContent(groupInfoArray[(i-1)]);
 				gi.setGiSubTitle(Integer.toString(i));
 				result = groupService.insertGroupInfo(gi);
 				
