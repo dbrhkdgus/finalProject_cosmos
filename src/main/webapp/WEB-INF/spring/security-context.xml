@@ -52,7 +52,7 @@
 			Cross-site Request Forgery 
 			특정권한이 있는 사용자로 하여금 해커가 유도한 행동을 함으로써 보안을 취약하게하거나, 개인정보를 탈취하는 기법 
 		-->
-		<csrf disabled="true"/>
+		<csrf disabled="false"/>
 		
 		<!-- 
 			remember-me
