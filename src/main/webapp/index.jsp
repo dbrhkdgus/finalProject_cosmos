@@ -97,7 +97,7 @@
 				<div class="index-member-box d-flex">
 				<img src="${pageContext.request.contextPath }/resources/images/facebook.png" alt="" />					
 				<div class="index-member-info">
-				<a href=""><p style="font-size: 20px;">&nbsp;<sec:authentication property="principal.memberName"/>님 </p></a>
+				<a href="${pageContext.request.contextPath }/member/memberUpdate.do" ><p style="font-size: 20px;">&nbsp;<sec:authentication property="principal.memberName"/>님 </p></a>
 				<form:form action="${pageContext.request.contextPath }/member/memberLogout.do" method="POST">
 					<input type = "submit" id="loginOut" value="로그아웃" />
 				</form:form>	
