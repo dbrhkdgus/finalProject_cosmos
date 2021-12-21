@@ -30,7 +30,7 @@ public class Member implements Serializable, UserDetails {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private String memberId;
+	private String id;
 	private String memberName;
 	private String nickname;
 	private String password;
@@ -60,7 +60,7 @@ public class Member implements Serializable, UserDetails {
 	}
 	@Override
 	public String getUsername() {
-		return memberId;
+		return id;
 	}
 	@Override
 	public boolean isAccountNonExpired() {

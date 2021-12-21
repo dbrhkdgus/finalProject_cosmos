@@ -67,7 +67,7 @@ $(() => {
 					action="${pageContext.request.contextPath}/member/memberLogin.do">
 					<h5 class="form-signin-heading text-center">로그인</h5>
 					<label for="inputEmail" class="sr-only">Your ID</label>
-					<input type="text" id="uid" class="form-control" placeholder="Your ID" required autofocus name="memberId"><BR>
+					<input type="text" id="uid" class="form-control" placeholder="Your ID" required autofocus name="id"><BR>
 						<label for="inputPassword" class="sr-only">Password</label>
 						<input type="password" id="upw" class="form-control" placeholder="Password" name="password" required ><br>
 					<div class="checkbox">
