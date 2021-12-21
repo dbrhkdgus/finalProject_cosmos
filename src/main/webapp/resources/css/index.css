@@ -378,6 +378,43 @@
 	margin: 10px 10px 10px 0px;
 }
 
+/*인덱스 페이지로그인후 배너 카테고리 수정*/
+.login-index{
+	height: 200px;
+}
+
+.login-index  .login-popular{
+   position: relative;
+   width: 33.333%;
+   background-repeat: no-repeat;
+   margin-top: 0.5em;
+   margin-bottom: 1em;
+   font-style: #846CD9
+}
+.index-member-box  img{
+	width:80px;
+	height: 80px;
+	margin: 20px;
+}
+
+
+.index-member{
+	margin: 65px 10px  0 120px;
+}
+
+.index-member-info{
+	margin-top: 30px;
+}
+
+.index-member-group a{
+	display: inline-block;
+    margin: 30px;
+}
+#loginOut{
+    background: transparent;
+    outline:none;
+    border:none;
+}
 
 #categoryTab{border: 1px solid black;}
 #navbarSupportedContent{display: flex;}

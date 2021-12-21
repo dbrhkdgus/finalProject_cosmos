@@ -3,6 +3,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>	
+
 <fmt:requestEncoding value="utf-8"/>
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	<jsp:param value="COSMOS" name="title"/>
@@ -44,6 +47,8 @@
 		<!-- Side widgets-->
 		<!-- Search widget-->
 		<!-- 카테고리코드-->
+		<!--로그인 하지않았을떄   -->
+		<sec:authorize access="isAnonymous()">
 		<div class="category" style="margin-bottom:5px;">
 			
 			<div class="category2">
@@ -65,6 +70,52 @@
 	          		<button type="button" class="btn btn-info" style="margin-left:10px; background-color:#6D8EF2 ; color:white;"><i class="fas fa-search"></i></button>
 	        	</form>
 			</div>
+		</div>
+		</sec:authorize>
+		<!--로그인 했을 때  -->
+		<sec:authorize access="isAuthenticated()">
+		<div class="col-lg-4">
+		<div class="login-index category" style="margin-bottom:5px;">
+			
+			<div class="category2">
+				<button type="button" class="btn-category">카테고리</button>
+				<ul class="cate-list" style="padding-left: 0;">
+					<li class="login-popular"><a href="">로그인</a></li>
+					<li class="login-popular"><a href="">프론트</a></li>
+					<li class="login-popular"><a href="">백엔드</a></li>
+					<li class="login-popular"><a href="">풀스택</a></li>
+					<li class="login-popular"><a href="">모바일 앱 개발</a></li>
+					<li class="login-popular"><a href="">프로그래밍 언어</a></li>
+					<li class="login-popular"><a href="">알고리즘</a></li>
+					<li class="login-popular"><a href="">데이터베이스</a></li>
+					<li class="login-popular"><a href="">게임개발</a></li>
+				</ul>
+				
+			</div>
+		</div>
+		<div class="login-index category " style="margin-bottom:5px;">
+				<div class="index-member-box d-flex">
+				<img src="${pageContext.request.contextPath }/resources/images/facebook.png" alt="" />					
+				<div class="index-member-info">
+				<a href=""><p style="font-size: 20px;">&nbsp;<sec:authentication property="principal.memberName"/>님 </p></a>
+				<form:form action="${pageContext.request.contextPath }/member/memberLogout.do" method="POST">
+					<input type = "submit" id="loginOut" value="로그아웃" />
+				</form:form>	
+				
+				
+				</div>
+				<div class="index-member">
+				<button type="button" class="btn btn-outline-primary">DM</button>
+				</div>
+				</div>
+				<div class="index-member-group">
+				<a href="${pageContext.request.contextPath}/member/memberGroupList.do">신청 그룹</a>
+				<a href="${pageContext.request.contextPath}/member/memberGroupList.do">가입 그룹</a>
+				<a href="${pageContext.request.contextPath}/member/memberGroupList.do">관심 그룹</a>
+				</div>
+				
+			</div>
+		</sec:authorize>
 			
 		
 		</div>
