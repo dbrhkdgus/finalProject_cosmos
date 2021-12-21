@@ -10,6 +10,9 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ResourceLoader;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -189,18 +192,24 @@ public class MainController {
 		return "redirect:/main/qa.do";
 	}
 	@GetMapping("/qaDetail.do")
-	public String queDetail(@RequestParam int queNo, Model model, HttpServletRequest request, RedirectAttributes redirectAttr) {
+	public String queDetail(Authentication authentication, @RequestParam int queNo, Model model, HttpServletRequest request, RedirectAttributes redirectAttr) {
+		
+		//1.Principal타입으로 요청 : Principal은 Authentication이 상속하는 인터페이스이다.
+		Member loginMember = (Member)authentication.getPrincipal();
+		
 		log.debug("queNo = {}", queNo);
 		HttpSession session = request.getSession();
 		Question que = mainService.selectOneQuestionByNo(queNo);
 		Attachment att = mainService.selectOneAttach(que.getAttachNo());
 		
-		Member loginMember = (Member) session.getAttribute("loginMember");			
+//		Member loginMember = (Member) session.getAttribute("loginMember");			
 		
-		log.debug("loginMemberId = {}", loginMember.getMemberId());
+//		log.debug("loginMemberId = {}", loginMember.getId());
+//		log.debug("queMemberId = {}", que.getMemberId());
+		log.debug("loginMemberId = {}", loginMember.getId());
 		log.debug("queMemberId = {}", que.getMemberId());
 		
-		if(!que.getMemberId().equals(loginMember.getMemberId()) || "admin".equals(loginMember.getMemberId()) || loginMember == null) {
+		if(!que.getMemberId().equals(loginMember.getId()) || "admin".equals(loginMember.getId()) || loginMember == null) {
 			redirectAttr.addFlashAttribute("msg", "작성자만 확인 가능합니다.");
 			return "redirect:/main/qa.do";
 		}
