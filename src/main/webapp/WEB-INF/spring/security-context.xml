@@ -36,7 +36,7 @@
 		 <form-login 
 			login-page="/member/memberLogin.do"
 			login-processing-url="/member/memberLogin.do"
-			username-parameter="memberId"
+			username-parameter="id"
 			password-parameter="password"
 			/>
 			

@@ -19,16 +19,14 @@ public class SecurityService implements UserDetailsService{
 	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		log.debug("username = {}",username); // id
+		log.debug("username = {}", username);
 		
 		UserDetails member = securityDao.loadUserByUsername(username);
-		log.debug("member = {}", member);
-		/**
-		 * 조회된 회원이 없다면 예외를 던져서 security에 알림.
-		 */
-		if(member == null)
+		log.debug("member = {}",member);
+		//조회된 회원이 없다면 예외를 던져서 security에 알림.
+		if(member == null) {
 			throw new UsernameNotFoundException(username);
-		
+		}
 		return member;
 	}
 	
