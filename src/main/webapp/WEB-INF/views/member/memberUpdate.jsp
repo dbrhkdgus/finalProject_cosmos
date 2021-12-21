@@ -33,9 +33,28 @@
 
 
 							<div class="form-group row">
-							<label for="full_name"
-									class="col-md-4 col-form-label text-md-right">비밀번호</label>
-								<input type="button" style="width:50%" value="비밀번호 변경하기" />
+								<label for="present_address"
+									class="col-md-4 col-form-label text-md-right">현재 비밀번호</label>
+								<div class="col-md-6 group-text-input">
+									<input type="password" id="password" class="form-control" name="password" value="1234">
+								</div>
+							</div>
+							
+							<div class="form-group row">
+								<label for="present_address"
+									class="col-md-4 col-form-label text-md-right">새로운 비밀번호</label>
+								<div class="col-md-6 group-text-input">
+									<input type="password" id="password" class="form-control" name="password" value="1234">
+								</div>
+							</div>
+
+
+							<div class="form-group row">
+								<label for="present_address"
+									class="col-md-4 col-form-label text-md-right">비밀번호 확인</label>
+								<div class="col-md-6 group-text-input">
+									<input type="password" id="password" class="form-control" value="1234">
+								</div>
 							</div>
 
 

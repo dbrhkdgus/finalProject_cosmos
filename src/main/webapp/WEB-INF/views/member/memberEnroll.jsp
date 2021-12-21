@@ -15,7 +15,7 @@
 				<div class="card">
 					<div class="card-header">회원가입</div>
 					<div class="card-body">
-						<form name="memberEnrollFrm" method="POST" action="<%=request.getContextPath()%>/member/emailMemberEnroll.do">
+						<form name="memberEnrollFrm" method="POST" action="${pageContext.request.contextPath }/member/memberEnroll.do?${_csrf.parameterName}=${_csrf.token}">
 							<div class="form-group row">
 								<label for="full_name"
 									class="col-md-4 col-form-label text-md-right">아이디</label>
@@ -30,7 +30,7 @@
 								<label for="present_address"
 									class="col-md-4 col-form-label text-md-right">비밀번호</label>
 								<div class="col-md-6 group-text-input">
-									<input type="password" id="password" class="form-control" name="password" value="1234">
+									<input type="password" id="password" class="form-control" name="password" value="">
 								</div>
 							</div>
 
@@ -39,7 +39,7 @@
 								<label for="present_address"
 									class="col-md-4 col-form-label text-md-right">비밀번호 확인</label>
 								<div class="col-md-6 group-text-input">
-									<input type="password" id="password" class="form-control" value="1234">
+									<input type="password" id="password" class="form-control" value="">
 								</div>
 							</div>
 							
