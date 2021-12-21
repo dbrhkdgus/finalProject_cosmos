@@ -7,6 +7,36 @@
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	<jsp:param value="그룹 생성" name="title" />
 </jsp:include>
+<script type="text/javascript">
+window.addEventListener("load", function(){
+	$.ajax({
+		url:"<%= request.getContextPath() %>/group/groupCategoryOne.do?${_csrf.parameterName}=${_csrf.token}",
+		method: "GET",
+		contentType: "application/json; charset=utf-8",
+		dataType: "json",
+		success(data){
+			console.log(data);
+		},
+		error(xhr,textStatus,err){
+			console.log(xhr,textStatus,err);
+		}
+	});
+});
+window.addEventListener("load", function(){
+	$.ajax({
+		url:"<%= request.getContextPath() %>/group/groupCategoryTwo.do?${_csrf.parameterName}=${_csrf.token}",
+		method: "GET",
+		dataType: "json",
+		success(data){
+			console.log(data);
+		},
+		error(xhr,textStatus,err){
+			console.log(xhr,textStatus,err);
+		}
+	});
+});
+</script>
+
 	<main class="my-form">
 		<div class="cotainer">
 			<div class="row justify-content-center">
@@ -197,7 +227,8 @@
 		} else {
 			data.set("groupPrivate", "U");
 		} */
-	 
+
+		
 		var charged = document.getElementByName('groupCharge');
 		var isCharged;
 		for(var i = 0; i < charged.length; i++) {
