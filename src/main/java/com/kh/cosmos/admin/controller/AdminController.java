@@ -13,9 +13,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.kh.cosmos.admin.model.service.AdminService;
 import com.kh.cosmos.common.CosmosUtils;
 import com.kh.cosmos.main.model.service.MainService;
 import com.kh.cosmos.main.model.vo.Question;
+import com.kh.cosmos.member.model.vo.Member;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -25,6 +27,10 @@ import lombok.extern.slf4j.Slf4j;
 public class AdminController {
 	@Autowired
 	private MainService mainService;
+	
+	
+	@Autowired
+	private AdminService adminService;
 
 	@GetMapping("/main.do")
 	public String main() {
@@ -56,9 +62,34 @@ public class AdminController {
 	}
 	
 	@GetMapping("/members.do")
-	public String members() {
+	public String members(@RequestParam(defaultValue = "1") int cPage, Model model,HttpServletRequest request) {
+		//페이징 처리
+		int limit = 10;
+		int offset = (cPage -1)*limit;
+		int totalContent = mainService.selectQuestionTotalCount();
+		String url = request.getRequestURI();
+		model.addAttribute("totalContent", totalContent);		
+		String pagebar = CosmosUtils.getPagebar(cPage, limit, totalContent, url);
+		
+		//업무로직
+		List<Member> list = adminService.selectAllMembers();
+		log.debug("list = {}", list);
+		
+		//값 전달
+		model.addAttribute("list", list);
+		model.addAttribute("pagebar", pagebar);
+		
 		return "admin/members";
 	}
+	
+	@GetMapping("/selectOneMember.do")
+	public void selectOne(@RequestParam(value="memberId") String id) {
+		log.debug("보여줄 id = {}", id);
+		Member member = adminService.selectOneMember(id);
+		log.debug("member = {}", member);
+		
+	}
+	
 	@GetMapping("/groups.do")
 	public String groups() {
 		return "admin/groups";
