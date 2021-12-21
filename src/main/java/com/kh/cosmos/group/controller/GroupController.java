@@ -98,7 +98,7 @@ public class GroupController {
 				Attachment attach = new Attachment();
 				attach.setRenamedFilename(renamedFilename);
 				attach.setOriginalFilename(originalFilename);
-				attach.setMemberId("honggd");
+				attach.setId("honggd");
 				attach.setGroupNo(group.getGroupNo());
 				attach.setImgFlag("Y");
 				int attachNo = groupService.insertAttach(attach);
