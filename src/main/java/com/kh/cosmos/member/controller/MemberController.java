@@ -172,7 +172,7 @@ public class MemberController {
 		Member kakaoMember = new Member();
 		if(memberService.selectOneMember(request.getParameter("memberId")) == null) {
 		
-		kakaoMember.setMemberId(request.getParameter("memberId"));
+		kakaoMember.setId(request.getParameter("memberId"));
 		kakaoMember.setMemberName(request.getParameter("memberName"));
 		kakaoMember.setMemberGender(request.getParameter("gender"));
 		

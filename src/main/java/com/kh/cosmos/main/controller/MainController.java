@@ -175,7 +175,7 @@ public class MainController {
 			 Attachment attach = new Attachment();
 			 attach.setRenamedFilename(renamedFilename);
 			 attach.setOriginalFilename(originalFilename);
-			 attach.setMemberId(memberId);
+			 attach.setId(memberId);
 			 int attachNo = mainService.insertAttach(attach);
 			 log.debug("attachNo = {}", attachNo);
 			 

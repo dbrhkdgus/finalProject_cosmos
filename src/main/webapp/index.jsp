@@ -65,6 +65,8 @@
 	          		<button type="button" class="btn btn-info" style="margin-left:10px; background-color:#6D8EF2 ; color:white;"><i class="fas fa-search"></i></button>
 	        	</form>
 			</div>
+			
+		
 		</div>
 		<!-- Categories widget-->
 	</div>
