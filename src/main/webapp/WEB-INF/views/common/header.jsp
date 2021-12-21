@@ -91,7 +91,7 @@
 									    <li><a class="dropdown-item" href="${pageContext.request.contextPath}/member/memberGroupList.do" style="color: blue;">가입신청그룹</a></li>
 									    <li><a class="dropdown-item" href="${pageContext.request.contextPath}/member/memberGroupList.do" style="color: blue;">관심 그룹</a></li>
 									    <li><hr class="dropdown-divider"></li>
-									    <li><a class="dropdown-item" href="#" style="color: blue;">내 정보 수정</a></li>
+									    <li><a class="dropdown-item" href="${pageContext.request.contextPath }/member/memberUpdate.do" style="color: blue;">내 정보 수정</a></li>
 									  </ul>
 									</div>
 						    	<span class="fs-6 ">님 안녕하세요.</span>
