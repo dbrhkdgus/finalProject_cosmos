@@ -32,28 +32,28 @@
 							</div>
 
 
-							<div class="form-group row">
+							<div class="form-group row curr-pwd-box">
 								<label for="present_address"
 									class="col-md-4 col-form-label text-md-right">현재 비밀번호</label>
 								<div class="col-md-6 group-text-input">
-									<input type="password" id="password" class="form-control" name="password" value="1234">
+									<input type="password"  class="form-control" name="currpassword" placeholder="비밀번호를 변경하려면 현재 비밀번호를 입력하세요." >
 								</div>
 							</div>
 							
-							<div class="form-group row">
+							<div class="form-group row new-pwd-box">
 								<label for="present_address"
 									class="col-md-4 col-form-label text-md-right">새로운 비밀번호</label>
 								<div class="col-md-6 group-text-input">
-									<input type="password" id="password" class="form-control" name="password" value="1234">
+									<input type="password" id="password" class="form-control" name="password" value="">
 								</div>
 							</div>
 
 
-							<div class="form-group row">
+							<div class="form-group row new-pwd-box">
 								<label for="present_address"
 									class="col-md-4 col-form-label text-md-right">비밀번호 확인</label>
 								<div class="col-md-6 group-text-input">
-									<input type="password" id="password" class="form-control" value="1234">
+									<input type="password" id="passwordCheck" class="form-control">
 								</div>
 							</div>
 
@@ -168,9 +168,41 @@
 </main>
 
 <script>
+$(".new-pwd-box").hide();
+$("input[name=currpassword]").blur((e)=>{
+	let data ={
+		id : $("input[name=id]").val(),
+		password : $(e.target).val()
+	};
+
+	
+	$.ajax({
+         type:"post",
+         url:"${pageContext.request.contextPath}/member/pwdCheck.do",
+         data:JSON.stringify(data), //object -> json
+         contentType:"application/json; charset=utf-8",
+         dataType:"json",
+         headers: {
+				"${_csrf.headerName}" : "${_csrf.token}"
+		 },
+         success(res){
+				console.log(res);
+				if(res){
+					$(".new-pwd-box").show();
+					$("input[name=currpassword]").attr('readonly',true);
+				}else{
+					
+				}
+		},
+		error:console.log
+     });
+	
+	
+});
+
 $("#passwordCheck").blur(function(){
 	var $password = $("#password"),
-	$passwordCheck = $("$passwordCheck");
+	$passwordCheck = $("#passwordCheck");
 	if($password.val() != $passwordCheck.val()){
 		alert("패스워드가 일치하지 않습니다.");
 		$password.select();
