@@ -3,11 +3,15 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>	
 <fmt:requestEncoding value="utf-8" />
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	<jsp:param value="문의사항 작성" name="title" />
 </jsp:include>
-
+<sec:authorize access="isAuthenticated()">
+	<sec:authentication property="principal" var="member"/>
+</sec:authorize>
 <script src="${pageContext.request.contextPath }/resources/js/summernote-lite.js"></script>
 <script src="${pageContext.request.contextPath }/resources/js/summernote-ko-KR.js"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/summernote-lite.css">
@@ -15,7 +19,7 @@
 <!-- form 안에 에디터를 사용하는 경우 (보통 이경우를 많이 사용하는듯)-->
 <h2 class="text-center">문의 사항 작성</h2>
 <div class="container">
-	<form name="queFrm" action="${pageContext.request.contextPath }/main/queEnroll.do" method="post" enctype="multipart/form-data">
+	<form:form name="queFrm" action="${pageContext.request.contextPath }/main/queEnroll.do" method="post" enctype="multipart/form-data">
 		<div class="input-group mb-3 mx-auto">
 			<div class="dropdown float-left mx-auto d-block">
 			  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
@@ -34,8 +38,8 @@
 			<span class="input-group-text" id="inputGroup-sizing-default">제목</span>
 			<input id="title" name="queTitle" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="제목을 입력해 주세요.">
 			<input type="hidden" name="queCategory" value="" />
-			<input type="hidden" name="id" value="${loginMember.memberId }" />
-			<input type="hidden" name="memberName" value="${loginMember.memberName }" />
+			<input type="hidden" name="id" value="${member.id }" />
+			<input type="hidden" name="memberName" value="${member.memberName }" />
 		</div>
 		<textarea id="summernote" name="queContent"></textarea>
 		<div class="input-group mb-3" style="padding:0px; padding-top: 5px;">
@@ -47,7 +51,8 @@
 			    <label class="custom-file-label" for="upFile1">파일을 선택하세요</label>
 			</div>
 		</div>
-	</form>
+		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+	</form:form>
 	<div class="d-grid gap-2 col-6 mx-auto">
 		<button id="btn-send" class="btn btn-primary" type="button">작성 완료</button>
 	</div>

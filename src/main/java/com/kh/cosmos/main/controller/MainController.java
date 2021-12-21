@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ResourceLoader;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -145,6 +146,7 @@ public class MainController {
 		
 		return "main/qaForm";
 	}
+
 	@PostMapping("/queEnroll.do")
 	public String queEnroll(Question que, @RequestParam(value="upFile", required=false) MultipartFile upFile, RedirectAttributes redirectAttr) throws IllegalStateException, IOException {
 		log.debug("upFile = {}", upFile);
@@ -189,18 +191,14 @@ public class MainController {
 		return "redirect:/main/qa.do";
 	}
 	@GetMapping("/qaDetail.do")
-	public String queDetail(@RequestParam int queNo, Model model, HttpServletRequest request, RedirectAttributes redirectAttr) {
+	public String queDetail(@RequestParam int queNo, Model model, Authentication authentication, RedirectAttributes redirectAttr) {
 		log.debug("queNo = {}", queNo);
-		HttpSession session = request.getSession();
 		Question que = mainService.selectOneQuestionByNo(queNo);
 		Attachment att = mainService.selectOneAttach(que.getAttachNo());
+		Member member = (Member)authentication.getPrincipal();
+		log.debug("member = {}", member);
 		
-		Member loginMember = (Member) session.getAttribute("loginMember");			
-		
-		log.debug("loginMemberId = {}", loginMember.getMemberId());
-		log.debug("queMemberId = {}", que.getMemberId());
-		
-		if(!que.getMemberId().equals(loginMember.getMemberId()) || "admin".equals(loginMember.getMemberId()) || loginMember == null) {
+		if(!que.getMemberId().equals(member.getId()) || "admin".equals(member.getId()) || member == null) {
 			redirectAttr.addFlashAttribute("msg", "작성자만 확인 가능합니다.");
 			return "redirect:/main/qa.do";
 		}
