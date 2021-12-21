@@ -30,7 +30,7 @@
             <h2 class="tm-block-title">문의 목록</h2>
             <p class="text-white">검색 카테고리</p>
             <!-- 검색어 전송 -->
-            <form action="#" class="d-flex">
+            <form action="#">
               <div>
                 <select class="custom-select selectBar mr-3" id="search1" onchange="search2()">
                   <option value="all">전체</option>
@@ -77,61 +77,37 @@
               
             </form>
             <!-- 회원목록 테이블 -->
-            <div class="row tm-content-row  mt-5">
-              <table class="table mb-3 mt-1">
+            <div class="row tm-content-row  mt-5 w-200">
+              <table class="table mb-3 mt-1 text-center">
                 <thead>
                   <tr>
-                    <th scope="security">아이디정보/보안</th>
-                    <th scope="pay">결제</th>
-                    <th scope="col">그룹 웨어</th>
-                    <th scope="etc">기타</th>
+				      <th class="col-1" scope="col">NO</th>
+				      <th class="col-2.5" scope="col">카테고리</th>
+				      <th class="col-4" scope="col">제목</th>
+				      <th class="col-2" scope="col">작성자</th>
+				      <th scope="col-1">날짜</th>
+				      <th scope="col-1.5">상태</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>1</td>
-                    <td onclick="openView()">[결제]</td>
-                    <td>kh1231</td>
-                    <td>프리미엄 모임 결제 관련 문의입니다.</td>
-                    <td>처리 중</td>
-                  <tr>
-                    <td>1</td>
-                    <td>[결제]</td>
-                    <td>kh1231</td>
-                    <td>프리미엄 모임 결제 관련 문의입니다.</td>
-                    <td>처리 중</td>
-                  </tr>              
-                  <tr>
-                    <td>1</td>
-                    <td>[회원 탈퇴]</td>
-                    <td>kh1231</td>
-                    <td>프리미엄 모임 결제 관련 문의입니다.</td>
-                    <td>처리 중</td>
-                  </tr>              
-                  <tr>
-                    <td>1</td>
-                    <td>[결제]</td>
-                    <td>kh1231</td>
-                    <td>프리미엄 모임 결제 관련 문의입니다.</td>
-                    <td>처리 중</td>
-                  </tr>              
-                  <tr>
-                    <td>1</td>
-                    <td>[결제]</td>
-                    <td>kh1231</td>
-                    <td>프리미엄 모임 결제 관련 문의입니다.</td>
-                    <td style="">처리 중</td>
-                  </tr>              
-                  <tr>
-                    <td>1</td>
-                    <td>[결제]</td>
-                    <td>kh1231</td>
-                    <td>프리미엄 모임 결제 관련 문의입니다.</td>
-                    <td style="font-weight: bold; color:rgba(25, 165, 44, 0.74)">완료</td>
+                <c:forEach var="que" items="${list}">
+	                <tr>
+	                	<th>${que.queNo}</th>
+	                	<td>${que.queCategory}</td>
+	                	<td>${que.queTitle }</td>
+	                	<td>${que.memberId }</td>
+	                	<td><fmt:formatDate value="${que.regDate}" pattern="yy-MM-dd"/> </td>
+	                	<td class="answer">
+	                		<c:if test="${que.status eq 'false'}">미처리</c:if>
+	                		<c:if test="${que.status eq 'true'}"><span style="color: black;">답변완료</span></c:if>
+	                	</td>
+	                	
+	                </tr>
+                </c:forEach>
                   </tr>
                 </tbody>
               </table>
-              <nav aria-label="Page navigation example" style="margin: auto;">
+<!--               <nav aria-label="Page navigation example" style="margin: auto;">
                 <ul class="pagination">
                   <li class="page-item">
                     <a class="page-link" href="#" aria-label="Previous">
@@ -147,7 +123,8 @@
                     </a>
                   </li>
                 </ul>
-              </nav>
+              </nav> -->
+              <div style="margin: auto">${pagebar }</div>
             </div>
           </div>
           
