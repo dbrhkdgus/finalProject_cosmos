@@ -44,9 +44,10 @@ public class GroupServiceImpl implements GroupService {
 		// TODO Auto-generated method stub
 		return groupDao.groupgroupContOne();
 	}
+	
 	@Override
-	public List<CategoryTwo> groupgroupContTwo() {
+	public List<CategoryTwo> groupgroupContTwo(String categoryOneNo) {
 		// TODO Auto-generated method stub
-		return groupDao.groupgroupContTwo();
+		return groupDao.groupgroupContTwo(categoryOneNo);
 	}
 }

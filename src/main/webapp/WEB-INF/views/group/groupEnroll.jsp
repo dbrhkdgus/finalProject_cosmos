@@ -16,18 +16,34 @@ window.addEventListener("load", function(){
 		contentType: "application/json; charset=utf-8",
 		dataType: "json",
 		success(data){
-			console.log(data);
+			const $CATEdiv = $(`<select class="form-select" id="selectCateOne" aria-label="Default select example"></select>`);
+			const htmlfix = `<option selected disabled>상위 카테고리</option>`;
+			$CATEdiv.append(htmlfix);
+			$.each(data, (k, v) => {
+				let html = `<option value=\${k}>\${v}</option>`;
+				$CATEdiv.append(html);
+			});
+			$("#fCate").html($CATEdiv);
 		},
 		error(xhr,textStatus,err){
 			console.log(xhr,textStatus,err);
 		}
 	});
 });
+$(()=>{
+	$("#selectCateOne").on("change",function() {
+		const cateOneNo = $("#selectCateOne option:selected").val();
+		console.log(cateOneNo);
+	});
+});
+
+
 window.addEventListener("load", function(){
 	$.ajax({
 		url:"<%= request.getContextPath() %>/group/groupCategoryTwo.do?${_csrf.parameterName}=${_csrf.token}",
 		method: "GET",
 		dataType: "json",
+		data: {categoryOneNo : "1"},
 		success(data){
 			console.log(data);
 		},
@@ -61,14 +77,7 @@ window.addEventListener("load", function(){
 								<div class="form-group row">
 									<label for="full_name"
 										class="col-md-4 col-form-label text-md-right">상위 카테고리</label>
-									<div class="col-md-6 group-text-input">
-										<select class="form-select"
-											aria-label="Default select example">
-											<option selected>상위 카테고리</option>
-											<option value="1">웹 개발</option>
-											<option value="2">프론트엔드</option>
-											<option value="3">백엔드</option>
-										</select>
+									<div class="col-md-6 group-text-input" id="fCate">
 									</div>
 								</div>
 	
@@ -210,6 +219,7 @@ window.addEventListener("load", function(){
 	</main>
 
 	<script>
+
 		/* function YnCheck(obj) {
 			var checked = obj.checked;
 			if(checked) {

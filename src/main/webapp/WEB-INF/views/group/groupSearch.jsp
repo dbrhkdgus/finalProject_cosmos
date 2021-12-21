@@ -3,6 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>	
 <fmt:requestEncoding value="utf-8"/>
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	<jsp:param value="그룹 검색" name="title"/>
@@ -64,9 +66,9 @@
                     
                     <div class="search-outer-top left">
                     <p style="margin-bottom:20px;" id="class-amount">100개의 클래스</p>
-                    <c:if test="${not empty loginMember}">
+                    <sec:authorize access="isAuthenticated()">
                     <button type="button" class="btn btn-outline-secondary" onclick="location.href='${pageContext.request.contextPath}/group/groupEnroll.do';">그룹 생성</button>
-                    </c:if>
+                    </sec:authorize>
                     </div>
                     
                     <div class="search-outer-top right">

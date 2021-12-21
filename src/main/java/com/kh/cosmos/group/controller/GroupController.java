@@ -16,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -143,24 +144,24 @@ public class GroupController {
 		Map<String,String> map = new HashMap<String,String>();
 		List<CategoryOne> categoryOneList = new ArrayList<>();
 		categoryOneList = groupService.groupgroupContOne();
-		log.debug("categoryOneList = {}", categoryOneList);
-		String json = new Gson().toJson(categoryOneList);
-		log.debug("json = {}", json);
-		map.put("json",json);
 		
+		for(CategoryOne cate : categoryOneList) {
+			map.put(Integer.toString(cate.getCategory1No()), cate.getCategory1Name());
+		}		
 		return map;
 	}
 	@GetMapping("/groupCategoryTwo.do")
 	@ResponseBody
-	public Map<String,String> groupgroupContTwo(Model model) {
+	public Map<String,String> groupgroupContTwo(Model model, String categoryOneNo) {
+		log.debug(categoryOneNo);
 		Map<String,String> map = new HashMap<String,String>();
 		List<CategoryTwo> categoryTwoList = new ArrayList<>();
-		categoryTwoList = groupService.groupgroupContTwo();
-		log.debug("categoryTwoList = {}", categoryTwoList);
-		String json = new Gson().toJson(categoryTwoList);
-		log.debug("json = {}", json);
-		map.put("json",json);
+		categoryTwoList = groupService.groupgroupContTwo(categoryOneNo);
 		
+		for(CategoryTwo cate : categoryTwoList) {
+			log.debug("cate = {}", cate);
+			map.put(Integer.toString(cate.getCategory2No()), cate.getCategory2Name());
+		}	
 		return map;
 	}
 	
