@@ -31,7 +31,7 @@ window.addEventListener("load", function(){
 });
 $(()=>{
 	$("#selectCateOne").on("change",function() {
-		const cateOneNo = $("#selectCateOne option:selected").val();
+		const cateOneNo = $("#selectCateOne option:selected").this.val();
 		console.log(cateOneNo);
 	});
 });
