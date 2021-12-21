@@ -64,9 +64,9 @@
                     
                     <div class="search-outer-top left">
                     <p style="margin-bottom:20px;" id="class-amount">100개의 클래스</p>
-                    <c:if test="${not empty loginMember}">
+                    <sec:authorize access="isAuthenticated()">
                     <button type="button" class="btn btn-outline-secondary" onclick="location.href='${pageContext.request.contextPath}/group/groupEnroll.do';">그룹 생성</button>
-                    </c:if>
+                    </sec:authorize>
                     </div>
                     
                     <div class="search-outer-top right">

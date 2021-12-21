@@ -59,7 +59,7 @@ public class GroupController {
 	
 	@PostMapping("/insertGroup.do")
 	public String insertGroup(
-			Group group,
+			Group group,GroupInfoConnect groupInfoConnect, GroupInfo groupInfo,
 			@RequestParam(value="upFile", required=false) MultipartFile upFile, 
 			RedirectAttributes redirectAttributes
 			) throws IllegalStateException, IOException {
@@ -98,7 +98,7 @@ public class GroupController {
 				Attachment attach = new Attachment();
 				attach.setRenamedFilename(renamedFilename);
 				attach.setOriginalFilename(originalFilename);
-				attach.setMemberId("honggd");
+				attach.setId("honggd");
 				attach.setGroupNo(group.getGroupNo());
 				attach.setImgFlag("Y");
 				int attachNo = groupService.insertAttach(attach);

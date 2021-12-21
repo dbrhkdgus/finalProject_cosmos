@@ -13,11 +13,11 @@
   	<insert id="insertQuestion">
 		<selectKey keyProperty="attachNo" resultType="_int" order="BEFORE">
 			select
-				seq_attach_no_no.currval
+				seq_attach_no_no.nextval
 			from
 				dual
 		</selectKey>
-		insert into question values(seq_question_no.nextval, #{id}, default, #{queTitle}, #{queContent}, current_date, #{queCategory}, #{attachNo})
+		insert into question values(seq_question_no.nextval, #{memberId}, default, #{queTitle}, #{queContent}, current_date, #{queCategory}, #{attachNo})
 		
 	</insert>
 	<select id="selectOneQuestionByNo" resultType="question">
