@@ -15,8 +15,8 @@ window.addEventListener("load", function(){
 		contentType: "application/json; charset=utf-8",
 		dataType: "json",
 		success(data){
-			const $CATEdiv = $(`<select class="form-select" id="selectCateOne" aria-label="Default select example"></select>`);
-			const htmlfix = `<option selected disabled>상위 카테고리</option>`;
+			const $CATEdiv = $(`<select class="form-select" id="selectCateOne" aria-label="Default select example" onchange="getItem()"></select>`);
+			const htmlfix = `<option value=0 disabled>상위 카테고리</option>`;
 			$CATEdiv.append(htmlfix);
 			$.each(data, (k, v) => {
 				let html = `<option value=\${k}>\${v}</option>`;
@@ -29,27 +29,32 @@ window.addEventListener("load", function(){
 		}
 	});
 });
-$(()=>{
-	$("#selectCateOne").on("change",function() {
-		const cateOneNo = $("#selectCateOne option:selected").val();
-		console.log(cateOneNo);
+function getItem(){
+	$("select[id=selectCateOne]").change(function(){
+		  $.ajax({
+				url:"<%= request.getContextPath() %>/group/groupCategoryTwo.do?${_csrf.parameterName}=${_csrf.token}",
+				method: "GET",
+				dataType: "json",
+				data: {categoryOneNo : $(this).val()},
+				success(data){
+					const $CATETWOdiv = $(`<div class="group-text-input">`);
+					$.each(data, (k, v) => {
+						let html = `<div class="form-check form-check-inline"><input class="form-check-input" type="checkbox" id="inlineCheckbox\${k}" value=\${k}><label class="form-check-label" for="inlineCheckbox\${k}">\${v}</label></div>`;
+						$CATETWOdiv.append(html);
+					});
+						$CATETWOdiv.append(`</div>`);
+					$("#sCate").html($CATETWOdiv);
+				},
+				error(xhr,textStatus,err){
+					console.log(xhr,textStatus,err);
+				}
+			});
 	});
-});
+};
 
 
 window.addEventListener("load", function(){
-	$.ajax({
-		url:"<%= request.getContextPath() %>/group/groupCategoryTwo.do?${_csrf.parameterName}=${_csrf.token}",
-		method: "GET",
-		dataType: "json",
-		data: {categoryOneNo : "1"},
-		success(data){
-			console.log(data);
-		},
-		error(xhr,textStatus,err){
-			console.log(xhr,textStatus,err);
-		}
-	});
+	
 });
 </script>
 
@@ -76,25 +81,16 @@ window.addEventListener("load", function(){
 									<label for="full_name"
 										class="col-md-4 col-form-label text-md-right">상위 카테고리</label>
 									<div class="col-md-6 group-text-input" id="fCate">
+									
 									</div>
+									<!-- <button type="button" onclick="getItem()">선택</button> -->
 								</div>
 	
 								<div class="form-group row">
 									<label for="full_name"
 										class="col-md-4 col-form-label text-md-right">하위 카테고리</label>
-									<div class="col-md-6 group-text-input">
-										<div class="form-check form-check-inline">
-										  <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
-										  <label class="form-check-label" for="inlineCheckbox1">JAVA</label>
-										</div>
-										<div class="form-check form-check-inline">
-										  <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
-										  <label class="form-check-label" for="inlineCheckbox2">HTML/CSS</label>
-										</div>
-										<div class="form-check form-check-inline">
-										  <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3">
-										  <label class="form-check-label" for="inlineCheckbox3">JavaScript</label>
-										</div>
+									<div class="col-md-6 group-text-input" id="sCate">
+										
 									</div>
 								</div>
 								
