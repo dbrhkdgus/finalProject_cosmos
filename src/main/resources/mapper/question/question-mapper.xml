@@ -10,15 +10,18 @@
   	select count(*) from question
   </select>
   
-  	<insert id="insertQuestion">
+  	<insert id="insertQuestionFile">
 		<selectKey keyProperty="attachNo" resultType="_int" order="BEFORE">
 			select
 				seq_attach_no_no.currval
 			from
 				dual
 		</selectKey>
-		insert into question values(seq_question_no.nextval, #{id}, default, #{queTitle}, #{queContent}, current_date, #{queCategory}, #{attachNo})
+		insert into question values(seq_question_no.nextval, #{memberId}, default, #{queTitle}, #{queContent}, current_date, #{queCategory}, #{attachNo})
 		
+	</insert>
+	<insert id="insertQuestion" >
+		insert into question values(seq_question_no.nextval, #{memberId}, default, #{queTitle}, #{queContent}, current_date, #{queCategory}, null)
 	</insert>
 	<select id="selectOneQuestionByNo" resultType="question">
 		select * from question where que_no = #{queNo}

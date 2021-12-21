@@ -43,9 +43,9 @@ public class MainServiceImpl implements MainService {
 	}
 
 	@Override
-	public int insertQuestion(Question que) {
+	public int insertQuestionFile(Question que) {
 		// TODO Auto-generated method stub
-		return mainDao.insertQuestion(que);
+		return mainDao.insertQuestionFile(que);
 	}
 	@Override
 	public int insertAttach(Attachment attach) {
@@ -75,6 +75,12 @@ public class MainServiceImpl implements MainService {
 	public Question selectOneQuestionByNo(int queNo) {
 		// TODO Auto-generated method stub
 		return mainDao.selectOneQuestionByNo(queNo);
+	}
+
+	@Override
+	public int insertQuestion(Question que) {
+		// TODO Auto-generated method stub
+		return mainDao.insertQuestion(que);
 	}
 	
 	

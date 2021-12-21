@@ -3,10 +3,16 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>	
 <fmt:requestEncoding value="utf-8"/>
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	<jsp:param value="문의사항" name="title"/>
 </jsp:include>
+
+<sec:authorize access="isAuthenticated()">
+	<sec:authentication property="principal.id" var="id"/>
+</sec:authorize>
 
 <div class="container">
 <div>
@@ -35,7 +41,7 @@
 		      
 		      <td> <a href="${pageContext.request.contextPath }/main/qaDetail.do?queNo=${que.queNo}"> 
 		      <c:choose>
-		      	<c:when test="${loginMember.memberId eq que.memberId}">
+		      	<c:when test="${id eq que.memberId}">
 		      		${que.queTitle}
 		      	</c:when>
 		      	<c:otherwise>
@@ -53,7 +59,7 @@
 		      
 		      <td>
 		      <c:choose>
-		      	<c:when test="${loginMember.memberId eq que.memberId }">
+		      	<c:when test="${id eq que.memberId }">
 					${que.memberName }		      	
 		      	</c:when>
 		      	<c:otherwise>
