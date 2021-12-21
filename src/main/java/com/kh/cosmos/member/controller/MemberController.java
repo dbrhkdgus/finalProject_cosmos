@@ -57,9 +57,7 @@ public class MemberController {
 		return "member/memberLogin";
 	}
 	@PostMapping("/memberLogin.do")
-	public void memberLoginPost(@RequestParam String password) {
-		log.debug(passwordEncoder.encode(password));
-	}
+	public void memberLoginPost(@RequestParam String password) {}
 //	@PostMapping("/memberLogin.do")
 //	public String memberLoginForm(
 //			@RequestParam String id, 

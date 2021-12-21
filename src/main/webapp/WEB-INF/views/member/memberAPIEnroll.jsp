@@ -29,7 +29,7 @@
  					<form name="loginForm" class="form-signin" method="request"
 					action="">
 					
-						<input type="hidden" name="memberId" val="" />
+						<input type="hidden" name="id" val="" />
 						<input type="hidden" name="memberName" val="" />
 						<input type="hidden" name="gender" val="" />
 						<input type="hidden" name="_birthDay" val="" />
@@ -54,8 +54,8 @@
 	          url: '/v2/user/me',
 	          success: function (response) {
 	        	  console.log("여기", response);
-	        	  $("input[name=memberId]").val(response.id);
-	        	  console.log($("input[name=memberId]").val());
+	        	  $("input[name=id]").val(response.id);
+	        	  console.log($("input[name=id]").val());
 	        	  $("input[name=gender]").val(response.kakao_account.gender == 'male' ? 'M' : 'F');
 	        	  console.log($("input[name=gender]").val());
 	        	  $("input[name=_birthDay]").val(response.kakao_account.birthday);

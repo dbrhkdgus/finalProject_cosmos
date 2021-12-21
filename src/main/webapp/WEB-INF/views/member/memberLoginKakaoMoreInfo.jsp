@@ -52,7 +52,7 @@
 							action="${pageContext.request.contextPath}/member/memberAPImoreInfoEnroll.do" 
 							method="post"
 							onsubmit="">	
-							<input type="hidden" name="memberId" value ="${kakaoMember.memberId }" />
+							<input type="hidden" name="id" value ="${kakaoMember.id }" />
 								<div class="form-group row">
 								<label for="permanent_address"
 									class="col-md-3 col-form-label text-md-right">이름</label>

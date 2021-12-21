@@ -21,7 +21,7 @@
 									class="col-md-4 col-form-label text-md-right">아이디</label>
 								<div class="col-md-6 group-text-input">
 									<input type="text" id="member-id" class="form-control"
-										name="memberId" value="hoho">
+										name="id" value="hoho">
 								</div>
 							</div>
 
