@@ -49,70 +49,23 @@
                     <th scope="col">아이디</th>
                     <th scope="col">이름</th>
                     <th scope="col">생년월일</th>
-                    <th scope="col">생성일</th>
                     <th scope="col">성별</th>
+                    <th scope="col">생성일</th>
                     <th scope="col">블랙리스트</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>1</td>
-                    <td>kh1231</td>
-                    <td>케이시</td>
-                    <td>1999.12.31</td>
-                    <td>2021/12/15</td>
-                    <td>여</td>
-                    <td>X</td>
-                  </tr>
-                  <tr>
-                    <tr>
-                      <td>1</td>
-                      <td>kh1231</td>
-                      <td>케이시</td>
-                      <td>1999.12.31</td>
-                      <td>2021/12/15</td>
-                      <td>여</td>
-                      <td>X</td>
-                    </tr>
-                  </tr>              
-                  <tr>
-                    <tr>
-                      <td>1</td>
-                      <td>kh1231</td>
-                      <td>케이시</td>
-                      <td>1999.12.31</td>
-                      <td>2021/12/15</td>
-                      <td>여</td>
-                      <td>X</td>
-                    </tr>
-                  </tr>              
-                  <tr>
-                    <td>1</td>
-                    <td>kh1231</td>
-                    <td>케이시</td>
-                    <td>1999.12.31</td>
-                    <td>2021/12/15</td>
-                    <td>여</td>
-                    <td>X</td>
-                  </tr>              
-                  <tr>
-                    <td>1</td>
-                    <td>kh1231</td>
-                    <td>케이시</td>
-                    <td>1999.12.31</td>
-                    <td>2021/12/15</td>
-                    <td>여</td>
-                    <td>X</td>
-                  </tr>              
-                  <tr>
-                    <td>1</td>
-                    <td>kh1231</td>
-                    <td>케이시</td>
-                    <td>1999.12.31</td>
-                    <td>2021/12/15</td>
-                    <td>여</td>
-                    <td>X</td>
-                  </tr>
+                <c:forEach items="${list}" var="member" varStatus="vs">
+                  <tr id="targetMember">
+                    <td>${vs.count}</td>
+                    <td id="memberId-${vs.count}">${member.id}</td>
+                    <td id="memberName-${vs.count}">${member.memberName}</td>
+                    <td id="birthday-${vs.count}"><fmt:formatDate value="${member.birthday}" pattern="yy-MM-dd"/></td>
+                    <td id="memberGender-${vs.count}">${member.memberGender }</td>
+                    <td id="memberEnrollDate-${vs.count}"><fmt:formatDate value="${member.memberEnrollDate}" pattern="yy-MM-dd"/></td>
+                    <td id="enabled-${vs.count}">${member.enabled}</td>
+                  </tr>   
+                </c:forEach>
                 </tbody>
               </table>
               <nav aria-label="Page navigation example" style="margin: auto;">
@@ -167,7 +120,6 @@
                     name="id"
                     type="text"
                     class="form-control validate"
-                    value="kh1231"
                   />
                 </div>
                 <div class="form-group col-lg-6">
@@ -176,7 +128,6 @@
                     id="memberName"
                     name="memberName"            
                     class="form-control validate"
-                    value="케이시"
                   />
                 </div>
                 <div class="form-group col-lg-6">
@@ -186,7 +137,6 @@
                     name="birthday"
                     type="date"
                     class="form-control validate"
-                    value="1999-12-31"
                   />
                 </div>
 
@@ -197,19 +147,9 @@
                     name="phone"
                     type="tel"
                     class="form-control validate"
-                    value="010-9999-9999"
                   />
                 </div>
-                <div class="form-group col-lg-6">
-                  <label for="password">생년월일</label>
-                  <input
-                    id="birthday"
-                    name="birthday"
-                    type="date"
-                    class="form-control validate"
-                    value="1999-12-31"
-                  />
-                </div>
+
                 <div class="form-group col-lg-6">
                   <label for="password">생성일</label>
                   <input
@@ -217,7 +157,6 @@
                     name="birthday"
                     type="date"
                     class="form-control validate"
-                    value="2000-12-31"
                   />
                 </div>
                 <div class="form-group col-lg-6">
@@ -226,7 +165,6 @@
                     id="gender"
                     name="gender"
                     class="form-control validate"
-                    value="남"
                   />
                 </div>
                 <div class="form-group col-lg-6">
@@ -235,7 +173,6 @@
                     id="job"
                     name="job"
                     class="form-control validate"
-                    value="프론트 개발자"
                   />
                 </div>
                 <div class="form-group col-lg-12">
@@ -244,7 +181,6 @@
                     id="groupList"
                     name="groupList"
                     class="form-control validate"
-                    value="개성공단, 펫다온, Produce101, KHSF"
                   />
                 </div>
 
@@ -264,9 +200,30 @@
       </div>
 
 <script>
-  $(blackListBtn).click((e)=>{
-    alert('블랙리스트 등록시, \n\n- 해당 해당 사용자는 사이트 로그인 불가 상태가 됩니다. \n\n그래도 등록하시겠습니까?')
-  })
+
+/*회원 정보 불러오기*/
+$("#targetMember").click(function(e){
+	console.log($(targetMember).find('td').eq(0).text());
+	console.log($(targetMember).find('td').eq(1).text());
+	console.log($(targetMember).find('td').eq(2).text());
+	console.log($(targetMember).find('td').eq(3).text());
+	console.log($(targetMember).find('td').eq(4).text());
+	console.log($(targetMember).find('td').eq(5).text());
+	console.log($(targetMember).find('td').eq(6).text());
+	
+	String memberId = $(targetMember).find('td').eq(1).text();
+	
+	$.ajax({
+		url: `${pageContext.request.contextPath}/admin/selectOneMember.do`,
+		method: "GET",
+		data: memberId,
+		success(data){
+			consle.log(data);
+		},
+		error: console.log
+	});
+});
+  
 </script>
 
 <jsp:include page="/WEB-INF/views/common/ad_footer.jsp">
