@@ -21,6 +21,6 @@ public interface GroupDao {
 
 	List<CategoryOne> groupgroupContOne();
 
-	List<CategoryTwo> groupgroupContTwo();
+	List<CategoryTwo> groupgroupContTwo(String categoryOneNo);
 
 }

@@ -46,8 +46,8 @@ public class GroupDaoImpl implements GroupDao {
 	}
 
 	@Override
-	public List<CategoryTwo> groupgroupContTwo() {
+	public List<CategoryTwo> groupgroupContTwo(String categoryOneNo) {
 		// TODO Auto-generated method stub
-		return session.selectList("group.groupgroupContTwo");
+		return session.selectList("group.groupgroupContTwo", categoryOneNo);
 	}
 }
