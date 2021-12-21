@@ -65,43 +65,7 @@ public class MemberController {
 	}
 	@PostMapping("/memberLogin.do")
 	public void memberLoginPost(@RequestParam String password) {}
-//	@PostMapping("/memberLogin.do")
-//	public String memberLoginForm(
-//			@RequestParam String id, 
-//			@RequestParam String password, 
-//			RedirectAttributes redirectAttr, 
-//			Model model,
-//			HttpSession session) {
-//		//model = memberService.memberLoginForm();
-//		log.debug("id = {}", id);
-//		log.debug("password = {}", password);
-//		
-//		//1. 업무로직 - 사용자 데이터 가져오기
-//		Member member = memberService.selectOneMember(id);
-//		log.debug("member = {}", member);
-//		
-//		String location = "/";
-//		// 2.db정보 비교하기(로그인 성공여부 판단)
-//		if(member != null && password.equals(member.getPassword())) {
-//			// 로그인 성공 : loginMember객체를 세션에 저장해서 로그인상태유지
-//			model.addAttribute("loginMember", member);
-//			log.debug("loginMember = {}", member);
-//			
-//			// redirect주소 세션에서 가져오기
-//			String redirect = (String) session.getAttribute("redirect");
-//			log.debug("redirect = {}", redirect);
-//			if(redirect != null) {
-//				location = redirect;
-//				session.removeAttribute("redirect");
-//			}
-//		}
-//		else {
-//			// 로그인 실패
-//			log.debug("로그인 실패");
-//			redirectAttr.addFlashAttribute("msg", "아이디 또는 비밀번호가 다릅니다.");
-//		}
-//		return "redirect:" + location;
-//	}
+
 	
 	@GetMapping("/memberLogout.do")
 	public String memberLogout(SessionStatus sessionStatus) {
@@ -118,31 +82,33 @@ public class MemberController {
 		return "member/memberEnroll";
 	}
 
-//	@PostMapping("/memberEnroll.do")
-//	public String memberEnroll(Member member, RedirectAttributes redirectAttr) {
-//		log.debug("member = {}", member);
-//		
-//		try {
-//			// 0.비밀번호 암호화 처리
-//			log.info("{}", passwordEncoder);
-//			String rawPassword = member.getPassword();
-//			String encryptedPassword = passwordEncoder.encode(rawPassword);
-//			member.setPassword(encryptedPassword);
-//			log.info("{} -> {}", rawPassword, encryptedPassword);
-//			
-//			// 1.업무로직
-//			int result = memberService.insertMember(member);
-//			
-//			// 2.리다이렉트 & 사용자피드백전달
-//			redirectAttr.addFlashAttribute("msg", "회원가입 성공!");
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			throw e;
-//		}
-//		
-//		return "redirect:/";
-//	}
-//	
+	@PostMapping("/memberEnroll.do")
+	public String memberEnroll(Member member, RedirectAttributes redirectAttr, HttpServletRequest request) {
+		log.debug("member = {}", member);
+		String email = (request.getParameter("emailId")) + "@" + (request.getParameter("email-server"));
+		member.setMemberEmail(email);
+		
+		try {
+			// 0.비밀번호 암호화 처리
+			log.info("{}", passwordEncoder);
+			String rawPassword = member.getPassword();
+			String encryptedPassword = passwordEncoder.encode(rawPassword);
+			member.setPassword(encryptedPassword);
+			log.info("{} -> {}", rawPassword, encryptedPassword);
+			
+			// 1.업무로직
+			int result = memberService.insertMember(member);
+			
+			// 2.리다이렉트 & 사용자피드백전달
+			redirectAttr.addFlashAttribute("msg", "회원가입 성공!");
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+		
+		return "redirect:/";
+	}
+	
 
 	@GetMapping("/memberAPIEnroll.do")
 	public String memberAPIEnroll() {
@@ -236,20 +202,20 @@ public class MemberController {
 		return "member/memberGroupList";
 	}
 
-	@PostMapping("memberEnroll.do")
-	public String memberEnrollPost(Member member, RedirectAttributes redirectAttr, HttpServletRequest request) {
-		String email = (request.getParameter("emailId")) + "@" + (request.getParameter("email-server"));
-		member.setMemberEmail(email);
-		log.debug("member.birthday = {}", member.getBirthday());
-		try {
-			int result = memberService.insertMember(member);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			redirectAttr.addFlashAttribute("msg", "회원가입 실패");
-		}
-		
-		return "redirect:/";
-	}
+//	@PostMapping("memberEnroll.do")
+//	public String memberEnrollPost(Member member, RedirectAttributes redirectAttr, HttpServletRequest request) {
+//		String email = (request.getParameter("emailId")) + "@" + (request.getParameter("email-server"));
+//		member.setMemberEmail(email);
+//		log.debug("member.birthday = {}", member.getBirthday());
+//		try {
+//			int result = memberService.insertMember(member);
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			redirectAttr.addFlashAttribute("msg", "회원가입 실패");
+//		}
+//		
+//		return "redirect:/";
+//	}
 	
 	@GetMapping("/memberUpdate.do")
 	public void memberUpdate() {}
