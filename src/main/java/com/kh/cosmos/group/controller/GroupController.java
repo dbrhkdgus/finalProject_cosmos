@@ -98,7 +98,7 @@ public class GroupController {
 				Attachment attach = new Attachment();
 				attach.setRenamedFilename(renamedFilename);
 				attach.setOriginalFilename(originalFilename);
-				attach.setMemberId("honggd");
+				attach.setId("honggd");
 				attach.setGroupNo(group.getGroupNo());
 				attach.setImgFlag("Y");
 				int attachNo = groupService.insertAttach(attach);
@@ -112,7 +112,7 @@ public class GroupController {
 			
 			for(int i = 1; i < 4 ; i++) {
 				GroupInfo gi = new GroupInfo();
-				gi.setGiContent(groupInfoArray[i]);
+				gi.setGiContent(groupInfoArray[(i-1)]);
 				gi.setGiSubTitle(Integer.toString(i));
 				result = groupService.insertGroupInfo(gi);
 				

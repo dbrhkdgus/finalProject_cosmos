@@ -3,6 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>	
 <fmt:requestEncoding value="utf-8" />
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	<jsp:param value="공지사항 작성" name="title" />
@@ -15,8 +17,8 @@
 <!-- form 안에 에디터를 사용하는 경우 (보통 이경우를 많이 사용하는듯)-->
 <h2 class="text-center">공지 사항 작성</h2>
 <div class="container">
-	<form name="noticeFrm" action="${pageContext.request.contextPath}/main/noticeEnroll.do" method="post" enctype="multipart/form-data" onsubmit="return noticeValidate();">
-		<input type="hidden" class="form-control" name="id" value="${loginMember.memberId}" readonly required>
+	<form:form action="${pageContext.request.contextPath}/main/noticeEnroll.do?${_csrf.parameterName}=${_csrf.token}" method="POST" enctype="multipart/form-data" onsubmit="return noticeValidate();">
+		<input type="hidden" class="form-control" name="memberId" value="<sec:authentication property="principal.id"/>" readonly required>
 		<div class="input-group mb-3 w-50 mx-auto">
 			<span class="input-group-text" id="inputGroup-sizing-default">제목</span>
 			<input name="noticeTitle" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="제목을 입력해 주세요.">
@@ -34,7 +36,7 @@
 		<div class="d-grid gap-2 col-6 mx-auto">
 			<button class="btn btn-primary" type="submit">작성 완료</button>
 		</div>
-	</form>
+	</form:form>
 </div>
 <script>
 $(document).ready(function() {
