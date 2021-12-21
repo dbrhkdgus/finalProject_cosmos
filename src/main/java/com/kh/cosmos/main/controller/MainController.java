@@ -145,14 +145,17 @@ public class MainController {
 		return "main/qa";
 	}
 	@GetMapping("/qaForm.do")
-	public String qaForm() {
+	public String qaForm(Authentication authentication) {
 		
 		return "main/qaForm";
 	}
+	
 
 	@PostMapping("/queEnroll.do")
 	public String queEnroll(Question que, @RequestParam(value="upFile", required=false) MultipartFile upFile, RedirectAttributes redirectAttr) throws IllegalStateException, IOException {
 		log.debug("upFile = {}", upFile);
+		log.debug("que = {}", que);
+		
 		String memberId = que.getMemberId();
 		log.debug("memberId = {}", que.getMemberId());
 		 try {
@@ -179,7 +182,7 @@ public class MainController {
 			 attach.setOriginalFilename(originalFilename);
 			 attach.setId(memberId);
 			 int attachNo = mainService.insertAttach(attach);
-			 log.debug("attachNo = {}", attachNo);
+			 
 			 
 		 }
 		 
@@ -193,6 +196,7 @@ public class MainController {
 		 
 		return "redirect:/main/qa.do";
 	}
+	
 	@GetMapping("/qaDetail.do")
 	public String queDetail(@RequestParam int queNo, Model model, Authentication authentication, RedirectAttributes redirectAttr) {
 
