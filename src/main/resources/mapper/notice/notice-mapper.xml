@@ -22,7 +22,7 @@
 			attachment
 		values(
 			seq_attach_no_no.nextval,
-			#{id},
+			#{memberId},
 			null,
 			#{originalFilename},
 			#{renamedFilename},
@@ -46,7 +46,7 @@
 			#{noticeContent},
 			current_date,
 			0,
-			#{id},
+			#{memberId},
 			#{attachNo}
 		)
 	</insert>
