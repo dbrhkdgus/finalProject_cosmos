@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ResourceLoader;
@@ -16,20 +15,18 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.google.gson.Gson;
 import com.kh.cosmos.common.CosmosUtils;
 import com.kh.cosmos.common.vo.Attachment;
 import com.kh.cosmos.group.model.service.GroupService;
 import com.kh.cosmos.group.model.vo.CategoryOne;
 import com.kh.cosmos.group.model.vo.CategoryTwo;
-import com.kh.cosmos.group.model.vo.Group;
+import com.kh.cosmos.group.model.vo.GroupCategory;
 import com.kh.cosmos.group.model.vo.GroupEnroll;
 import com.kh.cosmos.group.model.vo.GroupInfo;
 import com.kh.cosmos.group.model.vo.GroupInfoConnect;
@@ -122,6 +119,15 @@ public class GroupController {
 			
 			int result = groupService.insertGroup(groupEnroll);
 			result = groupService.insertGroupInfoConnect(groupInfoConnect);
+		
+			String[] cateNo = groupEnroll.getCateCheckBox();
+			
+			log.debug("cateNo={}" ,cateNo);
+			for(String catetest :cateNo) {
+				GroupCategory category = new GroupCategory();				
+				category.setCategory2No(Integer.parseInt(catetest));
+				result = groupService.insertGroupCategory(category);
+			}
 			
 			for(int i = 1; i < 4 ; i++) {
 				GroupInfo gi = new GroupInfo();
