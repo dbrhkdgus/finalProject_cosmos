@@ -9,7 +9,7 @@
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	<jsp:param value="그룹 검색" name="title"/>
 </jsp:include>
-${giList }
+
 		<!-- Page header with logo and tagline-->
         <!-- Page content-->
         <div class="container">
@@ -110,8 +110,12 @@ ${giList }
 		                                <div class="card-body">
 		                                    <div class="small text-muted">${group.groupEnrollDate }</div>
 		                                    <h2 class="card-title h4">${group.groupName }</h2>
-		                                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque,
-		                                        nulla.</p>
+		                                     <c:forEach var="gi" items="${giList }">
+			                                <c:if test="${group.groupNo == gi.groupNo }">
+			                                	<p class="card-text">${gi.giTitle }</p>
+			                                </c:if>
+			                                </c:forEach>
+		                                    
 		                                    <a class="btn btn-primary" href="#!">Read more →</a>
 		                                </div>
 		                            </div>
