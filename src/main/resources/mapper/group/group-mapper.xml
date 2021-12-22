@@ -103,7 +103,10 @@
 	select 
 			count(*) 
 		from 
-			group
+			tb_group
+	</select>
+	<select id="selectAllGroupList" resultType="group">
+	select * from tb_group
 	</select>
 	
 </mapper>

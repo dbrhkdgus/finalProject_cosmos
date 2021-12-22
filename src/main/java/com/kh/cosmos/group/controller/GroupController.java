@@ -23,11 +23,13 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.cosmos.common.CosmosUtils;
-import com.kh.cosmos.common.vo.Attachment;
+import com.kh.cosmos.common.attachment.model.service.AttachmentService;
+import com.kh.cosmos.common.attachment.model.vo.Attachment;
 import com.kh.cosmos.group.model.service.GroupService;
 import com.kh.cosmos.group.model.vo.ApplocationGroup;
 import com.kh.cosmos.group.model.vo.CategoryOne;
 import com.kh.cosmos.group.model.vo.CategoryTwo;
+import com.kh.cosmos.group.model.vo.Group;
 import com.kh.cosmos.group.model.vo.GroupCategory;
 import com.kh.cosmos.group.model.vo.GroupEnroll;
 import com.kh.cosmos.group.model.vo.GroupInfo;
@@ -42,7 +44,8 @@ public class GroupController {
 	
 	@Autowired
 	private GroupService groupService;
-	
+	@Autowired
+	private AttachmentService attachService;
 	@Autowired
 	ServletContext application;
 	
@@ -51,16 +54,25 @@ public class GroupController {
 	
 	@GetMapping("/groupSearch.do")
 	public String groupSearch(@RequestParam(defaultValue = "1") int cPage, Model model, HttpServletRequest request) {
-//		int limit = 10;
-//		int offset = (cPage - 1) * limit;
-//		
-//		List<CategoryOne> caOneList = groupService.groupgroupContOne();
-//		model.addAttribute("caOneList", caOneList);
-////		List<Group>
-//		
-//		int totalContent = groupService.selectGroupTotalCount();
-//		model.addAttribute("totalContent", totalContent);
-//		
+		int limit = 9;
+		int offset = (cPage - 1) * limit;
+		
+		List<CategoryOne> caOneList = groupService.groupgroupContOne();
+		model.addAttribute("caOneList", caOneList);
+		
+		List<Group> groupList = groupService.selectAllGroupList(limit, offset);
+		model.addAttribute("groupList", groupList);
+		List<Attachment> attachList = attachService.selectGroupAttachmentList();
+		model.addAttribute("attachList",attachList);
+		
+
+		int totalContent = groupService.selectGroupTotalCount();
+		model.addAttribute("totalContent", totalContent);
+		
+		String url = request.getRequestURI();
+		String pagebar = CosmosUtils.getPagebar(cPage, limit, totalContent, url);
+		log.debug("pagebar = {}", pagebar);
+		model.addAttribute("pagebar", pagebar);
 		
 	
 		return "group/groupSearch";
@@ -126,7 +138,7 @@ public class GroupController {
 				
 				attach.setRenamedFilename(renamedFilename);
 				attach.setOriginalFilename(originalFilename);
-				attach.setId(groupEnroll.getMemberId());
+				attach.setMemberId(groupEnroll.getMemberId());
 				attach.setImgFlag("Y");
 				
 				

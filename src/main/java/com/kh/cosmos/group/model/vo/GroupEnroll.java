@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-import com.kh.cosmos.common.vo.Attachment;
+import com.kh.cosmos.common.attachment.model.vo.Attachment;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -447,6 +447,6 @@
 .sns_logo{height: 40px;margin-right: 20px;}
 
 li{list-style-type: none;}
-a:link {color: red; text-decoration: none;}
+a:link {text-decoration: none;cursor: pointer;}
 a:visited {color: black; text-decoration: none;}
 footer{display: flex;}
