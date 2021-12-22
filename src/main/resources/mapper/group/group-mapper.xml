@@ -109,4 +109,8 @@
 	select * from tb_group
 	</select>
 	
+	<select id="selectAllGroupInfoList" resultType="groupInfoConnect">
+	select * from group_groupinfo
+	</select>
+	
 </mapper>

@@ -9,6 +9,7 @@
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	<jsp:param value="그룹 검색" name="title"/>
 </jsp:include>
+${giList }
 		<!-- Page header with logo and tagline-->
         <!-- Page content-->
         <div class="container">
