@@ -11,7 +11,7 @@
 			</div>
 			<div class="footer-list">
 				<ul style="display: flex; justify-content: space-between;">
-					<li style="display: flex; flex-direction: column;"><span class="footer-list-content">cosmos </span> <span>cosmos소개</span></li>
+					<li style="display: flex; flex-direction: column;" ><span class="footer-list-content">cosmos </span> <a href="${pageContext.request.contextPath}/main/about.do"><span>cosmos소개</span></li></a>
 					<li><span class="footer-list-content">문의사항</span></li>
 					<li><span class="footer-list-content">공지사항</span></li>
 					<li><span class="footer-list-content">search</span></li>
