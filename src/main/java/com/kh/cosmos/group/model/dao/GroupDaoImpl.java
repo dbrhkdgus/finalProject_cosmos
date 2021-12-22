@@ -92,6 +92,11 @@ public class GroupDaoImpl implements GroupDao {
 		return session.selectList("group.selectAllGroupListByParam",param,rowBounds);
 	}
 
+	@Override
+	public List<Group> selectAllMyGroupList() {
+		return session.selectList("group.selectAllMyGroupList");
+	}
+
 
 	
 	

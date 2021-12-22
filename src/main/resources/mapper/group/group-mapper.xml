@@ -105,6 +105,10 @@
 		from 
 			tb_group
 	</select>
+	<select id="selectAllMyGroupList" resultType="group">
+	select * from tb_group
+	</select>
+	
 	<select id="selectAllGroupList" resultType="group">
 	select * from tb_group
 	</select>

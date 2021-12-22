@@ -90,6 +90,12 @@ public class GroupServiceImpl implements GroupService {
 		return groupDao.selectAllGroupListByParam(param, limit, offset);
 	}
 
+	@Override
+	public List<Group> selectAllMyGroupList() {
+		// TODO Auto-generated method stub
+		return groupDao.selectAllMyGroupList();
+	}
+
 
 
 	

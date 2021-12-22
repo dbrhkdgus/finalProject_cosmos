@@ -38,6 +38,8 @@ public interface GroupService {
 
 	List<Group> selectAllGroupListByParam(Map<String, Object> param, int limit, int offset);
 
+	List<Group> selectAllMyGroupList();
+
 
 
 	

@@ -31,6 +31,11 @@ public class AdminServiceImpl implements AdminService{
 		return adminDao.updateBlack(param);
 	}
 
+	@Override
+	public List<Member> searchMembers(int limit, int offset, Map<String, String> param) {
+		return adminDao.searchMembers(limit, offset, param);
+	}
+
 
 
 	

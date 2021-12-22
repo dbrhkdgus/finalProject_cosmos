@@ -166,7 +166,7 @@ public class MemberController {
 		List<ApplocationGroup> myGroupList = memberService.selectMyGroupList(userId);
 		model.addAttribute("myGroupList", myGroupList);
 		
-		List<Group> groupList = groupService.selectAllGroupList();
+		List<Group> groupList = groupService.selectAllMyGroupList();
 		model.addAttribute("groupList", groupList);
 		
 		List<Attachment> attachList = attachService.selectGroupAttachmentList();
