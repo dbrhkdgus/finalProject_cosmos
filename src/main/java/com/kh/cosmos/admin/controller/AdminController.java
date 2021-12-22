@@ -1,6 +1,8 @@
 package com.kh.cosmos.admin.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -12,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kh.cosmos.admin.model.service.AdminService;
 import com.kh.cosmos.common.CosmosUtils;
@@ -83,11 +86,16 @@ public class AdminController {
 	}
 	
 	@GetMapping("/selectOneMember.do")
-	public void selectOne(@RequestParam(value="memberId") String id) {
-		log.debug("보여줄 id = {}", id);
-		Member member = adminService.selectOneMember(id);
+	@ResponseBody
+	public Map<String,Object> selectOne(@RequestParam Map<String, Object> param) {
+		Map<String, Object> map = new HashMap<>();
+		log.debug("넘겨져온 param = {}", param);
+		Member member = adminService.selectOneMember(param);
 		log.debug("member = {}", member);
 		
+		map.put("member", member);
+		
+		return map;
 	}
 	
 	@GetMapping("/groups.do")

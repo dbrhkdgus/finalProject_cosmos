@@ -56,7 +56,7 @@
                 </thead>
                 <tbody>
                 <c:forEach items="${list}" var="member" varStatus="vs">
-                  <tr id="targetMember">
+                  <tr class="selectOne">
                     <td>${vs.count}</td>
                     <td id="memberId-${vs.count}">${member.id}</td>
                     <td id="memberName-${vs.count}">${member.memberName}</td>
@@ -153,14 +153,14 @@
                 <div class="form-group col-lg-6">
                   <label for="password">생성일</label>
                   <input
-                    id="birthday"
-                    name="birthday"
+                    id="regDate"
+                    name="regDate"
                     type="date"
                     class="form-control validate"
                   />
                 </div>
                 <div class="form-group col-lg-6">
-                  <label for="password">성별</label>
+                  <label for="gender">성별</label>
                   <input
                     id="gender"
                     name="gender"
@@ -168,7 +168,7 @@
                   />
                 </div>
                 <div class="form-group col-lg-6">
-                  <label for="password">직업</label>
+                  <label for="job">직업</label>
                   <input
                     id="job"
                     name="job"
@@ -176,7 +176,7 @@
                   />
                 </div>
                 <div class="form-group col-lg-12">
-                  <label for="password">참여 모임</label>
+                  <label for="groupList">참여 모임</label>
                   <input
                     id="groupList"
                     name="groupList"
@@ -202,23 +202,29 @@
 <script>
 
 /*회원 정보 불러오기*/
-$("#targetMember").click(function(e){
-	console.log($(targetMember).find('td').eq(0).text());
-	console.log($(targetMember).find('td').eq(1).text());
-	console.log($(targetMember).find('td').eq(2).text());
-	console.log($(targetMember).find('td').eq(3).text());
-	console.log($(targetMember).find('td').eq(4).text());
-	console.log($(targetMember).find('td').eq(5).text());
-	console.log($(targetMember).find('td').eq(6).text());
+$(".selectOne").click((e)=>{
+	console.log(e.target.parentNode.children[1].innerText);
+
 	
-	String memberId = $(targetMember).find('td').eq(1).text();
+	var memberId = memberId= e.target.parentNode.children[1].innerText;
+	
 	
 	$.ajax({
 		url: `${pageContext.request.contextPath}/admin/selectOneMember.do`,
-		method: "GET",
-		data: memberId,
-		success(data){
-			consle.log(data);
+		data: {
+			id: memberId
+		},
+		dataType: "json",
+		success: function(data){
+			console.log(data);
+			console.log(data.member.id);
+			$("#id").val(data.member.id);
+			$("#memberName").val(data.member.memberName);
+			$("#birthday").val(data.member.birthday);
+			$("#phone").val(data.member.phone);
+			$("#regDate").val(data.member.memberEnrollDate);
+			$("#gender").val(data.member.memberGender);
+			$("#job").val(data.member.memberJob);
 		},
 		error: console.log
 	});
