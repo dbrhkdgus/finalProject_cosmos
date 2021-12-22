@@ -24,20 +24,24 @@
             <h2 class="tm-block-title">회원 목록</h2>
             <p class="text-white">검색 카테고리</p>
             <div>
-              <select class="custom-select selectBar mr-3">
-                <option value="0">전체</option>
-                <option value="1">아이디</option>
-                <option value="2">이름</option>
-                <option value="4">생년월일</option>
-                <option value="5">연락처</option>
-                <option value="6">생성일</option>
-                <option value="7">성별</option>
-                <option value="8">직업</option>
-                <option value="9">블랙리스트</option>
-
-
-              </select>
-              <input id="searchKeyword"  type="text" class="form-control mb-5" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+              <form action="${pageContext.request.contextPath}/admin/searchMembers.do">
+	              <select class="custom-select selectBar mr-3" name="searchType">
+	                <option value="all">전체</option>
+	                <option value="id">아이디</option>
+	                <option value="memberName">이름</option>
+	                <option value="birthday">생년월일</option>
+	                <option value="phone">연락처</option>
+	                <option value="regDate">생성일</option>
+	                <option value="memberGender">성별</option>
+	                <option value="memberJob">직업</option>
+	                <option value="enabled">블랙리스트</option>
+	              </select>
+	              <input name="searchKeyword" id="searchKeyword"  type="text" class="form-control mb-3" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+	         <!-- 카테고리 선택시 -->
+	         
+	         <input type="radio" name="searchKeyword" id="" value="0"/>
+	              <button class="btn btn-primary col rounded mb-5" type="submit"><span class="font-weight-bold">검 색</span></button>
+              </form>
             </div>
             
             <!-- 회원목록 테이블 -->

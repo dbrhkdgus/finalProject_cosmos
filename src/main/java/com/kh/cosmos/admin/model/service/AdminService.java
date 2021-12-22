@@ -14,5 +14,7 @@ public interface AdminService {
 
 	int updateBlack(Map<String, Object> param);
 
+	List<Member> searchMembers(int limit, int offset, Map<String, String> param);
+
 
 }
