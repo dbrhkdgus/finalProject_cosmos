@@ -84,6 +84,12 @@ public class GroupDaoImpl implements GroupDao {
 		return session.selectList("group.selectAllGroupInfoList");
 	}
 
+	@Override
+	public List<Group> selectAllGroupList() {
+		// TODO Auto-generated method stub
+		return session.selectList("group.selectAllGroupList");
+	}
+
 
 	
 	

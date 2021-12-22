@@ -35,6 +35,9 @@ public interface GroupService {
 
 	List<GroupInfoConnect> selectAllGroupInfoList();
 
+	List<Group> selectAllGroupList();
+
+
 
 	
 	

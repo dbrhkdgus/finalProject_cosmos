@@ -33,7 +33,12 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.kh.cosmos.common.attachment.model.service.AttachmentService;
+import com.kh.cosmos.common.attachment.model.vo.Attachment;
+import com.kh.cosmos.group.model.service.GroupService;
 import com.kh.cosmos.group.model.vo.ApplocationGroup;
+import com.kh.cosmos.group.model.vo.CategoryOne;
+import com.kh.cosmos.group.model.vo.Group;
 import com.kh.cosmos.member.model.service.MemberService;
 import com.kh.cosmos.member.model.vo.Member;
 
@@ -56,6 +61,10 @@ public class MemberController {
 	
 	@Autowired
 	private MemberService memberService;
+	@Autowired
+	private GroupService groupService;
+	@Autowired
+	private AttachmentService attachService;
 	
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
@@ -153,13 +162,20 @@ public class MemberController {
 		
 		Member member = (Member)auth.getPrincipal();
 		String userId = member.getId();
-		log.debug("userId = {}", userId);
 		
 		List<ApplocationGroup> myGroupList = memberService.selectMyGroupList(userId);
 		model.addAttribute("myGroupList", myGroupList);
-		log.debug("myGroupList = {}", myGroupList);
 		
+		List<Group> groupList = groupService.selectAllGroupList();
+		model.addAttribute("groupList", groupList);
 		
+		List<Attachment> attachList = attachService.selectGroupAttachmentList();
+		model.addAttribute("attachList",attachList);
+		log.debug("attachList = {}", attachList);
+		
+		List<CategoryOne> caOneList = groupService.groupgroupContOne();
+		model.addAttribute("caOneList", caOneList);
+		log.debug("caOneList = {}", caOneList);
 		
 		return "member/memberGroupList";
 	}
