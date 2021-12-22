@@ -77,13 +77,11 @@ $(() => {
 						<input type="button" value="카카오 로그아웃" onclick="kakaoLogout();" />
 					</div>
 					<div class="mx-auto d-block">
-						<button id="btn-Yes" class="btn btn-lg btn-outline-success btn-block" type="button" style="color: #04CF5C;">NAVER login</button>
-						<button id="btn-Yes" class="btn btn-lg btn-outline-warning btn-block" type="button" onclick="kakaoLogin();">카카오 login</button>
-						<button id="btn-Yes" class="btn btn-lg btn-outline-primary btn-block" type="button" style="color: #000000;">google login</button>
+						<button id="btn-Yes-kakao" class="btn btn-lg btn-outline-warning btn-block" type="button" onclick="kakaoLogin();">카카오 login</button>
 						<button id="btn_Yes_Basic" class="btn btn-lg btn-outline-info btn-block" type="button" style=" font-weight: bold; background: linear-gradient(to right top, #000BA9, #52E3FF); color: transparent; -webkit-background-clip: text; margin-bottom: 3%;">COSMOS login</button>
 					<div class="float-right">
-						<button id="btn-Yes" class="btn btn-lg btn-outline-primary" type="button">회원가입</button>
-						<button id="btn-Yes" class="btn btn-lg btn-outline-secondary" type="button">취소</button>
+						<button id="btn-enroll" class="btn btn-lg btn-outline-primary" type="button">회원가입</button>
+						<button id="btn-cancle" class="btn btn-lg btn-outline-secondary" type="button">취소</button>
 					</div>
 						<input type="hidden" name="id" val="" />
 						<input type="hidden" name="memberName" val="" />
@@ -120,6 +118,9 @@ $(() => {
 		console.log("로그인 버튼 클릭!");
 		$("[name=loginForm]").submit();
 		
+	});
+	$("#btn-cancle").click((e)=>{
+		location.href="${pageContext.request.contextPath}/";
 	});
 	Kakao.init('753f0f237470af5e83541545d143b9c3'); //발급받은 키 중 javascript키를 사용해준다.
 	//console.log(Kakao.isInitialized()); // sdk초기화여부판단
