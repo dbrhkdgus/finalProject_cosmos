@@ -42,7 +42,7 @@
             
             <!-- 회원목록 테이블 -->
             <div class="row tm-content-row">
-              <table class="table mb-3 text-center">
+              <table id="memberTable" class="table mb-3 text-center">
                 <thead>
                   <tr>
                     <th scope="col">번호</th>
@@ -56,7 +56,7 @@
                 </thead>
                 <tbody>
                 <c:forEach items="${list}" var="member" varStatus="vs">
-                  <tr class="selectOne">
+                  <tr class="selectOne" id="tr-${member.id}">
                     <td>${vs.count}</td>
                     <td id="memberId-${vs.count}">${member.id}</td>
                     <td id="memberName-${vs.count}">${member.memberName}</td>
@@ -71,23 +71,8 @@
                 </c:forEach>
                 </tbody>
               </table>
-              <nav aria-label="Page navigation example" style="margin: auto;">
-                <ul class="pagination">
-                  <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Previous">
-                      <span aria-hidden="true">&laquo;</span>
-                    </a>
-                  </li>
-                  <li class="page-item"><a class="page-link" href="#">1</a></li>
-                  <li class="page-item"><a class="page-link" href="#">2</a></li>
-                  <li class="page-item"><a class="page-link" href="#">3</a></li>
-                  <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Next">
-                      <span aria-hidden="true">&raquo;</span>
-                    </a>
-                  </li>
-                </ul>
-              </nav>
+              <div style="margin: auto">${pagebar}</div>
+
             </div>
           </div>
           
@@ -203,14 +188,15 @@
           </div>
         </div>
       </div>
-
 <script>
+/* 회원 리스트 불러오기 */
 
 /*클릭한 회원 정보 불러오기*/
 $(".selectOne").click((e)=>{
 	
 	/* 테이블 내 회원 데이터 담긴 행을 클릭시, 해당 행 회원 데이터를 비동기로 호출한다. */
-	var memberId = memberId= e.target.parentNode.children[1].innerText;
+	var memberId = e.target.parentNode.children[1].innerText;
+	
 	$.ajax({
 		url: `${pageContext.request.contextPath}/admin/selectOneMember.do`,
 		data: {
@@ -228,17 +214,12 @@ $(".selectOne").click((e)=>{
 			$("#gender").val(data.member.memberGender);
 			$("#job").val(data.member.memberJob);
 			$("#enabled").val(data.member.enabled);
-			
-			console.log($("#id").val());
-			console.log($("#enabled").val());
-			
-			if($("#enabled").val()=='true'){
-			  document.getElementById('blackListBtn').className = 'btn btn-primary btn-block text-uppercase';
-			  document.getElementById('blackListBtn').innerText = '블랙리스트 회원 등록'
+			if(data.member.groupName == "null"){
+				$("#groupList").val("")
 			}else{
-			  document.getElementById('blackListBtn').className = 'btn btn-success btn-block text-uppercase';
-			  document.getElementById('blackListBtn').innerText = '블랙리스트 회원 해제'
+				$("#groupList").val(data.member.groupName);
 			}
+			;
 
 				
 		},
@@ -246,10 +227,20 @@ $(".selectOne").click((e)=>{
 	});
 });
   
+  
 /* 블랙리스트 등록 */
 $("#blackListBtn").click((e)=>{
 
+	if(!$("#id").val()){
+		alert("먼저 회원을 선택해주세요."); 
+		return false;
+	}
+		
+
 	/* 테이블 내 회원 데이터 담긴 행을 클릭시, 해당 행 회원 데이터를 비동기로 호출한다. */
+	var targetMember = document.getElementById('id').value; 
+    var changeMemberEnabled = 'tr-'+targetMember;
+
 	$.ajax({
 		url: `${pageContext.request.contextPath}/admin/updateBlack.do`,
 		data: {
@@ -257,9 +248,22 @@ $("#blackListBtn").click((e)=>{
 			enabled: $("#enabled").val()
 		},
 		dataType: "json",
-		success: function(data){
+		success(data){
 			console.log(data);
 			alert("변경이 완료되었습니다.");
+			console.log($("#enabled").val())
+			if($("#enabled").val()=='true'){
+				  document.getElementById('blackListBtn').className = 'btn btn-success btn-block text-uppercase';
+				  document.getElementById('blackListBtn').innerText = '블랙리스트 회원 해제';
+				  document.getElementById(changeMemberEnabled).children[6].innerText='O'	  				  
+				  
+				}else{
+				  document.getElementById('blackListBtn').className = 'btn btn-primary btn-block text-uppercase';
+				  document.getElementById('blackListBtn').innerText = '블랙리스트 회원 등록';
+				  document.getElementById(changeMemberEnabled).children[6].innerText='.'	  				  
+
+
+				}
 		},
 		error: console.log
 	});

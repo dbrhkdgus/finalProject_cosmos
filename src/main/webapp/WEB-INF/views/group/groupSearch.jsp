@@ -128,7 +128,7 @@
 			console.log(res);
 			$(c2).html("");
 			$.each(res, (k,v) =>{
-			$(c2).append( `<li><a href="\${k}">\${v}</a></li>`);
+			$(c2).append( `<li><a href="${pageContext.request.contextPath}/group/groupSearch.do?ca1No=\${data}&ca2No=\${k}">\${v}</a></li>`);
 				
 			});
 		},
