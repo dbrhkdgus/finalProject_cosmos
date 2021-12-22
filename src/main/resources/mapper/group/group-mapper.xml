@@ -69,7 +69,7 @@
 	</select>
 	
 	<select id="groupgroupContTwo" resultType="CategoryTwo">
-		select * from studygroup_category2 order by category2_no asc
+		select * from studygroup_category2 where category1_no = #{categoryOneNo} order by category2_no asc
 	</select>
 	
 </mapper>

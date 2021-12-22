@@ -21,7 +21,7 @@ public interface GroupService {
 
 	List<CategoryOne> groupgroupContOne();
 
-	List<CategoryTwo> groupgroupContTwo();
+	List<CategoryTwo> groupgroupContTwo(String categoryOneNo);
 	
 	
 }

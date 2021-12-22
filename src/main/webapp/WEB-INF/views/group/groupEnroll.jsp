@@ -3,7 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>	
 <fmt:requestEncoding value="utf-8" />
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	<jsp:param value="그룹 생성" name="title" />
@@ -16,25 +17,46 @@ window.addEventListener("load", function(){
 		contentType: "application/json; charset=utf-8",
 		dataType: "json",
 		success(data){
-			console.log(data);
+			const $CATEdiv = $(`<select class="form-select" id="selectCateOne" name="categoryNo" aria-label="Default select example" onchange="getItem()"></select>`);
+			const htmlfix = `<option value=0 disabled>상위 카테고리</option>`;
+			$CATEdiv.append(htmlfix);
+			$.each(data, (k, v) => { 
+				let html = `<option value=\${k}>\${v}</option>`;
+				$CATEdiv.append(html);
+			});
+			$("#fCate").html($CATEdiv);
 		},
 		error(xhr,textStatus,err){
 			console.log(xhr,textStatus,err);
 		}
 	});
-});
+});  
+function getItem(){
+	$("select[id=selectCateOne]").change(function(){
+		  $.ajax({
+				url:"<%= request.getContextPath() %>/group/groupCategoryTwo.do?${_csrf.parameterName}=${_csrf.token}",
+				method: "GET",
+				dataType: "json",
+				data: {categoryOneNo : $(this).val()},
+				success(data){
+					const $CATETWOdiv = $(`<div class="group-text-input">`);
+					$.each(data, (k, v) => {
+						let html = `<div class="form-check form-check-inline"><input class="form-check-input" type="checkbox" id="inlineCheckbox\${k}" value=\${k}><label class="form-check-label" for="inlineCheckbox\${k}">\${v}</label></div>`;
+						$CATETWOdiv.append(html);
+					});
+						$CATETWOdiv.append(`</div>`);
+					$("#sCate").html($CATETWOdiv);
+				},
+				error(xhr,textStatus,err){
+					console.log(xhr,textStatus,err);
+				}
+			});
+	});
+};
+
+
 window.addEventListener("load", function(){
-	$.ajax({
-		url:"<%= request.getContextPath() %>/group/groupCategoryTwo.do?${_csrf.parameterName}=${_csrf.token}",
-		method: "GET",
-		dataType: "json",
-		success(data){
-			console.log(data);
-		},
-		error(xhr,textStatus,err){
-			console.log(xhr,textStatus,err);
-		}
-	});
+	
 });
 </script>
 
@@ -45,9 +67,8 @@ window.addEventListener("load", function(){
 					<div class="card">
 						<div class="card-header">스터디 그룹 생성</div>
 						<div class="card-body">
-							<form name="my-form"
+							<form:form name="my-form"
 								action="${pageContext.request.contextPath}/group/insertGroup.do?${_csrf.parameterName}=${_csrf.token}" method="POST" enctype="multipart/form-data">
-								
 								<div class="form-group row">
 									<label for="full_name"
 										class="col-md-4 col-form-label text-md-right">그룹명</label>
@@ -61,33 +82,17 @@ window.addEventListener("load", function(){
 								<div class="form-group row">
 									<label for="full_name"
 										class="col-md-4 col-form-label text-md-right">상위 카테고리</label>
-									<div class="col-md-6 group-text-input">
-										<select class="form-select"
-											aria-label="Default select example">
-											<option selected>상위 카테고리</option>
-											<option value="1">웹 개발</option>
-											<option value="2">프론트엔드</option>
-											<option value="3">백엔드</option>
-										</select>
+									<div class="col-md-6 group-text-input" id="fCate">
+									
 									</div>
+									<!-- <button type="button" onclick="getItem()">선택</button> -->
 								</div>
 	
 								<div class="form-group row">
 									<label for="full_name"
 										class="col-md-4 col-form-label text-md-right">하위 카테고리</label>
-									<div class="col-md-6 group-text-input">
-										<div class="form-check form-check-inline">
-										  <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
-										  <label class="form-check-label" for="inlineCheckbox1">JAVA</label>
-										</div>
-										<div class="form-check form-check-inline">
-										  <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
-										  <label class="form-check-label" for="inlineCheckbox2">HTML/CSS</label>
-										</div>
-										<div class="form-check form-check-inline">
-										  <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3">
-										  <label class="form-check-label" for="inlineCheckbox3">JavaScript</label>
-										</div>
+									<div class="col-md-6 group-text-input" id="sCate">
+										
 									</div>
 								</div>
 								
@@ -195,12 +200,10 @@ window.addEventListener("load", function(){
 									</div>
 								</div>
 
-
 								<div class="col-md-6 offset-md-4 group-create-button">
 									<button type="submit" class="btn btn-primary">그룹생성</button>
 								</div>
-								
-							</form>
+							</form:form>
 						</div>
 					</div>
 				</div>
@@ -210,6 +213,7 @@ window.addEventListener("load", function(){
 	</main>
 
 	<script>
+
 		/* function YnCheck(obj) {
 			var checked = obj.checked;
 			if(checked) {
