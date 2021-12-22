@@ -1,9 +1,12 @@
 package com.kh.cosmos.member.model.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.kh.cosmos.group.model.vo.ApplocationGroup;
 import com.kh.cosmos.member.model.dao.MemberDao;
 import com.kh.cosmos.member.model.vo.Member;
 
@@ -40,6 +43,11 @@ public class MemberServiceImpl implements MemberService {
 	public int insertUserAuthority(String id) {
 		// TODO Auto-generated method stub
 		return memberDao.insertUserAuthority(id);
+	}
+
+	@Override
+	public List<ApplocationGroup> selectMyGroupList(String userId) {
+		return memberDao.selectMyGroupList(userId);
 	}
 	
 }
