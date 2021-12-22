@@ -35,9 +35,11 @@ public interface GroupDao {
 
 	List<GroupInfoConnect> selectAllGroupInfoList();
 
+
 	List<Group> selectAllGroupListByCa1No(int ca1No, int limit, int offset);
 
 	List<Group> selectAllGroupListByCa2No(int ca2No, int limit, int offset);
+
 
 
 }
