@@ -57,6 +57,8 @@ public class GroupController {
 		int limit = 9;
 		int offset = (cPage - 1) * limit;
 		
+		
+		
 		List<CategoryOne> caOneList = groupService.groupgroupContOne();
 		model.addAttribute("caOneList", caOneList);
 		
@@ -210,6 +212,21 @@ public class GroupController {
 		for(CategoryTwo cate : categoryTwoList) {
 			map.put(Integer.toString(cate.getCategory2No()), cate.getCategory2Name());
 		}	
+		return map;
+	}
+	@GetMapping("/category2Search")
+	@ResponseBody
+	public Map<String,String> category2Search(Model model, String ca1No) {
+		log.debug(ca1No);
+		
+		Map<String,String> map = new HashMap<String,String>();
+		List<CategoryTwo> categoryTwoList = new ArrayList<>();
+		categoryTwoList = groupService.groupgroupContTwo(ca1No);
+		
+		for(CategoryTwo cate : categoryTwoList) {
+			map.put(Integer.toString(cate.getCategory2No()), cate.getCategory2Name());
+		}
+
 		return map;
 	}
 	
