@@ -60,28 +60,52 @@ public class GroupController {
 		
 
 		
-		log.debug(request.getParameter("ca1No"));
-		log.debug(request.getParameter("ca2No"));
-		List<Group> groupList = new ArrayList<Group>();
 		
-		if(ca1No.equals("0") && ca2No.equals("0")) {
-			log.debug("test");
-			groupList = groupService.selectAllGroupList(limit, offset);
+		List<Group> groupList = new ArrayList<Group>();
+		Map<String, Object> param = new HashMap<String, Object>();
+		int ca1NoI = Integer.parseInt(ca1No);
+		int ca2NoI = Integer.parseInt(ca2No);
+		String searchType = request.getParameter("searchType");
+		String searchKeyword = request.getParameter("searchKeyword");
+		param.put("ca1No", ca1NoI);
+		param.put("ca2No", ca2NoI);
+		param.put("searchType", searchType);
+		param.put("searchKeyword", searchKeyword);
+		
+		
+		groupList = groupService.selectAllGroupListByParam(param, limit, offset);
+		
+		
+		model.addAttribute("ca1No",ca1No);
+		List<CategoryTwo> ca2NoList = new ArrayList<CategoryTwo>();
+		if(!ca1No.equals("0")) {
+			ca2NoList = groupService.groupgroupContTwo(ca1No);
 		}
-		else if(!ca1No.equals("0") && ca2No.equals("0")){
-			int ca1NoI = Integer.parseInt(ca1No);
-			groupList = groupService.selectAllGroupListByCa1No(ca1NoI, limit, offset);
-			List<CategoryTwo> ca2NoList = groupService.groupgroupContTwo(ca1No);
-			model.addAttribute("ca2NoList",ca2NoList);
-			model.addAttribute("ca1No", ca1No);
-		}
-		else {
-			int ca2NoI = Integer.parseInt(ca2No);
-			groupList = groupService.selectAllGroupListByCa2No(ca2NoI, limit, offset);
-			List<CategoryTwo> ca2NoList = groupService.groupgroupContTwo(ca1No);
-			model.addAttribute("ca2NoList",ca2NoList);
-			model.addAttribute("ca1No", ca1No);
-		}
+		model.addAttribute("ca2No",ca2No);
+		model.addAttribute("ca2NoList",ca2NoList);
+		model.addAttribute("searchType",searchType);
+		model.addAttribute("searchKeyword",searchKeyword);
+		
+		
+//		if(ca1No.equals("0") && ca2No.equals("0")) {
+//			
+//			groupList = groupService.selectAllGroupList(limit, offset);
+//		}
+//		else if(!ca1No.equals("0") && ca2No.equals("0")){
+//			int ca1NoI = Integer.parseInt(ca1No);
+//			groupList = groupService.selectAllGroupListByCa1No(ca1NoI, limit, offset);
+//			List<CategoryTwo> ca2NoList = groupService.groupgroupContTwo(ca1No);
+//			model.addAttribute("ca2NoList",ca2NoList);
+//			model.addAttribute("ca1No", ca1No);
+//		}
+//		else {
+//			int ca2NoI = Integer.parseInt(ca2No);
+//			groupList = groupService.selectAllGroupListByCa2No(ca2NoI, limit, offset);
+//			List<CategoryTwo> ca2NoList = groupService.groupgroupContTwo(ca1No);
+//			model.addAttribute("ca2NoList",ca2NoList);
+//			model.addAttribute("ca1No", ca1No);
+//			model.addAttribute("ca2No", ca2No);
+//		}
 		
 		
 		List<CategoryOne> caOneList = groupService.groupgroupContOne();
@@ -108,7 +132,45 @@ public class GroupController {
 	}
 	
 	@GetMapping("/groupDetail.do")
-	public String groupDetail() {
+	public String groupDetail(@RequestParam String groupNo, Model model, HttpServletRequest request) {
+		
+		Group group = groupService.selectGroupListByGroupNo(groupNo);
+		model.addAttribute("group", group);
+		log.debug("group = {}", group);
+		
+		Attachment attach = attachService.selectGroupAttachmentListByGroupNo(groupNo);
+		model.addAttribute("attach",attach);
+		log.debug("attach = {}", attach);
+		
+		GroupInfoConnect giConn = groupService.selectAllGroupInfoByGroupNo(groupNo);
+		model.addAttribute("giConn",giConn);
+		log.debug("giConn = {}", giConn);
+		
+		int gsNo = giConn.getSeqNo();
+		List<GroupInfo> groupInfoList = groupService.selectGroupInfoListByGsNo(gsNo);
+		model.addAttribute("groupInfoList",groupInfoList);
+		log.debug("groupInfoList = {}", groupInfoList);
+		
+		String cateNo = Integer.toString(group.getCategoryNo());
+		log.debug("cateNo = {}", cateNo);
+		CategoryOne cate = groupService.selectCategoryOneByCateNo(cateNo);
+		model.addAttribute("cate",cate);
+		log.debug("cate = {}", cate);
+		
+		List<GroupCategory> gcList = groupService.selectGroupCategoryListByGroupNo(groupNo);
+		model.addAttribute("gcList",gcList);
+		log.debug("gcList = {}", gcList);
+		
+		List<CategoryTwo> cateTwoList = new ArrayList<>();
+		for(GroupCategory gc : gcList) {
+			String num = Integer.toString(gc.getCategory2No());
+			CategoryTwo categoryTwo = new CategoryTwo();
+			categoryTwo = groupService.selectCategoryTwoListByGroupNo(num);
+			cateTwoList.add(categoryTwo);
+		}
+		model.addAttribute("cateTwoList",cateTwoList);
+		log.debug("cateTwoList = {}", cateTwoList);
+		
 		return "group/groupDetail";
 	}
 	@GetMapping("/groupJoin.do")

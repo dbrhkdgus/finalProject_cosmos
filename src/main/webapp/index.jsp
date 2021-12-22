@@ -56,15 +56,15 @@
 			<div class="category2">
 				<button type="button" class="btn-category">카테고리</button>
 				<ul class="cate-list" style="padding-left: 0;  height: 270px;">
-					<li class="popular"><a href="">웹개발</a></li>
-					<li class="popular"><a href="">프론트</a></li>
-					<li class="popular"><a href="">백엔드</a></li>
-					<li class="popular"><a href="">풀스택</a></li>
-					<li class="popular"><a href="">모바일 앱 개발</a></li>
-					<li class="popular"><a href="">프로그래밍 언어</a></li>
-					<li class="popular"><a href="">알고리즘</a></li>
-					<li class="popular"><a href="">데이터베이스</a></li>
-					<li class="popular"><a href="">게임개발</a></li>
+					<li class="popular"><a href="${pageContext.request.contextPath}/group/groupSearch.do?ca1No=2">웹개발</a></li>
+					<li class="popular"><a href="${pageContext.request.contextPath}/group/groupSearch.do?ca1No=3">프론트</a></li>
+					<li class="popular"><a href="${pageContext.request.contextPath}/group/groupSearch.do?ca1No=4">백엔드</a></li>
+					<li class="popular"><a href="${pageContext.request.contextPath}/group/groupSearch.do?ca1No=1">풀스택</a></li>
+					<li class="popular"><a href="${pageContext.request.contextPath}/group/groupSearch.do?ca1No=5">모바일 앱 개발</a></li>
+					<li class="popular"><a href="${pageContext.request.contextPath}/group/groupSearch.do?ca1No=6">프로그래밍 언어</a></li>
+					<li class="popular"><a href="${pageContext.request.contextPath}/group/groupSearch.do?ca1No=7">알고리즘</a></li>
+					<li class="popular"><a href="${pageContext.request.contextPath}/group/groupSearch.do?ca1No=8">데이터베이스</a></li>
+					<li class="popular"><a href="${pageContext.request.contextPath}/group/groupSearch.do?ca1No=9">게임개발</a></li>
 					
 				</ul>
 				<form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" style="display:flex; margin-left:10px;">
@@ -83,15 +83,15 @@
 			<div class="category2">
 				<button type="button" class="btn-category">카테고리</button>
 				<ul class="cate-list" style="padding-left: 0;">
-					<li class="login-popular"><a href="">로그인</a></li>
-					<li class="login-popular"><a href="">프론트</a></li>
-					<li class="login-popular"><a href="">백엔드</a></li>
-					<li class="login-popular"><a href="">풀스택</a></li>
-					<li class="login-popular"><a href="">모바일 앱 개발</a></li>
-					<li class="login-popular"><a href="">프로그래밍 언어</a></li>
-					<li class="login-popular"><a href="">알고리즘</a></li>
-					<li class="login-popular"><a href="">데이터베이스</a></li>
-					<li class="login-popular"><a href="">게임개발</a></li>
+					<li class="login-popular"><a href="${pageContext.request.contextPath}/group/groupSearch.do?ca1No=2">웹개발</a></li>
+					<li class="login-popular"><a href="${pageContext.request.contextPath}/group/groupSearch.do?ca1No=3">프론트</a></li>
+					<li class="login-popular"><a href="${pageContext.request.contextPath}/group/groupSearch.do?ca1No=4">백엔드</a></li>
+					<li class="login-popular"><a href="${pageContext.request.contextPath}/group/groupSearch.do?ca1No=1">풀스택</a></li>
+					<li class="login-popular"><a href="${pageContext.request.contextPath}/group/groupSearch.do?ca1No=5">모바일 앱 개발</a></li>
+					<li class="login-popular"><a href="${pageContext.request.contextPath}/group/groupSearch.do?ca1No=6">프로그래밍 언어</a></li>
+					<li class="login-popular"><a href="${pageContext.request.contextPath}/group/groupSearch.do?ca1No=7">알고리즘</a></li>
+					<li class="login-popular"><a href="${pageContext.request.contextPath}/group/groupSearch.do?ca1No=8">데이터베이스</a></li>
+					<li class="login-popular"><a href="${pageContext.request.contextPath}/group/groupSearch.do?ca1No=9">게임개발</a></li>
 				</ul>
 				
 			</div>
@@ -112,7 +112,7 @@
 				</div>
 				</div>
 				<div class="index-member-group d-flex">
-				
+
 				<form action="${pageContext.request.contextPath}/member/memberGroupList.do">
 				<button>신청 그룹</button>
 				<input type="hidden" value="application-group" name="type">
@@ -128,11 +128,7 @@
 				<input type="hidden" value="liked-group" name="type">
 				</form>
 				
-				<%-- <a href="${pageContext.request.contextPath}/member/memberGroupList.do">신청 그룹</a>
-				<a href="${pageContext.request.contextPath}/member/memberGroupList.do">가입 그룹</a>
-				<a href="${pageContext.request.contextPath}/member/memberGroupList.do">관심 그룹</a>
-				 --%>
-				 
+
 				 
 				</div>
 			</div>

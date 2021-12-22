@@ -13,4 +13,6 @@ public interface AdminDao {
 	List<MemberWithGroup> selectOneMember(Map<String, Object> param);
 
 	int updateBlack(Map<String, Object> param);
+
+	List<Member> searchMembers(int limit, int offset, Map<String, String> param);
 }

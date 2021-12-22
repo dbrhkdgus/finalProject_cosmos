@@ -1,6 +1,7 @@
 package com.kh.cosmos.group.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
@@ -84,22 +85,52 @@ public class GroupDaoImpl implements GroupDao {
 		return session.selectList("group.selectAllGroupInfoList");
 	}
 
-	@Override
-	public List<Group> selectAllGroupListByCa1No(int ca1No, int limit, int offset) {
-		RowBounds rowBounds = new RowBounds(offset, limit);
-		return session.selectList("group.selectAllGroupListByCa1No",ca1No,rowBounds);
-	}
 
 	@Override
-	public List<Group> selectAllGroupListByCa2No(int ca2No, int limit, int offset) {
+	public List<Group> selectAllGroupListByParam(Map<String, Object> param, int limit, int offset) {
 		RowBounds rowBounds = new RowBounds(offset, limit);
-		return session.selectList("group.selectAllGroupListByCa2No",ca2No,rowBounds);
-
+		return session.selectList("group.selectAllGroupListByParam",param,rowBounds);
 	}
 
 	@Override
 	public List<Group> selectAllMyGroupList() {
 		return session.selectList("group.selectAllMyGroupList");
+	}
+
+	@Override
+	public Group selectGroupListByGroupNo(String groupNo) {
+		// TODO Auto-generated method stub
+		return session.selectOne("group.selectGroupListByGroupNo",groupNo);
+	}
+
+	@Override
+	public GroupInfoConnect selectAllGroupInfoByGroupNo(String groupNo) {
+		// TODO Auto-generated method stub
+		return session.selectOne("group.selectAllGroupInfoByGroupNo",groupNo);
+	}
+
+	@Override
+	public List<GroupInfo> selectGroupInfoListByGsNo(int gsNo) {
+		// TODO Auto-generated method stub
+		return session.selectList("group.selectGroupInfoListByGsNo",gsNo);
+	}
+
+	@Override
+	public CategoryOne selectCategoryOneByCateNo(String cateNo) {
+		// TODO Auto-generated method stub
+		return session.selectOne("group.selectCategoryOneByCateNo",cateNo);
+	}
+
+	@Override
+	public List<GroupCategory> selectGroupCategoryListByGroupNo(String groupNo) {
+		// TODO Auto-generated method stub
+		return session.selectList("group.selectGroupCategoryListByGroupNo",groupNo);
+	}
+
+	@Override
+	public CategoryTwo selectCategoryTwoListByGroupNo(String num) {
+		// TODO Auto-generated method stub
+		return session.selectOne("group.selectCategoryTwoListByGroupNo",num);
 	}
 
 
