@@ -10,4 +10,6 @@ public interface MemberDao {
 
 	int updateMember(Member updateMember);
 
+	int insertUserAuthority(String id);
+
 }

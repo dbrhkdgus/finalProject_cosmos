@@ -27,5 +27,11 @@ public class MemberDaoImpl implements MemberDao {
 		// TODO Auto-generated method stub
 		return session.update("member.updateMember", updateMember);
 	}
+
+	@Override
+	public int insertUserAuthority(String id) {
+		// TODO Auto-generated method stub
+		return session.insert("member.insertUserAuthority",id);
+	}
 	
 }

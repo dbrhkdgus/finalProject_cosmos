@@ -45,14 +45,15 @@
 					<div class="card-body">
 							<div class="API-enroll-form">
 							<h2>추가 정보 입력</h2>
-							<h3>소셜 계정 연결이 완료되었습니다.아래 추가정보를 입력해 주세요</h2>
+							<h3>소셜 계정 연결이 완료되었습니다.아래 추가정보를 입력해 주세요</h3>
 							</div>
 							<form 
 							name="memberAPIEnrollFrm" 
-							action="${pageContext.request.contextPath}/member/memberAPImoreInfoEnroll.do" 
+							action="${pageContext.request.contextPath}/member/memberEnroll.do?${_csrf.parameterName}=${_csrf.token}" 
 							method="post"
-							onsubmit="">	
+							>	
 							<input type="hidden" name="id" value ="${kakaoMember.id }" />
+							<input type="hidden" name="password" value ="${kakaoMember.password }" />
 								<div class="form-group row">
 								<label for="permanent_address"
 									class="col-md-3 col-form-label text-md-right">이름</label>

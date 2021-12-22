@@ -10,7 +10,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.apache.http.HttpRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.http.HttpHeaders;
@@ -26,20 +25,19 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
-import org.springframework.web.servlet.FlashMap;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.cosmos.member.model.service.MemberService;
 import com.kh.cosmos.member.model.vo.Member;
 
 import lombok.extern.slf4j.Slf4j;
-import oracle.jdbc.proxy.annotation.Post;
 
 @Controller
 @Slf4j
@@ -67,7 +65,7 @@ public class MemberController {
 		return "member/memberLogin";
 	}
 	@PostMapping("/memberLogin.do")
-	public void memberLoginPost(@RequestParam String password) {}
+	public void memberLoginPost(@RequestParam String id ,@RequestParam String password) {}
 
 	
 	@GetMapping("/memberLogout.do")
@@ -101,7 +99,7 @@ public class MemberController {
 			
 			// 1.업무로직
 			int result = memberService.insertMember(member);
-			
+			result = memberService.insertUserAuthority(member.getId());
 			// 2.리다이렉트 & 사용자피드백전달
 			redirectAttr.addFlashAttribute("msg", "회원가입 성공!");
 		} catch (Exception e) {
@@ -119,83 +117,29 @@ public class MemberController {
 	}
 	
 	@PostMapping("/memberLoginKakaoMoreInfo.do")
-	public String memberLoginKakao(HttpServletRequest request, Model model,HttpSession session) {
-		Member kakaoMember = new Member();
-		if(memberService.selectOneMember(request.getParameter("memberId")) == null) {
-		
-		kakaoMember.setId(request.getParameter("memberId"));
-		kakaoMember.setMemberName(request.getParameter("memberName"));
-		kakaoMember.setMemberGender(request.getParameter("gender"));
-		
-		model.addAttribute("kakaoMember",kakaoMember);
-		model.addAttribute("_birthDay",request.getParameter("_birthDay"));
-		model.addAttribute("profile_img",request.getParameter("profile_img"));
-		
-		
-		session.setAttribute("kakaoMemeber", kakaoMember);
-//		log.debug("loginMember = {}",kakaoMember);
-		
-		return "member/memberLoginKakaoMoreInfo";
+	public String memberLoginKakao(HttpServletRequest request, Model model,HttpSession session, Authentication auth) {
+		Member kakaoMember = memberService.selectOneMember(request.getParameter("kakaoId"));
+		log.debug("kakaoMember = {}", kakaoMember);
+		if(kakaoMember == null) {
+			kakaoMember = new Member();
+			kakaoMember.setId(request.getParameter("kakaoId"));
+			kakaoMember.setMemberName(request.getParameter("memberName"));
+			kakaoMember.setMemberGender(request.getParameter("gender"));
+			
+			model.addAttribute("kakaoMember",kakaoMember);
+			model.addAttribute("_birthDay",request.getParameter("_birthDay"));
+			model.addAttribute("profile_img",request.getParameter("profile_img"));
+			
+	//		log.debug("loginMember = {}",kakaoMember);
+			
+			return "member/memberLoginKakaoMoreInfo";
 		} else {
+			// 권한을 부여하여 홈으로 가게만들기
+			kakaoMember.setPassword(passwordEncoder.encode(kakaoMember.getPassword()));
+			Authentication kakaoAuthentication = new UsernamePasswordAuthenticationToken(kakaoMember, kakaoMember.getPassword(), kakaoMember.getAuthorities());
+			SecurityContextHolder.getContext().setAuthentication(kakaoAuthentication);
 			return "redirect:/";
-		}
-			
-		
-	}
-	@RequestMapping("/memberLoginKakaoMoreInfo.do")
-	public String memberLoginKakao(HttpServletRequest request, Model model,HttpSession session, RedirectAttributes redirectAttr) {
-		log.debug("{}","requestMapping");
-		Member kakaoMember = new Member();
-		if(memberService.selectOneMember(request.getParameter("memberId")) == null) {
-		
-		kakaoMember.setId(request.getParameter("memberId"));
-		kakaoMember.setMemberName(request.getParameter("memberName"));
-		kakaoMember.setMemberGender(request.getParameter("gender"));
-		
-		model.addAttribute("kakaoMember",kakaoMember);
-		model.addAttribute("_birthDay",request.getParameter("_birthDay"));
-		model.addAttribute("profile_img",request.getParameter("profile_img"));
-		
-		
-		session.setAttribute("kakaoMemeber", kakaoMember);
-//		log.debug("loginMember = {}",kakaoMember);
-		
-		return "member/memberLoginKakaoMoreInfo";
-		} else {
-			redirectAttr.addFlashAttribute("msg", "이미 가입한 카카오 아이디입니다.");
-			//flashMap.put("msg", "이미 가입한 카카오 아이디입니다.");
-			return "redirect:/member/memberAPIEnroll.do";
-		}
-			
-		
-	}
-	
-	@PostMapping("/memberAPImoreInfoEnroll.do")
-	public String memberAPImoreInfoEnroll(Member member, HttpServletRequest request, Model model) {
-		String email = (request.getParameter("emailId")) + "@" + (request.getParameter("email-server"));
-		String birthDay = (request.getParameter("birtYear")) + (request.getParameter("birthMonth"))+ (request.getParameter("birthDate")); 
-		 
-		
-			SimpleDateFormat dtFormat = new SimpleDateFormat("yyyyMMdd"); 
-			SimpleDateFormat newDtFormat = new SimpleDateFormat("yyyy-MM-dd"); // String 타입을 Date 타입으로 변환
-			Date formatDate = new Date();
-			try {
-				formatDate = newDtFormat.parse(birthDay);
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		log.debug("formatDate = {}",formatDate);
-
-		
-		member.setMemberEmail(email);
-		member.setBirthday(formatDate);
-		member.setPassword("1234");
-		
-		log.debug("member = {}", member);
-		memberService.insertMember(member);
-		
-		return "redirect:/";
+		}	
 	}
 	
 
@@ -253,11 +197,13 @@ public class MemberController {
 	}
 	@PostMapping("/pwdCheck.do")
 	@ResponseBody
-	public ResponseEntity<?> pwdCheck(@RequestBody Member member, Authentication auth){
+	public ResponseEntity<?> pwdCheck(@RequestBody Member member){
 		log.debug("{}",member);
 		Member loginMember = memberService.selectOneMember(member.getId());
+		
 		HttpHeaders header = new HttpHeaders();
 		header.add("cosmos", "pwdCheck");
+		
 		if(passwordEncoder.matches(member.getPassword(), loginMember.getPassword())) {
 			return new ResponseEntity<Boolean>(true, header, HttpStatus.OK);
 		}else {

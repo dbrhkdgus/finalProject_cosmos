@@ -25,5 +25,12 @@ public class AdminServiceImpl implements AdminService{
 		return adminDao.selectOneMember(param);
 	}
 
+	@Override
+	public int updateBlack(Map<String, Object> param) {
+		return adminDao.updateBlack(param);
+	}
+
+
+
 	
 }

@@ -11,4 +11,5 @@ public interface AdminDao {
 
 	Member selectOneMember(Map<String, Object> param);
 
+	int updateBlack(Map<String, Object> param);
 }

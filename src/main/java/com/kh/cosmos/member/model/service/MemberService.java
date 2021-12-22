@@ -10,4 +10,6 @@ public interface MemberService {
 
 	int updateMember(Member updateMember);
 
+	int insertUserAuthority(String id);
+
 }
