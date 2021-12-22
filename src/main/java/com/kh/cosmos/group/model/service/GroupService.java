@@ -34,6 +34,8 @@ public interface GroupService {
 	List<Group> selectAllGroupList(int limit, int offset);
 
 	List<GroupInfoConnect> selectAllGroupInfoList();
+
+
 	
 	
 }

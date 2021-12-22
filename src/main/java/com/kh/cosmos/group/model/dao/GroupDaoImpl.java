@@ -83,5 +83,8 @@ public class GroupDaoImpl implements GroupDao {
 		// TODO Auto-generated method stub
 		return session.selectList("group.selectAllGroupInfoList");
 	}
+
+
+	
 	
 }

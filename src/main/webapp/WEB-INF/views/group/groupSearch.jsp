@@ -9,55 +9,28 @@
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	<jsp:param value="그룹 검색" name="title"/>
 </jsp:include>
-
 		<!-- Page header with logo and tagline-->
         <!-- Page content-->
         <div class="container">
             <div class="search-parent-category">
                 <ul class="nav nav-tabs">
-                    <li class="nav-item" style="margin: 0;">
+                	<li class="nav-item" style="margin: 0;">
                       <a class="nav-link active" aria-current="page" href="#">ALL</a>
                     </li>
+                <c:forEach var="c1" items="${caOneList }">
                     <li class="nav-item" style="margin: 0;">
-                      <a class="nav-link" href="#">웹개발</a>
+                      <a class="nav-link" aria-current="page" href="#">
+                     	<input type="hidden" value="${c1.category1No }" />
+                     	${c1.category1Name }
+                      </a>
+                      
                     </li>
-                    <li class="nav-item" style="margin: 0;">
-                      <a class="nav-link" href="#">프론트엔드</a>
-                    </li>
-                    <li class="nav-item" style="margin: 0;">
-                      <a class="nav-link href="#">백엔드</a>
-                    </li>
-                    <li class="nav-item" style="margin: 0;">
-                        <a class="nav-link href="#">풀스택</a>
-                      </li>
-                      <li class="nav-item" style="margin: 0;">
-                        <a class="nav-link href="#">모바일 앱 개발</a>
-                      </li>
-                      <li class="nav-item" style="margin: 0;">
-                        <a class="nav-link href="#">프로그래밍 언어</a>
-                      </li>
-                      <li class="nav-item" style="margin: 0;">
-                        <a class="nav-link href="#">알고리즘</a>
-                      </li>
-                      <li class="nav-item" style="margin: 0;">
-                        <a class="nav-link href="#">데이터베이스</a>
-                      </li>
-                       <li class="nav-item" style="margin: 0;">
-                        <a class="nav-link href="#">게임개발</a>
-                      </li>
-                  
+                </c:forEach>
                   </ul>
             </div>
             <div class="search-child-category">
-                 <ul class="child-category-all">
-                    <li><a href="">웹개발</a></li>
-                    <li><a href="">프론트엔드</a></li>
-                    <li><a href="">백엔드</a></li>
-                    <li><a href="">풀스택</a></li>
-                    <li><a href="">모바일 앱 개발</a></li>
-                    <li><a href="">프로그래밍 언어</a></li>
-                    <li><a href="">알고리즘</a></li>
-                    <li><a href="">데이터베이스</a></li>
+                 <ul class="child-category-all" id="c2">
+                    
                 </ul> 
             </div>
             <hr style="height: 0.5px; color: #8B6AD3; margin-bottom: 50px;">
@@ -140,6 +113,50 @@
                 </div>
             </div>
         </div>
+ <script>
+ $("li",".search-parent-category").click((e)=>{
+/* 	  console.log($(e.target).parent().siblings());  */
+ 	 $(e.target).parent().siblings().children("a").removeClass("active"); 
+	 $(e.target).addClass("active");
+	const data = $(e.target).children("input").val();
+	$.ajax({
+		url : `${pageContext.request.contextPath}/group/category2Search?${_csrf.parameterName}=${_csrf.token}`,
+		data : {ca1No : data},
+		method : "get",
+		dataType : "json",
+		success(res){
+			console.log(res);
+			$(c2).html("");
+			$.each(res, (k,v) =>{
+			$(c2).append( `<li><a href="\${k}">\${v}</a></li>`);
+				
+			});
+		},
+		error(xhr,textStatus,err){
+			console.log
+		}
+	});
+<%-- 	$.ajax({
+		url:"<%= request.getContextPath() %>/group/groupCategoryTwo.do?${_csrf.parameterName}=${_csrf.token}",
+		method: "GET",
+		dataType: "json",
+		data: {categoryOneNo : $(this).val()},
+		success(data){
+			const $CATETWOdiv = $(`<div class="group-text-input">`);
+			$.each(data, (k, v) => {
+				let html = `<div class="form-check form-check-inline"><input class="form-check-input" type="checkbox" name="cateCheckBox" id="inlineCheckbox\${k}" value=\${k}><label class="form-check-label" for="inlineCheckbox\${k}">\${v}</label></div>`;
+				$CATETWOdiv.append(html);
+			});
+				$CATETWOdiv.append(`</div>`);
+			$("#sCate").html($CATETWOdiv);
+		},
+		error(xhr,textStatus,err){
+			console.log(xhr,textStatus,err);
+		}
+	}); --%>
+ });
+ 
+ </script>
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
 
