@@ -1,6 +1,7 @@
 package com.kh.cosmos.admin.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,8 +21,8 @@ public class AdminServiceImpl implements AdminService{
 	}
 
 	@Override
-	public Member selectOneMember(String id) {
-		return adminDao.selectOneMember(id);
+	public Member selectOneMember(Map<String, Object> param) {
+		return adminDao.selectOneMember(param);
 	}
 
 	

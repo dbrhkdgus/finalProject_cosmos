@@ -9,6 +9,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.kh.cosmos.common.vo.Attachment;
 
 import lombok.AllArgsConstructor;
@@ -35,11 +36,12 @@ public class Member implements Serializable, UserDetails {
 	private String nickname;
 	private String password;
 	private String memberEmail;
-	
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")	
 	private Date birthday;
 	
 	private String phone;
 	private String memberGender;
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
 	private Date memberEnrollDate;
 	private String memberJob;
 	private String memberAchieve;

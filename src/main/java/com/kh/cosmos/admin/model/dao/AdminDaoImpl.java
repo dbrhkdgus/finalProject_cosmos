@@ -1,6 +1,7 @@
 package com.kh.cosmos.admin.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +21,8 @@ public class AdminDaoImpl implements AdminDao {
 	}
 
 	@Override
-	public Member selectOneMember(String id) {
-		return session.selectOne("admin.selectOneMember",id);
+	public Member selectOneMember(Map<String, Object> param) {
+		return session.selectOne("admin.selectOneMember",param);
 	}
 
 }
