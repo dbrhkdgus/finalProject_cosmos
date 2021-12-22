@@ -10,6 +10,7 @@ import com.kh.cosmos.common.vo.Attachment;
 import com.kh.cosmos.group.model.vo.CategoryOne;
 import com.kh.cosmos.group.model.vo.CategoryTwo;
 import com.kh.cosmos.group.model.vo.Group;
+import com.kh.cosmos.group.model.vo.GroupCategory;
 import com.kh.cosmos.group.model.vo.GroupInfo;
 import com.kh.cosmos.group.model.vo.GroupInfoConnect;
 
@@ -49,5 +50,11 @@ public class GroupDaoImpl implements GroupDao {
 	public List<CategoryTwo> groupgroupContTwo(String categoryOneNo) {
 		// TODO Auto-generated method stub
 		return session.selectList("group.groupgroupContTwo", categoryOneNo);
+	}
+
+	@Override
+	public int insertGroupCategory(GroupCategory category) {
+		// TODO Auto-generated method stub
+		return session.insert("group.insertGroupCategory" , category);
 	}
 }
