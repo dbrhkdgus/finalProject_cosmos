@@ -29,4 +29,6 @@ public interface GroupDao {
 
 	int insertAlg(ApplocationGroup applocationGroup);
 
+	int selectGroupTotalCount();
+
 }

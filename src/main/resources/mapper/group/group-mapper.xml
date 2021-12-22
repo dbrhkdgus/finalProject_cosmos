@@ -8,7 +8,7 @@
 		tb_group
 	values(
 		seq_group_no.nextval,
-		1,
+		#{categoryNo},
 		#{groupName},
 		default,
 		#{groupCharge},
@@ -20,12 +20,18 @@
 	)
   </insert>
 	<insert id="insertAttach">
+		<selectKey keyProperty="groupNo" resultType="_int" order="BEFORE">
+			select
+				seq_group_no.currval
+			from
+				dual
+		</selectKey>
 		insert into
 			attachment
 		values(
 			seq_attach_no_no.nextval,
 			#{id},
-			null,
+			#{groupNo},
 			#{originalFilename},
 			#{renamedFilename},
 			sysdate,
@@ -93,4 +99,11 @@
 		insert into applocation_group values(seq_alg_no_no.nextval,#{memberId},#{groupNo},default,null,'G')
 	
 	</insert>
+	<select id="selectGroupTotalCount" resultType="_int">
+	select 
+			count(*) 
+		from 
+			group
+	</select>
+	
 </mapper>

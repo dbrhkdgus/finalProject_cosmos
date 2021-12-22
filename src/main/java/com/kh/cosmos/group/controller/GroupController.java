@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ResourceLoader;
@@ -49,7 +50,17 @@ public class GroupController {
 	ResourceLoader resourceLoader;
 	
 	@GetMapping("/groupSearch.do")
-	public String groupSearch() {
+	public String groupSearch(@RequestParam(defaultValue = "1") int cPage, Model model, HttpServletRequest request) {
+//		int limit = 10;
+//		int offset = (cPage - 1) * limit;
+//		
+//		List<CategoryOne> caOneList = groupService.groupgroupContOne();
+//		model.addAttribute("caOneList", caOneList);
+////		List<Group>
+//		
+//		int totalContent = groupService.selectGroupTotalCount();
+//		model.addAttribute("totalContent", totalContent);
+//		
 		
 	
 		return "group/groupSearch";
@@ -88,6 +99,9 @@ public class GroupController {
 		if(groupPrivate != 'L') {
 			groupEnroll.setGroupPrivate('U');
 		}
+		
+		Attachment attach = new Attachment();
+		
 		try {
 			
 			// application객체(ServletContext)
@@ -109,19 +123,21 @@ public class GroupController {
 				upFile.transferTo(dest);
 				
 				// 2.DB에 attachment 레코드 등록
-				Attachment attach = new Attachment();
+				
 				attach.setRenamedFilename(renamedFilename);
 				attach.setOriginalFilename(originalFilename);
 				attach.setId(groupEnroll.getMemberId());
-				attach.setGroupNo(groupEnroll.getGroupNo());
 				attach.setImgFlag("Y");
-				int attachNo = groupService.insertAttach(attach);
-				log.debug("attachNo = {}", attachNo);
+				
 				
 			}
 			
 			
 			int result = groupService.insertGroup(groupEnroll);
+			
+			int attachNo = groupService.insertAttach(attach);
+			log.debug("attachNo = {}", attachNo);
+			
 			result = groupService.insertGroupInfoConnect(groupInfoConnect);
 		
 			String[] cateNo = groupEnroll.getCateCheckBox();
