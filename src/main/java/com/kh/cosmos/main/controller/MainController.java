@@ -101,7 +101,7 @@ public class MainController {
 			 Attachment attach = new Attachment();
 			 attach.setRenamedFilename(renamedFilename);
 			 attach.setOriginalFilename(originalFilename);
-			 attach.setId(memberId);
+			 attach.setMemberId(memberId);
 			 int attachNo = mainService.insertAttach(attach);
 			 log.debug("attachNo = {}", attachNo);
 		 }
@@ -181,7 +181,7 @@ public class MainController {
 			 Attachment attach = new Attachment();
 			 attach.setRenamedFilename(renamedFilename);
 			 attach.setOriginalFilename(originalFilename);
-			 attach.setId(memberId);
+			 attach.setMemberId(memberId);
 			 int attachNo = mainService.insertAttach(attach);
 			 
 			 int result = mainService.insertQuestionFile(que);

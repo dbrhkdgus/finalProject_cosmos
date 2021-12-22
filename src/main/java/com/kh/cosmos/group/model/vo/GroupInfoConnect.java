@@ -13,6 +13,7 @@ import lombok.ToString;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 public class GroupInfoConnect implements Serializable {
 
 	/**
