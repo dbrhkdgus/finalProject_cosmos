@@ -415,6 +415,30 @@
     outline:none;
     border:none;
 }
+#index-group-box{
+    margin:0px 5px 0px 5px;
+}
+
+.index-mb-4{
+	margin-bottom: 1.5rem ;
+}
+.index-row{
+	display:flex;
+	flex-wrap: wrap;
+}
+
+.slick-prev:before, .slick-next:before{
+  color: #666 !important;
+  opacity: 1 ; 
+}
+/* 화살표 위치 변경 */
+.slick-prev{
+  z-index: 9 ;
+}
+.slick-next{
+  z-index: 9 ;
+  right: -8px;  
+}
 
 #categoryTab{border: 1px solid black;}
 #navbarSupportedContent{display: flex;}
