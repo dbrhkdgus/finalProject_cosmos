@@ -24,6 +24,6 @@ where id = #{id}
 </update>
 
 <insert id="insertUserAuthority">
-	insert into authorities values(#{id}, "ROLE_USER")
+	insert into authorities values(#{id}, 'ROLE_USER')
 </insert>
 </mapper>
