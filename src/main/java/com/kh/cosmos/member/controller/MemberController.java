@@ -135,6 +135,7 @@ public class MemberController {
 			return "member/memberLoginKakaoMoreInfo";
 		} else {
 			// 권한을 부여하여 홈으로 가게만들기
+			kakaoMember.setPassword("1234");
 			
 			if("http://localhost:9090/cosmos/member/memberAPIEnroll.do".equals(request.getHeader("referer"))) {
 				redirectAttr.addFlashAttribute("msg","이미 가입된 카카오 아이디입니다.");

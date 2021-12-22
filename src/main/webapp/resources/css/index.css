@@ -408,7 +408,7 @@
 
 .index-member-group a{
 	display: inline-block;
-    margin: 30px;
+     margin: 30px; 
 }
 #loginOut{
     background: transparent;
@@ -439,6 +439,7 @@
   z-index: 9 ;
   right: -8px;  
 }
+
 
 #categoryTab{border: 1px solid black;}
 #navbarSupportedContent{display: flex;}
