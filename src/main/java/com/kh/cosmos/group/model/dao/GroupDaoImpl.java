@@ -1,6 +1,7 @@
 package com.kh.cosmos.group.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
@@ -84,17 +85,11 @@ public class GroupDaoImpl implements GroupDao {
 		return session.selectList("group.selectAllGroupInfoList");
 	}
 
-	@Override
-	public List<Group> selectAllGroupListByCa1No(int ca1No, int limit, int offset) {
-		RowBounds rowBounds = new RowBounds(offset, limit);
-		return session.selectList("group.selectAllGroupListByCa1No",ca1No,rowBounds);
-	}
 
 	@Override
-	public List<Group> selectAllGroupListByCa2No(int ca2No, int limit, int offset) {
+	public List<Group> selectAllGroupListByParam(Map<String, Object> param, int limit, int offset) {
 		RowBounds rowBounds = new RowBounds(offset, limit);
-		return session.selectList("group.selectAllGroupListByCa2No",ca2No,rowBounds);
-
+		return session.selectList("group.selectAllGroupListByParam",param,rowBounds);
 	}
 
 

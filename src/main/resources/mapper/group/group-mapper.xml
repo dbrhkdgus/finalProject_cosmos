@@ -118,5 +118,22 @@
 	<select id="selectAllGroupListByCa2No" resultType="group">
 	select * from tb_group t left join group_category g using(group_no) where category2_no = #{ca2No}
 	</select>
-	
+		<select id="selectAllGroupListByParam" resultType="group">
+	select * from tb_group t left join group_category g using(group_no) 
+	<where>
+		<if test="ca1No != 0">
+			category_no = #{ca1No}
+		</if>
+		<if test="ca2No != 0">
+			and category2_no = #{ca2No}
+		</if>
+		<if test="searchType == 'groupName'">
+			 and group_name like '%'||#{searchKeyword}||'%' 
+		</if>
+		<if test="searchType == 'location'">
+			 and group_location like '%'||#{searchKeyword}||'%'
+		</if>
+		
+	</where>
+	</select>
 </mapper>

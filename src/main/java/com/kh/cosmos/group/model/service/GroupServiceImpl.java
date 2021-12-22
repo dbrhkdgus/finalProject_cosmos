@@ -1,6 +1,7 @@
 package com.kh.cosmos.group.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -84,15 +85,9 @@ public class GroupServiceImpl implements GroupService {
 	}
 
 	@Override
-	public List<Group> selectAllGroupListByCa1No(int ca1No, int limit, int offset) {
+	public List<Group> selectAllGroupListByParam(Map<String, Object> param, int limit, int offset) {
 		// TODO Auto-generated method stub
-		return groupDao.selectAllGroupListByCa1No(ca1No, limit, offset);
-	}
-
-	@Override
-	public List<Group> selectAllGroupListByCa2No(int ca2No, int limit, int offset) {
-		// TODO Auto-generated method stub
-		return groupDao.selectAllGroupListByCa2No(ca2No, limit, offset);
+		return groupDao.selectAllGroupListByParam(param, limit, offset);
 	}
 
 
