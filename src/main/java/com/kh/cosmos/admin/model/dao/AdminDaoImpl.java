@@ -33,4 +33,10 @@ public class AdminDaoImpl implements AdminDao {
 		return session.update("admin.updateBlack",param);
 	}
 
+	@Override
+	public List<Member> searchMembers(int limit, int offset, Map<String, String> param) {
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		return session.selectList("admin.searchMembers", param);
+	}
+
 }

@@ -84,7 +84,7 @@
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="${pageContext.request.contextPath}/admin/groups.do">모임 목록</a>
-                                <a class="dropdown-item" href="#">프리미엄 모임</a>
+                                <a class="dropdown-item" href="${pageContext.request.contextPath}/admin/permitGroups.do">모임 승인 관리</a>
                             </div>
                         </li>  
 
