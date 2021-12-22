@@ -40,6 +40,8 @@ public interface GroupService {
 
 	List<Group> selectAllGroupListByCa2No(int ca2No, int limit, int offset);
 
+	List<Group> selectAllGroupList();
+
 
 
 	
