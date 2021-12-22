@@ -83,6 +83,13 @@ public class GroupServiceImpl implements GroupService {
 		return groupDao.selectAllGroupInfoList();
 	}
 
+	@Override
+	public List<Group> selectAllGroupList() {
+		return groupDao.selectAllGroupList();
+	}
+
+	
+
 
 	
 	
