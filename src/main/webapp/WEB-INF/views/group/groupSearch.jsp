@@ -92,7 +92,6 @@
                     <!-- Nested row for non-featured blog posts-->
                     <div class="search-outer">
                     <c:forEach var="group" items="${groupList }" varStatus="vs">
-						<c:forEach var="attach" items="${attachList }">
 						
 	                    	<c:if test="${vs.count %3 == 1}">
 	                        	<div class="search-inner">
@@ -100,10 +99,12 @@
 	                            <!-- Blog post-->
 									<div class="card mb-4 search-card">
 		                                <a href="${pageContext.request.contextPath}/group/groupDetail.do?groupNo=${group.groupNo}">
+		                                <c:forEach var="attach" items="${attachList }">
 			                                <c:if test="${group.groupNo == attach.groupNo }">
-			                                	<img class="card-img-top" src="${pageContext.request.contextPath }/upfile/group/${attach.renamedFilename}"
+			                                	<img class="card-img-top" src="${pageContext.request.contextPath }/resources/upFile/group/${attach.renamedFilename}"
 			                                        alt="..." />
-			                                </c:if>        
+			                                </c:if>
+			                                </c:forEach>
 		                                </a>
 		                                <div class="card-body">
 		                                    <div class="small text-muted">${group.groupEnrollDate }</div>
@@ -117,7 +118,7 @@
 	                       		</div>
 	                    	</c:if>
 						
-						</c:forEach>
+						
                         
                     </c:forEach>
 
