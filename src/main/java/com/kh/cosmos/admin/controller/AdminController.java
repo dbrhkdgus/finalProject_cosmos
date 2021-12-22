@@ -113,10 +113,7 @@ public class AdminController {
 		return map;
 	}
 	
-
-	
 	 @GetMapping("/updateBlack")
-	 
 	 @ResponseBody 
 	 public int changeBlack(@RequestParam Map<String, Object> param){ 
 		 
@@ -128,10 +125,44 @@ public class AdminController {
 		 return result;
 	}
 	 
+	@GetMapping("/searchMembers.do")
+	public String searchMembers(@RequestParam(defaultValue = "1") int cPage, Model model, HttpServletRequest request) {
+		//페이징처리
+		int limit = 10;
+		int offset = (cPage -1)*limit;
+		int totalContent = mainService.selectQuestionTotalCount();
+		String url = request.getRequestURI();
+		String pagebar = CosmosUtils.getPagebar(cPage, limit, totalContent, url);
+		model.addAttribute("totalContent", totalContent);
+		
+		//받아온 값
+		String searchType = request.getParameter("searchType");
+		String searchKeyword = request.getParameter("searchKeyword");
+		
+		//받온 값 Map 에 넣기
+		Map<String, String> param = new HashMap<>();
+		param.put("searchType", searchType);
+		param.put("searchKeyword", searchKeyword);
+
+		log.debug("searchType = {}", searchType);
+		log.debug("searchKeyword = {}", searchKeyword);
+		
+		List<Member> list = adminService.searchMembers(limit, offset, param);
+		log.debug("list = {}", list);
+		
+		model.addAttribute("list", list);
+		
+		return "/admin/members";
+	}
 	
 	@GetMapping("/groups.do")
 	public String groups() {
 		return "admin/groups";
+	}
+	
+	@GetMapping("/permitGroups.do")
+	public String permitGroups() {
+		return "admin/permitGroups";
 	}
 	
 	@GetMapping("/StatisticsOfMember.do")
