@@ -440,6 +440,178 @@
   right: -8px;  
 }
 
+ .aboutdetail.outer{
+   
+    display: flex;
+    justify-content: space-between;
+
+  }
+
+
+.aboutdetail.content{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width:  600px;
+}
+
+
+.aboutdetail.rightouter{
+    display: flex;
+    flex-wrap: wrap;
+    width: 250px;
+    margin-left: 90px;
+}
+
+
+.aboutdetail.rightinner{
+    /* border: 1px solid #000; */
+    width: 100px;
+    height: 150px;
+    /* margin: 20px 20px 20px 0px; */
+    margin: 0px auto;
+    overflow: hidden; 
+   
+}
+
+.aboutdetail.rightinner>img{
+    /* border: 1px solid #000; */
+    width: 100px;
+    height: 100px;
+    transition: all 0.2s linear;
+
+}
+
+.aboutdetail.rightinner>img:hover{
+	width:100px;
+	height:100px;
+    transform: scale(1.2);
+    margin: 0px auto;
+   
+
+}
+
+
+.rightBtn{
+	background:#A0BFB5;
+	color:#fff;
+	border:none;
+	position:relative;
+	top:10px;
+	transition:800ms ease all;
+	width: -webkit-fill-available; 
+    font-size: .7rem;
+    padding: 0px;
+    height: 20px;
+    top: 5px;
+    line-height: 18px;
+    border-radius : 7px;
+    font-family: 'NanumSquareRound';
+}
+.aboutdetail.rightinner >button:hover{
+	background: #fff;
+    color: #1AAB8A
+	
+}
+
+.aboutdetail.leftbox{
+    width: 800px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 500px;
+}
+
+.left.image{
+    width: 250px;
+}
+
+.left.image img{
+    width: 250px;
+    border-radius:50%;
+    height: 250px;
+    border: 4px solid #005A3C;
+}
+
+
+.aboutdetail.leftbox>img{
+    width: 250px;
+    height: 250px;
+    border: 1px solid #000;
+   
+}
+
+.left.image p{
+	 font-family: 'NanumSquareRound';
+	 font-size:2rem;
+	
+} 
+
+
+.aboutdetail.leftbox>button{
+    position: relative;
+    top: 20px;
+
+}
+
+.aboutdetail.leftbox{
+    display: none;
+    margin-left: 50px;
+}
+
+.left.content{
+	font-family: 'NanumSquareRound';
+    width:550px;
+   	text-align: left;
+    margin-left: 60px;
+}
+.left.image{
+	text-align: center;
+}
+
+.leftbox.active{
+    display: flex;
+}
+
+.underlined-text {
+  font-size:0px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.underlined {
+  display: block;
+  float:left;
+  position:relative;
+}
+.underlined:before {
+  display: block;
+  content:'';
+  position:absolute;
+  width:100%;
+  bottom:0;
+  left:0;
+  background:#f66;
+  z-index:-1;
+}
+.underlined.first:before {
+  height:25px;
+  background:#A0BFB5;
+  
+}
+.underlined.second:before {
+  height:25px;
+  background:#005A3C;
+}
+.about p{
+	margin-bottom :10px;
+    font-size: 40px;
+    font-family: 'Recipekorea';
+    -webkit-text-stroke: 1px  #000;
+    color: cornsilk;
+}
+/*어바웃디테일 끝*/
+
 
 #categoryTab{border: 1px solid black;}
 #navbarSupportedContent{display: flex;}

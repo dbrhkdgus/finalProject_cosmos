@@ -10,8 +10,9 @@
 				<img id="footer_logo" src="${pageContext.request.contextPath }/resources/images/cosmoslogo_black.png" alt="">
 			</div>
 			<div class="footer-list">
-				<ul style="display: flex; justify-content: space-between;">
-					<li style="display: flex; flex-direction: column;"><span class="footer-list-content">cosmos </span> <span>cosmos소개</span></li>
+				<ul style="display: flex; justify-content: space-between; align-items: flex-end;">
+					
+					<li style="display: flex; flex-direction: column;" ><span class="footer-list-content"><a href="${pageContext.request.contextPath}/main/about.do">cosmos</a> </span> <span>cosmos소개</span></li>
 					<li><span class="footer-list-content"></span><a class="nav-link" href="${pageContext.request.contextPath}/main/qa.do">문의사항</a></li>
 					<li><span class="footer-list-content"></span><a class="nav-link" href="${pageContext.request.contextPath}/main/noticeList.do">공지사항</a></li>
 					<li><span class="footer-list-content"></span><a class="nav-link" href="${pageContext.request.contextPath}/group/groupSearch.do">Search</a></li>
