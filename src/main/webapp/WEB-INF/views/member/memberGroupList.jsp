@@ -21,7 +21,7 @@
 		               	  <div class="card mb-3" style="max-width: 800px;">
 		                    <div class="row g-0">
 		                      <div class="col-md-4">
-			                	<c:forEach var="attach" items="${attachList }">
+			                	<c:forEach var="attach" items="${attachList}">
 			                		<c:if test="${(myGroup.groupNo == attach.groupNo) && (attach.imgFlag == 'Y')}">
 			                			<img class="img-fluid rounded-start" src="${pageContext.request.contextPath }/resources/upFile/group/${attach.renamedFilename}">
 			                		</c:if>
@@ -30,7 +30,16 @@
 		                      </div>
 		                      <div class="col-md-8">
 		                        <div class="card-body">
-		                          <h5 class="card-title">Card title</h5>
+		                        	<c:forEach var="allGroup" items="${groupList}">
+				                		<c:if test="${myGroup.groupNo == allGroup.groupNo}">
+				                			<h5 class="card-title">${allGroup.groupName}</h5>
+				                		</c:if>
+			                		</c:forEach>
+		                          	<%-- <c:forEach var="cate1" items="${caOneList}">
+				                		<c:if test="${myGroup.groupNo == allGroup.groupNo}">
+				                			<h5 class="card-title">${allGroup.groupName}</h5>
+				                		</c:if>
+			                		</c:forEach> --%>
 		                          <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
 		                          <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
 		                        </div>
