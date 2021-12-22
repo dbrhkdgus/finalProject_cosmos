@@ -35,4 +35,7 @@ public interface GroupDao {
 
 	List<GroupInfoConnect> selectAllGroupInfoList();
 
+	List<Group> selectAllGroupList();
+
+
 }

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.cosmos.admin.model.dao.AdminDao;
 import com.kh.cosmos.member.model.vo.Member;
+import com.kh.cosmos.member.model.vo.MemberWithGroup;
 
 @Service
 public class AdminServiceImpl implements AdminService{
@@ -16,12 +17,12 @@ public class AdminServiceImpl implements AdminService{
 	private AdminDao adminDao;
 	
 	@Override
-	public List<Member> selectAllMembers() {
-		return adminDao.selectAllMembers();
+	public List<Member> selectAllMembers(int limit, int offset) {
+		return adminDao.selectAllMembers(limit, offset);
 	}
 
 	@Override
-	public Member selectOneMember(Map<String, Object> param) {
+	public List<MemberWithGroup> selectOneMember(Map<String, Object> param) {
 		return adminDao.selectOneMember(param);
 	}
 

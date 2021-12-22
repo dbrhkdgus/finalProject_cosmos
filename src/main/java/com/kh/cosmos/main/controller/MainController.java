@@ -221,4 +221,9 @@ public class MainController {
 		
 		return "main/qaDetail";
 	}
+	
+	@GetMapping("/about.do")
+	public String about() {
+		return "main/about";
+	}
 }

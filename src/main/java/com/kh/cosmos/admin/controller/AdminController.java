@@ -21,6 +21,7 @@ import com.kh.cosmos.common.CosmosUtils;
 import com.kh.cosmos.main.model.service.MainService;
 import com.kh.cosmos.main.model.vo.Question;
 import com.kh.cosmos.member.model.vo.Member;
+import com.kh.cosmos.member.model.vo.MemberWithGroup;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -42,20 +43,19 @@ public class AdminController {
 	
 	@GetMapping("/QnA.do")
 	public String QnA(@RequestParam(defaultValue = "1") int cPage, Model model, HttpServletRequest request) {
+//		페이징처리
 		int limit = 10;
 		int offset = (cPage -1)*limit;
-		
-		List<Question> list = mainService.selectQuestionList(limit, offset);
-		log.debug("list = {}", list);
-		model.addAttribute("list", list);
-		
 		int totalContent = mainService.selectQuestionTotalCount();
-		model.addAttribute("totalContent", totalContent);
-		
 		String url = request.getRequestURI();
 		String pagebar = CosmosUtils.getPagebar(cPage, limit, totalContent, url);
+		model.addAttribute("totalContent", totalContent);
 		
+//		업무로직
+		List<Question> list = mainService.selectQuestionList(limit, offset);
+		model.addAttribute("list", list);
 		model.addAttribute("pagebar", pagebar);
+		
 		return "admin/QnA";
 	}
 	
@@ -65,20 +65,18 @@ public class AdminController {
 	}
 	
 	@GetMapping("/members.do")
-	public String members(@RequestParam(defaultValue = "1") int cPage, Model model,HttpServletRequest request) {
-		//페이징 처리
+	public String members(@RequestParam(defaultValue = "1") int cPage, Model model, HttpServletRequest request) {
+		
+//		페이징처리
 		int limit = 10;
 		int offset = (cPage -1)*limit;
 		int totalContent = mainService.selectQuestionTotalCount();
 		String url = request.getRequestURI();
-		model.addAttribute("totalContent", totalContent);		
 		String pagebar = CosmosUtils.getPagebar(cPage, limit, totalContent, url);
+		model.addAttribute("totalContent", totalContent);
 		
-		//업무로직
-		List<Member> list = adminService.selectAllMembers();
-		log.debug("list = {}", list);
-		
-		//값 전달
+//		업무로직
+		List<Member> list = adminService.selectAllMembers(limit, offset);
 		model.addAttribute("list", list);
 		model.addAttribute("pagebar", pagebar);
 		
@@ -90,10 +88,27 @@ public class AdminController {
 	public Map<String,Object> selectOne(@RequestParam Map<String, Object> param) {
 		Map<String, Object> map = new HashMap<>();
 		log.debug("넘겨져온 param = {}", param);
-		Member member = adminService.selectOneMember(param);
-		log.debug("member = {}", member);
 		
-		map.put("member", member);
+//		멤버-그룹 연계 테이블에, 한 회원이 여러 그룹에 가입되어 있을 수 있기에 List 받아와야 한다.
+		List<MemberWithGroup> memberWithGroup = adminService.selectOneMember(param);
+		log.debug("memberWithGroup.size() ={}", memberWithGroup.size());
+		String groupName = "";
+		int count = 1;
+		
+//		각 행에 담겨있는 참여 모임의 문자열들을 합쳐준다.
+		for(MemberWithGroup mwg : memberWithGroup) {
+			groupName += mwg.getGroupName();
+			if(count!=memberWithGroup.size()) {
+				groupName += ", ";
+			}
+			count= count+1;
+		}
+		log.debug("memberWithGroup = {}", memberWithGroup);
+		log.debug("groupName = {}", groupName);
+		MemberWithGroup mwg = memberWithGroup.get(0);
+		log.debug("memberWithGroup.get(1) = {}", mwg);
+		mwg.setGroupName(groupName);
+		map.put("member", mwg);
 		
 		return map;
 	}
@@ -103,13 +118,14 @@ public class AdminController {
 	 @GetMapping("/updateBlack")
 	 
 	 @ResponseBody 
-	 public void changeBlack(@RequestParam Map<String, Object> param){ 
+	 public int changeBlack(@RequestParam Map<String, Object> param){ 
 		 
 		 log.debug("param = {}", param); 
 		 
 		 int result = adminService.updateBlack(param); 
 		 
-		 log.debug("result = {}", result); 
+		 log.debug("result = {}", result);
+		 return result;
 	}
 	 
 	

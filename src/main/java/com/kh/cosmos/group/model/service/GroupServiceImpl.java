@@ -82,5 +82,15 @@ public class GroupServiceImpl implements GroupService {
 		// TODO Auto-generated method stub
 		return groupDao.selectAllGroupInfoList();
 	}
+
+	@Override
+	public List<Group> selectAllGroupList() {
+		return groupDao.selectAllGroupList();
+	}
+
+	
+
+
+	
 	
 }
