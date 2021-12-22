@@ -5,7 +5,9 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>	
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css">
 <fmt:requestEncoding value="utf-8"/>
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	<jsp:param value="COSMOS" name="title"/>
@@ -75,6 +77,7 @@
 		<!--로그인 했을 때  -->
 		<sec:authorize access="isAuthenticated()">
 		<div class="col-lg-4">
+		
 		<div class="login-index category" style="margin-bottom:5px;">
 			
 			<div class="category2">
@@ -113,55 +116,137 @@
 				<a href="${pageContext.request.contextPath}/member/memberGroupList.do">가입 그룹</a>
 				<a href="${pageContext.request.contextPath}/member/memberGroupList.do">관심 그룹</a>
 				</div>
-				
 			</div>
+		</div>
 		</sec:authorize>
 			
 		
-		</div>
 		<!-- Categories widget-->
 	</div>
+		
 	<hr />
+
 	<h2>BEST</h2>
-	<div class="index-outer2">
-		<!-- Nested row for non-featured blog posts-->
-		<div class="row">
-			<div class="row row-cols-2 row-cols-lg-3">
-				<!-- Blog post-->
-				<div class="card mb-4">
-					<a href="#!"><img class="card-img-top" src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>
-					<div class="card-body">
-						<div class="small text-muted">January 1, 2021</div>
-						<h2 class="card-title h4">Post Title</h2>
-						<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla.</p>
-						<a class="btn btn-primary" href="#!">Read more →</a>
-					</div>
-				</div>
-				<!-- Blog post-->
-				<div class="card mb-4">
-					<a href="#!"><img class="card-img-top" src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>
-					<div class="card-body">
-						<div class="small text-muted">January 1, 2021</div>
-						<h2 class="card-title h4">Post Title</h2>
-						<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla.</p>
-						<a class="btn btn-primary" href="#!">Read more →</a>
-					</div>
-				</div>
-				<!-- Blog post-->
-				<div class="card mb-4">
-					<a href="#!"><img class="card-img-top" src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>
-					<div class="card-body">
-						<div class="small text-muted">January 1, 2021</div>
-						<h2 class="card-title h4">Post Title</h2>
-						<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla.</p>
-						<a class="btn btn-primary" href="#!">Read more →</a>
-					</div>
-				</div>
+	<div class="index-group-list" style="height: 430px;">
+
+		<div class="card mb-4 search-card">
+			<a href="#!"><img class="card-img-top"
+				src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>
+			<div class="card-body">
+				<div class="small text-muted">January 1, 2021</div>
+				<h2 class="card-title h4">Slide 1</h2>
+				<p class="card-text">Lorem ipsum dolor sit amet, consectetur
+					adipisicing elit. Reiciendis aliquid atque, nulla.</p>
+				<a class="btn btn-primary" href="#!">Read more →</a>
 			</div>
+		</div>
+		
+		<div class="card mb-4 search-card" >
+			<a href="#!"><img class="card-img-top"
+				src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>
+			<div class="card-body">
+				<div class="small text-muted">January 1, 2021</div>
+				<h2 class="card-title h4">Slide 2</h2>
+				<p class="card-text">Lorem ipsum dolor sit amet, consectetur
+					adipisicing elit. Reiciendis aliquid atque, nulla.</p>
+				<a class="btn btn-primary" href="#!">Read more →</a>
+			</div>
+		</div>
+		
+		<div class="card mb-4 search-card" >
+			<a href="#!"><img class="card-img-top"
+				src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>
+			<div class="card-body">
+				<div class="small text-muted">January 1, 2021</div>
+				<h2 class="card-title h4">Slide 3</h2>
+				<p class="card-text">Lorem ipsum dolor sit amet, consectetur
+					adipisicing elit. Reiciendis aliquid atque, nulla.</p>
+				<a class="btn btn-primary" href="#!">Read more →</a>
+			</div>
+		</div>
+		
+		<div class="card mb-4 search-card" >
+			<a href="#!"><img class="card-img-top"
+				src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>
+			<div class="card-body">
+				<div class="small text-muted">January 1, 2021</div>
+				<h2 class="card-title h4">Slide 4</h2>
+				<p class="card-text">Lorem ipsum dolor sit amet, consectetur
+					adipisicing elit. Reiciendis aliquid atque, nulla.</p>
+				<a class="btn btn-primary" href="#!">Read more →</a>
+			</div>
+		</div>
+
+
+	</div>
+	<br />
+	<hr />
+	<h2>NEW</h2>
+		<div class="index-group-list" style="height: 430px;">
+
+		<div class="card mb-4 search-card">
+			<a href="#!"><img class="card-img-top"
+				src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>
+			<div class="card-body">
+				<div class="small text-muted">January 1, 2021</div>
+				<h2 class="card-title h4">Slide 1</h2>
+				<p class="card-text">Lorem ipsum dolor sit amet, consectetur
+					adipisicing elit. Reiciendis aliquid atque, nulla.</p>
+				<a class="btn btn-primary" href="#!">Read more →</a>
+			</div>
+		</div>
+		
+		<div class="card mb-4 search-card" >
+			<a href="#!"><img class="card-img-top"
+				src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>
+			<div class="card-body">
+				<div class="small text-muted">January 1, 2021</div>
+				<h2 class="card-title h4">Slide 2</h2>
+				<p class="card-text">Lorem ipsum dolor sit amet, consectetur
+					adipisicing elit. Reiciendis aliquid atque, nulla.</p>
+				<a class="btn btn-primary" href="#!">Read more →</a>
+			</div>
+		</div>
+		
+		<div class="card mb-4 search-card" >
+			<a href="#!"><img class="card-img-top"
+				src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>
+			<div class="card-body">
+				<div class="small text-muted">January 1, 2021</div>
+				<h2 class="card-title h4">Slide 3</h2>
+				<p class="card-text">Lorem ipsum dolor sit amet, consectetur
+					adipisicing elit. Reiciendis aliquid atque, nulla.</p>
+				<a class="btn btn-primary" href="#!">Read more →</a>
+			</div>
+		</div>
+		
+		<div class="card mb-4 search-card" >
+			<a href="#!"><img class="card-img-top"
+				src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>
+			<div class="card-body">
+				<div class="small text-muted">January 1, 2021</div>
+				<h2 class="card-title h4">Slide 4</h2>
+				<p class="card-text">Lorem ipsum dolor sit amet, consectetur
+					adipisicing elit. Reiciendis aliquid atque, nulla.</p>
+				<a class="btn btn-primary" href="#!">Read more →</a>
+			</div>
+		</div>
+
+
+	</div>
+	
+	<br /><br />
+
+	
+
+	<!-- 	<div class="index-outer2">
+		Nested row for non-featured blog posts
+		
+		
 			<hr />
 			<h2>NEW</h2>
 			<div class="row row-cols-2 row-cols-lg-3">
-				<!-- Blog post-->
+				Blog post
 				<div class="card mb-4">
 					<a href="#!"><img class="card-img-top" src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>
 					<div class="card-body">
@@ -171,7 +256,7 @@
 						<a class="btn btn-primary" href="#!">Read more →</a>
 					</div>
 				</div>
-				<!-- Blog post-->
+				Blog post
 				<div class="card mb-4">
 					<a href="#!"><img class="card-img-top" src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>
 					<div class="card-body">
@@ -181,7 +266,7 @@
 						<a class="btn btn-primary" href="#!">Read more →</a>
 					</div>
 				</div>
-				<!-- Blog post-->
+				Blog post
 				<div class="card mb-4">
 					<a href="#!"><img class="card-img-top" src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>
 					<div class="card-body">
@@ -193,7 +278,23 @@
 				</div>
 
 			</div>
-		</div>
-	</div>
+		</div> -->
 </div>
+
+<script> 
+$(document).ready(function(){ 
+	// 옵셥 사용하지 않을 경우 
+	$('.single-item').slick(); 
+	// 옵셥 사용할 경우 
+	$('.index-group-list').slick({ 
+		// 옵션 삽입
+		slidesToShow: 3, 
+		slidesToScroll: 1
+
+
+		}); 
+	}); 
+</script>
+
+
 <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
