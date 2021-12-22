@@ -65,7 +65,8 @@ public class GroupController {
 		List<Attachment> attachList = attachService.selectGroupAttachmentList();
 		model.addAttribute("attachList",attachList);
 		
-
+		List<GroupInfoConnect> giList = groupService.selectAllGroupInfoList();
+		model.addAttribute("giList",giList);
 		int totalContent = groupService.selectGroupTotalCount();
 		model.addAttribute("totalContent", totalContent);
 		

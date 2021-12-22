@@ -32,6 +32,8 @@ public interface GroupService {
 	int selectGroupTotalCount();
 
 	List<Group> selectAllGroupList(int limit, int offset);
+
+	List<GroupInfoConnect> selectAllGroupInfoList();
 	
 	
 }

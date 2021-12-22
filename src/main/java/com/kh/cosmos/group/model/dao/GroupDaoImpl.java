@@ -77,5 +77,11 @@ public class GroupDaoImpl implements GroupDao {
 		RowBounds rowBounds = new RowBounds(offset, limit);
 		return session.selectList("group.selectAllGroupList",null, rowBounds);
 	}
+
+	@Override
+	public List<GroupInfoConnect> selectAllGroupInfoList() {
+		// TODO Auto-generated method stub
+		return session.selectList("group.selectAllGroupInfoList");
+	}
 	
 }
