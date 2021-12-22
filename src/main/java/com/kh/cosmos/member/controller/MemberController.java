@@ -158,10 +158,13 @@ public class MemberController {
 	
 
 	@GetMapping("/memberGroupList.do")
-	public String memberGroupList(Model model, Authentication auth, RedirectAttributes redirectAttr) {
+	public String memberGroupList(Model model, Authentication auth, RedirectAttributes redirectAttr,HttpServletRequest request) {
 		
 		Member member = (Member)auth.getPrincipal();
 		String userId = member.getId();
+		String type = request.getParameter("type");
+		
+		model.addAttribute("type",type);
 		
 		List<ApplocationGroup> myGroupList = memberService.selectMyGroupList(userId);
 		model.addAttribute("myGroupList", myGroupList);
