@@ -634,20 +634,20 @@ ul.tabs{
 
 ul.tabs li{
   display: inline-block;
-	background: #898989;
-	color: white;
+	background: #f2f2f2 ;
+	color: black;
 	padding: 10px 15px;
 	cursor: pointer;
 }
 
 ul.tabs li.current{
-	background: #e0e0e0;
+	background: #6D8EF2;
 	color: #222;
 }
 
 .tab-content{
-  display: none;
-	background: #e0e0e0;
+	border: 2px solid #eee;
+ 	display: none;
 	padding: 12px;
 }
 
