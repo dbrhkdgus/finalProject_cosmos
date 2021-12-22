@@ -138,7 +138,7 @@ public class GroupController {
 				
 				attach.setRenamedFilename(renamedFilename);
 				attach.setOriginalFilename(originalFilename);
-				attach.setId(groupEnroll.getMemberId());
+				attach.setMemberId(groupEnroll.getMemberId());
 				attach.setImgFlag("Y");
 				
 				
