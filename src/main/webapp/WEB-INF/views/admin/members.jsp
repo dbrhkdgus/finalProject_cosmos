@@ -42,7 +42,7 @@
             
             <!-- 회원목록 테이블 -->
             <div class="row tm-content-row">
-              <table class="table mb-3">
+              <table class="table mb-3 text-center">
                 <thead>
                   <tr>
                     <th scope="col">번호</th>
@@ -63,7 +63,10 @@
                     <td id="birthday-${vs.count}"><fmt:formatDate value="${member.birthday}" pattern="yy-MM-dd"/></td>
                     <td id="memberGender-${vs.count}">${member.memberGender }</td>
                     <td id="memberEnrollDate-${vs.count}"><fmt:formatDate value="${member.memberEnrollDate}" pattern="yy-MM-dd"/></td>
-                    <td id="enabled-${vs.count}">${member.enabled}</td>
+                    <td id="enabled-${vs.count}">
+                    	<c:if test="${member.enabled eq 'true'}">.</c:if>
+                    	<c:if test="${member.enabled eq 'false'}">O</c:if>
+                    </td>
                   </tr>   
                 </c:forEach>
                 </tbody>
@@ -112,7 +115,7 @@
           <div class="tm-block-col tm-col-account-settings">
             <div class="tm-bg-primary-dark tm-block tm-block-settings">
               <h2 class="tm-block-title">회원 정보</h2>
-              <form action="" class="tm-signup-form row">
+              <div class="tm-signup-form row">
                 <div class="form-group col-lg-6">
                   <label for="name">아이디</label>
                   <input
@@ -183,17 +186,19 @@
                     class="form-control validate"
                   />
                 </div>
-
+				
+				<input type="hidden" id="enabled" />
+				
                 <div class="col-12">
                   <button
                     id="blackListBtn"
-                    type="submit"
+                    type="submit"                 
                     class="btn btn-primary btn-block text-uppercase"
                   >
                     블랙리스트 회원 등록
                   </button>
                 </div>
-              </form>
+              </div>
             </div>
           </div>
         </div>
@@ -201,14 +206,11 @@
 
 <script>
 
-/*회원 정보 불러오기*/
+/*클릭한 회원 정보 불러오기*/
 $(".selectOne").click((e)=>{
-	console.log(e.target.parentNode.children[1].innerText);
-
 	
+	/* 테이블 내 회원 데이터 담긴 행을 클릭시, 해당 행 회원 데이터를 비동기로 호출한다. */
 	var memberId = memberId= e.target.parentNode.children[1].innerText;
-	
-	
 	$.ajax({
 		url: `${pageContext.request.contextPath}/admin/selectOneMember.do`,
 		data: {
@@ -225,10 +227,45 @@ $(".selectOne").click((e)=>{
 			$("#regDate").val(data.member.memberEnrollDate);
 			$("#gender").val(data.member.memberGender);
 			$("#job").val(data.member.memberJob);
+			$("#enabled").val(data.member.enabled);
+			
+			console.log($("#id").val());
+			console.log($("#enabled").val());
+			
+			if($("#enabled").val()=='true'){
+			  document.getElementById('blackListBtn').className = 'btn btn-primary btn-block text-uppercase';
+			  document.getElementById('blackListBtn').innerText = '블랙리스트 회원 등록'
+			}else{
+			  document.getElementById('blackListBtn').className = 'btn btn-success btn-block text-uppercase';
+			  document.getElementById('blackListBtn').innerText = '블랙리스트 회원 해제'
+			}
+
+				
 		},
 		error: console.log
 	});
 });
+  
+/* 블랙리스트 등록 */
+$("#blackListBtn").click((e)=>{
+
+	/* 테이블 내 회원 데이터 담긴 행을 클릭시, 해당 행 회원 데이터를 비동기로 호출한다. */
+	$.ajax({
+		url: `${pageContext.request.contextPath}/admin/updateBlack.do`,
+		data: {
+			id: $("#id").val(),
+			enabled: $("#enabled").val()
+		},
+		dataType: "json",
+		success: function(data){
+			console.log(data);
+			alert("변경이 완료되었습니다.");
+		},
+		error: console.log
+	});
+});
+  
+  
   
 </script>
 

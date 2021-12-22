@@ -18,4 +18,16 @@
   	where
   		id=#{id}
   </select>
+  
+   <update id="updateBlack">
+  	update
+  		tb_member
+  	<set>
+  		<if test="enabled == 'true'">enabled = 0</if>
+  		<if test="enabled == 'false'">enabled = 1</if>
+  	</set>
+  	where
+  		id = #{id}
+  		
+  </update>
 </mapper>
