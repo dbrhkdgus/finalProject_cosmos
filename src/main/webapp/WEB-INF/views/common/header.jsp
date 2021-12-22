@@ -84,7 +84,7 @@
 						    	
 							    	<div class="btn-group">
 									  <button type="button" class="btn btn-outline-info dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-									    <sec:authentication property="principal.id"/>
+									    <sec:authentication property="principal.memberName"/>
 									  </button>
 									  <ul class="dropdown-menu">
 									    <li><a class="dropdown-item" href="${pageContext.request.contextPath}/member/memberGroupList.do" style="color: blue;">가입한 그룹</a></li>

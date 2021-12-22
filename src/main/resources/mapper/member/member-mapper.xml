@@ -22,4 +22,8 @@ set member_name=#{memberName}, nickname=#{nickname}, member_email = #{memberEmai
 </if> 
 where id = #{id} 
 </update>
+
+<insert id="insertUserAuthority">
+	insert into authorities values(#{id}, "ROLE_USER")
+</insert>
 </mapper>

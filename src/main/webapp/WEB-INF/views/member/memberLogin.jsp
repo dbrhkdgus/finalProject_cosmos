@@ -77,13 +77,13 @@ $(() => {
 						<input type="button" value="카카오 로그아웃" onclick="kakaoLogout();" />
 					</div>
 					<div class="mx-auto d-block">
-						<button id="btn-Yes-kakao" class="btn btn-lg btn-outline-warning btn-block" type="button" onclick="kakaoLogin();">카카오 login</button>
+						<button class="btn btn-lg btn-outline-warning btn-block" type="button" onclick="kakaoLogin();">카카오 login</button>
 						<button id="btn_Yes_Basic" class="btn btn-lg btn-outline-info btn-block" type="button" style=" font-weight: bold; background: linear-gradient(to right top, #000BA9, #52E3FF); color: transparent; -webkit-background-clip: text; margin-bottom: 3%;">COSMOS login</button>
 					<div class="float-right">
 						<button id="btn-enroll" class="btn btn-lg btn-outline-primary" type="button">회원가입</button>
 						<button id="btn-cancle" class="btn btn-lg btn-outline-secondary" type="button">취소</button>
 					</div>
-						<input type="hidden" name="id" val="" />
+						<input type="hidden" name="kakaoId" val="" />
 						<input type="hidden" name="memberName" val="" />
 						<input type="hidden" name="gender" val="" />
 						<input type="hidden" name="_birthDay" val="" />
@@ -132,8 +132,8 @@ $(() => {
 	          url: '/v2/user/me',
 	          success: function (response) {
 	        	  console.log("여기", response);
-	        	  $("input[name=id]").val(response.id);
-	        	  console.log($("input[name=id]").val());
+	        	  $("input[name=kakaoId]").val(response.id);
+	        	  console.log($("input[name=kakaoId]").val());
 	        	  $("input[name=gender]").val(response.kakao_account.gender == 'male' ? 'M' : 'F');
 	        	  console.log($("input[name=gender]").val());
 	        	  $("input[name=_birthDay]").val(response.kakao_account.birthday);
