@@ -119,7 +119,7 @@ public class GroupController {
 		
 		List<GroupInfoConnect> giList = groupService.selectAllGroupInfoList();
 		model.addAttribute("giList",giList);
-		int totalContent = groupService.selectGroupTotalCount();
+		int totalContent = groupService.selectGroupTotalCount(param);
 		model.addAttribute("totalContent", totalContent);
 		
 		String url = request.getRequestURI();

@@ -30,7 +30,7 @@ public interface GroupService {
 
 	int insertAlg(ApplocationGroup applocationGroup);
 
-	int selectGroupTotalCount();
+	int selectGroupTotalCount(Map<String, Object> param);
 
 	List<Group> selectAllGroupList(int limit, int offset);
 

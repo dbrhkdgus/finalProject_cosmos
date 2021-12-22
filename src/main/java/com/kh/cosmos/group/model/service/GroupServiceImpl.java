@@ -67,9 +67,9 @@ public class GroupServiceImpl implements GroupService {
 	}
 
 	@Override
-	public int selectGroupTotalCount() {
+	public int selectGroupTotalCount(Map<String, Object> param) {
 		// TODO Auto-generated method stub
-		return groupDao.selectGroupTotalCount();
+		return groupDao.selectGroupTotalCount(param);
 	}
 
 	@Override
