@@ -3,6 +3,7 @@ package com.kh.cosmos.group.controller;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -53,17 +54,32 @@ public class GroupController {
 	ResourceLoader resourceLoader;
 	
 	@GetMapping("/groupSearch.do")
-	public String groupSearch(@RequestParam(defaultValue = "1") int cPage, Model model, HttpServletRequest request) {
+	public String groupSearch(@RequestParam(defaultValue = "1") int cPage, @RequestParam(defaultValue = "0") String ca1No, @RequestParam(defaultValue = "0") String ca2No, Model model, HttpServletRequest request) {
 		int limit = 9;
 		int offset = (cPage - 1) * limit;
 		
+
+		
+		log.debug(request.getParameter("ca1No"));
+		log.debug(request.getParameter("ca2No"));
+		List<Group> groupList = new ArrayList<Group>();
+		
+		if(ca1No.equals("0") && ca2No.equals("0")) {
+			groupList = groupService.selectAllGroupList(limit, offset);
+		}
+		else if(! ca1No.equals("0") && ca2No.equals("0")){
+			groupList = groupService.selectAllGroupListByCa1No(ca1No, limit, offset);
+		}else {
+			groupList = groupService.selectAllGroupListByCa2No(ca2No, limit, offset);
+		}
 		
 		
 		List<CategoryOne> caOneList = groupService.groupgroupContOne();
 		model.addAttribute("caOneList", caOneList);
 		
-		List<Group> groupList = groupService.selectAllGroupList(limit, offset);
+		
 		model.addAttribute("groupList", groupList);
+		
 		List<Attachment> attachList = attachService.selectGroupAttachmentList();
 		model.addAttribute("attachList",attachList);
 		
