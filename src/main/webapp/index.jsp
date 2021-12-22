@@ -112,9 +112,28 @@
 				</div>
 				</div>
 				<div class="index-member-group d-flex">
-				<a href="${pageContext.request.contextPath}/member/memberGroupList.do">신청 그룹</a>
+				
+				<form action="${pageContext.request.contextPath}/member/memberGroupList.do">
+				<button>신청 그룹</button>
+				<input type="hidden" value="application-group" name="type">
+				</form>
+				
+				<form action="${pageContext.request.contextPath}/member/memberGroupList.do">
+				<button>가입 그룹</button>
+				<input type="hidden" value="join-group" name="type">
+				</form>
+
+				<form action="${pageContext.request.contextPath}/member/memberGroupList.do">
+				<button>관심 그룹</button>
+				<input type="hidden" value="liked-group" name="type">
+				</form>
+				
+				<%-- <a href="${pageContext.request.contextPath}/member/memberGroupList.do">신청 그룹</a>
 				<a href="${pageContext.request.contextPath}/member/memberGroupList.do">가입 그룹</a>
 				<a href="${pageContext.request.contextPath}/member/memberGroupList.do">관심 그룹</a>
+				 --%>
+				 
+				 
 				</div>
 			</div>
 		</div>

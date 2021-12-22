@@ -10,14 +10,14 @@
 
         <div class="container" >
         	<ul class="tabs my-group-list">
-				<li class="tab-link current" data-tab="tab-1">신청그룹</li>
-				<li class="tab-link" data-tab="tab-2">나의스터디그룹</li>
-				<li class="tab-link" data-tab="tab-3">관심그룹</li>
+				<li class="tab-link ${type=='application-group'? 'current' : ''}" data-tab="tab-1">신청그룹</li>
+				<li class="tab-link ${type=='join-group'? 'current' : ''}" data-tab="tab-2">나의스터디그룹</li>
+				<li class="tab-link ${type=='liked-group'? 'current' : ''}" data-tab="tab-3">관심그룹</li>
 			</ul>
 			
 <!--신청그룹 tab  -->
 
-                <div class="member-group-list-outer tab-content current" id="tab-1">
+                <div class="member-group-list-outer tab-content ${type=='application-group'? 'current' : ''}" id="tab-1">
                 	<div class="membergroup-list d-flex flex-column align-items-center">
 	                	<p>신청그룹 탭</p>
 		                <c:forEach var="myGroup" items="${myGroupList}">
@@ -54,7 +54,7 @@
                 </div>
 <!--나의스터디그룹-->
 
-                <div class="member-group-list-outer tab-content" id="tab-2">
+                <div class="member-group-list-outer tab-content ${type=='join-group'? 'current' : ''}" id="tab-2">
                 	<div class="membergroup-list d-flex flex-column align-items-center">
 		                <p>나의스터디그룹 탭</p>
 			                <c:forEach var="myGroup" items="${myGroupList}">
@@ -92,7 +92,7 @@
          
 <!--관심그룹 tab  -->
 
-                <div class="member-group-list-outer tab-content" id="tab-3">
+                <div class="member-group-list-outer tab-content ${type=='liked-group'? 'current' : ''}" id="tab-3">
                 	<div class="membergroup-list d-flex flex-column align-items-center">
 		                <p>관심그룹 탭</p>
 			                <c:forEach var="myGroup" items="${myGroupList}">
