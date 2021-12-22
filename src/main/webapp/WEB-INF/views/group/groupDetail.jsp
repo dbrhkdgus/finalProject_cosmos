@@ -27,14 +27,14 @@
 				</div>
 			</div>
 			<div class="class-img-box">
-				<img class="class-img" src="https://i.ibb.co/yPk2Nk5/2.jpg" alt="클래스 예시사진">
+				<img class="class-img" src="https://i.ibb.co/yPk2Nk5/2.jpg" alt="클래스배너 이미지">
 			</div>
 			<div class="class-nav-bar">
 				<ul class="nav nav-tabs">
 					<li class="nav-item classbar"><a class="nav-link active"
 						href="#class-summary">스터디소개</a></li>
 					<li class="nav-item classbar"><a class="nav-link"
-						href="#class-graph">통계</a></li>
+						href="#class-graph">위치</a></li>
 					<li class="nav-item classbar"><a class="nav-link"
 						href="#class-review">리뷰</a></li>
 				</ul>
@@ -88,7 +88,7 @@
 
 		<section class="class-info-comm">
 			<div class="comm-left-box">
-				<p class="class-left-title">저희 모임장소입니다.</p>
+				<p class="class-left-title" id="class-graph">저희 모임장소입니다.</p>
 			</div>
 			<div class="comm-right-box">
 				<p class="class-right-content">Lorem ipsum dolor sit amet
@@ -100,20 +100,6 @@
 
 		</section>
 
-
-		<section class="class-info-comm">
-			<div class="comm-left-box">
-				<p class="class-left-title" id="class-graph">통계</p>
-			</div>
-			<div class="comm-right-box">
-				<p class="class-right-content">Lorem ipsum dolor sit amet
-					consectetur adipisicing elit. Totam ad sint soluta dicta, autem
-					laborum, magnam id molestiae blanditiis inventore pariatur
-					excepturi voluptas repellendus ratione ea eligendi cumque quibusdam
-					odit?</p>
-			</div>
-
-		</section>
 
 		<section class="class-info-comm">
 			<div class="comm-left-box">
