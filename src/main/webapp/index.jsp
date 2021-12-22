@@ -111,7 +111,7 @@
 				<button type="button" class="btn btn-outline-primary">DM</button>
 				</div>
 				</div>
-				<div class="index-member-group">
+				<div class="index-member-group d-flex">
 				<a href="${pageContext.request.contextPath}/member/memberGroupList.do">신청 그룹</a>
 				<a href="${pageContext.request.contextPath}/member/memberGroupList.do">가입 그룹</a>
 				<a href="${pageContext.request.contextPath}/member/memberGroupList.do">관심 그룹</a>

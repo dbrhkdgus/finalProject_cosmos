@@ -135,6 +135,7 @@ public class MemberController {
 			return "member/memberLoginKakaoMoreInfo";
 		} else {
 			// 권한을 부여하여 홈으로 가게만들기
+			kakaoMember.setPassword("1234");
 			kakaoMember.setPassword(passwordEncoder.encode(kakaoMember.getPassword()));
 			Authentication kakaoAuthentication = new UsernamePasswordAuthenticationToken(kakaoMember, kakaoMember.getPassword(), kakaoMember.getAuthorities());
 			SecurityContextHolder.getContext().setAuthentication(kakaoAuthentication);
