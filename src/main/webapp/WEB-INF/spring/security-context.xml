@@ -22,6 +22,8 @@
 		<intercept-url pattern="/main/**" access="permitAll"/>
 		<intercept-url pattern="/index.jsp" access="permitAll"/>
 		<intercept-url pattern="/member/memberLogin.do" access="permitAll"/>
+		<intercept-url pattern="/member/memberLoginKakaoMoreInfo.do" access="permitAll"/>
+		<intercept-url pattern="/member/memberAPImoreInfoEnroll.do" access="permitAll"/>
 		<intercept-url pattern="/member/memberAPIEnroll.do" access="permitAll"/>
 
 		<intercept-url pattern="/member/memberEnroll.do" access="permitAll"/>
