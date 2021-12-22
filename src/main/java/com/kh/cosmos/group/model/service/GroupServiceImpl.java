@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.kh.cosmos.common.vo.Attachment;
+import com.kh.cosmos.common.attachment.model.vo.Attachment;
 import com.kh.cosmos.group.model.dao.GroupDao;
 import com.kh.cosmos.group.model.vo.ApplocationGroup;
 import com.kh.cosmos.group.model.vo.CategoryOne;
@@ -70,4 +70,11 @@ public class GroupServiceImpl implements GroupService {
 		// TODO Auto-generated method stub
 		return groupDao.selectGroupTotalCount();
 	}
+
+	@Override
+	public List<Group> selectAllGroupList(int limit, int offset) {
+		// TODO Auto-generated method stub
+		return groupDao.selectAllGroupList(limit, offset);
+	}
+	
 }

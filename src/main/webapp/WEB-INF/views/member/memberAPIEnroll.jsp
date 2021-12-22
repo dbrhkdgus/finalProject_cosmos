@@ -3,6 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>	
 
 <fmt:requestEncoding value="utf-8" />
 <jsp:include page="/WEB-INF/views/common/header.jsp">
@@ -26,16 +28,16 @@
 		</div>
 				
     	</div>
- 					<form name="loginForm" class="form-signin" method="request"
+ 					<form:form name="loginForm" class="form-signin" method="post"
 					action="">
 					
-						<input type="hidden" name="id" val="" />
+						<input type="hidden" name="kakaoId" val="" />
 						<input type="hidden" name="memberName" val="" />
 						<input type="hidden" name="gender" val="" />
 						<input type="hidden" name="_birthDay" val="" />
 						<input type="hidden" name="profile_img" val="" />
 					
-				</form>
+				</form:form>
     	
     </div>
     
@@ -54,8 +56,8 @@
 	          url: '/v2/user/me',
 	          success: function (response) {
 	        	  console.log("여기", response);
-	        	  $("input[name=id]").val(response.id);
-	        	  console.log($("input[name=id]").val());
+	        	  $("input[name=kakaoId]").val(response.id);
+	        	  console.log($("input[name=kakaoId]").val());
 	        	  $("input[name=gender]").val(response.kakao_account.gender == 'male' ? 'M' : 'F');
 	        	  console.log($("input[name=gender]").val());
 	        	  $("input[name=_birthDay]").val(response.kakao_account.birthday);

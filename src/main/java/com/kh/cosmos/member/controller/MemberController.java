@@ -117,7 +117,7 @@ public class MemberController {
 	}
 	
 	@PostMapping("/memberLoginKakaoMoreInfo.do")
-	public String memberLoginKakao(HttpServletRequest request, Model model,HttpSession session, Authentication auth) {
+	public String memberLoginKakao(HttpServletRequest request, Model model,HttpSession session, Authentication auth, RedirectAttributes redirectAttr) {
 		Member kakaoMember = memberService.selectOneMember(request.getParameter("kakaoId"));
 		log.debug("kakaoMember = {}", kakaoMember);
 		if(kakaoMember == null) {
@@ -135,6 +135,10 @@ public class MemberController {
 			return "member/memberLoginKakaoMoreInfo";
 		} else {
 			// 권한을 부여하여 홈으로 가게만들기
+			
+			if("http://localhost:9090/cosmos/member/memberAPIEnroll.do".equals(request.getHeader("referer"))) {
+				redirectAttr.addFlashAttribute("msg","이미 가입된 카카오 아이디입니다.");
+			}
 			kakaoMember.setPassword(passwordEncoder.encode(kakaoMember.getPassword()));
 			Authentication kakaoAuthentication = new UsernamePasswordAuthenticationToken(kakaoMember, kakaoMember.getPassword(), kakaoMember.getAuthorities());
 			SecurityContextHolder.getContext().setAuthentication(kakaoAuthentication);

@@ -2,11 +2,12 @@ package com.kh.cosmos.group.model.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.kh.cosmos.common.vo.Attachment;
+import com.kh.cosmos.common.attachment.model.vo.Attachment;
 import com.kh.cosmos.group.model.vo.ApplocationGroup;
 import com.kh.cosmos.group.model.vo.CategoryOne;
 import com.kh.cosmos.group.model.vo.CategoryTwo;
@@ -70,4 +71,11 @@ public class GroupDaoImpl implements GroupDao {
 		// TODO Auto-generated method stub
 		return session.selectOne("group.selectGroupTotalCount");
 	}
+
+	@Override
+	public List<Group> selectAllGroupList(int limit, int offset) {
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		return session.selectList("group.selectAllGroupList",null, rowBounds);
+	}
+	
 }

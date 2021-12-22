@@ -26,7 +26,7 @@ import org.springframework.web.servlet.FlashMap;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.cosmos.common.CosmosUtils;
-import com.kh.cosmos.common.vo.Attachment;
+import com.kh.cosmos.common.attachment.model.vo.Attachment;
 import com.kh.cosmos.main.model.service.MainService;
 import com.kh.cosmos.main.model.vo.Notice;
 import com.kh.cosmos.main.model.vo.Question;
