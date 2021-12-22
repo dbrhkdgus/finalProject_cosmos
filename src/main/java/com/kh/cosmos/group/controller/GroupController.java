@@ -30,6 +30,7 @@ import com.kh.cosmos.group.model.service.GroupService;
 import com.kh.cosmos.group.model.vo.CategoryOne;
 import com.kh.cosmos.group.model.vo.CategoryTwo;
 import com.kh.cosmos.group.model.vo.Group;
+import com.kh.cosmos.group.model.vo.GroupEnroll;
 import com.kh.cosmos.group.model.vo.GroupInfo;
 import com.kh.cosmos.group.model.vo.GroupInfoConnect;
 
@@ -70,20 +71,21 @@ public class GroupController {
 	
 	@PostMapping("/insertGroup.do")
 	public String insertGroup(
-			Group group,GroupInfoConnect groupInfoConnect, GroupInfo groupInfo,
+			GroupEnroll groupEnroll,GroupInfoConnect groupInfoConnect, GroupInfo groupInfo,
 			@RequestParam(value="upFile", required=false) MultipartFile upFile, 
 			RedirectAttributes redirectAttributes
 			) throws IllegalStateException, IOException {
-		log.debug("group = {}", group);
+		log.debug("group = {}", groupEnroll);
+		log.debug("CateCheckBox = {}", groupEnroll.getCateCheckBox());
 		
 		String[] groupInfoArray = groupInfo.getGiContent().split(",");
 		for(String g : groupInfoArray) {
 			log.debug("g = {}", g);
 		}
 		
-		char groupPrivate = group.getGroupPrivate();
+		char groupPrivate = groupEnroll.getGroupPrivate();
 		if(groupPrivate != 'L') {
-			group.setGroupPrivate('U');
+			groupEnroll.setGroupPrivate('U');
 		}
 		try {
 			
@@ -110,7 +112,7 @@ public class GroupController {
 				attach.setRenamedFilename(renamedFilename);
 				attach.setOriginalFilename(originalFilename);
 				attach.setId("honggd");
-				attach.setGroupNo(group.getGroupNo());
+				attach.setGroupNo(groupEnroll.getGroupNo());
 				attach.setImgFlag("Y");
 				int attachNo = groupService.insertAttach(attach);
 				log.debug("attachNo = {}", attachNo);
@@ -118,7 +120,7 @@ public class GroupController {
 			}
 			
 			
-			int result = groupService.insertGroup(group);
+			int result = groupService.insertGroup(groupEnroll);
 			result = groupService.insertGroupInfoConnect(groupInfoConnect);
 			
 			for(int i = 1; i < 4 ; i++) {
