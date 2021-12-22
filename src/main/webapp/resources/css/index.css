@@ -622,3 +622,35 @@ li{list-style-type: none;}
 a:link {text-decoration: none;cursor: pointer;}
 a:visited {color: black; text-decoration: none;}
 footer{display: flex;}
+
+
+
+/*멤버 신청한가입그룹 css*/
+ul.tabs{
+	margin: 0px;
+	padding: 0px;
+	list-style: none;
+}
+
+ul.tabs li{
+  display: inline-block;
+	background: #f2f2f2 ;
+	color: black;
+	padding: 10px 15px;
+	cursor: pointer;
+}
+
+ul.tabs li.current{
+	background: #6D8EF2;
+	color: #222;
+}
+
+.tab-content{
+	border: 2px solid #eee;
+ 	display: none;
+	padding: 12px;
+}
+
+.tab-content.current{
+	display: inherit;
+}
