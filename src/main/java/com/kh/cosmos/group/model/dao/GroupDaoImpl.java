@@ -97,6 +97,42 @@ public class GroupDaoImpl implements GroupDao {
 		return session.selectList("group.selectAllMyGroupList");
 	}
 
+	@Override
+	public Group selectGroupListByGroupNo(String groupNo) {
+		// TODO Auto-generated method stub
+		return session.selectOne("group.selectGroupListByGroupNo",groupNo);
+	}
+
+	@Override
+	public GroupInfoConnect selectAllGroupInfoByGroupNo(String groupNo) {
+		// TODO Auto-generated method stub
+		return session.selectOne("group.selectAllGroupInfoByGroupNo",groupNo);
+	}
+
+	@Override
+	public List<GroupInfo> selectGroupInfoListByGsNo(int gsNo) {
+		// TODO Auto-generated method stub
+		return session.selectList("group.selectGroupInfoListByGsNo",gsNo);
+	}
+
+	@Override
+	public CategoryOne selectCategoryOneByCateNo(String cateNo) {
+		// TODO Auto-generated method stub
+		return session.selectOne("group.selectCategoryOneByCateNo",cateNo);
+	}
+
+	@Override
+	public List<GroupCategory> selectGroupCategoryListByGroupNo(String groupNo) {
+		// TODO Auto-generated method stub
+		return session.selectList("group.selectGroupCategoryListByGroupNo",groupNo);
+	}
+
+	@Override
+	public CategoryTwo selectCategoryTwoListByGroupNo(String num) {
+		// TODO Auto-generated method stub
+		return session.selectOne("group.selectCategoryTwoListByGroupNo",num);
+	}
+
 
 	
 	

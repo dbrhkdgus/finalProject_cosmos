@@ -18,5 +18,11 @@ public class AttachmentDaoImpl implements AttachmentDao {
 		// TODO Auto-generated method stub
 		return session.selectList("attachment.selectGroupAttachmentList");
 	}
+
+	@Override
+	public Attachment selectGroupAttachmentListByGroupNo(String groupNo) {
+		// TODO Auto-generated method stub
+		return session.selectOne("attachment.selectGroupAttachmentListByGroupNo",groupNo);
+	}
 	
 }

@@ -122,7 +122,8 @@
 	<select id="selectAllGroupListByCa2No" resultType="group">
 	select * from tb_group t left join group_category g using(group_no) where category2_no = #{ca2No}
 	</select>
-		<select id="selectAllGroupListByParam" resultType="group">
+	
+	<select id="selectAllGroupListByParam" resultType="group">
 	select * from tb_group t left join group_category g using(group_no) 
 	<where>
 		<if test="ca1No != 0">
@@ -139,5 +140,29 @@
 		</if>
 		
 	</where>
+	</select>
+	
+	<select id="selectGroupListByGroupNo" resultType="group">
+	select * from tb_group where group_no = #{groupNo}
+	</select>
+	
+	<select id="selectAllGroupInfoByGroupNo" resultType="GroupInfoConnect">
+	select * from group_groupinfo where group_no = #{groupNo}
+	</select>
+	
+	<select id="selectGroupInfoListByGsNo" resultType="GroupInfo">
+	select * from groupinfo where seq_no = #{gsNo}
+	</select>
+	
+	<select id="selectCategoryOneByCateNo" resultType="CategoryOne">
+	select * from studygroup_category1 where category1_no = #{cateNo}
+	</select>
+	
+	<select id="selectGroupCategoryListByGroupNo" resultType="GroupCategory">
+	select * from group_category where group_no = #{groupNo}
+	</select>
+	
+	<select id="selectCategoryTwoListByGroupNo" resultType="CategoryTwo">
+	select * from studygroup_category2 where category2_no = #{num}
 	</select>
 </mapper>

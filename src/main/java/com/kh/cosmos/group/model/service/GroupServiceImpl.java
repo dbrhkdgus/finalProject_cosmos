@@ -96,6 +96,42 @@ public class GroupServiceImpl implements GroupService {
 		return groupDao.selectAllMyGroupList();
 	}
 
+	@Override
+	public Group selectGroupListByGroupNo(String groupNo) {
+		// TODO Auto-generated method stub
+		return groupDao.selectGroupListByGroupNo(groupNo);
+	}
+
+	@Override
+	public GroupInfoConnect selectAllGroupInfoByGroupNo(String groupNo) {
+		// TODO Auto-generated method stub
+		return groupDao.selectAllGroupInfoByGroupNo(groupNo);
+	}
+
+	@Override
+	public List<GroupInfo> selectGroupInfoListByGsNo(int gsNo) {
+		// TODO Auto-generated method stub
+		return groupDao.selectGroupInfoListByGsNo(gsNo);
+	}
+
+	@Override
+	public CategoryOne selectCategoryOneByCateNo(String cateNo) {
+		// TODO Auto-generated method stub
+		return groupDao.selectCategoryOneByCateNo(cateNo);
+	}
+
+	@Override
+	public List<GroupCategory> selectGroupCategoryListByGroupNo(String groupNo) {
+		// TODO Auto-generated method stub
+		return groupDao.selectGroupCategoryListByGroupNo(groupNo);
+	}
+
+	@Override
+	public CategoryTwo selectCategoryTwoListByGroupNo(String num) {
+		// TODO Auto-generated method stub
+		return groupDao.selectCategoryTwoListByGroupNo(num);
+	}
+
 
 
 	

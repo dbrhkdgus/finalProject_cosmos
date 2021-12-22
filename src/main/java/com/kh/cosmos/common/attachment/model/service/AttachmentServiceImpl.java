@@ -18,5 +18,11 @@ public class AttachmentServiceImpl implements AttachmentService {
 		// TODO Auto-generated method stub
 		return attachmentDao.selectGroupAttachmentList();
 	}
+
+	@Override
+	public Attachment selectGroupAttachmentListByGroupNo(String groupNo) {
+		// TODO Auto-generated method stub
+		return attachmentDao.selectGroupAttachmentListByGroupNo(groupNo);
+	}
 	
 }
