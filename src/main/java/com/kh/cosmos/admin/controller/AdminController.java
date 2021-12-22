@@ -98,6 +98,21 @@ public class AdminController {
 		return map;
 	}
 	
+
+	
+	 @GetMapping("/updateBlack")
+	 
+	 @ResponseBody 
+	 public void changeBlack(@RequestParam Map<String, Object> param){ 
+		 
+		 log.debug("param = {}", param); 
+		 
+		 int result = adminService.updateBlack(param); 
+		 
+		 log.debug("result = {}", result); 
+	}
+	 
+	
 	@GetMapping("/groups.do")
 	public String groups() {
 		return "admin/groups";

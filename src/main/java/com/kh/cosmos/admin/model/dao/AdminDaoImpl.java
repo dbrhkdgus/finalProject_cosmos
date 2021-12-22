@@ -25,4 +25,9 @@ public class AdminDaoImpl implements AdminDao {
 		return session.selectOne("admin.selectOneMember",param);
 	}
 
+	@Override
+	public int updateBlack(Map<String, Object> param) {
+		return session.update("admin.updateBlack",param);
+	}
+
 }
