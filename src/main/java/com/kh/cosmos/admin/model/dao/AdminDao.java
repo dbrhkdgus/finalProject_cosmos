@@ -4,12 +4,13 @@ import java.util.List;
 import java.util.Map;
 
 import com.kh.cosmos.member.model.vo.Member;
+import com.kh.cosmos.member.model.vo.MemberWithGroup;
 
 public interface AdminDao {
 
-	List<Member> selectAllMembers();
+	List<Member> selectAllMembers(int limit, int offset);
 
-	Member selectOneMember(Map<String, Object> param);
+	List<MemberWithGroup> selectOneMember(Map<String, Object> param);
 
 	int updateBlack(Map<String, Object> param);
 }
