@@ -83,6 +83,19 @@ public class GroupServiceImpl implements GroupService {
 		return groupDao.selectAllGroupInfoList();
 	}
 
+	@Override
+	public List<Group> selectAllGroupListByCa1No(int ca1No, int limit, int offset) {
+		// TODO Auto-generated method stub
+		return groupDao.selectAllGroupListByCa1No(ca1No, limit, offset);
+	}
+
+	@Override
+	public List<Group> selectAllGroupListByCa2No(int ca2No, int limit, int offset) {
+		// TODO Auto-generated method stub
+		return groupDao.selectAllGroupListByCa2No(ca2No, limit, offset);
+	}
+	
+
 
 	
 	
