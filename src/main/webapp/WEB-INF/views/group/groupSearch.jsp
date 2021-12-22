@@ -101,7 +101,7 @@
 									<div class="card mb-4 search-card">
 		                                <a href="${pageContext.request.contextPath}/group/groupDetail.do?groupNo=${group.groupNo}">
 			                                <c:if test="${group.groupNo == attach.groupNo }">
-			                                	<img class="card-img-top" src="${pageContext.request.contextPath }/upfile/group/${attach.renaemdFilename}"
+			                                	<img class="card-img-top" src="${pageContext.request.contextPath }/upfile/group/${attach.renamedFilename}"
 			                                        alt="..." />
 			                                </c:if>        
 		                                </a>
