@@ -49,7 +49,7 @@ $(()=>{
 	  <c:forEach items="${list}" var="notice">
 			<tr data-no="${notice.noticeNo}">
 				<td>${notice.noticeNo}</td>
-				<td>${notice.noticeTitle}</td>
+				<td><a href="#">${notice.noticeTitle}</a></td>
 				<td>${notice.memberId}</td>
 				<td><fmt:formatDate value="${notice.regDate}" pattern="yy-MM-dd"/></td>
 				<td>${notice.readCount}</td>
