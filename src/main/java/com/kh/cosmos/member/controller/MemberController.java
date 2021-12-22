@@ -253,11 +253,13 @@ public class MemberController {
 	}
 	@PostMapping("/pwdCheck.do")
 	@ResponseBody
-	public ResponseEntity<?> pwdCheck(@RequestBody Member member, Authentication auth){
+	public ResponseEntity<?> pwdCheck(@RequestBody Member member){
 		log.debug("{}",member);
 		Member loginMember = memberService.selectOneMember(member.getId());
+		
 		HttpHeaders header = new HttpHeaders();
 		header.add("cosmos", "pwdCheck");
+		
 		if(passwordEncoder.matches(member.getPassword(), loginMember.getPassword())) {
 			return new ResponseEntity<Boolean>(true, header, HttpStatus.OK);
 		}else {
