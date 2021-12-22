@@ -74,7 +74,7 @@
                     <!-- Nested row for non-featured blog posts-->
                     <div class="search-outer">
                     <c:forEach var="group" items="${groupList }" varStatus="vs">
-						
+							
 	                    	<c:if test="${vs.count %3 == 1}">
 	                        	<div class="search-inner">
 	                    	</c:if> 
