@@ -8,4 +8,6 @@ public interface AttachmentService {
 
 	List<Attachment> selectGroupAttachmentList();
 
+	Attachment selectGroupAttachmentListByGroupNo(String groupNo);
+
 }

@@ -40,6 +40,18 @@ public interface GroupDao {
 
 	List<Group> selectAllGroupListByCa2No(int ca2No, int limit, int offset);
 
+	Group selectGroupListByGroupNo(String groupNo);
+
+	GroupInfoConnect selectAllGroupInfoByGroupNo(String groupNo);
+
+	List<GroupInfo> selectGroupInfoListByGsNo(int gsNo);
+
+	CategoryOne selectCategoryOneByCateNo(String cateNo);
+
+	List<GroupCategory> selectGroupCategoryListByGroupNo(String groupNo);
+
+	CategoryTwo selectCategoryTwoListByGroupNo(String num);
+
 
 
 }
