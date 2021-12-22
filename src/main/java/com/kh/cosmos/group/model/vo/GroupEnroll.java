@@ -20,6 +20,8 @@ public class GroupEnroll extends Group implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private String[] cateCheckBox;
+	
+	private String memberId;
 
 	public GroupEnroll(int groupNo, int categoryNo, String groupName, Date groupEnrollDate, char groupCharge,
 			char groupClose, int groupPool, char groupPrivate, int groupLikeCount, String groupLocation,
