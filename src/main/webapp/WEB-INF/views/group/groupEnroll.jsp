@@ -4,11 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<<<<<<< HEAD
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-=======
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>	
->>>>>>> branch 'master' of https://github.com/dbrhkdgus/finalProject_cosmos.git
 <fmt:requestEncoding value="utf-8" />
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	<jsp:param value="그룹 생성" name="title" />
