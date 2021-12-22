@@ -112,5 +112,11 @@
 	<select id="selectAllGroupInfoList" resultType="groupInfoConnect">
 	select * from group_groupinfo
 	</select>
+	<select id="selectAllGroupListByCa1No" resultType="group">
+	select * from tb_group where category_no = #{ca1No}
+	</select>
+	<select id="selectAllGroupListByCa2No" resultType="group">
+	select * from tb_group t left join group_category g using(group_no) where category2_no = #{ca2No}
+	</select>
 	
 </mapper>

@@ -9,17 +9,18 @@
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	<jsp:param value="그룹 검색" name="title"/>
 </jsp:include>
+
 		<!-- Page header with logo and tagline-->
         <!-- Page content-->
         <div class="container">
             <div class="search-parent-category">
                 <ul class="nav nav-tabs">
                 	<li class="nav-item" style="margin: 0;">
-                      <a class="nav-link active" aria-current="page" href="#">ALL</a>
+                      <a class="nav-link ${ca1No == 0 ? 'active':'' }" aria-current="page" href="#">ALL</a>
                     </li>
                 <c:forEach var="c1" items="${caOneList }">
                     <li class="nav-item" style="margin: 0;">
-                      <a class="nav-link" aria-current="page" href="#">
+                      <a class="nav-link ${ca1No == c1.category1No ? 'active':'' }" aria-current="page" href="${pageContext.request.contextPath}/group/groupSearch.do?ca1No=${c1.category1No}">
                      	<input type="hidden" value="${c1.category1No }" />
                      	${c1.category1Name }
                       </a>
@@ -30,7 +31,11 @@
             </div>
             <div class="search-child-category">
                  <ul class="child-category-all" id="c2">
-                    
+                    <c:if test="${ca2NoList != null }">
+                    	<c:forEach var="ca2" items="${ca2NoList }"> 
+                    		<li><a href="${pageContext.request.contextPath}/group/groupSearch.do?ca1No=${ca1No}&ca2No=${ca2.category2No}">${ca2.category2Name}</a></li>
+                    	</c:forEach>
+                    </c:if>
                 </ul> 
             </div>
             <hr style="height: 0.5px; color: #8B6AD3; margin-bottom: 50px;">
@@ -59,7 +64,8 @@
                     </div>
                       
                 </div>
-
+                <c:choose>
+				<c:when test="${not empty groupList}">
                 <!-- Blog entries-->
                   <div class="col-lg-8" style="display: contents;">
                     
@@ -102,8 +108,12 @@
 
                             
                         </div>
+					</c:when>
+					<c:otherwise>
+						아무고토 없음
+					</c:otherwise>
 
-
+                </c:choose>
 
 
                             
@@ -114,9 +124,9 @@
             </div>
         </div>
  <script>
- $("li",".search-parent-category").click((e)=>{
+/*  $("li",".search-parent-category").click((e)=>{ */
 /* 	  console.log($(e.target).parent().siblings());  */
- 	 $(e.target).parent().siblings().children("a").removeClass("active"); 
+/*  	 $(e.target).parent().siblings().children("a").removeClass("active"); 
 	 $(e.target).addClass("active");
 	const data = $(e.target).children("input").val();
 	$.ajax({
@@ -135,7 +145,7 @@
 		error(xhr,textStatus,err){
 			console.log
 		}
-	});
+	}); */
 <%-- 	$.ajax({
 		url:"<%= request.getContextPath() %>/group/groupCategoryTwo.do?${_csrf.parameterName}=${_csrf.token}",
 		method: "GET",

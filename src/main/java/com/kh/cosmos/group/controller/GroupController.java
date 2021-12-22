@@ -65,12 +65,22 @@ public class GroupController {
 		List<Group> groupList = new ArrayList<Group>();
 		
 		if(ca1No.equals("0") && ca2No.equals("0")) {
+			log.debug("test");
 			groupList = groupService.selectAllGroupList(limit, offset);
 		}
-		else if(! ca1No.equals("0") && ca2No.equals("0")){
-			groupList = groupService.selectAllGroupListByCa1No(ca1No, limit, offset);
-		}else {
-			groupList = groupService.selectAllGroupListByCa2No(ca2No, limit, offset);
+		else if(!ca1No.equals("0") && ca2No.equals("0")){
+			int ca1NoI = Integer.parseInt(ca1No);
+			groupList = groupService.selectAllGroupListByCa1No(ca1NoI, limit, offset);
+			List<CategoryTwo> ca2NoList = groupService.groupgroupContTwo(ca1No);
+			model.addAttribute("ca2NoList",ca2NoList);
+			model.addAttribute("ca1No", ca1No);
+		}
+		else {
+			int ca2NoI = Integer.parseInt(ca2No);
+			groupList = groupService.selectAllGroupListByCa2No(ca2NoI, limit, offset);
+			List<CategoryTwo> ca2NoList = groupService.groupgroupContTwo(ca1No);
+			model.addAttribute("ca2NoList",ca2NoList);
+			model.addAttribute("ca1No", ca1No);
 		}
 		
 		
