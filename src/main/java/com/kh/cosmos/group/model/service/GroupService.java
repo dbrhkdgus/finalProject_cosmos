@@ -3,6 +3,7 @@ package com.kh.cosmos.group.model.service;
 import java.util.List;
 
 import com.kh.cosmos.common.vo.Attachment;
+import com.kh.cosmos.group.model.vo.ApplocationGroup;
 import com.kh.cosmos.group.model.vo.CategoryOne;
 import com.kh.cosmos.group.model.vo.CategoryTwo;
 import com.kh.cosmos.group.model.vo.Group;
@@ -25,6 +26,8 @@ public interface GroupService {
 	List<CategoryTwo> groupgroupContTwo(String categoryOneNo);
 
 	int insertGroupCategory(GroupCategory category);
+
+	int insertAlg(ApplocationGroup applocationGroup);
 	
 	
 }

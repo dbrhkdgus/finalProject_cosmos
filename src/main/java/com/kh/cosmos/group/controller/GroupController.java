@@ -24,6 +24,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.kh.cosmos.common.CosmosUtils;
 import com.kh.cosmos.common.vo.Attachment;
 import com.kh.cosmos.group.model.service.GroupService;
+import com.kh.cosmos.group.model.vo.ApplocationGroup;
 import com.kh.cosmos.group.model.vo.CategoryOne;
 import com.kh.cosmos.group.model.vo.CategoryTwo;
 import com.kh.cosmos.group.model.vo.GroupCategory;
@@ -74,6 +75,7 @@ public class GroupController {
 			) throws IllegalStateException, IOException {
 		log.debug("group = {}", groupEnroll);
 		log.debug("CateCheckBox = {}", groupEnroll.getCateCheckBox());
+		log.debug("groupId={}",groupEnroll.getMemberId());
 		
 		String[] groupInfoArray = groupInfo.getGiContent().split(",");
 		for(String g : groupInfoArray) {
@@ -108,7 +110,7 @@ public class GroupController {
 				Attachment attach = new Attachment();
 				attach.setRenamedFilename(renamedFilename);
 				attach.setOriginalFilename(originalFilename);
-				attach.setId("honggd");
+				attach.setId(groupEnroll.getMemberId());
 				attach.setGroupNo(groupEnroll.getGroupNo());
 				attach.setImgFlag("Y");
 				int attachNo = groupService.insertAttach(attach);
@@ -129,7 +131,9 @@ public class GroupController {
 				result = groupService.insertGroupCategory(category);
 			}
 			
-			for(int i = 1; i < 4 ; i++) {
+			
+			
+			for(int i = 1; i < 5 ; i++) {
 				GroupInfo gi = new GroupInfo();
 				gi.setGiContent(groupInfoArray[(i-1)]);
 				gi.setGiSubTitle(Integer.toString(i));
@@ -137,6 +141,12 @@ public class GroupController {
 				
 			}
 			
+			
+			ApplocationGroup applocationGroup = new ApplocationGroup();
+			applocationGroup.setMemberId(groupEnroll.getMemberId());
+		
+			
+			result = groupService.insertAlg(applocationGroup);
 			String msg = result > 0 ? "그룹 신청 성공!" : "그룹 신청 실패!";
 			redirectAttributes.addFlashAttribute("msg", msg);
 		} catch (Exception e) {

@@ -82,4 +82,15 @@
 		insert into group_category values (seq_group_category_no.nextval , #{groupNo} ,#{category2No})
 	
 	</insert>
+	
+	<insert id="insertAlg">
+		<selectKey keyProperty="groupNo" resultType="_int" order="BEFORE">
+				select
+					seq_group_no.currval
+				from
+					dual
+			</selectKey>
+		insert into applocation_group values(seq_alg_no_no.nextval,#{memberId},#{groupNo},default,null,'G')
+	
+	</insert>
 </mapper>

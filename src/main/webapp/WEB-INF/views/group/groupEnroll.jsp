@@ -69,6 +69,7 @@ window.addEventListener("load", function(){
 						<div class="card-body">
 							<form:form name="my-form"
 								action="${pageContext.request.contextPath}/group/insertGroup.do?${_csrf.parameterName}=${_csrf.token}" method="POST" enctype="multipart/form-data">
+								<input type="hidden" name="memberId" value="<sec:authentication property="principal.id"/>"/>
 								<div class="form-group row">
 									<label for="full_name"
 										class="col-md-4 col-form-label text-md-right">그룹명</label>
@@ -187,8 +188,7 @@ window.addEventListener("load", function(){
 
 								<div class="form-group row">
 									<label for="permanent_address"
-										class="col-md-4 col-form-label text-md-right">이런 분들이
-										들으면 좋아요!</label>
+										class="col-md-4 col-form-label text-md-right">스터디는 이렇게 진행됩니다!</label>
 									<div class="col-md-6 group-text-input">
 										<div class="group-text-input form-floating col-md-6">
 
@@ -199,6 +199,24 @@ window.addEventListener("load", function(){
 										</div>
 									</div>
 								</div>
+								
+								
+								<div class="form-group row">
+									<label for="permanent_address"
+										class="col-md-4 col-form-label text-md-right">꼭! 지켜주세요.</label>
+									<div class="col-md-6 group-text-input">
+										<div class="group-text-input form-floating col-md-6">
+
+											<textarea class="form-control"
+												placeholder="Leave a comment here" id="giContent3" name="giContent"
+												style="height: 100px; width: 200%; resize: none;"></textarea>
+
+										</div>
+									</div>
+								</div>
+								
+								
+								
 
 								<div class="col-md-6 offset-md-4 group-create-button">
 									<button type="submit" class="btn btn-primary">그룹생성</button>
