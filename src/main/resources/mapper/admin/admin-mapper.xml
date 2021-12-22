@@ -27,8 +27,7 @@
 	    id=#{id}
   </select>
   
-  
-  
+  <!-- 블랙리스트 등록 및 해제 -->
    <update id="updateBlack">
   	update
   		tb_member
@@ -38,8 +37,33 @@
   	</set>
   	where
   		id = #{id}
-  		
   </update>
+  
+  <!-- 회원 목록 내에서 회원 검색 -->
+  <select id="searchMembers" resultType="Member">
+  	select
+  		*
+  	from
+  		tb_member
+  	<where>
+		<if test="searchType == 'id'">
+			id like '%'||#{searchKeyword}||'%'
+		</if>
+		<if test="searchType == 'memberName'">
+			member_name like '%'||#{searchKeyword}||'%'
+		</if>
+		<if test="searchType == 'phone'">
+			phone like '%'||#{searchKeyword}||'%'
+		</if>
+		<if test="searchType == 'gender'">
+			member_gender like '%'||#{searchKeyword}||'%'
+		</if>
+		
+	
+  	</where>
+  </select>
+  
+  
   
   
 </mapper>
