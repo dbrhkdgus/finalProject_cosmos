@@ -64,4 +64,10 @@ public class GroupServiceImpl implements GroupService {
 		// TODO Auto-generated method stub
 		return groupDao.insertAlg(applocationGroup);
 	}
+
+	@Override
+	public int selectGroupTotalCount() {
+		// TODO Auto-generated method stub
+		return groupDao.selectGroupTotalCount();
+	}
 }

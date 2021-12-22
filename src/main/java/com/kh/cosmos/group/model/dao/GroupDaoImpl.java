@@ -64,4 +64,10 @@ public class GroupDaoImpl implements GroupDao {
 		// TODO Auto-generated method stub
 		return session.insert("group.insertAlg" ,applocationGroup);
 	}
+
+	@Override
+	public int selectGroupTotalCount() {
+		// TODO Auto-generated method stub
+		return session.selectOne("group.selectGroupTotalCount");
+	}
 }

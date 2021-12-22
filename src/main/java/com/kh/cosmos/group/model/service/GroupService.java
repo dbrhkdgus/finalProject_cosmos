@@ -28,6 +28,8 @@ public interface GroupService {
 	int insertGroupCategory(GroupCategory category);
 
 	int insertAlg(ApplocationGroup applocationGroup);
+
+	int selectGroupTotalCount();
 	
 	
 }
