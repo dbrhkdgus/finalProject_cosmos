@@ -50,6 +50,8 @@ public class GroupController {
 	
 	@GetMapping("/groupSearch.do")
 	public String groupSearch() {
+		
+	
 		return "group/groupSearch";
 	}
 	
