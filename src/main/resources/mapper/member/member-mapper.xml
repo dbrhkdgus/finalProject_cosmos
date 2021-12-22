@@ -30,4 +30,7 @@
 	<select id="selectMyGroupList" resultType="ApplocationGroup">
 		select * from applocation_group where member_id = #{memberId}
 	</select>
+	<select id="selectAllGroupListByParam" resultType="group">
+	
+	</select>
 </mapper>
