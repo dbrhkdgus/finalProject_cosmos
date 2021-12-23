@@ -63,7 +63,15 @@
   	</where>
   </select>
   
+  <!-- 미승인 그룹리스트 조회 -->
+  <select id="selectNotApprovedAGList" resultType="ApplocationGroup">
+  	select 
+  		* 
+  	from 
+  		applocation_group 
+  	where 
+  		role = 'G' and group_accept ='N'
   
-  
+  </select>
   
 </mapper>
