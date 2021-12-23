@@ -28,7 +28,7 @@
 	</insert>
 	
 	<select id="selectMyGroupList" resultType="ApplocationGroup">
-		select * from applocation_group where member_id = #{memberId}
+		select * from applocation_group where member_id = #{memberId} and group_accept = 'Y'
 	</select>
 	<select id="selectAllGroupListByParam" resultType="group">
 	

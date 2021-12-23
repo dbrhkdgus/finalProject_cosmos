@@ -56,57 +56,59 @@
 
                 <div class="member-group-list-outer tab-content ${type=='join-group'? 'current' : ''}" id="tab-2">
                 	<div class="membergroup-list d-flex flex-column align-items-center">
-		                <p>나의스터디그룹 탭</p>
-			             	<c:forEach var="myGroup" items="${myGroupList}">
-				               	  <div class="card mb-3" style="max-width: 800px;">
-				                    <div class="row g-0">
-				                      <div class="col-md-4">
-					                	<c:forEach var="attach" items="${attachList}">
-					                		<c:if test="${(myGroup.groupNo == attach.groupNo) && (attach.imgFlag == 'Y')}">
-					                			<img class="img-fluid rounded-start" src="${pageContext.request.contextPath }/resources/upFile/group/${attach.renamedFilename}">
+		             	<c:forEach var="myGroup" items="${myGroupList}">
+			               	  <div class="card mb-3" style="max-width: 800px;">
+			                    <div class="row g-0">
+			                      <div class="col-md-4">
+				                	<c:forEach var="attach" items="${attachList}">
+				                		<c:if test="${(myGroup.groupNo == attach.groupNo) && (attach.imgFlag == 'Y')}">
+				                			<img class="img-fluid rounded-start" src="${pageContext.request.contextPath }/resources/upFile/group/${attach.renamedFilename}">
+				                		</c:if>
+				                	</c:forEach>
+			                        
+			                      </div>
+			                      <div class="col-md-8">
+			                        <div class="card-body">
+			                        	<c:forEach var="allGroup" items="${groupList}">
+					                		<c:if test="${myGroup.groupNo == allGroup.groupNo}">
+					                			<h5 class="card-title">${allGroup.groupName}</h5>
 					                		</c:if>
-					                	</c:forEach>
-				                        
-				                      </div>
-				                      <div class="col-md-8">
-				                        <div class="card-body">
-				                        	<c:forEach var="allGroup" items="${groupList}">
-						                		<c:if test="${myGroup.groupNo == allGroup.groupNo}">
-						                			<h5 class="card-title">${allGroup.groupName}</h5>
-						                		</c:if>
-					                		</c:forEach>
-					                		
-					                		<c:forEach var="allGroup" items="${groupList}">
-					                			<c:if test="${myGroup.groupNo == allGroup.groupNo}">
-							                		<c:forEach var="cate" items="${caOneList}">
-								                		<c:if test="${allGroup.categoryNo == cate.category1No}">
-								                			<p class="card-text">${cate.category1Name}</p>
-								                		</c:if>
-							                		</c:forEach>
-					                			</c:if>
-					                		</c:forEach>
-				                          	
-				                          <p class="card-text">
-				                          	<small class="text-muted">
-				                          		<c:choose> 
-													<c:when test="${fn:contains(myGroup.role, 'G')}">
-														그룹장
-													</c:when> 
-													<c:when test="${fn:contains(myGroup.role, 'M')}">
-														매니져
-													</c:when> 
-													<c:otherwise>
-														일반회원
-													</c:otherwise> 
-												</c:choose> 
-				                          	</small>
-				                          </p>
-				                        </div>
-				                      </div>
-				                    </div>
-				                  </div>
-			                </c:forEach> 
-			          </div>  
+				                		</c:forEach>
+				                		
+				                		<c:forEach var="allGroup" items="${groupList}">
+				                			<c:if test="${myGroup.groupNo == allGroup.groupNo}">
+						                		<c:forEach var="cate" items="${caOneList}">
+							                		<c:if test="${allGroup.categoryNo == cate.category1No}">
+							                			<p class="card-text">${cate.category1Name}</p>
+							                		</c:if>
+						                		</c:forEach>
+				                			</c:if>
+				                		</c:forEach>
+			                          	
+			                          <p class="card-text">
+			                          	<small class="text-muted">
+			                          		<c:choose> 
+												<c:when test="${fn:contains(myGroup.role, 'G')}">
+													그룹장
+												</c:when> 
+												<c:when test="${fn:contains(myGroup.role, 'M')}">
+													매니져
+												</c:when> 
+												<c:otherwise>
+													일반회원
+												</c:otherwise> 
+											</c:choose> 
+			                          	</small>
+			                          </p>
+			                        </div>
+			                      </div>
+			                    </div>
+			                  </div>
+		                </c:forEach> 
+			        </div>
+			        <div class="membergroup-list d-flex flex-column align-items-center">
+			        	<p>심사 대기중</p>
+			        </div>
                 </div>       
          
 <!--관심그룹 tab  -->
