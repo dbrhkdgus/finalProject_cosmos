@@ -50,4 +50,12 @@
 	<select id="selectMemberProfile" resultType="attachment">
 	select * from attachment where member_id = #{id} and group_no is null and img_flag = 'N'
 	</select>
+	<update id="updateAttach">
+	update attachment 
+	set 
+		original_filename = #{originalFilename}, 
+		renamed_filename = #{renamedFilename} 
+	where 
+		member_id = #{memberId}
+	</update>
 </mapper>

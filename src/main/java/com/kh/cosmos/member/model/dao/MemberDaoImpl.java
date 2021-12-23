@@ -54,5 +54,11 @@ public class MemberDaoImpl implements MemberDao {
 		// TODO Auto-generated method stub
 		return session.selectOne("member.selectMemberProfile",id);
 	}
+
+	@Override
+	public int updateAttach(Attachment oldProfile) {
+		// TODO Auto-generated method stub
+		return session.update("member.updateAttach", oldProfile);
+	}
 	
 }

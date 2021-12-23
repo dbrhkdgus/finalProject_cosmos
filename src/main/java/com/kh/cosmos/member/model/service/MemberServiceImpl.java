@@ -62,5 +62,11 @@ public class MemberServiceImpl implements MemberService {
 		// TODO Auto-generated method stub
 		return memberDao.selectMemberProfile(id);
 	}
+
+	@Override
+	public int updateAttach(Attachment oldProfile) {
+		// TODO Auto-generated method stub
+		return memberDao.updateAttach(oldProfile);
+	}
 	
 }
