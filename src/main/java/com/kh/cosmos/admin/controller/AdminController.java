@@ -4,11 +4,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +16,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kh.cosmos.admin.model.service.AdminService;
 import com.kh.cosmos.common.CosmosUtils;
+import com.kh.cosmos.common.attachment.model.service.AttachmentService;
+import com.kh.cosmos.group.model.service.GroupService;
+import com.kh.cosmos.group.model.vo.ApplocationGroup;
 import com.kh.cosmos.main.model.service.MainService;
 import com.kh.cosmos.main.model.vo.Question;
 import com.kh.cosmos.member.model.vo.Member;
@@ -35,6 +36,10 @@ public class AdminController {
 	
 	@Autowired
 	private AdminService adminService;
+	@Autowired
+	private GroupService groupService;
+	@Autowired
+	private AttachmentService attachService;
 
 	@GetMapping("/main.do")
 	public String main() {
@@ -162,11 +167,30 @@ public class AdminController {
 	
 	@GetMapping("/groups.do")
 	public String groups() {
+		
 		return "admin/groups";
 	}
 	
 	@GetMapping("/permitGroups.do")
-	public String permitGroups() {
+	public String permitGroups(@RequestParam(defaultValue = "1") int cPage, Model model, HttpServletRequest request) {
+		//페이징처리
+//		int limit = 10;
+//		int offset = (cPage -1)*limit;
+//		int totalContent = mainService.selectQuestionTotalCount();
+//		String url = request.getRequestURI();
+//		String pagebar = CosmosUtils.getPagebar(cPage, limit, totalContent, url);
+//		model.addAttribute("totalContent", totalContent);
+		
+		List<ApplocationGroup> NotApprovedAG = adminService.selectNotApprovedAGList();
+		model.addAttribute("NotApprovedAG", NotApprovedAG);
+		log.debug("NotApprovedAG = {}", NotApprovedAG);
+//		
+//		List<Attachment> attachList = attachService.selectGroupAttachmentList();
+//		model.addAttribute("attachList",attachList);
+//		
+//		List<CategoryOne> caOneList = groupService.groupgroupContOne();
+//		model.addAttribute("caOneList", caOneList);
+		
 		return "admin/permitGroups";
 	}
 	

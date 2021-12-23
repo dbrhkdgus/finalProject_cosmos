@@ -1,6 +1,7 @@
 package com.kh.cosmos.group.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -66,9 +67,9 @@ public class GroupServiceImpl implements GroupService {
 	}
 
 	@Override
-	public int selectGroupTotalCount() {
+	public int selectGroupTotalCount(Map<String, Object> param) {
 		// TODO Auto-generated method stub
-		return groupDao.selectGroupTotalCount();
+		return groupDao.selectGroupTotalCount(param);
 	}
 
 	@Override
@@ -84,21 +85,51 @@ public class GroupServiceImpl implements GroupService {
 	}
 
 	@Override
-	public List<Group> selectAllGroupListByCa1No(int ca1No, int limit, int offset) {
+	public List<Group> selectAllGroupListByParam(Map<String, Object> param, int limit, int offset) {
 		// TODO Auto-generated method stub
-		return groupDao.selectAllGroupListByCa1No(ca1No, limit, offset);
-	}
-
-	@Override
-	public List<Group> selectAllGroupListByCa2No(int ca2No, int limit, int offset) {
-		// TODO Auto-generated method stub
-		return groupDao.selectAllGroupListByCa2No(ca2No, limit, offset);
+		return groupDao.selectAllGroupListByParam(param, limit, offset);
 	}
 
 	@Override
 	public List<Group> selectAllMyGroupList() {
 		// TODO Auto-generated method stub
 		return groupDao.selectAllMyGroupList();
+	}
+
+	@Override
+	public Group selectGroupListByGroupNo(String groupNo) {
+		// TODO Auto-generated method stub
+		return groupDao.selectGroupListByGroupNo(groupNo);
+	}
+
+	@Override
+	public GroupInfoConnect selectAllGroupInfoByGroupNo(String groupNo) {
+		// TODO Auto-generated method stub
+		return groupDao.selectAllGroupInfoByGroupNo(groupNo);
+	}
+
+	@Override
+	public List<GroupInfo> selectGroupInfoListByGsNo(int gsNo) {
+		// TODO Auto-generated method stub
+		return groupDao.selectGroupInfoListByGsNo(gsNo);
+	}
+
+	@Override
+	public CategoryOne selectCategoryOneByCateNo(String cateNo) {
+		// TODO Auto-generated method stub
+		return groupDao.selectCategoryOneByCateNo(cateNo);
+	}
+
+	@Override
+	public List<GroupCategory> selectGroupCategoryListByGroupNo(String groupNo) {
+		// TODO Auto-generated method stub
+		return groupDao.selectGroupCategoryListByGroupNo(groupNo);
+	}
+
+	@Override
+	public CategoryTwo selectCategoryTwoListByGroupNo(String num) {
+		// TODO Auto-generated method stub
+		return groupDao.selectCategoryTwoListByGroupNo(num);
 	}
 
 

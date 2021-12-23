@@ -8,4 +8,6 @@ public interface AttachmentDao {
 
 	List<Attachment> selectGroupAttachmentList();
 
+	Attachment selectGroupAttachmentListByGroupNo(String groupNo);
+
 }

@@ -16,7 +16,7 @@
             <div class="search-parent-category">
                 <ul class="nav nav-tabs">
                 	<li class="nav-item" style="margin: 0;">
-                      <a class="nav-link ${ca1No == 0 ? 'active':'' }" aria-current="page" href="#">ALL</a>
+                      <a class="nav-link ${ca1No == 0 ? 'active':'' }" aria-current="page" href="${pageContext.request.contextPath }/group/groupSearch.do">ALL</a>
                     </li>
                 <c:forEach var="c1" items="${caOneList }">
                     <li class="nav-item" style="margin: 0;">
@@ -42,26 +42,28 @@
             <div class="search-outer">
                 <!-- 서치 메뉴 정렬및 검색기능  -->
                 <div class="search-outer-top">
-                    
-                    <div class="search-outer-top left">
-                    <p style="margin-bottom:20px;" id="class-amount">100개의 클래스</p>
-                    <sec:authorize access="isAuthenticated()">
-                    <button type="button" class="btn btn-outline-secondary" onclick="location.href='${pageContext.request.contextPath}/group/groupEnroll.do';">그룹 생성</button>
-                    </sec:authorize>
-                    </div>
-                    
-                    <div class="search-outer-top right">
-                    <select class="form-select search-select" aria-label="Default select example">
-                      <option selected>Open this select menu</option>
-                      <option value="1">One</option>
-                      <option value="2">Two</option>
-                      <option value="3">Three</option>
-                    </select>
-                    <div class="input-group mb-3 search-input">
-                        <input type="text" class="form-control" placeholder="강의를 찾아보세요"  aria-describedby="button-addon2">
-                        <button class="btn btn-outline-secondary" type="button" id="button-addon2">검색</button>
-                      </div>
-                    </div>
+	                    <div class="search-outer-top left">
+		                    <p style="margin-bottom:20px;" id="class-amount">${totalContent }개의 클래스</p>
+		                    <sec:authorize access="isAuthenticated()">
+		                    	<button type="button" class="btn btn-outline-secondary" onclick="location.href='${pageContext.request.contextPath}/group/groupEnroll.do';">그룹 생성</button>
+	                    	</sec:authorize>
+	                    </div>
+	                    
+		                <form action="${pageContext.request.contextPath}/group/groupSearch.do?ca1No=${ca1No}&ca2No=${ca2No}" method="get">
+	                    <div class="search-outer-top right">
+	       
+		                    <select name="searchType" class="form-select search-select" aria-label="Default select example">
+		                      <option value="groupName" ${searchType == 'groupName' ? "selected":'' }>스터디 그룹명 검색 </option>
+		                      <option value="location" ${searchType == 'location' ? "selected":'' }>스터디 지역 검색</option>
+		                      <option value="pop" ${searchType == 'pop' ? "selected":'' }>인기순으로 보기</option>
+		                      <option value="new" ${searchType == 'new' ? "selected":'' }>최신 그룹순으로 보기</option>
+		                    </select>
+		                    <div class="input-group mb-3 search-input">
+		                        <input type="text" class="form-control" name="searchKeyword" value="${searchKeyword }" placeholder="스터디그룹을 찾아보세요"  aria-describedby="button-addon2">
+		                        <button class="btn btn-outline-secondary" type="button" id="button-addon2" >검색</button>
+		                      </div>
+              		      </form>
+	                    </div>
                       
                 </div>
                 <c:choose>
@@ -72,7 +74,7 @@
                     <!-- Nested row for non-featured blog posts-->
                     <div class="search-outer">
                     <c:forEach var="group" items="${groupList }" varStatus="vs">
-						
+							
 	                    	<c:if test="${vs.count %3 == 1}">
 	                        	<div class="search-inner">
 	                    	</c:if> 
@@ -124,6 +126,12 @@
             </div>
         </div>
  <script>
+ $("#button-addon2").click((e)=>{
+	 const searchType = $("select[name=searchType]").val();
+
+	 const searchKeyword = $("input[name=searchKeyword]").val();
+	location.href=`${pageContext.request.contextPath}/group/groupSearch.do?ca1No=${ca1No}&ca2No=${ca2No}&searchType=\${searchType}&searchKeyword=\${searchKeyword}`; 
+ });
 /*  $("li",".search-parent-category").click((e)=>{ */
 /* 	  console.log($(e.target).parent().siblings());  */
 /*  	 $(e.target).parent().siblings().children("a").removeClass("active"); 
@@ -164,7 +172,7 @@
 			console.log(xhr,textStatus,err);
 		}
 	}); --%>
- });
+/*  }); */
  
  </script>
 

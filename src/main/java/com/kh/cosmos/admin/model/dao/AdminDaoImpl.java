@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.kh.cosmos.group.model.vo.ApplocationGroup;
 import com.kh.cosmos.member.model.vo.Member;
 import com.kh.cosmos.member.model.vo.MemberWithGroup;
 
@@ -37,6 +38,11 @@ public class AdminDaoImpl implements AdminDao {
 	public List<Member> searchMembers(int limit, int offset, Map<String, String> param) {
 		RowBounds rowBounds = new RowBounds(offset, limit);
 		return session.selectList("admin.searchMembers", param);
+	}
+
+	@Override
+	public List<ApplocationGroup> selectNotApprovedAGList() {
+		return session.selectList("admin.selectNotApprovedAGList");
 	}
 
 }

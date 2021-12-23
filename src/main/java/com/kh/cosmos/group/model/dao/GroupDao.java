@@ -1,6 +1,7 @@
 package com.kh.cosmos.group.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.kh.cosmos.common.attachment.model.vo.Attachment;
 import com.kh.cosmos.group.model.vo.ApplocationGroup;
@@ -29,18 +30,27 @@ public interface GroupDao {
 
 	int insertAlg(ApplocationGroup applocationGroup);
 
-	int selectGroupTotalCount();
+	int selectGroupTotalCount(Map<String, Object> param);
 
 	List<Group> selectAllGroupList(int limit, int offset);
 
 	List<GroupInfoConnect> selectAllGroupInfoList();
 
-
-	List<Group> selectAllGroupListByCa1No(int ca1No, int limit, int offset);
-
-	List<Group> selectAllGroupListByCa2No(int ca2No, int limit, int offset);
+	List<Group> selectAllGroupListByParam(Map<String, Object> param, int limit, int offset);
 
 	List<Group> selectAllMyGroupList();
+
+	Group selectGroupListByGroupNo(String groupNo);
+
+	GroupInfoConnect selectAllGroupInfoByGroupNo(String groupNo);
+
+	List<GroupInfo> selectGroupInfoListByGsNo(int gsNo);
+
+	CategoryOne selectCategoryOneByCateNo(String cateNo);
+
+	List<GroupCategory> selectGroupCategoryListByGroupNo(String groupNo);
+
+	CategoryTwo selectCategoryTwoListByGroupNo(String num);
 
 
 
