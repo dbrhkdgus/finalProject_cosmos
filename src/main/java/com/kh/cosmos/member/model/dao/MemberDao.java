@@ -24,4 +24,8 @@ public interface MemberDao {
 
 	int updateAttach(Attachment oldProfile);
 
+	List<ApplocationGroup> selectmyNotAllowedGroupList(String userId);
+
+	List<ApplocationGroup> selectmyNotJoinedGroupList(String userId);
+
 }
