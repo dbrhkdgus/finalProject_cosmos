@@ -25,6 +25,7 @@
 		<intercept-url pattern="/member/memberLoginKakaoMoreInfo.do" access="permitAll"/>
 		<intercept-url pattern="/member/memberAPImoreInfoEnroll.do" access="permitAll"/>
 		<intercept-url pattern="/member/memberAPIEnroll.do" access="permitAll"/>
+		<intercept-url pattern="/member/checkIdDuplicate1.do" access="permitAll"/>
 
 		<intercept-url pattern="/member/memberEnroll.do" access="permitAll"/>
 		<intercept-url pattern="/group/**" access="permitAll"/>
