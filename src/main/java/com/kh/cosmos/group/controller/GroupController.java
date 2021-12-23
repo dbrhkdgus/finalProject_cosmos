@@ -329,6 +329,8 @@ public class GroupController {
 		redirectAttributes.addFlashAttribute("msg", msg);
 		return "redirect:/";
 	}
+	
+	
 }
 
 
