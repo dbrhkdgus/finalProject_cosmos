@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.cosmos.admin.model.service.AdminService;
+import com.kh.cosmos.admin.model.vo.SevenDaysData;
 import com.kh.cosmos.common.CosmosUtils;
 import com.kh.cosmos.common.attachment.model.service.AttachmentService;
 import com.kh.cosmos.common.attachment.model.vo.Attachment;
@@ -295,10 +296,13 @@ public class AdminController {
 	}
 	
 	@GetMapping("/thisWeekEnrollMember")
-	public Map<String, String> thisWeekEnrollMember() {
-		Map<String, String> map = new HashMap<>();
+	@ResponseBody
+	public Map<String, Object> thisWeekEnrollMember() {
+		Map<String, Object> map = new HashMap<>();
 		
-		
+		SevenDaysData sevenDaysData = adminService.thisWeekEnrollMember();
+		log.debug("sevenDaysData = {}", sevenDaysData);
+		map.put("sevenDaysData", sevenDaysData);
 		return map;
 	}
 	@GetMapping("/StatisticsOfGroup.do")

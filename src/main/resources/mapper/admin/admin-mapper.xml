@@ -129,5 +129,38 @@
   	where
 		member_id = #{id}
   </select>
+  
+  <!-- 한 주간 가입자수 -->
+  <select id="thisWeekEnrollMember" resultType="SevenDaysData">
+SELECT
+    (SELECT 
+        COUNT(*)
+    FROM 
+        tb_member
+    WHERE 
+        TO_CHAR(member_enroll_date, 'yyyymmdd') = TO_CHAR(TRUNC(sysdate)-6, 'yyyymmdd')) AS "today_6"
+        
+    ,(SELECT COUNT(*)
+    FROM tb_member
+    WHERE TO_CHAR(member_enroll_date, 'yyyymmdd') = TO_CHAR(TRUNC(sysdate)-5, 'yyyymmdd')) AS "today_5"
+    ,(SELECT COUNT(*)
+    FROM tb_member
+    WHERE TO_CHAR(member_enroll_date, 'yyyymmdd') = TO_CHAR(TRUNC(sysdate)-4, 'yyyymmdd')) AS "today_4"
+    ,(SELECT COUNT(*)
+    FROM tb_member
+    WHERE TO_CHAR(member_enroll_date, 'yyyymmdd') = TO_CHAR(TRUNC(sysdate )-3, 'yyyymmdd')) AS "today_3"
+    ,(SELECT COUNT(*)
+    FROM tb_member
+    WHERE TO_CHAR(member_enroll_date, 'yyyymmdd') = TO_CHAR(TRUNC(sysdate )-2, 'yyyymmdd')) AS "today_2"
+    ,(SELECT COUNT(*)
+    FROM tb_member
+    WHERE TO_CHAR(member_enroll_date, 'yyyymmdd') = TO_CHAR(TRUNC(sysdate )-1, 'yyyymmdd')) AS "today_1"
+    ,(SELECT COUNT(*)
+    FROM tb_member
+    WHERE TO_CHAR(member_enroll_date, 'yyyymmdd') = TO_CHAR(TRUNC(sysdate), 'yyyymmdd')) AS "today"
+FROM 
+	DUAL
+
+  </select>
 
 </mapper>

@@ -5,118 +5,120 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <fmt:requestEncoding value="utf-8"/>
 
+<!-- chart.js CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+
 <jsp:include page="/WEB-INF/views/common/ad_header.jsp">
 	<jsp:param value="COSMOS" name="title"/>
 </jsp:include>
 
-<style>
-  #searchKeyword{
-    width: 75%; display: inline;
-  }
-  .selectBar{
-    width: 20%;
-  }
-  .statisticsOf{
-    color: white;
-  }
-</style>
+   <div class="container mt-5">
 
-      <div class="container mt-5">
-        <div class="col-12 tm-block-col">
-          <div class="tm-bg-primary-dark tm-block tm-block-h-auto">
-            <h2 class="tm-block-title">회원 통계</h2>
-            <div class="form-check mb-3">
-              <div>
-                <input class="form-check-input" type="radio" name="flexRadioDefault" id="AllMembers">
-                <label class="form-check-label mr-5 statisticsOf" for="flexRadioDefault1">총 회원</label>
-                
-              <input class="form-check-input" type="radio" name="flexRadioDefault" id="NewMembers">
-              <label class="form-check-label mr-5 statisticsOf" for="flexRadioDefault1">가입자</label>
-              
-
-            </div>
-            <br>
-            <p class="text-white mt-3">- 성별</p>
-            <select class="form-select" aria-label="Default select example">
-              <option selected>전체</option>
-              <option value="1">남</option>
-              <option value="2">여</option>
-            </select>
-            <p class="text-white mt-3">- 연령</p>
-            <select class="form-select" aria-label="Default select example">
-              <option selected>전체</option>
-              <option value="1">10대</option>
-              <option value="2">20대</option>
-              <option value="3">30대</option>
-              <option value="4">40대</option>
-              <option value="5">50대</option>
-              <option value="6">기타</option>
-            </select>
-
-
-              <br><br>
-              <p class="text-white mt-3">- 기간 설정</p>
-              <div class="form-group d-flex">
-                <input
-                  id="startDate"
-                  name="startDate"
-                  type="date"
-                  class="form-control validate col-5 mr-4"
-                  value="2021-12-15"
-                />
-                <input
-                id="endDate"
-                name="endDate"
-                type="date"
-                class="form-control validate col-5 mr-3"
-                value="2021-12-21"
-              />
-              <button class="btn btn-secondary" style="" type="submit">검색</button>
-              </div>
-            </div>
-            
-            <!--비동기로 차트가 바뀌어야 함. include로 상황에 맞춰서  -->
-            <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-            <script type="text/javascript">
-              google.charts.load('current', {'packages':['corechart']});
-              google.charts.setOnLoadCallback(drawChart);
-        
-          
-                function drawChart() {
-                    var data = google.visualization.arrayToDataTable([
-                      ['Year', '회원수'],
-                      ['2021.05',  50],
-                      ['2021.06',  150],
-                      ['2021.07',  90],
-                      ['2021.08',  450],
-                      ['2021.09',  500],
-                      ['2021.10',  800],
-                      ['2021.11',  1000]
-                    ]);
-        
-                    var options = {
-                      title: '월별 회원 증감수',
-                      curveType: 'function',
-                      legend: { position: 'bottom'}
-                    };
-        
-                    var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
-        
-                    chart.draw(data, options);
-                  }
-                </script>
-          
-          <div id="curve_chart" style="width:100%; height: 500px;"></div>
-            <!--  -->
-          </div>
-          
+      <div class="study-admin-box">
+        <div class="amount-of-study-activity">
+          <h4 class="text-white">스터디 활동량</h4>
+          <canvas class="chart-size" id="activityChart" width="900" height="500"></canvas>
         </div>
-      </div>
+        
       
+      </div>
+    </div>
+ <!-- 통계 script -->
 <script>
-  $(blackListBtn).click((e)=>{
-    alert('블랙리스트 등록시, \n\n- 해당 해당 사용자는 사이트 로그인 불가 상태가 됩니다. \n\n그래도 등록하시겠습니까?')
-  })
+
+/* 페이지 랜딩시 기본으로 불러올 최근 7일간 가입자수 */
+
+/* 7일 데이터 담을 변수 선언 */
+var today;
+var today1;
+var today2;
+var today3;
+var today4;
+var today5;
+var today6;
+var today7;
+var now = new Date();
+var month = now.getMonth()+1;
+var date = now.getDate();
+
+
+(()=>{
+
+	
+	$.ajax({
+		url: `${pageContext.request.contextPath}/admin/thisWeekEnrollMember.do`,
+		dataType: "json",
+		success: function(data){
+			console.log(data);
+
+			today = data.sevenDaysData['today'];
+			today1 = data.sevenDaysData['today1'];
+			today2 = data.sevenDaysData['today2'];
+			today3 = data.sevenDaysData['today3'];
+			today4 = data.sevenDaysData['today4'];
+			today5 = data.sevenDaysData['today5'];
+			today6 = data.sevenDaysData['today6'];
+		},
+		error: console.log,
+		complete: function(){
+			/* 데이터를 불러왔다면 그래프에 데이터 담기 */
+			  var context = document.getElementById('activityChart');
+			  
+			  var chart1 = new Chart(context, {
+			    type: 'line',
+			    data: {
+			      labels: [month+'/'+(date-6), month+'/'+(date-5), month+'/'+(date-4), month+'/'+(date-3), month+'/'+(date-2), month+'/'+(date-1), month+'/'+date],
+			      datasets: [{ 
+			          data: [today6, today5, today4, today3, today2, today1, today],
+			          label: "가입자 수",
+			          borderColor: 'rgb(255, 99, 132)',
+			          backgroundColor: 'rgba(255, 99, 132, 0.2)',
+			          borderWidth:1,
+			          fill: false
+			        }
+			        
+			      ]
+			    },
+			    options: {
+			      responsive: false,
+			      title: {
+			        display: true,
+			        color: "white",
+			        text: '주간 가입자 수'
+			      },
+			      legend: {
+			    	  labels: {
+			    		  fontColor: "white",
+			    		  fontSize: 18
+			    	  }
+			      },
+			      scales:{
+			    	  xAxes: [{
+			    		  ticks:{
+			    			  /* x축 날짜 색깔 */
+			    			  fontColor : "white"
+			    		  }
+			    	  }],
+			    	  yAxes: [{
+							ticks: {
+								beginAtZero: true,
+								/* stepSize : 2, */
+								fontColor : "rgba(251, 203, 9, 1)",
+								fontSize : 14,
+							}
+							/* 중간 경계선 설정	    	 
+							,gridLines:{
+								color: 'rgba(166, 201, 226, 1)',
+								lineWidth:3
+							} */
+						}]
+			      }
+			    }
+			  });
+		}
+	})
+})()
+  
 </script>  
 
 <jsp:include page="/WEB-INF/views/common/ad_footer.jsp">
