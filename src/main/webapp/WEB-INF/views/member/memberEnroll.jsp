@@ -29,10 +29,19 @@
 							<div class="form-group row">
 								<label for="full_name"
 									class="col-md-4 col-form-label text-md-right">아이디</label>
-								<div class="col-md-6 group-text-input">
-									<input type="text" id="member-id" class="form-control"
-										name="id" value="hoho">
+									<div class="col-md-6 group-text-input">
+										<input type="text" 
+		                           class="form-control" 
+		                           placeholder="4글자이상"
+		                           name="id" 
+		                           id="memberId"
+		                           value=""
+		                           required>
+		                           <span class="guide ok">이 아이디는 사용가능합니다.</span>
+		                           <span class="guide error">이 아이디는 이미 사용중입니다.</span>
+	                           <input type="hidden" id="idValid" value="0">
 								</div>
+								
 							</div>
 
 
@@ -156,6 +165,41 @@
 </main>
 
 <script>
+$(".guide").hide();
+$(memberId).keyup((e) => {
+    const $id = $(e.target);
+    const $error = $(".guide.error");
+    const $ok = $(".guide.ok");
+    const $idValid = $(idValid);
+
+    if($id.val().length < 4){
+        $(".guide").hide();
+        $idValid.val(0);
+        return;
+    }
+    $.ajax({
+        url: `${pageContext.request.contextPath}/member/checkIdDuplicate1.do`,
+        data: {
+            id: $id.val()
+        },
+        success(data){
+            console.log(data);
+            const {available} = data;
+            if(available){
+                $ok.show();
+                $error.hide();
+                $idValid.val(1); 
+            }
+            else {
+                $ok.hide();
+                $error.show();
+                $idValid.val(0);
+            }
+        },
+        error: console.log
+    });
+});
+
 $(upFile).change(function(){
     setImageFromFile(this, '#profile');
     upFile = $(upFile).val();
@@ -180,19 +224,23 @@ $("#passwordCheck").blur(function(){
 	}
 });
 
-/* $("[name=memberEnrollFrm]").submit(function(){
-	console.log("테스트");
-	$("#memberEmail").val() = $("#email1")+$("#email2");
-	
-	var $id = $("#id");
+ $(document.memberEnrollFrm).submit(function(){
+
+	var $id = $("#memberId");
 	if(/^\w{4,}$/.test($id.val()) == false) {
 		alert("아이디는 최소 4자리이상이어야 합니다.");
 		$id.focus();
 		return false;
 	}
 	
+	if($(idValid).val() == 0){
+		$id.focus();
+		return false; 
+	}
+	
+	
 	return true;
-}); */
+}); 
 
 </script>
 

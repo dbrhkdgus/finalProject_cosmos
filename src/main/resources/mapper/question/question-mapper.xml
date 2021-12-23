@@ -26,4 +26,12 @@
 	<select id="selectOneQuestionByNo" resultType="question">
 		select * from question where que_no = #{queNo}
 	</select>
+	
+		<insert id="insertQueReply">
+	insert into reply values(SEQ_REPLY_NO_NO.nextval, #{memberId},#{content},null,null,default,null,null,#{queNo})
+	</insert>
+	
+	<select id="selectReplyListByqueNo" resultType="reply">
+	select * from reply where que_no = #{queNo}
+	</select>
 </mapper>

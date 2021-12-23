@@ -28,7 +28,13 @@
 	</insert>
 	
 	<select id="selectMyGroupList" resultType="ApplocationGroup">
-		select * from applocation_group where member_id = #{memberId}
+		select * from applocation_group where member_id = #{memberId} and group_accept = 'Y'
+	</select>
+	<select id="selectmyNotAllowedGroupList" resultType="ApplocationGroup">
+		select * from applocation_group where member_id = #{memberId} and group_accept = 'N'  and role='G'
+	</select>
+	<select id="selectmyNotJoinedGroupList" resultType="ApplocationGroup">
+		select * from applocation_group where member_id = #{memberId} and group_accept = 'N'  and role='P'
 	</select>
 	<select id="selectAllGroupListByParam" resultType="group">
 	
@@ -48,7 +54,8 @@
 		)
 	</insert>
 	<select id="selectMemberProfile" resultType="attachment">
-	select * from attachment where member_id = #{id} and group_no is null and img_flag = 'N'
+
+	select * from attachment where member_id = #{id} and group_no is null and img_flag = 'N' order by reg_date desc
 	</select>
 	<update id="updateAttach">
 	update attachment 

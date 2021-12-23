@@ -148,6 +148,10 @@ public class MemberController {
 				attach.setOriginalFilename(originalFilename);
 				attach.setMemberId(member.getId());
 
+			}else {
+				attach.setRenamedFilename("defaultProfile.png");
+				attach.setOriginalFilename("defaultProfile.png");
+				attach.setMemberId(member.getId());
 			}
 			result = memberService.insertAttach(attach);
 			// 2.리다이렉트 & 사용자피드백전달
@@ -211,6 +215,11 @@ public class MemberController {
 
 		List<ApplocationGroup> myGroupList = memberService.selectMyGroupList(userId);
 		model.addAttribute("myGroupList", myGroupList);
+		List<ApplocationGroup> myNotJoinedGroupList = memberService.selectmyNotJoinedGroupList(userId);
+		model.addAttribute("myNotJoinedGroupList", myNotJoinedGroupList);
+		List<ApplocationGroup> myNotAllowedGroupList = memberService.selectmyNotAllowedGroupList(userId);
+		model.addAttribute("myNotAllowedGroupList", myNotAllowedGroupList);
+		
 
 		List<Group> groupList = groupService.selectAllMyGroupList();
 		model.addAttribute("groupList", groupList);
@@ -260,25 +269,38 @@ public class MemberController {
 		}
 
 		Attachment oldProfile = memberService.selectMemberProfile(updateMember.getId());
+		int result = 0;
 
-		
 		  try {
-			  String originalFilename = upFile.getOriginalFilename(); String
-			  renamedFilename = CosmosUtils.getRenamedFilename(originalFilename);
 			  
+			  if(oldProfile != null && !upFile.getOriginalFilename().equals("")) {
+				  
+				  String originalFilename = upFile.getOriginalFilename(); String
+				  renamedFilename = CosmosUtils.getRenamedFilename(originalFilename);
+				  
+				  
+				  // 1.서버컴퓨터에 저장 String saveDirectory =
+				  String saveDirectory = application.getRealPath("/resources/upFile/profile"); 
+				  File dest = new  File(saveDirectory, renamedFilename);
+				  log.debug("dest = {}", dest);
+				  upFile.transferTo(dest);
+				  
+				  // 2.DB에 attachment 레코드 등록
+				  
+				  oldProfile.setRenamedFilename(renamedFilename);
+				  oldProfile.setOriginalFilename(originalFilename);
+			  }else if(upFile.getOriginalFilename().equals("")){
+				 
+				  
+			  }else {
+				  Attachment defaultProfile = new Attachment();
+				  defaultProfile.setMemberId(updateMember.getId());
+				  defaultProfile.setRenamedFilename("defaultProfile.png");
+				  defaultProfile.setOriginalFilename(application.getRealPath("defaultProfile.png"));
+				  result = memberService.insertAttach(defaultProfile);
+			  }
 			  
-			  // 1.서버컴퓨터에 저장 String saveDirectory =
-			  String saveDirectory = application.getRealPath("/resources/upFile/profile"); 
-			  File dest = new  File(saveDirectory, renamedFilename);
-			  log.debug("dest = {}", dest);
-			  upFile.transferTo(dest);
-			  
-			  // 2.DB에 attachment 레코드 등록
-			  
-			  oldProfile.setRenamedFilename(renamedFilename);
-			  oldProfile.setOriginalFilename(originalFilename);
-			  
-			  int result = memberService.updateAttach(oldProfile);
+			  result = memberService.updateAttach(oldProfile);
 		} catch (IllegalStateException | IOException e) {
 			// TODO Auto-generated catch block
 			throw e;
@@ -295,7 +317,7 @@ public class MemberController {
 		principal.setMemberJob(updateMember.getMemberJob());
 		principal.setPassword(updateMember.getPassword());
 
-		int result = memberService.updateMember(updateMember);
+		result = memberService.updateMember(updateMember);
 
 		Authentication newAuthentication = new UsernamePasswordAuthenticationToken(principal,
 				oldAuthentication.getCredentials(), updateMember.getAuthorities());
@@ -343,5 +365,17 @@ public class MemberController {
 					HttpStatus.OK);
 		}
 
+	}
+	
+	
+	@GetMapping("/checkIdDuplicate1.do")
+	@ResponseBody
+	public Map<String, Object> checkIdDuplicate2(@RequestParam String id, Model model) {
+		log.debug("id = {}", id);
+		Map<String, Object> map = new HashMap<>();
+		
+		Member member = memberService.selectOneMember(id);
+		map.put("available", member == null);
+		return map;
 	}
 }

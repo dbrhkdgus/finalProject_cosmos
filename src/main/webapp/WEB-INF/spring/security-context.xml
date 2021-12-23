@@ -19,19 +19,21 @@
 	
 	<http auto-config="true" use-expressions="true">
 		<intercept-url pattern="/" access="permitAll"/>
+		<intercept-url pattern="/main/qaDetail.do" access="isAuthenticated()"/> 
 		<intercept-url pattern="/main/**" access="permitAll"/>
 		<intercept-url pattern="/index.jsp" access="permitAll"/>
 		<intercept-url pattern="/member/memberLogin.do" access="permitAll"/>
 		<intercept-url pattern="/member/memberLoginKakaoMoreInfo.do" access="permitAll"/>
 		<intercept-url pattern="/member/memberAPImoreInfoEnroll.do" access="permitAll"/>
 		<intercept-url pattern="/member/memberAPIEnroll.do" access="permitAll"/>
+		<intercept-url pattern="/member/checkIdDuplicate1.do" access="permitAll"/>
 
 		<intercept-url pattern="/member/memberEnroll.do" access="permitAll"/>
 		<intercept-url pattern="/group/**" access="permitAll"/>
 		
 
 		<intercept-url pattern="/admin/**" access="hasRole('ADMIN')"/>
-		<intercept-url pattern="/**" access="isAuthenticated()"/>
+		<intercept-url pattern="/**" access="isAuthenticated()"/> 
 		
 		<!-- 커스텀로그인 설정 -->
 		<!-- login-page : 커스텀 로그인폼페이지. 핸들러작성 필요 -->

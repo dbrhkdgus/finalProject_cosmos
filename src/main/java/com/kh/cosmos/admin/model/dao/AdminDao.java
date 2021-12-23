@@ -23,5 +23,7 @@ public interface AdminDao {
 
 	List<NotApprovedGroup> selectOneNotApprovedGroup(Map<String, Object> param);
 
+	int updateGroupApprove(int groupNo);
+
 	List<Attachment> selectKakaoImage(String id);
 }

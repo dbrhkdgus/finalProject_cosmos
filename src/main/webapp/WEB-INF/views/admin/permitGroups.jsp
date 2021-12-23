@@ -35,23 +35,28 @@
                 <thead>
                   <tr>
                     <th scope="col">그룹번호</th>
-                    <th scope="col">그룹장</th>
                     <th scope="col">그룹명</th>
+                    <th scope="col">그룹장</th>
+                    <th scope="col">생성일</th>
                     <th scope="col">카테고리</th>
                     <th scope="col">유/무료</th>
-                    <th scope="col">생성일</th>
+                    <th scope="col">그룹정원</th>
                     <th scope="col">비밀여부</th>
-                    <th scope="col">승인하기</th>
                   </tr>
                 </thead>
                 <tbody>
 	                <c:forEach var="notA" items="${notApprovedAG}">
 	                  <tr class="selectOne">
 	                    <td>${notA.groupNo}</td>
-	                    <td>${notA.memberId}</td>
 	                    <c:forEach var="allGroup" items="${groupList}">
 	                    	<c:if test="${notA.groupNo == allGroup.groupNo}">
 	                    		<td>${allGroup.groupName}</td>
+	                    	</c:if>
+	                    </c:forEach>
+	                    <td>${notA.memberId}</td>
+	                    <c:forEach var="allGroup" items="${groupList}">
+	                    	<c:if test="${notA.groupNo == allGroup.groupNo}">
+	                    		<td><fmt:formatDate value="${allGroup.groupEnrollDate}" pattern="yyyy/MM/dd"/></td>
 	                    	</c:if>
 	                    </c:forEach>
 	                    <c:forEach var="allGroup" items="${groupList}">
@@ -75,18 +80,18 @@
 										</c:otherwise> 
 									</c:choose> 
 			                    </td>
-			                    <td><fmt:formatDate value="${allGroup.groupEnrollDate}" pattern="yyyy/MM/dd"/></td>
+			                    <td>${allGroup.groupPool}</td>
+			                    
 			                    <td>
 			                    	<c:choose> 
 										<c:when test="${fn:contains(allGroup.groupPrivate, 'L')}">
-											O
+											비밀그룹
 										</c:when> 
 										<c:otherwise>
-											X
+											공개그룹
 										</c:otherwise> 
 									</c:choose>
 			                    </td>
-			                    <td>공개</td>
 	                    	</c:if>
 	                    </c:forEach>
 	                  </tr>
@@ -130,9 +135,7 @@
                   alt="Avatar"
                   class="tm-avatar img-fluid mb-4"
                 />
-                <a href="#" class="tm-avatar-delete-link">
-                  <i class="far fa-trash-alt tm-product-delete-icon"></i>
-                </a>
+                
               </div>
               
             </div>
@@ -140,8 +143,9 @@
           <div class="tm-block-col tm-col-account-settings">
             <div class="tm-bg-primary-dark tm-block tm-block-settings">
               <h2 class="tm-block-title">모임 정보</h2>
-              <form action="" class="tm-signup-form row">
+              <form action="${pageContext.request.contextPath}/admin/approveGroup.do?${_csrf.parameterName}=${_csrf.token}" id="frm" class="tm-signup-form row" method="POST" enctype="multipart/form-data">
                 <div class="form-group col-lg-12">
+                  <input type="hidden" id="groupNo" name="groupNo"/>
                   <label for="groupName">그룹명</label>
                   <input
                     id="groupName"
@@ -205,7 +209,7 @@
                 </div>
                 
                 <div class="form-group col-lg-6">
-                  <label for="groupPrivate">비밀 여부</label>
+                  <label for="groupPrivate">비밀여부</label>
                   <input
                     id="groupPrivate"
                     name="groupPrivate"
@@ -217,10 +221,12 @@
                 <div class="form-group col-lg-6">
                   <label class="tm-hide-sm">&nbsp;</label>
                   <button
+                  	id=""
                     type="button"
+                    onclick="document.getElementById('frm').submit();"
                     class="btn btn-primary btn-block text-uppercase"
-                  >
-                      승인하기
+                    
+                  >승인하기
                   </button>
                 </div>
                 <div class="form-group col-lg-6">
@@ -253,6 +259,7 @@ $(".selectOne").click((e)=>{
 		success: function(data){
 			console.log(data);
 			console.log(data.nag.groupName);
+			$("#groupNo").val(data.nag.groupNo);
 			$("#groupName").val(data.nag.groupName);
 			$("#hostId").val(data.nag.hostId);
 			$("#enrollDate").val(data.nag.groupEnrollDate);
@@ -264,10 +271,11 @@ $(".selectOne").click((e)=>{
 			}
 			$("#groupPool").val(data.nag.groupPool);
 			if(data.nag.groupPrivate == "L"){
-				$("#groupPrivate").val("O")
+				$("#groupPrivate").val("비밀그룹")
 			}else{
-				$("#groupPrivate").val("X")
+				$("#groupPrivate").val("공개그룹")
 			}
+
 			/* 비동기로 이미지 불러오기 */
 			document.getElementById('profileImg').src = `${pageContext.request.contextPath}/resources/upFile/group/`+data.nag.renamedFilename;
 			

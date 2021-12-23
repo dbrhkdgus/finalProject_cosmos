@@ -12,6 +12,7 @@ import com.kh.cosmos.group.model.vo.Group;
 import com.kh.cosmos.main.model.dao.MainDao;
 import com.kh.cosmos.main.model.vo.Notice;
 import com.kh.cosmos.main.model.vo.Question;
+import com.kh.cosmos.main.model.vo.Reply;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -84,6 +85,12 @@ public class MainServiceImpl implements MainService {
 		// TODO Auto-generated method stub
 		return mainDao.insertQuestion(que);
 	}
+
+	@Override
+	public int insertQueReply(Reply reply) {
+		// TODO Auto-generated method stub
+		return mainDao.insertQueReply(reply);
+	}
 	
 	@Override
 	public List<Group> selectAllGroupListByDate() {
@@ -91,5 +98,11 @@ public class MainServiceImpl implements MainService {
 		return mainDao.selectAllGroupListByDate();
 	}
 
+	@Override
+	public List<Reply> selectReplyListByqueNo(int queNo) {
+		return mainDao.selectReplyListByqueNo(queNo);
+	}
+
+	
 
 }

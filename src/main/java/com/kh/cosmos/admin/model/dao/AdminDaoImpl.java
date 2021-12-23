@@ -54,6 +54,11 @@ public class AdminDaoImpl implements AdminDao {
 	}
 
 	@Override
+	public int updateGroupApprove(int groupNo) {
+		return session.update("admin.updateGroupApprove", groupNo);
+	}
+	
+	@Override
 	public List<Attachment> selectKakaoImage(String id) {
 		return session.selectList("admin.selectKakaoImage", id);
 	}

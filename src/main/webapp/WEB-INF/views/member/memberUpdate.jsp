@@ -83,7 +83,11 @@
 								</div>
 
 							</c:if>
-
+							<c:if test="${fn:startsWith(profile.renamedFilename,'http')}">
+							<input type="hidden" name="id" value="${loginMember.id }" />
+							<input type="hidden" name="password" value="" />
+							<input class="form-control" type="file" id="upFile" name="upFile" accept=".jpg,.jpeg,.png,.gif,.bmp" style="display: none;">
+							</c:if>
 							
 							
 							<div class="form-group row">
