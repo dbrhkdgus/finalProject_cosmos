@@ -3,6 +3,7 @@ package com.kh.cosmos.admin.model.dao;
 import java.util.List;
 import java.util.Map;
 
+import com.kh.cosmos.common.attachment.model.vo.Attachment;
 import com.kh.cosmos.group.model.vo.ApplocationGroup;
 import com.kh.cosmos.group.model.vo.NotApprovedGroup;
 import com.kh.cosmos.member.model.vo.Member;
@@ -21,4 +22,6 @@ public interface AdminDao {
 	List<ApplocationGroup> selectNotApprovedAGList(int limit, int offset);
 
 	List<NotApprovedGroup> selectOneNotApprovedGroup(Map<String, Object> param);
+
+	List<Attachment> selectKakaoImage(String id);
 }

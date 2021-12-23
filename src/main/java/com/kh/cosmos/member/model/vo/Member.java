@@ -66,7 +66,6 @@ public class Member implements Serializable, UserDetails {
 	}
 	@Override
 	public boolean isAccountNonExpired() {
-		// TODO Auto-generated method stub
 		return true;
 	}
 	@Override

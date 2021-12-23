@@ -109,4 +109,13 @@
 	    g.group_no = #{groupNo} and ag.role='G'
   </select>
   
+  <!-- 카카오 이미지 불러오는 용 -->
+  <select id="selectKakaoImage" resultType="attachment">
+  	select
+  		*
+  	from
+  		attachment
+  	where
+		member_id = #{id}
+  </select>
 </mapper>

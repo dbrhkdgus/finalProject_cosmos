@@ -76,7 +76,7 @@
               			<tr>
 	              			<th>직업</th>
 	              				<td>
-	              					<select name="searchJob" id="memberJob">
+	              					<select name="searchJob" id="searchJob">
 		              					<option value="">전체</option>
 		              					<option value="백엔드 개발자">백엔드 개발자</option>
 		              					<option value="프론트 개발자">프론트엔드 개발자</option>
@@ -115,7 +115,7 @@
 					        	 />
 					         	 <label for="nonBlackMember"><span class="text-white genderText">일반회원</span></label>
 					        	 <input type="radio" name="searchEnabled" id="nonBlackMember" value="1"
-					         	 	<c:if test="${searchEnabled eq '0'}">checked</c:if>					        	 						        	 
+					         	 	<c:if test="${searchEnabled eq '1'}">checked</c:if>					        	 						        	 
 					        	 />              					
               				</td>
               			</tr>
@@ -303,11 +303,14 @@
 /* 회원 리스트 불러오기 */
 
 /*클릭한 회원 정보 불러오기*/
-$(".selectOne").click((e)=>{
+var showMemberInfo = $(".selectOne").click((e)=>{
 	
 	/* 테이블 내 회원 데이터 담긴 행을 클릭시, 해당 행 회원 데이터를 비동기로 호출한다. */
 	var memberId = e.target.parentNode.children[1].innerText;
-
+	
+	var attachNo = '';
+	var calledId = '';
+	
 	$.ajax({
 		url: `${pageContext.request.contextPath}/admin/selectOneMember.do`,
 		data: {
@@ -331,6 +334,8 @@ $(".selectOne").click((e)=>{
 			}else{
 				$("#groupList").val(data.member.groupName);
 			}
+			
+			console.log(data.member.memberJob);
 			/* 등록된 프로필 이미지가 없을 때 */
 			console.log("첨부파일번호: "+data.member.attachNo);
 			if(data.member.attachNo == "0"){
@@ -338,6 +343,9 @@ $(".selectOne").click((e)=>{
 			}else{
 				document.getElementById('profileImg').src = `${pageContext.request.contextPath}/resources/upload/member`+data.member.attachNo;				
 			}
+			/* Promise 사용하기 위해 변수에 담기 */
+			attachNo = data.member.attachNo;
+			calledId = data.member.id;
 		},
 		/* 변경된 사항의 리스트 행을 클릭시 해당 회원의 정보에 맞춰 버튼의 색깔이 변경된다.*/
 		complete : function(){
@@ -350,8 +358,31 @@ $(".selectOne").click((e)=>{
 			}
 		},
 		error: console.log
+	/* Promise 사용해보기. */
+	}).then(function(result,status,responseObj){
+		console.log("여기는 Promise 함수입니다.");
+		console.log("calledId = "+calledId);
+		if( attachNo == '0'){
+			$.ajax({
+				url: `${pageContext.request.contextPath}/admin/selectKakaoImage.do`,
+				data: {
+					id: calledId,
+				},
+				dataType: "json",
+				success: function(data){
+					if(data.imgSrc != ''){
+						document.getElementById('profileImg').src = data.imgSrc;
+					}else{
+						document.getElementById('profileImg').src = `${pageContext.request.contextPath}/resources/images/sample.png`;
+					}
+				},
+				error: console.log
+			})
+		}		
 	});
-});
+})
+
+
   
   
 /* 블랙리스트 등록 */
