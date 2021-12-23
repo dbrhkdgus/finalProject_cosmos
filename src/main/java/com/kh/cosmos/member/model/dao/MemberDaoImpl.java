@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.kh.cosmos.common.attachment.model.vo.Attachment;
 import com.kh.cosmos.group.model.vo.ApplocationGroup;
 import com.kh.cosmos.member.model.vo.Member;
 
@@ -40,6 +41,18 @@ public class MemberDaoImpl implements MemberDao {
 	@Override
 	public List<ApplocationGroup> selectMyGroupList(String userId) {
 		return session.selectList("member.selectMyGroupList", userId);
+	}
+
+	@Override
+	public int insertAttach(Attachment attach) {
+		// TODO Auto-generated method stub
+		return session.insert("member.insertAttach", attach);
+	}
+
+	@Override
+	public Attachment selectMemberProfile(String id) {
+		// TODO Auto-generated method stub
+		return session.selectOne("member.selectMemberProfile",id);
 	}
 	
 }

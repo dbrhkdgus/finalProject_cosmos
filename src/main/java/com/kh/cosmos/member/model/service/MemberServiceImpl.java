@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.kh.cosmos.common.attachment.model.vo.Attachment;
 import com.kh.cosmos.group.model.vo.ApplocationGroup;
 import com.kh.cosmos.member.model.dao.MemberDao;
 import com.kh.cosmos.member.model.vo.Member;
@@ -48,6 +49,18 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public List<ApplocationGroup> selectMyGroupList(String userId) {
 		return memberDao.selectMyGroupList(userId);
+	}
+
+	@Override
+	public int insertAttach(Attachment attach) {
+		// TODO Auto-generated method stub
+		return memberDao.insertAttach(attach);
+	}
+
+	@Override
+	public Attachment selectMemberProfile(String id) {
+		// TODO Auto-generated method stub
+		return memberDao.selectMemberProfile(id);
 	}
 	
 }
