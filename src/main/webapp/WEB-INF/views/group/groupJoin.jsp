@@ -18,15 +18,17 @@
 					<div class="card-header"><h2>그룹 가입 신청</h2></div>
 					<div class="card-body">
 						<form:form name="my-form" id="groupJoinFrm" action="${pageContext.request.contextPath}/group/groupJoinFrm.do" method="POST">
+						<input type="hidden" name="groupNo" value="${group.groupNo}"/>
+						<input type="hidden" name="memberId" value="<sec:authentication property="principal.id"/>"/>
 							<div>
 								<h4>모임의 원활한 활동을 위한 필요한 질문입니다. 작성해주세요.</h4>
 							</div>
 
 							<div class=" group-text-input">
 								<label for="permanent_address"
-									class="col-md-15 col-form-label text-md-left">욕설 및 불법 프로그램등 법적 문제를 야기할 수 있는 행위시 관리자, 그룹장, 매니저에 의해 즉시 추방 및 홈페이지 이용 불가처리 됨을 동의 하십니까?<br />(작성예시 : 동의합니다.)</label>
+									class="col-md-15 col-form-label text-md-left">욕설 및 불법 프로그램등 법적 문제를 야기할 수 있는 행위시 관리자, 그룹장, 매니저에 의해 즉시 추방 및 홈페이지 이용 불가처리 됨을 동의 하십니까?<br />(작성예시 : 동의합니다(특수문자 작성 금지))</label>
 								<div class="group-text-input form-floating col-md-6">
-									<textarea class="form-control"
+									<textarea class="form-control" name="answer"
 										placeholder="Leave a comment here" id="floatingTextarea2"
 										style="height: 100px; width: 200%; resize: none;"></textarea>
 								</div>

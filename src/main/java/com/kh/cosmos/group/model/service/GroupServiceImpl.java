@@ -132,6 +132,12 @@ public class GroupServiceImpl implements GroupService {
 		return groupDao.selectCategoryTwoListByGroupNo(num);
 	}
 
+	@Override
+	public int insertGroupJoin(ApplocationGroup applocationGroup) {
+		// TODO Auto-generated method stub
+		return groupDao.insertGroupJoin(applocationGroup);
+	}
+
 
 
 	

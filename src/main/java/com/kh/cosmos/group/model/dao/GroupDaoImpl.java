@@ -133,6 +133,12 @@ public class GroupDaoImpl implements GroupDao {
 		return session.selectOne("group.selectCategoryTwoListByGroupNo",num);
 	}
 
+	@Override
+	public int insertGroupJoin(ApplocationGroup applocationGroup) {
+		// TODO Auto-generated method stub
+		return session.insert("group.insertGroupJoin",applocationGroup);
+	}
+
 
 	
 	
