@@ -81,21 +81,40 @@
 							</sec:authorize>
 						    <%-- 로그인했을때 --%>
 						    <sec:authorize access="isAuthenticated()">
-						    	
+						    	<sec:authentication property="principal" var="loginMember"/>
+							    	
 							    	<div class="btn-group">
 
 							    		<img  id="header-profile" src="https://cdn-icons-png.flaticon.com/512/64/64572.png" alt="" style="width: 40px"/>	
 									  <button type="button" class="btn btn-outline-info dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="border: 0px">
-
-									    <sec:authentication property="principal.memberName"/>
-									    <input type="hidden" id="loginMemberId" value="<sec:authentication property="principal.id"/>" />
+										
+									    ${not empty loginMember.nickname ? loginMember.nickname : loginMember.memberName }
+									    <input type="hidden" id="loginMemberId" value="${loginMember.id }" />
 									  </button>
+									  
+						    <sec:authorize access="hasRole('ADMIN')">
 									  <ul class="dropdown-menu">
-									    <li><a class="dropdown-item" href="${pageContext.request.contextPath}/member/memberGroupList.do" style="color: black; font-size:14px;">가입한 그룹</a></li>
-									    <li><a class="dropdown-item" href="${pageContext.request.contextPath}/member/memberGroupList.do" style="color: black; font-size:14px; ">가입신청그룹</a></li>
-									    <li><a class="dropdown-item" href="${pageContext.request.contextPath}/member/memberGroupList.do" style="color: black; font-size:14px; ">관심 그룹</a></li>
-									    <li><hr class="dropdown-divider"></li>
+						    	
+						    	
+						    			<li><a class="dropdown-item" href="${pageContext.request.contextPath}/admin/main.do" style="color: black; font-size:14px; ">사이트관리</a></li>
+							    		<li><hr class="dropdown-divider"></li>
 									    <li><a class="dropdown-item" href="${pageContext.request.contextPath }/member/memberUpdate.do" style="color: black; font-size:14px; ">내 정보 수정</a></li>
+									  </ul>
+													    	
+						    	
+						    </sec:authorize>
+						    			<ul class="dropdown-menu">
+						    	
+							    	
+							    			<li><a class="dropdown-item" href="${pageContext.request.contextPath}/member/memberGroupList.do" style="color: black; font-size:14px;">가입한 그룹</a></li>
+										    <li><a class="dropdown-item" href="${pageContext.request.contextPath}/member/memberGroupList.do" style="color: black; font-size:14px; ">가입신청그룹</a></li>
+										    <li><a class="dropdown-item" href="${pageContext.request.contextPath}/member/memberGroupList.do" style="color: black; font-size:14px; ">관심 그룹</a></li>
+								    						    	
+							    	
+							    
+										    
+										    <li><hr class="dropdown-divider"></li>
+										    <li><a class="dropdown-item" href="${pageContext.request.contextPath }/member/memberUpdate.do" style="color: black; font-size:14px; ">내 정보 수정</a></li>
 									  </ul>
 									</div>
 						    		<span class="fs-6 ">님 안녕하세요.</span>
@@ -127,24 +146,8 @@
 						    	     });
 								
 						    </script>
-						    </sec:authorize>				
-						    <c:if test="${loginMember.memberId =='admin' && not empty loginMember}">
-						    	<span class="fs-6 ">${loginMember.memberId}계정</span>
-						    	<button 
-							    	class="btn btn-outline-primary" 
-							    	type="button"
-							    	onclick="location.href='${pageContext.request.contextPath}/admin/main.do';">
-							    	<span class="headerBtnText">사이트 관리</span> 
-							    	</button>
-						    	<button 
-							    	class="btn btn-outline-primary" 
-							    	type="button"
-							    	onclick="location.href='${pageContext.request.contextPath}/member/memberLogout.do';">
-							    	<span class="headerBtnText">로그아웃</span>
-							    	</button>
-							    						    	
-						    	
-						    </c:if>			                        
+						   </sec:authorize>		
+						  		                        
                             
                         </div>
                     </div>
