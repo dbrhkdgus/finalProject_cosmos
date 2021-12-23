@@ -101,8 +101,9 @@
 						    		<span class="fs-6 ">님 안녕하세요.</span>
 						    	<form:form method="POST" action="${pageContext.request.contextPath}/member/memberLogout.do" id="memberLogoutFrm" class="d-inline">
 						    	<button 
-							    	class="btn btn-outline-success my-2 my-sm-0" 
-							    	type="submit" style="border: none;font-size: 10px;transform: translate(10px, 10px);">로그아웃</button>
+							    	class="btn btn-outline-success " 
+							    	type="submit" style="border: none;font-size: 10px;transform: translate(10px, 3px);">로그아웃
+							    </button>
 						    	</form:form>
 						    <script>
 						    	var id = $(loginMemberId).val();
