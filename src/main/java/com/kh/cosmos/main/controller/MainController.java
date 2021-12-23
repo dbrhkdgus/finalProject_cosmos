@@ -1,5 +1,7 @@
 package com.kh.cosmos.main.controller;
 
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.authentication;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -31,6 +33,7 @@ import com.kh.cosmos.group.model.vo.Group;
 import com.kh.cosmos.main.model.service.MainService;
 import com.kh.cosmos.main.model.vo.Notice;
 import com.kh.cosmos.main.model.vo.Question;
+import com.kh.cosmos.main.model.vo.Reply;
 import com.kh.cosmos.member.model.vo.Member;
 
 import lombok.extern.slf4j.Slf4j;
@@ -200,6 +203,30 @@ public class MainController {
 		return "redirect:/main/qa.do";
 	}
 	
+	@PostMapping("/queReplyEnroll.do")
+	public String qaDetail(@RequestParam(required=false) int queNo, Reply reply ,RedirectAttributes redirectAttr,Authentication authentication, HttpServletRequest request) {
+		 
+		Member member = (Member)authentication.getPrincipal();
+		
+		
+		reply.setMemberId(member.getId());
+		reply.setQueNo(queNo);
+		log.debug ("reply = {}",reply); 
+		
+		try {
+			int result = mainService.insertQueReply(reply); String msg = result > 0 ? "댓글 등록 성공!" : "댓글 등록 실패!";
+			 redirectAttr.addFlashAttribute("msg", msg);
+		} catch (Exception e) {
+			log.error(e.getMessage(), e); // 
+		 	redirectAttr.addFlashAttribute("msg", "댓글 등록 실패");
+		 	
+		}
+		 	
+			
+		
+		return "redirect:/main/qaDetail.do?queNo="+queNo;
+	}
+	
 	@GetMapping("/qaDetail.do")
 	public String queDetail(@RequestParam int queNo, Model model, Authentication authentication, RedirectAttributes redirectAttr) {
 
@@ -208,6 +235,9 @@ public class MainController {
 		Attachment att = mainService.selectOneAttach(que.getAttachNo());
 		Member member = (Member)authentication.getPrincipal();
 		log.debug("member = {}", member);
+		
+		List<Reply> replyList = mainService.selectReplyListByqueNo(queNo);
+		log.debug("reply = {}", replyList);
 		
 
 		if(!que.getMemberId().equals(member.getId()) || "admin".equals(member.getId()) || member == null) {
@@ -219,10 +249,12 @@ public class MainController {
 		log.debug("que = {} ", que);
 		model.addAttribute("que",que);
 		model.addAttribute("att",att);
+		model.addAttribute("replyList",replyList);
 		
 		return "main/qaDetail";
 	}
 	
+
 	@GetMapping("/index.do")
 	public String index(Model model) {
 		

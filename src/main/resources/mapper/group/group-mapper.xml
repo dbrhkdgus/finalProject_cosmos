@@ -30,7 +30,7 @@
 			attachment
 		values(
 			seq_attach_no_no.nextval,
-			#{id},
+			#{memberId},
 			#{groupNo},
 			#{originalFilename},
 			#{renamedFilename},
@@ -193,4 +193,6 @@
 	<insert id="insertGroupJoin">
 	insert into applocation_group values(seq_alg_no_no.nextval, #{memberId}, #{groupNo}, default, #{answer}, default)
 	</insert>
+	
+
 </mapper>

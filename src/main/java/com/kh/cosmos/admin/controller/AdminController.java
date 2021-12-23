@@ -10,10 +10,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+<<<<<<< HEAD
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+=======
 import org.springframework.web.bind.annotation.RequestBody;
+>>>>>>> branch 'master' of https://github.com/dbrhkdgus/finalProject_cosmos.git
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.cosmos.admin.model.service.AdminService;
 import com.kh.cosmos.common.CosmosUtils;
@@ -242,16 +248,19 @@ public class AdminController {
 		log.debug("notApprovedGroup ={}", notApprovedGroup);
 		NotApprovedGroup nag = notApprovedGroup.get(0);
 		
-//		log.debug("memberWithGroup = {}", memberWithGroup);
-//		log.debug("groupName = {}", groupName);
-//		MemberWithGroup mwg = memberWithGroup.get(0);
-//		log.debug("memberWithGroup.get(1) = {}", mwg);
-//		mwg.setGroupName(groupName);
 		map.put("nag", nag);
 		
 		return map;
 	}
 	
+	@PostMapping("/approveGroup.do")
+	public String approveGroup(@RequestParam("groupNo") int groupNo, RedirectAttributes redirectAttributes) {
+		
+		int result = adminService.updateGroupApprove(groupNo); 
+		
+		return "redirect:/admin/permitGroups.do";
+	}
+			
 	@GetMapping("/selectKakaoImage.do")
 	@ResponseBody
 	public Map<String, Object> selectKakaoImage(@RequestParam String id, Model model) {
