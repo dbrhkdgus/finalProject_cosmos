@@ -1,12 +1,14 @@
 package com.kh.cosmos.member.controller;
 
 import java.beans.PropertyEditor;
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -31,8 +33,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.kh.cosmos.common.CosmosUtils;
 import com.kh.cosmos.common.attachment.model.service.AttachmentService;
 import com.kh.cosmos.common.attachment.model.vo.Attachment;
 import com.kh.cosmos.group.model.service.GroupService;
@@ -65,7 +69,8 @@ public class MemberController {
 	private GroupService groupService;
 	@Autowired
 	private AttachmentService attachService;
-	
+	@Autowired
+	ServletContext application;
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
 	
@@ -93,11 +98,13 @@ public class MemberController {
 	}
 
 	@PostMapping("/memberEnroll.do")
-	public String memberEnroll(Member member, RedirectAttributes redirectAttr, HttpServletRequest request) {
+	public String memberEnroll(Member member, RedirectAttributes redirectAttr,@RequestParam(value="upFile", required=false) MultipartFile upFile,HttpServletRequest request) throws Exception {
 		log.debug("member = {}", member);
 		String email = (request.getParameter("emailId")) + "@" + (request.getParameter("email-server"));
 		member.setMemberEmail(email);
 		
+		log.debug("profile_img = {}", request.getParameter("profile_img"));
+		String profileImg = request.getParameter("profile_img");
 		try {
 			// 0.비밀번호 암호화 처리
 			log.info("{}", passwordEncoder);
@@ -109,6 +116,38 @@ public class MemberController {
 			// 1.업무로직
 			int result = memberService.insertMember(member);
 			result = memberService.insertUserAuthority(member.getId());
+			
+			Attachment attach = new Attachment();
+			if(profileImg != null) {
+				
+			
+			 attach.setRenamedFilename(profileImg);
+			 attach.setOriginalFilename(profileImg);
+			 attach.setMemberId(member.getId());
+			}
+			 
+			else if(!upFile.isEmpty() && upFile.getSize() != 0) {
+				 log.debug("upFile = {}", upFile);
+				 log.debug("upFile.name = {}",upFile.getOriginalFilename());
+				 log.debug("upFile.size = {}",upFile.getSize());
+
+				String originalFilename = upFile.getOriginalFilename();
+				String renamedFilename = CosmosUtils.getRenamedFilename(originalFilename);
+					
+				 // 1.서버컴퓨터에 저장
+				 String saveDirectory = application.getRealPath("/resources/upFile/profile");
+				 File dest = new File(saveDirectory, renamedFilename);
+				 log.debug("dest = {}", dest);
+				 upFile.transferTo(dest);
+				 
+				 // 2.DB에 attachment 레코드 등록
+				 
+				 attach.setRenamedFilename(renamedFilename);
+				 attach.setOriginalFilename(originalFilename);
+				 attach.setMemberId(member.getId());
+ 
+			 }
+			result = memberService.insertAttach(attach);
 			// 2.리다이렉트 & 사용자피드백전달
 			redirectAttr.addFlashAttribute("msg", "회원가입 성공!");
 		} catch (Exception e) {
@@ -127,6 +166,7 @@ public class MemberController {
 	
 	@PostMapping("/memberLoginKakaoMoreInfo.do")
 	public String memberLoginKakao(HttpServletRequest request, Model model,HttpSession session, Authentication auth, RedirectAttributes redirectAttr) {
+		
 		Member kakaoMember = memberService.selectOneMember(request.getParameter("kakaoId"));
 		log.debug("kakaoMember = {}", kakaoMember);
 		if(kakaoMember == null) {
@@ -138,6 +178,7 @@ public class MemberController {
 			model.addAttribute("kakaoMember",kakaoMember);
 			model.addAttribute("_birthDay",request.getParameter("_birthDay"));
 			model.addAttribute("profile_img",request.getParameter("profile_img"));
+			
 			
 	//		log.debug("loginMember = {}",kakaoMember);
 			
@@ -198,7 +239,11 @@ public class MemberController {
 //	}
 	
 	@GetMapping("/memberUpdate.do")
-	public void memberUpdate() {}
+	public void memberUpdate(Authentication auth, Model model) {
+		Member member = (Member)auth.getPrincipal();
+		Attachment profile = memberService.selectMemberProfile(member.getId());
+		model.addAttribute("profile",profile);
+	}
 	
 	@PostMapping("/memberUpdate.do")
 	public ResponseEntity<?> memberUpdatePost(@RequestBody Member updateMember, Authentication oldAuthentication, HttpServletRequest request) {
@@ -242,5 +287,20 @@ public class MemberController {
 		}else {
 			return new ResponseEntity<Boolean>(false, header, HttpStatus.OK);
 		}
+	}
+	@PostMapping("/profileCheck.do")
+	@ResponseBody
+	public ResponseEntity<?> profileCheck(@RequestBody String id){
+		log.debug("{}",id);
+		String[] ids =id.split("=");
+		log.debug("ids = {}",ids[1]);
+		Attachment profile = memberService.selectMemberProfile(ids[1]);
+		
+		HttpHeaders header = new HttpHeaders();
+		header.add("cosmos", "profileCheck");
+		String renamedFilename = profile.getRenamedFilename();
+		
+		return new ResponseEntity<String>(renamedFilename, header, HttpStatus.OK);
+		
 	}
 }

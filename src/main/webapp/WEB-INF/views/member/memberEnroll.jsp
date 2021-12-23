@@ -7,7 +7,6 @@
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	<jsp:param value="" name="title" />
 </jsp:include>
-
 <main class="my-form">
 	<div class="cotainer">
 		<div class="row justify-content-center">
@@ -15,7 +14,18 @@
 				<div class="card">
 					<div class="card-header">회원가입</div>
 					<div class="card-body">
-						<form name="memberEnrollFrm" method="POST" action="${pageContext.request.contextPath }/member/memberEnroll.do?${_csrf.parameterName}=${_csrf.token}">
+						<form name="memberEnrollFrm" method="POST" action="${pageContext.request.contextPath }/member/memberEnroll.do?${_csrf.parameterName}=${_csrf.token}" enctype="multipart/form-data">
+							<div class="form-group row" style="display: flex; justify-content: center; margin: 45px;">
+									<img id="profile" src="https://cdn-icons-png.flaticon.com/512/64/64572.png" alt="" style="width: 150px"	/>
+							</div>
+							<div class="form-group row">
+									<label for="phone_number"
+										class="col-md-4 col-form-label text-md-right">프로필 이미지</label>
+									<div class="col-md-6 group-text-input">
+										<input class="form-control" type="file" id="upFile" name="upFile" accept=".jpg,.jpeg,.png,.gif,.bmp">
+									</div>
+							</div>
+							
 							<div class="form-group row">
 								<label for="full_name"
 									class="col-md-4 col-form-label text-md-right">아이디</label>
@@ -76,13 +86,7 @@
 								</div>
 							</div>
 							
-							<div class="form-group row">
-									<label for="phone_number"
-										class="col-md-4 col-form-label text-md-right">프로필 이미지</label>
-									<div class="col-md-6 group-text-input">
-										<input class="form-control" type="file" id="upFile" name="upFile">
-									</div>
-								</div>
+							
 
 							<div class="form-group row">
 								<label for="permanent_address"
@@ -142,6 +146,7 @@
 							<div class="col-md-6 offset-md-4 group-create-button">
 								<button type="submit" class="btn btn-primary">회원가입</button>
 							</div>
+							
 						</form>
 					</div>
 				</div>
@@ -151,6 +156,21 @@
 </main>
 
 <script>
+$(upFile).change(function(){
+    setImageFromFile(this, '#profile');
+    upFile = $(upFile).val();
+});
+
+function setImageFromFile(input, expression) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            $(expression).attr('src', e.target.result);
+        };
+        reader.readAsDataURL(input.files[0]);
+    };
+};
+
 $("#passwordCheck").blur(function(){
 	var $password = $("#password"),
 	$passwordCheck = $("$passwordCheck");
