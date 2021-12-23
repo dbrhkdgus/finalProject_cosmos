@@ -2,6 +2,7 @@ package com.kh.cosmos.member.controller;
 
 import java.beans.PropertyEditor;
 import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -51,10 +52,10 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 @Slf4j
 @RequestMapping("/member")
-@SessionAttributes({"loginMember"}) // session에 저장될 model data 지정
+@SessionAttributes({ "loginMember" }) // session에 저장될 model data 지정
 
 public class MemberController {
-	
+
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -62,7 +63,7 @@ public class MemberController {
 		PropertyEditor editor = new CustomDateEditor(sdf, true);
 		binder.registerCustomEditor(Date.class, editor);
 	}
-	
+
 	@Autowired
 	private MemberService memberService;
 	@Autowired
@@ -73,36 +74,38 @@ public class MemberController {
 	ServletContext application;
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
-	
+
 	@GetMapping("/memberLogin.do")
 	public String memberLogin() {
 		return "member/memberLogin";
 	}
-	@PostMapping("/memberLogin.do")
-	public void memberLoginPost(@RequestParam String id ,@RequestParam String password) {}
 
-	
+	@PostMapping("/memberLogin.do")
+	public void memberLoginPost(@RequestParam String id, @RequestParam String password) {
+	}
+
 	@GetMapping("/memberLogout.do")
 	public String memberLogout(SessionStatus sessionStatus) {
-		if(!sessionStatus.isComplete())
+		if (!sessionStatus.isComplete())
 			sessionStatus.setComplete();
-		
+
 		return "redirect:/";
 	}
-	
-	
+
 	@GetMapping("/memberEnroll.do")
 	public String memberEnroll() {
-		
+
 		return "member/memberEnroll";
 	}
 
 	@PostMapping("/memberEnroll.do")
-	public String memberEnroll(Member member, RedirectAttributes redirectAttr,@RequestParam(value="upFile", required=false) MultipartFile upFile,HttpServletRequest request) throws Exception {
+	public String memberEnroll(Member member, RedirectAttributes redirectAttr,
+			@RequestParam(value = "upFile", required = false) MultipartFile upFile, HttpServletRequest request)
+			throws Exception {
 		log.debug("member = {}", member);
 		String email = (request.getParameter("emailId")) + "@" + (request.getParameter("email-server"));
 		member.setMemberEmail(email);
-		
+
 		log.debug("profile_img = {}", request.getParameter("profile_img"));
 		String profileImg = request.getParameter("profile_img");
 		try {
@@ -112,41 +115,40 @@ public class MemberController {
 			String encryptedPassword = passwordEncoder.encode(rawPassword);
 			member.setPassword(encryptedPassword);
 			log.info("{} -> {}", rawPassword, encryptedPassword);
-			
+
 			// 1.업무로직
 			int result = memberService.insertMember(member);
 			result = memberService.insertUserAuthority(member.getId());
-			
+
 			Attachment attach = new Attachment();
-			if(profileImg != null) {
-				
-			
-			 attach.setRenamedFilename(profileImg);
-			 attach.setOriginalFilename(profileImg);
-			 attach.setMemberId(member.getId());
+			if (profileImg != null) {
+
+				attach.setRenamedFilename(profileImg);
+				attach.setOriginalFilename(profileImg);
+				attach.setMemberId(member.getId());
 			}
-			 
-			else if(!upFile.isEmpty() && upFile.getSize() != 0) {
-				 log.debug("upFile = {}", upFile);
-				 log.debug("upFile.name = {}",upFile.getOriginalFilename());
-				 log.debug("upFile.size = {}",upFile.getSize());
+
+			else if (!upFile.isEmpty() && upFile.getSize() != 0) {
+				log.debug("upFile = {}", upFile);
+				log.debug("upFile.name = {}", upFile.getOriginalFilename());
+				log.debug("upFile.size = {}", upFile.getSize());
 
 				String originalFilename = upFile.getOriginalFilename();
 				String renamedFilename = CosmosUtils.getRenamedFilename(originalFilename);
-					
-				 // 1.서버컴퓨터에 저장
-				 String saveDirectory = application.getRealPath("/resources/upFile/profile");
-				 File dest = new File(saveDirectory, renamedFilename);
-				 log.debug("dest = {}", dest);
-				 upFile.transferTo(dest);
-				 
-				 // 2.DB에 attachment 레코드 등록
-				 
-				 attach.setRenamedFilename(renamedFilename);
-				 attach.setOriginalFilename(originalFilename);
-				 attach.setMemberId(member.getId());
- 
-			 }
+
+				// 1.서버컴퓨터에 저장
+				String saveDirectory = application.getRealPath("/resources/upFile/profile");
+				File dest = new File(saveDirectory, renamedFilename);
+				log.debug("dest = {}", dest);
+				upFile.transferTo(dest);
+
+				// 2.DB에 attachment 레코드 등록
+
+				attach.setRenamedFilename(renamedFilename);
+				attach.setOriginalFilename(originalFilename);
+				attach.setMemberId(member.getId());
+
+			}
 			result = memberService.insertAttach(attach);
 			// 2.리다이렉트 & 사용자피드백전달
 			redirectAttr.addFlashAttribute("msg", "회원가입 성공!");
@@ -154,74 +156,73 @@ public class MemberController {
 			e.printStackTrace();
 			throw e;
 		}
-		
+
 		return "redirect:/";
 	}
-	
 
 	@GetMapping("/memberAPIEnroll.do")
 	public String memberAPIEnroll() {
 		return "member/memberAPIEnroll";
 	}
-	
+
 	@PostMapping("/memberLoginKakaoMoreInfo.do")
-	public String memberLoginKakao(HttpServletRequest request, Model model,HttpSession session, Authentication auth, RedirectAttributes redirectAttr) {
-		
+	public String memberLoginKakao(HttpServletRequest request, Model model, HttpSession session, Authentication auth,
+			RedirectAttributes redirectAttr) {
+
 		Member kakaoMember = memberService.selectOneMember(request.getParameter("kakaoId"));
 		log.debug("kakaoMember = {}", kakaoMember);
-		if(kakaoMember == null) {
+		if (kakaoMember == null) {
 			kakaoMember = new Member();
 			kakaoMember.setId(request.getParameter("kakaoId"));
 			kakaoMember.setMemberName(request.getParameter("memberName"));
 			kakaoMember.setMemberGender(request.getParameter("gender"));
-			
-			model.addAttribute("kakaoMember",kakaoMember);
-			model.addAttribute("_birthDay",request.getParameter("_birthDay"));
-			model.addAttribute("profile_img",request.getParameter("profile_img"));
-			
-			
-	//		log.debug("loginMember = {}",kakaoMember);
-			
+
+			model.addAttribute("kakaoMember", kakaoMember);
+			model.addAttribute("_birthDay", request.getParameter("_birthDay"));
+			model.addAttribute("profile_img", request.getParameter("profile_img"));
+
+			// log.debug("loginMember = {}",kakaoMember);
+
 			return "member/memberLoginKakaoMoreInfo";
 		} else {
 			// 권한을 부여하여 홈으로 가게만들기
 			kakaoMember.setPassword("1234");
-			
-			if("http://localhost:9090/cosmos/member/memberAPIEnroll.do".equals(request.getHeader("referer"))) {
-				redirectAttr.addFlashAttribute("msg","이미 가입된 카카오 아이디입니다.");
+
+			if ("http://localhost:9090/cosmos/member/memberAPIEnroll.do".equals(request.getHeader("referer"))) {
+				redirectAttr.addFlashAttribute("msg", "이미 가입된 카카오 아이디입니다.");
 			}
 			kakaoMember.setPassword(passwordEncoder.encode(kakaoMember.getPassword()));
-			Authentication kakaoAuthentication = new UsernamePasswordAuthenticationToken(kakaoMember, kakaoMember.getPassword(), kakaoMember.getAuthorities());
+			Authentication kakaoAuthentication = new UsernamePasswordAuthenticationToken(kakaoMember,
+					kakaoMember.getPassword(), kakaoMember.getAuthorities());
 			SecurityContextHolder.getContext().setAuthentication(kakaoAuthentication);
 			return "redirect:/";
-		}	
+		}
 	}
-	
 
 	@GetMapping("/memberGroupList.do")
-	public String memberGroupList(Model model, Authentication auth, RedirectAttributes redirectAttr,HttpServletRequest request) {
-		
-		Member member = (Member)auth.getPrincipal();
+	public String memberGroupList(Model model, Authentication auth, RedirectAttributes redirectAttr,
+			HttpServletRequest request) {
+
+		Member member = (Member) auth.getPrincipal();
 		String userId = member.getId();
 		String type = request.getParameter("type");
-		
-		model.addAttribute("type",type);
-		
+
+		model.addAttribute("type", type);
+
 		List<ApplocationGroup> myGroupList = memberService.selectMyGroupList(userId);
 		model.addAttribute("myGroupList", myGroupList);
-		
+
 		List<Group> groupList = groupService.selectAllMyGroupList();
 		model.addAttribute("groupList", groupList);
-		
+
 		List<Attachment> attachList = attachService.selectGroupAttachmentList();
-		model.addAttribute("attachList",attachList);
-		
+		model.addAttribute("attachList", attachList);
+
 		List<CategoryOne> caOneList = groupService.groupgroupContOne();
 		model.addAttribute("caOneList", caOneList);
-		
+
 		return "member/memberGroupList";
 	}
-	
 
 //	@PostMapping("memberEnroll.do")
 //	public String memberEnrollPost(Member member, RedirectAttributes redirectAttr, HttpServletRequest request) {
@@ -237,75 +238,110 @@ public class MemberController {
 //		
 //		return "redirect:/";
 //	}
-	
+
 	@GetMapping("/memberUpdate.do")
 	public void memberUpdate(Authentication auth, Model model) {
-		Member member = (Member)auth.getPrincipal();
+		Member member = (Member) auth.getPrincipal();
 		Attachment profile = memberService.selectMemberProfile(member.getId());
-		model.addAttribute("profile",profile);
+		model.addAttribute("profile", profile);
 	}
-	
+
 	@PostMapping("/memberUpdate.do")
-	public ResponseEntity<?> memberUpdatePost(@RequestBody Member updateMember, Authentication oldAuthentication, HttpServletRequest request) {
+	public String memberUpdatePost(@RequestParam(value = "upFile", required = false) MultipartFile upFile,
+			Member updateMember, Authentication oldAuthentication, HttpServletRequest request) throws Exception {
 		
-		if(!updateMember.getPassword().equals("")) {
-			updateMember.setPassword(passwordEncoder.encode(updateMember.getPassword()));			
+		String email = (request.getParameter("emailId")) + "@" + (request.getParameter("email-server"));
+		updateMember.setMemberEmail(email);
+		
+		log.debug("upfile = {}", upFile);
+		log.debug("member = {}", updateMember);
+		if (!updateMember.getPassword().equals("")) {
+			updateMember.setPassword(passwordEncoder.encode(updateMember.getPassword()));
 		}
+
+		Attachment oldProfile = memberService.selectMemberProfile(updateMember.getId());
+
 		
-		
-		Member principal = (Member)oldAuthentication.getPrincipal();
-		principal.setMemberName(updateMember.getMemberName()); 
-		principal.setNickname(updateMember.getNickname()); 
+		  try {
+			  String originalFilename = upFile.getOriginalFilename(); String
+			  renamedFilename = CosmosUtils.getRenamedFilename(originalFilename);
+			  
+			  
+			  // 1.서버컴퓨터에 저장 String saveDirectory =
+			  String saveDirectory = application.getRealPath("/resources/upFile/profile"); 
+			  File dest = new  File(saveDirectory, renamedFilename);
+			  log.debug("dest = {}", dest);
+			  upFile.transferTo(dest);
+			  
+			  // 2.DB에 attachment 레코드 등록
+			  
+			  oldProfile.setRenamedFilename(renamedFilename);
+			  oldProfile.setOriginalFilename(originalFilename);
+			  
+			  int result = memberService.updateAttach(oldProfile);
+		} catch (IllegalStateException | IOException e) {
+			// TODO Auto-generated catch block
+			throw e;
+		}
+		 
+		 
+
+		Member principal = (Member) oldAuthentication.getPrincipal();
+		principal.setMemberName(updateMember.getMemberName());
+		principal.setNickname(updateMember.getNickname());
 		principal.setBirthday(updateMember.getBirthday());
 		principal.setMemberEmail(updateMember.getMemberEmail());
 		principal.setPhone(updateMember.getPhone());
 		principal.setMemberJob(updateMember.getMemberJob());
 		principal.setPassword(updateMember.getPassword());
-		
 
 		int result = memberService.updateMember(updateMember);
-		
-		Authentication newAuthentication = new UsernamePasswordAuthenticationToken(principal, oldAuthentication.getCredentials(), updateMember.getAuthorities());
-		
+
+		Authentication newAuthentication = new UsernamePasswordAuthenticationToken(principal,
+				oldAuthentication.getCredentials(), updateMember.getAuthorities());
+
 		SecurityContextHolder.getContext().setAuthentication(newAuthentication);
 		Map<String, Object> map = new HashMap<>();
 		map.put("msg", "회원정보 수정 성공!");
-		
-		return ResponseEntity.ok(null);
+
+		return "redirect:/member/memberUpdate.do";
 	}
+
 	@PostMapping("/pwdCheck.do")
 	@ResponseBody
-	public ResponseEntity<?> pwdCheck(@RequestBody Member member){
-		log.debug("{}",member);
+	public ResponseEntity<?> pwdCheck(@RequestBody Member member) {
+		log.debug("{}", member);
 		Member loginMember = memberService.selectOneMember(member.getId());
-		
+
 		HttpHeaders header = new HttpHeaders();
 		header.add("cosmos", "pwdCheck");
-		
-		if(passwordEncoder.matches(member.getPassword(), loginMember.getPassword())) {
+
+		if (passwordEncoder.matches(member.getPassword(), loginMember.getPassword())) {
 			return new ResponseEntity<Boolean>(true, header, HttpStatus.OK);
-		}else {
+		} else {
 			return new ResponseEntity<Boolean>(false, header, HttpStatus.OK);
 		}
 	}
+
 	@PostMapping("/profileCheck.do")
 	@ResponseBody
-	public ResponseEntity<?> profileCheck(@RequestBody String id){
-		log.debug("{}",id);
-		String[] ids =id.split("=");
-		log.debug("ids = {}",ids[1]);
-		
+	public ResponseEntity<?> profileCheck(@RequestBody String id) {
+		log.debug("{}", id);
+		String[] ids = id.split("=");
+		log.debug("ids = {}", ids[1]);
+
 		Attachment profile = memberService.selectMemberProfile(ids[1]);
 		HttpHeaders header = new HttpHeaders();
 		header.add("cosmos", "profileCheck");
-		if(profile != null) {
-			
+		if (profile != null) {
+
 			String renamedFilename = profile.getRenamedFilename();
-			
+
 			return new ResponseEntity<String>(renamedFilename, header, HttpStatus.OK);
-		}else{
-			return new ResponseEntity<String>("https://cdn-icons-png.flaticon.com/512/64/64572.png", header,  HttpStatus.OK);
+		} else {
+			return new ResponseEntity<String>("https://cdn-icons-png.flaticon.com/512/64/64572.png", header,
+					HttpStatus.OK);
 		}
-		
+
 	}
 }
