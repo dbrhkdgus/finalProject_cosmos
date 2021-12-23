@@ -144,24 +144,53 @@ public class AdminController {
 		String searchType = request.getParameter("searchType");
 		String searchKeyword = request.getParameter("searchKeyword");
 		String searchGender = request.getParameter("searchGender");
+		String searchRegDateStart = request.getParameter("searchRegDateStart");
+		String searchRegDateEnd = request.getParameter("searchRegDateEnd");
+		String searchBirthdayStart = request.getParameter("searchBirthdayStart");
+		String searchBirthdayEnd = request.getParameter("searchBirthdayEnd");
+		String searchJob = request.getParameter("searchJob");
+		String searchEnabled = request.getParameter("searchEnabled");
 		
 		//받온 값 Map 에 넣기
 		Map<String, String> param = new HashMap<>();
 		param.put("searchType", searchType);
 		param.put("searchKeyword", searchKeyword);
 		param.put("searchGender", searchGender);
+		param.put("searchRegDateStart", searchRegDateStart);
+		param.put("searchRegDateEnd", searchRegDateEnd);
+		param.put("searchBirthdayStart", searchBirthdayStart);
+		param.put("searchBirthdayEnd", searchBirthdayEnd);
+		param.put("searchJob", searchJob);
+		param.put("searchEnabled", searchEnabled);
 
 		log.debug("searchType = {}", searchType);
 		log.debug("searchKeyword = {}", searchKeyword);
 		log.debug("searchGender = {}", searchGender);
+		log.debug("searchRegDateStart = {}", searchRegDateStart);
+		log.debug("searchRegDateEnd = {}", searchRegDateEnd);
+		log.debug("searchBirthdayStart = {}", searchBirthdayStart);
+		log.debug("searchBirthdayEnd = {}", searchBirthdayEnd);
+		log.debug("searchJob = {}", searchJob);
+		log.debug("searchEnabled = {}", searchEnabled);
 		
+		//업무로직
 		List<Member> list = adminService.searchMembers(limit, offset, param);
 		log.debug("list = {}", list);
 		
 		model.addAttribute("list", list);
+		
+		//검색 타입 유지하기 위한 model.
 		model.addAttribute("searchType", searchType);
 		model.addAttribute("searchKeyword", searchKeyword);
 		model.addAttribute("searchGender", searchGender);
+		model.addAttribute("searchRegDateStart", searchRegDateStart);
+		model.addAttribute("searchRegDateEnd", searchRegDateEnd);
+		model.addAttribute("searchBirthdayStart", searchBirthdayStart);
+		model.addAttribute("searchBirthdayEnd", searchBirthdayEnd);
+		model.addAttribute("searchBirthdayEnd", searchRegDateStart);
+		model.addAttribute("searchJob", searchJob);
+		model.addAttribute("searchEnabled", searchEnabled);
+		
 		return "/admin/members";
 	}
 	
