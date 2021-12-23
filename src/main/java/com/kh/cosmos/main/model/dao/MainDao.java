@@ -8,6 +8,7 @@ import com.kh.cosmos.group.model.vo.ApplocationGroup;
 import com.kh.cosmos.group.model.vo.Group;
 import com.kh.cosmos.main.model.vo.Notice;
 import com.kh.cosmos.main.model.vo.Question;
+import com.kh.cosmos.main.model.vo.Reply;
 
 public interface MainDao {
 
@@ -34,5 +35,10 @@ public interface MainDao {
 
 	int insertQuestion(Question que);
 
+	int insertQueReply(Reply reply);
+
 	List<Group> selectAllGroupListByDate();
+
+	List<Reply> selectReplyListByqueNo(int queNo);
+
 }
