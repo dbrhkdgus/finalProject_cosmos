@@ -50,11 +50,14 @@ public class AdminServiceImpl implements AdminService{
 	}
 
 	@Override
+	public int updateGroupApprove(int groupNo) {
+		return adminDao.updateGroupApprove(groupNo);
+	}
+	
+	@Override
 	public List<Attachment> selectKakaoImage(String id) {
 		return adminDao.selectKakaoImage(id);
 	}
-
-
 
 	
 }

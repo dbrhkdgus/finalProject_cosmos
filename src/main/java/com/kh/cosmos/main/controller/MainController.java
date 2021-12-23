@@ -4,6 +4,7 @@ import static org.springframework.security.test.web.servlet.request.SecurityMock
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Collection;
 import java.util.List;
 
 import javax.servlet.ServletContext;
@@ -13,7 +14,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.security.core.Authentication;
-
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -233,14 +234,16 @@ public class MainController {
 		log.debug("queNo = {}", queNo);
 		Question que = mainService.selectOneQuestionByNo(queNo);
 		Attachment att = mainService.selectOneAttach(que.getAttachNo());
+		
 		Member member = (Member)authentication.getPrincipal();
 		log.debug("member = {}", member);
 		
 		List<Reply> replyList = mainService.selectReplyListByqueNo(queNo);
 		log.debug("reply = {}", replyList);
+		String role = authentication.getAuthorities().toString();
+		Member loginMember = (Member) authentication.getPrincipal();
 		
-
-		if(!que.getMemberId().equals(member.getId()) || "admin".equals(member.getId()) || member == null) {
+		if(!que.getMemberId().equals(loginMember.getId()) && !role.equals("[ROLE_ADMIN]")) {
 
 			redirectAttr.addFlashAttribute("msg", "작성자만 확인 가능합니다.");
 			return "redirect:/main/qa.do";

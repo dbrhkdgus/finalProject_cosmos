@@ -148,6 +148,10 @@ public class MemberController {
 				attach.setOriginalFilename(originalFilename);
 				attach.setMemberId(member.getId());
 
+			}else {
+				attach.setRenamedFilename("defaultProfile.png");
+				attach.setOriginalFilename("defaultProfile.png");
+				attach.setMemberId(member.getId());
 			}
 			result = memberService.insertAttach(attach);
 			// 2.리다이렉트 & 사용자피드백전달
@@ -211,6 +215,11 @@ public class MemberController {
 
 		List<ApplocationGroup> myGroupList = memberService.selectMyGroupList(userId);
 		model.addAttribute("myGroupList", myGroupList);
+		List<ApplocationGroup> myNotJoinedGroupList = memberService.selectmyNotJoinedGroupList(userId);
+		model.addAttribute("myNotJoinedGroupList", myNotJoinedGroupList);
+		List<ApplocationGroup> myNotAllowedGroupList = memberService.selectmyNotAllowedGroupList(userId);
+		model.addAttribute("myNotAllowedGroupList", myNotAllowedGroupList);
+		
 
 		List<Group> groupList = groupService.selectAllMyGroupList();
 		model.addAttribute("groupList", groupList);
@@ -356,5 +365,17 @@ public class MemberController {
 					HttpStatus.OK);
 		}
 
+	}
+	
+	
+	@GetMapping("/checkIdDuplicate1.do")
+	@ResponseBody
+	public Map<String, Object> checkIdDuplicate2(@RequestParam String id, Model model) {
+		log.debug("id = {}", id);
+		Map<String, Object> map = new HashMap<>();
+		
+		Member member = memberService.selectOneMember(id);
+		map.put("available", member == null);
+		return map;
 	}
 }
