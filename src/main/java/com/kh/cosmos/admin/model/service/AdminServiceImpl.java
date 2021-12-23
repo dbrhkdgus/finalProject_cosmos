@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.cosmos.admin.model.dao.AdminDao;
+import com.kh.cosmos.common.attachment.model.vo.Attachment;
 import com.kh.cosmos.group.model.vo.ApplocationGroup;
 import com.kh.cosmos.group.model.vo.NotApprovedGroup;
 import com.kh.cosmos.member.model.vo.Member;
@@ -52,8 +53,11 @@ public class AdminServiceImpl implements AdminService{
 	public int updateGroupApprove(int groupNo) {
 		return adminDao.updateGroupApprove(groupNo);
 	}
-
-
+	
+	@Override
+	public List<Attachment> selectKakaoImage(String id) {
+		return adminDao.selectKakaoImage(id);
+	}
 
 	
 }

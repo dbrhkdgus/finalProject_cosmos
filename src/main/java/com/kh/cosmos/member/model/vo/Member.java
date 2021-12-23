@@ -45,7 +45,7 @@ public class Member implements Serializable, UserDetails {
 	private Date memberEnrollDate;
 	private String memberJob;
 	private String memberAchieve;
-	private int attchNo;
+	private int attachNo;
 	private boolean enabled;//회원 활성화 여부
 
 	
@@ -66,7 +66,6 @@ public class Member implements Serializable, UserDetails {
 	}
 	@Override
 	public boolean isAccountNonExpired() {
-		// TODO Auto-generated method stub
 		return true;
 	}
 	@Override

@@ -10,8 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+<<<<<<< HEAD
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+=======
+import org.springframework.web.bind.annotation.RequestBody;
+>>>>>>> branch 'master' of https://github.com/dbrhkdgus/finalProject_cosmos.git
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -257,6 +261,36 @@ public class AdminController {
 		return "redirect:/admin/permitGroups.do";
 	}
 			
+	@GetMapping("/selectKakaoImage.do")
+	@ResponseBody
+	public Map<String, Object> selectKakaoImage(@RequestParam String id, Model model) {
+		log.debug("id = {}", id);
+		
+		//이미지 주소값 담을 변수 선언
+		String imgSrc ="";
+		
+		//업무로직
+		List<Attachment> list = adminService.selectKakaoImage(id);
+		log.debug("list = {}", list);
+		for(Attachment attach : list) {
+			//http://~로 시작하는 filseName이 있다면 그게 카카오 아이디의 대표 프로필 이미지 주소이다.
+			System.out.println("111111111111111111111111");
+			System.out.println(attach.getRenamedFilename());
+			System.out.println(attach.getOriginalFilename().contains("http://kakaocdn.net/"));
+			if(attach.getOriginalFilename().contains("http://k.kakaocdn.net/")) {
+				imgSrc = attach.getRenamedFilename();
+				System.out.println("222222222222222222222222");
+				System.out.println("attah = "+attach);
+			}
+		}
+		
+		log.debug("imgSrc = {}", imgSrc);
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("imgSrc", imgSrc);
+		
+		return map;
+	}
 	
 	@GetMapping("/StatisticsOfMember.do")
 	public String StatisticsOfMember() {

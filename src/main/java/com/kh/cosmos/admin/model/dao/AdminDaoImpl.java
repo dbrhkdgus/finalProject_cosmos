@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.kh.cosmos.common.attachment.model.vo.Attachment;
 import com.kh.cosmos.group.model.vo.ApplocationGroup;
 import com.kh.cosmos.group.model.vo.NotApprovedGroup;
 import com.kh.cosmos.member.model.vo.Member;
@@ -55,6 +56,11 @@ public class AdminDaoImpl implements AdminDao {
 	@Override
 	public int updateGroupApprove(int groupNo) {
 		return session.update("admin.updateGroupApprove", groupNo);
+	}
+	
+	@Override
+	public List<Attachment> selectKakaoImage(String id) {
+		return session.selectList("admin.selectKakaoImage", id);
 	}
 
 }
