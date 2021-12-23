@@ -38,7 +38,7 @@ public class AdminDaoImpl implements AdminDao {
 	@Override
 	public List<Member> searchMembers(int limit, int offset, Map<String, String> param) {
 		RowBounds rowBounds = new RowBounds(offset, limit);
-		return session.selectList("admin.searchMembers", param);
+		return session.selectList("admin.searchMembers",param, rowBounds);
 	}
 
 	@Override

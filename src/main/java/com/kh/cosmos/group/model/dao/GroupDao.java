@@ -52,6 +52,8 @@ public interface GroupDao {
 
 	CategoryTwo selectCategoryTwoListByGroupNo(String num);
 
+	int insertGroupJoin(ApplocationGroup applocationGroup);
+
 
 
 }
