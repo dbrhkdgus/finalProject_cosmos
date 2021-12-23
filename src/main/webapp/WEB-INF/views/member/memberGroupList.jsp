@@ -112,7 +112,7 @@
 						                		</c:forEach>
 				                			</c:if>
 				                		</c:forEach>
-			                          	
+			                          	 
 			                          <p class="card-text">
 			                          	<small class="text-muted">
 			                          		<c:choose> 
