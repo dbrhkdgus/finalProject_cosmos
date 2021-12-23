@@ -59,7 +59,7 @@
   width: 100%;
   height: 50px;
   border: none;
-  color: #846CD9;
+  color:#2458BF;
   font-weight: bold;
 }
 
@@ -108,9 +108,10 @@
   flex-direction: column;
 }
 .footer-up-box {
+	
   flex-wrap: wrap;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: center;
 }
 .footer-down-box{
   display: flex;
@@ -127,6 +128,7 @@
 }
 .footer-list{
   width: 50%;
+
 }
 
 /*스터디 서칭 css시작부분*/

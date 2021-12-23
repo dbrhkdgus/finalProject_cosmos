@@ -69,7 +69,7 @@
 				</ul>
 				<form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" style="display:flex; margin-left:10px;">
 	          		<input type="search" class="form-control form-control-dark" placeholder="찾고있는 스터디그룹을 검색해보세요!" aria-label="Search">
-	          		<button type="button" class="btn btn-info" style="margin-left:10px; background-color:#6D8EF2 ; color:white;"><i class="fas fa-search"></i></button>
+	          		<button type="button" class="btn btn-info" style="margin-left:10px; background-color:#2458BF ; color:white;"><i class="fas fa-search"></i></button>
 	        	</form>
 			</div>
 		</div>
