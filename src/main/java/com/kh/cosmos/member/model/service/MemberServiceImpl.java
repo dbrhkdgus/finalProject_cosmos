@@ -68,5 +68,15 @@ public class MemberServiceImpl implements MemberService {
 		// TODO Auto-generated method stub
 		return memberDao.updateAttach(oldProfile);
 	}
+
+	@Override
+	public List<ApplocationGroup> selectmyNotAllowedGroupList(String userId) {
+		return memberDao.selectmyNotAllowedGroupList(userId);
+	}
+
+	@Override
+	public List<ApplocationGroup> selectmyNotJoinedGroupList(String userId) {
+		return memberDao.selectmyNotJoinedGroupList(userId);
+	}
 	
 }

@@ -30,6 +30,12 @@
 	<select id="selectMyGroupList" resultType="ApplocationGroup">
 		select * from applocation_group where member_id = #{memberId} and group_accept = 'Y'
 	</select>
+	<select id="selectmyNotAllowedGroupList" resultType="ApplocationGroup">
+		select * from applocation_group where member_id = #{memberId} and group_accept = 'N'  and role='G'
+	</select>
+	<select id="selectmyNotJoinedGroupList" resultType="ApplocationGroup">
+		select * from applocation_group where member_id = #{memberId} and group_accept = 'N'  and role='P'
+	</select>
 	<select id="selectAllGroupListByParam" resultType="group">
 	
 	</select>

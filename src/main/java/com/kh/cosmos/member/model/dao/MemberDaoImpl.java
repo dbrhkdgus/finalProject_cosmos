@@ -60,5 +60,15 @@ public class MemberDaoImpl implements MemberDao {
 		// TODO Auto-generated method stub
 		return session.update("member.updateAttach", oldProfile);
 	}
+
+	@Override
+	public List<ApplocationGroup> selectmyNotAllowedGroupList(String userId) {
+		return session.selectList("member.selectmyNotAllowedGroupList", userId);
+	}
+
+	@Override
+	public List<ApplocationGroup> selectmyNotJoinedGroupList(String userId) {
+		return session.selectList("member.selectmyNotJoinedGroupList", userId);
+	}
 	
 }
