@@ -27,19 +27,9 @@
 <div class="container mt-5">
         <div class="col-12 tm-block-col">
           <div class="tm-bg-primary-dark tm-block tm-block-h-auto">
-            <h2 class="tm-block-title">심사 대기 목록</h2>
-            <!-- <p class="text-white">검색 카테고리</p>
-            <div>
-              <select class="custom-select selectBar mr-3">
-                <option value="0">전체</option>
-                <option value="1">모임명</option>
-                <option value="2">생성일</option>
-                <option value="3">유/무료</option>
-                <option value="4">비밀 여부</option>
-              </select>
-              <input id="searchKeyword"  type="text" class="form-control mb-5" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-            </div> -->
-            <!-- 회원목록 테이블 -->
+            <h2 class="tm-block-title">승인 대기 목록</h2>
+            
+            <!-- 그룹목록 테이블 -->
             <div class="row tm-content-row">
               <table class="table mb-3">
                 <thead>
@@ -55,64 +45,58 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>1</td>
-                    <td>개성공단</td>
-                    <td>2021/11/11</td>
-                    <td>무료</td>
-                    <td>모집 중</td>
-                    <td>10/10</td>
-                    <td>공개</td>
-                    <td>90</td>
-                  </tr>
-                  <tr>
-                    <td>1</td>
-                    <td>개성공단</td>
-                    <td>2021/11/11</td>
-                    <td>무료</td>
-                    <td>모집 중</td>
-                    <td>10/10</td>
-                    <td>공개</td>
-                    <td>90</td>
-                  </tr>              <tr>
-                    <td>1</td>
-                    <td>개성공단</td>
-                    <td>2021/11/11</td>
-                    <td>무료</td>
-                    <td>모집 중</td>
-                    <td>10/10</td>
-                    <td>공개</td>
-                    <td>90</td>
-                  </tr>              <tr>
-                    <td>1</td>
-                    <td>개성공단</td>
-                    <td>2021/11/11</td>
-                    <td>무료</td>
-                    <td>모집 중</td>
-                    <td>10/10</td>
-                    <td>공개</td>
-                    <td>90</td>
-                  </tr>              <tr>
-                    <td>1</td>
-                    <td>개성공단</td>
-                    <td>2021/11/11</td>
-                    <td>무료</td>
-                    <td>모집 중</td>
-                    <td>10/10</td>
-                    <td>공개</td>
-                    <td>90</td>
-                  </tr>              <tr>
-                    <td>1</td>
-                    <td>개성공단</td>
-                    <td>2021/11/11</td>
-                    <td>무료</td>
-                    <td>모집 중</td>
-                    <td>10/10</td>
-                    <td>공개</td>
-                    <td>90</td>
+	                <c:forEach var="notA" items="${notApprovedAG}">
+	                  <tr class="selectOne">
+	                    <td>${notA.groupNo}</td>
+	                    <td>${notA.memberId}</td>
+	                    <c:forEach var="allGroup" items="${groupList}">
+	                    	<c:if test="${notA.groupNo == allGroup.groupNo}">
+	                    		<td>${allGroup.groupName}</td>
+	                    	</c:if>
+	                    </c:forEach>
+	                    <c:forEach var="allGroup" items="${groupList}">
+                			<c:if test="${notA.groupNo == allGroup.groupNo}">
+		                		<c:forEach var="cate" items="${caOneList}">
+			                		<c:if test="${allGroup.categoryNo == cate.category1No}">
+			                			<td>${cate.category1Name}</td>
+			                		</c:if>
+		                		</c:forEach>
+                			</c:if>
+                		</c:forEach>
+	                    <c:forEach var="allGroup" items="${groupList}">
+	                    	<c:if test="${notA.groupNo == allGroup.groupNo}">
+			                    <td>
+			                    	<c:choose> 
+										<c:when test="${fn:contains(allGroup.groupCharge, 'P')}">
+											유료
+										</c:when> 
+										<c:otherwise>
+											무료
+										</c:otherwise> 
+									</c:choose> 
+			                    </td>
+			                    <td><fmt:formatDate value="${allGroup.groupEnrollDate}" pattern="yyyy/MM/dd"/></td>
+			                    <td>
+			                    	<c:choose> 
+										<c:when test="${fn:contains(allGroup.groupPrivate, 'L')}">
+											O
+										</c:when> 
+										<c:otherwise>
+											X
+										</c:otherwise> 
+									</c:choose>
+			                    </td>
+			                    <td>공개</td>
+	                    	</c:if>
+	                    </c:forEach>
+	                  </tr>
+	                  
+	                </c:forEach>
                 </tbody>
               </table>
-              <nav aria-label="Page navigation example" style="margin: auto;">
+              <div style="margin: auto">${pagebar}</div>
+              
+              <!-- <nav aria-label="Page navigation example" style="margin: auto;">
                 <ul class="pagination">
                   <li class="page-item">
                     <a class="page-link" href="#" aria-label="Previous">
@@ -128,7 +112,7 @@
                     </a>
                   </li>
                 </ul>
-              </nav>
+              </nav> -->
             </div>
           </div>
           
@@ -141,6 +125,7 @@
               <h2 class="tm-block-title">그룹 프로필 사진</h2>
               <div class="tm-avatar-container">
                 <img
+                  id="profileImg"
                   src="${pageContext.request.contextPath}/resources/images/avatar.png"
                   alt="Avatar"
                   class="tm-avatar img-fluid mb-4"
@@ -156,99 +141,86 @@
             <div class="tm-bg-primary-dark tm-block tm-block-settings">
               <h2 class="tm-block-title">모임 정보</h2>
               <form action="" class="tm-signup-form row">
-                <div class="form-group col-lg-6">
-                  <label for="name">그룹명</label>
+                <div class="form-group col-lg-12">
+                  <label for="groupName">그룹명</label>
                   <input
-                    id="name"
-                    name="name"
+                    id="groupName"
+                    name="groupName"
                     type="text"
                     class="form-control validate"
-                    value="개성공단"
                     disabled
                   />
                 </div>
+                
                 <div class="form-group col-lg-6">
-                  <label for="email">생성일</label>
+                  <label for="hostId">그룹장</label>
+                  <input
+                    id="hostId"
+                    name="hostId"
+                    type="text"
+                    class="form-control validate"
+                    disabled
+                  />
+                </div>
+                
+                <div class="form-group col-lg-6">
+                  <label for="enrollDate">생성일</label>
                   <input
                     id="enrollDate"
                     name="enrollDate"
                     type="date"
                     class="form-control validate"
-                    value="2021-12-15"
+                    disabled
+                  />
+                </div>
+                
+                <div class="form-group col-lg-6">
+                  <label for="category">카테고리</label>
+                  <input
+                    id="category"
+                    name="category"
+                    class="form-control validate"
                     disabled
                   />
                 </div>
 
                 <div class="form-group col-lg-6">
-                  <label for="password2">유/무료</label>
+                  <label for="groupCharge">유/무료</label>
                   <input
-                    id="charge"
-                    name="charge"
+                    id="groupCharge"
+                    name="groupCharge"
                     class="form-control validate"
-                    value="유료"
                     disabled
                   />
                 </div>
+                                
                 <div class="form-group col-lg-6">
-                  <label for="phone">모집 여부</label>
-                  <input
-                    id="groupClose"
-                    name="groupClose"
-                    class="form-control validate"
-                    value="모집 중"
-                    disabled
-                  />
-                </div>
-                <div class="form-group col-lg-6">
-                  <label for="phone">정원</label>
+                  <label for="groupPool">그룹정원</label>
                   <input
                     id="groupPool"
                     name="groupPool"
                     class="form-control validate"
-                    value="7/7"
-                    disabled
-                  />
-                </div>
-                <div class="form-group col-lg-6">
-                  <label for="phone">비밀 여부</label>
-                  <input
-                    id="groupPrivate"
-                    name="groupPrivate"
-                    class="form-control validate"
-                    value="미설정"
-                    disabled
-                  />
-                </div>
-                <div class="form-group col-lg-12">
-                  <label for="phone">좋아요 수</label>
-                  <input
-                    id="likeCount"
-                    name="likeCount"
-                    type="number"
-                    class="form-control validate"
-                    value="200000000"
                     disabled
                   />
                 </div>
                 
-                <!-- 멤버-그룹 연결 테이블 join 해야함. -->
-                <div class="form-group col-lg-12">
-                  <label for="phone">참여 인원</label>
+                <div class="form-group col-lg-6">
+                  <label for="groupPrivate">비밀 여부</label>
                   <input
-                    id="memberList"
-                    name="memberList"
+                    id="groupPrivate"
+                    name="groupPrivate"
                     class="form-control validate"
-                    value="kh1231, honggd, sinsa, Michol, Ttochi, Duli, gogd"
                     disabled
                   />
                 </div>
+                
                 <div class="form-group col-lg-6">
                   <label class="tm-hide-sm">&nbsp;</label>
                   <button
                     type="button"
                     class="btn btn-primary btn-block text-uppercase"
                   >
-                      그룹 접속
+                      승인하기
                   </button>
                 </div>
                 <div class="form-group col-lg-6">
@@ -258,14 +230,51 @@
                     type="button"
                     class="btn btn-danger btn-block text-uppercase"
                   >
-                      블랙리스트 등록
+                      거절하기
                   </button>
                 </div>
               </form>
           </div>
         </div>
       </div>
-
+<script>      
+/*클릭한 그룹 정보 불러오기*/
+$(".selectOne").click((e)=>{
+	
+	/* 테이블 내 그룹 데이터 담긴 행을 클릭시, 해당 행 그룹 데이터를 비동기로 호출한다. */
+	var notApprovedG = e.target.parentNode.children[0].innerText;
+	
+	$.ajax({
+		url: `${pageContext.request.contextPath}/admin/selectOneNAG.do`,
+		data: {
+			groupNo: notApprovedG
+		},
+		dataType: "json",
+		success: function(data){
+			console.log(data);
+			console.log(data.nag.groupName);
+			$("#groupName").val(data.nag.groupName);
+			$("#hostId").val(data.nag.hostId);
+			$("#enrollDate").val(data.nag.groupEnrollDate);
+			$("#category").val(data.nag.category1Name);
+			if(data.nag.groupCharge == "P"){
+				$("#groupCharge").val("유료")
+			}else{
+				$("#groupCharge").val("무료")
+			}
+			$("#groupPool").val(data.nag.groupPool);
+			if(data.nag.groupPrivate == "L"){
+				$("#groupPrivate").val("O")
+			}else{
+				$("#groupPrivate").val("X")
+			}
+			
+			
+		},
+		error: console.log
+	});
+});
+</script>
 <jsp:include page="/WEB-INF/views/common/ad_footer.jsp">
 	<jsp:param value="COSMOS" name="title"/>
 </jsp:include>
