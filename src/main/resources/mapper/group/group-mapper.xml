@@ -30,7 +30,7 @@
 			attachment
 		values(
 			seq_attach_no_no.nextval,
-			#{id},
+			#{memberId},
 			#{groupNo},
 			#{originalFilename},
 			#{renamedFilename},

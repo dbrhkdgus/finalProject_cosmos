@@ -23,7 +23,8 @@ public interface AdminService {
 
 	List<NotApprovedGroup> selectOneNotApprovedGroup(Map<String, Object> param);
 
-	List<Attachment> selectKakaoImage(String id);
+	int updateGroupApprove(int groupNo);
 
+	List<Attachment> selectKakaoImage(String id);
 
 }
