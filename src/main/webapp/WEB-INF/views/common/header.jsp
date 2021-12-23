@@ -50,7 +50,7 @@
 
 </head>
     <body>
-        <header style="box-shadow: 12px -7px 22px #ccc; margin-bottom: 50px; font-family: 'SBAggroB'; font-size: 20px; ">
+        <header class="header"style="box-shadow: 12px -7px 22px #ccc; margin-bottom: 50px; font-family: 'SBAggroB'; font-size: 20px; disflex:fixed;">
             <!-- Responsive navbar-->
             <nav class="navbar navbar-expand-lg">
                 <div class="container" id="headerContainer">
@@ -127,4 +127,5 @@
         </nav>
     </header>
 <script>
+
 </script>
