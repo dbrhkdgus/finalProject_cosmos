@@ -11,6 +11,7 @@ import com.kh.cosmos.common.attachment.model.vo.Attachment;
 import com.kh.cosmos.group.model.vo.Group;
 import com.kh.cosmos.main.model.vo.Notice;
 import com.kh.cosmos.main.model.vo.Question;
+import com.kh.cosmos.main.model.vo.Reply;
 
 @Repository
 public class MainDaoImpl implements MainDao {
@@ -83,10 +84,26 @@ public class MainDaoImpl implements MainDao {
 	}
 
 	@Override
+	public int insertQueReply(Reply reply) {
+		// TODO Auto-generated method stub
+		return session.insert("question.insertQueReply",reply);
+	}
+	
+	@Override
 	public List<Group> selectAllGroupListByDate() {
 		// TODO Auto-generated method stub
 		return session.selectList("index.selectAllGroupListByDate" );
 	}
+
+	@Override
+	public List<Reply> selectReplyListByqueNo(int queNo) {
+		// TODO Auto-generated method stub
+		return session.selectList("question.selectReplyListByqueNo",queNo);
+	}
+	
+	
+
+	
 	
 	
 }
