@@ -21,7 +21,7 @@
 				<div class="card">
 					<div class="card-header">회원 정보수정</div>
 					<div class="card-body">
-						<form name="memberUpdateFrm" method="POST" action="${pageContext.request.contextPath }/member/memberUpdate.do?${_csrf.parameterName}=${_csrf.token}">
+						<form:form name="memberUpdateFrm" method="POST" action="${pageContext.request.contextPath }/member/memberUpdate.do?${_csrf.parameterName}=${_csrf.token}" enctype="multipart/form-data">
 							<div class="form-group row" style="display: flex; justify-content: center; margin: 45px;">
 								<c:if test="${not empty profile }">
 									<c:choose>
@@ -178,7 +178,7 @@
 							<div class="col-md-6 offset-md-4 group-create-button">
 								<button type="submit" class="btn btn-primary">정보수정</button>
 							</div>
-						</form>
+						</form:form>
 					</div>
 				</div>
 			</div>
@@ -243,36 +243,7 @@ $("#passwordCheck").blur(function(){
 	}
 });
 
-$(document.memberUpdateFrm).submit((e) =>{
-	e.preventDefault();
-	const formData = new FormData(e.target);
-	const obj = {};
-	for(const [k, v] of formData){
-		obj[k] = v;
-	}
-	const email = $("input[name=emailId]").val() + '@' + $("input[name=email-server]").val();
-	
-	obj.memberEmail = email;
-	console.log(obj);
-	
- 	const jsonStr = JSON.stringify(obj);
-	console.log(jsonStr);
-	
- 	$.ajax({
-		url:"${pageContext.request.contextPath}/member/memberUpdate.do",
-		method:"POST",
-		data: jsonStr,
-		contentType: "application/json; charset=utf-8",
-		headers: {
-			"${_csrf.headerName}" : "${_csrf.token}"
-		},
-		success(res){
-			console.log(res);
-			location.reload();
-		},
-		error:console.log
-	}); 
-});
+
 
 </script>
 

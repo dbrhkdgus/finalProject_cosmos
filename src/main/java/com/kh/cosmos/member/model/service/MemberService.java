@@ -22,4 +22,6 @@ public interface MemberService {
 
 	Attachment selectMemberProfile(String id);
 
+	int updateAttach(Attachment oldProfile);
+
 }

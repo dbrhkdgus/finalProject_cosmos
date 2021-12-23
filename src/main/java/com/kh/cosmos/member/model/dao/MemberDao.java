@@ -22,4 +22,6 @@ public interface MemberDao {
 
 	Attachment selectMemberProfile(String id);
 
+	int updateAttach(Attachment oldProfile);
+
 }
