@@ -79,25 +79,27 @@
 	                        	<div class="search-inner">
 	                    	</c:if> 
 	                            <!-- Blog post-->
-									<div class="card mb-4 search-card">
+									<div class="card mb-4 search-card" style="width: 350px; height: 460px;">
 		                                <a href="${pageContext.request.contextPath}/group/groupDetail.do?groupNo=${group.groupNo}">
 		                                <c:forEach var="attach" items="${attachList }">
 			                                <c:if test="${group.groupNo == attach.groupNo }">
-			                                	<img class="card-img-top" src="${pageContext.request.contextPath }/resources/upFile/group/${attach.renamedFilename}"
+			                                	<img class="card-img-top" 
+			                                	style = "width: 348px; height: 300px;"
+			                                	src="${pageContext.request.contextPath }/resources/upFile/group/${attach.renamedFilename}"
 			                                        alt="..." />
 			                                </c:if>
 			                                </c:forEach>
 		                                </a>
-		                                <div class="card-body">
+		                                <div class="search-card-body card-body">
 		                                    <div class="small text-muted">${group.groupEnrollDate }</div>
-		                                    <h2 class="card-title h4">${group.groupName }</h2>
+		                                    <h2 class="card-title h4" style="margin: 0.5rem 0 0.5rem 0;">${group.groupName }</h2>
 		                                     <c:forEach var="gi" items="${giList }">
 			                                <c:if test="${group.groupNo == gi.groupNo }">
 			                                	<p class="card-text">${gi.giTitle }</p>
 			                                </c:if>
 			                                </c:forEach>
 		                                    
-		                                    <a class="btn btn-primary" href="#!">Read more →</a>
+		                                    <a class="btn btn-primary d-inline" id="search-more-btn" href="${pageContext.request.contextPath}/group/groupDetail.do?groupNo=${group.groupNo}">더보기 →</a>
 		                                </div>
 		                                <!--좋아요 기능구현 해보는중  -->
 		                               <sec:authorize access="isAnonymous()">
