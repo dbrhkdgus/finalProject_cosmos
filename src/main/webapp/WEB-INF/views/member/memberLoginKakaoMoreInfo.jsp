@@ -182,10 +182,11 @@
 								</div>
 							</div>
 
-
+							
 							<div class="col-md-6 offset-md-3 group-create-button">
 								<button type="submit" class="btn btn-primary">회원가입</button>
 							</div>
+							<input type="hidden" name="profile_img" value="${profile_img}" />
 						</form>
 						</div>
 					</div>
