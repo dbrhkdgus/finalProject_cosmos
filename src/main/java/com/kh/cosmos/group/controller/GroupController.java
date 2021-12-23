@@ -174,7 +174,9 @@ public class GroupController {
 		return "group/groupDetail";
 	}
 	@GetMapping("/groupJoin.do")
-	public String groupJoin() {
+	public String groupJoin(@RequestParam String groupNo, HttpServletRequest request) {
+		request.setAttribute(groupNo, groupNo);
+		log.debug("groupNo = {}",groupNo);
 		return "group/groupJoin";
 	}
 	

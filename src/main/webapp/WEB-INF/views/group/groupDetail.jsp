@@ -104,7 +104,7 @@
 				<div class="sticky-button-area">
 					<button type="button" class="btn btn-primary btn-m"
 						style="margin-right: 10px;">좋아요</button>
-					<button type="button" class="btn btn-secondary btn-m" onclick="location.href='${pageContext.request.contextPath}/group/groupJoin.do';">가입신청</button>
+					<button type="button" class="btn btn-secondary btn-m" onclick="location.href='${pageContext.request.contextPath}/group/groupJoin.do?groupNo=${group.groupNo}';">가입신청</button>
 				</div>
 			</div>
 		</div>
