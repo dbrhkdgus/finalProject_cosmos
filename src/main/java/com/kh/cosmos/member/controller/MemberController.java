@@ -260,25 +260,38 @@ public class MemberController {
 		}
 
 		Attachment oldProfile = memberService.selectMemberProfile(updateMember.getId());
+		int result = 0;
 
-		
 		  try {
-			  String originalFilename = upFile.getOriginalFilename(); String
-			  renamedFilename = CosmosUtils.getRenamedFilename(originalFilename);
 			  
+			  if(oldProfile != null && !upFile.getOriginalFilename().equals("")) {
+				  
+				  String originalFilename = upFile.getOriginalFilename(); String
+				  renamedFilename = CosmosUtils.getRenamedFilename(originalFilename);
+				  
+				  
+				  // 1.서버컴퓨터에 저장 String saveDirectory =
+				  String saveDirectory = application.getRealPath("/resources/upFile/profile"); 
+				  File dest = new  File(saveDirectory, renamedFilename);
+				  log.debug("dest = {}", dest);
+				  upFile.transferTo(dest);
+				  
+				  // 2.DB에 attachment 레코드 등록
+				  
+				  oldProfile.setRenamedFilename(renamedFilename);
+				  oldProfile.setOriginalFilename(originalFilename);
+			  }else if(upFile.getOriginalFilename().equals("")){
+				 
+				  
+			  }else {
+				  Attachment defaultProfile = new Attachment();
+				  defaultProfile.setMemberId(updateMember.getId());
+				  defaultProfile.setRenamedFilename("defaultProfile.png");
+				  defaultProfile.setOriginalFilename(application.getRealPath("defaultProfile.png"));
+				  result = memberService.insertAttach(defaultProfile);
+			  }
 			  
-			  // 1.서버컴퓨터에 저장 String saveDirectory =
-			  String saveDirectory = application.getRealPath("/resources/upFile/profile"); 
-			  File dest = new  File(saveDirectory, renamedFilename);
-			  log.debug("dest = {}", dest);
-			  upFile.transferTo(dest);
-			  
-			  // 2.DB에 attachment 레코드 등록
-			  
-			  oldProfile.setRenamedFilename(renamedFilename);
-			  oldProfile.setOriginalFilename(originalFilename);
-			  
-			  int result = memberService.updateAttach(oldProfile);
+			  result = memberService.updateAttach(oldProfile);
 		} catch (IllegalStateException | IOException e) {
 			// TODO Auto-generated catch block
 			throw e;
@@ -295,7 +308,7 @@ public class MemberController {
 		principal.setMemberJob(updateMember.getMemberJob());
 		principal.setPassword(updateMember.getPassword());
 
-		int result = memberService.updateMember(updateMember);
+		result = memberService.updateMember(updateMember);
 
 		Authentication newAuthentication = new UsernamePasswordAuthenticationToken(principal,
 				oldAuthentication.getCredentials(), updateMember.getAuthorities());
