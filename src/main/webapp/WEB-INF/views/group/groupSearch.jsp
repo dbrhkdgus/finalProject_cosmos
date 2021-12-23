@@ -207,7 +207,10 @@
 				}
 				$target.html(`<span>\${likeCnt}</span>`);
 			},
-			error: console.log
+			error(xhr, textStatus, err){
+                console.log(xhr, textStatus, err);
+                    alert("로그인후 이용가능합니다");
+            }
 		});
 	});
 	
