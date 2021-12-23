@@ -171,11 +171,9 @@ public class MemberController {
 		
 		List<Attachment> attachList = attachService.selectGroupAttachmentList();
 		model.addAttribute("attachList",attachList);
-		log.debug("attachList = {}", attachList);
 		
 		List<CategoryOne> caOneList = groupService.groupgroupContOne();
 		model.addAttribute("caOneList", caOneList);
-		log.debug("caOneList = {}", caOneList);
 		
 		return "member/memberGroupList";
 	}

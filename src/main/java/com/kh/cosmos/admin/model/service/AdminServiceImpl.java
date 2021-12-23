@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.cosmos.admin.model.dao.AdminDao;
+import com.kh.cosmos.group.model.vo.ApplocationGroup;
 import com.kh.cosmos.member.model.vo.Member;
 import com.kh.cosmos.member.model.vo.MemberWithGroup;
 
@@ -34,6 +35,11 @@ public class AdminServiceImpl implements AdminService{
 	@Override
 	public List<Member> searchMembers(int limit, int offset, Map<String, String> param) {
 		return adminDao.searchMembers(limit, offset, param);
+	}
+
+	@Override
+	public List<ApplocationGroup> selectNotApprovedAGList() {
+		return adminDao.selectNotApprovedAGList();
 	}
 
 
