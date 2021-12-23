@@ -224,7 +224,7 @@ public class MainController {
 		 	
 			
 		
-		return "redirect:/main/qa.do";
+		return "redirect:/main/qaDetail.do?queNo="+queNo;
 	}
 	
 	@GetMapping("/qaDetail.do")
@@ -236,6 +236,9 @@ public class MainController {
 		Member member = (Member)authentication.getPrincipal();
 		log.debug("member = {}", member);
 		
+		List<Reply> replyList = mainService.selectReplyListByqueNo(queNo);
+		log.debug("reply = {}", replyList);
+		
 
 		if(!que.getMemberId().equals(member.getId()) || "admin".equals(member.getId()) || member == null) {
 
@@ -246,6 +249,7 @@ public class MainController {
 		log.debug("que = {} ", que);
 		model.addAttribute("que",que);
 		model.addAttribute("att",att);
+		model.addAttribute("replyList",replyList);
 		
 		return "main/qaDetail";
 	}

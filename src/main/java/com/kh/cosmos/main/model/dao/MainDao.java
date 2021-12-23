@@ -38,4 +38,7 @@ public interface MainDao {
 	int insertQueReply(Reply reply);
 
 	List<Group> selectAllGroupListByDate();
+
+	List<Reply> selectReplyListByqueNo(int queNo);
+
 }

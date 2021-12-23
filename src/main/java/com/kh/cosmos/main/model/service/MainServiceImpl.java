@@ -98,5 +98,11 @@ public class MainServiceImpl implements MainService {
 		return mainDao.selectAllGroupListByDate();
 	}
 
+	@Override
+	public List<Reply> selectReplyListByqueNo(int queNo) {
+		return mainDao.selectReplyListByqueNo(queNo);
+	}
+
+	
 
 }

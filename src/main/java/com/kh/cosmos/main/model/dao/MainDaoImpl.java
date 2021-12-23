@@ -88,11 +88,22 @@ public class MainDaoImpl implements MainDao {
 		// TODO Auto-generated method stub
 		return session.insert("question.insertQueReply",reply);
 	}
-
+	
+	@Override
 	public List<Group> selectAllGroupListByDate() {
 		// TODO Auto-generated method stub
 		return session.selectList("index.selectAllGroupListByDate" );
 	}
+
+	@Override
+	public List<Reply> selectReplyListByqueNo(int queNo) {
+		// TODO Auto-generated method stub
+		return session.selectList("question.selectReplyListByqueNo",queNo);
+	}
+	
+	
+
+	
 	
 	
 }

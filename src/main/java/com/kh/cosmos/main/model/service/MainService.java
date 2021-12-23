@@ -38,4 +38,7 @@ public interface MainService {
 	
 	List<Group> selectAllGroupListByDate();
 
+	List<Reply> selectReplyListByqueNo(int queNo);
+
+
 }

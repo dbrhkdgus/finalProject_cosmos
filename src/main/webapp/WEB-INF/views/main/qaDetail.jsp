@@ -40,7 +40,6 @@ div#board-container label.custom-file-label{text-align:left;}
 		</div>
 	</div>
 	<br />
-	${que.queNo}
 <form:form action="${pageContext.request.contextPath }/main/queReplyEnroll.do" method="post" >
 	<input type="hidden" value="${que.queNo}" name ="queNo">
 		
@@ -51,10 +50,19 @@ div#board-container label.custom-file-label{text-align:left;}
 </form:form>
 		
 	<!--댓글유무분기처리  -->
+
+
 	<div class="card text-center">
-		<div class="reply-outer d-flex">
-		<p id="reply-writer">작성자 :</p>
-		<p id="reply-content">내용</p>
+		<div class="reply-outer ">
+			<c:forEach items="${replyList}" var="reply">
+				<div class="d-flex bd-highlight" style="text-align-last: start;">
+					<div class="p-2 bd-highlight">${reply.memberId}:</div>
+					<div class="p-2 flex-grow-1 bd-highlight">${reply.content}</div>
+					<div class="p-2 bd-highlight" style="font-size: 10px;">
+						<fmt:formatDate value="${reply.regDate}" pattern="yy-MM-dd" />
+					</div>
+				</div>
+			</c:forEach>
 		</div>
 	</div>
 
