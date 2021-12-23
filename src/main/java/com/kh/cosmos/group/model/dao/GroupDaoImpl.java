@@ -139,6 +139,50 @@ public class GroupDaoImpl implements GroupDao {
 		return session.insert("group.insertGroupJoin",applocationGroup);
 	}
 
+	@Override
+	public int selectgroupLike(Map<String, Object> param) {
+		// TODO Auto-generated method stub
+		return session.selectOne("group.selectgroupLike",param);
+	}
+
+	@Override
+	public int deletegroupLike(Map<String, Object> param) {
+		// TODO Auto-generated method stub
+		return session.delete("group.deletegroupLike",param);
+	}
+
+	@Override
+	public int insertgroupLike(Map<String, Object> param) {
+		// TODO Auto-generated method stub
+		return session.insert("group.insertgroupLike",param);
+	}
+
+	@Override
+	public int countFontLike(int groupNo) {
+		// TODO Auto-generated method stub
+		return session.selectOne("group.countFontLike",groupNo);
+	}
+
+	@Override
+	public int updateFontLike(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return session.update("group.updateFontLike",map);
+	}
+
+	@Override
+	public int selectCountGroupLike(int groupNo) {
+		// TODO Auto-generated method stub
+		return session.selectOne("group.selectCountGroupLike",groupNo);
+	}
+
+	@Override
+	public int updateGroupLikeCount(Map<String, Object> param1) {
+		// TODO Auto-generated method stub
+		return session.update("group.updateGroupLikeCount",param1);
+	}
+	
+	
+
 
 	
 	

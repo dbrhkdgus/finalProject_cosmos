@@ -194,5 +194,23 @@
 	insert into applocation_group values(seq_alg_no_no.nextval, #{memberId}, #{groupNo}, default, #{answer}, default)
 	</insert>
 	
-
+	<select id="selectgroupLike" resultType="_int"  parameterType="hashmap" >
+	select count(*) from interest_group where group_no = #{groupNo} and member_id = #{memberId}
+	</select>
+	
+	<delete id="deletegroupLike" parameterType="hashmap">
+	 delete from interest_group where group_no = #{groupNo} and member_id = #{memberId}
+	</delete>
+	
+	<insert id="insertgroupLike" parameterType="hashmap">
+	insert into interest_group values (seq_inter_no_no.nextval,#{memberId},#{groupNo})
+	</insert>
+	
+	<select id="selectCountGroupLike" resultType="_int">
+		select group_like_count  from tb_group where group_no =#{groupNo}
+	</select>	
+	
+	<update id="updateGroupLikeCount">
+		update tb_group set group_like_count = #{newCount} where group_no =#{groupNo}
+	</update>
 </mapper>

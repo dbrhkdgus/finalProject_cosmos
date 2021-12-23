@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ResourceLoader;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.google.gson.Gson;
 import com.kh.cosmos.common.CosmosUtils;
 import com.kh.cosmos.common.attachment.model.service.AttachmentService;
 import com.kh.cosmos.common.attachment.model.vo.Attachment;
@@ -35,6 +37,7 @@ import com.kh.cosmos.group.model.vo.GroupCategory;
 import com.kh.cosmos.group.model.vo.GroupEnroll;
 import com.kh.cosmos.group.model.vo.GroupInfo;
 import com.kh.cosmos.group.model.vo.GroupInfoConnect;
+import com.kh.cosmos.member.model.vo.Member;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -54,7 +57,8 @@ public class GroupController {
 	ResourceLoader resourceLoader;
 	
 	@GetMapping("/groupSearch.do")
-	public String groupSearch(@RequestParam(defaultValue = "1") int cPage, @RequestParam(defaultValue = "0") String ca1No, @RequestParam(defaultValue = "0") String ca2No, Model model, HttpServletRequest request) {
+	public String groupSearch(@RequestParam(defaultValue = "1") int cPage, @RequestParam(defaultValue = "0") String ca1No, @RequestParam(defaultValue = "0") String ca2No, Model model, 
+			HttpServletRequest request,Authentication auth) {
 		int limit = 9;
 		int offset = (cPage - 1) * limit;
 		
@@ -124,10 +128,9 @@ public class GroupController {
 		
 		String url = request.getRequestURI();
 		String pagebar = CosmosUtils.getPagebar(cPage, limit, totalContent, url);
-		log.debug("pagebar = {}", pagebar);
+//		log.debug("pagebar = {}", pagebar);
 		model.addAttribute("pagebar", pagebar);
 		
-	
 		return "group/groupSearch";
 	}
 	
@@ -136,30 +139,30 @@ public class GroupController {
 		
 		Group group = groupService.selectGroupListByGroupNo(groupNo);
 		model.addAttribute("group", group);
-		log.debug("group = {}", group);
+//		log.debug("group = {}", group);
 		
 		Attachment attach = attachService.selectGroupAttachmentListByGroupNo(groupNo);
 		model.addAttribute("attach",attach);
-		log.debug("attach = {}", attach);
+//		log.debug("attach = {}", attach);
 		
 		GroupInfoConnect giConn = groupService.selectAllGroupInfoByGroupNo(groupNo);
 		model.addAttribute("giConn",giConn);
-		log.debug("giConn = {}", giConn);
+//		log.debug("giConn = {}", giConn);
 		
 		int gsNo = giConn.getSeqNo();
 		List<GroupInfo> groupInfoList = groupService.selectGroupInfoListByGsNo(gsNo);
 		model.addAttribute("groupInfoList",groupInfoList);
-		log.debug("groupInfoList = {}", groupInfoList);
+//		log.debug("groupInfoList = {}", groupInfoList);
 		
 		String cateNo = Integer.toString(group.getCategoryNo());
 		log.debug("cateNo = {}", cateNo);
 		CategoryOne cate = groupService.selectCategoryOneByCateNo(cateNo);
 		model.addAttribute("cate",cate);
-		log.debug("cate = {}", cate);
+//		log.debug("cate = {}", cate);
 		
 		List<GroupCategory> gcList = groupService.selectGroupCategoryListByGroupNo(groupNo);
 		model.addAttribute("gcList",gcList);
-		log.debug("gcList = {}", gcList);
+//		log.debug("gcList = {}", gcList);
 		
 		List<CategoryTwo> cateTwoList = new ArrayList<>();
 		for(GroupCategory gc : gcList) {
@@ -169,7 +172,7 @@ public class GroupController {
 			cateTwoList.add(categoryTwo);
 		}
 		model.addAttribute("cateTwoList",cateTwoList);
-		log.debug("cateTwoList = {}", cateTwoList);
+//		log.debug("cateTwoList = {}", cateTwoList);
 		
 		return "group/groupDetail";
 	}
@@ -178,7 +181,7 @@ public class GroupController {
 		String groupNoStr = Integer.toString(groupNo);
 		Group group = groupService.selectGroupListByGroupNo(groupNoStr);
 		model.addAttribute(group);
-		log.debug("group = {}",group);
+//		log.debug("group = {}",group);
 		return "group/groupJoin";
 	}
 	
@@ -193,13 +196,13 @@ public class GroupController {
 			@RequestParam(value="upFile", required=false) MultipartFile upFile, 
 			RedirectAttributes redirectAttributes
 			) throws IllegalStateException, IOException {
-		log.debug("group = {}", groupEnroll);
-		log.debug("CateCheckBox = {}", groupEnroll.getCateCheckBox());
-		log.debug("groupId={}",groupEnroll.getMemberId());
-		
+//		log.debug("group = {}", groupEnroll);
+//		log.debug("CateCheckBox = {}", groupEnroll.getCateCheckBox());
+//		log.debug("groupId={}",groupEnroll.getMemberId());
+//		
 		String[] groupInfoArray = groupInfo.getGiContent().split(",");
 		for(String g : groupInfoArray) {
-			log.debug("g = {}", g);
+//			log.debug("g = {}", g);
 		}
 		
 		char groupPrivate = groupEnroll.getGroupPrivate();
@@ -213,20 +216,20 @@ public class GroupController {
 			
 			// application객체(ServletContext)
 			String saveDirectory = application.getRealPath("/resources/upFile/group");
-			log.debug("saveDirectory = {}", saveDirectory);
+//			log.debug("saveDirectory = {}", saveDirectory);
 	
 			if(!upFile.isEmpty() && upFile.getSize() != 0) {
 				
-				log.debug("upFile = {}", upFile);
-				log.debug("upFile.name = {}", upFile.getOriginalFilename());
-				log.debug("upFile.size = {}", upFile.getSize());
-				
+//				log.debug("upFile = {}", upFile);
+//				log.debug("upFile.name = {}", upFile.getOriginalFilename());
+//				log.debug("upFile.size = {}", upFile.getSize());
+//				
 				String originalFilename = upFile.getOriginalFilename();
 				String renamedFilename = CosmosUtils.getRenamedFilename(originalFilename);
 
 				// 1.서버컴퓨터에 저장
 				File dest = new File(saveDirectory, renamedFilename);
-				log.debug("dest = {}", dest);
+//				log.debug("dest = {}", dest);
 				upFile.transferTo(dest);
 				
 				// 2.DB에 attachment 레코드 등록
@@ -243,13 +246,13 @@ public class GroupController {
 			int result = groupService.insertGroup(groupEnroll);
 			
 			int attachNo = groupService.insertAttach(attach);
-			log.debug("attachNo = {}", attachNo);
+//			log.debug("attachNo = {}", attachNo);
 			
 			result = groupService.insertGroupInfoConnect(groupInfoConnect);
 		
 			String[] cateNo = groupEnroll.getCateCheckBox();
 			
-			log.debug("cateNo={}" ,cateNo);
+//			log.debug("cateNo={}" ,cateNo);
 			for(String catetest :cateNo) {
 				GroupCategory category = new GroupCategory();				
 				category.setCategory2No(Integer.parseInt(catetest));
@@ -275,7 +278,7 @@ public class GroupController {
 			String msg = result > 0 ? "그룹 신청 성공!" : "그룹 신청 실패!";
 			redirectAttributes.addFlashAttribute("msg", msg);
 		} catch (Exception e) {
-			log.error("메모등록 오류", e);
+//			log.error("메모등록 오류", e);
 			throw e;
 		}
 		
@@ -296,7 +299,7 @@ public class GroupController {
 	@GetMapping("/groupCategoryTwo.do")
 	@ResponseBody
 	public Map<String,String> groupgroupContTwo(Model model, String categoryOneNo) {
-		log.debug(categoryOneNo);
+//		log.debug(categoryOneNo);
 		Map<String,String> map = new HashMap<String,String>();
 		List<CategoryTwo> categoryTwoList = new ArrayList<>();
 		categoryTwoList = groupService.groupgroupContTwo(categoryOneNo);
@@ -309,7 +312,7 @@ public class GroupController {
 	@GetMapping("/category2Search")
 	@ResponseBody
 	public Map<String,String> category2Search(Model model, String ca1No) {
-		log.debug(ca1No);
+//		log.debug(ca1No);
 		
 		Map<String,String> map = new HashMap<String,String>();
 		List<CategoryTwo> categoryTwoList = new ArrayList<>();
@@ -323,7 +326,7 @@ public class GroupController {
 	}
 	@PostMapping("/groupJoinFrm.do")
 	public String groupJoinFrm(ApplocationGroup applocationGroup, @RequestParam String inlineRadioOptions,  HttpServletRequest request, RedirectAttributes redirectAttributes) {
-		log.debug("applocationGroup = {}" ,applocationGroup);
+//		log.debug("applocationGroup = {}" ,applocationGroup);
 		int result = groupService.insertGroupJoin(applocationGroup);
 		String msg = result > 0 ? "가입 신청 성공!" : "가입 신청 실패!";
 		redirectAttributes.addFlashAttribute("msg", msg);
@@ -331,6 +334,57 @@ public class GroupController {
 	}
 	
 	
+	@GetMapping("/groupLikeSearch.do")
+	@ResponseBody
+	public Map<String,Object> groupLike(@RequestParam int groupNo, Model model, HttpServletRequest request, Authentication auth) throws IllegalStateException, IOException {
+	        Member member = (Member)auth.getPrincipal();            
+	        
+	        Map<String, Object> param1 = new HashMap<>();   
+	        param1.put("groupNo", groupNo);
+	        param1.put("memberId", member.getId());
+	        log.debug("groupNo",groupNo);
+		
+		
+		int result = 0;
+		int likeValid = 0;
+		Map<String, Object> map = new HashMap<>();
+		likeValid = groupService.selectgroupLike(param1);
+		log.debug("likeValid={}",likeValid);
+		
+		int likeCnt = groupService.selectCountGroupLike(groupNo);
+		log.debug("likeCnt={}",likeCnt);
+		
+
+		if(likeValid == 1) {
+			//좋아요 이력이 있는 경우 관심그룹 테이블에서 내용 삭제 후 그룹테이블 좋아요 카운트 감소
+			likeValid = 0;
+			result = groupService.deletegroupLike(param1);
+			log.debug("result={}",result);
+			int newCount = likeCnt - 1;
+			param1.put("newCount", newCount);
+			result = groupService.updateGroupLikeCount(param1);
+			map.put("likeValid", likeValid);
+			map.put("likeCnt", newCount);
+		}
+		else if(likeValid == 0) {
+			likeValid = 1;
+			//좋아요 이력이 없는 경우 관심그룹 테이블에서 내용 추가 후 그룹테이블 좋아요 카운트 증가
+			result = groupService.insertgroupLike(param1);
+			int newCount = likeCnt + 1;
+			param1.put("newCount", newCount);
+			result = groupService.updateGroupLikeCount(param1);
+			log.debug("result={}",result);
+			map.put("likeValid", likeValid);
+			map.put("likeCnt", newCount);
+		}
+		
+		//json문자열로 변환
+		Gson gson = new Gson();
+		String jsonStr = gson.toJson(map);
+		
+		return map;
+		
+	}
 }
 
 
