@@ -21,42 +21,68 @@
 				<div class="card">
 					<div class="card-header">회원 정보수정</div>
 					<div class="card-body">
-						<form name="memberUpdateFrm" method="POST" action="${pageContext.request.contextPath }/member/memberUpdate.do?${_csrf.parameterName}=${_csrf.token}">
-							<div class="form-group row">
-								<label for="full_name"
-									class="col-md-4 col-form-label text-md-right">아이디</label>
-								<div class="col-md-6 group-text-input">
-									<input type="text" id="member-id" class="form-control"
-										name="id" value="${loginMember.id }" readonly="readonly">
-								</div>
-							</div>
-
-
-							<div class="form-group row curr-pwd-box">
-								<label for="present_address"
-									class="col-md-4 col-form-label text-md-right">현재 비밀번호</label>
-								<div class="col-md-6 group-text-input">
-									<input type="password"  class="form-control" name="currpassword" placeholder="비밀번호를 변경하려면 현재 비밀번호를 입력하세요." >
-								</div>
+						<form:form name="memberUpdateFrm" method="POST" action="${pageContext.request.contextPath }/member/memberUpdate.do?${_csrf.parameterName}=${_csrf.token}" enctype="multipart/form-data">
+							<div class="form-group row" style="display: flex; justify-content: center; margin: 45px;">
+								<c:if test="${not empty profile }">
+									<c:choose>
+										<c:when test="${fn:startsWith(profile.renamedFilename,'http')}">
+											<img id="profile" src="${profile.renamedFilename}" alt="" style="width: 150px"/>
+										</c:when>
+										<c:otherwise>
+											<img id="profile" src="${pageContext.request.contextPath }/resources/upFile/profile/${profile.renamedFilename}" alt="" style="width: 150px"/>
+										</c:otherwise>
+									</c:choose>
+								</c:if>
+								<c:if test="${empty profile }">
+									<img id="profile" src="https://cdn-icons-png.flaticon.com/512/64/64572.png" alt="" style="width: 150px"	/>
+								</c:if>
 							</div>
 							
-							<div class="form-group row new-pwd-box">
-								<label for="present_address"
-									class="col-md-4 col-form-label text-md-right">새로운 비밀번호</label>
-								<div class="col-md-6 group-text-input">
-									<input type="password" id="password" class="form-control" name="password" value="">
+							<c:if test="${not fn:startsWith(profile.renamedFilename,'http')}">
+								<div class="form-group row">
+										<label for="phone_number"
+											class="col-md-4 col-form-label text-md-right">프로필 이미지</label>
+										<div class="col-md-6 group-text-input">
+											<input class="form-control" type="file" id="upFile" name="upFile" accept=".jpg,.jpeg,.png,.gif,.bmp">
+										</div>
 								</div>
-							</div>
-
-
-							<div class="form-group row new-pwd-box">
-								<label for="present_address"
-									class="col-md-4 col-form-label text-md-right">비밀번호 확인</label>
-								<div class="col-md-6 group-text-input">
-									<input type="password" id="passwordCheck" class="form-control">
+								
+								<div class="form-group row">
+									<label for="full_name"
+										class="col-md-4 col-form-label text-md-right">아이디</label>
+									<div class="col-md-6 group-text-input">
+										<input type="text" id="member-id" class="form-control"
+											name="id" value="${loginMember.id }" readonly="readonly">
+									</div>
 								</div>
-							</div>
+	
+	
+								<div class="form-group row curr-pwd-box">
+									<label for="present_address"
+										class="col-md-4 col-form-label text-md-right">현재 비밀번호</label>
+									<div class="col-md-6 group-text-input">
+										<input type="password"  class="form-control" name="currpassword" placeholder="비밀번호를 변경하려면 현재 비밀번호를 입력하세요." >
+									</div>
+								</div>
+								
+								<div class="form-group row new-pwd-box">
+									<label for="present_address"
+										class="col-md-4 col-form-label text-md-right">새로운 비밀번호</label>
+									<div class="col-md-6 group-text-input">
+										<input type="password" id="password" class="form-control" name="password" value="">
+									</div>
+								</div>
+	
+	
+								<div class="form-group row new-pwd-box">
+									<label for="present_address"
+										class="col-md-4 col-form-label text-md-right">비밀번호 확인</label>
+									<div class="col-md-6 group-text-input">
+										<input type="password" id="passwordCheck" class="form-control">
+									</div>
+								</div>
 
+							</c:if>
 
 							
 							
@@ -93,13 +119,6 @@
 								</div>
 							</div>
 							
-							<div class="form-group row">
-									<label for="phone_number"
-										class="col-md-4 col-form-label text-md-right">프로필 이미지</label>
-									<div class="col-md-6 group-text-input">
-										<input class="form-control" type="file" id="upFile" name="upFile">
-									</div>
-								</div>
 
 							<div class="form-group row">
 								<label for="permanent_address"
@@ -118,8 +137,8 @@
 								<div class="col-md-6 group-text-input gender-radio">
 									<div class="form-check">
 										<input class="form-check-input" type="radio"
-											name="memberGender" id="flexRadioDefault1" value="F"> <label
-											class="form-check-label" for="flexRadioDefault1" > 여성
+											name="memberGender" id="flexRadioDefault2" value="F"> <label
+											class="form-check-label" for="flexRadioDefault2" > 여성
 										</label>
 									</div>
 
@@ -159,7 +178,7 @@
 							<div class="col-md-6 offset-md-4 group-create-button">
 								<button type="submit" class="btn btn-primary">정보수정</button>
 							</div>
-						</form>
+						</form:form>
 					</div>
 				</div>
 			</div>
@@ -168,6 +187,21 @@
 </main>
 
 <script>
+$(upFile).change(function(){
+    setImageFromFile(this, '#profile');
+    upFile = $(upFile).val();
+});
+
+function setImageFromFile(input, expression) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            $(expression).attr('src', e.target.result);
+        };
+        reader.readAsDataURL(input.files[0]);
+    };
+};
+
 $(".new-pwd-box").hide();
 $("input[name=currpassword]").blur((e)=>{
 	let data ={
@@ -209,36 +243,7 @@ $("#passwordCheck").blur(function(){
 	}
 });
 
-$(document.memberUpdateFrm).submit((e) =>{
-	e.preventDefault();
-	const formData = new FormData(e.target);
-	const obj = {};
-	for(const [k, v] of formData){
-		obj[k] = v;
-	}
-	const email = $("input[name=emailId]").val() + '@' + $("input[name=email-server]").val();
-	
-	obj.memberEmail = email;
-	console.log(obj);
-	
- 	const jsonStr = JSON.stringify(obj);
-	console.log(jsonStr);
-	
- 	$.ajax({
-		url:"${pageContext.request.contextPath}/member/memberUpdate.do",
-		method:"POST",
-		data: jsonStr,
-		contentType: "application/json; charset=utf-8",
-		headers: {
-			"${_csrf.headerName}" : "${_csrf.token}"
-		},
-		success(res){
-			console.log(res);
-			location.reload();
-		},
-		error:console.log
-	}); 
-});
+
 
 </script>
 

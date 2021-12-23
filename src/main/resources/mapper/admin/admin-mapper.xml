@@ -88,4 +88,24 @@
   
   </select>
   
+  <!-- 미승인 그룹(비동기용) -->
+  <select id="selectOneNotApprovedGroup" resultType="NotApprovedGroup">
+	select 
+	    g.*,
+	    ag.member_id "HOST_ID",
+	    ag.role,
+	    a.renamed_filename,
+	    a.img_flag,
+	    sc.category1_name
+	from 
+	    tb_group g left join applocation_group ag
+	        on g.group_no = ag.group_no
+	    left join attachment a
+	        on g.group_no = a.group_no
+	    left join studygroup_category1 sc
+	        on g.category_no = sc.category1_no
+	where
+	    g.group_no = #{groupNo} and ag.role='G'
+  </select>
+  
 </mapper>
