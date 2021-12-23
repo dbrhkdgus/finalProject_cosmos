@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.kh.cosmos.common.attachment.model.vo.Attachment;
 import com.kh.cosmos.main.model.vo.Notice;
 import com.kh.cosmos.main.model.vo.Question;
+import com.kh.cosmos.main.model.vo.Reply;
 
 @Repository
 public class MainDaoImpl implements MainDao {
@@ -79,6 +80,12 @@ public class MainDaoImpl implements MainDao {
 	public int insertQuestion(Question que) {
 		// TODO Auto-generated method stub
 		return session.insert("question.insertQuestion",que);
+	}
+
+	@Override
+	public int insertQqReply(Reply reply) {
+		// TODO Auto-generated method stub
+		return session.insert("question.insertQqReply",reply);
 	}
 	
 	

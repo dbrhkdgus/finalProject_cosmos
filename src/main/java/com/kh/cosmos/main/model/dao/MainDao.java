@@ -5,6 +5,7 @@ import java.util.List;
 import com.kh.cosmos.common.attachment.model.vo.Attachment;
 import com.kh.cosmos.main.model.vo.Notice;
 import com.kh.cosmos.main.model.vo.Question;
+import com.kh.cosmos.main.model.vo.Reply;
 
 public interface MainDao {
 
@@ -30,4 +31,6 @@ public interface MainDao {
 	Question selectOneQuestionByNo(int queNo);
 
 	int insertQuestion(Question que);
+
+	int insertQqReply(Reply reply);
 }

@@ -10,6 +10,7 @@ import com.kh.cosmos.common.attachment.model.vo.Attachment;
 import com.kh.cosmos.main.model.dao.MainDao;
 import com.kh.cosmos.main.model.vo.Notice;
 import com.kh.cosmos.main.model.vo.Question;
+import com.kh.cosmos.main.model.vo.Reply;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -81,6 +82,12 @@ public class MainServiceImpl implements MainService {
 	public int insertQuestion(Question que) {
 		// TODO Auto-generated method stub
 		return mainDao.insertQuestion(que);
+	}
+
+	@Override
+	public int insertQqReply(Reply reply) {
+		// TODO Auto-generated method stub
+		return mainDao.insertQqReply(reply);
 	}
 	
 	
