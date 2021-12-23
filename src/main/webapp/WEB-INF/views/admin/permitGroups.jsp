@@ -135,9 +135,7 @@
                   alt="Avatar"
                   class="tm-avatar img-fluid mb-4"
                 />
-                <a href="#" class="tm-avatar-delete-link">
-                  <i class="far fa-trash-alt tm-product-delete-icon"></i>
-                </a>
+                
               </div>
               
             </div>
