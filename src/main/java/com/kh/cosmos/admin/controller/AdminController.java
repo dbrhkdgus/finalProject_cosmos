@@ -287,6 +287,14 @@ public class AdminController {
 	public String StatisticsOfMember() {
 		return "admin/StatisticsOfMember";
 	}
+	
+	@GetMapping("/thisWeekEnrollMember")
+	public Map<String, String> thisWeekEnrollMember() {
+		Map<String, String> map = new HashMap<>();
+		
+		
+		return map;
+	}
 	@GetMapping("/StatisticsOfGroup.do")
 	public String StatisticsOfGroup() {
 		return "admin/StatisticsOfGroup";
