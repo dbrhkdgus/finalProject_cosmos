@@ -35,6 +35,9 @@
  <meta name ="google-signin-client_id" content="611668923155-aqcahiheiq1rb5jijp442dgdgoicbe5j.apps.googleusercontent.com">
 
 <c:if test="${not empty msg}">
+<script>
+	alert("${msg}");
+</script>
 </c:if>
 <!-- Failed to load resource: the server responded with a status of 404 () 오류 해결용 -->
 <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
@@ -47,7 +50,7 @@
 
 </head>
     <body>
-        <header style="box-shadow: 12px -7px 22px #ccc; margin-bottom: 50px; font-family: 'SBAggroB'; font-size: 20px; ">
+        <header class="header"style="box-shadow: 12px -7px 22px #ccc; margin-bottom: 50px; font-family: 'SBAggroB'; font-size: 20px; disflex:fixed;">
             <!-- Responsive navbar-->
             <nav class="navbar navbar-expand-lg">
                 <div class="container" id="headerContainer">
