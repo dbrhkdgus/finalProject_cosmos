@@ -27,8 +27,8 @@
 <div class="container mt-5">
         <div class="col-12 tm-block-col">
           <div class="tm-bg-primary-dark tm-block tm-block-h-auto">
-            <h2 class="tm-block-title">모임 목록</h2>
-            <p class="text-white">검색 카테고리</p>
+            <h2 class="tm-block-title">심사 대기 목록</h2>
+            <!-- <p class="text-white">검색 카테고리</p>
             <div>
               <select class="custom-select selectBar mr-3">
                 <option value="0">전체</option>
@@ -38,20 +38,20 @@
                 <option value="4">비밀 여부</option>
               </select>
               <input id="searchKeyword"  type="text" class="form-control mb-5" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-            </div>
+            </div> -->
             <!-- 회원목록 테이블 -->
             <div class="row tm-content-row">
               <table class="table mb-3">
                 <thead>
                   <tr>
-                    <th scope="col">번호</th>
+                    <th scope="col">그룹번호</th>
+                    <th scope="col">그룹장</th>
                     <th scope="col">그룹명</th>
-                    <th scope="col">생성일</th>
+                    <th scope="col">카테고리</th>
                     <th scope="col">유/무료</th>
-                    <th scope="col">모집여부</th>
-                    <th scope="col">정원</th>
+                    <th scope="col">생성일</th>
                     <th scope="col">비밀여부</th>
-                    <th scope="col">좋아요 수</th>
+                    <th scope="col">승인하기</th>
                   </tr>
                 </thead>
                 <tbody>

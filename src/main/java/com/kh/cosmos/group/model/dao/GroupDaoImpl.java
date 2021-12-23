@@ -68,9 +68,9 @@ public class GroupDaoImpl implements GroupDao {
 	}
 
 	@Override
-	public int selectGroupTotalCount() {
+	public int selectGroupTotalCount(Map<String, Object> param) {
 		// TODO Auto-generated method stub
-		return session.selectOne("group.selectGroupTotalCount");
+		return session.selectOne("group.selectGroupTotalCount",param);
 	}
 
 	@Override
