@@ -32,8 +32,8 @@
   	update
   		tb_member
   	<set>
-  		<if test="enabled == 'true'">enabled = 0</if>
-  		<if test="enabled == 'false'">enabled = 1</if>
+  		<if test="enabled == 'true'">enabled =0</if>
+  		<if test="enabled == 'false'">enabled =1</if>
   	</set>
   	where
   		id = #{id}
@@ -57,6 +57,12 @@
 		</if>
 		<if test="searchType == 'gender'">
 			member_gender like '%'||#{searchKeyword}||'%'
+		</if>
+		<if test="searchType == 'memberGender'">
+			member_gender = #{searchGender}
+		</if>
+		<if test="searchType== 'enabled'">
+			enabled = ${searchKeyword}
 		</if>
 		
 	

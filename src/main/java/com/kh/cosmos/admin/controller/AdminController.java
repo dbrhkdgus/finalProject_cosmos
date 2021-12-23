@@ -138,20 +138,25 @@ public class AdminController {
 		//받아온 값
 		String searchType = request.getParameter("searchType");
 		String searchKeyword = request.getParameter("searchKeyword");
+		String searchGender = request.getParameter("searchGender");
 		
 		//받온 값 Map 에 넣기
 		Map<String, String> param = new HashMap<>();
 		param.put("searchType", searchType);
 		param.put("searchKeyword", searchKeyword);
+		param.put("searchGender", searchGender);
 
 		log.debug("searchType = {}", searchType);
 		log.debug("searchKeyword = {}", searchKeyword);
+		log.debug("searchGender = {}", searchGender);
 		
 		List<Member> list = adminService.searchMembers(limit, offset, param);
 		log.debug("list = {}", list);
 		
 		model.addAttribute("list", list);
-		
+		model.addAttribute("searchType", searchType);
+		model.addAttribute("searchKeyword", searchKeyword);
+		model.addAttribute("searchGender", searchGender);
 		return "/admin/members";
 	}
 	

@@ -10,12 +10,20 @@
 </jsp:include>
 
   <style>
-    #searchKeyword{
+    #searchKeyword1{
       width: 75%; display: inline;
     }
     .selectBar{
       width: 20%;
     }
+    .genderText{
+		font-weight: bold;
+		font-size: 120%;
+    }
+    #searchKeyword1::placeholder {
+	  color: #e0e0e0;
+	  font-style: italic;
+	}
   </style>
 
       <div class="container mt-5">
@@ -25,22 +33,34 @@
             <p class="text-white">검색 카테고리</p>
             <div>
               <form action="${pageContext.request.contextPath}/admin/searchMembers.do">
-	              <select class="custom-select selectBar mr-3" name="searchType">
-	                <option value="all">전체</option>
+	              <select id="searchType" class="custom-select selectBar mr-3" name="searchType">
 	                <option value="id">아이디</option>
-	                <option value="memberName">이름</option>
-	                <option value="birthday">생년월일</option>
+	                <option value="memberName"
+	                	<c:if test="${searchType eq 'memberName'}">selected</c:if>>이름
+	                </option>
+	                <option value="birthday"
+	                	<c:if test="${searchType eq 'birthday'}">selected</c:if>>생년월일
+	                </option>
 	                <option value="phone">연락처</option>
-	                <option value="regDate">생성일</option>
+	                <option value="regDate">가입일</option>
 	                <option value="memberGender">성별</option>
 	                <option value="memberJob">직업</option>
 	                <option value="enabled">블랙리스트</option>
 	              </select>
-	              <input name="searchKeyword" id="searchKeyword"  type="text" class="form-control mb-3" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-	         <!-- 카테고리 선택시 -->
-	         
-	         <input type="radio" name="searchKeyword" id="" value="0"/>
-	              <button class="btn btn-primary col rounded mb-5" type="submit"><span class="font-weight-bold">검 색</span></button>
+	              <input name="searchKeyword" id="searchKeyword1"  type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+	         <!-- 성별 검색 선택시 -->
+	         	<div id="selectGender" class="ml-3 mb-5">
+	         	 <label for="gender0"><span class="text-white genderText">남</span></label>
+	        	 <input type="radio" name="searchGender" id="gender0" value="M" class="mr-5"/>
+	         	 <label for="gender1"><span class="text-white genderText">여</span></label>
+	        	 <input type="radio" name="searchGender" id="gender1" value="F"/>
+	         	</div>
+	         <!-- 가입일 검색 선택시 -->
+<!-- 	         	<div id="selectRegDate">
+	         		<input type="date" name="searchRegDateStart" id="searchRegDateStart" />
+	         		<input type="date" name="searchRegDateEnd" id="searchRegDateEnd" />
+	         	</div> -->
+	             <button class="btn btn-primary col rounded mt-3 mb-5" type="submit"><span class="font-weight-bold">검 색</span></button>
               </form>
             </div>
             
@@ -201,6 +221,8 @@ $(".selectOne").click((e)=>{
 	/* 테이블 내 회원 데이터 담긴 행을 클릭시, 해당 행 회원 데이터를 비동기로 호출한다. */
 	var memberId = e.target.parentNode.children[1].innerText;
 	
+	
+	
 	$.ajax({
 		url: `${pageContext.request.contextPath}/admin/selectOneMember.do`,
 		data: {
@@ -223,9 +245,16 @@ $(".selectOne").click((e)=>{
 			}else{
 				$("#groupList").val(data.member.groupName);
 			}
-			;
-
-				
+		},
+		/* 변경된 사항의 리스트 행을 클릭시 해당 회원의 정보에 맞춰 버튼의 색깔이 변경된다.*/
+		complete : function(){
+			if($("#enabled").val()=='true'){
+			  document.getElementById('blackListBtn').className = 'btn btn-primary btn-block text-uppercase';
+			  document.getElementById('blackListBtn').innerText = '블랙리스트 회원 등록';
+			}else{
+			  document.getElementById('blackListBtn').className = 'btn btn-success btn-block text-uppercase';
+			  document.getElementById('blackListBtn').innerText = '블랙리스트 회원 해제';
+			}
 		},
 		error: console.log
 	});
@@ -257,22 +286,42 @@ $("#blackListBtn").click((e)=>{
 			alert("변경이 완료되었습니다.");
 			console.log($("#enabled").val())
 			if($("#enabled").val()=='true'){
-				  document.getElementById('blackListBtn').className = 'btn btn-success btn-block text-uppercase';
-				  document.getElementById('blackListBtn').innerText = '블랙리스트 회원 해제';
-				  document.getElementById(changeMemberEnabled).children[6].innerText='O'	  				  
-				  
-				}else{
-				  document.getElementById('blackListBtn').className = 'btn btn-primary btn-block text-uppercase';
-				  document.getElementById('blackListBtn').innerText = '블랙리스트 회원 등록';
-				  document.getElementById(changeMemberEnabled).children[6].innerText='.'	  				  
-
-
-				}
+			  document.getElementById('blackListBtn').className = 'btn btn-success btn-block text-uppercase';
+			  document.getElementById('blackListBtn').innerText = '블랙리스트 회원 해제';
+			  document.getElementById(changeMemberEnabled).children[6].innerText='O'	  				  
+			}else{
+			  document.getElementById('blackListBtn').className = 'btn btn-primary btn-block text-uppercase';
+			  document.getElementById('blackListBtn').innerText = '블랙리스트 회원 등록';
+			  document.getElementById(changeMemberEnabled).children[6].innerText='.'	  				  
+			}
 		},
 		error: console.log
 	});
 });
-  
+
+/* 검색 카테고리별 기능 변경 */
+$((e)=>{
+	document.getElementById('selectGender').style.display='none';
+}) 
+
+$(searchType).change((e)=>{
+	/* 성별 검색 시 */
+	if(e.target.value == 'memberGender'){
+		document.getElementById('selectGender').style.display='inline';
+		document.getElementById('selectGender').style.width='75%';
+		document.getElementById('searchKeyword1').style.display='none';
+	/* 블랙리스트 회원 검색 시 */
+	}else if(e.target.value = 'enabled'){
+		console.log(document.getElementById('searchKeyword1'));
+		document.getElementById('searchKeyword1').placeholder='블랙리스트 회원을 검색하고자 하면 숫자 0을, 아닌 회원을 입력하고자 하면 숫자 1을 입력해주세요';
+	}else{
+		document.getElementById('selectGender').style.display='none';
+		document.getElementById('searchKeyword1').style.display='inline';		
+	}
+})
+
+
+
   
   
 </script>
