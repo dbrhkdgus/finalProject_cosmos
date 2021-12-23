@@ -14,7 +14,7 @@
         <!-- Page content-->
         <div class="container">
             <div class="search-parent-category">
-                <ul class="nav nav-tabs">
+                <ul class="nav nav-tabs" >
                 	<li class="nav-item" style="margin: 0;">
                       <a class="nav-link ${ca1No == 0 ? 'active':'' }" aria-current="page" href="${pageContext.request.contextPath }/group/groupSearch.do">ALL</a>
                     </li>
@@ -27,7 +27,9 @@
                       
                     </li>
                 </c:forEach>
+                
                   </ul>
+                 
             </div>
             <div class="search-child-category">
                  <ul class="child-category-all" id="c2">
@@ -38,7 +40,7 @@
                     </c:if>
                 </ul> 
             </div>
-            <hr style="height: 0.5px; color: #8B6AD3; margin-bottom: 50px;">
+            <hr style=" color:gray; margin-bottom: 50px;">
             <div class="search-outer">
                 <!-- 서치 메뉴 정렬및 검색기능  -->
                 <div class="search-outer-top">
