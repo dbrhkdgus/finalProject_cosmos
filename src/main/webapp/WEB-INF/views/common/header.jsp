@@ -83,24 +83,26 @@
 						    <sec:authorize access="isAuthenticated()">
 						    	
 							    	<div class="btn-group">
+
 							    		<img  id="header-profile" src="https://cdn-icons-png.flaticon.com/512/64/64572.png" alt="" style="width: 40px"/>	
 									  <button type="button" class="btn btn-outline-info dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="border: 0px">
+
 									    <sec:authentication property="principal.memberName"/>
 									    <input type="hidden" id="loginMemberId" value="<sec:authentication property="principal.id"/>" />
 									  </button>
 									  <ul class="dropdown-menu">
-									    <li><a class="dropdown-item" href="${pageContext.request.contextPath}/member/memberGroupList.do" style="color: blue;">가입한 그룹</a></li>
-									    <li><a class="dropdown-item" href="${pageContext.request.contextPath}/member/memberGroupList.do" style="color: blue;">가입신청그룹</a></li>
-									    <li><a class="dropdown-item" href="${pageContext.request.contextPath}/member/memberGroupList.do" style="color: blue;">관심 그룹</a></li>
+									    <li><a class="dropdown-item" href="${pageContext.request.contextPath}/member/memberGroupList.do" style="color: black; font-size:14px;">가입한 그룹</a></li>
+									    <li><a class="dropdown-item" href="${pageContext.request.contextPath}/member/memberGroupList.do" style="color: black; font-size:14px; ">가입신청그룹</a></li>
+									    <li><a class="dropdown-item" href="${pageContext.request.contextPath}/member/memberGroupList.do" style="color: black; font-size:14px; ">관심 그룹</a></li>
 									    <li><hr class="dropdown-divider"></li>
-									    <li><a class="dropdown-item" href="${pageContext.request.contextPath }/member/memberUpdate.do" style="color: blue;">내 정보 수정</a></li>
+									    <li><a class="dropdown-item" href="${pageContext.request.contextPath }/member/memberUpdate.do" style="color: black; font-size:14px; ">내 정보 수정</a></li>
 									  </ul>
 									</div>
 						    		<span class="fs-6 ">님 안녕하세요.</span>
 						    	<form:form method="POST" action="${pageContext.request.contextPath}/member/memberLogout.do" id="memberLogoutFrm" class="d-inline">
 						    	<button 
 							    	class="btn btn-outline-success my-2 my-sm-0" 
-							    	type="submit">로그아웃</button>
+							    	type="submit" style="border: none;font-size: 10px;transform: translate(10px, 10px);">로그아웃</button>
 						    	</form:form>
 						    <script>
 						    	var id = $(loginMemberId).val();
@@ -149,6 +151,4 @@
             </div>
         </nav>
     </header>
-<script>
 
-</script>

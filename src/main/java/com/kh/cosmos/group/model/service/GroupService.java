@@ -52,6 +52,8 @@ public interface GroupService {
 
 	CategoryTwo selectCategoryTwoListByGroupNo(String num);
 
+	int insertGroupJoin(ApplocationGroup applocationGroup);
+
 
 
 

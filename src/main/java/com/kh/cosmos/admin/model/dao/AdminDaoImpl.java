@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.cosmos.group.model.vo.ApplocationGroup;
+import com.kh.cosmos.group.model.vo.NotApprovedGroup;
 import com.kh.cosmos.member.model.vo.Member;
 import com.kh.cosmos.member.model.vo.MemberWithGroup;
 
@@ -37,12 +38,18 @@ public class AdminDaoImpl implements AdminDao {
 	@Override
 	public List<Member> searchMembers(int limit, int offset, Map<String, String> param) {
 		RowBounds rowBounds = new RowBounds(offset, limit);
-		return session.selectList("admin.searchMembers", param);
+		return session.selectList("admin.searchMembers",param, rowBounds);
 	}
 
 	@Override
-	public List<ApplocationGroup> selectNotApprovedAGList() {
-		return session.selectList("admin.selectNotApprovedAGList");
+	public List<ApplocationGroup> selectNotApprovedAGList(int limit, int offset) {
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		return session.selectList("admin.selectNotApprovedAGList",null,rowBounds);
+	}
+
+	@Override
+	public List<NotApprovedGroup> selectOneNotApprovedGroup(Map<String, Object> param) {
+		return session.selectList("admin.selectOneNotApprovedGroup", param);
 	}
 
 }

@@ -1,11 +1,19 @@
-package com.kh.cosmos.group.model.vo;
+package com.kh.cosmos.main.model.vo;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
+import java.util.List;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.kh.cosmos.common.attachment.model.vo.Attachment;
 
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -16,17 +24,16 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class Group implements Serializable {
-	
+public class MainGroupList implements Serializable {
+
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
+	
 	private int groupNo;
 	private int categoryNo;
 	private String groupName;
-	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
 	private Date groupEnrollDate;
 	private char groupCharge;
 	private char groupClose;
@@ -34,5 +41,4 @@ public class Group implements Serializable {
 	private char groupPrivate;
 	private int groupLikeCount;
 	private String groupLocation;
-	
 }

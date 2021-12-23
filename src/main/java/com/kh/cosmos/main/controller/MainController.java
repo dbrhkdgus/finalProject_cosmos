@@ -27,6 +27,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.cosmos.common.CosmosUtils;
 import com.kh.cosmos.common.attachment.model.vo.Attachment;
+import com.kh.cosmos.group.model.vo.Group;
 import com.kh.cosmos.main.model.service.MainService;
 import com.kh.cosmos.main.model.vo.Notice;
 import com.kh.cosmos.main.model.vo.Question;
@@ -220,6 +221,15 @@ public class MainController {
 		model.addAttribute("att",att);
 		
 		return "main/qaDetail";
+	}
+	
+	@GetMapping("/index.do")
+	public String index(Model model) {
+		
+		List<Group> list = mainService.selectAllGroupListByDate();
+		log.debug("list= {}",list);
+		model.addAttribute("list",list);
+		return "/index";
 	}
 	
 	@GetMapping("/about.do")

@@ -17,8 +17,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.kh.cosmos.admin.model.service.AdminService;
 import com.kh.cosmos.common.CosmosUtils;
 import com.kh.cosmos.common.attachment.model.service.AttachmentService;
+import com.kh.cosmos.common.attachment.model.vo.Attachment;
 import com.kh.cosmos.group.model.service.GroupService;
 import com.kh.cosmos.group.model.vo.ApplocationGroup;
+import com.kh.cosmos.group.model.vo.CategoryOne;
+import com.kh.cosmos.group.model.vo.Group;
+import com.kh.cosmos.group.model.vo.NotApprovedGroup;
 import com.kh.cosmos.main.model.service.MainService;
 import com.kh.cosmos.main.model.vo.Question;
 import com.kh.cosmos.member.model.vo.Member;
@@ -143,19 +147,53 @@ public class AdminController {
 		//받아온 값
 		String searchType = request.getParameter("searchType");
 		String searchKeyword = request.getParameter("searchKeyword");
+		String searchGender = request.getParameter("searchGender");
+		String searchRegDateStart = request.getParameter("searchRegDateStart");
+		String searchRegDateEnd = request.getParameter("searchRegDateEnd");
+		String searchBirthdayStart = request.getParameter("searchBirthdayStart");
+		String searchBirthdayEnd = request.getParameter("searchBirthdayEnd");
+		String searchJob = request.getParameter("searchJob");
+		String searchEnabled = request.getParameter("searchEnabled");
 		
 		//받온 값 Map 에 넣기
 		Map<String, String> param = new HashMap<>();
 		param.put("searchType", searchType);
 		param.put("searchKeyword", searchKeyword);
+		param.put("searchGender", searchGender);
+		param.put("searchRegDateStart", searchRegDateStart);
+		param.put("searchRegDateEnd", searchRegDateEnd);
+		param.put("searchBirthdayStart", searchBirthdayStart);
+		param.put("searchBirthdayEnd", searchBirthdayEnd);
+		param.put("searchJob", searchJob);
+		param.put("searchEnabled", searchEnabled);
 
 		log.debug("searchType = {}", searchType);
 		log.debug("searchKeyword = {}", searchKeyword);
+		log.debug("searchGender = {}", searchGender);
+		log.debug("searchRegDateStart = {}", searchRegDateStart);
+		log.debug("searchRegDateEnd = {}", searchRegDateEnd);
+		log.debug("searchBirthdayStart = {}", searchBirthdayStart);
+		log.debug("searchBirthdayEnd = {}", searchBirthdayEnd);
+		log.debug("searchJob = {}", searchJob);
+		log.debug("searchEnabled = {}", searchEnabled);
 		
+		//업무로직
 		List<Member> list = adminService.searchMembers(limit, offset, param);
 		log.debug("list = {}", list);
 		
 		model.addAttribute("list", list);
+		
+		//검색 타입 유지하기 위한 model.
+		model.addAttribute("searchType", searchType);
+		model.addAttribute("searchKeyword", searchKeyword);
+		model.addAttribute("searchGender", searchGender);
+		model.addAttribute("searchRegDateStart", searchRegDateStart);
+		model.addAttribute("searchRegDateEnd", searchRegDateEnd);
+		model.addAttribute("searchBirthdayStart", searchBirthdayStart);
+		model.addAttribute("searchBirthdayEnd", searchBirthdayEnd);
+		model.addAttribute("searchBirthdayEnd", searchRegDateStart);
+		model.addAttribute("searchJob", searchJob);
+		model.addAttribute("searchEnabled", searchEnabled);
 		
 		return "/admin/members";
 	}
@@ -169,24 +207,48 @@ public class AdminController {
 	@GetMapping("/permitGroups.do")
 	public String permitGroups(@RequestParam(defaultValue = "1") int cPage, Model model, HttpServletRequest request) {
 		//페이징처리
-//		int limit = 10;
-//		int offset = (cPage -1)*limit;
-//		int totalContent = mainService.selectQuestionTotalCount();
-//		String url = request.getRequestURI();
-//		String pagebar = CosmosUtils.getPagebar(cPage, limit, totalContent, url);
-//		model.addAttribute("totalContent", totalContent);
+		int limit = 10;
+		int offset = (cPage -1)*limit;
+		int totalContent = mainService.selectQuestionTotalCount();
+		String url = request.getRequestURI();
+		String pagebar = CosmosUtils.getPagebar(cPage, limit, totalContent, url);
+		model.addAttribute("totalContent", totalContent);
 		
-		List<ApplocationGroup> NotApprovedAG = adminService.selectNotApprovedAGList();
-		model.addAttribute("NotApprovedAG", NotApprovedAG);
-		log.debug("NotApprovedAG = {}", NotApprovedAG);
-//		
-//		List<Attachment> attachList = attachService.selectGroupAttachmentList();
-//		model.addAttribute("attachList",attachList);
-//		
-//		List<CategoryOne> caOneList = groupService.groupgroupContOne();
-//		model.addAttribute("caOneList", caOneList);
+		List<ApplocationGroup> notApprovedAG = adminService.selectNotApprovedAGList(limit, offset);
+		model.addAttribute("notApprovedAG", notApprovedAG);
+		model.addAttribute("pagebar", pagebar);
+		
+		List<Group> groupList = groupService.selectAllMyGroupList();
+		model.addAttribute("groupList", groupList);
+		
+		List<Attachment> attachList = attachService.selectGroupAttachmentList();
+		model.addAttribute("attachList",attachList);
+		
+		List<CategoryOne> caOneList = groupService.groupgroupContOne();
+		model.addAttribute("caOneList", caOneList);
 		
 		return "admin/permitGroups";
+	}
+	
+	@GetMapping("/selectOneNAG.do")
+	@ResponseBody
+	public Map<String,Object> selectOneNAG(@RequestParam Map<String, Object> param) {
+		Map<String, Object> map = new HashMap<>();
+		log.debug("넘겨져온 param = {}", param);
+		
+		
+		List<NotApprovedGroup> notApprovedGroup = adminService.selectOneNotApprovedGroup(param);
+		log.debug("notApprovedGroup ={}", notApprovedGroup);
+		NotApprovedGroup nag = notApprovedGroup.get(0);
+		
+//		log.debug("memberWithGroup = {}", memberWithGroup);
+//		log.debug("groupName = {}", groupName);
+//		MemberWithGroup mwg = memberWithGroup.get(0);
+//		log.debug("memberWithGroup.get(1) = {}", mwg);
+//		mwg.setGroupName(groupName);
+		map.put("nag", nag);
+		
+		return map;
 	}
 	
 	@GetMapping("/StatisticsOfMember.do")

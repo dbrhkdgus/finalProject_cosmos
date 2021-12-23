@@ -1,8 +1,10 @@
 package com.kh.cosmos.main.model.service;
 
+import java.util.Date;
 import java.util.List;
 
 import com.kh.cosmos.common.attachment.model.vo.Attachment;
+import com.kh.cosmos.group.model.vo.Group;
 import com.kh.cosmos.main.model.vo.Notice;
 import com.kh.cosmos.main.model.vo.Question;
 
@@ -30,4 +32,8 @@ public interface MainService {
 	Question selectOneQuestionByNo(int queNo);
 
 	int insertQuestion(Question que);
+
+	List<Group> selectAllGroupListByDate();
+
+
 }

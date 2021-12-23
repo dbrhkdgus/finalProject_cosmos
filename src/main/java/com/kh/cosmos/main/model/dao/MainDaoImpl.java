@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.cosmos.common.attachment.model.vo.Attachment;
+import com.kh.cosmos.group.model.vo.Group;
 import com.kh.cosmos.main.model.vo.Notice;
 import com.kh.cosmos.main.model.vo.Question;
 
@@ -79,6 +80,12 @@ public class MainDaoImpl implements MainDao {
 	public int insertQuestion(Question que) {
 		// TODO Auto-generated method stub
 		return session.insert("question.insertQuestion",que);
+	}
+
+	@Override
+	public List<Group> selectAllGroupListByDate() {
+		// TODO Auto-generated method stub
+		return session.selectList("index.selectAllGroupListByDate" );
 	}
 	
 	

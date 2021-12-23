@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.kh.cosmos.group.model.vo.ApplocationGroup;
+import com.kh.cosmos.group.model.vo.NotApprovedGroup;
 import com.kh.cosmos.member.model.vo.Member;
 import com.kh.cosmos.member.model.vo.MemberWithGroup;
 
@@ -17,7 +18,9 @@ public interface AdminService {
 
 	List<Member> searchMembers(int limit, int offset, Map<String, String> param);
 
-	List<ApplocationGroup> selectNotApprovedAGList();
+	List<ApplocationGroup> selectNotApprovedAGList(int limit, int offset);
+
+	List<NotApprovedGroup> selectOneNotApprovedGroup(Map<String, Object> param);
 
 
 }

@@ -32,8 +32,8 @@
   	update
   		tb_member
   	<set>
-  		<if test="enabled == 'true'">enabled = 0</if>
-  		<if test="enabled == 'false'">enabled = 1</if>
+  		<if test="enabled == 'true'">enabled =0</if>
+  		<if test="enabled == 'false'">enabled =1</if>
   	</set>
   	where
   		id = #{id}
@@ -46,19 +46,33 @@
   	from
   		tb_member
   	<where>
-		<if test="searchType == 'id'">
-			id like '%'||#{searchKeyword}||'%'
+		<if test="searchType == 'id' and searchKeyword != ''">
+			and id like '%'||#{searchKeyword}||'%'
 		</if>
-		<if test="searchType == 'memberName'">
-			member_name like '%'||#{searchKeyword}||'%'
+		<if test="searchType == 'memberName' and searchKeyword != ''">
+			and member_name like '%'||#{searchKeyword}||'%'
 		</if>
-		<if test="searchType == 'phone'">
-			phone like '%'||#{searchKeyword}||'%'
+		<if test="searchType == 'nickname' and searchKeyword != ''">
+			and nickname like '%'||#{searchKeyword}||'%'
+		</if>		
+		<if test="searchType == 'phone' and searchKeyword != ''">
+			and phone like '%'||#{searchKeyword}||'%'
 		</if>
-		<if test="searchType == 'gender'">
-			member_gender like '%'||#{searchKeyword}||'%'
+		<if test="searchType == 'email' and searchKeyword != ''">
+			and email like '%'||#{searchKeyword}||'%'
+		</if>		
+		<if test="searchGender != ''">
+			and member_gender like #{searchGender}
 		</if>
-		
+		<if test="searchRegDateStart != '' and searchRegDateEnd != ''">
+			and member_enroll_date between #{searchRegDateStart} and #{searchRegDateEnd}
+		</if>
+		<if test="searchBirthdayStart != '' and searchBirthdayStart != ''">
+			and birthday between #{searchBirthdayStart} and #{searchBirthdayEnd}
+		</if>
+		<if test="searchEnabled != ''">
+			and enabled = ${searchEnabled}
+		</if>		
 	
   	</where>
   </select>
@@ -72,6 +86,26 @@
   	where 
   		role = 'G' and group_accept ='N'
   
+  </select>
+  
+  <!-- 미승인 그룹(비동기용) -->
+  <select id="selectOneNotApprovedGroup" resultType="NotApprovedGroup">
+	select 
+	    g.*,
+	    ag.member_id "HOST_ID",
+	    ag.role,
+	    a.renamed_filename,
+	    a.img_flag,
+	    sc.category1_name
+	from 
+	    tb_group g left join applocation_group ag
+	        on g.group_no = ag.group_no
+	    left join attachment a
+	        on g.group_no = a.group_no
+	    left join studygroup_category1 sc
+	        on g.category_no = sc.category1_no
+	where
+	    g.group_no = #{groupNo} and ag.role='G'
   </select>
   
 </mapper>
