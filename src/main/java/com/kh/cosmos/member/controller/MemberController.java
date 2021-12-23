@@ -294,13 +294,18 @@ public class MemberController {
 		log.debug("{}",id);
 		String[] ids =id.split("=");
 		log.debug("ids = {}",ids[1]);
-		Attachment profile = memberService.selectMemberProfile(ids[1]);
 		
+		Attachment profile = memberService.selectMemberProfile(ids[1]);
 		HttpHeaders header = new HttpHeaders();
 		header.add("cosmos", "profileCheck");
-		String renamedFilename = profile.getRenamedFilename();
-		
-		return new ResponseEntity<String>(renamedFilename, header, HttpStatus.OK);
+		if(profile != null) {
+			
+			String renamedFilename = profile.getRenamedFilename();
+			
+			return new ResponseEntity<String>(renamedFilename, header, HttpStatus.OK);
+		}else{
+			return new ResponseEntity<String>("https://cdn-icons-png.flaticon.com/512/64/64572.png", header,  HttpStatus.OK);
+		}
 		
 	}
 }
