@@ -180,6 +180,22 @@
   margin-right: 10px;
 }
 
+.card-img-div{
+	width: 350px;
+    height: 300px;
+    overflow: hidden;
+}
+
+.search-card-body{
+	width: 350px; 
+    height: 167px;
+}
+
+#search-select{
+	width:40%;
+}
+
+
 
 
 /*그룹 생성하기 css*/
