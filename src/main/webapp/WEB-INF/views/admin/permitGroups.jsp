@@ -268,7 +268,9 @@ $(".selectOne").click((e)=>{
 			}else{
 				$("#groupPrivate").val("X")
 			}
-			
+			var img = data.nag.renamedFilename;
+			console.log(img);
+			$("#profileImg").attr("src", "<%= request.getContextPath()%>/resources/upFile/group/${img}");
 			
 		},
 		error: console.log
