@@ -59,7 +59,7 @@
   width: 100%;
   height: 50px;
   border: none;
-  color: #846CD9;
+  color:#2458BF;
   font-weight: bold;
 }
 
@@ -108,9 +108,10 @@
   flex-direction: column;
 }
 .footer-up-box {
+	
   flex-wrap: wrap;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: center;
 }
 .footer-down-box{
   display: flex;
@@ -127,6 +128,7 @@
 }
 .footer-list{
   width: 50%;
+
 }
 
 /*스터디 서칭 css시작부분*/
@@ -145,7 +147,9 @@
   display: flex;
 }
 .search-inner{
-  display: flex;
+   display: flex;
+   justify-content: space-evenly;
+   margin-top: 40px;
 }
 .search-card{
   margin-right: 20px;
@@ -175,6 +179,22 @@
   padding-top: 5px;
   margin-right: 10px;
 }
+
+.card-img-div{
+	width: 350px;
+    height: 300px;
+    overflow: hidden;
+}
+
+.search-card-body{
+	width: 350px; 
+    height: 167px;
+}
+
+#search-select{
+	width:40%;
+}
+
 
 
 
@@ -381,6 +401,16 @@
 /*인덱스 페이지로그인후 배너 카테고리 수정*/
 .login-index{
 	height: 200px;
+}
+
+
+.index-member-group{
+	margin-top: 25px;	
+}
+.index-member-group button{
+	border: none;
+	background: none;
+	
 }
 
 .login-index  .login-popular{
@@ -654,3 +684,5 @@ ul.tabs li.current{
 .tab-content.current{
 	display: inherit;
 }
+
+
