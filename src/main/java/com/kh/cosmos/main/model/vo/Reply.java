@@ -14,14 +14,14 @@ public class Reply implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 
-	int replyNo;
-	String memberId;
-	String content;
-	int replyLevel;
-	int replyRef;
-	Date regDate;
-	String deleteYn;
-	int boardNo;
-	int queNo;
+	private int replyNo;
+	private String memberId;
+	private String content;
+	private int replyLevel;
+	private int replyRef;
+	private Date regDate;
+	private String deleteYn;
+	private int boardNo;
+	private int queNo;
 	
 }

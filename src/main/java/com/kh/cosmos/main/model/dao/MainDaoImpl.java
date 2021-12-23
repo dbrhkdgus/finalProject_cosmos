@@ -83,9 +83,9 @@ public class MainDaoImpl implements MainDao {
 	}
 
 	@Override
-	public int insertQqReply(Reply reply) {
+	public int insertQueReply(Reply reply) {
 		// TODO Auto-generated method stub
-		return session.insert("question.insertQqReply",reply);
+		return session.insert("question.insertQueReply",reply);
 	}
 	
 	

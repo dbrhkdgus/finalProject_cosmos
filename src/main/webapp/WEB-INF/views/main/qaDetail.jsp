@@ -1,12 +1,16 @@
+<%@page import="com.kh.cosmos.main.model.vo.Question"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>	
 <fmt:requestEncoding value="utf-8"/>
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	<jsp:param value="문의사항 상세보기" name="title"/>
 </jsp:include>
+
 <style>
 div#board-container{width: 80%;}
 input, button, textarea {margin-bottom:15px;}
@@ -36,11 +40,15 @@ div#board-container label.custom-file-label{text-align:left;}
 		</div>
 	</div>
 	<br />
-	
+	${que.queNo}
+<form:form action="${pageContext.request.contextPath }/main/queReplyEnroll.do" method="post" >
+	<input type="hidden" value="${que.queNo}" name ="queNo">
+		
 		<div class="input-group mb-3">
-		  <input type="text" class="form-control" placeholder="댓글을 입력하세요" aria-label="Recipient's username" aria-describedby="button-addon2">
-		  <button class="btn btn-outline-secondary" type="button" id="button-addon2" style="margin-bottom: 0px;">댓글작성</button>
+		  <input type="text" class="form-control" placeholder="댓글을 입력하세요" name="content">
+		  <button class="btn btn-outline-secondary" type="submit" id="button-addon2" style="margin-bottom: 0px;">댓글작성</button>
 		</div>
+</form:form>
 		
 	<!--댓글유무분기처리  -->
 	<div class="card text-center">
@@ -49,7 +57,6 @@ div#board-container label.custom-file-label{text-align:left;}
 		<p id="reply-content">내용</p>
 		</div>
 	</div>
-	
 
 </div>
 

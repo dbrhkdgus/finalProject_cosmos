@@ -32,6 +32,6 @@ public interface MainService {
 
 	int insertQuestion(Question que);
 
-	int insertQqReply(Reply reply) ;
+	int insertQueReply(Reply reply) ;
 	
 }

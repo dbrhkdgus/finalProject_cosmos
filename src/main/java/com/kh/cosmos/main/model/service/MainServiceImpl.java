@@ -85,9 +85,9 @@ public class MainServiceImpl implements MainService {
 	}
 
 	@Override
-	public int insertQqReply(Reply reply) {
+	public int insertQueReply(Reply reply) {
 		// TODO Auto-generated method stub
-		return mainDao.insertQqReply(reply);
+		return mainDao.insertQueReply(reply);
 	}
 	
 	

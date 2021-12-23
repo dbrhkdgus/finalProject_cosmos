@@ -193,4 +193,6 @@
 	<insert id="insertGroupJoin">
 	insert into applocation_group values(seq_alg_no_no.nextval, #{memberId}, #{groupNo}, default, #{answer}, default)
 	</insert>
+	
+
 </mapper>

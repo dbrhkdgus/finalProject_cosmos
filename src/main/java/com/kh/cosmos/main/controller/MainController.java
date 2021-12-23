@@ -202,28 +202,30 @@ public class MainController {
 		return "redirect:/main/qa.do";
 	}
 	
-	/*
-	 * @PostMapping("/qaDetail.do") public String qaDetail(@RequestParam int queNo,
-	 * RedirectAttributes redirectAttr,Authentication authentication ) {
-	 * 
-	 * Reply reply = new Reply(); Member member =
-	 * (Member)authentication.getPrincipal();
-	 * 
-	 * 
-	 * reply.setQueNo(queNo); reply.setMemberId(member.getId()); log.debug
-	 * ("reply = {}",reply); //
-	 * 
-	 * try { int result = mainService.insertQqReply(reply); String msg = result > 0
-	 * ? "댓글 등록 성공!" : "댓글 등록 실패!"; redirectAttr.addFlashAttribute("msg", msg); }
-	 * catch (Exception e) { log.error(e.getMessage(), e); //
-	 * redirectAttr.addFlashAttribute("msg", "댓글 등록 실패");
-	 * 
-	 * }
-	 * 
-	 * 
-	 * 
-	 * return "redirect:/main/qaDetail.do"; }
-	 */
+	@PostMapping("/queReplyEnroll.do")
+	public String qaDetail(@RequestParam(required=false) int queNo, Reply reply ,RedirectAttributes redirectAttr,Authentication authentication, HttpServletRequest request) {
+		 
+		Member member = (Member)authentication.getPrincipal();
+		
+		
+		reply.setMemberId(member.getId());
+		reply.setQueNo(queNo);
+		log.debug ("reply = {}",reply); 
+		
+		try {
+			int result = mainService.insertQueReply(reply); String msg = result > 0 ? "댓글 등록 성공!" : "댓글 등록 실패!";
+			 redirectAttr.addFlashAttribute("msg", msg);
+		} catch (Exception e) {
+			log.error(e.getMessage(), e); // 
+		 	redirectAttr.addFlashAttribute("msg", "댓글 등록 실패");
+		 	
+		}
+		 	
+			
+		
+		return "redirect:/main/qa.do";
+	}
+	
 	@GetMapping("/qaDetail.do")
 	public String queDetail(@RequestParam int queNo, Model model, Authentication authentication, RedirectAttributes redirectAttr) {
 
