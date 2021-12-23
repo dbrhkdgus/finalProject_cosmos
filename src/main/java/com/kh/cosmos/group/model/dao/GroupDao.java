@@ -54,6 +54,20 @@ public interface GroupDao {
 
 	int insertGroupJoin(ApplocationGroup applocationGroup);
 
+	int selectgroupLike(Map<String, Object> param);
+
+	int deletegroupLike(Map<String, Object> param);
+
+	int insertgroupLike(Map<String, Object> param);
+
+	int countFontLike(int groupNo);
+
+	int updateFontLike(Map<String, Object> map);
+
+	int selectCountGroupLike(int groupNo);
+
+	int updateGroupLikeCount(Map<String, Object> param1);
+
 
 
 }
