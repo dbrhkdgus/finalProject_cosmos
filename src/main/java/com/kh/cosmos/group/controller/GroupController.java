@@ -174,7 +174,11 @@ public class GroupController {
 		return "group/groupDetail";
 	}
 	@GetMapping("/groupJoin.do")
-	public String groupJoin() {
+	public String groupJoin(@RequestParam int groupNo, Model model, HttpServletRequest request) {
+		String groupNoStr = Integer.toString(groupNo);
+		Group group = groupService.selectGroupListByGroupNo(groupNoStr);
+		model.addAttribute(group);
+		log.debug("group = {}",group);
 		return "group/groupJoin";
 	}
 	
@@ -317,6 +321,15 @@ public class GroupController {
 
 		return map;
 	}
+	@PostMapping("/groupJoinFrm.do")
+	public String groupJoinFrm(ApplocationGroup applocationGroup, @RequestParam String inlineRadioOptions,  HttpServletRequest request, RedirectAttributes redirectAttributes) {
+		log.debug("applocationGroup = {}" ,applocationGroup);
+		int result = groupService.insertGroupJoin(applocationGroup);
+		String msg = result > 0 ? "가입 신청 성공!" : "가입 신청 실패!";
+		redirectAttributes.addFlashAttribute("msg", msg);
+		return "redirect:/";
+	}
+	
 	
 }
 
