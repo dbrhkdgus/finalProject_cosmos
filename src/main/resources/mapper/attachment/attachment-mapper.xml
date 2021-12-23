@@ -6,4 +6,8 @@
   <select id="selectGroupAttachmentList" resultType="attachment">
   	select * from attachment where group_no is not null and img_flag = 'Y'
   </select>
+  
+  <select id="selectGroupAttachmentListByGroupNo" resultType="attachment">
+  	select * from attachment where group_no = #{groupNo}
+  </select>
 </mapper>
