@@ -268,7 +268,8 @@ $(".selectOne").click((e)=>{
 			}else{
 				$("#groupPrivate").val("X")
 			}
-			
+			/* 비동기로 이미지 불러오기 */
+			document.getElementById('profileImg').src = `${pageContext.request.contextPath}/resources/upFile/group/`+data.nag.renamedFilename;
 			
 		},
 		error: console.log

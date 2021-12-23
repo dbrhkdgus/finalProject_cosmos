@@ -332,11 +332,12 @@ $(".selectOne").click((e)=>{
 				$("#groupList").val(data.member.groupName);
 			}
 			/* 등록된 프로필 이미지가 없을 때 */
-			if(data.member.attachNo == "null"){
-				document.getElementById('profileImg').style.src = '${pageContext.request.contextPath}/resources/images/sample.png';
-			/* 등록된 프로필 이미지가 있을 떄 */	
+			console.log("첨부파일번호: "+data.member.attachNo);
+			if(data.member.attchNo == "0"){
+				<%-- document.getElementById('profileImg').src = "<%= request.getContextPath() %>/resources/images/github.png"; --%>
+				document.getElementById('profileImg').src = `${pageContext.request.contextPath}/resources/images/github.png`;
 			}else{
-				
+				document.getElementById('profileImg').src = "<%= request.getContextPath() %>/resources/images/github.png";				
 			}
 		},
 		/* 변경된 사항의 리스트 행을 클릭시 해당 회원의 정보에 맞춰 버튼의 색깔이 변경된다.*/
@@ -363,7 +364,6 @@ $("#blackListBtn").click((e)=>{
 	}
 		
 
-	/* 테이블 내 회원 데이터 담긴 행을 클릭시, 해당 행 회원 데이터를 비동기로 호출한다. */
 	var targetMember = document.getElementById('id').value; 
     var changeMemberEnabled = 'tr-'+targetMember;
 
