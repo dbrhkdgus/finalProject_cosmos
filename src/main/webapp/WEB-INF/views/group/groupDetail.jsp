@@ -42,50 +42,28 @@
 
 		<!-- 클래스 소개 section -->
 		<c:forEach var="groupInfo" items="${groupInfoList}">
+					<section class="class-info-comm">
+						<div class="comm-left-box">
 			<c:choose>
 				<c:when test="${groupInfo.giSubTitle eq '1'}">
-					<section class="class-info-comm">
-						<div class="comm-left-box">
 							<p class="class-left-title" id="class-summary">스터디소개</p>
-						</div>
-						<div class="comm-right-box">
-							<p class="class-right-content">${groupInfo.giContent}</p>
-						</div>
-					</section>
 				</c:when>
 				<c:when test="${groupInfo.giSubTitle eq '2'}">
-					<section class="class-info-comm">
-						<div class="comm-left-box">
 							<p class="class-left-title" id="class-rule">이런분들이 가입하시면 좋아요!</p>
-						</div>
-						<div class="comm-right-box">
-							<p class="class-right-content">${groupInfo.giContent}</p>
-						</div>
-					</section>
 				</c:when>
 				<c:when test="${groupInfo.giSubTitle eq '3'}">
-					<section class="class-info-comm">
-						<div class="comm-left-box">
 							<p class="class-left-title" id="class-summary">스터디는 이렇게 진행됩니다!</p>
-						</div>
-						<div class="comm-right-box">
-							<p class="class-right-content">${groupInfo.giContent}</p>
-						</div>
-					</section>
 				</c:when>
 				<c:when test="${groupInfo.giSubTitle eq '4'}">
-					<section class="class-info-comm">
-						<div class="comm-left-box">
 							<p class="class-left-title" id="class-summary">꼭! 지켜주세요!</p>
+				</c:when>
+			</c:choose>
 						</div>
 						<div class="comm-right-box">
 							<p class="class-right-content">${groupInfo.giContent}</p>
 						</div>
 					</section>
-				</c:when>
-			</c:choose>
 		</c:forEach>
-
 		<section class="class-info-comm">
 			<div class="comm-left-box">
 				<p class="class-left-title" id="class-graph">저희 모임장소입니다!</p>
@@ -93,15 +71,11 @@
 			<div class="comm-right-box">
 				<p class="class-right-content">${group.groupLocation}</p>
 			</div>
-
 		</section>
-
-
 		<section class="class-info-comm">
 			<div class="comm-left-box">
 				<p class="class-left-title" id="class-review">스터디원 리뷰</p>
 			</div>
-
 			<div class="comm-right-box">
 				<p style="display: flex; justify-content: flex-end;">리뷰작성하기</p>
 				<div class="shop-detail-reblybox">
@@ -111,15 +85,9 @@
 						<button type="button" class="btn btn-secondary">등록</button>
 					</div>
 				</div>
-
 			</div>
-
 			<hr style="margin: 0; height: 10px; background-color: #D3CBF4;">
-
-
-
 		</section>
-
 	</div>
 	<!-- 오른쪽 sticky 클래스정보 -->
 	<div class="class-detail-right-container">
