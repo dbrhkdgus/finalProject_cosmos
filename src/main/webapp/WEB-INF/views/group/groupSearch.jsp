@@ -14,7 +14,7 @@
         <!-- Page content-->
         <div class="container">
             <div class="search-parent-category">
-                <ul class="nav nav-tabs" >
+                <ul class="nav nav-tabs">
                 	<li class="nav-item" style="margin: 0;">
                       <a class="nav-link ${ca1No == 0 ? 'active':'' }" aria-current="page" href="${pageContext.request.contextPath }/group/groupSearch.do">ALL</a>
                     </li>
@@ -27,9 +27,7 @@
                       
                     </li>
                 </c:forEach>
-                
                   </ul>
-                 
             </div>
             <div class="search-child-category">
                  <ul class="child-category-all" id="c2">
@@ -40,7 +38,7 @@
                     </c:if>
                 </ul> 
             </div>
-            <hr style=" color:gray; margin-bottom: 50px;">
+            <hr style="height: 0.5px; color: #8B6AD3; margin-bottom: 50px;">
             <div class="search-outer">
                 <!-- 서치 메뉴 정렬및 검색기능  -->
                 <div class="search-outer-top">
@@ -54,13 +52,13 @@
 		                <form action="${pageContext.request.contextPath}/group/groupSearch.do?ca1No=${ca1No}&ca2No=${ca2No}" method="get">
 	                    <div class="search-outer-top right">
 	       
-		                    <select name="searchType" class="form-select" id="search-select" aria-label="Default select example">
+		                    <select name="searchType" class="form-select search-select" aria-label="Default select example">
 		                      <option value="groupName" ${searchType == 'groupName' ? "selected":'' }>스터디 그룹명 검색 </option>
 		                      <option value="location" ${searchType == 'location' ? "selected":'' }>스터디 지역 검색</option>
 		                      <option value="pop" ${searchType == 'pop' ? "selected":'' }>인기순으로 보기</option>
 		                      <option value="new" ${searchType == 'new' ? "selected":'' }>최신 그룹순으로 보기</option>
 		                    </select>
-		                    <div class="input-group mb-3 search-input" style="width: 250px;">
+		                    <div class="input-group mb-3 search-input">
 		                        <input type="text" class="form-control" name="searchKeyword" value="${searchKeyword }" placeholder="스터디그룹을 찾아보세요"  aria-describedby="button-addon2">
 		                        <button class="btn btn-outline-secondary" type="button" id="button-addon2" >검색</button>
 		                      </div>
@@ -81,28 +79,33 @@
 	                        	<div class="search-inner">
 	                    	</c:if> 
 	                            <!-- Blog post-->
-									<div class="card mb-4 search-card" style="width: 350px; height: 460px;">
+									<div class="card mb-4 search-card">
 		                                <a href="${pageContext.request.contextPath}/group/groupDetail.do?groupNo=${group.groupNo}">
 		                                <c:forEach var="attach" items="${attachList }">
 			                                <c:if test="${group.groupNo == attach.groupNo }">
-			                                	<div class="card-img-div">
-			                                		<img class="card-img-top" src="${pageContext.request.contextPath }/resources/upFile/group/${attach.renamedFilename}"
+			                                	<img class="card-img-top" src="${pageContext.request.contextPath }/resources/upFile/group/${attach.renamedFilename}"
 			                                        alt="..." />
-			                                        </div>
 			                                </c:if>
 			                                </c:forEach>
 		                                </a>
-		                                <div class="search-card-body card-body">
+		                                <div class="card-body">
 		                                    <div class="small text-muted">${group.groupEnrollDate }</div>
-		                                    <h2 class="card-title h4" style="margin: 0.5rem 0 0.5rem 0; ">${group.groupName }</h2>
+		                                    <h2 class="card-title h4">${group.groupName }</h2>
 		                                     <c:forEach var="gi" items="${giList }">
 			                                <c:if test="${group.groupNo == gi.groupNo }">
 			                                	<p class="card-text">${gi.giTitle }</p>
 			                                </c:if>
 			                                </c:forEach>
 		                                    
-		                                    <a class="btn btn-primary d-inline" id="search-more-btn" href="${pageContext.request.contextPath}/group/groupDetail.do?groupNo=${group.groupNo}">더보기 →</a>
+		                                    <a class="btn btn-primary" href="#!">Read more →</a>
 		                                </div>
+		                                <!--좋아요 기능구현 해보는중  -->
+		                               <sec:authorize access="isAnonymous()">
+			                               		<i class="far fa-heart"  data-group-no="${group.groupNo }"><span>${group.groupLikeCount }</span></i>
+			                           </sec:authorize>
+			                             <sec:authorize access="isAuthenticated()">
+			                               		<i class="fas fa-heart"  data-group-no="${group.groupNo }"><span>${group.groupLikeCount }</span></i>
+			                             </sec:authorize>                             	
 		                            </div>
 							<c:if test="${vs.count %3 == 0}">
 	                       		</div>
@@ -177,7 +180,40 @@
 		}
 	}); --%>
 /*  }); */
- 
+ /* 좋아요 버튼 클릭시 사용자 좋아요 여부에 따른 버튼 이벤트 */
+	$(".fa-heart").click((e)=>{
+
+		let $target = $(e.target);
+		let $groupNo = $target.data("groupNo");
+		
+		$.ajax({
+			url: `${pageContext.request.contextPath}/group/groupLikeSearch.do`,
+			dataType: "json",
+			type: "GET",
+			data: {'groupNo' : $groupNo},
+			success(jsonStr){
+				console.log(jsonStr);
+				const likeValid = jsonStr["likeValid"];
+				const likeCnt = jsonStr["likeCnt"];
+				//member 본인의 likeValid가 1이라면 속이 찬 하트, 0이면 속이 빈 하트
+				if(likeValid == 1){
+					$target
+						.removeClass("far")
+						.addClass("fas");
+				}else{
+					$target
+						.removeClass("fas")
+						.addClass("far");
+				}
+				$target.html(`<span>\${likeCnt}</span>`);
+			},
+			error(xhr, textStatus, err){
+                console.log(xhr, textStatus, err);
+                    alert("로그인후 이용가능합니다");
+            }
+		});
+	});
+	
  </script>
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>

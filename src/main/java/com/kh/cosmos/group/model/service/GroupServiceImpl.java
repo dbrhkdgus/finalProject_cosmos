@@ -138,6 +138,47 @@ public class GroupServiceImpl implements GroupService {
 		return groupDao.insertGroupJoin(applocationGroup);
 	}
 
+	@Override
+	public int selectgroupLike(Map<String, Object> param) {
+		// TODO Auto-generated method stub
+		return groupDao.selectgroupLike(param);
+	}
+
+	@Override
+	public int deletegroupLike(Map<String, Object> param) {
+		// TODO Auto-generated method stub
+		return groupDao.deletegroupLike(param);
+	}
+
+	@Override
+	public int insertgroupLike(Map<String, Object> param) {
+		// TODO Auto-generated method stub
+		return groupDao.insertgroupLike(param);
+	}
+
+	@Override
+	public int countFontLike(int groupNo) {
+		// TODO Auto-generated method stub
+		return groupDao.countFontLike(groupNo);
+	}
+
+	@Override
+	public int updateFontLike(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return groupDao.updateFontLike(map);
+	}
+
+	@Override
+	public int selectCountGroupLike(int groupNo) {
+		return groupDao.selectCountGroupLike(groupNo);
+	}
+
+	@Override
+	public int updateGroupLikeCount(Map<String, Object> param1) {
+		// TODO Auto-generated method stub
+		return groupDao.updateGroupLikeCount(param1);
+	}
+
 
 
 	
