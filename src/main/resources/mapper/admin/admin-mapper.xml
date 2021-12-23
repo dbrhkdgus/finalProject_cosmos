@@ -107,5 +107,14 @@
 	where
 	    g.group_no = #{groupNo} and ag.role='G'
   </select>
-  
+    <!-- 그룹 승인하기 -->
+   <update id="updateGroupApprove">
+  	update
+  		applocation_group
+  	<set>
+  		group_accept='Y'
+  	</set>
+  	where
+  		group_no = #{groupNo}
+  </update>
 </mapper>

@@ -52,4 +52,9 @@ public class AdminDaoImpl implements AdminDao {
 		return session.selectList("admin.selectOneNotApprovedGroup", param);
 	}
 
+	@Override
+	public int updateGroupApprove(int groupNo) {
+		return session.update("admin.updateGroupApprove", groupNo);
+	}
+
 }

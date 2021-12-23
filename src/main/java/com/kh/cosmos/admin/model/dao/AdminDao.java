@@ -21,4 +21,6 @@ public interface AdminDao {
 	List<ApplocationGroup> selectNotApprovedAGList(int limit, int offset);
 
 	List<NotApprovedGroup> selectOneNotApprovedGroup(Map<String, Object> param);
+
+	int updateGroupApprove(int groupNo);
 }

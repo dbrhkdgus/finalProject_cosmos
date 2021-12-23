@@ -48,6 +48,11 @@ public class AdminServiceImpl implements AdminService{
 		return adminDao.selectOneNotApprovedGroup(param);
 	}
 
+	@Override
+	public int updateGroupApprove(int groupNo) {
+		return adminDao.updateGroupApprove(groupNo);
+	}
+
 
 
 	

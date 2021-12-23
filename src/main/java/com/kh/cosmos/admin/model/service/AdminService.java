@@ -22,5 +22,7 @@ public interface AdminService {
 
 	List<NotApprovedGroup> selectOneNotApprovedGroup(Map<String, Object> param);
 
+	int updateGroupApprove(int groupNo);
+
 
 }
