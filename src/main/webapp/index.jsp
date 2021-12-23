@@ -111,7 +111,7 @@
 				<button type="button" class="btn btn-outline-primary">DM</button>
 				</div>
 				</div>
-				<div class="index-member-group d-flex">
+				<div class="index-member-group d-flex justify-content-around">
 
 				<form action="${pageContext.request.contextPath}/member/memberGroupList.do">
 				<button>신청 그룹</button>
