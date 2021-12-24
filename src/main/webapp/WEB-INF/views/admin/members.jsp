@@ -310,6 +310,7 @@ var showMemberInfo = $(".selectOne").click((e)=>{
 	
 	var attachNo = '';
 	var calledId = '';
+	var dbImgRenamedFilenameRenamedFilename = '';
 	
 	$.ajax({
 		url: `${pageContext.request.contextPath}/admin/selectOneMember.do`,
@@ -346,6 +347,7 @@ var showMemberInfo = $(".selectOne").click((e)=>{
 			/* Promise 사용하기 위해 변수에 담기 */
 			attachNo = data.member.attachNo;
 			calledId = data.member.id;
+			dbImgRenamedFilename = data.renamedFilename;
 		},
 		/* 변경된 사항의 리스트 행을 클릭시 해당 회원의 정보에 맞춰 버튼의 색깔이 변경된다.*/
 		complete : function(){
@@ -361,7 +363,8 @@ var showMemberInfo = $(".selectOne").click((e)=>{
 	/* Promise 사용해보기. */
 	}).then(function(result,status,responseObj){
 		console.log("여기는 Promise 함수입니다.");
-		console.log("calledId = "+calledId);
+		console.log("Promise함수: calledId = "+calledId);
+		console.log("Promise함수: dbImgRenamedFilename = "+dbImgRenamedFilename);
 		if( attachNo == '0'){
 			$.ajax({
 				url: `${pageContext.request.contextPath}/admin/selectKakaoImage.do`,
