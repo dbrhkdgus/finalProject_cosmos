@@ -298,7 +298,10 @@ window.addEventListener("load", function(){
 
 		// 지도를 생성합니다    
 		var map = new kakao.maps.Map(mapContainer, mapOption); 
-
+		
+		// 지도에 표시된 마커 객체를 가지고 있을 배열입니다
+		var markers = [];
+		
 		// 주소-좌표 변환 객체를 생성합니다
 		var geocoder = new kakao.maps.services.Geocoder();
 		$("#location").keyup((e)=>{
@@ -311,11 +314,17 @@ window.addEventListener("load", function(){
 
 		        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
 
-		        // 결과값으로 받은 위치를 마커로 표시합니다
-		        var marker = new kakao.maps.Marker({
-		            map: map,
-		            position: coords
-		        });
+		     
+		            // 마커를 생성합니다
+		            var marker = new kakao.maps.Marker({
+		            	map: map,
+		                position: coords
+		            });
+
+		            
+		            // 생성된 마커를 배열에 추가합니다
+		            markers.push(marker);
+		        
 
 		        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
 		        map.setCenter(coords);
@@ -326,10 +335,19 @@ window.addEventListener("load", function(){
 		var marker = new kakao.maps.Marker(), // 클릭한 위치를 표시할 마커입니다
 		    infowindow = new kakao.maps.InfoWindow({zindex:1}); // 클릭한 위치에 대한 주소를 표시할 인포윈도우입니다
 
-		
+		    function setMarkers(map) {
+			    for (var i = 0; i < markers.length; i++) {
+			        markers[i].setMap(map);
+			    }            
+			}
+			function hideMarkers() {
+			    setMarkers(null);    
+			}
 		
 		// 지도를 클릭했을 때 클릭 위치 좌표에 대한 주소정보를 표시하도록 이벤트를 등록합니다
 		kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
+			hideMarkers();
+			
 		    searchDetailAddrFromCoords(mouseEvent.latLng, function(result, status) {
 		        if (status === kakao.maps.services.Status.OK) {
 		            var detailAddr = !!result[0].road_address ? '<div>도로명주소 : ' + result[0].road_address.address_name + '</div>' : '';
