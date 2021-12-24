@@ -221,4 +221,8 @@
 	<select id="selectReplyListBygroupNo" resultType="reply">
 	select * from reply where group_no = #{groupNo}
 	</select>
+	
+	<select id="CategoryOneList" resultType="CategoryOne">
+	select * from studygroup_category1
+	</select>
 </mapper>
