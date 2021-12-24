@@ -24,10 +24,10 @@
 		where
 		
 		    a.img_flag = 'Y'
-		<if test="resultType == 0">
+		<if test="type == 0">
 		order by g.group_like_count desc
 		</if>
-		<if test="resultType == 1">
+		<if test="type == 1">
 		order by g.group_enroll_date desc
 		</if>
   </select>
