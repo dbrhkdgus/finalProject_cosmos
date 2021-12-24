@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.kh.cosmos.admin.model.vo.SevenDaysData;
 import com.kh.cosmos.common.attachment.model.vo.Attachment;
 import com.kh.cosmos.group.model.vo.ApplocationGroup;
 import com.kh.cosmos.group.model.vo.NotApprovedGroup;
@@ -61,6 +62,11 @@ public class AdminDaoImpl implements AdminDao {
 	@Override
 	public List<Attachment> selectKakaoImage(String id) {
 		return session.selectList("admin.selectKakaoImage", id);
+	}
+
+	@Override
+	public SevenDaysData thisWeekEnrollMember() {
+		return session.selectOne("admin.thisWeekEnrollMember");
 	}
 
 }

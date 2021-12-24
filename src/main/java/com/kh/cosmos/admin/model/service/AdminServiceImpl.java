@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.cosmos.admin.model.dao.AdminDao;
+import com.kh.cosmos.admin.model.vo.SevenDaysData;
 import com.kh.cosmos.common.attachment.model.vo.Attachment;
 import com.kh.cosmos.group.model.vo.ApplocationGroup;
 import com.kh.cosmos.group.model.vo.NotApprovedGroup;
@@ -57,6 +58,11 @@ public class AdminServiceImpl implements AdminService{
 	@Override
 	public List<Attachment> selectKakaoImage(String id) {
 		return adminDao.selectKakaoImage(id);
+	}
+
+	@Override
+	public SevenDaysData thisWeekEnrollMember() {
+		return adminDao.thisWeekEnrollMember();
 	}
 
 	
