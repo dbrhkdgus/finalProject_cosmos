@@ -1,37 +1,32 @@
 package com.kh.cosmos.main.controller;
 
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.authentication;
-
 import java.io.File;
 import java.io.IOException;
-import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.FlashMap;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.cosmos.common.CosmosUtils;
 import com.kh.cosmos.common.attachment.model.vo.Attachment;
 import com.kh.cosmos.group.model.vo.Group;
 import com.kh.cosmos.main.model.service.MainService;
+import com.kh.cosmos.main.model.vo.JoinAllGroupInfo;
 import com.kh.cosmos.main.model.vo.Notice;
 import com.kh.cosmos.main.model.vo.Question;
 import com.kh.cosmos.main.model.vo.Reply;
@@ -265,6 +260,37 @@ public class MainController {
 		log.debug("list= {}",list);
 		model.addAttribute("list",list);
 		return "/index";
+	}
+	
+	@GetMapping("/mainStudyGroupInfo.do")
+	@ResponseBody
+	public Map<String, JoinAllGroupInfo> groupgroupContOne(@RequestParam String groupSelectType) {
+		Map<String, JoinAllGroupInfo> map = new HashMap<String, JoinAllGroupInfo>();
+		log.debug("groupSelectType = {}", groupSelectType);
+		log.debug("=?", groupSelectType.toString().equals("best"));
+		int type = 0;
+		if(groupSelectType.equals("best")) {
+			log.debug("test");
+			List<JoinAllGroupInfo> groupList = mainService.selectJoinAllGroupInfo(type);
+			int num = 0;
+			log.debug("groupList = {}", groupList);
+			for(JoinAllGroupInfo jag : groupList) {
+				map.put(Integer.toString(num), jag);
+				num++;
+			}
+			log.debug("map = {}", map);
+			return map;
+			
+		} else {
+			type += 1;
+			List<JoinAllGroupInfo> groupList = mainService.selectJoinAllGroupInfo(type);
+			int num = 0;
+			for(JoinAllGroupInfo jag : groupList) {
+				map.put(Integer.toString(num), jag);
+				num++;
+			}
+			return map;
+		}		
 	}
 	
 	@GetMapping("/about.do")
