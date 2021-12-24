@@ -107,10 +107,15 @@ public class MainServiceImpl implements MainService {
 
 	@Override
 	public List<JoinAllGroupInfo> selectJoinAllGroupInfo(Map<String, Object> param) {
-		// TODO Auto-generated method stub
 		return mainDao.selectJoinAllGroupInfo(param);
 	}
 
+	@Override
+	public int deleteOneReply(int replyNo) {
+		return mainDao.deleteOneReply(replyNo);
+	}
+
+	
 	
 
 }

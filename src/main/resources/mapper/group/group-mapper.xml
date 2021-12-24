@@ -214,8 +214,20 @@
 		update tb_group set group_like_count = #{newCount} where group_no =#{groupNo}
 	</update>
 	
-	
 	<select id="selectAllInterstGroup" resultType="MemberInterestGroup">
 		select * from interest_group	
 	</select>
+
+	<insert id="insertGroupeReply">
+	insert into reply values(SEQ_REPLY_NO_NO.nextval, #{memberId},#{content},null,null,default,null,null,null,#{groupNo})
+	</insert>
+	
+	<select id="selectReplyListBygroupNo" resultType="reply">
+	select * from reply where group_no = #{groupNo}
+	</select>
+	
+	<delete id="deleteGroupReply">
+	delete from reply where reply_no = #{replyNo}
+	</delete>
+
 </mapper>

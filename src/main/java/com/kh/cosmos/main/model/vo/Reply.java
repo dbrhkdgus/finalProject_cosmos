@@ -23,5 +23,6 @@ public class Reply implements Serializable{
 	private String deleteYn;
 	private int boardNo;
 	private int queNo;
+	private int groupNo;
 	
 }
