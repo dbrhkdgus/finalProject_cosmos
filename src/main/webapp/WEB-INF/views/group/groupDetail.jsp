@@ -167,7 +167,7 @@ var map = new kakao.maps.Map(mapContainer, mapOption);
 var geocoder = new kakao.maps.services.Geocoder();
 
 //주소로 좌표를 검색합니다
-geocoder.addressSearch('서울특별시 강서구 화곡동 897-14', function(result, status) {
+geocoder.addressSearch(`${group.groupLocation}`, function(result, status) {
 
 // 정상적으로 검색이 완료됐으면 
  if (status === kakao.maps.services.Status.OK) {
