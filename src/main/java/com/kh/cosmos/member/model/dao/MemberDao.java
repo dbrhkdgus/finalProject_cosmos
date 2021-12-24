@@ -1,9 +1,11 @@
 package com.kh.cosmos.member.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.kh.cosmos.common.attachment.model.vo.Attachment;
 import com.kh.cosmos.group.model.vo.ApplocationGroup;
+import com.kh.cosmos.group.model.vo.MemberInterestGroup;
 import com.kh.cosmos.member.model.vo.Member;
 
 public interface MemberDao {
@@ -27,5 +29,9 @@ public interface MemberDao {
 	List<ApplocationGroup> selectmyNotAllowedGroupList(String userId);
 
 	List<ApplocationGroup> selectmyNotJoinedGroupList(String userId);
+
+	List<MemberInterestGroup> selectmyInterestedGroupList(String userId);
+	
+	
 
 }

@@ -1,6 +1,7 @@
 package com.kh.cosmos.member.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.cosmos.common.attachment.model.vo.Attachment;
 import com.kh.cosmos.group.model.vo.ApplocationGroup;
+import com.kh.cosmos.group.model.vo.MemberInterestGroup;
 import com.kh.cosmos.member.model.dao.MemberDao;
 import com.kh.cosmos.member.model.vo.Member;
 
@@ -78,5 +80,11 @@ public class MemberServiceImpl implements MemberService {
 	public List<ApplocationGroup> selectmyNotJoinedGroupList(String userId) {
 		return memberDao.selectmyNotJoinedGroupList(userId);
 	}
+	
+	@Override
+	public List<MemberInterestGroup> selectmyInterestedGroupList(String userId) {
+		return memberDao.selectmyInterestedGroupList(userId); 
+	}
+	
 	
 }

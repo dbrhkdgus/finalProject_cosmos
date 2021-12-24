@@ -1,6 +1,7 @@
 package com.kh.cosmos.member.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.cosmos.common.attachment.model.vo.Attachment;
 import com.kh.cosmos.group.model.vo.ApplocationGroup;
+import com.kh.cosmos.group.model.vo.MemberInterestGroup;
 import com.kh.cosmos.member.model.vo.Member;
 
 @Repository
@@ -69,6 +71,12 @@ public class MemberDaoImpl implements MemberDao {
 	@Override
 	public List<ApplocationGroup> selectmyNotJoinedGroupList(String userId) {
 		return session.selectList("member.selectmyNotJoinedGroupList", userId);
+	}
+
+	@Override
+	public List<MemberInterestGroup> selectmyInterestedGroupList(String userId) {
+		// TODO Auto-generated method stub
+		return session.selectList("member.selectmyInterestedGroupList",userId);
 	}
 	
 }

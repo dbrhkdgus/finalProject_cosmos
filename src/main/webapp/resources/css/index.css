@@ -249,6 +249,8 @@
 
 .member-group-list{
   display: flex;
+  height:100px;
+  width:100px;
 }
 
 .member-group-list-outer{
