@@ -195,6 +195,16 @@
 	width:40%;
 }
 
+.search-inner-button{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.fa-heart:before {
+	font-size : 25px;
+	color: red;
+}
 
 
 
