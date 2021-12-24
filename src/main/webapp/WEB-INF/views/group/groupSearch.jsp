@@ -88,20 +88,49 @@
 			                                	src="${pageContext.request.contextPath }/resources/upFile/group/${attach.renamedFilename}"
 			                                        alt="..." />
 			                                </c:if>
-			                                </c:forEach>
+		                                </c:forEach>
 		                                </a>
 		                                <div class="search-card-body card-body">
-		                                    <div class="small text-muted">${group.groupEnrollDate }</div>
+		                                    <div class="small text-muted">
+			                                    <c:if test="${fn:contains(group.groupClose, 'N')}">
+			                                    	<div>
+					                                    <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" class="bi bi-circle-fill" viewBox="0 0 16 16">
+														  <circle cx="8" cy="8" r="8"/>
+														</svg>
+					                                    <span>
+					                                    모집중(?/${group.groupPool})
+					                                    </span>
+			                                    	</div>
+			                                    </c:if>
+		                                    	<c:forEach var="cate" items="${caOneList}">
+		                                    		<c:if test="${group.categoryNo == cate.category1No}">
+		                                    			<div>
+		                                    				<p>${cate.category1Name}</p>
+		                                    			</div>
+		                                    		</c:if>
+		                                    	</c:forEach>
+			                                    
+		                                    </div>
 		                                    <h2 class="card-title h4" style="margin: 0.5rem 0 0.5rem 0;">${group.groupName }</h2>
 		                                     <c:forEach var="gi" items="${giList }">
 			                                <c:if test="${group.groupNo == gi.groupNo }">
 			                                	<p class="card-text" style="margin-bottom: 5px;">${gi.giTitle }</p>
 			                                </c:if>
 			                                </c:forEach>
-								<div class="search-inner-button">
-									<a class="btn btn-primary d-inline" id="search-more-btn"
-										href="${pageContext.request.contextPath}/group/groupDetail.do?groupNo=${group.groupNo}">
-										더보기→</a>
+		                                    
+		                                    <c:forEach var="gcl" items="${groupCategoryList}">
+		                                    	<c:if test="${group.groupNo == gcl.groupNo}">
+		                                    		<c:forEach var="ctl" items ="${categoryTwoList}">
+		                                    			<c:if test="${gcl.category2No == ctl.category2No }">
+		                                    				<div>
+		                                    					<span>#${ctl.category2Name}</span>
+		                                    				</div>
+		                                    			</c:if>
+		                                    		</c:forEach>
+		                                    	</c:if>
+		                                    </c:forEach>
+		                                    
+		                                </div>
 		                                <!--좋아요 기능구현 해보는중  -->
 									<div class="like-button-outer">
 										<sec:authorize access="isAnonymous()">
@@ -111,7 +140,6 @@
 											<i class="fas fa-heart" data-group-no="${group.groupNo }"><span>${group.groupLikeCount }</span></i>
 										</sec:authorize>
 									</div>
-								</div>
 							</div>
 						</div>
 							<c:if test="${vs.count %3 == 0}">

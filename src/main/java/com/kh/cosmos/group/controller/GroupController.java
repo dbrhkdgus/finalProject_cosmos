@@ -3,7 +3,6 @@ package com.kh.cosmos.group.controller;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,6 +36,7 @@ import com.kh.cosmos.group.model.vo.GroupCategory;
 import com.kh.cosmos.group.model.vo.GroupEnroll;
 import com.kh.cosmos.group.model.vo.GroupInfo;
 import com.kh.cosmos.group.model.vo.GroupInfoConnect;
+import com.kh.cosmos.group.model.vo.NumberOfGroupMember;
 import com.kh.cosmos.main.model.vo.Reply;
 import com.kh.cosmos.member.model.vo.Member;
 
@@ -80,7 +80,7 @@ public class GroupController {
 		
 		
 		groupList = groupService.selectAllGroupListByParam(param, limit, offset);
-		
+		log.debug("groupList = {}", groupList);
 		
 		model.addAttribute("ca1No",ca1No);
 		List<CategoryTwo> ca2NoList = new ArrayList<CategoryTwo>();
@@ -91,7 +91,6 @@ public class GroupController {
 		model.addAttribute("ca2NoList",ca2NoList);
 		model.addAttribute("searchType",searchType);
 		model.addAttribute("searchKeyword",searchKeyword);
-		
 		
 //		if(ca1No.equals("0") && ca2No.equals("0")) {
 //			
@@ -113,10 +112,22 @@ public class GroupController {
 //			model.addAttribute("ca2No", ca2No);
 //		}
 		
-		
 		List<CategoryOne> caOneList = groupService.groupgroupContOne();
 		model.addAttribute("caOneList", caOneList);
 		
+		List<GroupCategory> groupCategoryList = groupService.selectAllGroupCategory();
+		model.addAttribute("groupCategoryList", groupCategoryList);
+		log.debug("groupCategoryList = {}", groupCategoryList);
+		
+		List<CategoryTwo> categoryTwoList = groupService.selectAllCategoryTwoList();
+		model.addAttribute("categoryTwoList", categoryTwoList);
+		log.debug("categoryTwoList = {}", categoryTwoList);
+		
+		Map<Integer, Integer> numberOfGroupMember = new HashMap<Integer, Integer>();
+		List<NumberOfGroupMember> numOfGMList = groupService.selectAllNumOfGM();
+		for(NumberOfGroupMember numOfGM : numOfGMList) {
+			numberOfGroupMember.put(numOfGM.getGroupNo(), numOfGM.getCnt());
+		}
 		
 		model.addAttribute("groupList", groupList);
 		
@@ -132,6 +143,8 @@ public class GroupController {
 		String pagebar = CosmosUtils.getPagebar(cPage, limit, totalContent, url);
 //		log.debug("pagebar = {}", pagebar);
 		model.addAttribute("pagebar", pagebar);
+		
+		
 		
 		return "group/groupSearch";
 	}

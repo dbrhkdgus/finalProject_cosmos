@@ -218,6 +218,22 @@
 		update tb_group set group_like_count = #{newCount} where group_no =#{groupNo}
 	</update>
 	
+	<select id="selectAllGroupCategory" resultType="GroupCategory">
+		select * from group_category
+	</select>
+	
+	<select id="selectAllCategoryTwoList" resultType="CategoryTwo">
+		select * from studygroup_category2
+	</select>
+	
+	<select id="selectAllNumOfGM" resultType="NumberOfGroupMember">
+		select
+		    group_no, count(group_no) as cnt
+		from
+		    applocation_group
+		group by group_no
+	</select>
+
 	<insert id="insertGroupeReply">
 	insert into reply values(SEQ_REPLY_NO_NO.nextval, #{memberId},#{content},null,null,default,null,null,null,#{groupNo})
 	</insert>

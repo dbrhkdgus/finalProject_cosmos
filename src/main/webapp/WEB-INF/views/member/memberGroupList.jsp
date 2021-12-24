@@ -20,7 +20,7 @@
                 <div class="member-group-list-outer tab-content ${type=='application-group'? 'current' : ''}" id="tab-1">
                 	<div class="membergroup-list d-flex flex-column align-items-center">
 		        		<c:choose> 
-							<c:when test="${myNotJoinedGroupList == null}">
+							<c:when test="${empty myNotJoinedGroupList}">
 								<br>
 								<p>가입신청한 그룹이 없습니다.</p>
 							</c:when> 

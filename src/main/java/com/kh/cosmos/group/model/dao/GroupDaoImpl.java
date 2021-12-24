@@ -16,6 +16,7 @@ import com.kh.cosmos.group.model.vo.Group;
 import com.kh.cosmos.group.model.vo.GroupCategory;
 import com.kh.cosmos.group.model.vo.GroupInfo;
 import com.kh.cosmos.group.model.vo.GroupInfoConnect;
+import com.kh.cosmos.group.model.vo.NumberOfGroupMember;
 import com.kh.cosmos.main.model.vo.Reply;
 
 @Repository
@@ -179,6 +180,24 @@ public class GroupDaoImpl implements GroupDao {
 	@Override
 	public int updateGroupLikeCount(Map<String, Object> param1) {
 		return session.update("group.updateGroupLikeCount",param1);
+	}
+
+	@Override
+	public List<GroupCategory> selectAllGroupCategory() {
+		// TODO Auto-generated method stub
+		return session.selectList("group.selectAllGroupCategory");
+	}
+
+	@Override
+	public List<CategoryTwo> selectAllCategoryTwoList() {
+		// TODO Auto-generated method stub
+		return session.selectList("group.selectAllCategoryTwoList");
+	}
+
+	@Override
+	public List<NumberOfGroupMember> selectAllNumOfGM() {
+		// TODO Auto-generated method stub
+		return session.selectList("group.selectAllNumOfGM");
 	}
 
 	@Override
