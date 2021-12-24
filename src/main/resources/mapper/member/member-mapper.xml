@@ -49,13 +49,13 @@
 			#{originalFilename},
 			#{renamedFilename},
 			sysdate,
-			default,
+			'P',
 			default
 		)
 	</insert>
 	<select id="selectMemberProfile" resultType="attachment">
 
-	select * from attachment where member_id = #{id} and group_no is null and img_flag = 'N' order by reg_date desc
+	select * from attachment where member_id = #{id} and group_no is null and img_flag = 'P' order by reg_date desc
 	</select>
 	<update id="updateAttach">
 	update attachment 
