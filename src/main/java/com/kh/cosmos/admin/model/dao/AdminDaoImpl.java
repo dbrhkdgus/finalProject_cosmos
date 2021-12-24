@@ -81,4 +81,9 @@ public class AdminDaoImpl implements AdminDao {
 		return session.selectList("admin.adminMainGroupList");
 	}
 
+	@Override
+	public List<Attachment> selectProfileImgList() {
+		return session.selectList("admin.selectProfileImgList");
+	}
+
 }

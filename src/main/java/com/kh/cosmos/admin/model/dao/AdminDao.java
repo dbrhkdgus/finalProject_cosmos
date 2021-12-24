@@ -35,4 +35,6 @@ public interface AdminDao {
 	List<Question> adminMainQuestionList();
 
 	List<Group> adminMainGroupList();
+
+	List<Attachment> selectProfileImgList();
 }

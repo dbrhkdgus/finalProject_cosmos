@@ -9,8 +9,30 @@
 	<jsp:param value="COSMOS" name="title"/>
 </jsp:include>
 
+
+
 <!-- chart.js CDN -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+<style>
+.profileDiv
+{
+  position: relative;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%; /*둥그런 원으로 만들기 위함*/
+  overflow: hidden;
+}
+.profileDiv img
+{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+</style>
+
 
         <div class="container">
             <div class="row">
@@ -67,7 +89,21 @@
                         	<!-- 문의사항 목록 호출 -->
                         	<c:forEach items="${questionList}" var="question">
                             <div class="media tm-notification-item">
-                                <div class="tm-gray-circle"><img src="img/notification-01.jpg" alt="Avatar Image" class="rounded-circle"></div>
+                                <div class="tm-circle profileDiv mr-3">
+                                <img src="" alt="" />
+                                 	<c:if test="${empty profileImg[question.memberId]} ">
+										<img src="${pageContext.request.contextPath}/resources/upFile/profile/defaultProfile.png" class="rounded-circle">                                		
+                                	</c:if>
+                                	<c:if test="${not empty profileImg[question.memberId]}">
+                                		<c:if test="${fn:contains(profileImg[question.memberId],'http')}">
+		                                	<img id="header-profile" src="${profileImg[question.memberId]}" class="rounded-circle">
+                                		</c:if>
+                                		<c:if test="${! fn:contains(profileImg[question.memberId],'http')}">
+		                                	<img id="header-profile" src="${pageContext.request.contextPath}/resources/upFile/profile/${profileImg[question.memberId]}" class="rounded-circle">
+                                		</c:if>
+
+                                	</c:if>
+                               	</div>
                                 <div class="media-body">
                                     <p class="mb-2"><b>문의번호 ${question.queNo}&nbsp&nbsp</b> 
                                         <a href="#" class="tm-notification-link">[${question.queCategory}]</a></p>
@@ -205,7 +241,6 @@ var date = now.getDate();
 		}
 	})
 })()
-
 
   
 </script>  

@@ -59,7 +59,16 @@ public class AdminController {
 		log.debug("questionList = {}", questionList);
 		model.addAttribute("questionList",questionList);
 		
-		
+		//문의사항 목록에 쓸 프로필 사진 리스트
+		List<Attachment> profileImgList = adminService.selectProfileImgList();
+		log.debug("profileImgList = {}", profileImgList);
+		Map<String, String> profileImg = new HashMap<>();
+		for(Attachment attachment : profileImgList) {
+			System.out.println("여기는 테스트트트트트트트: "+attachment.getRenamedFilename().contains("http://k.kakaocdn.net/"));
+				profileImg.put(attachment.getMemberId(), attachment.getRenamedFilename());
+		}
+		model.addAttribute("profileImg", profileImg);
+
 		//그룹 리스트 불러오기
 		List<Group> groupList = adminService.adminMainGroupList();
 		log.debug("groupList = {}", groupList);
@@ -77,8 +86,50 @@ public class AdminController {
 		log.debug("categoryOneMap = {}", categoryOneMap);
 		model.addAttribute("categoryOneMap", categoryOneMap);
 		
+		
+		
 		return "admin/main";
 	}
+	
+	@GetMapping("/selectOneMember.do")
+	@ResponseBody
+	public Map<String,Object> selectOne(@RequestParam Map<String, Object> param) {
+		Map<String, Object> map = new HashMap<>();
+		log.debug("넘겨져온 param = {}", param);
+		
+		//멤버-그룹 연계 테이블에, 한 회원이 여러 그룹에 가입되어 있을 수 있기에 List 받아와야 한다.
+		List<MemberWithGroup> memberWithGroup = adminService.selectOneMember(param);
+		log.debug("memberWithGroup.size() ={}", memberWithGroup.size());
+		String groupName = "";
+		int count = 1;
+		
+		//각 행에 담겨있는 참여 모임의 문자열들을 합쳐준다.
+		for(MemberWithGroup mwg : memberWithGroup) {
+			groupName += mwg.getGroupName();
+			if(count!=memberWithGroup.size()) {
+				groupName += ", ";
+			}
+			count= count+1;
+		}
+		log.debug("memberWithGroup = {}", memberWithGroup);
+		log.debug("groupName = {}", groupName);
+		MemberWithGroup mwg = memberWithGroup.get(0);
+		log.debug("memberWithGroup.get(1) = {}", mwg);
+		mwg.setGroupName(groupName);
+		map.put("member", mwg);
+		
+		//문의사항 목록에 쓸 프로필 사진 리스트
+		List<Attachment> profileImgList = adminService.selectProfileImgList();
+		log.debug("profileImgList = {}", profileImgList);
+		Map<String, String> profileImg = new HashMap<>();
+		for(Attachment attachment : profileImgList) {
+			profileImg.put(attachment.getMemberId(), attachment.getRenamedFilename());
+		}
+		map.put("profileImg", profileImg);
+		
+		return map;
+	}
+	
 	
 	@GetMapping("/QnA.do")
 	public String QnA(@RequestParam(defaultValue = "1") int cPage, Model model, HttpServletRequest request) {
@@ -123,35 +174,7 @@ public class AdminController {
 		return "admin/members";
 	}
 	
-	@GetMapping("/selectOneMember.do")
-	@ResponseBody
-	public Map<String,Object> selectOne(@RequestParam Map<String, Object> param) {
-		Map<String, Object> map = new HashMap<>();
-		log.debug("넘겨져온 param = {}", param);
-		
-//		멤버-그룹 연계 테이블에, 한 회원이 여러 그룹에 가입되어 있을 수 있기에 List 받아와야 한다.
-		List<MemberWithGroup> memberWithGroup = adminService.selectOneMember(param);
-		log.debug("memberWithGroup.size() ={}", memberWithGroup.size());
-		String groupName = "";
-		int count = 1;
-		
-//		각 행에 담겨있는 참여 모임의 문자열들을 합쳐준다.
-		for(MemberWithGroup mwg : memberWithGroup) {
-			groupName += mwg.getGroupName();
-			if(count!=memberWithGroup.size()) {
-				groupName += ", ";
-			}
-			count= count+1;
-		}
-		log.debug("memberWithGroup = {}", memberWithGroup);
-		log.debug("groupName = {}", groupName);
-		MemberWithGroup mwg = memberWithGroup.get(0);
-		log.debug("memberWithGroup.get(1) = {}", mwg);
-		mwg.setGroupName(groupName);
-		map.put("member", mwg);
-		
-		return map;
-	}
+
 	
 	 @GetMapping("/updateBlack")
 	 @ResponseBody 
