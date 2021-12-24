@@ -190,6 +190,11 @@ public class GroupDaoImpl implements GroupDao {
 	public List<Reply> selectReplyListBygroupNo(String groupNo) {
 		return session.selectList("group.selectReplyListBygroupNo",groupNo);
 	}
+
+	@Override
+	public List<CategoryOne> CategoryOneList() {
+		return session.selectList("group.CategoryOneList");
+	}
 	
 	
 	
