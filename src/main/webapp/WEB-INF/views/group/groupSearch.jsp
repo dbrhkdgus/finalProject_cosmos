@@ -103,7 +103,7 @@
 														  <circle cx="8" cy="8" r="8"/>
 														</svg>
 					                                    <span>
-					                                    모집중(?/${group.groupPool})
+					                                    모집중(${numberOfGroupMember[group.groupNo]}/${group.groupPool})
 					                                    </span>
 			                                    	</div>
 			                                    </c:if>
