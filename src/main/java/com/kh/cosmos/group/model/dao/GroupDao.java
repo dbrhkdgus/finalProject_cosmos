@@ -82,5 +82,7 @@ public interface GroupDao {
 
 	int deleteGroupReply(int replyNo);
 
+	List<CategoryOne> CategoryOneList();
+
 
 }

@@ -245,4 +245,8 @@
 	<delete id="deleteGroupReply">
 	delete from reply where reply_no = #{replyNo}
 	</delete>
+	
+	<select id="CategoryOneList" resultType="CategoryOne">
+	select * from studygroup_category1
+	</select>	
 </mapper>

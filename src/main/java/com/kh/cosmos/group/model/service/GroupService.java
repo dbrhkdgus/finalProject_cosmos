@@ -84,6 +84,8 @@ public interface GroupService {
 
 	int deleteGroupReply(int replyNo);
 
+	List<CategoryOne> CategoryOneList();
+
 
 
 
