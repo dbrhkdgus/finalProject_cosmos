@@ -300,4 +300,17 @@ public class MainController {
 	public String about() {
 		return "main/about";
 	}
+	@GetMapping("/service.do")
+	public String service() {
+		return "main/service";
+	}
+	@GetMapping("/privacy.do")
+	public String privacy() {
+		return "main/privacy";
+	}
+	@GetMapping("/proposal.do")
+	public String proposal() {
+		return "main/proposal";
+	}
+	
 }
