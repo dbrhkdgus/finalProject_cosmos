@@ -44,6 +44,7 @@ import com.kh.cosmos.group.model.service.GroupService;
 import com.kh.cosmos.group.model.vo.ApplocationGroup;
 import com.kh.cosmos.group.model.vo.CategoryOne;
 import com.kh.cosmos.group.model.vo.Group;
+import com.kh.cosmos.group.model.vo.MemberInterestGroup;
 import com.kh.cosmos.member.model.service.MemberService;
 import com.kh.cosmos.member.model.vo.Member;
 
@@ -221,7 +222,9 @@ public class MemberController {
 		
 		List<ApplocationGroup> myNotAllowedGroupList = memberService.selectmyNotAllowedGroupList(userId);
 		model.addAttribute("myNotAllowedGroupList", myNotAllowedGroupList);
-		
+		List<MemberInterestGroup> myInterestedGroupList = memberService.selectmyInterestedGroupList(userId);
+		model.addAttribute("myInterestedGroupList", myInterestedGroupList);
+		   
 
 		List<Group> groupList = groupService.selectAllMyGroupList();
 		model.addAttribute("groupList", groupList);

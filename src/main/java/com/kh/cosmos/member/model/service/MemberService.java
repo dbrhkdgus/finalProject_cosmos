@@ -1,9 +1,11 @@
 package com.kh.cosmos.member.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.kh.cosmos.common.attachment.model.vo.Attachment;
 import com.kh.cosmos.group.model.vo.ApplocationGroup;
+import com.kh.cosmos.group.model.vo.MemberInterestGroup;
 import com.kh.cosmos.member.model.vo.Member;
 
 public interface MemberService {
@@ -15,7 +17,7 @@ public interface MemberService {
 	int updateMember(Member updateMember);
 
 	int insertUserAuthority(String id);
-
+ 
 	List<ApplocationGroup> selectMyGroupList(String userId);
 
 	int insertAttach(Attachment attach);
@@ -27,5 +29,7 @@ public interface MemberService {
 	List<ApplocationGroup> selectmyNotAllowedGroupList(String userId);
 
 	List<ApplocationGroup> selectmyNotJoinedGroupList(String userId);
+	
+	List<MemberInterestGroup> selectmyInterestedGroupList(String userId);
 
 }
