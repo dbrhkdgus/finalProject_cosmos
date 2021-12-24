@@ -114,7 +114,7 @@
 		                                    <h2 class="card-title h4" style="margin: 0.5rem 0 0.5rem 0;">${group.groupName }</h2>
 		                                     <c:forEach var="gi" items="${giList }">
 			                                <c:if test="${group.groupNo == gi.groupNo }">
-			                                	<p class="card-text">${gi.giTitle }</p>
+			                                	<p class="card-text" style="margin-bottom: 5px;">${gi.giTitle }</p>
 			                                </c:if>
 			                                </c:forEach>
 		                                    
@@ -132,13 +132,16 @@
 		                                    
 		                                </div>
 		                                <!--좋아요 기능구현 해보는중  -->
-		                               <sec:authorize access="isAnonymous()">
-			                               		<i class="far fa-heart"  data-group-no="${group.groupNo }"><span>${group.groupLikeCount }</span></i>
-			                           </sec:authorize>
-			                             <sec:authorize access="isAuthenticated()">
-			                               		<i class="fas fa-heart"  data-group-no="${group.groupNo }"><span>${group.groupLikeCount }</span></i>
-			                             </sec:authorize>                             	
-		                            </div>
+									<div class="like-button-outer">
+										<sec:authorize access="isAnonymous()">
+											<i class="far fa-heart" data-group-no="${group.groupNo }"><span>${group.groupLikeCount }</span></i>
+										</sec:authorize>
+										<sec:authorize access="isAuthenticated()">
+											<i class="fas fa-heart" data-group-no="${group.groupNo }"><span>${group.groupLikeCount }</span></i>
+										</sec:authorize>
+									</div>
+							</div>
+						</div>
 							<c:if test="${vs.count %3 == 0}">
 	                       		</div>
 	                    	</c:if>

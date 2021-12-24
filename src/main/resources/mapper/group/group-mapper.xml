@@ -120,8 +120,8 @@
 		<if test="searchType == 'location'">
 			 and group_location like '%'||#{searchKeyword}||'%'
 		</if>
-		
 	</where>
+
 	</select>
 	<select id="selectAllMyGroupList" resultType="group">
 	select * from tb_group
@@ -164,6 +164,10 @@
 		</if>
 		
 	</where>
+		order by 
+		 <if test="searchType != 'pop'">  group_enroll_date desc </if>
+
+		 <if test="searchType == 'pop'">  group_like_count desc </if>
 	</select>
 	
 	<select id="selectGroupListByGroupNo" resultType="group">
@@ -229,4 +233,16 @@
 		    applocation_group
 		group by group_no
 	</select>
+
+	<insert id="insertGroupeReply">
+	insert into reply values(SEQ_REPLY_NO_NO.nextval, #{memberId},#{content},null,null,default,null,null,null,#{groupNo})
+	</insert>
+	
+	<select id="selectReplyListBygroupNo" resultType="reply">
+	select * from reply where group_no = #{groupNo}
+	</select>
+	
+	<delete id="deleteGroupReply">
+	delete from reply where reply_no = #{replyNo}
+	</delete>
 </mapper>

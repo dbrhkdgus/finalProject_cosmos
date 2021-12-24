@@ -252,7 +252,14 @@ public class MainController {
 		return "main/qaDetail";
 	}
 	
-
+	@PostMapping("/deleteQueReply.do")
+	public String deleteQueReply(@RequestParam int replyNo,@RequestParam int queNo) {
+		int result  = mainService.deleteOneReply(replyNo);
+		
+		return"redirect:/main/qaDetail.do?queNo="+queNo;
+	}
+	
+	
 	@GetMapping("/index.do")
 	public String index(Model model) {
 		
@@ -300,4 +307,17 @@ public class MainController {
 	public String about() {
 		return "main/about";
 	}
+	@GetMapping("/service.do")
+	public String service() {
+		return "main/service";
+	}
+	@GetMapping("/privacy.do")
+	public String privacy() {
+		return "main/privacy";
+	}
+	@GetMapping("/proposal.do")
+	public String proposal() {
+		return "main/proposal";
+	}
+	
 }
