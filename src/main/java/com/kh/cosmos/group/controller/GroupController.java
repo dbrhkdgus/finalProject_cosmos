@@ -41,6 +41,7 @@ import com.kh.cosmos.main.model.vo.Reply;
 import com.kh.cosmos.member.model.vo.Member;
 
 import lombok.extern.slf4j.Slf4j;
+import oracle.jdbc.proxy.annotation.Post;
 
 @Controller
 @Slf4j
@@ -414,6 +415,14 @@ public class GroupController {
 			}
 			 	
 			return "redirect:/group/groupDetail.do?groupNo="+groupNo;
+	}
+	
+	
+	@PostMapping("/deleteGroupReply.do")
+	public String deleteGroupReply(@RequestParam int replyNo,@RequestParam int groupNo) {
+		int result  = groupService.deleteGroupReply(replyNo);
+		
+		return"redirect:/group/groupDetail.do?groupNo="+groupNo;
 	}
 }
 

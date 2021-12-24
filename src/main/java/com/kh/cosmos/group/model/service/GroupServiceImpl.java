@@ -191,9 +191,11 @@ public class GroupServiceImpl implements GroupService {
 	}
 
 	@Override
-	public List<CategoryOne> CategoryOneList() {
-		return groupDao.CategoryOneList();
+	public int deleteGroupReply(int replyNo) {
+		return groupDao.deleteGroupReply(replyNo);
 	}
+	
+	
 	
 	
 	

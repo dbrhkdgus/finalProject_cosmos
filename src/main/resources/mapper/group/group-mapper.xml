@@ -120,8 +120,8 @@
 		<if test="searchType == 'location'">
 			 and group_location like '%'||#{searchKeyword}||'%'
 		</if>
-		
 	</where>
+
 	</select>
 	<select id="selectAllMyGroupList" resultType="group">
 	select * from tb_group
@@ -164,6 +164,10 @@
 		</if>
 		
 	</where>
+		order by 
+		 <if test="searchType != 'pop'">  group_enroll_date desc </if>
+
+		 <if test="searchType == 'pop'">  group_like_count desc </if>
 	</select>
 	
 	<select id="selectGroupListByGroupNo" resultType="group">
@@ -222,7 +226,7 @@
 	select * from reply where group_no = #{groupNo}
 	</select>
 	
-	<select id="CategoryOneList" resultType="CategoryOne">
-	select * from studygroup_category1
-	</select>
+	<delete id="deleteGroupReply">
+	delete from reply where reply_no = #{replyNo}
+	</delete>
 </mapper>

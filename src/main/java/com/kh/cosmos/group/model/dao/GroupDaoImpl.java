@@ -192,9 +192,11 @@ public class GroupDaoImpl implements GroupDao {
 	}
 
 	@Override
-	public List<CategoryOne> CategoryOneList() {
-		return session.selectList("group.CategoryOneList");
+	public int deleteGroupReply(int replyNo) {
+		return session.delete("group.deleteGroupReply",replyNo);
 	}
+	
+	
 	
 	
 	
