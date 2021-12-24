@@ -141,6 +141,7 @@ geocoder.addressSearch('서울특별시 강서구 화곡동 897-14', function(re
 						</div>
 					</section>
 		</c:forEach>
+		
 		<section class="class-info-comm">
 			<div class="comm-left-box">
 				<p class="class-left-title" id="class-graph">저희 모임장소입니다!</p>

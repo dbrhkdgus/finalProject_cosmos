@@ -268,10 +268,12 @@ public class MainController {
 		Map<String, JoinAllGroupInfo> map = new HashMap<String, JoinAllGroupInfo>();
 		log.debug("groupSelectType = {}", groupSelectType);
 		log.debug("=?", groupSelectType.toString().equals("best"));
+		Map<String,Object> param = new HashMap<>();
 		int type = 0;
 		if(groupSelectType.equals("best")) {
 			log.debug("test");
-			List<JoinAllGroupInfo> groupList = mainService.selectJoinAllGroupInfo(type);
+			param.put("type", type);
+			List<JoinAllGroupInfo> groupList = mainService.selectJoinAllGroupInfo(param);
 			int num = 0;
 			log.debug("groupList = {}", groupList);
 			for(JoinAllGroupInfo jag : groupList) {
@@ -283,7 +285,8 @@ public class MainController {
 			
 		} else {
 			type += 1;
-			List<JoinAllGroupInfo> groupList = mainService.selectJoinAllGroupInfo(type);
+			param.put("type", type);
+			List<JoinAllGroupInfo> groupList = mainService.selectJoinAllGroupInfo(param);
 			int num = 0;
 			for(JoinAllGroupInfo jag : groupList) {
 				map.put(Integer.toString(num), jag);
