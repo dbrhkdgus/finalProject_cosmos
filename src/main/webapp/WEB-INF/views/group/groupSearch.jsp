@@ -143,22 +143,21 @@
 			                               		<i class="far fa-heart"  data-group-no="${group.groupNo }"><span>${group.groupLikeCount }</span></i>
 			                           </sec:authorize>
 			                             <sec:authorize access="isAuthenticated()">
-			                           <!--start  -->
-			                         
-				                             		<c:forEach var="git" items="${groupInterestList}" begin="1" end="1" varStatus="status">
-				                             			<c:choose>
-					                             			<c:when test="${git.memberId == loginMember.id && group.groupNo == git.groupNo}" >
-					                               				<i class="fas fa-heart"  data-group-no="${group.groupNo }"><span>${group.groupLikeCount }</span></i>
-					                             			</c:when>
-					                             		
-					                             			<c:otherwise >
-					                             				<i class="far fa-heart"  data-group-no="${group.groupNo }"><span>${group.groupLikeCount }</span></i>
-					                             			</c:otherwise>
-				                             			</c:choose>
-				                             	
-			                             		</c:forEach>
-			                             		
-			                             <!-- end -->
+  										<!--start  -->
+  													<c:set var="flag" value="N"/> 
+                                                     <c:forEach var="git" items="${groupInterestList}" >
+                                                         <c:if test="${git.memberId == loginMember.id && group.groupNo == git.groupNo}"> 
+                                                         		<c:set var="flag" value="Y"/>                                                 
+                                                                 <i class="fas fa-heart"  data-group-no="${group.groupNo }"><span>${group.groupLikeCount }</span></i>
+                                                         </c:if>
+                                                     </c:forEach>
+                                                     <c:if test="${flag == 'N'}">
+                                                     	<i class="far fa-heart"  data-group-no="${group.groupNo }"><span>${group.groupLikeCount }</span></i>
+                                                     </c:if>
+                                                 
+                                                 
+                                         <!-- end -->
+                                         
 			                             </sec:authorize>         
 									</div>
 
