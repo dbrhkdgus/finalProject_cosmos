@@ -10,6 +10,9 @@
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	<jsp:param value="문의사항 상세보기" name="title"/>
 </jsp:include>
+<sec:authorize access="isAuthenticated()">
+	<sec:authentication property="principal" var="loginMember"/>
+</sec:authorize>
 
 <style>
 div#board-container{width: 80%;}
@@ -55,17 +58,26 @@ div#board-container label.custom-file-label{text-align:left;}
 	<div class="card text-center">
 		<div class="reply-outer ">
 			<c:forEach items="${replyList}" var="reply">
+		<form:form action="${pageContext.request.contextPath }/main/deleteQueReply.do" method="post">
 				<div class="d-flex bd-highlight" style="text-align-last: start;">
 					<div class="p-2 bd-highlight">${reply.memberId}:</div>
 					<div class="p-2 flex-grow-1 bd-highlight">${reply.content}</div>
 					<div class="p-2 bd-highlight" style="font-size: 10px;">
 						<fmt:formatDate value="${reply.regDate}" pattern="yy-MM-dd" />
+						<c:if test="${reply.memberId eq loginMember.id || loginMember.authorities eq '[ROLE_ADMIN]'}">
+						 <button class="btn" type="submit" id="button-addon2" style="margin-bottom: 0px; font-size:12px">댓글삭제</button>
+							<input type="hidden" name = "replyNo" value="${reply.replyNo}"> 
+							<input type="hidden" name = "queNo" value="${que.queNo}"> 
+						</c:if>
 					</div>
+					
 				</div>
+				</form:form>
 			</c:forEach>
 		</div>
 	</div>
 
 </div>
+
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
