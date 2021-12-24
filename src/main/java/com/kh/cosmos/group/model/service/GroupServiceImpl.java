@@ -15,7 +15,13 @@ import com.kh.cosmos.group.model.vo.Group;
 import com.kh.cosmos.group.model.vo.GroupCategory;
 import com.kh.cosmos.group.model.vo.GroupInfo;
 import com.kh.cosmos.group.model.vo.GroupInfoConnect;
+
+import com.kh.cosmos.group.model.vo.MemberInterestGroup;
+
+import com.kh.cosmos.group.model.vo.NumberOfGroupMember;
+
 import com.kh.cosmos.main.model.vo.Reply;
+
 
 @Service
 public class GroupServiceImpl implements GroupService {
@@ -180,7 +186,38 @@ public class GroupServiceImpl implements GroupService {
 		return groupDao.updateGroupLikeCount(param1);
 	}
 
+	/* 왜 override 되는지 모르겠음.. */
 	@Override
+	public List<GroupCategory> selectAllgroupCategory() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<GroupCategory> selectAllGroupCategory() {
+		// TODO Auto-generated method stub
+		return groupDao.selectAllGroupCategory();
+	}
+
+	@Override
+	public List<CategoryTwo> selectAllCategoryTwoList() {
+		// TODO Auto-generated method stub
+		return groupDao.selectAllCategoryTwoList();
+	}
+
+	@Override
+	public List<NumberOfGroupMember> selectAllNumOfGM() {
+		// TODO Auto-generated method stub
+		return groupDao.selectAllNumOfGM();
+	}
+
+	@Override
+
+	public List<MemberInterestGroup> selectAllInterstGroup() {
+		// TODO Auto-generated method stub
+		return groupDao.selectAllInterstGroup();
+	}
+
 	public int insertGroupeReply(Reply reply) {
 		return groupDao.insertGroupeReply(reply);
 	}
@@ -194,12 +231,11 @@ public class GroupServiceImpl implements GroupService {
 	public int deleteGroupReply(int replyNo) {
 		return groupDao.deleteGroupReply(replyNo);
 	}
-	
-	
-	
-	
-	
-	
+
+	@Override
+	public List<CategoryOne> CategoryOneList() {
+		return groupDao.CategoryOneList();
+	}
 	
 
 
