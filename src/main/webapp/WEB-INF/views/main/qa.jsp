@@ -11,7 +11,7 @@
 </jsp:include>
 
 <sec:authorize access="isAuthenticated()">
-	<sec:authentication property="principal.id" var="id"/>
+	<sec:authentication property="principal" var="loginMember"/>
 </sec:authorize>
 
 <div class="container">
@@ -47,7 +47,7 @@
 		      
 		      <td> <a href="${pageContext.request.contextPath }/main/qaDetail.do?queNo=${que.queNo}"> 
 		      <c:choose>
-		      	<c:when test="${id eq que.memberId}">
+		      	<c:when test="${loginMember.id eq que.memberId ||loginMember.authorities eq '[ROLE_ADMIN]'}">
 		      		${que.queTitle}
 		      	</c:when>
 		      	<c:otherwise>
@@ -65,7 +65,7 @@
 		      
 		      <td>
 		      <c:choose>
-		      	<c:when test="${id eq que.memberId }">
+		      	<c:when test="${id eq que.memberId ||loginMember.authorities eq '[ROLE_ADMIN]'}">
 					${que.memberName }		      	
 		      	</c:when>
 		      	<c:otherwise>
@@ -104,7 +104,7 @@
 		      
 		      <td> <a href="${pageContext.request.contextPath }/main/qaDetail.do?queNo=${select.queNo}"> 
 		      <c:choose>
-		      	<c:when test="${id eq select.memberId}">
+		      	<c:when test="${loginMember.id eq select.memberId ||loginMember.authorities eq '[ROLE_ADMIN]'}">
 		      		${select.queTitle}
 		      	</c:when>
 		      	<c:otherwise>
@@ -122,7 +122,7 @@
 		      
 		      <td>
 		      <c:choose>
-		      	<c:when test="${id eq select.memberId }">
+		      	<c:when test="${id eq select.memberId ||loginMember.authorities eq '[ROLE_ADMIN]' }">
 					${select.memberName }		      	
 		      	</c:when>
 		      	<c:otherwise>
