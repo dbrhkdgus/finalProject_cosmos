@@ -105,9 +105,22 @@ public class MainDaoImpl implements MainDao {
 
 	@Override
 	public List<JoinAllGroupInfo> selectJoinAllGroupInfo(Map<String, Object> param) {
-		// TODO Auto-generated method stub
 		return session.selectList("index.selectJoinAllGroupInfo",param);
 	}
+
+	@Override
+	public int deleteOneReply(int replyNo) {
+		return session.delete("question.deleteOneReply",replyNo);
+	}
+
+	@Override
+	public List<Question> selectQueListByMemberId(String id) {
+		return session.selectList("question.selectQueListByMemberId",id);
+	}
+	
+	
+	
+	
 	
 	
 

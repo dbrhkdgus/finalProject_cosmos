@@ -3,10 +3,15 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>	
 <fmt:requestEncoding value="utf-8"/>
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	<jsp:param value="그룹 상세 정보" name="title"/>
 </jsp:include>
+<sec:authorize access="isAuthenticated()">
+	<sec:authentication property="principal" var="loginMember"/>
+</sec:authorize>
 
 <!-- detail시작부분 -->
 <div class="class-detail-wrap">
@@ -82,11 +87,41 @@
 			</div>
 			<div class="comm-right-box">
 				<p style="display: flex; justify-content: flex-end;">리뷰작성하기</p>
+				<div class="card" style="width: 30rem; border: none;">
 				<div class="shop-detail-reblybox">
-					<div class="enroll-reply" style="display: flex;">
-						<input type="text" id="detail-inputbox" name="reply-input"
+					<div class="group-reply-enroll" style="display: flex;">
+					<form:form action="${pageContext.request.contextPath }/group/insertGroupeReply.do" method="post">
+					<input type="hidden" value="${group.groupNo}" name ="groupNo">
+						<input type="text" id="detail-inputbox" name="content"
 							placeholder="댓글을 입력하세요">
-						<button type="button" class="btn btn-secondary">등록</button>
+						<button type="submit" class="btn btn-secondary">등록</button>
+					</form:form>
+					</div>
+				</div>
+					<div class="card text-center" style="border: none;">
+						<div class="reply-outer ">
+							<form:form
+								action="${pageContext.request.contextPath }/group/deleteGroupReply.do"
+								method="post">
+								<c:forEach items="${replyList}" var="reply">
+									<div class="d-flex bd-highlight"
+										style="text-align-last: start;">
+										<div class="p-2 bd-highlight">${reply.memberId}:</div>
+										<div class="p-2 flex-grow-1 bd-highlight">${reply.content}</div>
+										<div class="p-2 bd-highlight" style="font-size: 10px;">
+											<fmt:formatDate value="${reply.regDate}" pattern="yy-MM-dd" />
+											<c:if
+												test="${reply.memberId eq loginMember.id || loginMember.authorities eq '[ROLE_ADMIN]'}">
+												<button class="btn" type="submit" id="button-addon2"
+													style="margin-bottom: 0px; font-size: 10px">댓글삭제</button>
+											</c:if>
+											<input type="hidden" value="${group.groupNo}" name="groupNo">
+											<input type="hidden" value="${reply.replyNo}" name="replyNo">
+										</div>
+									</div>
+								</c:forEach>
+							</form:form>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -106,8 +141,13 @@
 					</c:forEach>
 				</div>
 				<div class="sticky-button-area">
-					<button type="button" class="btn btn-primary btn-m"
-						style="margin-right: 10px;">좋아요</button>
+					 <sec:authorize access="isAnonymous()"> 
+				            <i class="far fa-heart"  data-group-no="${group.groupNo }"><span>${group.groupLikeCount }</span></i>
+				     </sec:authorize> 
+				<!--로그인 되어있을 때 likeValid가 0이면 빈하트 / likeValid가 1이면 하튼데 -->
+					 <sec:authorize access="isAuthenticated()">					    	
+					     <i class="fas fa-heart"  data-group-no="${group.groupNo }"><span>${group.groupLikeCount }</span></i>
+					  </sec:authorize> 
 					<button type="button" class="btn btn-secondary btn-m" onclick="location.href='${pageContext.request.contextPath}/group/groupJoin.do?groupNo=${group.groupNo}';">가입신청</button>
 				</div>
 			</div>
@@ -124,36 +164,66 @@ mapOption = {
     center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
     level: 3 // 지도의 확대 레벨
 };  
-
 //지도를 생성합니다    
 var map = new kakao.maps.Map(mapContainer, mapOption); 
-
 //주소-좌표 변환 객체를 생성합니다
 var geocoder = new kakao.maps.services.Geocoder();
-
 //주소로 좌표를 검색합니다
-geocoder.addressSearch('서울특별시 강서구 화곡동 897-14', function(result, status) {
+
+geocoder.addressSearch(`${group.groupLocation}`, function(result, status) {
+
 
 // 정상적으로 검색이 완료됐으면 
  if (status === kakao.maps.services.Status.OK) {
-
     var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-
     // 결과값으로 받은 위치를 마커로 표시합니다
     var marker = new kakao.maps.Marker({
         map: map,
         position: coords
     });
-
     // 인포윈도우로 장소에 대한 설명을 표시합니다
     var infowindow = new kakao.maps.InfoWindow({
         content: '<div style="width:150px;text-align:center;padding:6px 0;">모임장소</div>'
     });
     infowindow.open(map, marker);
-
     // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
     map.setCenter(coords);
 } 
-});  
+});
+
+
+/* 좋아요 버튼 클릭시 사용자 좋아요 여부에 따른 버튼 이벤트 */
+$(".fa-heart").click((e)=>{
+	let $target = $(e.target);
+	let $groupNo = $target.data("groupNo");
+	
+	$.ajax({
+		url: `${pageContext.request.contextPath}/group/groupLikeSearch.do`,
+		dataType: "json",
+		type: "GET",
+		data: {'groupNo' : $groupNo},
+		success(jsonStr){
+			console.log(jsonStr);
+			const likeValid = jsonStr["likeValid"];
+			const likeCnt = jsonStr["likeCnt"];
+			//member 본인의 likeValid가 1이라면 속이 찬 하트, 0이면 속이 빈 하트
+			if(likeValid == 1){
+				$target
+					.removeClass("far")
+					.addClass("fas");
+			}else{
+				$target
+					.removeClass("fas")
+					.addClass("far");
+			}
+			$target.html(`<span>\${likeCnt}</span>`);
+		},
+		error(xhr, textStatus, err){
+            console.log(xhr, textStatus, err);
+                alert("로그인후 이용가능합니다");
+        }
+	});
+});
+
 </script>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>

@@ -34,4 +34,12 @@
 	<select id="selectReplyListByqueNo" resultType="reply">
 	select * from reply where que_no = #{queNo}
 	</select>
+	
+	<delete id="deleteOneReply">
+	delete from reply where reply_no = #{replyNo}
+	</delete>
+	
+	<select id="selectQueListByMemberId" resultType="question">
+	select * from question where member_id = #{id}
+	</select>
 </mapper>

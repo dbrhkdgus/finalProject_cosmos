@@ -12,6 +12,12 @@ import com.kh.cosmos.group.model.vo.GroupCategory;
 import com.kh.cosmos.group.model.vo.GroupInfo;
 import com.kh.cosmos.group.model.vo.GroupInfoConnect;
 
+import com.kh.cosmos.group.model.vo.MemberInterestGroup;
+
+import com.kh.cosmos.group.model.vo.NumberOfGroupMember;
+
+import com.kh.cosmos.main.model.vo.Reply;
+
 public interface GroupService {
 
 	int insertGroup(Group group);
@@ -67,6 +73,27 @@ public interface GroupService {
 	int selectCountGroupLike(int groupNo);
 
 	int updateGroupLikeCount(Map<String, Object> param1);
+
+
+	List<MemberInterestGroup> selectAllInterstGroup();
+
+	List<GroupCategory> selectAllgroupCategory();
+
+	List<GroupCategory> selectAllGroupCategory();
+
+	List<CategoryTwo> selectAllCategoryTwoList();
+
+	List<NumberOfGroupMember> selectAllNumOfGM();
+
+
+	int insertGroupeReply(Reply reply);
+
+	List<Reply> selectReplyListBygroupNo(String groupNo);
+
+	int deleteGroupReply(int replyNo);
+
+	List<CategoryOne> CategoryOneList();
+
 
 
 

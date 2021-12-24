@@ -51,13 +51,38 @@ public class AdminController {
 	private AttachmentService attachService;
 
 	@GetMapping("/main.do")
-	public String main() {
+	public String main(Model model) {
+		
+		
+		//문의사항 목록 불러오기
+		List<Question> questionList = adminService.adminMainQuestionList();
+		log.debug("questionList = {}", questionList);
+		model.addAttribute("questionList",questionList);
+		
+		
+		//그룹 리스트 불러오기
+		List<Group> groupList = adminService.adminMainGroupList();
+		log.debug("groupList = {}", groupList);
+		model.addAttribute("groupList", groupList);
+		
+		//카테고리 테이블 불러오기
+		List<CategoryOne> categoryOneList = groupService.CategoryOneList();
+		log.debug("categoryOneList = {}", categoryOneList);
+		
+		//카테고리 데이터 map에 담기
+		Map<Integer, String> categoryOneMap = new HashMap<>();
+		for(CategoryOne categoryOne : categoryOneList) {
+			categoryOneMap.put(categoryOne.getCategory1No(), categoryOne.getCategory1Name());
+		}
+		log.debug("categoryOneMap = {}", categoryOneMap);
+		model.addAttribute("categoryOneMap", categoryOneMap);
+		
 		return "admin/main";
 	}
 	
 	@GetMapping("/QnA.do")
 	public String QnA(@RequestParam(defaultValue = "1") int cPage, Model model, HttpServletRequest request) {
-//		페이징처리
+		//페이징처리
 		int limit = 10;
 		int offset = (cPage -1)*limit;
 		int totalContent = mainService.selectQuestionTotalCount();
@@ -65,7 +90,7 @@ public class AdminController {
 		String pagebar = CosmosUtils.getPagebar(cPage, limit, totalContent, url);
 		model.addAttribute("totalContent", totalContent);
 		
-//		업무로직
+		//업무로직
 		List<Question> list = mainService.selectQuestionList(limit, offset);
 		model.addAttribute("list", list);
 		model.addAttribute("pagebar", pagebar);
@@ -81,7 +106,7 @@ public class AdminController {
 	@GetMapping("/members.do")
 	public String members(@RequestParam(defaultValue = "1") int cPage, Model model, HttpServletRequest request) {
 		
-//		페이징처리
+		//페이징처리
 		int limit = 10;
 		int offset = (cPage -1)*limit;
 		int totalContent = mainService.selectQuestionTotalCount();
@@ -89,7 +114,8 @@ public class AdminController {
 		String pagebar = CosmosUtils.getPagebar(cPage, limit, totalContent, url);
 		model.addAttribute("totalContent", totalContent);
 		
-//		업무로직
+		
+		//업무로직
 		List<Member> list = adminService.selectAllMembers(limit, offset);
 		model.addAttribute("list", list);
 		model.addAttribute("pagebar", pagebar);

@@ -44,5 +44,9 @@ public interface MainService {
 
 	List<JoinAllGroupInfo> selectJoinAllGroupInfo(Map<String, Object> param);
 
+	int deleteOneReply(int replyNo);
+
+	List<Question> selectQueListByMemberId(String id);
+
 
 }

@@ -85,7 +85,7 @@
 							    	
 							    	<div class="btn-group">
 
-							    		<img  id="header-profile" src="https://cdn-icons-png.flaticon.com/512/64/64572.png" alt="" style="width: 40px"/>	
+							    		<img  id="header-profile" src="" alt="" style="width: 40px"/>	
 									  <button type="button" class="btn btn-outline-info dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="border: 0px">
 										
 									    ${not empty loginMember.nickname ? loginMember.nickname : loginMember.memberName }

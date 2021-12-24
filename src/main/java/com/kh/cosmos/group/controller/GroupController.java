@@ -3,7 +3,6 @@ package com.kh.cosmos.group.controller;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,9 +36,16 @@ import com.kh.cosmos.group.model.vo.GroupCategory;
 import com.kh.cosmos.group.model.vo.GroupEnroll;
 import com.kh.cosmos.group.model.vo.GroupInfo;
 import com.kh.cosmos.group.model.vo.GroupInfoConnect;
+import com.kh.cosmos.group.model.vo.MemberInterestGroup;
+
+import com.kh.cosmos.group.model.vo.NumberOfGroupMember;
+
+import com.kh.cosmos.main.model.vo.Reply;
+
 import com.kh.cosmos.member.model.vo.Member;
 
 import lombok.extern.slf4j.Slf4j;
+import oracle.jdbc.proxy.annotation.Post;
 
 @Controller
 @Slf4j
@@ -65,6 +71,8 @@ public class GroupController {
 
 		
 		
+		List<MemberInterestGroup> groupInterestList = groupService.selectAllInterstGroup();
+		log.debug("groupInterestList = {}" ,groupInterestList);
 		List<Group> groupList = new ArrayList<Group>();
 		Map<String, Object> param = new HashMap<String, Object>();
 		int ca1NoI = Integer.parseInt(ca1No);
@@ -78,8 +86,7 @@ public class GroupController {
 		
 		
 		groupList = groupService.selectAllGroupListByParam(param, limit, offset);
-		
-		
+
 		model.addAttribute("ca1No",ca1No);
 		List<CategoryTwo> ca2NoList = new ArrayList<CategoryTwo>();
 		if(!ca1No.equals("0")) {
@@ -89,7 +96,9 @@ public class GroupController {
 		model.addAttribute("ca2NoList",ca2NoList);
 		model.addAttribute("searchType",searchType);
 		model.addAttribute("searchKeyword",searchKeyword);
-		
+
+		model.addAttribute("groupInterestList",groupInterestList);
+
 		
 //		if(ca1No.equals("0") && ca2No.equals("0")) {
 //			
@@ -111,10 +120,22 @@ public class GroupController {
 //			model.addAttribute("ca2No", ca2No);
 //		}
 		
-		
 		List<CategoryOne> caOneList = groupService.groupgroupContOne();
 		model.addAttribute("caOneList", caOneList);
 		
+		List<GroupCategory> groupCategoryList = groupService.selectAllGroupCategory();
+		model.addAttribute("groupCategoryList", groupCategoryList);
+		log.debug("groupCategoryList = {}", groupCategoryList);
+		
+		List<CategoryTwo> categoryTwoList = groupService.selectAllCategoryTwoList();
+		model.addAttribute("categoryTwoList", categoryTwoList);
+		log.debug("categoryTwoList = {}", categoryTwoList);
+		
+		Map<Integer, Integer> numberOfGroupMember = new HashMap<Integer, Integer>();
+		List<NumberOfGroupMember> numOfGMList = groupService.selectAllNumOfGM();
+		for(NumberOfGroupMember numOfGM : numOfGMList) {
+			numberOfGroupMember.put(numOfGM.getGroupNo(), numOfGM.getCnt());
+		}
 		
 		model.addAttribute("groupList", groupList);
 		
@@ -130,6 +151,8 @@ public class GroupController {
 		String pagebar = CosmosUtils.getPagebar(cPage, limit, totalContent, url);
 //		log.debug("pagebar = {}", pagebar);
 		model.addAttribute("pagebar", pagebar);
+		
+		
 		
 		return "group/groupSearch";
 	}
@@ -164,6 +187,10 @@ public class GroupController {
 		model.addAttribute("gcList",gcList);
 //		log.debug("gcList = {}", gcList);
 		
+		List<Reply> replyList = groupService.selectReplyListBygroupNo(groupNo);
+		log.debug("reply = {}", replyList);
+		model.addAttribute("replyList",replyList);
+		
 		List<CategoryTwo> cateTwoList = new ArrayList<>();
 		for(GroupCategory gc : gcList) {
 			String num = Integer.toString(gc.getCategory2No());
@@ -173,6 +200,7 @@ public class GroupController {
 		}
 		model.addAttribute("cateTwoList",cateTwoList);
 //		log.debug("cateTwoList = {}", cateTwoList);
+		
 		
 		return "group/groupDetail";
 	}
@@ -378,12 +406,45 @@ public class GroupController {
 			map.put("likeCnt", newCount);
 		}
 		
+	
 		//json문자열로 변환
 		Gson gson = new Gson();
 		String jsonStr = gson.toJson(map);
 		
 		return map;
 		
+	}
+	
+	@PostMapping("/insertGroupeReply.do")
+	public String insertGroupeReply(@RequestParam int groupNo, 
+			Reply reply ,RedirectAttributes redirectAttr,
+			Authentication authentication) {
+		 
+			Member member = (Member)authentication.getPrincipal();
+			
+			
+			reply.setMemberId(member.getId());
+			reply.setQueNo(groupNo);
+			log.debug ("reply = {}",reply); 
+			
+			try {
+				int result = groupService.insertGroupeReply(reply); String msg = result > 0 ? "댓글 등록 성공!" : "댓글 등록 실패!";
+				 redirectAttr.addFlashAttribute("msg", msg);
+			} catch (Exception e) {
+				log.error(e.getMessage(), e); // 
+			 	redirectAttr.addFlashAttribute("msg", "댓글 등록 실패");
+			 	
+			}
+			 	
+			return "redirect:/group/groupDetail.do?groupNo="+groupNo;
+	}
+	
+	
+	@PostMapping("/deleteGroupReply.do")
+	public String deleteGroupReply(@RequestParam int replyNo,@RequestParam int groupNo) {
+		int result  = groupService.deleteGroupReply(replyNo);
+		
+		return"redirect:/group/groupDetail.do?groupNo="+groupNo;
 	}
 }
 
