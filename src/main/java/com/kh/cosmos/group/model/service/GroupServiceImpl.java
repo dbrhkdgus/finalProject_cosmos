@@ -189,6 +189,11 @@ public class GroupServiceImpl implements GroupService {
 	public List<Reply> selectReplyListBygroupNo(String groupNo) {
 		return groupDao.selectReplyListBygroupNo(groupNo);
 	}
+
+	@Override
+	public List<CategoryOne> CategoryOneList() {
+		return groupDao.CategoryOneList();
+	}
 	
 	
 	

@@ -73,6 +73,8 @@ public interface GroupService {
 
 	List<Reply> selectReplyListBygroupNo(String groupNo);
 
+	List<CategoryOne> CategoryOneList();
+
 
 
 
