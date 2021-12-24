@@ -47,4 +47,6 @@ public interface MainDao {
 
 	int deleteOneReply(int replyNo);
 
+	List<Question> selectQueListByMemberId(String id);
+
 }

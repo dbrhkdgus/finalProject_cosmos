@@ -320,4 +320,19 @@ public class MainController {
 		return "main/proposal";
 	}
 	
+	
+	@GetMapping("/selectQueListByMemberId.do")
+	public String selectQueListByMemberId(Authentication authentication,Model model, RedirectAttributes redirectAtt){
+		
+		Member member = (Member)authentication.getPrincipal();
+		
+		List <Question> selectList  = mainService.selectQueListByMemberId(member.getId());
+		log.debug("selectList=={}",selectList);
+		
+		redirectAtt.addFlashAttribute("selectList",selectList);
+//		model.addAttribute(selectList);
+		
+		return "redirect:/main/qa.do";
+	}
+	
 }

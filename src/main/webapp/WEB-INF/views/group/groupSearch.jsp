@@ -66,6 +66,7 @@
 	                    </div>
                       
                 </div>
+		         
                 <c:choose>
 				<c:when test="${not empty groupList}">
                 <!-- Blog entries-->

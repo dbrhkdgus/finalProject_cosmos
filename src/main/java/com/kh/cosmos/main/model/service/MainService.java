@@ -46,5 +46,7 @@ public interface MainService {
 
 	int deleteOneReply(int replyNo);
 
+	List<Question> selectQueListByMemberId(String id);
+
 
 }
