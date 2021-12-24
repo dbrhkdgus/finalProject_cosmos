@@ -221,4 +221,8 @@
 	<select id="selectReplyListBygroupNo" resultType="reply">
 	select * from reply where group_no = #{groupNo}
 	</select>
+	
+	<delete id="deleteGroupReply">
+	delete from reply where reply_no = #{replyNo}
+	</delete>
 </mapper>
