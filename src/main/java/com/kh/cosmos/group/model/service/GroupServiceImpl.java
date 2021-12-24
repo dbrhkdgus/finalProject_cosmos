@@ -189,6 +189,13 @@ public class GroupServiceImpl implements GroupService {
 	public List<Reply> selectReplyListBygroupNo(String groupNo) {
 		return groupDao.selectReplyListBygroupNo(groupNo);
 	}
+
+	@Override
+	public int deleteGroupReply(int replyNo) {
+		return groupDao.deleteGroupReply(replyNo);
+	}
+	
+	
 	
 	
 	

@@ -73,6 +73,8 @@ public interface GroupDao {
 
 	List<Reply> selectReplyListBygroupNo(String groupNo);
 
+	int deleteGroupReply(int replyNo);
+
 
 
 }

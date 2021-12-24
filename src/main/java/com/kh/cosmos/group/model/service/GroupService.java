@@ -73,6 +73,8 @@ public interface GroupService {
 
 	List<Reply> selectReplyListBygroupNo(String groupNo);
 
+	int deleteGroupReply(int replyNo);
+
 
 
 

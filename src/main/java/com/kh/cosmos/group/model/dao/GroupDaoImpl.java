@@ -190,6 +190,13 @@ public class GroupDaoImpl implements GroupDao {
 	public List<Reply> selectReplyListBygroupNo(String groupNo) {
 		return session.selectList("group.selectReplyListBygroupNo",groupNo);
 	}
+
+	@Override
+	public int deleteGroupReply(int replyNo) {
+		return session.delete("group.deleteGroupReply",replyNo);
+	}
+	
+	
 	
 	
 	

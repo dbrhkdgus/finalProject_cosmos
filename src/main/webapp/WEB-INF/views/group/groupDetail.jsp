@@ -9,6 +9,9 @@
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	<jsp:param value="그룹 상세 정보" name="title"/>
 </jsp:include>
+<sec:authorize access="isAuthenticated()">
+	<sec:authentication property="principal" var="loginMember"/>
+</sec:authorize>
 
 <!-- detail시작부분 -->
 <div class="class-detail-wrap">
@@ -96,19 +99,31 @@
 					</div>
 				</div>
 					<div class="card text-center" style="border: none;">
-		<div class="reply-outer ">
-			<c:forEach items="${replyList}" var="reply">
-				<div class="d-flex bd-highlight" style="text-align-last: start;">
-					<div class="p-2 bd-highlight">${reply.memberId}:</div>
-					<div class="p-2 flex-grow-1 bd-highlight">${reply.content}</div>
-					<div class="p-2 bd-highlight" style="font-size: 10px;">
-						<fmt:formatDate value="${reply.regDate}" pattern="yy-MM-dd" />
+						<div class="reply-outer ">
+							<form:form
+								action="${pageContext.request.contextPath }/group/deleteGroupReply.do"
+								method="post">
+								<c:forEach items="${replyList}" var="reply">
+									<div class="d-flex bd-highlight"
+										style="text-align-last: start;">
+										<div class="p-2 bd-highlight">${reply.memberId}:</div>
+										<div class="p-2 flex-grow-1 bd-highlight">${reply.content}</div>
+										<div class="p-2 bd-highlight" style="font-size: 10px;">
+											<fmt:formatDate value="${reply.regDate}" pattern="yy-MM-dd" />
+											<c:if
+												test="${reply.memberId eq loginMember.id || loginMember.authorities eq '[ROLE_ADMIN]'}">
+												<button class="btn" type="submit" id="button-addon2"
+													style="margin-bottom: 0px; font-size: 10px">댓글삭제</button>
+											</c:if>
+											<input type="hidden" value="${group.groupNo}" name="groupNo">
+											<input type="hidden" value="${reply.replyNo}" name="replyNo">
+										</div>
+									</div>
+								</c:forEach>
+							</form:form>
+						</div>
 					</div>
 				</div>
-			</c:forEach>
-			</div>
-		</div>
-	</div>
 			</div>
 			<hr style="margin: 0; height: 10px; background-color: #D3CBF4;">
 		</section>
