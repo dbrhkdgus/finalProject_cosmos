@@ -120,8 +120,8 @@
 		<if test="searchType == 'location'">
 			 and group_location like '%'||#{searchKeyword}||'%'
 		</if>
-		
 	</where>
+
 	</select>
 	<select id="selectAllMyGroupList" resultType="group">
 	select * from tb_group
@@ -164,6 +164,10 @@
 		</if>
 		
 	</where>
+		order by 
+		 <if test="searchType != 'pop'">  group_enroll_date desc </if>
+
+		 <if test="searchType == 'pop'">  group_like_count desc </if>
 	</select>
 	
 	<select id="selectGroupListByGroupNo" resultType="group">
