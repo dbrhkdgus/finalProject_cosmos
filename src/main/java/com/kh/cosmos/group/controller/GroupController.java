@@ -136,6 +136,7 @@ public class GroupController {
 		for(NumberOfGroupMember numOfGM : numOfGMList) {
 			numberOfGroupMember.put(numOfGM.getGroupNo(), numOfGM.getCnt());
 		}
+		model.addAttribute("numberOfGroupMember", numberOfGroupMember);
 		
 		model.addAttribute("groupList", groupList);
 		
