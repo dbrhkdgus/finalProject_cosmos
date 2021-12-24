@@ -67,6 +67,7 @@
 						</div>
 					</section>
 		</c:forEach>
+		
 		<section class="class-info-comm">
 			<div class="comm-left-box">
 				<p class="class-left-title" id="class-graph">저희 모임장소입니다!</p>

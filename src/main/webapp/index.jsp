@@ -13,7 +13,7 @@
 	<jsp:param value="COSMOS" name="title"/>
 </jsp:include>
 		<!-- Page content-->
-<div class="container">
+<div id="main-box" class="container">
 	<div class="index-outer1">
 		<!-- Blog entries-->
 		<div class="col-lg-8">
@@ -142,111 +142,26 @@
 	<hr />
 
 	<h2>BEST</h2>
-	<div class="index-group-list" style="height: 430px;">
+	<div id="best-box" class="index-group-list" style="height: 430px;">
 
-		<div class="card mb-4 search-card">
-			<a href="#!"><img class="card-img-top"
-				src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>
-			<div class="card-body">
-				<div class="small text-muted">January 1, 2021</div>
-				<h2 class="card-title h4">Slide 1</h2>
-				<p class="card-text">Lorem ipsum dolor sit amet, consectetur
-					adipisicing elit. Reiciendis aliquid atque, nulla.</p>
-				<a class="btn btn-primary" href="#!">Read more →</a>
-			</div>
-		</div>
+
 		
-		<div class="card mb-4 search-card" >
-			<a href="#!"><img class="card-img-top"
-				src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>
-			<div class="card-body">
-				<div class="small text-muted">January 1, 2021</div>
-				<h2 class="card-title h4">Slide 2</h2>
-				<p class="card-text">Lorem ipsum dolor sit amet, consectetur
-					adipisicing elit. Reiciendis aliquid atque, nulla.</p>
-				<a class="btn btn-primary" href="#!">Read more →</a>
-			</div>
-		</div>
 		
-		<div class="card mb-4 search-card" >
-			<a href="#!"><img class="card-img-top"
-				src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>
-			<div class="card-body">
-				<div class="small text-muted">January 1, 2021</div>
-				<h2 class="card-title h4">Slide 3</h2>
-				<p class="card-text">Lorem ipsum dolor sit amet, consectetur
-					adipisicing elit. Reiciendis aliquid atque, nulla.</p>
-				<a class="btn btn-primary" href="#!">Read more →</a>
-			</div>
-		</div>
 		
-		<div class="card mb-4 search-card" >
-			<a href="#!"><img class="card-img-top"
-				src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>
-			<div class="card-body">
-				<div class="small text-muted">January 1, 2021</div>
-				<h2 class="card-title h4">Slide 4</h2>
-				<p class="card-text">Lorem ipsum dolor sit amet, consectetur
-					adipisicing elit. Reiciendis aliquid atque, nulla.</p>
-				<a class="btn btn-primary" href="#!">Read more →</a>
-			</div>
-		</div>
+		
+		
 
 
 	</div>
 	<br />
 	<hr />
 	<h2>NEW</h2>
-		<div class="index-group-list" style="height: 430px;">
+		<div id="new-box" class="index-group-list" style="height: 430px;">
 
-		<div class="card mb-4 search-card">
-			<a href="#!"><img class="card-img-top"
-				src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>
-			<div class="card-body">
-				<div class="small text-muted">January 1, 2021</div>
-				<h2 class="card-title h4">Slide 1</h2>
-				<p class="card-text">Lorem ipsum dolor sit amet, consectetur
-					adipisicing elit. Reiciendis aliquid atque, nulla.</p>
-				<a class="btn btn-primary" href="#!">Read more →</a>
-			</div>
-		</div>
 		
-		<div class="card mb-4 search-card" >
-			<a href="#!"><img class="card-img-top"
-				src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>
-			<div class="card-body">
-				<div class="small text-muted">January 1, 2021</div>
-				<h2 class="card-title h4">Slide 2</h2>
-				<p class="card-text">Lorem ipsum dolor sit amet, consectetur
-					adipisicing elit. Reiciendis aliquid atque, nulla.</p>
-				<a class="btn btn-primary" href="#!">Read more →</a>
-			</div>
-		</div>
+	
 		
-		<div class="card mb-4 search-card" >
-			<a href="#!"><img class="card-img-top"
-				src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>
-			<div class="card-body">
-				<div class="small text-muted">January 1, 2021</div>
-				<h2 class="card-title h4">Slide 3</h2>
-				<p class="card-text">Lorem ipsum dolor sit amet, consectetur
-					adipisicing elit. Reiciendis aliquid atque, nulla.</p>
-				<a class="btn btn-primary" href="#!">Read more →</a>
-			</div>
-		</div>
-		
-		<div class="card mb-4 search-card" >
-			<a href="#!"><img class="card-img-top"
-				src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>
-			<div class="card-body">
-				<div class="small text-muted">January 1, 2021</div>
-				<h2 class="card-title h4">Slide 4</h2>
-				<p class="card-text">Lorem ipsum dolor sit amet, consectetur
-					adipisicing elit. Reiciendis aliquid atque, nulla.</p>
-				<a class="btn btn-primary" href="#!">Read more →</a>
-			</div>
-		</div>
-
+	
 
 	</div>
 	
@@ -297,18 +212,92 @@
 </div>
 
 <script> 
-$(document).ready(function(){ 
-	// 옵셥 사용하지 않을 경우 
-	$('.single-item').slick(); 
-	// 옵셥 사용할 경우 
-	$('.index-group-list').slick({ 
-		// 옵션 삽입
-		slidesToShow: 3, 
-		slidesToScroll: 1
+var script = document.createElement("script");
+script.innerHTML = "$(document).ready(function(){$('.single-item').slick(); $('.index-group-list').slick({ slidesToShow: 3,	slidesToScroll: 1});});";
 
+window.addEventListener("load", function(){
+	$.ajax({
+		url:"<%= request.getContextPath() %>/main/mainStudyGroupInfo.do",
+		method: "GET",
+		data: {groupSelectType: "best"},
+		dataType: "json",
+		success(data){
+			$.each(data, (k,v)=>{
+				$("#best-box").append(`
+						<div class="card mb-4 search-card" style="width: 350px; height: 400px;">
+	                        <a href="${pageContext.request.contextPath}/group/groupDetail.do?groupNo=\${v.groupNo}">
+	                            	<img class="card-img-top" 
+	                            	style = "width: 348px; height: 250px;"
+	                            	src="${pageContext.request.contextPath }/resources/upFile/group/\${v.renamedFilename}"
+	                                    alt="..." />
+	                        </a>
+	                        <div class="search-card-body card-body mb-0" style="height:150px">
+	                            <div class="small text-muted">\${v.groupEnrollDate}</div>
+	                            <h2 class="card-title h4" style="margin: 0.5rem 0 0.5rem 0;">\${v.groupName}</h2>
+	                            	<p class="card-text">\${v.giTitle }</p>
+	                            <a class="btn btn-primary d-inline" id="search-more-btn" href="">더보기 →</a>
+	                        </div>
+	                        <!--좋아요 기능구현 해보는중  -->
+	                       <sec:authorize access="isAnonymous()">
+	                           		<i class="far fa-heart"  data-group-no="\${v.groupNo}"><span>\${v.groupLikeCount}</span></i>
+	                       </sec:authorize>
+	                         <sec:authorize access="isAuthenticated()">
+	                           		<i class="fas fa-heart"  data-group-no="\${v.groupNo}"><span>\${v.groupLikeCount}</span></i>
+	                         </sec:authorize>                             	
+	                    </div>
+					
+						`);
+			});
 
-		}); 
-	}); 
+			
+		},
+		error(xhr,textStatus,err){
+			console.log(xhr,textStatus,err);
+		}
+	});
+});
+window.addEventListener("load", function(){
+	$.ajax({
+		url:"<%= request.getContextPath() %>/main/mainStudyGroupInfo.do",
+		method: "GET",
+		data: {groupSelectType: "new"},
+		dataType: "json",
+		success(data){
+			$.each(data, (k,v)=>{
+				$("#new-box").append(`
+						<div class="card mb-4 search-card" style="width: 350px; height: 400px;">
+	                        <a href="${pageContext.request.contextPath}/group/groupDetail.do?groupNo=\${v.groupNo}">
+	                            	<img class="card-img-top" 
+	                            	style = "width: 348px; height: 250px;"
+	                            	src="${pageContext.request.contextPath }/resources/upFile/group/\${v.renamedFilename}"
+	                                    alt="..." />
+	                        </a>
+	                        <div class="search-card-body card-body mb-0" style="height:150px">
+	                            <div class="small text-muted">\${v.groupEnrollDate}</div>
+	                            <h2 class="card-title h4" style="margin: 0.5rem 0 0.5rem 0;">\${v.groupName}</h2>
+	                            	<p class="card-text">\${v.giTitle }</p>
+	                            <a class="btn btn-primary d-inline" id="search-more-btn" href="">더보기 →</a>
+	                        </div>
+	                        <!--좋아요 기능구현 해보는중  -->
+	                       <sec:authorize access="isAnonymous()">
+	                           		<i class="far fa-heart"  data-group-no="\${v.groupNo}"><span>\${v.groupLikeCount}</span></i>
+	                       </sec:authorize>
+	                         <sec:authorize access="isAuthenticated()">
+	                           		<i class="fas fa-heart"  data-group-no="\${v.groupNo}"><span>\${v.groupLikeCount}</span></i>
+	                         </sec:authorize>                             	
+	                    </div>
+					
+						`);
+			});
+			$("#main-box").append(script); 
+			
+		},
+		error(xhr,textStatus,err){
+			console.log(xhr,textStatus,err);
+		}
+	});
+});
+
 </script>
 
 

@@ -2,6 +2,7 @@ package com.kh.cosmos.main.model.service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.kh.cosmos.common.attachment.model.vo.Attachment;
 import com.kh.cosmos.group.model.vo.Group;
 import com.kh.cosmos.main.model.dao.MainDao;
+import com.kh.cosmos.main.model.vo.JoinAllGroupInfo;
 import com.kh.cosmos.main.model.vo.Notice;
 import com.kh.cosmos.main.model.vo.Question;
 import com.kh.cosmos.main.model.vo.Reply;
@@ -101,6 +103,12 @@ public class MainServiceImpl implements MainService {
 	@Override
 	public List<Reply> selectReplyListByqueNo(int queNo) {
 		return mainDao.selectReplyListByqueNo(queNo);
+	}
+
+	@Override
+	public List<JoinAllGroupInfo> selectJoinAllGroupInfo(Map<String, Object> param) {
+		// TODO Auto-generated method stub
+		return mainDao.selectJoinAllGroupInfo(param);
 	}
 
 	

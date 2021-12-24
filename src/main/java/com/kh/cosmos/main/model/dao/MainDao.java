@@ -1,11 +1,13 @@
 package com.kh.cosmos.main.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.kh.cosmos.common.attachment.model.vo.Attachment;
 import com.kh.cosmos.group.model.dao.GroupDao;
 import com.kh.cosmos.group.model.vo.ApplocationGroup;
 import com.kh.cosmos.group.model.vo.Group;
+import com.kh.cosmos.main.model.vo.JoinAllGroupInfo;
 import com.kh.cosmos.main.model.vo.Notice;
 import com.kh.cosmos.main.model.vo.Question;
 import com.kh.cosmos.main.model.vo.Reply;
@@ -40,5 +42,7 @@ public interface MainDao {
 	List<Group> selectAllGroupListByDate();
 
 	List<Reply> selectReplyListByqueNo(int queNo);
+
+	List<JoinAllGroupInfo> selectJoinAllGroupInfo(Map<String, Object> param);
 
 }

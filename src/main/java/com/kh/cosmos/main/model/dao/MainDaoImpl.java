@@ -1,6 +1,7 @@
 package com.kh.cosmos.main.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.cosmos.common.attachment.model.vo.Attachment;
 import com.kh.cosmos.group.model.vo.Group;
+import com.kh.cosmos.main.model.vo.JoinAllGroupInfo;
 import com.kh.cosmos.main.model.vo.Notice;
 import com.kh.cosmos.main.model.vo.Question;
 import com.kh.cosmos.main.model.vo.Reply;
@@ -99,6 +101,12 @@ public class MainDaoImpl implements MainDao {
 	public List<Reply> selectReplyListByqueNo(int queNo) {
 		// TODO Auto-generated method stub
 		return session.selectList("question.selectReplyListByqueNo",queNo);
+	}
+
+	@Override
+	public List<JoinAllGroupInfo> selectJoinAllGroupInfo(Map<String, Object> param) {
+		// TODO Auto-generated method stub
+		return session.selectList("index.selectJoinAllGroupInfo",param);
 	}
 	
 	
