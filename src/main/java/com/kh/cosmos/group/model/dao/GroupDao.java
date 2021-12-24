@@ -73,6 +73,8 @@ public interface GroupDao {
 
 	List<Reply> selectReplyListBygroupNo(String groupNo);
 
+	List<CategoryOne> CategoryOneList();
+
 
 
 }
