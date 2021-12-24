@@ -96,7 +96,7 @@
 		                                </c:forEach>
 		                                </a>
 		                                <div class="search-card-body card-body">
-		                                    <div class="small text-muted">
+		                                    <div class="small text-muted d-flex">
 			                                    <c:if test="${fn:contains(group.groupClose, 'N')}">
 			                                    	<div>
 					                                    <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" class="bi bi-circle-fill" viewBox="0 0 16 16">
@@ -123,17 +123,17 @@
 			                                </c:if>
 			                                </c:forEach>
 		                                    
-		                                    <c:forEach var="gcl" items="${groupCategoryList}">
-		                                    	<c:if test="${group.groupNo == gcl.groupNo}">
-		                                    		<c:forEach var="ctl" items ="${categoryTwoList}">
-		                                    			<c:if test="${gcl.category2No == ctl.category2No }">
-		                                    				<div>
-		                                    					<span>#${ctl.category2Name}</span>
-		                                    				</div>
-		                                    			</c:if>
-		                                    		</c:forEach>
-		                                    	</c:if>
-		                                    </c:forEach>
+                                			<div>
+			                                    <c:forEach var="gcl" items="${groupCategoryList}">
+			                                    	<c:if test="${group.groupNo == gcl.groupNo}">
+				                                    		<c:forEach var="ctl" items ="${categoryTwoList}">
+				                                    			<c:if test="${gcl.category2No == ctl.category2No }">
+				                                    					<span>#${ctl.category2Name}</span>
+				                                    			</c:if>
+				                                    		</c:forEach>
+			                                    	</c:if>
+			                                    </c:forEach>
+                                 			</div>
 		                                    
 								<div class="search-inner-button">
 		                                <!--좋아요 기능구현 해보는중  -->
