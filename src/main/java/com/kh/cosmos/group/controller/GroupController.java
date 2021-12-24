@@ -37,9 +37,11 @@ import com.kh.cosmos.group.model.vo.GroupCategory;
 import com.kh.cosmos.group.model.vo.GroupEnroll;
 import com.kh.cosmos.group.model.vo.GroupInfo;
 import com.kh.cosmos.group.model.vo.GroupInfoConnect;
+import com.kh.cosmos.main.model.vo.Reply;
 import com.kh.cosmos.member.model.vo.Member;
 
 import lombok.extern.slf4j.Slf4j;
+import oracle.jdbc.proxy.annotation.Post;
 
 @Controller
 @Slf4j
@@ -164,6 +166,10 @@ public class GroupController {
 		model.addAttribute("gcList",gcList);
 //		log.debug("gcList = {}", gcList);
 		
+		List<Reply> replyList = groupService.selectReplyListBygroupNo(groupNo);
+		log.debug("reply = {}", replyList);
+		model.addAttribute("replyList",replyList);
+		
 		List<CategoryTwo> cateTwoList = new ArrayList<>();
 		for(GroupCategory gc : gcList) {
 			String num = Integer.toString(gc.getCategory2No());
@@ -173,6 +179,7 @@ public class GroupController {
 		}
 		model.addAttribute("cateTwoList",cateTwoList);
 //		log.debug("cateTwoList = {}", cateTwoList);
+		
 		
 		return "group/groupDetail";
 	}
@@ -384,6 +391,38 @@ public class GroupController {
 		
 		return map;
 		
+	}
+	
+	@PostMapping("/insertGroupeReply.do")
+	public String insertGroupeReply(@RequestParam int groupNo, 
+			Reply reply ,RedirectAttributes redirectAttr,
+			Authentication authentication) {
+		 
+			Member member = (Member)authentication.getPrincipal();
+			
+			
+			reply.setMemberId(member.getId());
+			reply.setQueNo(groupNo);
+			log.debug ("reply = {}",reply); 
+			
+			try {
+				int result = groupService.insertGroupeReply(reply); String msg = result > 0 ? "댓글 등록 성공!" : "댓글 등록 실패!";
+				 redirectAttr.addFlashAttribute("msg", msg);
+			} catch (Exception e) {
+				log.error(e.getMessage(), e); // 
+			 	redirectAttr.addFlashAttribute("msg", "댓글 등록 실패");
+			 	
+			}
+			 	
+			return "redirect:/group/groupDetail.do?groupNo="+groupNo;
+	}
+	
+	
+	@PostMapping("/deleteGroupReply.do")
+	public String deleteGroupReply(@RequestParam int replyNo,@RequestParam int groupNo) {
+		int result  = groupService.deleteGroupReply(replyNo);
+		
+		return"redirect:/group/groupDetail.do?groupNo="+groupNo;
 	}
 }
 

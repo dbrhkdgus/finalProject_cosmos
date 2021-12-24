@@ -3,10 +3,15 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>	
 <fmt:requestEncoding value="utf-8"/>
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	<jsp:param value="그룹 상세 정보" name="title"/>
 </jsp:include>
+<sec:authorize access="isAuthenticated()">
+	<sec:authentication property="principal" var="loginMember"/>
+</sec:authorize>
 
 <!-- detail시작부분 -->
 <div class="class-detail-wrap">
@@ -82,11 +87,41 @@
 			</div>
 			<div class="comm-right-box">
 				<p style="display: flex; justify-content: flex-end;">리뷰작성하기</p>
+				<div class="card" style="width: 30rem; border: none;">
 				<div class="shop-detail-reblybox">
-					<div class="enroll-reply" style="display: flex;">
-						<input type="text" id="detail-inputbox" name="reply-input"
+					<div class="group-reply-enroll" style="display: flex;">
+					<form:form action="${pageContext.request.contextPath }/group/insertGroupeReply.do" method="post">
+					<input type="hidden" value="${group.groupNo}" name ="groupNo">
+						<input type="text" id="detail-inputbox" name="content"
 							placeholder="댓글을 입력하세요">
-						<button type="button" class="btn btn-secondary">등록</button>
+						<button type="submit" class="btn btn-secondary">등록</button>
+					</form:form>
+					</div>
+				</div>
+					<div class="card text-center" style="border: none;">
+						<div class="reply-outer ">
+							<form:form
+								action="${pageContext.request.contextPath }/group/deleteGroupReply.do"
+								method="post">
+								<c:forEach items="${replyList}" var="reply">
+									<div class="d-flex bd-highlight"
+										style="text-align-last: start;">
+										<div class="p-2 bd-highlight">${reply.memberId}:</div>
+										<div class="p-2 flex-grow-1 bd-highlight">${reply.content}</div>
+										<div class="p-2 bd-highlight" style="font-size: 10px;">
+											<fmt:formatDate value="${reply.regDate}" pattern="yy-MM-dd" />
+											<c:if
+												test="${reply.memberId eq loginMember.id || loginMember.authorities eq '[ROLE_ADMIN]'}">
+												<button class="btn" type="submit" id="button-addon2"
+													style="margin-bottom: 0px; font-size: 10px">댓글삭제</button>
+											</c:if>
+											<input type="hidden" value="${group.groupNo}" name="groupNo">
+											<input type="hidden" value="${reply.replyNo}" name="replyNo">
+										</div>
+									</div>
+								</c:forEach>
+							</form:form>
+						</div>
 					</div>
 				</div>
 			</div>

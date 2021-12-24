@@ -252,7 +252,14 @@ public class MainController {
 		return "main/qaDetail";
 	}
 	
-
+	@PostMapping("/deleteQueReply.do")
+	public String deleteQueReply(@RequestParam int replyNo,@RequestParam int queNo) {
+		int result  = mainService.deleteOneReply(replyNo);
+		
+		return"redirect:/main/qaDetail.do?queNo="+queNo;
+	}
+	
+	
 	@GetMapping("/index.do")
 	public String index(Model model) {
 		
