@@ -17,13 +17,13 @@
       <div class="study-admin-box">
         <div class="amount-of-study-activity">
           <h4 class="text-white">스터디 활동량</h4>
-          <canvas class="chart-size" id="activityChart" width="900" height="500"></canvas>
+          <canvas class="chart-size" id="activityChart" width="400" height="400"></canvas>
         </div>
         
       
       </div>
     </div>
- <!-- 통계 script -->
+<!-- 통계 script -->
 <script>
 
 /* 페이지 랜딩시 기본으로 불러올 최근 7일간 가입자수 */
