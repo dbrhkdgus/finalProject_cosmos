@@ -213,4 +213,9 @@
 	<update id="updateGroupLikeCount">
 		update tb_group set group_like_count = #{newCount} where group_no =#{groupNo}
 	</update>
+	
+	
+	<select id="selectAllInterstGroup" resultType="MemberInterestGroup">
+		select * from interest_group	
+	</select>
 </mapper>

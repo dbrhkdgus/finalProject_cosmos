@@ -37,6 +37,7 @@ import com.kh.cosmos.group.model.vo.GroupCategory;
 import com.kh.cosmos.group.model.vo.GroupEnroll;
 import com.kh.cosmos.group.model.vo.GroupInfo;
 import com.kh.cosmos.group.model.vo.GroupInfoConnect;
+import com.kh.cosmos.group.model.vo.MemberInterestGroup;
 import com.kh.cosmos.member.model.vo.Member;
 
 import lombok.extern.slf4j.Slf4j;
@@ -65,6 +66,8 @@ public class GroupController {
 
 		
 		
+		List<MemberInterestGroup> groupInterestList = groupService.selectAllInterstGroup();
+		log.debug("groupInterestList = {}" ,groupInterestList);
 		List<Group> groupList = new ArrayList<Group>();
 		Map<String, Object> param = new HashMap<String, Object>();
 		int ca1NoI = Integer.parseInt(ca1No);
@@ -79,7 +82,7 @@ public class GroupController {
 		
 		groupList = groupService.selectAllGroupListByParam(param, limit, offset);
 		
-		
+
 		model.addAttribute("ca1No",ca1No);
 		List<CategoryTwo> ca2NoList = new ArrayList<CategoryTwo>();
 		if(!ca1No.equals("0")) {
@@ -89,7 +92,7 @@ public class GroupController {
 		model.addAttribute("ca2NoList",ca2NoList);
 		model.addAttribute("searchType",searchType);
 		model.addAttribute("searchKeyword",searchKeyword);
-		
+		model.addAttribute("groupInterestList",groupInterestList);
 		
 //		if(ca1No.equals("0") && ca2No.equals("0")) {
 //			

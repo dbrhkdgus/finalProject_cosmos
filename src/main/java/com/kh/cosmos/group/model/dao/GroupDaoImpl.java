@@ -16,6 +16,7 @@ import com.kh.cosmos.group.model.vo.Group;
 import com.kh.cosmos.group.model.vo.GroupCategory;
 import com.kh.cosmos.group.model.vo.GroupInfo;
 import com.kh.cosmos.group.model.vo.GroupInfoConnect;
+import com.kh.cosmos.group.model.vo.MemberInterestGroup;
 
 @Repository
 public class GroupDaoImpl implements GroupDao {
@@ -180,6 +181,14 @@ public class GroupDaoImpl implements GroupDao {
 		// TODO Auto-generated method stub
 		return session.update("group.updateGroupLikeCount",param1);
 	}
+
+	@Override
+	public List<MemberInterestGroup> selectAllInterstGroup() {
+		// TODO Auto-generated method stub
+		return session.selectList("group.selectAllInterstGroup");
+	}
+
+
 	
 	
 

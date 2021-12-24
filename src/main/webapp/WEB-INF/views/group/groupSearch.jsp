@@ -9,7 +9,10 @@
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	<jsp:param value="그룹 검색" name="title"/>
 </jsp:include>
-
+<sec:authorize access="isAuthenticated()">
+	<sec:authentication property="principal" var="loginMember"/>
+</sec:authorize>
+${groupInterestList}
 		<!-- Page header with logo and tagline-->
         <!-- Page content-->
         <div class="container">
@@ -106,7 +109,22 @@
 			                               		<i class="far fa-heart"  data-group-no="${group.groupNo }"><span>${group.groupLikeCount }</span></i>
 			                           </sec:authorize>
 			                             <sec:authorize access="isAuthenticated()">
-			                               		<i class="fas fa-heart"  data-group-no="${group.groupNo }"><span>${group.groupLikeCount }</span></i>
+			                           <!--start  -->
+			                         
+				                             		<c:forEach var="git" items="${groupInterestList}">
+				                             			<c:choose>
+					                             			<c:when test="${git.memberId == loginMember.id && group.groupNo == git.groupNo}" >
+					                               				<i class="fas fa-heart"  data-group-no="${group.groupNo }"><span>${group.groupLikeCount }</span></i>
+					                             			</c:when>
+					                             		
+					                             			<c:otherwise >
+					                             				<i class="far fa-heart"  data-group-no="${group.groupNo }"><span>${group.groupLikeCount }</span></i>
+					                             			</c:otherwise>
+				                             			</c:choose>
+				                             	
+			                             		</c:forEach>
+			                             		
+			                             <!--  -->
 			                             </sec:authorize>                             	
 		                            </div>
 							<c:if test="${vs.count %3 == 0}">
@@ -135,56 +153,17 @@
             </div>
         </div>
  <script>
+ 
+ 
  $("#button-addon2").click((e)=>{
 	 const searchType = $("select[name=searchType]").val();
-
 	 const searchKeyword = $("input[name=searchKeyword]").val();
 	location.href=`${pageContext.request.contextPath}/group/groupSearch.do?ca1No=${ca1No}&ca2No=${ca2No}&searchType=\${searchType}&searchKeyword=\${searchKeyword}`; 
  });
-/*  $("li",".search-parent-category").click((e)=>{ */
-/* 	  console.log($(e.target).parent().siblings());  */
-/*  	 $(e.target).parent().siblings().children("a").removeClass("active"); 
-	 $(e.target).addClass("active");
-	const data = $(e.target).children("input").val();
-	$.ajax({
-		url : `${pageContext.request.contextPath}/group/category2Search?${_csrf.parameterName}=${_csrf.token}`,
-		data : {ca1No : data},
-		method : "get",
-		dataType : "json",
-		success(res){
-			console.log(res);
-			$(c2).html("");
-			$.each(res, (k,v) =>{
-			$(c2).append( `<li><a href="${pageContext.request.contextPath}/group/groupSearch.do?ca1No=\${data}&ca2No=\${k}">\${v}</a></li>`);
-				
-			});
-		},
-		error(xhr,textStatus,err){
-			console.log
-		}
-	}); */
-<%-- 	$.ajax({
-		url:"<%= request.getContextPath() %>/group/groupCategoryTwo.do?${_csrf.parameterName}=${_csrf.token}",
-		method: "GET",
-		dataType: "json",
-		data: {categoryOneNo : $(this).val()},
-		success(data){
-			const $CATETWOdiv = $(`<div class="group-text-input">`);
-			$.each(data, (k, v) => {
-				let html = `<div class="form-check form-check-inline"><input class="form-check-input" type="checkbox" name="cateCheckBox" id="inlineCheckbox\${k}" value=\${k}><label class="form-check-label" for="inlineCheckbox\${k}">\${v}</label></div>`;
-				$CATETWOdiv.append(html);
-			});
-				$CATETWOdiv.append(`</div>`);
-			$("#sCate").html($CATETWOdiv);
-		},
-		error(xhr,textStatus,err){
-			console.log(xhr,textStatus,err);
-		}
-	}); --%>
+
 /*  }); */
  /* 좋아요 버튼 클릭시 사용자 좋아요 여부에 따른 버튼 이벤트 */
 	$(".fa-heart").click((e)=>{
-
 		let $target = $(e.target);
 		let $groupNo = $target.data("groupNo");
 		
@@ -219,4 +198,3 @@
  </script>
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
-

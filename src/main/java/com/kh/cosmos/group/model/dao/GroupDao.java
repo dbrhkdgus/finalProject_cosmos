@@ -11,6 +11,7 @@ import com.kh.cosmos.group.model.vo.Group;
 import com.kh.cosmos.group.model.vo.GroupCategory;
 import com.kh.cosmos.group.model.vo.GroupInfo;
 import com.kh.cosmos.group.model.vo.GroupInfoConnect;
+import com.kh.cosmos.group.model.vo.MemberInterestGroup;
 
 public interface GroupDao {
 
@@ -67,6 +68,8 @@ public interface GroupDao {
 	int selectCountGroupLike(int groupNo);
 
 	int updateGroupLikeCount(Map<String, Object> param1);
+
+	List<MemberInterestGroup> selectAllInterstGroup();
 
 
 

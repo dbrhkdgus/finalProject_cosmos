@@ -15,6 +15,7 @@ import com.kh.cosmos.group.model.vo.Group;
 import com.kh.cosmos.group.model.vo.GroupCategory;
 import com.kh.cosmos.group.model.vo.GroupInfo;
 import com.kh.cosmos.group.model.vo.GroupInfoConnect;
+import com.kh.cosmos.group.model.vo.MemberInterestGroup;
 
 @Service
 public class GroupServiceImpl implements GroupService {
@@ -179,6 +180,12 @@ public class GroupServiceImpl implements GroupService {
 		return groupDao.updateGroupLikeCount(param1);
 	}
 
+	@Override
+	public List<MemberInterestGroup> selectAllInterstGroup() {
+		// TODO Auto-generated method stub
+		return groupDao.selectAllInterstGroup();
+	}
+	
 
 
 	
