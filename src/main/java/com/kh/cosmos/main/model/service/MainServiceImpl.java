@@ -115,6 +115,11 @@ public class MainServiceImpl implements MainService {
 		return mainDao.deleteOneReply(replyNo);
 	}
 
+	@Override
+	public List<Question> selectQueListByMemberId(String id) {
+		return mainDao.selectQueListByMemberId(id);
+	}
+
 	
 	
 

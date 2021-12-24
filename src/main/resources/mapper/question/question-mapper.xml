@@ -38,4 +38,8 @@
 	<delete id="deleteOneReply">
 	delete from reply where reply_no = #{replyNo}
 	</delete>
+	
+	<select id="selectQueListByMemberId" resultType="question">
+	select * from question where member_id = #{id}
+	</select>
 </mapper>

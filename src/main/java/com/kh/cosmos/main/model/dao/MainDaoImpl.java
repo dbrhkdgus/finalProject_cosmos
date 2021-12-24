@@ -112,6 +112,11 @@ public class MainDaoImpl implements MainDao {
 	public int deleteOneReply(int replyNo) {
 		return session.delete("question.deleteOneReply",replyNo);
 	}
+
+	@Override
+	public List<Question> selectQueListByMemberId(String id) {
+		return session.selectList("question.selectQueListByMemberId",id);
+	}
 	
 	
 	
