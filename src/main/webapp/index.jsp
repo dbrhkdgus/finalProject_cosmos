@@ -227,7 +227,7 @@ window.addEventListener("load", function(){
 						<div class="card mb-4 search-card" style="width: 350px; height: 400px;">
 	                        <a href="${pageContext.request.contextPath}/group/groupDetail.do?groupNo=\${v.groupNo}">
 	                            	<img class="card-img-top" 
-	                            	style = "width: 348px; height: 250px;"
+	                            	style = "width: 411px; height: 250px;"
 	                            	src="${pageContext.request.contextPath }/resources/upFile/group/\${v.renamedFilename}"
 	                                    alt="..." />
 	                        </a>
@@ -276,24 +276,29 @@ window.addEventListener("load", function(){
 						<div class="card mb-4 search-card" style="width: 350px; height: 400px;">
 	                        <a href="${pageContext.request.contextPath}/group/groupDetail.do?groupNo=\${v.groupNo}">
 	                            	<img class="card-img-top" 
-	                            	style = "width: 348px; height: 250px;"
+	                            	style = "width: 411px; height: 250px;"
 	                            	src="${pageContext.request.contextPath }/resources/upFile/group/\${v.renamedFilename}"
 	                                    alt="..." />
 	                        </a>
 	                        <div class="index-group-card-body card-body mb-0" style="height:150px">
 	                            <div class="small text-muted">\${v.groupEnrollDate}</div>
-	                            <h2 class="card-title h4" style="margin: 0.5rem 0 0.5rem 0;">\${v.groupName}</h2>
-	                            	<p class="card-text">\${v.giTitle }</p>
-	                            <a class="btn btn-primary d-inline" id="search-more-btn" href="">더보기 →</a>
-	                        </div>
-	                        <!--좋아요 기능구현 해보는중  -->
-	                       <sec:authorize access="isAnonymous()">
-	                           		<i class="far fa-heart"  data-group-no="\${v.groupNo}"><span>\${v.groupLikeCount}</span></i>
-	                       </sec:authorize>
-	                         <sec:authorize access="isAuthenticated()">
-	                           		<i class="fas fa-heart"  data-group-no="\${v.groupNo}"><span>\${v.groupLikeCount}</span></i>
-	                         </sec:authorize>                             	
-	                    </div>
+	                            <h2 class="card-title h4" style="margin: 0.2rem 0 0.2rem 0;">\${v.groupName}</h2>
+	                            	<p class="card-text"  style="margin-bottom: 5px;">\${v.giTitle }</p>
+	                            	 <div class="search-inner-button">
+	     	                        <a class="btn btn-primary d-inline" id="search-more-btn"
+	     								href="${pageContext.request.contextPath}/group/groupDetail.do?groupNo=${group.groupNo}">
+	     								더보기→</a>
+	     	                        <!--좋아요 기능구현 해보는중  -->
+	     		                        <div class="like-button-outer">
+	     			                       <sec:authorize access="isAnonymous()">
+	     			                           		<i class="far fa-heart"  data-group-no="\${v.groupNo}"><span>\${v.groupLikeCount}</span></i>
+	     			                       </sec:authorize>
+	     			                         <sec:authorize access="isAuthenticated()">
+	     			                           		<i class="fas fa-heart"  data-group-no="\${v.groupNo}"><span>\${v.groupLikeCount}</span></i>
+	     			                         </sec:authorize>
+	     			                     </div>
+	     	                    	 </div>
+	     	                    </div>
 					
 						`);
 			});
