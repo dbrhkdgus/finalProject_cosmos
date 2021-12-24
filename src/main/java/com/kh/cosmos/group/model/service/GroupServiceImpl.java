@@ -15,6 +15,7 @@ import com.kh.cosmos.group.model.vo.Group;
 import com.kh.cosmos.group.model.vo.GroupCategory;
 import com.kh.cosmos.group.model.vo.GroupInfo;
 import com.kh.cosmos.group.model.vo.GroupInfoConnect;
+import com.kh.cosmos.main.model.vo.Reply;
 
 @Service
 public class GroupServiceImpl implements GroupService {
@@ -179,6 +180,20 @@ public class GroupServiceImpl implements GroupService {
 		return groupDao.updateGroupLikeCount(param1);
 	}
 
+	@Override
+	public int insertGroupeReply(Reply reply) {
+		return groupDao.insertGroupeReply(reply);
+	}
+
+	@Override
+	public List<Reply> selectReplyListBygroupNo(String groupNo) {
+		return groupDao.selectReplyListBygroupNo(groupNo);
+	}
+	
+	
+	
+	
+	
 
 
 	

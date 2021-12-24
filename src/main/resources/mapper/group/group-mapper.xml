@@ -213,4 +213,12 @@
 	<update id="updateGroupLikeCount">
 		update tb_group set group_like_count = #{newCount} where group_no =#{groupNo}
 	</update>
+	
+	<insert id="insertGroupeReply">
+	insert into reply values(SEQ_REPLY_NO_NO.nextval, #{memberId},#{content},null,null,default,null,null,null,#{groupNo})
+	</insert>
+	
+	<select id="selectReplyListBygroupNo" resultType="reply">
+	select * from reply where group_no = #{groupNo}
+	</select>
 </mapper>
