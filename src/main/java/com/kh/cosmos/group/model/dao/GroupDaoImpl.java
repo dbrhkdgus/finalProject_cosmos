@@ -16,8 +16,15 @@ import com.kh.cosmos.group.model.vo.Group;
 import com.kh.cosmos.group.model.vo.GroupCategory;
 import com.kh.cosmos.group.model.vo.GroupInfo;
 import com.kh.cosmos.group.model.vo.GroupInfoConnect;
+
+
+import com.kh.cosmos.group.model.vo.MemberInterestGroup;
+
+
 import com.kh.cosmos.group.model.vo.NumberOfGroupMember;
+
 import com.kh.cosmos.main.model.vo.Reply;
+
 
 @Repository
 public class GroupDaoImpl implements GroupDao {
@@ -183,6 +190,12 @@ public class GroupDaoImpl implements GroupDao {
 	}
 
 	@Override
+	public List<MemberInterestGroup> selectAllInterstGroup() {
+		// TODO Auto-generated method stub
+		return session.selectList("group.selectAllInterstGroup");
+	}
+
+	@Override
 	public List<GroupCategory> selectAllGroupCategory() {
 		// TODO Auto-generated method stub
 		return session.selectList("group.selectAllGroupCategory");
@@ -219,6 +232,7 @@ public class GroupDaoImpl implements GroupDao {
 	public List<CategoryOne> CategoryOneList() {
 		return session.selectList("group.CategoryOneList");
 	}
+
 	
 	
 	

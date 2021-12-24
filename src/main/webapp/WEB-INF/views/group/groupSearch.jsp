@@ -13,7 +13,7 @@
 <sec:authorize access="isAuthenticated()">
     <sec:authentication property="principal" var="loginMember"/>
 </sec:authorize>
-${groupInterestList}
+
 		<!-- Page header with logo and tagline-->
         <!-- Page content-->
         <div class="container">
@@ -70,6 +70,7 @@ ${groupInterestList}
 	                    </div>
                       
                 </div>
+		         
                 <c:choose>
 				<c:when test="${not empty groupList}">
                 <!-- Blog entries-->
@@ -137,28 +138,30 @@ ${groupInterestList}
 								<div class="search-inner-button">
 		                                <!--좋아요 기능구현 해보는중  -->
 									<div class="like-button-outer">
-                                     <sec:authorize access="isAnonymous()">
-                                                   <i class="far fa-heart"  data-group-no="${group.groupNo }"><span>${group.groupLikeCount }</span></i>
-                                       </sec:authorize>
-                                         <sec:authorize access="isAuthenticated()">
-                                       <!--start  -->
-                                     
-                                                     <c:forEach var="git" items="${groupInterestList}">
-                                                         <c:choose>
-                                                             <c:when test="${git.memberId == loginMember.id && group.groupNo == git.groupNo}" >
-                                                                   <i class="fas fa-heart"  data-group-no="${group.groupNo }"><span>${group.groupLikeCount }</span></i>
-                                                             </c:when>
-                                                         
-                                                             <c:otherwise >
-                                                                 <i class="far fa-heart"  data-group-no="${group.groupNo }"><span>${group.groupLikeCount }</span></i>
-                                                             </c:otherwise>
-                                                         </c:choose>
-                                                 
-                                                 </c:forEach>
-                                                 
-                                         <!-- end -->
-                                         </sec:authorize>         
-                                    </div>
+
+									 <sec:authorize access="isAnonymous()">
+			                               		<i class="far fa-heart"  data-group-no="${group.groupNo }"><span>${group.groupLikeCount }</span></i>
+			                           </sec:authorize>
+			                             <sec:authorize access="isAuthenticated()">
+			                           <!--start  -->
+			                         
+				                             		<c:forEach var="git" items="${groupInterestList}" begin="1" end="1" varStatus="status">
+				                             			<c:choose>
+					                             			<c:when test="${git.memberId == loginMember.id && group.groupNo == git.groupNo}" >
+					                               				<i class="fas fa-heart"  data-group-no="${group.groupNo }"><span>${group.groupLikeCount }</span></i>
+					                             			</c:when>
+					                             		
+					                             			<c:otherwise >
+					                             				<i class="far fa-heart"  data-group-no="${group.groupNo }"><span>${group.groupLikeCount }</span></i>
+					                             			</c:otherwise>
+				                             			</c:choose>
+				                             	
+			                             		</c:forEach>
+			                             		
+			                             <!-- end -->
+			                             </sec:authorize>         
+									</div>
+
 								</div>
 							</div>
 						</div>
@@ -233,4 +236,3 @@ ${groupInterestList}
  </script>
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
-

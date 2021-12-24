@@ -218,6 +218,10 @@
 		update tb_group set group_like_count = #{newCount} where group_no =#{groupNo}
 	</update>
 	
+	<select id="selectAllInterstGroup" resultType="MemberInterestGroup">
+		select * from interest_group	
+	</select>
+	
 	<select id="selectAllGroupCategory" resultType="GroupCategory">
 		select * from group_category
 	</select>
@@ -245,6 +249,7 @@
 	<delete id="deleteGroupReply">
 	delete from reply where reply_no = #{replyNo}
 	</delete>
+
 	
 	<select id="CategoryOneList" resultType="CategoryOne">
 	select * from studygroup_category1

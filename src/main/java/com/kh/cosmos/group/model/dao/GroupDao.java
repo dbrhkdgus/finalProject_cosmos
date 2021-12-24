@@ -11,7 +11,13 @@ import com.kh.cosmos.group.model.vo.Group;
 import com.kh.cosmos.group.model.vo.GroupCategory;
 import com.kh.cosmos.group.model.vo.GroupInfo;
 import com.kh.cosmos.group.model.vo.GroupInfoConnect;
+
+
+import com.kh.cosmos.group.model.vo.MemberInterestGroup;
+
+
 import com.kh.cosmos.group.model.vo.NumberOfGroupMember;
+
 import com.kh.cosmos.main.model.vo.Reply;
 
 public interface GroupDao {
@@ -70,6 +76,9 @@ public interface GroupDao {
 
 	int updateGroupLikeCount(Map<String, Object> param1);
 
+
+	List<MemberInterestGroup> selectAllInterstGroup();
+
 	List<GroupCategory> selectAllGroupCategory();
 
 	List<CategoryTwo> selectAllCategoryTwoList();
@@ -83,6 +92,7 @@ public interface GroupDao {
 	int deleteGroupReply(int replyNo);
 
 	List<CategoryOne> CategoryOneList();
+
 
 
 }

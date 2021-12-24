@@ -15,8 +15,13 @@ import com.kh.cosmos.group.model.vo.Group;
 import com.kh.cosmos.group.model.vo.GroupCategory;
 import com.kh.cosmos.group.model.vo.GroupInfo;
 import com.kh.cosmos.group.model.vo.GroupInfoConnect;
+
+import com.kh.cosmos.group.model.vo.MemberInterestGroup;
+
 import com.kh.cosmos.group.model.vo.NumberOfGroupMember;
+
 import com.kh.cosmos.main.model.vo.Reply;
+
 
 @Service
 public class GroupServiceImpl implements GroupService {
@@ -207,6 +212,12 @@ public class GroupServiceImpl implements GroupService {
 	}
 
 	@Override
+
+	public List<MemberInterestGroup> selectAllInterstGroup() {
+		// TODO Auto-generated method stub
+		return groupDao.selectAllInterstGroup();
+	}
+
 	public int insertGroupeReply(Reply reply) {
 		return groupDao.insertGroupeReply(reply);
 	}
@@ -225,12 +236,6 @@ public class GroupServiceImpl implements GroupService {
 	public List<CategoryOne> CategoryOneList() {
 		return groupDao.CategoryOneList();
 	}
-	
-	
-	
-	
-	
-	
 	
 
 
