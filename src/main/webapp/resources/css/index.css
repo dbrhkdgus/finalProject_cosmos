@@ -195,6 +195,16 @@
 	width:40%;
 }
 
+.search-inner-button{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.fa-heart:before {
+	font-size : 25px;
+	color: red;
+}
 
 
 
@@ -335,8 +345,15 @@
 }
 
 #detail-inputbox{
-    width: 350px;
+    width: 500px;
     height: 38px;
+}
+#command{
+	display: contents;
+}
+.group-reply-enroll{
+    display: flex;
+    justify-content: space-between;
 }
 
 /* API회원가입/로그인창  */

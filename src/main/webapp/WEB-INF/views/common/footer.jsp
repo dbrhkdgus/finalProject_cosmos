@@ -17,6 +17,9 @@
 					<li><span class="footer-list-content"></span><a class="nav-link" href="${pageContext.request.contextPath}/main/qa.do">문의사항</a></li>
 					<li><span class="footer-list-content"></span><a class="nav-link" href="${pageContext.request.contextPath}/main/noticeList.do">공지사항</a></li>
 					<li><span class="footer-list-content"></span><a class="nav-link" href="${pageContext.request.contextPath}/group/groupSearch.do">Search</a></li>
+					<li><span class="footer-list-content"></span><a class="nav-link" href="${pageContext.request.contextPath}/main/service.do" style="font-size: 13px;">이용약관</a></li>
+					<li><span class="footer-list-content"></span><a class="nav-link" href="${pageContext.request.contextPath}/main/privacy.do" style="font-size: 13px;">개인정보처리방침</a></li>
+					<li><span class="footer-list-content"></span><a class="nav-link" href="${pageContext.request.contextPath}/main/proposal.do" style="font-size: 13px;">제휴제안</a></li>
 				</ul>
 			</div>
 		</div>
