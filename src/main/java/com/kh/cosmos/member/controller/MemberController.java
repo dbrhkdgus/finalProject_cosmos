@@ -215,8 +215,10 @@ public class MemberController {
 
 		List<ApplocationGroup> myGroupList = memberService.selectMyGroupList(userId);
 		model.addAttribute("myGroupList", myGroupList);
+		
 		List<ApplocationGroup> myNotJoinedGroupList = memberService.selectmyNotJoinedGroupList(userId);
 		model.addAttribute("myNotJoinedGroupList", myNotJoinedGroupList);
+		
 		List<ApplocationGroup> myNotAllowedGroupList = memberService.selectmyNotAllowedGroupList(userId);
 		model.addAttribute("myNotAllowedGroupList", myNotAllowedGroupList);
 		

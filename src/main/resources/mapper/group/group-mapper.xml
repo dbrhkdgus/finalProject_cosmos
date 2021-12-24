@@ -213,4 +213,20 @@
 	<update id="updateGroupLikeCount">
 		update tb_group set group_like_count = #{newCount} where group_no =#{groupNo}
 	</update>
+	
+	<select id="selectAllGroupCategory" resultType="GroupCategory">
+		select * from group_category
+	</select>
+	
+	<select id="selectAllCategoryTwoList" resultType="CategoryTwo">
+		select * from studygroup_category2
+	</select>
+	
+	<select id="selectAllNumOfGM" resultType="NumberOfGroupMember">
+		select
+		    group_no, count(group_no) as cnt
+		from
+		    applocation_group
+		group by group_no
+	</select>
 </mapper>
