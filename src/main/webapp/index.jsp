@@ -227,7 +227,7 @@ window.addEventListener("load", function(){
 						<div class="card mb-4 search-card" style="width: 350px; height: 400px;">
 	                        <a href="${pageContext.request.contextPath}/group/groupDetail.do?groupNo=\${v.groupNo}">
 	                            	<img class="card-img-top" 
-	                            	style = "width: 411px; height: 250px;"
+	                            	style = "width: 410px; height: 250px;"
 	                            	src="${pageContext.request.contextPath }/resources/upFile/group/\${v.renamedFilename}"
 	                                    alt="..." />
 	                        </a>
@@ -276,7 +276,7 @@ window.addEventListener("load", function(){
 						<div class="card mb-4 search-card" style="width: 350px; height: 400px;">
 	                        <a href="${pageContext.request.contextPath}/group/groupDetail.do?groupNo=\${v.groupNo}">
 	                            	<img class="card-img-top" 
-	                            	style = "width: 411px; height: 250px;"
+	                            	style = "width: 410px; height: 250px;"
 	                            	src="${pageContext.request.contextPath }/resources/upFile/group/\${v.renamedFilename}"
 	                                    alt="..." />
 	                        </a>
