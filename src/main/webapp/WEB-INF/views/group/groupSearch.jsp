@@ -10,6 +10,10 @@
 	<jsp:param value="그룹 검색" name="title"/>
 </jsp:include>
 
+<sec:authorize access="isAuthenticated()">
+    <sec:authentication property="principal" var="loginMember"/>
+</sec:authorize>
+${groupInterestList}
 		<!-- Page header with logo and tagline-->
         <!-- Page content-->
         <div class="container">
@@ -130,16 +134,32 @@
 		                                    	</c:if>
 		                                    </c:forEach>
 		                                    
-		                                </div>
+								<div class="search-inner-button">
 		                                <!--좋아요 기능구현 해보는중  -->
 									<div class="like-button-outer">
-										<sec:authorize access="isAnonymous()">
-											<i class="far fa-heart" data-group-no="${group.groupNo }"><span>${group.groupLikeCount }</span></i>
-										</sec:authorize>
-										<sec:authorize access="isAuthenticated()">
-											<i class="fas fa-heart" data-group-no="${group.groupNo }"><span>${group.groupLikeCount }</span></i>
-										</sec:authorize>
-									</div>
+                                     <sec:authorize access="isAnonymous()">
+                                                   <i class="far fa-heart"  data-group-no="${group.groupNo }"><span>${group.groupLikeCount }</span></i>
+                                       </sec:authorize>
+                                         <sec:authorize access="isAuthenticated()">
+                                       <!--start  -->
+                                     
+                                                     <c:forEach var="git" items="${groupInterestList}">
+                                                         <c:choose>
+                                                             <c:when test="${git.memberId == loginMember.id && group.groupNo == git.groupNo}" >
+                                                                   <i class="fas fa-heart"  data-group-no="${group.groupNo }"><span>${group.groupLikeCount }</span></i>
+                                                             </c:when>
+                                                         
+                                                             <c:otherwise >
+                                                                 <i class="far fa-heart"  data-group-no="${group.groupNo }"><span>${group.groupLikeCount }</span></i>
+                                                             </c:otherwise>
+                                                         </c:choose>
+                                                 
+                                                 </c:forEach>
+                                                 
+                                         <!-- end -->
+                                         </sec:authorize>         
+                                    </div>
+								</div>
 							</div>
 						</div>
 							<c:if test="${vs.count %3 == 0}">
@@ -169,86 +189,47 @@
         </div>
  <script>
  $("#button-addon2").click((e)=>{
-	 const searchType = $("select[name=searchType]").val();
+     const searchType = $("select[name=searchType]").val();
 
-	 const searchKeyword = $("input[name=searchKeyword]").val();
-	location.href=`${pageContext.request.contextPath}/group/groupSearch.do?ca1No=${ca1No}&ca2No=${ca2No}&searchType=\${searchType}&searchKeyword=\${searchKeyword}`; 
+     const searchKeyword = $("input[name=searchKeyword]").val();
+    location.href=`${pageContext.request.contextPath}/group/groupSearch.do?ca1No=${ca1No}&ca2No=${ca2No}&searchType=\${searchType}&searchKeyword=\${searchKeyword}`; 
  });
-/*  $("li",".search-parent-category").click((e)=>{ */
-/* 	  console.log($(e.target).parent().siblings());  */
-/*  	 $(e.target).parent().siblings().children("a").removeClass("active"); 
-	 $(e.target).addClass("active");
-	const data = $(e.target).children("input").val();
-	$.ajax({
-		url : `${pageContext.request.contextPath}/group/category2Search?${_csrf.parameterName}=${_csrf.token}`,
-		data : {ca1No : data},
-		method : "get",
-		dataType : "json",
-		success(res){
-			console.log(res);
-			$(c2).html("");
-			$.each(res, (k,v) =>{
-			$(c2).append( `<li><a href="${pageContext.request.contextPath}/group/groupSearch.do?ca1No=\${data}&ca2No=\${k}">\${v}</a></li>`);
-				
-			});
-		},
-		error(xhr,textStatus,err){
-			console.log
-		}
-	}); */
-<%-- 	$.ajax({
-		url:"<%= request.getContextPath() %>/group/groupCategoryTwo.do?${_csrf.parameterName}=${_csrf.token}",
-		method: "GET",
-		dataType: "json",
-		data: {categoryOneNo : $(this).val()},
-		success(data){
-			const $CATETWOdiv = $(`<div class="group-text-input">`);
-			$.each(data, (k, v) => {
-				let html = `<div class="form-check form-check-inline"><input class="form-check-input" type="checkbox" name="cateCheckBox" id="inlineCheckbox\${k}" value=\${k}><label class="form-check-label" for="inlineCheckbox\${k}">\${v}</label></div>`;
-				$CATETWOdiv.append(html);
-			});
-				$CATETWOdiv.append(`</div>`);
-			$("#sCate").html($CATETWOdiv);
-		},
-		error(xhr,textStatus,err){
-			console.log(xhr,textStatus,err);
-		}
-	}); --%>
+
 /*  }); */
  /* 좋아요 버튼 클릭시 사용자 좋아요 여부에 따른 버튼 이벤트 */
-	$(".fa-heart").click((e)=>{
+    $(".fa-heart").click((e)=>{
 
-		let $target = $(e.target);
-		let $groupNo = $target.data("groupNo");
-		
-		$.ajax({
-			url: `${pageContext.request.contextPath}/group/groupLikeSearch.do`,
-			dataType: "json",
-			type: "GET",
-			data: {'groupNo' : $groupNo},
-			success(jsonStr){
-				console.log(jsonStr);
-				const likeValid = jsonStr["likeValid"];
-				const likeCnt = jsonStr["likeCnt"];
-				//member 본인의 likeValid가 1이라면 속이 찬 하트, 0이면 속이 빈 하트
-				if(likeValid == 1){
-					$target
-						.removeClass("far")
-						.addClass("fas");
-				}else{
-					$target
-						.removeClass("fas")
-						.addClass("far");
-				}
-				$target.html(`<span>\${likeCnt}</span>`);
-			},
-			error(xhr, textStatus, err){
+        let $target = $(e.target);
+        let $groupNo = $target.data("groupNo");
+        
+        $.ajax({
+            url: `${pageContext.request.contextPath}/group/groupLikeSearch.do`,
+            dataType: "json",
+            type: "GET",
+            data: {'groupNo' : $groupNo},
+            success(jsonStr){
+                console.log(jsonStr);
+                const likeValid = jsonStr["likeValid"];
+                const likeCnt = jsonStr["likeCnt"];
+                //member 본인의 likeValid가 1이라면 속이 찬 하트, 0이면 속이 빈 하트
+                if(likeValid == 1){
+                    $target
+                        .removeClass("far")
+                        .addClass("fas");
+                }else{
+                    $target
+                        .removeClass("fas")
+                        .addClass("far");
+                }
+                $target.html(`<span>\${likeCnt}</span>`);
+            },
+            error(xhr, textStatus, err){
                 console.log(xhr, textStatus, err);
                     alert("로그인후 이용가능합니다");
             }
-		});
-	});
-	
+        });
+    });
+    
  </script>
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
