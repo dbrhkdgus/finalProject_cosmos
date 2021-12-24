@@ -2,6 +2,7 @@ package com.kh.cosmos.main.model.service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import com.kh.cosmos.common.attachment.model.vo.Attachment;
 import com.kh.cosmos.group.model.vo.Group;
@@ -41,7 +42,7 @@ public interface MainService {
 
 	List<Reply> selectReplyListByqueNo(int queNo);
 
-	List<JoinAllGroupInfo> selectJoinAllGroupInfo(int type);
+	List<JoinAllGroupInfo> selectJoinAllGroupInfo(Map<String, Object> param);
 
 
 }

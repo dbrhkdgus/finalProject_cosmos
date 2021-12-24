@@ -2,6 +2,7 @@ package com.kh.cosmos.main.model.service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -105,9 +106,9 @@ public class MainServiceImpl implements MainService {
 	}
 
 	@Override
-	public List<JoinAllGroupInfo> selectJoinAllGroupInfo(int type) {
+	public List<JoinAllGroupInfo> selectJoinAllGroupInfo(Map<String, Object> param) {
 		// TODO Auto-generated method stub
-		return mainDao.selectJoinAllGroupInfo(type);
+		return mainDao.selectJoinAllGroupInfo(param);
 	}
 
 	
