@@ -3,10 +3,86 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>	
 <fmt:requestEncoding value="utf-8"/>
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	<jsp:param value="그룹 상세 정보" name="title"/>
 </jsp:include>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=753f0f237470af5e83541545d143b9c3&libraries=services,clusterer,drawing"></script>
+﻿<script>
+var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+mapOption = {
+    center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+    level: 3 // 지도의 확대 레벨
+};  
+
+//지도를 생성합니다    
+var map = new kakao.maps.Map(mapContainer, mapOption); 
+
+//주소-좌표 변환 객체를 생성합니다
+var geocoder = new kakao.maps.services.Geocoder();
+
+//주소로 좌표를 검색합니다
+geocoder.addressSearch('서울특별시 강서구 화곡동 897-14', function(result, status) {
+
+// 정상적으로 검색이 완료됐으면 
+ if (status === kakao.maps.services.Status.OK) {
+
+    var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+    // 결과값으로 받은 위치를 마커로 표시합니다
+    var marker = new kakao.maps.Marker({
+        map: map,
+        position: coords
+    });
+
+    // 인포윈도우로 장소에 대한 설명을 표시합니다
+    var infowindow = new kakao.maps.InfoWindow({
+        content: '<div style="width:150px;text-align:center;padding:6px 0;">모임장소</div>'
+    });
+    infowindow.open(map, marker);
+
+    // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+    map.setCenter(coords);
+} 
+});  
+
+
+//좋아요 기능
+	$(".fa-heart").click((e)=>{
+
+		let $target = $(e.target);
+		let $groupNo = $target.data("groupNo");
+		
+		$.ajax({
+			url: `${pageContext.request.contextPath}/group/groupLikeSearch.do`,
+			dataType: "json",
+			type: "GET",
+			data: {'groupNo' : $groupNo},
+			success(jsonStr){
+				console.log(jsonStr);
+				const likeValid = jsonStr["likeValid"];
+				const likeCnt = jsonStr["likeCnt"];
+				//member 본인의 likeValid가 1이라면 속이 찬 하트, 0이면 속이 빈 하트
+				if(likeValid == 1){
+					$target
+						.removeClass("far")
+						.addClass("fas");
+				}else{
+					$target
+						.removeClass("fas")
+						.addClass("far");
+				}
+				$target.html(`<span>\${likeCnt}</span>`);
+			},
+			error(xhr, textStatus, err){
+                console.log(xhr, textStatus, err);
+                    alert("로그인후 이용가능합니다");
+                 //   location.href="${pageContext.request.contextPath}/member/memberLogin.do";                 
+            }
+		});
+	});
+</script>
 
 <!-- detail시작부분 -->
 <div class="class-detail-wrap">
@@ -105,8 +181,20 @@
 					</c:forEach>
 				</div>
 				<div class="sticky-button-area">
-					<button type="button" class="btn btn-primary btn-m"
-						style="margin-right: 10px;">좋아요</button>
+				<!--far 빈하트 fas 꽉찬 하트  -->
+				
+				<!--로그인이 안되어있을 때   -->
+					 <sec:authorize access="isAnonymous()"> 
+				            <i class="far fa-heart"  data-group-no="${group.groupNo }"><span>${group.groupLikeCount }</span></i>
+				     </sec:authorize> 
+				<!--로그인 되어있을 때  -->
+					    <sec:authorize access="isAuthenticated()">
+
+					    	<c:if test= ${map.likeValid == 0 }>
+					    		<i class="far fa-heart"  data-group-no="${group.groupNo }"><span>${group.groupLikeCount }</span></i>
+			     			</c:if>
+					         <i class="fas fa-heart"  data-group-no="${group.groupNo }"><span>${group.groupLikeCount }</span></i>
+					    </sec:authorize> 
 					<button type="button" class="btn btn-secondary btn-m" onclick="location.href='${pageContext.request.contextPath}/group/groupJoin.do?groupNo=${group.groupNo}';">가입신청</button>
 				</div>
 			</div>
@@ -116,43 +204,5 @@
 	</div>
 
 </div>
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=753f0f237470af5e83541545d143b9c3&libraries=services,clusterer,drawing"></script>
-﻿<script>
-var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-mapOption = {
-    center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-    level: 3 // 지도의 확대 레벨
-};  
 
-//지도를 생성합니다    
-var map = new kakao.maps.Map(mapContainer, mapOption); 
-
-//주소-좌표 변환 객체를 생성합니다
-var geocoder = new kakao.maps.services.Geocoder();
-
-//주소로 좌표를 검색합니다
-geocoder.addressSearch('서울특별시 강서구 화곡동 897-14', function(result, status) {
-
-// 정상적으로 검색이 완료됐으면 
- if (status === kakao.maps.services.Status.OK) {
-
-    var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-
-    // 결과값으로 받은 위치를 마커로 표시합니다
-    var marker = new kakao.maps.Marker({
-        map: map,
-        position: coords
-    });
-
-    // 인포윈도우로 장소에 대한 설명을 표시합니다
-    var infowindow = new kakao.maps.InfoWindow({
-        content: '<div style="width:150px;text-align:center;padding:6px 0;">모임장소</div>'
-    });
-    infowindow.open(map, marker);
-
-    // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-    map.setCenter(coords);
-} 
-});  
-</script>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>

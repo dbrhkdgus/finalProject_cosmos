@@ -378,6 +378,7 @@ public class GroupController {
 			map.put("likeCnt", newCount);
 		}
 		
+	
 		//json문자열로 변환
 		Gson gson = new Gson();
 		String jsonStr = gson.toJson(map);
