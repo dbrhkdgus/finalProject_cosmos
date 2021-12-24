@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.kh.cosmos.common.attachment.model.vo.Attachment;
 import com.kh.cosmos.group.model.vo.Group;
+import com.kh.cosmos.main.model.vo.JoinAllGroupInfo;
 import com.kh.cosmos.main.model.vo.Notice;
 import com.kh.cosmos.main.model.vo.Question;
 import com.kh.cosmos.main.model.vo.Reply;
@@ -39,6 +40,8 @@ public interface MainService {
 	List<Group> selectAllGroupListByDate();
 
 	List<Reply> selectReplyListByqueNo(int queNo);
+
+	List<JoinAllGroupInfo> selectJoinAllGroupInfo(int type);
 
 
 }

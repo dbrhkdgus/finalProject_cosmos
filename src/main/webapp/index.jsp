@@ -309,6 +309,21 @@ $(document).ready(function(){
 
 		}); 
 	}); 
+
+window.addEventListener("load", function(){
+	$.ajax({
+		url:"<%= request.getContextPath() %>/main/mainStudyGroupInfo.do",
+		method: "GET",
+		data: {groupSelectType: "best"},
+		dataType: "json",
+		success(data){
+			console.log(data);
+		},
+		error(xhr,textStatus,err){
+			console.log(xhr,textStatus,err);
+		}
+	});
+});  
 </script>
 
 
