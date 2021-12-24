@@ -111,7 +111,7 @@
 			                             <sec:authorize access="isAuthenticated()">
 			                           <!--start  -->
 			                         
-				                             		<c:forEach var="git" items="${groupInterestList}" >
+				                             		<c:forEach var="git" items="${groupInterestList}" begin="1" end="1" varStatus="status">
 				                             			<c:choose>
 					                             			<c:when test="${git.memberId == loginMember.id && group.groupNo == git.groupNo}" >
 					                               				<i class="fas fa-heart"  data-group-no="${group.groupNo }"><span>${group.groupLikeCount }</span></i>
@@ -124,7 +124,7 @@
 				                             	
 			                             		</c:forEach>
 			                             		
-			                             <!--  -->
+			                             <!-- end -->
 			                             </sec:authorize>         
 									</div>
 								</div>
