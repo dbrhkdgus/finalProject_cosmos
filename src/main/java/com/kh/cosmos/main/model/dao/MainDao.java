@@ -1,6 +1,7 @@
 package com.kh.cosmos.main.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.kh.cosmos.common.attachment.model.vo.Attachment;
 import com.kh.cosmos.group.model.dao.GroupDao;
@@ -42,6 +43,6 @@ public interface MainDao {
 
 	List<Reply> selectReplyListByqueNo(int queNo);
 
-	List<JoinAllGroupInfo> selectJoinAllGroupInfo(int type);
+	List<JoinAllGroupInfo> selectJoinAllGroupInfo(Map<String, Object> param);
 
 }

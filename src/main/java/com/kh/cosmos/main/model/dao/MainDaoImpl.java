@@ -1,6 +1,7 @@
 package com.kh.cosmos.main.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
@@ -103,9 +104,9 @@ public class MainDaoImpl implements MainDao {
 	}
 
 	@Override
-	public List<JoinAllGroupInfo> selectJoinAllGroupInfo(int type) {
+	public List<JoinAllGroupInfo> selectJoinAllGroupInfo(Map<String, Object> param) {
 		// TODO Auto-generated method stub
-		return session.selectList("main.selectJoinAllGroupInfo",type);
+		return session.selectList("index.selectJoinAllGroupInfo",param);
 	}
 	
 	
