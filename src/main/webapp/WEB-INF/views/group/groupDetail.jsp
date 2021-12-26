@@ -25,7 +25,7 @@
 				<h1 class="c-title">${giConn.giTitle}</h1>
 				<div class="leader-profile">
 					<div class="group-leader-info">
-						<span id="group-leader-name">${attach.memberId}</span>
+						<span id="group-leader-name">${member.nickname}</span>
 					</div>
 				</div>
 			</div>
