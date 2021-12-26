@@ -117,6 +117,11 @@ public class MainDaoImpl implements MainDao {
 	public List<Question> selectQueListByMemberId(String id) {
 		return session.selectList("question.selectQueListByMemberId",id);
 	}
+
+	@Override
+	public String memberProfileRenamedFileName(String id) {
+		return session.selectOne("question.memberProfileRenamedFileName",id);
+	}
 	
 	
 	

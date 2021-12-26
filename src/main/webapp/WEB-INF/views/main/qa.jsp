@@ -65,8 +65,8 @@
 		      
 		      <td>
 		      <c:choose>
-		      	<c:when test="${id eq que.memberId ||loginMember.authorities eq '[ROLE_ADMIN]'}">
-					${que.memberName }		      	
+		      	<c:when test="${loginMember.id eq que.memberId ||loginMember.authorities eq '[ROLE_ADMIN]'}">
+					${que.memberName}		      	
 		      	</c:when>
 		      	<c:otherwise>
 			      ${fn:substring(que.memberName,0,1) } 
@@ -122,7 +122,7 @@
 		      
 		      <td>
 		      <c:choose>
-		      	<c:when test="${id eq select.memberId ||loginMember.authorities eq '[ROLE_ADMIN]' }">
+		      	<c:when test="${loginMember.id eq select.memberId ||loginMember.authorities eq '[ROLE_ADMIN]' }">
 					${select.memberName }		      	
 		      	</c:when>
 		      	<c:otherwise>
@@ -149,4 +149,5 @@
 	<c:if test="${not empty selectList}"><div class="d-flex" style="height: 30px;"></div></c:if>
 	 
 </div>
+
 <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>

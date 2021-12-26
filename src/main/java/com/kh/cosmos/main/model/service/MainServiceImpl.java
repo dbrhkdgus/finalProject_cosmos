@@ -120,6 +120,11 @@ public class MainServiceImpl implements MainService {
 		return mainDao.selectQueListByMemberId(id);
 	}
 
+	@Override
+	public String selectMemberProfileRenamedFileName(String id) {
+		return mainDao.memberProfileRenamedFileName(id);
+	}
+
 	
 	
 

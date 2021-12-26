@@ -140,7 +140,7 @@
 						    					"${_csrf.headerName}" : "${_csrf.token}"
 						    			 },
 						    	         success(res){
-						    				 console.log(res);
+						    				// console.log(res);
 						    				 if(/^http/.test(res)){
 						    					 $("#header-profile").attr('src', `\${res}`)				
 						    				 }else{

@@ -49,4 +49,6 @@ public interface MainDao {
 
 	List<Question> selectQueListByMemberId(String id);
 
+	String memberProfileRenamedFileName(String id);
+
 }

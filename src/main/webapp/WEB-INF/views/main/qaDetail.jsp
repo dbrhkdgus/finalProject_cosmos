@@ -36,7 +36,7 @@ div#board-container label.custom-file-label{text-align:left;}
 			</tbody>
 		</table>
 	</div>
-		<span class="text-right">작성자 : ${que.memberId}</span>
+		<span class="text-right">작성자 : ${fn:startsWith(memberProfileRenamedFileName, 'http') ? que.memberName : que.memberId}</span>
 	<div class="card text-center">
 		<div class="card-body">
 			<img src="${pageContext.request.contextPath }/resources/upFile/question/${att.renamedFilename}" alt="" style="width: 50%" /> ${que.queContent}
@@ -60,7 +60,7 @@ div#board-container label.custom-file-label{text-align:left;}
 			<c:forEach items="${replyList}" var="reply">
 		<form:form action="${pageContext.request.contextPath }/main/deleteQueReply.do" method="post">
 				<div class="d-flex bd-highlight" style="text-align-last: start;">
-					<div class="p-2 bd-highlight">${reply.memberId}:</div>
+					<div class="p-2 bd-highlight">${fn:startsWith(memberProfileRenamedFileName, 'http') ? reply.memberName : reply.memberId}:</div>
 					<div class="p-2 flex-grow-1 bd-highlight">${reply.content}</div>
 					<div class="p-2 bd-highlight" style="font-size: 10px;">
 						<fmt:formatDate value="${reply.regDate}" pattern="yy-MM-dd" />

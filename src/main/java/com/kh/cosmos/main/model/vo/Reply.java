@@ -24,5 +24,6 @@ public class Reply implements Serializable{
 	private int boardNo;
 	private int queNo;
 	private int groupNo;
+	private String MemberName;
 	
 }

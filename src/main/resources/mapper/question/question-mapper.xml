@@ -24,7 +24,7 @@
 		insert into question values(seq_question_no.nextval, #{memberId}, default, #{queTitle}, #{queContent}, current_date, #{queCategory}, null)
 	</insert>
 	<select id="selectOneQuestionByNo" resultType="question">
-		select * from question where que_no = #{queNo}
+		select * from question q join tb_member m on m.id = q.member_id  where que_no = #{queNo}
 	</select>
 	
 		<insert id="insertQueReply">
@@ -32,7 +32,8 @@
 	</insert>
 	
 	<select id="selectReplyListByqueNo" resultType="reply">
-	select * from reply where que_no = #{queNo}
+	
+	select * from reply r join tb_member m on m.id = r.member_id  where que_no=#{queNo} order by que_no desc
 	</select>
 	
 	<delete id="deleteOneReply">
@@ -40,6 +41,10 @@
 	</delete>
 	
 	<select id="selectQueListByMemberId" resultType="question">
-	select * from question where member_id = #{id}
+	select * from question q join tb_member m on m.id = q.member_id  where member_id=#{memberId} order by que_no desc
+	</select>
+	
+	<select id="memberProfileRenamedFileName" resultType="string">
+	select renamed_filename from attachment where member_id = #{id} and img_flag = 'P'
 	</select>
 </mapper>

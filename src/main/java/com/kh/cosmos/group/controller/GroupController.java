@@ -423,7 +423,6 @@ public class GroupController {
 		 
 			Member member = (Member)authentication.getPrincipal();
 			
-			
 			reply.setMemberId(member.getId());
 			reply.setQueNo(groupNo);
 			log.debug ("reply = {}",reply); 
