@@ -49,6 +49,7 @@ import com.kh.cosmos.member.model.service.MemberService;
 import com.kh.cosmos.member.model.vo.Member;
 
 import lombok.extern.slf4j.Slf4j;
+import oracle.jdbc.proxy.annotation.Post;
 
 @Controller
 @Slf4j
@@ -381,6 +382,15 @@ public class MemberController {
 		
 		Member member = memberService.selectOneMember(id);
 		map.put("available", member == null);
+		return map;
+	}
+	@GetMapping("/setDefaultImg.do")
+	@ResponseBody
+	public Map<String, Object> setDefaultImg(@RequestParam String id, Model model){
+		int result = memberService.updateMemberProfileAsDefault(id);
+		Map<String, Object> map = new HashMap<>();
+		String msg = result > 0 ? "기본프로필 변경 완료" : "기본 프로필 변경 실패";
+		map.put("msg", msg);
 		return map;
 	}
 }

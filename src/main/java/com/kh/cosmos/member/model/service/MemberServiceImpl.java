@@ -85,6 +85,13 @@ public class MemberServiceImpl implements MemberService {
 	public List<MemberInterestGroup> selectmyInterestedGroupList(String userId) {
 		return memberDao.selectmyInterestedGroupList(userId); 
 	}
+
+	@Override
+	public int updateMemberProfileAsDefault(String id) {
+		// TODO Auto-generated method stub
+		return memberDao.updateMemberProfileAsDefault(id);
+	}
+	
 	
 	
 }

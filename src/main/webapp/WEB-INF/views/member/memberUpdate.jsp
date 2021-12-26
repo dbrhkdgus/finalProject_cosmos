@@ -36,6 +36,9 @@
 								<c:if test="${empty profile }">
 									<img id="profile" src="https://cdn-icons-png.flaticon.com/512/64/64572.png" alt="" style="width: 150px"	/>
 								</c:if>
+								<div class="deleteProfile">
+									<span data-tooltip-text="기본 프로필 이미지로 설정합니다.">x</span>								
+								</div>
 								
 							</div>
 							
@@ -192,6 +195,30 @@
 </main>
 
 <script>
+$(".deleteProfile").click((e)=>{
+	if(confirm("기본 프로필로 바꾸시겠습니까?")){
+		
+		let data ={
+				id:$("input[name=id]").val()
+			};
+		console.log(JSON.stringify(data));
+			$.ajax({
+		         type:"get",
+		         url:"${pageContext.request.contextPath}/member/setDefaultImg.do",
+		         data:{
+		        	 id:$("input[name=id]").val()
+		         },
+		         headers: {
+						"${_csrf.headerName}" : "${_csrf.token}"
+				 },
+		         success(res){
+						
+						location.reload();
+				},
+				error:console.log
+		     });
+	}
+});
 $(upFile).change(function(){
     setImageFromFile(this, '#profile');
     upFile = $(upFile).val();
