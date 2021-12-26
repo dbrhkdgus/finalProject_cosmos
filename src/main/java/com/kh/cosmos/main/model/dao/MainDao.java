@@ -49,4 +49,6 @@ public interface MainDao {
 
 	List<Question> selectQueListByMemberId(String id);
 
+	int viewCountUp(int no);
+
 }
