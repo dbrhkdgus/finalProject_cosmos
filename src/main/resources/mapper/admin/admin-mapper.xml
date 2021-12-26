@@ -199,5 +199,15 @@
 		rnum between 1 and 10
   	
   </select>
+  
+  <!-- Admin main페이지, 문의목록에 사용할 프로필 이미지 -->
+  <select id="selectProfileImgList" resultType="Attachment">
+	select
+	    *
+	from    
+	    attachment
+	where
+	    img_flag = 'P'
+  </select>
 
 </mapper>

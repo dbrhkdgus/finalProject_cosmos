@@ -77,5 +77,10 @@ public class AdminServiceImpl implements AdminService{
 		return adminDao.adminMainGroupList();
 	}
 
+	@Override
+	public List<Attachment> selectProfileImgList() {
+		return adminDao.selectProfileImgList();
+	}
+
 	
 }

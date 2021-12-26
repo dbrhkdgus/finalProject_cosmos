@@ -336,18 +336,13 @@ var showMemberInfo = $(".selectOne").click((e)=>{
 				$("#groupList").val(data.member.groupName);
 			}
 			
-			console.log(data.member.memberJob);
 			/* 등록된 프로필 이미지가 없을 때 */
-			console.log("첨부파일번호: "+data.member.attachNo);
-			if(data.member.attachNo == "0"){
-				document.getElementById('profileImg').src = `${pageContext.request.contextPath}/resources/images/sample.png`;
-			}else{
-				document.getElementById('profileImg').src = `${pageContext.request.contextPath}/resources/upload/member`+data.member.attachNo;				
-			}
+			console.log("프로필 사진명: "+data.profileImg[data.member.id]);
+			document.getElementById('profileImg').src = `${pageContext.request.contextPath}/resources/upFile/profile/`+data.profileImg[data.member.id];				
+			
 			/* Promise 사용하기 위해 변수에 담기 */
-			attachNo = data.member.attachNo;
+			fileName = data.profileImg[data.member.id];
 			calledId = data.member.id;
-			dbImgRenamedFilename = data.renamedFilename;
 		},
 		/* 변경된 사항의 리스트 행을 클릭시 해당 회원의 정보에 맞춰 버튼의 색깔이 변경된다.*/
 		complete : function(){
@@ -364,8 +359,8 @@ var showMemberInfo = $(".selectOne").click((e)=>{
 	}).then(function(result,status,responseObj){
 		console.log("여기는 Promise 함수입니다.");
 		console.log("Promise함수: calledId = "+calledId);
-		console.log("Promise함수: dbImgRenamedFilename = "+dbImgRenamedFilename);
-		if( attachNo == '0'){
+		console.log("Promise함수: fileName = "+fileName);
+		if( fileName == undefined){
 			$.ajax({
 				url: `${pageContext.request.contextPath}/admin/selectKakaoImage.do`,
 				data: {

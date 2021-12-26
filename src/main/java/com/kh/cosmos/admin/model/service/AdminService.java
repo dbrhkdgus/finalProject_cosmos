@@ -36,4 +36,6 @@ public interface AdminService {
 
 	List<Group> adminMainGroupList();
 
+	List<Attachment> selectProfileImgList();
+
 }
