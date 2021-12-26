@@ -31,6 +31,6 @@ public class JoinAllGroupInfo implements Serializable {
 	private String renamedFilename;
 	private char imgFlag;
 	private String category2Name;
-	private String bool; 
+	private boolean isHeart;
 	
 }
