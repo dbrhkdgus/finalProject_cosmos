@@ -264,10 +264,9 @@ window.addEventListener("load", function(){
 			                           		<i class="far fa-heart"  data-group-no="\${v.groupNo}"><span>\${v.groupLikeCount}</span></i>
 			                       </sec:authorize>
 			                         <sec:authorize access="isAuthenticated()">
-			                         		<c:set var="isheart" value="\${v.heart}"/>
-			                         		${isheart}
+			                         		\${v.bool==true}
 			                         		<c:choose>
-			                         			<c:when test="${isheart}">
+			                         			<c:when test="${v.bool==true}">
 			                         				<i class="fas fa-heart"  data-group-no="\${v.groupNo}"><span>\${v.groupLikeCount}</span></i>
 			                         			</c:when>
 			                         			<c:otherwise>
@@ -334,10 +333,8 @@ window.addEventListener("load", function(){
     			                           		<i class="far fa-heart"  data-group-no="\${v.groupNo}"><span>\${v.groupLikeCount}</span></i>
     			                       </sec:authorize>
     			                         <sec:authorize access="isAuthenticated()">
-    			                         		<c:set var="isheart" value="\${v.heart}"/>
-    			                         		${isheart}
     			                         		<c:choose>
-    			                         			<c:when test="${isheart}">
+    			                         			<c:when test="\${v.bool == true}">
     			                         				<i class="fas fa-heart"  data-group-no="\${v.groupNo}"><span>\${v.groupLikeCount}</span></i>
     			                         			</c:when>
     			                         			<c:otherwise>
