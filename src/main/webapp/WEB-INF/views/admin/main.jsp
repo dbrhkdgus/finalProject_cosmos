@@ -21,6 +21,7 @@
   height: 60px;
   border-radius: 50%; /*둥그런 원으로 만들기 위함*/
   overflow: hidden;
+  
 }
 .profileDiv img
 {
@@ -30,6 +31,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  
 }
 </style>
 
@@ -90,16 +92,19 @@
                         	<c:forEach items="${questionList}" var="question">
                             <div class="media tm-notification-item">
                                 <div class="tm-circle profileDiv mr-3">
-                                <img src="" alt="" />
-                                 	<c:if test="${empty profileImg[question.memberId]} ">
-										<img src="${pageContext.request.contextPath}/resources/upFile/profile/defaultProfile.png" class="rounded-circle">                                		
-                                	</c:if>
+                                <%-- <img src="${pageContext.request.contextPath}/resources/upFile/profile/defaultProfile.png" alt="" /> --%>
+                                	<c:if test="${empty profileImg[question.memberId]}">
+                               			<img src="${pageContext.request.contextPath}/resources/upFile/profile/defaultProfile.png" alt="" />
+									</c:if>
                                 	<c:if test="${not empty profileImg[question.memberId]}">
                                 		<c:if test="${fn:contains(profileImg[question.memberId],'http')}">
 		                                	<img id="header-profile" src="${profileImg[question.memberId]}" class="rounded-circle">
                                 		</c:if>
                                 		<c:if test="${! fn:contains(profileImg[question.memberId],'http')}">
 		                                	<img id="header-profile" src="${pageContext.request.contextPath}/resources/upFile/profile/${profileImg[question.memberId]}" class="rounded-circle">
+                                		</c:if>
+                                		<c:if test="${empty profileImg[question.memberId]}">
+                                			<img src="${pageContext.request.contextPath}/resources/upFile/profile/defaultProfile.png" alt="" />
                                 		</c:if>
 
                                 	</c:if>
