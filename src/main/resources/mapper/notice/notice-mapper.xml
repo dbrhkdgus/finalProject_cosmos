@@ -56,4 +56,8 @@
 	<select id="selectOneAttach" resultType="attachment">
 		select * from attachment where attach_no = #{attachNo}
 	</select>
+	
+	<update id="viewCountUp">
+		update notice set read_count = read_count+1 where notice_no = #{no}
+	</update>
 </mapper>

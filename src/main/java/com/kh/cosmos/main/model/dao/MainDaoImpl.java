@@ -117,6 +117,13 @@ public class MainDaoImpl implements MainDao {
 	public List<Question> selectQueListByMemberId(String id) {
 		return session.selectList("question.selectQueListByMemberId",id);
 	}
+
+	@Override
+	public int viewCountUp(int no) {
+		return session.update("notice.viewCountUp",no);
+		
+		
+	}
 	
 	
 	
