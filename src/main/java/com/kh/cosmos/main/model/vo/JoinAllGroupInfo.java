@@ -20,6 +20,9 @@ public class JoinAllGroupInfo implements Serializable {
 	private String groupName;
 	private Date groupEnrollDate;
 	private int groupLikeCount;
+	private char groupClose;
+	private int groupPool;
+	private int numOfMember;
 	private String giTitle;
 	private String category1Name;
 	private String renamedFilename;
