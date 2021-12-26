@@ -121,7 +121,14 @@ public class MainServiceImpl implements MainService {
 	}
 
 	@Override
-	public int viewCountUp(int no) {
+	public String selectMemberProfileRenamedFileName(String id) {
+		return mainDao.memberProfileRenamedFileName(id);
+		
+	}
+	
+	
+	@Override
+		public int viewCountUp(int no) {
 		return mainDao.viewCountUp(no);
 	}
 

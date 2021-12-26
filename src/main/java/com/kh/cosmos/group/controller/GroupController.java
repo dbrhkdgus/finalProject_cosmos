@@ -41,7 +41,7 @@ import com.kh.cosmos.group.model.vo.MemberInterestGroup;
 import com.kh.cosmos.group.model.vo.NumberOfGroupMember;
 
 import com.kh.cosmos.main.model.vo.Reply;
-
+import com.kh.cosmos.member.model.service.MemberService;
 import com.kh.cosmos.member.model.vo.Member;
 
 import lombok.extern.slf4j.Slf4j;
@@ -56,6 +56,8 @@ public class GroupController {
 	private GroupService groupService;
 	@Autowired
 	private AttachmentService attachService;
+	@Autowired
+	private MemberService memberService;
 	@Autowired
 	ServletContext application;
 	
@@ -172,6 +174,8 @@ public class GroupController {
 		Attachment attach = attachService.selectGroupAttachmentListByGroupNo(groupNo);
 		model.addAttribute("attach",attach);
 //		log.debug("attach = {}", attach);
+		Member member = memberService.selectOneMember(attach.getMemberId());
+		model.addAttribute("member", member);
 		
 		GroupInfoConnect giConn = groupService.selectAllGroupInfoByGroupNo(groupNo);
 		model.addAttribute("giConn",giConn);
@@ -426,7 +430,6 @@ public class GroupController {
 			Authentication authentication) {
 		 
 			Member member = (Member)authentication.getPrincipal();
-			
 			
 			reply.setMemberId(member.getId());
 			reply.setQueNo(groupNo);

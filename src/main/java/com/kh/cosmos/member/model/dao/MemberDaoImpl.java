@@ -78,5 +78,11 @@ public class MemberDaoImpl implements MemberDao {
 		// TODO Auto-generated method stub
 		return session.selectList("member.selectmyInterestedGroupList",userId);
 	}
+
+	@Override
+	public int updateMemberProfileAsDefault(String id) {
+		// TODO Auto-generated method stub
+		return session.update("member.updateMemberProfileAsDefault", id);
+	}
 	
 }

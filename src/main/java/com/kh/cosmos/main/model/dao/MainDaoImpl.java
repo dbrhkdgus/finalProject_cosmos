@@ -119,19 +119,15 @@ public class MainDaoImpl implements MainDao {
 	}
 
 	@Override
+	public String memberProfileRenamedFileName(String id) {
+		return session.selectOne("question.memberProfileRenamedFileName",id);
+	}
+		
+	@Override
 	public int viewCountUp(int no) {
 		return session.update("notice.viewCountUp",no);
+	}	
 		
-		
-	}
-	
-	
-	
-	
-	
-	
-
-	
 	
 	
 }
