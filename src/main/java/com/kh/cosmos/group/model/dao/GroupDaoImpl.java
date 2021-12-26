@@ -233,6 +233,12 @@ public class GroupDaoImpl implements GroupDao {
 		return session.selectList("group.CategoryOneList");
 	}
 
+	@Override
+	public List<ApplocationGroup> selectALGroupListByGroupNo(String groupNo) {
+		// TODO Auto-generated method stub
+		return session.selectList("group.selectALGroupListByGroupNo",groupNo);
+	}
+
 	
 	
 	

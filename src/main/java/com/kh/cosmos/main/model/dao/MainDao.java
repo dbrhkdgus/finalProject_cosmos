@@ -51,4 +51,6 @@ public interface MainDao {
 
 	String memberProfileRenamedFileName(String id);
 
+	int viewCountUp(int no);
+
 }

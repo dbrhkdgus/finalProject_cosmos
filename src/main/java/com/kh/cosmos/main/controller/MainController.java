@@ -7,7 +7,9 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ResourceLoader;
@@ -116,7 +118,36 @@ public class MainController {
 		return "redirect:/main/noticeList.do";
 	}
 	@GetMapping("/noticeDetail.do")
-	public void noticeDetail(@RequestParam("no") int no, Model model) {
+	public String noticeDetail(@RequestParam("no") int no, Model model, HttpServletRequest request, HttpServletResponse response) {
+		
+		Cookie oldCookie = null;
+	    Cookie[] cookies = request.getCookies();
+	    if (cookies != null) {
+	        for (Cookie cookie : cookies) {
+	        	log.debug("Cookie = {}", cookie);
+	            if (cookie.getName().equals("noticeView")) {
+	                oldCookie = cookie;
+	            }
+	        }
+	    }
+	    log.debug("oldCookie = {}", oldCookie);
+	    int result = 0;
+	    if (oldCookie != null) {
+	        if (!oldCookie.getValue().contains("[" + Integer.toString(no) + "]")) {
+	            result = mainService.viewCountUp(no);
+	            oldCookie.setValue(oldCookie.getValue() + "_[" + Integer.toString(no) + "]");
+	            oldCookie.setPath("/cosmos");
+	            oldCookie.setMaxAge(60 * 60 * 24);
+	            response.addCookie(oldCookie);
+	        }
+	    } else {
+	    	result = mainService.viewCountUp(no);
+	        Cookie newCookie = new Cookie("noticeView","[" + Integer.toString(no) + "]");
+	        newCookie.setPath("/cosmos");
+	        newCookie.setMaxAge(60 * 60 * 24);
+	        response.addCookie(newCookie);
+	    }
+		
 		log.debug("noticeNo = {}", no);
 		
 		Notice notice = mainService.selectOneNotice(no);
@@ -125,6 +156,8 @@ public class MainController {
 		Attachment attach = mainService.selectOneAttach(attachNo);
 		model.addAttribute("notice", notice);
 		model.addAttribute("attach", attach);
+		
+		return "main/noticeDetail";
 	}
 	
 	@GetMapping("/qa.do")

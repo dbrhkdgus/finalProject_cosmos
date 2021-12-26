@@ -253,5 +253,9 @@
 	
 	<select id="CategoryOneList" resultType="CategoryOne">
 	select * from studygroup_category1
-	</select>	
+	</select>
+	
+	<select id="selectALGroupListByGroupNo" resultType="ApplocationGroup">
+	select * from applocation_group where group_no = #{groupNo}
+	</select>
 </mapper>

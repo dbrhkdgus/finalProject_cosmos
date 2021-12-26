@@ -12,7 +12,37 @@
 <sec:authorize access="isAuthenticated()">
 	<sec:authentication property="principal" var="loginMember"/>
 </sec:authorize>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<style>
+.nav-up { top: 10px;}
+</style>
+<script>
+var didScroll;
+var lastScrollTop = 0;
+var delta = 5;
+var navbarHeight = $('header').outerHeight();
+$(window).scroll(function(event){
+	didScroll = true;
+});
+setInterval(function() {
+	if (didScroll) {
+		hasScrolled();
+		didScroll = false;
+	}
+}, 250);
+function hasScrolled() {
+	var st = $(this).scrollTop();
+	if(Math.abs(lastScrollTop - st) <= delta) return;
+	if (st > lastScrollTop && st > navbarHeight){ 
+		$('#quickmenu').removeClass('nav-down').addClass('nav-up');
+		} else {
+		if(st + $(window).height() < $(document).height()) {
+			$('#quickmenu').removeClass('nav-up').addClass('nav-down');
+		}
+	}
+	lastScrollTop = st;
+};
+</script>
 <!-- detail시작부분 -->
 <div class="class-detail-wrap">
 	<!-- 왼쪽 클래스 정보 -->
@@ -25,7 +55,7 @@
 				<h1 class="c-title">${giConn.giTitle}</h1>
 				<div class="leader-profile">
 					<div class="group-leader-info">
-						<span id="group-leader-name">${attach.memberId}</span>
+						<span id="group-leader-name">${member.nickname}</span>
 					</div>
 				</div>
 			</div>
@@ -139,16 +169,43 @@
 					<c:forEach var="cate" items="${cateTwoList}">
 					<p class="card-text">${cate.category2Name}</p>
 					</c:forEach>
+					
+					
+
+
 				</div>
 				<div class="sticky-button-area">
 					 <sec:authorize access="isAnonymous()"> 
 				            <i class="far fa-heart"  data-group-no="${group.groupNo }"><span>${group.groupLikeCount }</span></i>
 				     </sec:authorize> 
 				<!--로그인 되어있을 때 likeValid가 0이면 빈하트 / likeValid가 1이면 하튼데 -->
-					 <sec:authorize access="isAuthenticated()">					    	
-					     <i class="fas fa-heart"  data-group-no="${group.groupNo }"><span>${group.groupLikeCount }</span></i>
-					  </sec:authorize> 
-					<button type="button" class="btn btn-secondary btn-m" onclick="location.href='${pageContext.request.contextPath}/group/groupJoin.do?groupNo=${group.groupNo}';">가입신청</button>
+					 <sec:authorize access="isAuthenticated()">	
+					 <c:set var="flag" value="N"/> 
+	                      <c:forEach var="git" items="${groupInterestList}" >
+	                          <c:if test="${git.memberId == loginMember.id && group.groupNo == git.groupNo}"> 
+	                          		<c:set var="flag" value="Y"/>                                                 
+	                                  <i class="fas fa-heart"  data-group-no="${group.groupNo }"><span>${group.groupLikeCount }</span></i>
+	                          </c:if>
+	                      </c:forEach>
+	                      <c:if test="${flag == 'N'}">
+	                      	<i class="far fa-heart"  data-group-no="${group.groupNo }"><span>${group.groupLikeCount }</span></i>
+	                      </c:if>				    	
+					<c:set var="flag2" value="N" />
+					<c:forEach var="alg" items="${ALGroupList}">
+						<c:if test="${alg.memberId == loginMember.id}">
+							<c:if test="${fn:contains(alg.groupAccept, 'N')}">
+								<button type="button" class="btn btn-secondary btn-m" onclick="location.href='#';">승인 대기중</button>
+							</c:if>
+							<c:if test="${fn:contains(alg.groupAccept, 'Y')}">
+								<button type="button" class="btn btn-secondary btn-m" onclick="location.href='#';">가입된 그룹입니다</button>
+							</c:if>
+							<c:set var="flag2" value="Y" />
+						</c:if>
+					</c:forEach>
+					<c:if test="${flag2 == 'N'}">
+						<button type="button" class="btn btn-secondary btn-m" onclick="location.href='${pageContext.request.contextPath}/group/groupJoin.do?groupNo=${group.groupNo}';">가입신청</button>
+					</c:if>
+					  </sec:authorize>
 				</div>
 			</div>
 		</div>
