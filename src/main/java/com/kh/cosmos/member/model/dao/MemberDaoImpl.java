@@ -84,5 +84,11 @@ public class MemberDaoImpl implements MemberDao {
 		// TODO Auto-generated method stub
 		return session.update("member.updateMemberProfileAsDefault", id);
 	}
+
+	@Override
+	public int delete(int groupNo) {
+		// TODO Auto-generated method stub
+		return session.delete("member.delete",groupNo);
+	}
 	
 }

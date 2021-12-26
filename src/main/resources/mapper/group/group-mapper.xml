@@ -258,4 +258,8 @@
 	<select id="selectALGroupListByGroupNo" resultType="ApplocationGroup">
 	select * from applocation_group where group_no = #{groupNo}
 	</select>
+	
+	<delete id="deleteInterestGroupByParam" >
+	delete from interest_group where member_id = #{memberId} and group_no = #{groupNo}
+	</delete>
 </mapper>
