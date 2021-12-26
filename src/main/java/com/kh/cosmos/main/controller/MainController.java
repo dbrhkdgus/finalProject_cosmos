@@ -26,8 +26,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.cosmos.common.CosmosUtils;
 import com.kh.cosmos.common.attachment.model.vo.Attachment;
+import com.kh.cosmos.group.model.service.GroupService;
 import com.kh.cosmos.group.model.vo.Group;
 import com.kh.cosmos.group.model.vo.GroupWithCategoryTwo;
+import com.kh.cosmos.group.model.vo.MemberInterestGroup;
 import com.kh.cosmos.main.model.service.MainService;
 import com.kh.cosmos.main.model.vo.JoinAllGroupInfo;
 import com.kh.cosmos.main.model.vo.Notice;
@@ -43,6 +45,8 @@ import lombok.extern.slf4j.Slf4j;
 public class MainController {
 	@Autowired
 	private MainService mainService;
+	@Autowired
+	private GroupService groupService;
 
 	@Autowired
 	ServletContext application;
@@ -167,32 +171,26 @@ public class MainController {
 		int offset = (cPage - 1) * limit;
 		
 		List<Question> list = mainService.selectQuestionList(limit, offset);
-//		log.debug("list = {}", list);
 		model.addAttribute("list", list);
 		
 		
-		for(Question que : list ) {
-			String statusCheck = mainService.checkAuthoritiesOfReplyByQueNo(que.getQueNo());
-			log.debug("statusCheck = {}", statusCheck);
-			log.debug("statusCheck is null? = {}", statusCheck == null);
-
-			if(statusCheck!= null) {
-				if (statusCheck.equals("ROLE_ADMIN")){
-					Map<String,Object> param = new HashMap<String, Object>();
-					param.put("status", "Y");
-					param.put("queNo", que.getQueNo());
-					
-					int result = mainService.updateQueStatus(param);
-				}else if(statusCheck.equals("ROLE_USER")){
-					Map<String,Object> param = new HashMap<String, Object>();
-					param.put("status", "N");
-					param.put("queNo", que.getQueNo());
-					
-					int result = mainService.updateQueStatus(param);
-					
-					}
-			}
-		}
+		/*
+		 * for(Question que : list ) { String statusCheck =
+		 * mainService.checkAuthoritiesOfReplyByQueNo(que.getQueNo());
+		 * 
+		 * if(statusCheck!= null) { if (statusCheck.equals("ROLE_ADMIN")){
+		 * Map<String,Object> param = new HashMap<String, Object>(); param.put("status",
+		 * "Y"); param.put("queNo", que.getQueNo());
+		 * 
+		 * int result = mainService.updateQueStatus(param); }else
+		 * if(statusCheck.equals("ROLE_USER")){ Map<String,Object> param = new
+		 * HashMap<String, Object>(); param.put("status", "N"); param.put("queNo",
+		 * que.getQueNo());
+		 * 
+		 * int result = mainService.updateQueStatus(param);
+		 * 
+		 * } } }
+		 */
 		
 		int totalContent = mainService.selectQuestionTotalCount();
 		model.addAttribute("totalContent", totalContent);
@@ -222,7 +220,7 @@ public class MainController {
 			 String saveDirectory = application.getRealPath("/resources/upFile/question");
 			 log.debug("saveDirectory = {}", saveDirectory);
 		 
-		 
+			 
 		 if(upFile != null && !upFile.isEmpty() && upFile.getSize() != 0) {
 			 log.debug("upFile = {}", upFile);
 			 log.debug("upFile.name = {}",upFile.getOriginalFilename());
@@ -268,10 +266,26 @@ public class MainController {
 		
 		
 		log.debug ("reply = {}",reply); 
+		log.debug("role = admin? : {}", authentication.getAuthorities().toString().equals("[ROLE_ADMIN]"));
+		
+		Map<String, Object> param = new HashMap<String, Object>();
 		
 		try {
-			int result = mainService.insertQueReply(reply); String msg = result > 0 ? "댓글 등록 성공!" : "댓글 등록 실패!";
-			 redirectAttr.addFlashAttribute("msg", msg);
+			int result = mainService.insertQueReply(reply);
+			if(authentication.getAuthorities().toString().equals("[ROLE_ADMIN]")) {
+				param.put("status", "Y");
+				param.put("queNo", queNo);
+				
+				result = mainService.updateQueStatus(param);
+			}else {
+				param.put("status", "N");
+				param.put("queNo", queNo);
+				
+				result = mainService.updateQueStatus(param);
+				
+			}
+			String msg = result > 0 ? "댓글 등록 성공!" : "댓글 등록 실패!";
+			redirectAttr.addFlashAttribute("msg", msg);
 		} catch (Exception e) {
 			log.error(e.getMessage(), e); // 
 		 	redirectAttr.addFlashAttribute("msg", "댓글 등록 실패");
@@ -351,6 +365,7 @@ public class MainController {
 			param.put("type", type);
 			List<JoinAllGroupInfo> groupList = mainService.selectJoinAllGroupInfo(param);
 			List<GroupWithCategoryTwo> groupWithCategoryTwoList = mainService.selectCateTwoNameList();
+			List<MemberInterestGroup> groupInterestList = groupService.selectAllInterstGroup();
 			log.debug("groupWithCategoryTwoList = {}", groupWithCategoryTwoList);
 			int num = 0;
 			log.debug("groupList = {}", groupList);
@@ -362,9 +377,16 @@ public class MainController {
 						sb.append(" ");
 					}
 				}
+				for(MemberInterestGroup mig :groupInterestList) {
+					if(mig.getGroupNo() == jag.getGroupNo()) {
+						jag.setBool("true");
+						
+					}
+				}
 				String categoryName = sb.toString();
 				jag.setCategory2Name(categoryName);
 				map.put(Integer.toString(num), jag);
+				
 				num++;
 			}
 			log.debug("map = {}", map);
@@ -375,6 +397,7 @@ public class MainController {
 			param.put("type", type);
 			List<JoinAllGroupInfo> groupList = mainService.selectJoinAllGroupInfo(param);
 			List<GroupWithCategoryTwo> groupWithCategoryTwoList = mainService.selectCateTwoNameList();
+			List<MemberInterestGroup> groupInterestList = groupService.selectAllInterstGroup();
 			int num = 0;
 			for(JoinAllGroupInfo jag : groupList) {
 				StringBuilder sb = new StringBuilder();
@@ -382,6 +405,12 @@ public class MainController {
 					if(gwct.getGroupNo() == jag.getGroupNo()) {
 						sb.append("#" + gwct.getCategory2Name());
 						sb.append(" ");
+					}
+				}
+				for(MemberInterestGroup mig :groupInterestList) {
+					if(mig.getGroupNo() == jag.getGroupNo()) {
+						jag.setBool("true");
+						
 					}
 				}
 				String categoryName = sb.toString();
