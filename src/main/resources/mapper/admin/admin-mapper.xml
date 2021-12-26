@@ -65,6 +65,9 @@
 		<if test="searchGender != ''">
 			and member_gender like #{searchGender}
 		</if>
+		<if test="searchJob != ''">
+			and member_job like #{searchJob}
+		</if>		
 		<if test="searchRegDateStart != '' and searchRegDateEnd != ''">
 			and member_enroll_date between #{searchRegDateStart} and #{searchRegDateEnd}
 		</if>
@@ -240,6 +243,14 @@
   </where>
    order by
    	1 desc
+  </select>
+  
+  <select id="genderData" resultType="GenderData">
+	select
+	    (select count(*) from tb_member where member_gender = 'M') male,
+	    (select count(*) from tb_member where member_gender = 'F') female
+	from
+	    dual
   </select>
 
 </mapper>

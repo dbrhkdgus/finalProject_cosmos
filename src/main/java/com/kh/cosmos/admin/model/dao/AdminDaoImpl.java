@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.kh.cosmos.admin.model.vo.GenderData;
 import com.kh.cosmos.admin.model.vo.SevenDaysData;
 import com.kh.cosmos.common.attachment.model.vo.Attachment;
 import com.kh.cosmos.group.model.vo.ApplocationGroup;
@@ -90,6 +91,11 @@ public class AdminDaoImpl implements AdminDao {
 	public List<Question> searchQuestion(int limit, int offset, Map<String, Object> param) {
 		RowBounds rowBounds = new RowBounds(offset, limit);
 		return session.selectList("admin.searchQuestion", param, rowBounds);
+	}
+
+	@Override
+	public GenderData genderData() {
+		return session.selectOne("admin.genderData");
 	}
 
 }

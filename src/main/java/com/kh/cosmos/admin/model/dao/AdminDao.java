@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.ui.Model;
 
+import com.kh.cosmos.admin.model.vo.GenderData;
 import com.kh.cosmos.admin.model.vo.SevenDaysData;
 import com.kh.cosmos.common.attachment.model.vo.Attachment;
 import com.kh.cosmos.group.model.vo.ApplocationGroup;
@@ -41,4 +42,6 @@ public interface AdminDao {
 	List<Attachment> selectProfileImgList();
 
 	List<Question> searchQuestion(int limit, int offset, Map<String, Object> param);
+
+	GenderData genderData();
 }

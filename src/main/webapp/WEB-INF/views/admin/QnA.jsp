@@ -117,7 +117,7 @@
 	                	<td><fmt:formatDate value="${que.regDate}" pattern="yy-MM-dd"/> </td>
 	                	<td class="answer">
 	                		<c:if test="${que.status eq 'false'}">미처리</c:if>
-	                		<c:if test="${que.status eq 'true'}"><span style="color: black;">답변완료</span></c:if>
+	                		<c:if test="${que.status eq 'true'}"><span style="color: black;"><span style="font-weight: bold; color: #00c403">답변 완료</span></span></c:if>
 	                	</td>
 	                	
 	                </tr>
