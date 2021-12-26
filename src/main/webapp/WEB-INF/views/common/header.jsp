@@ -52,22 +52,22 @@
     <body>
         <header class="header"style="box-shadow: 12px -7px 22px #ccc; margin-bottom: 50px; font-family: 'ON-IGothic'; font-size: 20px; disflex:fixed; font-weight:bold;">
             <!-- Responsive navbar-->
-            <nav class="navbar navbar-expand-lg" style="height:65px;">
+            <nav class="navbar navbar-expand-lg" style="height:70px;">
             
                 <div class="container" id="headerContainer">
                     <div id="navbar">
                        
                             <a href="${pageContext.request.contextPath}" style="width:fit-content; display:flex;">
-                                <img src="${pageContext.request.contextPath }/resources/images/logo-3.png" class="nav-logo-img" alt="" style="    border-radius: 15px; width: 17%; transform: translateX(85px);"> 
+                                <img src="${pageContext.request.contextPath }/resources/images/logo-3.png" class="nav-logo-img" alt="" style="    border-radius: 15px; width: 55px; transform: translateX(85px);"> 
                             </a>
                      
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                         <div class="collapse navbar-collapse" id="navbarSupportedContent" >
-                            <ul class="navbar-nav mb-2 mb-lg-0" style="margin-left: -110px;  font-size: 16px;">
-                                <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/index.jsp">Home</a></li>
-                                <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/group/groupSearch.do">Search</a></li>
-                                <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/main/qa.do">문의사항</a></li>
-                                <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/main/noticeList.do">공지사항</a></li>
+                            <ul class="navbar-nav mb-2 mb-lg-0" style="margin-left: 120px;  font-size: 16px;">
+                                <li class="nav-item" style="margin-left:50px;"><a class="nav-link" href="${pageContext.request.contextPath}/index.jsp">Home</a></li>
+                                <li class="nav-item" style="margin-left:50px;"><a class="nav-link" href="${pageContext.request.contextPath}/group/groupSearch.do">Search</a></li>
+                                <li class="nav-item" style="margin-left:50px;"><a class="nav-link" href="${pageContext.request.contextPath}/main/qa.do">문의사항</a></li>
+                                <li class="nav-item" style="margin-left:50px;"><a class="nav-link" href="${pageContext.request.contextPath}/main/noticeList.do">공지사항</a></li>
                             </ul>
                         </div>
                     </div>
@@ -127,9 +127,8 @@
 						    		<span class="fs-6 ">님 안녕하세요.</span>
 						    	<form:form method="POST" action="${pageContext.request.contextPath}/member/memberLogout.do" id="memberLogoutFrm" class="d-inline">
 						    	<button 
-							    	class="btn btn-outline-success " 
-							    	type="submit" style="border: none;font-size: 10px;transform: translate(10px, 3px);">로그아웃
-							    </button>
+                                    type="submit" style="border: none;font-size: 10px;transform: translate(10px, 3px); background-color: transparent">로그아웃
+                                </button>
 						    	</form:form>
 						    <script>
 						    	var id = $(loginMemberId).val();
