@@ -310,6 +310,9 @@ public class MainController {
 		log.debug("=?", groupSelectType.toString().equals("best"));
 		Map<String,Object> param = new HashMap<>();
 		int type = 0;
+		
+		
+		
 		if(groupSelectType.equals("best")) {
 			log.debug("test");
 			param.put("type", type);
@@ -333,7 +336,7 @@ public class MainController {
 				num++;
 			}
 			return map;
-		}		
+		}
 	}
 	
 	@GetMapping("/about.do")

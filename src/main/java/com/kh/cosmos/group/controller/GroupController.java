@@ -68,8 +68,6 @@ public class GroupController {
 		int limit = 9;
 		int offset = (cPage - 1) * limit;
 		
-
-		
 		
 		List<MemberInterestGroup> groupInterestList = groupService.selectAllInterstGroup();
 		log.debug("groupInterestList = {}" ,groupInterestList);
