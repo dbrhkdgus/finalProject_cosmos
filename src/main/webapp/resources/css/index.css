@@ -269,7 +269,13 @@
 }
 
 /*스터디 디테일 뷰*/
-
+.cate-plus{
+	color:white;
+	background-color:#6D8EF2;
+	font-size:10px;
+	border-radius:5px;
+	padding:5px;
+}
 .class-detail-wrap{
   	display: flex;
     flex-direction: row;
@@ -316,9 +322,9 @@
     font-weight: bold;
 }
 #sticky-content{
-    display: flex;
+     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: space-evenly;
     align-items: center;
 }
 .class-info-comm{
@@ -741,4 +747,5 @@ ul.tabs li.current{
 
 	z-index: 9999;
 }
+/*  */
 

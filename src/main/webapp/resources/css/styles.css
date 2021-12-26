@@ -3344,7 +3344,7 @@ textarea.form-control-lg {
 }
 
 .btn-outline-success {
-  color: #198754;
+  color: #83BBF8;
   border-color: #198754;
 }
 .btn-outline-success:hover {
@@ -3367,8 +3367,9 @@ textarea.form-control-lg {
   background-color: transparent;
 }
 
+/*프로필 이름형광색  */
 .btn-outline-info {
-  color: #0dcaf0;
+ /*  color: #0dcaf0; */
   border-color: #CCE6FD;
 }
 .btn-outline-info:hover {
@@ -6482,7 +6483,7 @@ textarea.form-control-lg {
 }
 
 .link-info {
-  color: #0dcaf0;
+/*   color: #0dcaf0; */
 }
 .link-info:hover, .link-info:focus {
   color: #3dd5f3;
