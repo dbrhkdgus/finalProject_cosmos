@@ -192,31 +192,43 @@
 		                </c:forEach>
 			        </div>
                 </div>       
-         
 <!--관심그룹 tab  -->
 
             <div class="member-group-list-outer tab-content ${type=='liked-group'? 'current' : ''}" id="tab-3">
                 	<div class="membergroup-list d-flex flex-column align-items-center">
 		                <c:forEach var="myIntergroup" items="${myInterestedGroupList}">
-			               	  <div class="card mb-3" style="width: 500px;" onclick="location.href='${pageContext.request.contextPath}/group/groupDetail.do?groupNo=${myIntergroup.groupNo}'">
+			               	  <div class="card mb-3" style="width: 500px;">
 			                    <div class="row g-0">
 			                      <div class="col-md-4">
 				                	<c:forEach var="attach" items="${attachList}">
 				                		<c:if test="${(myIntergroup.groupNo eq attach.groupNo) && (attach.imgFlag eq 'Y')}">
-				                			<img class="img-fluid rounded-start" src="${pageContext.request.contextPath }/resources/upFile/group/${attach.renamedFilename}">
+				                			<img class="img-fluid rounded-start" src="${pageContext.request.contextPath }/resources/upFile/group/${attach.renamedFilename}" onclick="location.href='${pageContext.request.contextPath}/group/groupDetail.do?groupNo=${myIntergroup.groupNo}'">
 				                		</c:if>
 				                	</c:forEach>
 			                        
 			                      </div>
 			                       <div class="col-md-8">
 			                        <div class="card-body">
+				                        <div class="sect01">
+		  									<div class="line-box">
+		   								
+		 									   <button type="button" class="btn-close" aria-label="Close" style="float:right"></button>
+		  									</div>
+										</div>
+										
+			               
 			                        	<c:forEach var="allGroup" items="${groupList}">
 					                		<c:if test="${myIntergroup.groupNo eq allGroup.groupNo}">
 					                			<h5 class="card-title">${allGroup.groupName}</h5>
+ 									   			<input type="hidden" class="groupNo" value="${allGroup.groupNo}" />
+					               
 					                		</c:if>
+					                		
 				                		</c:forEach>
 				                		
 				                		<c:forEach var="allGroup" items="${groupList}">
+				                			
+				                			
 				                			<c:if test="${myIntergroup.groupNo eq allGroup.groupNo}">
 						                		<c:forEach var="cate" items="${caOneList}">
 							                		<c:if test="${allGroup.categoryNo eq cate.category1No}">
@@ -224,17 +236,15 @@
 							                		</c:if>
 						                		</c:forEach>
 				                			</c:if>
+				                				
 				                		</c:forEach>
-			                          	
-			                          <p class="card-text">
-			                          	<small class="text-muted">
-			                          	</small>
-			                          </p>
+              						    
 			                        </div>
 			                      </div>
 			                    </div>
 			                  </div>
-		                </c:forEach>
+		                			</c:forEach>
+		                </div>
 	                </div>   
                 </div>
 <script>
@@ -251,5 +261,36 @@ $(document).ready(function(){
 	})
 
 });
+
+$(".btn-close").click((e)=>{
+	$.ajax({
+		url:"${pageContext.request.contextPath}/member/delete.do",
+		type:'POST',
+		data:{
+			groupNo: $(e.target).parent().parent().siblings("input").val()
+		},
+		headers: {
+            "${_csrf.headerName}" : "${_csrf.token}"
+     	},
+		success(data){
+			console.log(data);
+			alert(`\${data.msg}`);
+			
+		},
+		error(xhr){
+			location.reload();
+		}
+	}); 
+	
+	
+	
+});
+
+/*  $(document).on("click", "btn-close", function(){
+	 
+	 
+ } */
+	
+
 </script>
-<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>         

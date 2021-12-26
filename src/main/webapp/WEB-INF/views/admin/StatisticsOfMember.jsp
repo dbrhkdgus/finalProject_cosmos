@@ -18,6 +18,8 @@
         <div class="amount-of-study-activity">
           <h4 class="text-white">스터디 활동량</h4>
           <canvas class="chart-size" id="activityChart" width="400" height="400"></canvas>
+          <h4 class="text-white">성별 회원 분포</h4>
+          <canvas id="pie-chart" width="250" height="250"></canvas>
         </div>
         
       
@@ -116,8 +118,39 @@ var date = now.getDate();
 			    }
 			  });
 		}
-	})
+	});
+	
+	
+	/* 남녀 성별 기본 데이터 불러오기 */
+	$.ajax({
+		url: `${pageContext.request.contextPath}/admin/genderData.do`,
+		dataType: "json",
+		success: function(data){
+			console.log(data);
+		},
+		error: console.log
+	});
+	
+
 })()
+
+new Chart(document.getElementById("pie-chart"), {
+    type: 'pie',
+    data: {
+      labels: ["남", "녀"],
+      datasets: [{
+        label: "Population (millions)",
+        backgroundColor: ["blue", "red"],
+        data: [2478,5267]
+      }]
+    },
+    options: {
+      title: {
+        display: true,
+        text: 'Predicted world population (millions) in 2050'
+      }
+    }
+});
   
 </script>  
 

@@ -5,8 +5,10 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 import com.kh.cosmos.admin.model.dao.AdminDao;
+import com.kh.cosmos.admin.model.vo.GenderData;
 import com.kh.cosmos.admin.model.vo.SevenDaysData;
 import com.kh.cosmos.common.attachment.model.vo.Attachment;
 import com.kh.cosmos.group.model.vo.ApplocationGroup;
@@ -80,6 +82,16 @@ public class AdminServiceImpl implements AdminService{
 	@Override
 	public List<Attachment> selectProfileImgList() {
 		return adminDao.selectProfileImgList();
+	}
+
+	@Override
+	public List<Question> searchQuestion(int limit, int offset,Map<String, Object> param) {
+		return adminDao.searchQuestion(limit, offset, param);
+	}
+
+	@Override
+	public GenderData genderData() {
+		return adminDao.genderData();
 	}
 
 	
