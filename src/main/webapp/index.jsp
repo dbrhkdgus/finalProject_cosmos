@@ -213,7 +213,9 @@
 
 <script> 
 var script = document.createElement("script");
-script.innerHTML = "$(document).ready(function(){$('.single-item').slick(); $('.index-group-list').slick({ slidesToShow: 3,	slidesToScroll: 1});});";
+script.innerHTML = 
+	"$(document).ready(function(){$('.single-item').slick(); $('.index-group-list').slick({ slidesToShow: 3,	slidesToScroll: 1});});";
+
 
 window.addEventListener("load", function(){
 	$.ajax({
@@ -232,15 +234,25 @@ window.addEventListener("load", function(){
 	                                    alt="..." />
 	                        </a>
 	                        <div class="index-group-card-body card-body mb-0" style="height:150px">
-	                            <div class="small text-muted">\${v.groupEnrollDate}</div>
+	                            <div class="small text-muted d-flex justify-content-between align-items-center">
+		                            <div>
+		                                <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" class="bi bi-circle-fill" viewBox="0 0 16 16">
+										  <circle cx="8" cy="8" r="8"/>
+										</svg>
+		                                <span>
+		                                모집중(\${v.numOfMember}/\${v.groupPool})
+		                                </span>
+	                        		</div>
+	                        		<div>
+                    					<p class="card-text">\${v.category1Name}</p>
+                    					<p class="card-text">\${v.category2Name}</p>
+                    				</div>
+	                            </div>
 	                            <h2 class="card-title h4" style="margin: 0.2rem 0 0.2rem 0;">\${v.groupName}</h2>
 	                            	<p class="card-text" style="margin-bottom: 5px;">\${v.giTitle }</p>
 	                        
 	                        
 	                        <div class="search-inner-button">
-	                        <a class="btn btn-primary d-inline" id="search-more-btn"
-								href="${pageContext.request.contextPath}/group/groupDetail.do?groupNo=${group.groupNo}">
-								더보기→</a>
 	                        <!--좋아요 기능구현 해보는중  -->
 		                        <div class="like-button-outer">
 			                       <sec:authorize access="isAnonymous()">
@@ -281,24 +293,34 @@ window.addEventListener("load", function(){
 	                                    alt="..." />
 	                        </a>
 	                        <div class="index-group-card-body card-body mb-0" style="height:150px">
-	                            <div class="small text-muted">\${v.groupEnrollDate}</div>
+	                            <div class="small text-muted d-flex justify-content-between align-items-center">
+		                            <div>
+		                                <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" class="bi bi-circle-fill" viewBox="0 0 16 16">
+										  <circle cx="8" cy="8" r="8"/>
+										</svg>
+		                                <span>
+		                                모집중(\${v.numOfMember}/\${v.groupPool})
+		                                </span>
+	                        		</div>
+	                        		<div>
+	                					<p class="card-text">\${v.category1Name}</p>
+	                					<p class="card-text">\${v.category2Name}</p>
+	                				</div>
+	                            </div>
 	                            <h2 class="card-title h4" style="margin: 0.2rem 0 0.2rem 0;">\${v.groupName}</h2>
-	                            	<p class="card-text"  style="margin-bottom: 5px;">\${v.giTitle }</p>
-	                            	 <div class="search-inner-button">
-	     	                        <a class="btn btn-primary d-inline" id="search-more-btn"
-	     								href="${pageContext.request.contextPath}/group/groupDetail.do?groupNo=${group.groupNo}">
-	     								더보기→</a>
-	     	                        <!--좋아요 기능구현 해보는중  -->
-	     		                        <div class="like-button-outer">
-	     			                       <sec:authorize access="isAnonymous()">
-	     			                           		<i class="far fa-heart"  data-group-no="\${v.groupNo}"><span>\${v.groupLikeCount}</span></i>
-	     			                       </sec:authorize>
-	     			                         <sec:authorize access="isAuthenticated()">
-	     			                           		<i class="fas fa-heart"  data-group-no="\${v.groupNo}"><span>\${v.groupLikeCount}</span></i>
-	     			                         </sec:authorize>
-	     			                     </div>
-	     	                    	 </div>
-	     	                    </div>
+	                            	<p class="card-text" style="margin-bottom: 5px;">\${v.giTitle }</p>
+		                            	 <div class="search-inner-button">
+		     	                        <!--좋아요 기능구현 해보는중  -->
+		     		                        <div class="like-button-outer">
+		     			                       <sec:authorize access="isAnonymous()">
+		     			                           		<i class="far fa-heart"  data-group-no="\${v.groupNo}"><span>\${v.groupLikeCount}</span></i>
+		     			                       </sec:authorize>
+		     			                         <sec:authorize access="isAuthenticated()">
+		     			                           		<i class="fas fa-heart"  data-group-no="\${v.groupNo}"><span>\${v.groupLikeCount}</span></i>
+		     			                         </sec:authorize>
+		     			                     </div>
+		     	                    	 </div>
+		     	                    </div>
 					
 						`);
 			});
@@ -310,6 +332,7 @@ window.addEventListener("load", function(){
 		}
 	});
 });
+
 
 </script>
 
