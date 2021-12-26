@@ -89,14 +89,14 @@
 		                                <c:forEach var="attach" items="${attachList }">
 			                                <c:if test="${group.groupNo == attach.groupNo }">
 			                                	<img class="card-img-top" 
-			                                	style = "width: 348px; height: 300px;"
+			                                	style = "width: 348px; height: 288px;"
 			                                	src="${pageContext.request.contextPath }/resources/upFile/group/${attach.renamedFilename}"
 			                                        alt="..." />
 			                                </c:if>
 		                                </c:forEach>
 		                                </a>
 		                                <div class="search-card-body card-body">
-		                                    <div class="small text-muted d-flex">
+		                                    <div class="small text-muted d-flex justify-content-between align-items-center"">
 			                                    <c:if test="${fn:contains(group.groupClose, 'N')}">
 			                                    	<div>
 					                                    <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" class="bi bi-circle-fill" viewBox="0 0 16 16">
@@ -110,7 +110,7 @@
 		                                    	<c:forEach var="cate" items="${caOneList}">
 		                                    		<c:if test="${group.categoryNo == cate.category1No}">
 		                                    			<div>
-		                                    				<p>${cate.category1Name}</p>
+		                                    				<p class="card-text">${cate.category1Name}</p>
 		                                    			</div>
 		                                    		</c:if>
 		                                    	</c:forEach>
