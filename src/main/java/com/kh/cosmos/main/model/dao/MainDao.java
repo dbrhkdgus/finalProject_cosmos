@@ -7,6 +7,7 @@ import com.kh.cosmos.common.attachment.model.vo.Attachment;
 import com.kh.cosmos.group.model.dao.GroupDao;
 import com.kh.cosmos.group.model.vo.ApplocationGroup;
 import com.kh.cosmos.group.model.vo.Group;
+import com.kh.cosmos.group.model.vo.GroupWithCategoryTwo;
 import com.kh.cosmos.main.model.vo.JoinAllGroupInfo;
 import com.kh.cosmos.main.model.vo.Notice;
 import com.kh.cosmos.main.model.vo.Question;
@@ -52,5 +53,7 @@ public interface MainDao {
 	String memberProfileRenamedFileName(String id);
 
 	int viewCountUp(int no);
+
+	List<GroupWithCategoryTwo> selectCateTwoNameList();
 
 }
