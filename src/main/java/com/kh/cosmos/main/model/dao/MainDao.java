@@ -53,4 +53,8 @@ public interface MainDao {
 
 	int viewCountUp(int no);
 
+	String checkAuthoritiesOfReplyByQueNo(int queNo);
+
+	int updateQueStatus(Map<String, Object> param);
+
 }

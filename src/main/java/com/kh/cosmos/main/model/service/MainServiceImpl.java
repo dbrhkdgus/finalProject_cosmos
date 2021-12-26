@@ -132,6 +132,16 @@ public class MainServiceImpl implements MainService {
 		return mainDao.viewCountUp(no);
 	}
 
+	@Override
+	public String checkAuthoritiesOfReplyByQueNo(int queNo) {
+		return mainDao.checkAuthoritiesOfReplyByQueNo(queNo);
+	}
+
+	@Override
+	public int updateQueStatus(Map<String, Object> param) {
+		return mainDao.updateQueStatus(param);
+	}
+
 	
 	
 
