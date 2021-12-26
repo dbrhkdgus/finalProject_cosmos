@@ -95,6 +95,8 @@ public interface GroupDao {
 
 	List<ApplocationGroup> selectALGroupListByGroupNo(String groupNo);
 
+	int deleteInterestGroupByParam(Map<String, Object> param);
+
 
 
 }

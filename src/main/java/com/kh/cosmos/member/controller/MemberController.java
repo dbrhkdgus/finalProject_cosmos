@@ -239,6 +239,33 @@ public class MemberController {
 		return "member/memberGroupList";
 	}
 
+	@PostMapping("/delete.do")
+	public Map<String,Object> delete(int groupNo, Authentication auth) {
+		log.debug("groupNo={}",groupNo);
+		Map<String,Object> map = new HashMap<String, Object>();
+		Map<String,Object> param = new HashMap<String, Object>();
+		int likeCnt = groupService.selectCountGroupLike(groupNo);
+		log.debug("likeCnt={}",likeCnt);
+		likeCnt -= 1;
+		log.debug("likeCnt={}",likeCnt);
+		/*
+		 * int result = groupService.delete
+		 */
+		param.put("newCount", likeCnt);
+		param.put("groupNo", groupNo);
+		int result = groupService.updateGroupLikeCount(param);
+		
+		
+		Member loginMember = (Member) auth.getPrincipal();
+		param.put("memberId",loginMember.getId());
+		result = groupService.deleteInterestGroupByParam(param);
+		
+		
+		map.put("msg", result > 0 ? "관심그룹에서 제거되었습니다" : "실패");
+		
+		
+		return map;
+	}
 //	@PostMapping("memberEnroll.do")
 //	public String memberEnrollPost(Member member, RedirectAttributes redirectAttr, HttpServletRequest request) {
 //		String email = (request.getParameter("emailId")) + "@" + (request.getParameter("email-server"));
