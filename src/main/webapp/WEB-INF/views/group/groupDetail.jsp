@@ -12,7 +12,37 @@
 <sec:authorize access="isAuthenticated()">
 	<sec:authentication property="principal" var="loginMember"/>
 </sec:authorize>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<style>
+.nav-up { top: 10px;}
+</style>
+<script>
+var didScroll;
+var lastScrollTop = 0;
+var delta = 5;
+var navbarHeight = $('header').outerHeight();
+$(window).scroll(function(event){
+	didScroll = true;
+});
+setInterval(function() {
+	if (didScroll) {
+		hasScrolled();
+		didScroll = false;
+	}
+}, 250);
+function hasScrolled() {
+	var st = $(this).scrollTop();
+	if(Math.abs(lastScrollTop - st) <= delta) return;
+	if (st > lastScrollTop && st > navbarHeight){ 
+		$('#quickmenu').removeClass('nav-down').addClass('nav-up');
+		} else {
+		if(st + $(window).height() < $(document).height()) {
+			$('#quickmenu').removeClass('nav-up').addClass('nav-down');
+		}
+	}
+	lastScrollTop = st;
+};
+</script>
 <!-- detail시작부분 -->
 <div class="class-detail-wrap">
 	<!-- 왼쪽 클래스 정보 -->
