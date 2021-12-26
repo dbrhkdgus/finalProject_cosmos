@@ -58,12 +58,12 @@
                     <div id="navbar">
                        
                             <a href="${pageContext.request.contextPath}" style="width:fit-content; display:flex;">
-                                <img src="${pageContext.request.contextPath }/resources/images/logo-3.png" class="nav-logo-img" alt="" style="    border-radius: 15px; width: 17%;"> 
+                                <img src="${pageContext.request.contextPath }/resources/images/logo-3.png" class="nav-logo-img" alt="" style="    border-radius: 15px; width: 17%; transform: translateX(85px);"> 
                             </a>
                      
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                         <div class="collapse navbar-collapse" id="navbarSupportedContent" >
-                            <ul class="navbar-nav mb-2 mb-lg-0" style="margin-left:-70px;">
+                            <ul class="navbar-nav mb-2 mb-lg-0" style="margin-left: -110px;  font-size: 16px;">
                                 <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/index.jsp">Home</a></li>
                                 <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/group/groupSearch.do">Search</a></li>
                                 <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/main/qa.do">문의사항</a></li>
