@@ -330,6 +330,38 @@ window.addEventListener("load", function(){
 	});
 });
 
+$(".fa-heart").click((e)=>{
+
+    let $target = $(e.target);
+    let $groupNo = $target.data("groupNo");
+    
+    $.ajax({
+        url: `${pageContext.request.contextPath}/group/groupLikeSearch.do`,
+        dataType: "json",
+        type: "GET",
+        data: {'groupNo' : $groupNo},
+        success(jsonStr){
+            console.log(jsonStr);
+            const likeValid = jsonStr["likeValid"];
+            const likeCnt = jsonStr["likeCnt"];
+            //member 본인의 likeValid가 1이라면 속이 찬 하트, 0이면 속이 빈 하트
+            if(likeValid == 1){
+                $target
+                    .removeClass("far")
+                    .addClass("fas");
+            }else{
+                $target
+                    .removeClass("fas")
+                    .addClass("far");
+            }
+            $target.html(`<span>\${likeCnt}</span>`);
+        },
+        error(xhr, textStatus, err){
+            console.log(xhr, textStatus, err);
+                alert("로그인후 이용가능합니다");
+        }
+    });
+});
 </script>
 
 
