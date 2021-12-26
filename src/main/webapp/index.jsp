@@ -12,6 +12,9 @@
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	<jsp:param value="COSMOS" name="title"/>
 </jsp:include>
+<sec:authorize access="isAuthenticated()">
+	<sec:authentication property="principal" var="loginMember"/>
+</sec:authorize>
 		<!-- Page content-->
 <div id="main-box" class="container">
 	<div class="index-outer1">
@@ -259,7 +262,13 @@ window.addEventListener("load", function(){
 			                           		<i class="far fa-heart"  data-group-no="\${v.groupNo}"><span>\${v.groupLikeCount}</span></i>
 			                       </sec:authorize>
 			                         <sec:authorize access="isAuthenticated()">
-			                           		<i class="fas fa-heart"  data-group-no="\${v.groupNo}"><span>\${v.groupLikeCount}</span></i>
+			                         		${v.bool eq "true"}
+			                         		<c:if test="\${\${v.bool} eq true}"> 
+			                           			<i class="fas fa-heart"  data-group-no="\${v.groupNo}"><span>\${v.groupLikeCount}</span></i>
+			                         		</c:if>
+			                         		<c:if test="\${\${v.bool} eq false}"> 
+			                         			<i class="far fa-heart"  data-group-no="\${v.groupNo}"><span>\${v.groupLikeCount}</span></i>
+			                         		</c:if>
 			                         </sec:authorize>
 			                     </div>
 	                     </div>

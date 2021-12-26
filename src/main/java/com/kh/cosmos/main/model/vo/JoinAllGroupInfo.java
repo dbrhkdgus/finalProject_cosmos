@@ -2,6 +2,9 @@ package com.kh.cosmos.main.model.vo;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
+
+import com.kh.cosmos.group.model.vo.MemberInterestGroup;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -28,5 +31,6 @@ public class JoinAllGroupInfo implements Serializable {
 	private String renamedFilename;
 	private char imgFlag;
 	private String category2Name;
+	private String bool; 
 	
 }
