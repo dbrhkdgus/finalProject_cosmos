@@ -139,16 +139,43 @@
 					<c:forEach var="cate" items="${cateTwoList}">
 					<p class="card-text">${cate.category2Name}</p>
 					</c:forEach>
+					
+					
+
+
 				</div>
 				<div class="sticky-button-area">
 					 <sec:authorize access="isAnonymous()"> 
 				            <i class="far fa-heart"  data-group-no="${group.groupNo }"><span>${group.groupLikeCount }</span></i>
 				     </sec:authorize> 
 				<!--로그인 되어있을 때 likeValid가 0이면 빈하트 / likeValid가 1이면 하튼데 -->
-					 <sec:authorize access="isAuthenticated()">					    	
-					     <i class="fas fa-heart"  data-group-no="${group.groupNo }"><span>${group.groupLikeCount }</span></i>
-					  </sec:authorize> 
-					<button type="button" class="btn btn-secondary btn-m" onclick="location.href='${pageContext.request.contextPath}/group/groupJoin.do?groupNo=${group.groupNo}';">가입신청</button>
+					 <sec:authorize access="isAuthenticated()">	
+					 <c:set var="flag" value="N"/> 
+	                      <c:forEach var="git" items="${groupInterestList}" >
+	                          <c:if test="${git.memberId == loginMember.id && group.groupNo == git.groupNo}"> 
+	                          		<c:set var="flag" value="Y"/>                                                 
+	                                  <i class="fas fa-heart"  data-group-no="${group.groupNo }"><span>${group.groupLikeCount }</span></i>
+	                          </c:if>
+	                      </c:forEach>
+	                      <c:if test="${flag == 'N'}">
+	                      	<i class="far fa-heart"  data-group-no="${group.groupNo }"><span>${group.groupLikeCount }</span></i>
+	                      </c:if>				    	
+					<c:set var="flag2" value="N" />
+					<c:forEach var="alg" items="${ALGroupList}">
+						<c:if test="${alg.memberId == loginMember.id}">
+							<c:if test="${fn:contains(alg.groupAccept, 'N')}">
+								<button type="button" class="btn btn-secondary btn-m" onclick="location.href='#';">승인 대기중</button>
+							</c:if>
+							<c:if test="${fn:contains(alg.groupAccept, 'Y')}">
+								<button type="button" class="btn btn-secondary btn-m" onclick="location.href='#';">가입된 그룹입니다</button>
+							</c:if>
+							<c:set var="flag2" value="Y" />
+						</c:if>
+					</c:forEach>
+					<c:if test="${flag2 == 'N'}">
+						<button type="button" class="btn btn-secondary btn-m" onclick="location.href='${pageContext.request.contextPath}/group/groupJoin.do?groupNo=${group.groupNo}';">가입신청</button>
+					</c:if>
+					  </sec:authorize>
 				</div>
 			</div>
 		</div>

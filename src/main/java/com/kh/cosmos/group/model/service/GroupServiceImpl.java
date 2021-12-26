@@ -236,6 +236,12 @@ public class GroupServiceImpl implements GroupService {
 	public List<CategoryOne> CategoryOneList() {
 		return groupDao.CategoryOneList();
 	}
+
+	@Override
+	public List<ApplocationGroup> selectALGroupListByGroupNo(String groupNo) {
+		// TODO Auto-generated method stub
+		return groupDao.selectALGroupListByGroupNo(groupNo);
+	}
 	
 
 

@@ -161,6 +161,12 @@ public class GroupController {
 	@GetMapping("/groupDetail.do")
 	public String groupDetail(@RequestParam String groupNo, Model model, HttpServletRequest request) {
 		
+		List<MemberInterestGroup> groupInterestList = groupService.selectAllInterstGroup();
+		model.addAttribute("groupInterestList",groupInterestList);
+		
+		List<ApplocationGroup> ALGroupList = groupService.selectALGroupListByGroupNo(groupNo);
+		model.addAttribute("ALGroupList",ALGroupList);
+		
 		Group group = groupService.selectGroupListByGroupNo(groupNo);
 		model.addAttribute("group", group);
 //		log.debug("group = {}", group);
