@@ -86,4 +86,10 @@ public class AdminDaoImpl implements AdminDao {
 		return session.selectList("admin.selectProfileImgList");
 	}
 
+	@Override
+	public List<Question> searchQuestion(int limit, int offset, Map<String, Object> param) {
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		return session.selectList("admin.searchQuestion", param, rowBounds);
+	}
+
 }

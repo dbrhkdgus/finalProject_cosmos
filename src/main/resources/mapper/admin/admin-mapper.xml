@@ -209,5 +209,37 @@
 	where
 	    img_flag = 'P'
   </select>
+  
+  <select id="searchQuestion" resultType="Question">
+	select
+	*
+	from
+		question
+  <where>
+	<if test="searchType == 'que_no' and searchKeyword != ''">
+		que_no = ${searchKeyword}
+  	</if>
+	<if test="searchType == 'que_title' and searchKeyword != ''">
+		que_title = ${searchKeyword}
+  	</if>
+  	<if test="searchType == 'member_id' and searchKeyword != ''">
+		member_id = ${searchKeyword}
+  	</if>
+	<if test="searchType == 'memberName' and searchKeyword != ''">
+		memberName = ${searchKeyword}
+  	</if>  	
+	<if test="searchType == 'nickname' and searchKeyword != ''">
+		nickname = ${searchKeyword}
+  	</if>
+	<if test="searchRegDateStart != '' and searchRegDateEnd != '' ">
+		and reg_date between #{searchRegDateStart} and #{searchRegDateEnd}
+	</if>
+	<if test="answerComplete != ''">
+		and status = #{answerComplete}
+	</if>
+  </where>
+   order by
+   	1 desc
+  </select>
 
 </mapper>

@@ -3,6 +3,8 @@ package com.kh.cosmos.admin.model.dao;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.ui.Model;
+
 import com.kh.cosmos.admin.model.vo.SevenDaysData;
 import com.kh.cosmos.common.attachment.model.vo.Attachment;
 import com.kh.cosmos.group.model.vo.ApplocationGroup;
@@ -37,4 +39,6 @@ public interface AdminDao {
 	List<Group> adminMainGroupList();
 
 	List<Attachment> selectProfileImgList();
+
+	List<Question> searchQuestion(int limit, int offset, Map<String, Object> param);
 }

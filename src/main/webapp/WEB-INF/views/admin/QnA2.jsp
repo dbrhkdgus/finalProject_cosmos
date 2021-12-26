@@ -30,68 +30,52 @@
             <h2 class="tm-block-title">문의 목록</h2>
             <p class="text-white">검색 카테고리</p>
             <!-- 검색어 전송 -->
-            <div>
-              <form name="searchForm" action="${pageContext.request.contextPath}/admin/searchQuestion.do">
-              	<table class="table mb-3 table-striped ">
-              		<thread>
-              			<tr>
-              				<th class="col-3">검색어</th>
-              				<td class="d-flex">
-              					<select name="searchType" id="" class="mr-2">
-					                <option value="que_no">문의 번호</option>
-					                <option value="que_title">문의사항명</option>
-					                <option value="member_id">아이디</option>
-					                <option value="memberName"
-					                	<c:if test="${searchType eq 'memberName'}">selected</c:if>>이름
-					                </option>     
-					                <option value="nickname">닉네임</option>
-					            </select>
-					        <input name="searchKeyword" id="searchKeyword" type="text"
-					        	<c:if test="${not empty searchKeyword}">value="${searchKeyword}"</c:if>
-					        >
-					        </td>
-					        
-              			</tr>
-              			<tr>
-              				<th>기간</th>
-              				<td class="d-flex">
-              					<input class="dateSize" type="date" name="searchRegDateStart" id="searchRegDateStart" 
-              						<c:if test="${not empty searchRegDateStart}">value="${searchRegDateStart}"</c:if>
-              					/>&nbsp~&nbsp
-              					
-	         					<input class="dateSize" type="date" name="searchRegDateEnd" id="searchRegDateEnd" 
-              						<c:if test="${not empty searchRegDateEnd}">value="${searchRegDateEnd}"</c:if>	         					
-	         					/>
-              				</td>
-              			</tr>
-
-              			<tr>
-              				<th>답변 완료 여부</th>
-              				<td>
-					         	 <label for="allMember"><span class="text-white genderText">전체</span></label>
-					        	 <input type="radio" name="answerComplete" id="allMember" value="" class="mr-5"
-					         	 	<c:if test="${empty answerComplete or answerComplete==''}">checked</c:if>					        	 
-					        	 />
-					         	 <label for="blackMember"><span class="text-white genderText">처리 중</span></label>
-					        	 <input type="radio" name="answerComplete" id="blackMember" value="N" class="mr-5"
-					         	 	<c:if test="${answerComplete eq 'N'}">checked</c:if>
-					        	 />
-					         	 <label for="nonBlackMember"><span class="text-white genderText">답변 완료</span></label>
-					        	 <input type="radio" name="answerComplete" id="nonBlackMember" value="Y"
-					         	 	<c:if test="${answerComplete eq 'Y'}">checked</c:if>					        	 
-					        	 />              					
-              				</td>
-              			</tr>
-
-              			
-              		</thread>
-              	</table>
+            <form action="#">
+              <div>
+                <select class="custom-select selectBar mr-3" id="search1" onchange="search2()">
+                  <option value="all">전체</option>
+                  <option value="writer">작성자</option>
+                  <option value="regDate">등록일</option>
+                  <option value="title">제목</option>
+                <!-- 카테고리 선택시 sub option 으로 카테고리 목록 나와야 함 -->
+                   <option value="category">카테고리</option>
+                 </select>
+              <input id="searchKeyword" type="text" class="form-control col-8 mr-3" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
               
+              <!-- 카테고리 선택시 -->
+              <select class="custom-select selectBar mr-3" id="selectCategory">
+                <option value="security">아이디정보/보안</option>
+                <option value="pay">결제</option>
+                <option value="group">모임</option>
+                <option value="etc">기타</option>
+               </select>
 
-	         
-	             <button id="searchBtn" class="btn btn-primary col rounded mt-3 mb-5" ><span class="font-weight-bold">검 색</span></button>
-              </form>
-            </div>
+               <!-- 날짜 선택시 -->
+               <div id="selectDate" class="col-8">
+                 <input
+                 id="startDate"
+                 name="startDate"
+                 type="date"
+                 class="form-control validate mr-4"
+                 value="2021-12-10"
+                 />
+                 ~
+                 <input
+                 id="endDate"
+                 name="endDate"
+                 type="date"
+                 class="form-control validate ml-4 mr-4"
+                 value="2021-12-15"
+                 />                
+               </div>
+               
+               <br>
+               <div class="col-12" style="margin: auto;">
+                 <button class="btn btn-primary col mt-3 rounded" type="submit"><span class="font-weight-bold">검 색</span></button>
+               </div>
+              
+              
+            </form>
             <!-- 회원목록 테이블 -->
             <div class="row tm-content-row  mt-5 w-200">
               <table class="table mb-3 mt-1 text-center">
@@ -107,12 +91,10 @@
                 </thead>
                 <tbody>
                 <c:forEach var="que" items="${list}">
-	                <tr onclick="location.href='${pageContext.request.contextPath}/main/qaDetail.do?queNo=${que.queNo}'">
+	                <tr>
 	                	<th>${que.queNo}</th>
 	                	<td>${que.queCategory}</td>
-	                	<td>
-	                	${que.queTitle }
-	                	</td>
+	                	<td>${que.queTitle }</td>
 	                	<td>${que.memberId }</td>
 	                	<td><fmt:formatDate value="${que.regDate}" pattern="yy-MM-dd"/> </td>
 	                	<td class="answer">
