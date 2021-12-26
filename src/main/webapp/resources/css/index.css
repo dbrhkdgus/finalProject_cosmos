@@ -10,6 +10,9 @@
   display: flex;
   align-items: center;
 }
+.btn-outline-success:hover {
+	background-color: none;
+}
 
 .nav-logo-img{
   width: 150px;
