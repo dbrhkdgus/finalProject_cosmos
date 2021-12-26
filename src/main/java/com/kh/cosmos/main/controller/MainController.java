@@ -178,6 +178,7 @@ public class MainController {
 		model.addAttribute("pagebar", pagebar);
 		return "main/qa";
 	}
+	
 	@GetMapping("/qaForm.do")
 	public String qaForm(Authentication authentication) {
 		
@@ -237,9 +238,10 @@ public class MainController {
 		 
 		Member member = (Member)authentication.getPrincipal();
 		
-		
 		reply.setMemberId(member.getId());
 		reply.setQueNo(queNo);
+		
+		
 		log.debug ("reply = {}",reply); 
 		
 		try {
@@ -266,6 +268,10 @@ public class MainController {
 		Member member = (Member)authentication.getPrincipal();
 		log.debug("member = {}", member);
 		
+		String memberProfileRenamedFileName = mainService.selectMemberProfileRenamedFileName(member.getId());
+		log.debug("memberProfileRenamedFileName = {}", memberProfileRenamedFileName);
+		
+		
 		List<Reply> replyList = mainService.selectReplyListByqueNo(queNo);
 		log.debug("reply = {}", replyList);
 		String role = authentication.getAuthorities().toString();
@@ -281,6 +287,8 @@ public class MainController {
 		model.addAttribute("que",que);
 		model.addAttribute("att",att);
 		model.addAttribute("replyList",replyList);
+		model.addAttribute("memberProfileRenamedFileName",memberProfileRenamedFileName);
+		
 		
 		return "main/qaDetail";
 	}

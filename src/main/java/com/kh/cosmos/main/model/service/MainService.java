@@ -48,6 +48,8 @@ public interface MainService {
 
 	List<Question> selectQueListByMemberId(String id);
 
+	String selectMemberProfileRenamedFileName(String id);
+	
 	int viewCountUp(int no);
 
 
