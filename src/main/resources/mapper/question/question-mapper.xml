@@ -28,7 +28,7 @@
 	</select>
 	
 		<insert id="insertQueReply">
-	insert into reply values(SEQ_REPLY_NO_NO.nextval, #{memberId},#{content},null,null,default,null,null,#{queNo})
+	insert into reply values(SEQ_REPLY_NO_NO.nextval, #{memberId},#{content},null,null,default,null,null,#{queNo},null)
 	</insert>
 	
 	<select id="selectReplyListByqueNo" resultType="reply">
