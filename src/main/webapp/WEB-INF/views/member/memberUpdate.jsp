@@ -22,7 +22,7 @@
 					<div class="card-header">회원 정보수정</div>
 					<div class="card-body">
 						<form:form name="memberUpdateFrm" method="POST" action="${pageContext.request.contextPath }/member/memberUpdate.do?${_csrf.parameterName}=${_csrf.token}" enctype="multipart/form-data">
-							<div class="form-group row" style="display: flex; justify-content: center; margin: 45px;">
+							<div class="form-group row profile-box" style="display: flex; justify-content: center; margin: 45px; position: relative;">
 								<c:if test="${not empty profile }">
 									<c:choose>
 										<c:when test="${fn:startsWith(profile.renamedFilename,'http')}">
@@ -36,6 +36,7 @@
 								<c:if test="${empty profile }">
 									<img id="profile" src="https://cdn-icons-png.flaticon.com/512/64/64572.png" alt="" style="width: 150px"	/>
 								</c:if>
+								
 							</div>
 							
 							<c:if test="${not fn:startsWith(profile.renamedFilename,'http')}">
