@@ -94,6 +94,8 @@ public interface GroupService {
 
 	List<CategoryOne> CategoryOneList();
 
+	List<ApplocationGroup> selectALGroupListByGroupNo(String groupNo);
+
 
 
 

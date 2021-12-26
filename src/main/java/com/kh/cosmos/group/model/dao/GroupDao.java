@@ -93,6 +93,8 @@ public interface GroupDao {
 
 	List<CategoryOne> CategoryOneList();
 
+	List<ApplocationGroup> selectALGroupListByGroupNo(String groupNo);
+
 
 
 }
