@@ -31,6 +31,8 @@ public interface MemberDao {
 	List<ApplocationGroup> selectmyNotJoinedGroupList(String userId);
 
 	List<MemberInterestGroup> selectmyInterestedGroupList(String userId);
+
+	int updateMemberProfileAsDefault(String id);
 	
 	
 

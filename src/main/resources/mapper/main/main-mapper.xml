@@ -10,6 +10,9 @@
 	    g.group_name,
 	    g.group_enroll_date,
 	    g.group_like_count,
+	    g.group_close,
+	    g.group_pool,
+	    (select count(group_no) from applocation_group ag where g.group_no = ag.group_no group by group_no) "NUM_OF_MEMBER",
 	    ggi.gi_title,
 	    sc.category1_name,
 	    a.renamed_filename,
@@ -31,6 +34,16 @@
 		order by g.group_enroll_date desc
 		</if>
   </select>
-  
+  <select id="selectCateTwoNameList" resultType="GroupWithCategoryTwo">
+  	select
+	    g.group_no,
+	    sc.category2_name
+	from
+	    tb_group g left join group_category gc
+	        on g.group_no = gc.group_no
+	    left join studygroup_category2 sc
+	        on gc.category2_no = sc.category2_no
+	order by group_no desc
+  </select>
   
 </mapper>

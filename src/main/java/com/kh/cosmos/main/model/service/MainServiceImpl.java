@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.cosmos.common.attachment.model.vo.Attachment;
 import com.kh.cosmos.group.model.vo.Group;
+import com.kh.cosmos.group.model.vo.GroupWithCategoryTwo;
 import com.kh.cosmos.main.model.dao.MainDao;
 import com.kh.cosmos.main.model.vo.JoinAllGroupInfo;
 import com.kh.cosmos.main.model.vo.Notice;
@@ -133,6 +134,7 @@ public class MainServiceImpl implements MainService {
 	}
 
 	@Override
+<<<<<<< HEAD
 	public String checkAuthoritiesOfReplyByQueNo(int queNo) {
 		return mainDao.checkAuthoritiesOfReplyByQueNo(queNo);
 	}
@@ -140,6 +142,11 @@ public class MainServiceImpl implements MainService {
 	@Override
 	public int updateQueStatus(Map<String, Object> param) {
 		return mainDao.updateQueStatus(param);
+	}
+	
+	@Override
+	public List<GroupWithCategoryTwo> selectCateTwoNameList() {
+		return mainDao.selectCateTwoNameList();
 	}
 
 	
