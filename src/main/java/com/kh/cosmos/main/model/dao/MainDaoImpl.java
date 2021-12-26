@@ -130,10 +130,21 @@ public class MainDaoImpl implements MainDao {
 	}
 
 	@Override
-	public List<GroupWithCategoryTwo> selectCateTwoNameList() {
-		// TODO Auto-generated method stub
+	public String checkAuthoritiesOfReplyByQueNo(int queNo) {
+		return session.selectOne("question.checkAuthoritiesOfReplyByQueNo",queNo);
+	}
+
+	@Override
+	public int updateQueStatus(Map<String, Object> param) {
+		return session.update("question.updateQueStatus",param);
+	}
+	
+	@Override
+		public List<GroupWithCategoryTwo> selectCateTwoNameList() {
 		return session.selectList("index.selectCateTwoNameList");
 	}	
+	
+	
 		
 	
 	

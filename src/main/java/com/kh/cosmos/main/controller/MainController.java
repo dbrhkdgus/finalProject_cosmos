@@ -167,8 +167,26 @@ public class MainController {
 		int offset = (cPage - 1) * limit;
 		
 		List<Question> list = mainService.selectQuestionList(limit, offset);
-		log.debug("list = {}", list);
 		model.addAttribute("list", list);
+		
+		
+		/*
+		 * for(Question que : list ) { String statusCheck =
+		 * mainService.checkAuthoritiesOfReplyByQueNo(que.getQueNo());
+		 * 
+		 * if(statusCheck!= null) { if (statusCheck.equals("ROLE_ADMIN")){
+		 * Map<String,Object> param = new HashMap<String, Object>(); param.put("status",
+		 * "Y"); param.put("queNo", que.getQueNo());
+		 * 
+		 * int result = mainService.updateQueStatus(param); }else
+		 * if(statusCheck.equals("ROLE_USER")){ Map<String,Object> param = new
+		 * HashMap<String, Object>(); param.put("status", "N"); param.put("queNo",
+		 * que.getQueNo());
+		 * 
+		 * int result = mainService.updateQueStatus(param);
+		 * 
+		 * } } }
+		 */
 		
 		int totalContent = mainService.selectQuestionTotalCount();
 		model.addAttribute("totalContent", totalContent);
@@ -198,7 +216,7 @@ public class MainController {
 			 String saveDirectory = application.getRealPath("/resources/upFile/question");
 			 log.debug("saveDirectory = {}", saveDirectory);
 		 
-		 
+			 
 		 if(upFile != null && !upFile.isEmpty() && upFile.getSize() != 0) {
 			 log.debug("upFile = {}", upFile);
 			 log.debug("upFile.name = {}",upFile.getOriginalFilename());
@@ -244,10 +262,26 @@ public class MainController {
 		
 		
 		log.debug ("reply = {}",reply); 
+		log.debug("role = admin? : {}", authentication.getAuthorities().toString().equals("[ROLE_ADMIN]"));
+		
+		Map<String, Object> param = new HashMap<String, Object>();
 		
 		try {
-			int result = mainService.insertQueReply(reply); String msg = result > 0 ? "댓글 등록 성공!" : "댓글 등록 실패!";
-			 redirectAttr.addFlashAttribute("msg", msg);
+			int result = mainService.insertQueReply(reply);
+			if(authentication.getAuthorities().toString().equals("[ROLE_ADMIN]")) {
+				param.put("status", "Y");
+				param.put("queNo", queNo);
+				
+				result = mainService.updateQueStatus(param);
+			}else {
+				param.put("status", "N");
+				param.put("queNo", queNo);
+				
+				result = mainService.updateQueStatus(param);
+				
+			}
+			String msg = result > 0 ? "댓글 등록 성공!" : "댓글 등록 실패!";
+			redirectAttr.addFlashAttribute("msg", msg);
 		} catch (Exception e) {
 			log.error(e.getMessage(), e); // 
 		 	redirectAttr.addFlashAttribute("msg", "댓글 등록 실패");

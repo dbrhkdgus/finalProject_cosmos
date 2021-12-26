@@ -47,4 +47,29 @@
 	<select id="memberProfileRenamedFileName" resultType="string">
 	select renamed_filename from attachment where member_id = #{id} and img_flag = 'P'
 	</select>
+	
+	<select id="checkAuthoritiesOfReplyByQueNo" resultType="string" >
+	select
+		ra.aut
+		from
+		question q
+		join 
+		(select
+		    r.que_no,
+		    r.reg_date,
+		    (select authority a from authorities a where a.member_id = r.member_id) aut
+		from 
+		    reply r
+		where 
+		    que_no= #{queNo}
+		    order by reg_date desc) ra
+		    on
+		     ra.que_no = q.que_no
+		    <![CDATA[ where rownum <=1 ]]>
+		      <!-- where RowNum  <![CDATA[ <=]]>  1 -->
+	</select>
+	
+	<update id="updateQueStatus">
+	update question set status = #{status} where que_no = #{queNo}
+	</update>
 </mapper>
