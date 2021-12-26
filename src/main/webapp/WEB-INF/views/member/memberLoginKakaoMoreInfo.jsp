@@ -89,13 +89,7 @@
 								<div id="errMsg" style="color: red; font-size: 14px;text-align: center; margin-left: 100px;"></div>								
 							</div>
 								
-							<div class="form-group row">
-									<label for="phone_number"
-										class="col-md-3 col-form-label text-md-right">프로필 이미지</label>
-									<div class="col-md-6 group-text-input">
-										<input class="form-control" type="file" id="upFile" name="upFile">
-									</div>
-								</div>
+							
 									
 							<div class="form-group row">
 								<label for="permanent_address"
