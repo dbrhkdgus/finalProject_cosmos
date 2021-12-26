@@ -48,5 +48,7 @@ public interface MainService {
 
 	List<Question> selectQueListByMemberId(String id);
 
+	int viewCountUp(int no);
+
 
 }

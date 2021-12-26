@@ -120,6 +120,11 @@ public class MainServiceImpl implements MainService {
 		return mainDao.selectQueListByMemberId(id);
 	}
 
+	@Override
+	public int viewCountUp(int no) {
+		return mainDao.viewCountUp(no);
+	}
+
 	
 	
 
