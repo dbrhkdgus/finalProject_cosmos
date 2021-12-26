@@ -26,8 +26,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.cosmos.common.CosmosUtils;
 import com.kh.cosmos.common.attachment.model.vo.Attachment;
+import com.kh.cosmos.group.model.service.GroupService;
 import com.kh.cosmos.group.model.vo.Group;
 import com.kh.cosmos.group.model.vo.GroupWithCategoryTwo;
+import com.kh.cosmos.group.model.vo.MemberInterestGroup;
 import com.kh.cosmos.main.model.service.MainService;
 import com.kh.cosmos.main.model.vo.JoinAllGroupInfo;
 import com.kh.cosmos.main.model.vo.Notice;
@@ -43,6 +45,8 @@ import lombok.extern.slf4j.Slf4j;
 public class MainController {
 	@Autowired
 	private MainService mainService;
+	@Autowired
+	private GroupService groupService;
 
 	@Autowired
 	ServletContext application;
@@ -327,6 +331,7 @@ public class MainController {
 			param.put("type", type);
 			List<JoinAllGroupInfo> groupList = mainService.selectJoinAllGroupInfo(param);
 			List<GroupWithCategoryTwo> groupWithCategoryTwoList = mainService.selectCateTwoNameList();
+			List<MemberInterestGroup> groupInterestList = groupService.selectAllInterstGroup();
 			log.debug("groupWithCategoryTwoList = {}", groupWithCategoryTwoList);
 			int num = 0;
 			log.debug("groupList = {}", groupList);
@@ -338,9 +343,16 @@ public class MainController {
 						sb.append(" ");
 					}
 				}
+				for(MemberInterestGroup mig :groupInterestList) {
+					if(mig.getGroupNo() == jag.getGroupNo()) {
+						jag.setBool("true");
+						
+					}
+				}
 				String categoryName = sb.toString();
 				jag.setCategory2Name(categoryName);
 				map.put(Integer.toString(num), jag);
+				
 				num++;
 			}
 			log.debug("map = {}", map);
@@ -351,6 +363,7 @@ public class MainController {
 			param.put("type", type);
 			List<JoinAllGroupInfo> groupList = mainService.selectJoinAllGroupInfo(param);
 			List<GroupWithCategoryTwo> groupWithCategoryTwoList = mainService.selectCateTwoNameList();
+			List<MemberInterestGroup> groupInterestList = groupService.selectAllInterstGroup();
 			int num = 0;
 			for(JoinAllGroupInfo jag : groupList) {
 				StringBuilder sb = new StringBuilder();
@@ -358,6 +371,12 @@ public class MainController {
 					if(gwct.getGroupNo() == jag.getGroupNo()) {
 						sb.append("#" + gwct.getCategory2Name());
 						sb.append(" ");
+					}
+				}
+				for(MemberInterestGroup mig :groupInterestList) {
+					if(mig.getGroupNo() == jag.getGroupNo()) {
+						jag.setBool("true");
+						
 					}
 				}
 				String categoryName = sb.toString();
