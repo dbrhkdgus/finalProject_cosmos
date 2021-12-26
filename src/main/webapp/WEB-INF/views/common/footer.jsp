@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 
 <!-- Footer-->
-<hr>
+<hr style="margin-top:50px;">
 <footer class="py-3" style="margin-top: 0; padding-top: 0;">
 	<div class="footer-container">
 		<div class="footer-up-box" style="display: flex;">

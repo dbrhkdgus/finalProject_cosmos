@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.cosmos.common.attachment.model.vo.Attachment;
 import com.kh.cosmos.group.model.vo.Group;
+import com.kh.cosmos.group.model.vo.GroupWithCategoryTwo;
 import com.kh.cosmos.main.model.vo.JoinAllGroupInfo;
 import com.kh.cosmos.main.model.vo.Notice;
 import com.kh.cosmos.main.model.vo.Question;
@@ -126,7 +127,24 @@ public class MainDaoImpl implements MainDao {
 	@Override
 	public int viewCountUp(int no) {
 		return session.update("notice.viewCountUp",no);
+	}
+
+	@Override
+	public String checkAuthoritiesOfReplyByQueNo(int queNo) {
+		return session.selectOne("question.checkAuthoritiesOfReplyByQueNo",queNo);
+	}
+
+	@Override
+	public int updateQueStatus(Map<String, Object> param) {
+		return session.update("question.updateQueStatus",param);
+	}
+	
+	@Override
+		public List<GroupWithCategoryTwo> selectCateTwoNameList() {
+		return session.selectList("index.selectCateTwoNameList");
 	}	
+	
+	
 		
 	
 	

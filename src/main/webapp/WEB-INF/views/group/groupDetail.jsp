@@ -13,8 +13,11 @@
 	<sec:authentication property="principal" var="loginMember"/>
 </sec:authorize>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
 <style>
-.nav-up { top: 10px;}
+.nav-up { top: 100px;}
+
+
 </style>
 <script>
 var didScroll;
@@ -42,7 +45,8 @@ function hasScrolled() {
 	}
 	lastScrollTop = st;
 };
-</script>
+
+</script> 
 <!-- detail시작부분 -->
 <div class="class-detail-wrap">
 	<!-- 왼쪽 클래스 정보 -->
@@ -161,14 +165,15 @@ function hasScrolled() {
 	<!-- 오른쪽 sticky 클래스정보 -->
 	<div class="class-detail-right-container">
 		<div class="card" id="quickmenu"
-			style="width: 410px; height: 450px; border-radius: 30px; position: fixed; margin-left: 50px; ">
+			style="width: 410px; height: 300px; border-radius: 30px; position: fixed; margin-left: 50px; ">
 			<div class="card-body" id="sticky-content">
 				<div class="card-text">
-					<h3 class="card-title" style="font-weight: bolder;">${group.groupName}</h3>
-					<h5 class="card-text">대분류 : ${cate.category1Name}</h5>
-					<c:forEach var="cate" items="${cateTwoList}">
-					<p class="card-text">${cate.category2Name}</p>
-					</c:forEach>
+					<h3 class="card-title mb-5" style="font-weight: bolder; ">${group.groupName}</h3>
+					<h5 class="card-text" style="background-color:#CCE6FD; text-align:center; width:fit-content; ">[${cate.category1Name}]</h5>
+					
+						<c:forEach var="cate" items="${cateTwoList}">
+						<span class="card-text cate-plus">#${cate.category2Name}</span>
+						</c:forEach>
 					
 					
 
@@ -194,16 +199,16 @@ function hasScrolled() {
 					<c:forEach var="alg" items="${ALGroupList}">
 						<c:if test="${alg.memberId == loginMember.id}">
 							<c:if test="${fn:contains(alg.groupAccept, 'N')}">
-								<button type="button" class="btn btn-secondary btn-m" onclick="location.href='#';">승인 대기중</button>
+								<button type="button" class="btn btn-secondary btn-m  ml-3" onclick="location.href='#';" style="color:black; border:none; background-color:#CCE6FD;" >승인 대기중</button>
 							</c:if>
 							<c:if test="${fn:contains(alg.groupAccept, 'Y')}">
-								<button type="button" class="btn btn-secondary btn-m" onclick="location.href='#';">가입된 그룹입니다</button>
+								<button type="button" class="btn btn-secondary btn-m  ml-3" onclick="location.href='#';"  style="color:black; border:none; background-color:#CCE6FD;">가입된 그룹입니다</button>
 							</c:if>
 							<c:set var="flag2" value="Y" />
 						</c:if>
 					</c:forEach>
 					<c:if test="${flag2 == 'N'}">
-						<button type="button" class="btn btn-secondary btn-m" onclick="location.href='${pageContext.request.contextPath}/group/groupJoin.do?groupNo=${group.groupNo}';">가입신청</button>
+						<button type="button" class="btn btn-secondary btn-m ml-3" onclick="location.href='${pageContext.request.contextPath}/group/groupJoin.do?groupNo=${group.groupNo}';"  style="color:black; border:none; background-color:#CCE6FD;">가입신청</button>
 					</c:if>
 					  </sec:authorize>
 				</div>

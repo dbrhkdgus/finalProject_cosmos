@@ -11,6 +11,12 @@
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
 @font-face {
+    font-family: 'ON-IGothic';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_eleven@1.0/ON-IGothic.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
     font-family: 'SBAggroB';
     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SBAggroB.woff') format('woff');
     font-weight: normal;
@@ -3115,7 +3121,7 @@ textarea.form-control-lg {
 
 .btn-success {
   color: #fff;
-  background-color: #198754;
+ /*  background-color: #198754; */
   border-color: #198754;
 }
 .btn-success:hover {
@@ -3344,31 +3350,32 @@ textarea.form-control-lg {
 }
 
 .btn-outline-success {
-  color: #198754;
-  border-color: #198754;
+  color: black;
+/*   border-color: #198754; */
 }
-.btn-outline-success:hover {
+/* .btn-outline-success:hover {
 
   border-bottom: 2px solid #198754;
-}
+} */
 .btn-check:focus + .btn-outline-success, .btn-outline-success:focus {
   box-shadow: 0 0 0 0.25rem rgba(25, 135, 84, 0.5);
 }
 .btn-check:checked + .btn-outline-success, .btn-check:active + .btn-outline-success, .btn-outline-success:active, .btn-outline-success.active, .btn-outline-success.dropdown-toggle.show {
   color: #fff;
-  background-color: #198754;
-  border-color: #198754;
+/*   background-color: #198754;
+  border-color: #198754; */
 }
 .btn-check:checked + .btn-outline-success:focus, .btn-check:active + .btn-outline-success:focus, .btn-outline-success:active:focus, .btn-outline-success.active:focus, .btn-outline-success.dropdown-toggle.show:focus {
   box-shadow: 0 0 0 0.25rem rgba(25, 135, 84, 0.5);
 }
 .btn-outline-success:disabled, .btn-outline-success.disabled {
-  color: #198754;
-  background-color: transparent;
+/*   color: #198754; */
+
 }
 
+/*프로필 이름형광색  */
 .btn-outline-info {
-  color: #0dcaf0;
+ /*  color: #0dcaf0; */
   border-color: #CCE6FD;
 }
 .btn-outline-info:hover {
@@ -6482,7 +6489,7 @@ textarea.form-control-lg {
 }
 
 .link-info {
-  color: #0dcaf0;
+/*   color: #0dcaf0; */
 }
 .link-info:hover, .link-info:focus {
   color: #3dd5f3;

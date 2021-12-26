@@ -242,6 +242,12 @@ public class GroupServiceImpl implements GroupService {
 		// TODO Auto-generated method stub
 		return groupDao.selectALGroupListByGroupNo(groupNo);
 	}
+
+	@Override
+	public int deleteInterestGroupByParam(Map<String, Object> param) {
+		// TODO Auto-generated method stub
+		return groupDao.deleteInterestGroupByParam(param);
+	}
 	
 
 
