@@ -32,4 +32,6 @@ public interface MemberService {
 	
 	List<MemberInterestGroup> selectmyInterestedGroupList(String userId);
 
+	int updateMemberProfileAsDefault(String id);
+
 }
