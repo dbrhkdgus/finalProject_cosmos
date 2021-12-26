@@ -214,7 +214,7 @@
 <script> 
 var script = document.createElement("script");
 script.innerHTML = 
-	"$(document).ready(function(){$('.single-item').slick(); $('.index-group-list').slick({ slidesToShow: 3,	slidesToScroll: 1});}); 
+	"$(document).ready(function(){$('.single-item').slick(); $('.index-group-list').slick({ slidesToShow: 3,	slidesToScroll: 1});});";
 
 
 window.addEventListener("load", function(){
@@ -225,7 +225,6 @@ window.addEventListener("load", function(){
 		dataType: "json",
 		success(data){
 			$.each(data, (k,v)=>{
-						console.log(data);
 				$("#best-box").append(`
 						<div class="card mb-4 search-card" style="width: 350px; height: 400px;">
 	                        <a href="${pageContext.request.contextPath}/group/groupDetail.do?groupNo=\${v.groupNo}">
@@ -246,6 +245,7 @@ window.addEventListener("load", function(){
 	                        		</div>
 	                        		<div>
                     					<p class="card-text">\${v.category1Name}</p>
+                    					<p class="card-text">\${v.category2Name}</p>
                     				</div>
 	                            </div>
 	                            <h2 class="card-title h4" style="margin: 0.2rem 0 0.2rem 0;">\${v.groupName}</h2>
@@ -304,6 +304,7 @@ window.addEventListener("load", function(){
 	                        		</div>
 	                        		<div>
 	                					<p class="card-text">\${v.category1Name}</p>
+	                					<p class="card-text">\${v.category2Name}</p>
 	                				</div>
 	                            </div>
 	                            <h2 class="card-title h4" style="margin: 0.2rem 0 0.2rem 0;">\${v.groupName}</h2>

@@ -27,5 +27,6 @@ public class JoinAllGroupInfo implements Serializable {
 	private String category1Name;
 	private String renamedFilename;
 	private char imgFlag;
+	private String category2Name;
 	
 }
