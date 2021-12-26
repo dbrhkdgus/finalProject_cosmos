@@ -134,7 +134,6 @@ public class MainServiceImpl implements MainService {
 	}
 
 	@Override
-<<<<<<< HEAD
 	public String checkAuthoritiesOfReplyByQueNo(int queNo) {
 		return mainDao.checkAuthoritiesOfReplyByQueNo(queNo);
 	}

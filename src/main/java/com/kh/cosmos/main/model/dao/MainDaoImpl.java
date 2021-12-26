@@ -130,7 +130,6 @@ public class MainDaoImpl implements MainDao {
 	}
 
 	@Override
-<<<<<<< HEAD
 	public String checkAuthoritiesOfReplyByQueNo(int queNo) {
 		return session.selectOne("question.checkAuthoritiesOfReplyByQueNo",queNo);
 	}
