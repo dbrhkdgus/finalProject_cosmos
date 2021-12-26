@@ -16,8 +16,8 @@
 
 <style>
 div#board-container{width: 80%;}
-input, button, textarea {margin-bottom:15px;}
-button { overflow: hidden; }
+/* input, button, textarea {margin-bottom:15px;}
+button { overflow: hidden; } */
 /* 부트스트랩 : 파일라벨명 정렬*/
 div#board-container label.custom-file-label{text-align:left;}
 </style>
