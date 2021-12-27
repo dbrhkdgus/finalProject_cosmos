@@ -17,17 +17,20 @@
 <div class="workspace-box">
   <div class="groupware-board-detail-outter">
     <h4>파일 업로드</h4>
-    <form class="file-board-form" action="">
+   
+		<form:form class="file-board-form" >
       <div class="form-group row">
+		
 		
         <label for="file-category" class="col-sm-2 col-form-label">카테고리</label>
         <div class="col-sm-10">
 
-          <select class="form-control" id="file-category">
-            <option>공부자료</option>
-            <option>코드파일</option>
-            <option>압축파일</option>
-            <option>공유파일</option>
+       
+          <select class="form-control" id="file-category" name="fileCategory">
+            <option value="공부자료">공부자료</option>
+            <option value="코드파일">코드파일</option>
+            <option value="압축파일">압축파일</option>
+            <option value="공유파일">공유파일</option>
           </select>
         </div>
       </div>
@@ -35,7 +38,7 @@
       <div class="form-group row">
         <label for="file-board-writer" class="col-sm-2 col-form-label">제목</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control" id="file-board-writer" placeholder="제목을 입력하세요.">
+          <input type="text" class="form-control" id="file-board-writer"  name="fileTitle" placeholder="제목을 입력하세요.">
         </div>
       </div>
 
@@ -79,8 +82,8 @@
         <button type="submit" class="btn btn-secondary">취소하기</button>
 
       </div>
-    </form>
   </div>
+    </form:form>
 
 </div>
 <script>
