@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.kh.cosmos.common.attachment.model.vo.Attachment;
 import com.kh.cosmos.group.model.vo.Group;
 import com.kh.cosmos.groupware.chat.model.vo.ChatRoom;
+import com.kh.cosmos.groupware.fileBoard.vo.FileEnroll;
 import com.kh.cosmos.groupware.service.GroupwareService;
 import com.kh.cosmos.member.model.vo.Member;
 
@@ -40,7 +41,11 @@ public class GwFileBoardController {
     }
     
     @PostMapping("/fileEnroll.do")
-    public String fileEnroll() {
+    public String fileEnroll(FileEnroll fileEnroll) {
+    	log.debug("fileEnrolll ={}" ,fileEnroll );
+    	
+    	Attachment attachment = new Attachment();
+    	
         
         
         return "/fileBoard";
