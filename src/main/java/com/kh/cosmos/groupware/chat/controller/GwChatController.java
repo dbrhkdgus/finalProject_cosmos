@@ -1,12 +1,15 @@
 package com.kh.cosmos.groupware.chat.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.kh.cosmos.common.CosmosUtils;
 import com.kh.cosmos.groupware.chat.model.service.ChatService;
 import com.kh.cosmos.groupware.chat.model.vo.ChatRoom;
 
@@ -18,8 +21,11 @@ import lombok.extern.slf4j.Slf4j;
 public class GwChatController {
 	@Autowired
 	private ChatService chatService;
-	@GetMapping("/chat.do")
-	public void chat() {}
+	@GetMapping("/chatRoom.do")
+	public void chat(int groupNo, Model model, Authentication auth) {
+		
+		CosmosUtils.groupwareHeaderSet(groupNo, model, auth);
+	}
 	
 	@GetMapping("/dm.do")
 	public void dm() {}
@@ -32,4 +38,6 @@ public class GwChatController {
 		redirectAtt.addAttribute("msg", result > 0 ? "채팅방 ["+chatRoom.getChatRoomName()+"]이 개설되었습니다." : "실패");
 		return "redirect:/gw/gw.do";
 	}
+	
+	
 }
