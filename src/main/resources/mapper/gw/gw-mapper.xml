@@ -22,6 +22,8 @@
   <select id="selectAllGroupBannerAttach" resultType="attachment">
   select * from attachment where group_no is not null and img_flag = 'Y'
   </select>
-  
+  <select id="selectAllChatRoomByGroupNo" resultType="chatRoom">
+  select * from chat_room where group_no = #{groupNo}
+  </select>
 
 </mapper>
