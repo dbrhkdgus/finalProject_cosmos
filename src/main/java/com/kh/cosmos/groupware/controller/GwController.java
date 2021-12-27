@@ -10,6 +10,9 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RequestMapping("/gw")
 public class GwController {
-	@GetMapping("/gw")
-	public void gw() {}
+	@GetMapping("/gw.do")
+	public String gw() {
+		
+		return "gw/gw";
+	}
 }
