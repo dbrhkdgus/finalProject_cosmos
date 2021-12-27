@@ -691,3 +691,31 @@ div.list-group1{
 #gw-logout{
 	cursor: pointer;
 }
+/* 그룹웨어 메인 css 수정 */
+.groupware-main-outter{
+
+}
+.groupware-main-title{
+	text-align: center;
+    margin: 20px;
+}
+.groupware-main-contents{
+	display: flex;
+	
+}
+.groupware-main-notice{
+	display: flex;
+    width: 50%;
+    flex-direction: column;
+    align-items: center;
+}
+.groupware-main-calendar{
+	display: flex;
+    width: 50%;
+    flex-direction: column;
+    align-items: center;
+}
+.groupware-main-banner{
+	height: 35vh;
+    width: 80%;
+}
