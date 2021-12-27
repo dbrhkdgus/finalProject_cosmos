@@ -136,7 +136,7 @@
           <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
             <li><a href="${pageContext.request.contextPath }/gw/board/notice.do?groupNo=${currGroupNo}" class="link-dark rounded">공지사항</a></li>
             <li><a href="${pageContext.request.contextPath }/gw/" class="link-dark rounded">일반 게시판</a></li>
-            <li><a href="${pageContext.request.contextPath }/gw/" class="link-dark rounded">파일 게시판</a></li>
+            <li><a href="${pageContext.request.contextPath }/gw/fileBoard/fileBoard.do?groupNo=${currGroupNo}" class="link-dark rounded">파일 게시판</a></li>
             <li><a href="${pageContext.request.contextPath }/gw/" class="link-dark rounded">투표</a></li>
             <li><a href="${pageContext.request.contextPath }/gw/" class="link-dark rounded">설문</a></li>
             <li><a href="${pageContext.request.contextPath }/gw/" class="link-dark rounded">사다리 타기</a></li>
@@ -159,7 +159,7 @@
           	<c:choose>
 	          	<c:when test="${not empty chattingChannelList}">
 	          		<c:forEach var="chatRoom" items="${chattingChannelList }">
-			            <li><a href="#" class="link-dark rounded">${chatRoom.chatRoomName }</a></li>
+			            <li><a href="${pageContext.request.contextPath }/gw/chat/chatRoom.do?chatRoomNo=${chatRoom.chatRoomNo}&groupNo=${currGroupNo }" class="link-dark rounded">${chatRoom.chatRoomName }</a></li>
 	          		</c:forEach>
 	          	</c:when>
 	          	<c:otherwise>
@@ -216,7 +216,7 @@
     </ul>
   </div>
   
-<div class="modal fade" id="testModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+<div class="modal fade" id="createChatRoomModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
   aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -250,11 +250,11 @@
 	 $(document.createChatRoomFrm).submit();
  });
  $(".createChatRoom").click((e)=>{
-	 $("#testModal").modal('show');
+	 $("#createChatRoomModal").modal('show');
  });
 
  $(".close-modal").click((e)=>{
-	 $("#testModal").modal('hide');
+	 $("#createChatRoomModal").modal('hide');
  });
 
 
