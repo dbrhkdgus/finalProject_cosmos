@@ -1,6 +1,9 @@
 window.addEventListener('DOMContentLoaded', function(event) {
   console.log('DOM fully loaded and parsed');
   websdkready();
+  $('body').css('background-color',"none");
+  $('body').css('height',"none");
+  $('body').css('width',"none");
 });
 
 function websdkready() {
@@ -74,16 +77,6 @@ function websdkready() {
         document.getElementById("meeting_number").value
       );
     });
-
-  document.getElementById("clear_all").addEventListener("click", function (e) {
-    testTool.deleteAllCookies();
-    document.getElementById("display_name").value = "";
-    document.getElementById("meeting_number").value = "";
-    document.getElementById("meeting_pwd").value = "";
-    document.getElementById("meeting_lang").value = "en-US";
-    document.getElementById("meeting_role").value = 0;
-    window.location.href = "/index.html";
-  });
 
   // click join meeting button
   document

@@ -14,7 +14,7 @@
 .sdk-select {height: 34px;border-radius: 4px;}
 .websdktest button {float: right;margin-left: 5px;}
 #nav-tool {margin-bottom: 0px;z-index: 99999;}
-.container{z-index: 99999;display: flex;}
+.container{z-index: 99999;display: flex;justify-content: center;}
 #show-test-tool {position: absolute;top: 100px;left: 0;display: block;z-index: 0;}
 #display_name {width: 250px;}
 #websdk-iframe {width: 700px;height: 500px;border: 1px;border-color: red;border-style: dashed;position: fixed;top: 50%;left: 50%;transform: translate(-50%, -50%);left: 50%;margin: 0;}

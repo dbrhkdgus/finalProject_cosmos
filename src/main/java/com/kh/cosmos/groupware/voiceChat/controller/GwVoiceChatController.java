@@ -1,7 +1,9 @@
 package com.kh.cosmos.groupware.voiceChat.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -29,6 +31,12 @@ public class GwVoiceChatController {
 	@Autowired
 	private GroupwareService gwService;
 	
+	@GetMapping("/selectAllRoomList.do")
+	public Map<String,String> selectAllRoomList(int groupNo, Model model, Authentication auth) {
+		Map<String,String> map = new HashMap<String,String>();
+		log.debug("groupNo = {}",groupNo);
+		return map;
+	}
 	@GetMapping("/zoomConnecting.do")
 	public String zoomConnecting() {
 		

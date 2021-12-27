@@ -171,7 +171,7 @@
       </li>
       <li class="mb-1">
       	<div class="d-flex justify-content-between align-items-center">
-	        <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#v-chatting-collapse" aria-expanded="false">
+	        <button id="selectAllRoomList" class="btn btn-toggle align-items-center rounded collapsed" data-group-no="${currGroupNo}" data-bs-toggle="collapse" data-bs-target="#v-chatting-collapse" aria-expanded="false">
 	          음성 채널
 	        </button>
 	        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
@@ -261,4 +261,22 @@
  $("#gw-logout").click((e)=>{
 	 $("#memberLogoutFrm").submit();
  });
+ 
+ $("#selectAllRoomList").click((e)=>{
+		let $target = $(e.target);
+		let $groupNo = $target.data("groupNo");
+		
+		$.ajax({
+			url: `${pageContext.request.contextPath}/gw/voiceChat/selectAllRoomList.do`,
+			dataType: "json",
+			type: "GET",
+			data: {'groupNo' : $groupNo},
+			success(jsonStr){
+				console.log(jsonStr);
+			},
+			error(xhr, textStatus, err){
+				console.log(xhr, textStatus, err);
+	        }
+		});
+	}); 
  </script>
