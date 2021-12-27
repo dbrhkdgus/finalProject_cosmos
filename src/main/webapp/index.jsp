@@ -226,7 +226,45 @@
       <form:form name="createChatRoomFrm" method="post" action="${pageContext.request.contextPath }/gw/chat/createChatRoom.do">
 	      <div class="modal-body mx-3">
 	        <div class="md-form mb-5">
-	          	<div class="dm-profile-container">
+	          	<div class="dm-profile-container mb-3">
+	          	
+		          <div class="dm-user-profile">
+		            <img class="dm-user-profile-img" src="https://i.pinimg.com/564x/9e/60/60/9e6060db90687be57c52ca5c5566c487.jpg" alt="">
+		          </div>
+		          
+		          <div class="dm-message-box">
+		          
+		            <div class="dm-message-sender">
+		              <span><strong>홍길동</strong></span>
+		              <span>11:10</span>
+		            </div>
+		            
+		            <div class="dm-message-content">
+		              <p>가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하</p>
+		            </div>
+		            
+		          </div>
+		        </div>
+		        <div class="dm-profile-container mb-3">
+	          	
+		          <div class="dm-user-profile">
+		            <img class="dm-user-profile-img" src="https://i.pinimg.com/564x/9e/60/60/9e6060db90687be57c52ca5c5566c487.jpg" alt="">
+		          </div>
+		          
+		          <div class="dm-message-box">
+		          
+		            <div class="dm-message-sender">
+		              <span><strong>홍길동</strong></span>
+		              <span>11:10</span>
+		            </div>
+		            
+		            <div class="dm-message-content">
+		              <p>가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하</p>
+		            </div>
+		            
+		          </div>
+		        </div>
+		        <div class="dm-profile-container mb-3">
 	          	
 		          <div class="dm-user-profile">
 		            <img class="dm-user-profile-img" src="https://i.pinimg.com/564x/9e/60/60/9e6060db90687be57c52ca5c5566c487.jpg" alt="">
@@ -263,6 +301,9 @@
 </div>
 
 <script>
+$(".dm-profile-container").click((e)=>{
+	console.log("click");
+});
 $("#btn-DM-modal").click((e)=>{
 	$("#DMModal").modal('show');
 	
@@ -270,6 +311,40 @@ $("#btn-DM-modal").click((e)=>{
 $(".close-modal").click((e)=>{
 	 $("#DMModal").modal('hide');
 });
+
+///chat/chatId
+//1. Stomp Client 객체 생성(websocket)
+
+	const ws = new SockJS(`http://\${location.host}${pageContext.request.contextPath}/stomp`);
+	const stompClient = Stomp.over(ws);
+	
+	// 2. 연결요청
+	stompClient.connect({}, (frame) =>{
+		console.log("Stomp Connected : ", frame);
+		
+	// 3. 구독요청
+	stompClient.subscribe(`/dm/${loginMember.id}`, (message) =>{
+		console.log("message : ", message);
+		const obj = JSON.parse(message.body);
+		console.log(obj);
+		const {memberId, msg} = obj;
+		$(data).append(`<li class="list-group-item">\${memberId} : \${msg}</li>`);
+	});
+	
+});
+
+/* $(sendBtn).click((e) =>{
+	const obj = {
+		chatId : "${chatId}",
+		memberId : "${loginMember.id}",
+		msg : $(message).val(),
+		logTime : Date.now()
+	};
+	
+	stompClient.send("/app/chat/${chatId}", {}, JSON.stringify(obj));
+	$(message).val(''); // #message 초기화
+}); */
+
 var script = document.createElement("script");
 script.innerHTML = 
 	"$(document).ready(function(){$('.single-item').slick(); $('.index-group-list').slick({ slidesToShow: 3,	slidesToScroll: 1});});";
@@ -283,7 +358,7 @@ window.addEventListener("load", function(){
 		dataType: "json",
 		success(data){
 			$.each(data, (k,v)=>{
-				console.log(data);
+				//console.log(data);
 				$("#best-box").append(`
 						<div class="card mb-4 search-card" style="width: 350px; height: 420px;">
 	                        <a href="${pageContext.request.contextPath}/group/groupDetail.do?groupNo=\${v.groupNo}">

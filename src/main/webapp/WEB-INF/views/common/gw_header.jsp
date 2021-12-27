@@ -27,13 +27,16 @@
     
     
     
-  <!-- bootstrap js: jquery load 이후에 작성할것.-->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-
-<!-- bootstrap css -->
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
-
+  	<!-- bootstrap js: jquery load 이후에 작성할것.-->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+	
+	<!-- bootstrap css -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+	<!-- sock.js 라이브러리 추가 -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.2/sockjs.min.js" integrity="sha512-ayb5R/nKQ3fgNrQdYynCti/n+GD0ybAhd3ACExcYvOR2J1o3HebiAe/P0oZDx5qwB+xkxuKG6Nc0AFTsPT/JDQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<!-- stomp.js 라이브러리 추가 -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js" integrity="sha512-iKDtgDyTHjAitUDdLljGhenhPwrbBfqTKWO1mkhSFH3A7blITC9MhYon6SjnMhp4o0rADGw9yAC6EW4t5a4K3g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <!-- include summernote css/js-->
     <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css" rel="stylesheet">
     <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
@@ -128,18 +131,31 @@
 	        <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#board-collapse" aria-expanded="true">
 	          게시판 채널
 	        </button>
+
+	        <div class="createBoardRoom" style="cursor: pointer;">
+
         	<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
 			  <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
 			</svg>
+			</div>
       	</div>
         <div class="collapse show" id="board-collapse">
           <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
             <li><a href="${pageContext.request.contextPath }/gw/board/notice.do?groupNo=${currGroupNo}" class="link-dark rounded">공지사항</a></li>
-            <li><a href="${pageContext.request.contextPath }/gw/" class="link-dark rounded">일반 게시판</a></li>
-            <li><a href="${pageContext.request.contextPath }/gw/fileBoard/fileBoard.do?groupNo=${currGroupNo}" class="link-dark rounded">파일 게시판</a></li>
-            <li><a href="${pageContext.request.contextPath }/gw/" class="link-dark rounded">투표</a></li>
-            <li><a href="${pageContext.request.contextPath }/gw/" class="link-dark rounded">설문</a></li>
-            <li><a href="${pageContext.request.contextPath }/gw/" class="link-dark rounded">사다리 타기</a></li>
+           	<c:if test="${not empty boardList}">
+           		<c:forEach var="boardRoom" items="${boardList}">
+           			<c:if test="${fn:contains(boardRoom.boardType, 'B')}">
+	            		<li><a href="${pageContext.request.contextPath }/gw/board/board.do?boardRoomNo=${boardRoom.boardNo}&groupNo=${currGroupNo }" class="link-dark rounded">${boardRoom.boardName}</a></li>
+	            	</c:if>
+	            	<c:if test="${fn:contains(boardRoom.boardType, 'A')}">
+	            		<li><a href="${pageContext.request.contextPath }/gw/board/anonymous.do?boardRoomNo=${boardRoom.boardNo}&groupNo=${currGroupNo }" class="link-dark rounded">${boardRoom.boardName}</a></li>
+	            	</c:if>
+	            	<c:if test="${fn:contains(boardRoom.boardType, 'F')}">
+	            		<li><a href="${pageContext.request.contextPath }/gw/fileBoard/fileBoard.do?boardRoomNo=${boardRoom.boardNo}&groupNo=${currGroupNo }" class="link-dark rounded">${boardRoom.boardName}</a></li>
+	            	</c:if>
+           		</c:forEach>
+            </c:if>	
+            
           </ul>
         </div>
       </li>
@@ -216,6 +232,39 @@
     </ul>
   </div>
   
+<div class="modal fade" id="createBoardRoomModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">게시판 개설하기</h4>
+        <button type="button" class="close close-modal" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form:form name="createBoardRoomFrm" method="post" action="${pageContext.request.contextPath }/gw/board/createBoardRoom.do">
+	      <div class="modal-body mx-3">
+	        <div class="md-form mb-5">
+	          <label  for="defaultForm-email">게시판 이름</label>
+	          <input type="text" name="boardName" class="form-control validate" placeholder="게시판 이름 작성">
+	          <label for="boardType">게시판 종류</label>
+	          <select class="boardType form-select" name="boardType" required>
+	          	<option value="B">일반 게시판</option>
+	          	<option value="A">익명 게시판</option>
+	          	<option value="F">파일 게시판</option>
+	          </select>
+	        </div>
+	      </div>
+	      <input type="hidden" name="groupNo" value="${currGroupNo }" />
+      </form:form>
+      <div class="modal-footer d-flex justify-content-center">
+        <button class="btn btn-createBoardRoom">개설</button>
+        <button class="btn close-modal">취소</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="modal fade" id="createChatRoomModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
   aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -227,13 +276,20 @@
         </button>
       </div>
       <form:form name="createChatRoomFrm" method="post" action="${pageContext.request.contextPath }/gw/chat/createChatRoom.do">
-	      <div class="modal-body mx-3">
-	        <div class="md-form mb-5">
-	          <label  for="defaultForm-email">채팅방 이름</label>
-	          <input type="text" name="chatRoomName" class="form-control validate" placeholder="새로운 채팅방">
-	        </div>
-	      </div>
-	      <input type="hidden" name="groupNo" value="${currGroupNo }" />
+          <div class="modal-body mx-3">
+            <div class="md-form mb-5">
+              <label  for="defaultForm-email">채팅방 이름</label>
+              <input type="text" name="chatRoomName" class="form-control validate" placeholder="새로운 채팅방">
+            </div>
+            <div class="md-form mb-5">
+              <label  for="defaultForm-email">채팅방 인원을 선택하세요.</label>
+              <div class="create-chat-radio-box">
+	              <input type="radio" name="chatMember"  value="all" >전체
+	              <input type="radio" name="chatMember" value="select">선택
+              </div>
+            </div>
+          </div>
+          <input type="hidden" name="groupNo" value="${currGroupNo }" />
       </form:form>
       <div class="modal-footer d-flex justify-content-center">
         <button class="btn btn-createChatRoom">개설</button>
@@ -242,7 +298,6 @@
     </div>
   </div>
 </div>
-
 
 
  <script>
@@ -255,9 +310,18 @@
 
  $(".close-modal").click((e)=>{
 	 $("#createChatRoomModal").modal('hide');
+	 $("#createBoardRoomModal").modal('hide');
  });
 
+ 
+ $(".btn-createBoardRoom").click((e)=>{
+	 $(document.createBoardRoomFrm).submit();
+ });
+ $(".createBoardRoom").click((e)=>{
+	 $("#createBoardRoomModal").modal('show');
+ });
 
+ 
  $("#gw-logout").click((e)=>{
 	 $("#memberLogoutFrm").submit();
  });
