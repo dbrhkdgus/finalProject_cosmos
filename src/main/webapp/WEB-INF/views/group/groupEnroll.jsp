@@ -68,7 +68,7 @@ window.addEventListener("load", function(){
 						<div class="card-header">스터디 그룹 생성</div>
 						<div class="card-body">
 							<form:form name="my-form"
-								action="${pageContext.request.contextPath}/group/insertGroup.do?${_csrf.parameterName}=${_csrf.token}" method="POST" enctype="multipart/form-data">
+								action="${pageContext.request.contextPath}/group/insertGroup.do?${_csrf.parameterName}=${_csrf.token}" method="POST" enctype="multipart/form-data" onsubmit ="EnrollFormSubmit();">
 								<input type="hidden" name="memberId" value="<sec:authentication property="principal.id"/>"/>
 								<div class="form-group row">
 									<label for="full_name"
@@ -232,6 +232,23 @@ window.addEventListener("load", function(){
 		</div>
 
 	</main>
+	<script>
+	// 없습니다. 반드시 파일을 선택해야 합니다
+/* 	function EnrollFormSubmit() {		
+		const filename = $("[name=upFile]").prop("files")[0].name
+		if(filename =undefined || filename == null){
+			filename = ("https://cdn.dribbble.com/users/3398149/screenshots/9873711/media/81018d8c3595c458138d49bde716d2f9.jpg?compress=1&resize=800x600")
+		}
+	} */
+	
+/* 	document.my-form.onsubmit = e => {
+		const filename = $("[name=upFile]").prop("files")[0].name
+		if(filename =undefined || filename == null){
+			filename = ("https://cdn.dribbble.com/users/3398149/screenshots/9873711/media/81018d8c3595c458138d49bde716d2f9.jpg?compress=1&resize=800x600")
+		}
+		
+	} */
+	</script>
 
 	<script>
 
