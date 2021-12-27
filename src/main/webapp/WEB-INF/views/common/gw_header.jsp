@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>	
 <!doctype html>
 <html lang="en">
@@ -66,7 +67,7 @@
         
         <div class="" style="width: 4.5rem;">
           <a href="#" class="d-block p-3 link-dark text-decoration-none" title="Icon-only" data-bs-toggle="tooltip" data-bs-placement="right">
-            <img src="https://cdn.discordapp.com/attachments/912943660943962178/919420883179806740/cosmoslogo_black.png" width="40" alt="">
+            <img src="https://cdn.discordapp.com/attachments/912943660943962178/919420883179806740/cosmoslogo_black.png" width="40" alt="" onclick="location.href='${pageContext.request.contextPath}/'">
             <!-- <svg class="bi" width="40" height="32"><use xlink:href="#bootstrap"/></svg> -->
             <span class="visually-hidden">Icon-only</span>
           </a>
@@ -75,12 +76,13 @@
         <div class="groupwear-study-title" style="width: 260px;">
           <a href="/" class="d-flex align-items-center pb-3 mb-3 link-dark text-decoration-none border-bottom">
             <svg class="bi me-2" width="30" height="24"><use xlink:href="#bootstrap"/></svg>
-            <span class="fs-5 fw-semibold">Spring 뽀개기</span>
+            <span class="fs-5 fw-semibold">${myGroup.groupName }</span>
           </a>
         </div>
         <div class="groupwear-channel-title">
 
-          <h5> # 떠드는 곳</h5>
+          <h5> ${title }</h5>
+
         </div>
           
       </div>  
@@ -90,47 +92,36 @@
 
   <div class="d-flex flex-column flex-shrink-0 bg-light" style="width: 4.5rem;">
     <ul class="nav nav-pills nav-flush flex-column mb-auto text-center">
+
+     <c:forEach var="group" items="${myGroupList}">
+    	<c:forEach var="attach" items="${groupBannerAttachList }">
+
+     	<c:if test="${group.groupNo == attach.groupNo }">
       <li class="nav-item">
-        <a href="#" class="nav-link active py-3 border-bottom" aria-current="page" title="Home" data-bs-toggle="tooltip" data-bs-placement="right">
+        <a href="${pageContext.request.contextPath }/gw/gw.do?groupNo=${group.groupNo}" class="nav-link ${group.groupNo == currGroupNo ? 'active' : '' }" py-3 border-bottom" aria-current="page" title="Home" data-bs-toggle="tooltip" data-bs-placement="right">
           <div class="study-thumbnail-box">
-            <img class="study-thumbnail" src="https://i.pinimg.com/564x/9e/60/60/9e6060db90687be57c52ca5c5566c487.jpg" width="30" alt="">
+            <img class="study-thumbnail" src="${pageContext.request.contextPath }/resources/upFile/group/${attach.renamedFilename}" width="30" alt="">
           </div>
         </a>
       </li>
-      <li>
-        <a href="#" class="nav-link py-3 border-bottom" title="Dashboard" data-bs-toggle="tooltip" data-bs-placement="right">
-          <img src="https://i.ibb.co/FYMwthn/programming.png6" width="24" alt="">
-        </a>
-      </li>
-      <li>
-        <a href="#" class="nav-link py-3 border-bottom" title="Orders" data-bs-toggle="tooltip" data-bs-placement="right">
-          <img src="https://i.ibb.co/1MCZbQF/burger.png" width="24" alt="">
-        </a>
-      </li>
-      <li>
-        <a href="#" class="nav-link py-3 border-bottom" title="Products" data-bs-toggle="tooltip" data-bs-placement="right">
-          <svg class="bi" width="24" height="24" role="img" aria-label="Products"><use xlink:href="#grid"/></svg>
-        </a>
-      </li>
-      <li>
-        <a href="#" class="nav-link py-3 border-bottom" title="Customers" data-bs-toggle="tooltip" data-bs-placement="right">
-          <svg class="bi" width="24" height="24" role="img" aria-label="Customers"><use xlink:href="#people-circle"/></svg>
-        </a>
-      </li>
+    	</c:if> 
+    	</c:forEach>
+    </c:forEach>
+
     </ul>
     <div class="dropdown border-top">
       <a href="#" class="d-flex align-items-center justify-content-center p-3 link-dark text-decoration-none dropdown-toggle" id="dropdownUser3" data-bs-toggle="dropdown" aria-expanded="false">
-        <img src="https://github.com/mdo.png" alt="mdo" width="24" height="24" class="rounded-circle">
+        <img src="${pageContext.request.contextPath }/resources/upFile/profile/${profile}" alt="mdo" width="24" height="24" class="rounded-circle">
       </a>
       <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser3">
         <li><a class="dropdown-item" href="#">상태 변경</a></li>
-        <li><a class="dropdown-item" href="#">프로필 설정</a></li>
+        <li><a class="dropdown-item" href="${pageContext.request.contextPath }/member/memberUpdate.do">프로필 설정</a></li>
         <li><hr class="dropdown-divider"></li>
-        <li><a class="dropdown-item" href="#">로그아웃</a></li>
+        <li><a class="dropdown-item" id="gw-logout">로그아웃</a></li>
       </ul>
     </div>
   </div>
-
+<form:form method="POST" action="${pageContext.request.contextPath}/member/memberLogout.do" id="memberLogoutFrm" class="d-inline"></form:form>
   <div class="flex-shrink-0 p-3 bg-light" style="width: 260px;">
     <ul class="list-unstyled ps-0">
       <li class="mb-1">
@@ -187,3 +178,8 @@
       </li>
     </ul>
   </div>
+ <script>
+ $("#gw-logout").click((e)=>{
+	 $("#memberLogoutFrm").submit();
+ });
+ </script>
