@@ -128,19 +128,31 @@
 	        <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#board-collapse" aria-expanded="true">
 	          게시판 채널
 	        </button>
-	        
+
+	        <div class="createBoardRoom" style="cursor: pointer;">
+
         	<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
 			  <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
 			</svg>
+			</div>
       	</div>
         <div class="collapse show" id="board-collapse">
           <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
             <li><a href="${pageContext.request.contextPath }/gw/board/notice.do?groupNo=${currGroupNo}" class="link-dark rounded">공지사항</a></li>
-            <li><a href="${pageContext.request.contextPath }/gw/" class="link-dark rounded">일반 게시판</a></li>
-            <li><a href="${pageContext.request.contextPath }/gw/fileBoard/fileBoard.do?groupNo=${currGroupNo}" class="link-dark rounded">파일 게시판</a></li>
-            <li><a href="${pageContext.request.contextPath }/gw/" class="link-dark rounded">투표</a></li>
-            <li><a href="${pageContext.request.contextPath }/gw/" class="link-dark rounded">설문</a></li>
-            <li><a href="${pageContext.request.contextPath }/gw/" class="link-dark rounded">사다리 타기</a></li>
+           	<c:if test="${not empty boardList}">
+           		<c:forEach var="boardRoom" items="${boardList}">
+           			<c:if test="${fn:contains(boardRoom.boardType, 'B')}">
+	            		<li><a href="${pageContext.request.contextPath }/gw/board/boardRoom.do?boardRoomNo=${boardRoom.boardNo}&groupNo=${currGroupNo }" class="link-dark rounded">${boardRoom.boardName}</a></li>
+	            	</c:if>
+	            	<c:if test="${fn:contains(boardRoom.boardType, 'A')}">
+	            		<li><a href="${pageContext.request.contextPath }/gw/board/boardRoom.do?boardRoomNo=${boardRoom.boardNo}&groupNo=${currGroupNo }" class="link-dark rounded">${boardRoom.boardName}</a></li>
+	            	</c:if>
+	            	<c:if test="${fn:contains(boardRoom.boardType, 'F')}">
+	            		<li><a href="${pageContext.request.contextPath }/gw/fileBoard/fileBoard.do?boardRoomNo=${boardRoom.boardNo}&groupNo=${currGroupNo }" class="link-dark rounded">${boardRoom.boardName}</a></li>
+	            	</c:if>
+           		</c:forEach>
+            </c:if>	
+            
           </ul>
         </div>
       </li>
@@ -219,6 +231,39 @@
     </ul>
   </div>
   
+<div class="modal fade" id="createBoardRoomModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">게시판 개설하기</h4>
+        <button type="button" class="close close-modal" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form:form name="createBoardRoomFrm" method="post" action="${pageContext.request.contextPath }/gw/board/createBoardRoom.do">
+	      <div class="modal-body mx-3">
+	        <div class="md-form mb-5">
+	          <label  for="defaultForm-email">게시판 이름</label>
+	          <input type="text" name="boardName" class="form-control validate" placeholder="게시판 이름 작성">
+	          <label for="boardType">게시판 종류</label>
+	          <select class="boardType form-select" name="boardType" required>
+	          	<option value="B">일반 게시판</option>
+	          	<option value="A">익명 게시판</option>
+	          	<option value="F">파일 게시판</option>
+	          </select>
+	        </div>
+	      </div>
+	      <input type="hidden" name="groupNo" value="${currGroupNo }" />
+      </form:form>
+      <div class="modal-footer d-flex justify-content-center">
+        <button class="btn btn-createBoardRoom">개설</button>
+        <button class="btn close-modal">취소</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="modal fade" id="createChatRoomModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
   aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -230,13 +275,13 @@
         </button>
       </div>
       <form:form name="createChatRoomFrm" method="post" action="${pageContext.request.contextPath }/gw/chat/createChatRoom.do">
-	      <div class="modal-body mx-3">
-	        <div class="md-form mb-5">
-	          <label  for="defaultForm-email">채팅방 이름</label>
-	          <input type="text" name="chatRoomName" class="form-control validate" placeholder="새로운 채팅방">
-	        </div>
-	      </div>
-	      <input type="hidden" name="groupNo" value="${currGroupNo }" />
+          <div class="modal-body mx-3">
+            <div class="md-form mb-5">
+              <label  for="defaultForm-email">채팅방 이름</label>
+              <input type="text" name="chatRoomName" class="form-control validate" placeholder="새로운 채팅방">
+            </div>
+          </div>
+          <input type="hidden" name="groupNo" value="${currGroupNo }" />
       </form:form>
       <div class="modal-footer d-flex justify-content-center">
         <button class="btn btn-createChatRoom">개설</button>
@@ -245,7 +290,6 @@
     </div>
   </div>
 </div>
-
 
 
  <script>
@@ -258,9 +302,18 @@
 
  $(".close-modal").click((e)=>{
 	 $("#createChatRoomModal").modal('hide');
+	 $("#createBoardRoomModal").modal('hide');
  });
 
+ 
+ $(".btn-createBoardRoom").click((e)=>{
+	 $(document.createBoardRoomFrm).submit();
+ });
+ $(".createBoardRoom").click((e)=>{
+	 $("#createBoardRoomModal").modal('show');
+ });
 
+ 
  $("#gw-logout").click((e)=>{
 	 $("#memberLogoutFrm").submit();
  });
