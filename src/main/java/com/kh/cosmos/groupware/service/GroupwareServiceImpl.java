@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.cosmos.common.attachment.model.vo.Attachment;
 import com.kh.cosmos.group.model.vo.Group;
+import com.kh.cosmos.groupware.board.model.vo.Board;
 import com.kh.cosmos.groupware.chat.model.vo.ChatRoom;
 import com.kh.cosmos.groupware.dao.GroupwareDao;
 import com.kh.cosmos.member.model.vo.Member;
@@ -51,6 +52,12 @@ public class GroupwareServiceImpl implements GroupwareService {
 	public List<ChatRoom> selectAllChatRoomByGroupNo(int groupNo) {
 		// TODO Auto-generated method stub
 		return gwDao.selectAllChatRoomByGroupNo(groupNo);
+	}
+
+	@Override
+	public List<Board> selectAllBoardRoomByGroupNo(int groupNo) {
+		// TODO Auto-generated method stub
+		return gwDao.selectAllBoardRoomByGroupNo(groupNo);
 	}
 
 

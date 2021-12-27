@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kh.cosmos.common.attachment.model.vo.Attachment;
 import com.kh.cosmos.group.model.vo.Group;
+import com.kh.cosmos.groupware.board.model.vo.Board;
 import com.kh.cosmos.groupware.chat.model.vo.ChatRoom;
 import com.kh.cosmos.groupware.service.GroupwareService;
 import com.kh.cosmos.member.model.vo.Member;
@@ -44,11 +45,13 @@ public class GwController {
 		}
 
 		List<ChatRoom> chattingChannelList = gwService.selectAllChatRoomByGroupNo(groupNo);
+		List<Board> boardList = gwService.selectAllBoardRoomByGroupNo(groupNo);
 		
 		model.addAttribute("currGroupNo", groupNo);
 		model.addAttribute("myGroup", myGroup);
 		model.addAttribute("myGroupMemberList", myGroupMemberList);
 		model.addAttribute("chattingChannelList", chattingChannelList);
+		model.addAttribute("boardList", boardList);
 		model.addAttribute("profile", gwService.selectMemberProfileRenamedFilename(loginMember.getId()));
 		model.addAttribute("memberProfileRenamedFilenameList", memberProfileRenamedFilenameList);
 		model.addAttribute("groupBannerAttachList", groupBannerAttachList);
