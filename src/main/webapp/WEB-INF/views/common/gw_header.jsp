@@ -218,7 +218,7 @@
     </ul>
   </div>
   
-<div class="modal fade" id="testModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+<div class="modal fade" id="createChatRoomModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
   aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -252,11 +252,11 @@
 	 $(document.createChatRoomFrm).submit();
  });
  $(".createChatRoom").click((e)=>{
-	 $("#testModal").modal('show');
+	 $("#createChatRoomModal").modal('show');
  });
 
  $(".close-modal").click((e)=>{
-	 $("#testModal").modal('hide');
+	 $("#createChatRoomModal").modal('hide');
  });
 
 
