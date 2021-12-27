@@ -3,22 +3,31 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>	
 <fmt:requestEncoding value="utf-8"/> 
 <jsp:include page="/WEB-INF/views/common/gw_header.jsp">
 	<jsp:param value="" name="title"/>
 </jsp:include>
+
+<c:set var="now" value="<%=new java.util.Date()%>" />
+<c:set var="sysYear"><fmt:formatDate value="${now}" pattern="yyyy" /></c:set> 
+
+
 <div class="workspace-box">
   <div class="groupware-board-detail-outter">
     <h4>파일 업로드</h4>
     <form class="file-board-form" action="">
       <div class="form-group row">
-
+		
         <label for="file-category" class="col-sm-2 col-form-label">카테고리</label>
         <div class="col-sm-10">
 
           <select class="form-control" id="file-category">
             <option>공부자료</option>
             <option>코드파일</option>
+            <option>압축파일</option>
+            <option>공유파일</option>
           </select>
         </div>
       </div>
@@ -40,7 +49,7 @@
       <div class="form-group row">
         <label for="file-board-reg-date" class="col-sm-2 col-form-label">등록일</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control-plaintext" id="file-board-reg-date" value="2021-12-16" readonly>
+          <input type="text" class="form-control-plaintext" id="file-board-reg-date" value="<fmt:formatDate value="${now}" pattern="yyyy-MM-dd hh:mm"/>" readonly>
         </div>
       </div>
       
