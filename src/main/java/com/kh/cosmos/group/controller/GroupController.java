@@ -292,7 +292,7 @@ public class GroupController {
 			
 			
 			int result = groupService.insertGroup(groupEnroll);
-			
+		
 			int attachNo = groupService.insertAttach(attach);
 //			log.debug("attachNo = {}", attachNo);
 			
@@ -317,12 +317,12 @@ public class GroupController {
 				
 			}
 			
-			
+			log.debug("*********************noticeboardResult = {}", result);
 			ApplocationGroup applocationGroup = new ApplocationGroup();
 			applocationGroup.setMemberId(groupEnroll.getMemberId());
 		
-			
 			result = groupService.insertAlg(applocationGroup);
+			
 			String msg = result > 0 ? "그룹 신청 성공!" : "그룹 신청 실패!";
 			redirectAttributes.addFlashAttribute("msg", msg);
 		} catch (Exception e) {

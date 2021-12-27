@@ -186,13 +186,6 @@ public class GroupServiceImpl implements GroupService {
 		return groupDao.updateGroupLikeCount(param1);
 	}
 
-	/* 왜 override 되는지 모르겠음.. */
-	@Override
-	public List<GroupCategory> selectAllgroupCategory() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	@Override
 	public List<GroupCategory> selectAllGroupCategory() {
 		// TODO Auto-generated method stub
@@ -248,6 +241,7 @@ public class GroupServiceImpl implements GroupService {
 		// TODO Auto-generated method stub
 		return groupDao.deleteInterestGroupByParam(param);
 	}
+
 	
 
 
