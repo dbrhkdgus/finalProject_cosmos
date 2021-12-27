@@ -1,4 +1,4 @@
-package com.kh.cosmos.groupware.fileBoard.service;
+package com.kh.cosmos.groupware.fileBoard.model.service;
 
 import org.springframework.stereotype.Service;
 
