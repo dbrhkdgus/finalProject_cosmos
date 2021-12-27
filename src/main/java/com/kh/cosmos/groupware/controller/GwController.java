@@ -29,11 +29,9 @@ public class GwController {
 	
 	@GetMapping("/gw.do")
 	public String gw(@RequestParam int groupNo, Model model, Authentication auth) {
-		log.debug("groupNo = {}", groupNo);
 		Member loginMember = (Member) auth.getPrincipal();
 		Group myGroup = gwService.selectMyGroup(groupNo);
 		List<Member> myGroupMemberList = gwService.selectAllGroupMembers(groupNo);
-		log.debug("myGroup = {}", myGroup);
 		
 		
 		
@@ -44,8 +42,7 @@ public class GwController {
 			String memberProfileRenamedFilename = gwService.selectMemberProfileRenamedFilename(m.getId());
 			memberProfileRenamedFilenameList.add(memberProfileRenamedFilename);
 		}
-		log.debug("memberProfileRenamedFilenameList = {}",memberProfileRenamedFilenameList);
-		
+
 		List<ChatRoom> chattingChannelList = gwService.selectAllChatRoomByGroupNo(groupNo);
 		
 		model.addAttribute("currGroupNo", groupNo);

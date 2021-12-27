@@ -2,7 +2,18 @@ package com.kh.cosmos.common;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
+import org.springframework.security.core.Authentication;
+import org.springframework.ui.Model;
+
+import com.kh.cosmos.common.attachment.model.vo.Attachment;
+import com.kh.cosmos.group.model.vo.Group;
+import com.kh.cosmos.groupware.chat.model.vo.ChatRoom;
+import com.kh.cosmos.groupware.service.GroupwareService;
+import com.kh.cosmos.member.model.vo.Member;
 
 public class CosmosUtils {
 	/**
@@ -14,6 +25,8 @@ public class CosmosUtils {
 	 * @param url
 	 * @return
 	 */
+	private static GroupwareService gwService;
+
 	public static String getPagebar(int cPage, int numPerPage, int totalContents, String url) {
 		StringBuilder pagebar = new StringBuilder();
 		
@@ -152,4 +165,6 @@ public class CosmosUtils {
 		
 		return sdf.format(new Date()) + df.format(Math.random() * 999) + ext;
 	}
+	
+	
 }

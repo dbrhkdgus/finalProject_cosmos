@@ -159,7 +159,7 @@
           	<c:choose>
 	          	<c:when test="${not empty chattingChannelList}">
 	          		<c:forEach var="chatRoom" items="${chattingChannelList }">
-			            <li><a href="#" class="link-dark rounded">${chatRoom.chatRoomName }</a></li>
+			            <li><a href="${pageContext.request.contextPath }/gw/chat/chatRoom.do?chatRoomNo=${chatRoom.chatRoomNo}&groupNo=${currGroupNo }" class="link-dark rounded">${chatRoom.chatRoomName }</a></li>
 	          		</c:forEach>
 	          	</c:when>
 	          	<c:otherwise>
