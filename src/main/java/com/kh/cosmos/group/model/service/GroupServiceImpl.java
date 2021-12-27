@@ -248,8 +248,13 @@ public class GroupServiceImpl implements GroupService {
 		// TODO Auto-generated method stub
 		return groupDao.deleteInterestGroupByParam(param);
 	}
-	
 
+	@Override
+	public int selectBannerAttach() {
+		return groupDao.selectBannerAttach();
+	}
+	
+	
 
 	
 	

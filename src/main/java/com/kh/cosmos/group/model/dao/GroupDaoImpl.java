@@ -245,6 +245,11 @@ public class GroupDaoImpl implements GroupDao {
 		return session.delete("group.deleteInterestGroupByParam",param);
 	}
 
+	@Override
+	public int selectBannerAttach() {
+		return session.selectOne("group.selectBannerAttach");
+	}
+
 	
 	
 	
