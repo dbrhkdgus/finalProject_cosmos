@@ -1,6 +1,7 @@
 package com.kh.cosmos.groupware.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.kh.cosmos.common.attachment.model.vo.Attachment;
 import com.kh.cosmos.group.model.vo.Group;
@@ -23,5 +24,7 @@ public interface GroupwareService {
 	List<ChatRoom> selectAllChatRoomByGroupNo(int groupNo);
 
 	List<Room> selectAllZoomRoomList(int groupNo);
+
+	Room selectRoomInfoByGroupNoAndRoomNo(Map<String, Object> param);
 
 }

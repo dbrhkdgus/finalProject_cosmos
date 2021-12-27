@@ -1,6 +1,7 @@
 package com.kh.cosmos.groupware.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,6 +59,12 @@ public class GroupwareDaoImpl implements GroupwareDao {
 	public List<Room> selectAllZoomRoomList(int groupNo) {
 		
 		return session.selectList("gw.selectAllZoomRoomList",groupNo);
+	}
+
+	@Override
+	public Room selectRoomInfoByGroupNoAndRoomNo(Map<String, Object> param) {
+		// TODO Auto-generated method stub
+		return session.selectOne("gw.selectRoomInfoByGroupNoAndRoomNo",param);
 	}
 
 

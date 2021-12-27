@@ -14,6 +14,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.View;
 
 import com.kh.cosmos.common.attachment.model.vo.Attachment;
 import com.kh.cosmos.group.model.vo.Group;
@@ -35,23 +38,37 @@ public class GwVoiceChatController {
 	@Autowired
 	private GroupwareService gwService;
 	
-	@GetMapping("/selectAllRoomList.do")
-	public Map<String,Room> selectAllRoomList(@RequestParam int groupNo, Model model, HttpServletRequest request, Authentication auth) {
-		Map<String,Room> map = new HashMap<String,Room>();
+	@GetMapping("/zoomConnecting.do")
+	public String zoomConnecting(@RequestParam(value="roomNo", defaultValue="0") int roomNo, @RequestParam(value="display_name", defaultValue="null") String display_name, Model model, Authentication auth) {
+		if(display_name == "null") {	
+		Map<String,Object> param = new HashMap<>();
+		log.debug("roomNo = {}",roomNo);
+		param.put("roomNo", roomNo);
+		Room roomInfo = gwService.selectRoomInfoByGroupNoAndRoomNo(param);
+		log.debug("roomInfo = {}",roomInfo);
+		model.addAttribute("roomInfo",roomInfo);
+
+		return "gw/voiceChat/voiceChat";
+		}else {
+			
+			return "/gw/voiceChat/meeting";
+		}
+	}
+	
+	@ResponseBody
+	@GetMapping("/selectAllZoomRoomList.do")
+	public Map<String,Room> selectAllRoomList(int groupNo) {
+		Map<String,Room> map = new HashMap<>();
 		log.debug("groupNo = {}",groupNo);
 		List<Room> roomList = gwService.selectAllZoomRoomList(groupNo);
 		log.debug("roomList = {}",roomList);
-		int num = 1;
+		int num = 0;
 		for(Room room : roomList) {
-			map.put(Integer.toString(num), room);
 			num++;
+			map.put(Integer.toString(num), room);
 		}
-		return map;
-	}
-	@GetMapping("/zoomConnecting.do")
-	public String zoomConnecting() {
 		
-		return "gw/voiceChat/voiceChat";
+		return map;
 	}
 	
     public void groupwareHeaderSet(int groupNo, Model model, Authentication auth) {

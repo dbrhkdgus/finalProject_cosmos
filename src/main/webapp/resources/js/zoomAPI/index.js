@@ -1,9 +1,6 @@
 window.addEventListener('DOMContentLoaded', function(event) {
   console.log('DOM fully loaded and parsed');
   websdkready();
-  $('body').css('background-color',"none");
-  $('body').css('height',"none");
-  $('body').css('width',"none");
 });
 
 function websdkready() {
@@ -35,16 +32,7 @@ function websdkready() {
     testTool.detectOS() +
     "#" +
     testTool.getBrowserInfo();
-  document.getElementById("meeting_number").value = testTool.getCookie(
-    "meeting_number"
-  );
-  document.getElementById("meeting_pwd").value = testTool.getCookie(
-    "meeting_pwd"
-  );
-  if (testTool.getCookie("meeting_lang"))
-    document.getElementById("meeting_lang").value = testTool.getCookie(
-      "meeting_lang"
-    );
+
 
   document
     .getElementById("meeting_lang")
@@ -102,7 +90,7 @@ function websdkready() {
           console.log(res.result);
           meetingConfig.signature = res.result;
           meetingConfig.apiKey = API_KEY;
-          var joinUrl = "./meeting.html?" + testTool.serialize(meetingConfig);
+          var joinUrl = "./meeting.jsp?" + testTool.serialize(meetingConfig);
           console.log(joinUrl);
           window.open(joinUrl, "_blank");
         },
@@ -136,7 +124,7 @@ function websdkready() {
         meetingConfig.apiKey = API_KEY;
         var joinUrl =
           testTool.getCurrentDomain() +
-          "./meeting.html?" +
+          "./meeting.jsp?" +
           testTool.serialize(meetingConfig);
         document.getElementById('copy_link_value').setAttribute('link', joinUrl);
         copyToClipboard('copy_link_value');

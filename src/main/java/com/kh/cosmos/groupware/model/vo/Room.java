@@ -18,5 +18,7 @@ public class Room implements Serializable{/**
 	private int groupNo;
 	private String zoomId;
 	private String zoomPassword;
+	private String roomName;
+	private String roomAdmin;
 
 }

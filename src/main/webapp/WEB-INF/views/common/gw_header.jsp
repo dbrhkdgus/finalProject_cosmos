@@ -171,7 +171,7 @@
       </li>
       <li class="mb-1">
       	<div class="d-flex justify-content-between align-items-center">
-	        <button id="selectAllRoomList" class="btn btn-toggle align-items-center rounded collapsed" data-group-no="${currGroupNo}" data-bs-toggle="collapse" data-bs-target="#v-chatting-collapse" aria-expanded="false">
+	        <button id="selectAllZoomRoomList" class="btn btn-toggle align-items-center rounded collapsed" data-group-no="${currGroupNo}" data-bs-toggle="collapse" data-bs-target="#v-chatting-collapse" aria-expanded="false">
 	          음성 채널
 	        </button>
 	        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
@@ -179,9 +179,9 @@
 			</svg>
 		</div>
         <div class="collapse" id="v-chatting-collapse">
-          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-			<li><a href="${pageContext.request.contextPath }/gw/voiceChat/zoomConnecting.do?groupNo=${currGroupNo}" class="link-dark rounded">ZOOM 접속하기</a></li>
-            <li><a href="${pageContext.request.contextPath }/gw/voiceChat/voiceChatSetting.do?groupNo=${currGroupNo}" class="link-dark rounded">ZOOM 채널 설정</a></li>
+          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small" id="voiceChat">
+			<%-- <li><a href="${pageContext.request.contextPath }/gw/voiceChat/zoomConnecting.do?groupNo=${currGroupNo}" class="link-dark rounded">ZOOM 접속하기</a></li>
+            <li><a href="${pageContext.request.contextPath }/gw/voiceChat/voiceChatSetting.do?groupNo=${currGroupNo}" class="link-dark rounded">ZOOM 채널 추가하기</a></li> --%>
           </ul>
         </div>
       </li>
@@ -262,21 +262,30 @@
 	 $("#memberLogoutFrm").submit();
  });
  
- $("#selectAllRoomList").click((e)=>{
+ $("#selectAllZoomRoomList").click((e)=>{
 		let $target = $(e.target);
 		let $groupNo = $target.data("groupNo");
 		
 		$.ajax({
-			url: `${pageContext.request.contextPath}/gw/voiceChat/selectAllRoomList.do`,
-			dataType: "json",
-			type: "GET",
+			url: `${pageContext.request.contextPath}/gw/voiceChat/selectAllZoomRoomList.do`,
 			data: {'groupNo' : $groupNo},
-			success(data){
-				console.log(data);
+			type: "GET",
+			contentType: "application/json; charset=utf-8",
+			dataType: "json",
+			success(List){
+				const $Chatli = $(`<ul class="btn-toggle-nav list-unstyled fw-normal pb-1"></ul>`);
+				console.log(List);
+				$.each(List,(k,v)=>{
+					let html = `<li><a href="${pageContext.request.contextPath}/gw/voiceChat/zoomConnecting.do?roomNo=\${v.roomNo}" onclick="window.open(this.href, '\${v.roomName}','width=980,height=600'); return false;" class='link-dark rounded'>\${v.roomName}</a></li>`
+					$Chatli.append(html);
+				});
+				let html = `<li><a href='${pageContext.request.contextPath}/gw/voiceChat/voiceChatSetting.do?groupNo=${v.groupNo}' class='link-dark rounded'>채널 추가</a></li>`
+					$Chatli.append(html);
+				$("#voiceChat").html($Chatli);
 			},
-			error(xhr, textStatus, err){
-				console.log(xhr, textStatus, err);
-	        }
+			error(xhr,textStatus,err){
+				console.log(xhr,textStatus,err);
+			}
 		});
 	}); 
  </script>

@@ -1,6 +1,7 @@
 package com.kh.cosmos.groupware.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -57,6 +58,12 @@ public class GroupwareServiceImpl implements GroupwareService {
 	@Override
 	public List<Room> selectAllZoomRoomList(int groupNo) {
 		return gwDao.selectAllZoomRoomList(groupNo);
+	}
+
+	@Override
+	public Room selectRoomInfoByGroupNoAndRoomNo(Map<String, Object> param) {
+		// TODO Auto-generated method stub
+		return gwDao.selectRoomInfoByGroupNoAndRoomNo(param);
 	}
 
 
