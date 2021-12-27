@@ -42,13 +42,15 @@ public class StompApplicationDestinationController {
 		try {
 			map = mapper.readValue(chatMessageContent, 
 			        new TypeReference<HashMap<String, String>>() {});
-			log.debug("map.msg = {}",map.get("msg"));
 		} catch (IOException e) {
 			
 		}  
 
 		ChatMessage chatMessage = new ChatMessage();
+		chatMessage.setChatMessageContent(map.get("msg"));
+		chatMessage.setChatRoomNo(Integer.parseInt(map.get("chatRoomNo")));
 		
+		log.debug("chatMessage = {}", chatMessage);
 		
 		return chatMessageContent;
 	}
