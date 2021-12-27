@@ -330,6 +330,7 @@ div.list-group1{
   width: 100%;
   height: 100%;
   object-fit: cover;
+  cursor: pointer;
 }
 
 .offline {
@@ -685,4 +686,36 @@ div.list-group1{
   display: block;
   margin-top: 2rem;
   margin-bottom: 4rem;
+}
+/* 그룹웨어 헤더 로그아웃 */
+#gw-logout{
+	cursor: pointer;
+}
+/* 그룹웨어 메인 css 수정 */
+.groupware-main-outter{
+
+}
+.groupware-main-title{
+	text-align: center;
+    margin: 20px;
+}
+.groupware-main-contents{
+	display: flex;
+	
+}
+.groupware-main-notice{
+	display: flex;
+    width: 50%;
+    flex-direction: column;
+    align-items: center;
+}
+.groupware-main-calendar{
+	display: flex;
+    width: 50%;
+    flex-direction: column;
+    align-items: center;
+}
+.groupware-main-banner{
+	height: 35vh;
+    width: 80%;
 }

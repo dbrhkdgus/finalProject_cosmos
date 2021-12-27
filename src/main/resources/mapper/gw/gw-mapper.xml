@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="gw">
+  <select id="selectMyGroup" resultType="group">
+  select * from tb_group where group_no = #{groupNo}
+  </select>
+  
+  <select id="selectAllGroupMembers" resultType="member">
+  select m.* from applocation_group a join tb_member m on a.member_id = m.id where group_no = #{groupNo}
+  </select>
+  
+  <select id="selectMemberProfileRenamedFilename" resultType="string">
+  select renamed_filename from attachment where member_id = #{id} and img_flag = 'P'
+  </select>
+  
+  <select id="selectAllMyGroup" resultType="group">
+  select * from applocation_group a join tb_group g using (group_no) where member_id=#{id} and group_accept='Y'
+  </select>
+  
+  <select id="selectAllGroupBannerAttach" resultType="attachment">
+  select * from attachment where group_no is not null and img_flag = 'Y'
+  </select>
+  
+
+</mapper>

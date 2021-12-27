@@ -85,18 +85,18 @@
                 <div class="member-group-list-outer tab-content ${type=='join-group'? 'current' : ''}" id="tab-2">
                 	<div class="membergroup-list d-flex flex-column align-items-center">
 		             	<c:forEach var="myGroup" items="${myGroupList}">
-			               	  <div class="card mb-3" style="max-width: 500px;" onclick="location.href='${pageContext.request.contextPath}/group/groupDetail.do?groupNo=${myGroup.groupNo}'">
+			               	  <div class="card mb-3" style="max-width: 500px;" >
 			                    <div class="row g-0">
 			                      <div class="col-md-4">
 				                	<c:forEach var="attach" items="${attachList}">
 				                		<c:if test="${(myGroup.groupNo == attach.groupNo) && (attach.imgFlag == 'Y')}">
-				                			<img class="img-fluid rounded-start" src="${pageContext.request.contextPath }/resources/upFile/group/${attach.renamedFilename}">
+				                			<img class="img-fluid rounded-start" src="${pageContext.request.contextPath }/resources/upFile/group/${attach.renamedFilename}" onclick="location.href='${pageContext.request.contextPath}/group/groupDetail.do?groupNo=${myGroup.groupNo}'">
 				                		</c:if>
 				                	</c:forEach>
 			                        
 			                      </div>
 			                      <div class="col-md-8">
-			                        <div class="card-body">
+			                        <div class="card-body" onclick="location.href='${pageContext.request.contextPath}/group/groupDetail.do?groupNo=${myGroup.groupNo}'">
 			                        	<c:forEach var="allGroup" items="${groupList}">
 					                		<c:if test="${myGroup.groupNo == allGroup.groupNo}">
 					                			<h5 class="card-title">${allGroup.groupName}</h5>
@@ -130,7 +130,7 @@
 			                          </p>
 			                        </div>
 			                        <div>
-			                      	  <button>입장하기</button>
+			                      	  <button onclick="location.href='${pageContext.request.contextPath}/gw/gw.do?groupNo=${myGroup.groupNo }'">입장하기</button>
 			                        </div>
 			                      </div>
 			                    </div>
