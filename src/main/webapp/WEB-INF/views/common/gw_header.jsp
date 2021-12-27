@@ -136,7 +136,7 @@
           <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
             <li><a href="${pageContext.request.contextPath }/gw/board/notice.do?groupNo=${currGroupNo}" class="link-dark rounded">공지사항</a></li>
             <li><a href="${pageContext.request.contextPath }/gw/" class="link-dark rounded">일반 게시판</a></li>
-            <li><a href="${pageContext.request.contextPath }/gw/" class="link-dark rounded">파일 게시판</a></li>
+            <li><a href="${pageContext.request.contextPath }/gw/fileBoard/fileBoard.do?groupNo=${currGroupNo}" class="link-dark rounded">파일 게시판</a></li>
             <li><a href="${pageContext.request.contextPath }/gw/" class="link-dark rounded">투표</a></li>
             <li><a href="${pageContext.request.contextPath }/gw/" class="link-dark rounded">설문</a></li>
             <li><a href="${pageContext.request.contextPath }/gw/" class="link-dark rounded">사다리 타기</a></li>
