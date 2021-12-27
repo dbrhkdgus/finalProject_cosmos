@@ -164,6 +164,17 @@
           </ul>
         </div>
       </li>
+      <li class="mb-1">
+        <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#orders-collapse" aria-expanded="false">
+          일정 공유
+        </button>
+        <div class="collapse" id="orders-collapse">
+          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+            <li><a href="${pageContext.request.contextPath }/gw/calendar/calendar.do" class="link-dark rounded">팀 일정공유</a></li>
+            
+          </ul>
+        </div>
+      </li>
       <li class="border-top my-3"></li>
       <li class="mb-1">
         <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#account-collapse" aria-expanded="false">
