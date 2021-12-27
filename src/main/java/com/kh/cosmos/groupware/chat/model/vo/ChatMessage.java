@@ -19,7 +19,7 @@ public class ChatMessage implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private int chatMessageNo;
-	private int chatRoomNO;
+	private int chatRoomNo;
 	private int chatUserNo;
 	private String chatMessageContent;
 	private Date chatMessageAt;

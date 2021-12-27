@@ -44,40 +44,7 @@
 
 </script>
 </c:if>
-<script>
-// /chat/chatId
-//1. Stomp Client 객체 생성(websocket)
 
-	const ws = new SockJS(`http://\${location.host}${pageContext.request.contextPath}/stomp`);
-	const stompClient = Stomp.over(ws);
-	
-	// 2. 연결요청
-	stompClient.connect({}, (frame) =>{
-		console.log("Stomp Connected : ", frame);
-		
-	// 3. 구독요청
-	stompClient.subscribe(`/chat/${chatId}`, (message) =>{
-		console.log("message : ", message);
-		const obj = JSON.parse(message.body);
-		console.log(obj);
-		const {memberId, msg} = obj;
-		$(data).append(`<li class="list-group-item">\${memberId} : \${msg}</li>`);
-	});
-	
-});
-
-$(sendBtn).click((e) =>{
-	const obj = {
-		chatId : "${chatId}",
-		memberId : "${loginMember.id}",
-		msg : $(message).val(),
-		logTime : Date.now()
-	};
-	
-	stompClient.send("/app/chat/${chatId}", {}, JSON.stringify(obj));
-	$(message).val(''); // #message 초기화
-});
-</script>
 <!-- Failed to load resource: the server responded with a status of 404 () 오류 해결용 -->
 <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 <link rel="icon" href="/favicon.ico" type="image/x-icon">
@@ -169,7 +136,7 @@ $(sendBtn).click((e) =>{
 							        type="submit" style="border: none;font-size: 10px;transform: translate(10px, 3px); background-color: transparent">로그아웃
                                 </button>
 						    	</form:form>
-						    <script>
+						    <script>  
 						    	var id = $(loginMemberId).val();
 						    		$.ajax({
 						    	         type:"post",

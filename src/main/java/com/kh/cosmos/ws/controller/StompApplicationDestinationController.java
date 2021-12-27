@@ -1,11 +1,17 @@
 package com.kh.cosmos.ws.controller;
 
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
+
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.kh.cosmos.groupware.chat.model.vo.ChatMessage;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -21,10 +27,30 @@ public class StompApplicationDestinationController {
 	 * @return
 	 */
 	@MessageMapping("/{path}")
-	@SendTo("/foo/{path}")
-	public String app(String message, @DestinationVariable String path) {
-		log.debug("message = {}",message);
-		return message;
+	@SendTo("/dm/{path}")
+	public String app(String chatMessageContent, @DestinationVariable String path) {
+		log.debug("message = {}",chatMessageContent);
+		return chatMessageContent;
+	}
+	@MessageMapping("/chat/{chatRoomNo}")
+	@SendTo("/chat/{chatRoomNo}")
+	public String chat(String chatMessageContent, @DestinationVariable int chatRoomNo) {
+		log.debug("chatMessageContent = {}",chatMessageContent);
+
+		ObjectMapper mapper = new ObjectMapper();
+		HashMap<String, String> map = new HashMap<String, String>();
+		try {
+			map = mapper.readValue(chatMessageContent, 
+			        new TypeReference<HashMap<String, String>>() {});
+			log.debug("map.msg = {}",map.get("msg"));
+		} catch (IOException e) {
+			
+		}  
+
+		ChatMessage chatMessage = new ChatMessage();
+		
+		
+		return chatMessageContent;
 	}
 	
 	/**
