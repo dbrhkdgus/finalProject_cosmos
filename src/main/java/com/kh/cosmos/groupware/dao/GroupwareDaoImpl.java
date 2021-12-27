@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.cosmos.common.attachment.model.vo.Attachment;
 import com.kh.cosmos.group.model.vo.Group;
+import com.kh.cosmos.groupware.chat.model.vo.ChatRoom;
 import com.kh.cosmos.member.model.vo.Member;
 
 @Repository
@@ -44,6 +45,12 @@ public class GroupwareDaoImpl implements GroupwareDao {
 	public List<Attachment> selectAllGroupBannerAttach() {
 		// TODO Auto-generated method stub
 		return session.selectList("gw.selectAllGroupBannerAttach");
+	}
+
+	@Override
+	public List<ChatRoom> selectAllChatRoomByGroupNo(int groupNo) {
+		// TODO Auto-generated method stub
+		return session.selectList("gw.selectAllChatRoomByGroupNo",groupNo);
 	}
 
 
