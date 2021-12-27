@@ -50,8 +50,7 @@ public class GwFileBoardController {
         Member loginMember = (Member) auth.getPrincipal();
         Group myGroup = gwService.selectMyGroup(groupNo);
         List<Member> myGroupMemberList = gwService.selectAllGroupMembers(groupNo);
-        
-        
+
         
         List<Group> myGroupList = gwService.selectAllMyGroup(loginMember.getId());
         List<Attachment> groupBannerAttachList = gwService.selectAllGroupBannerAttach();
