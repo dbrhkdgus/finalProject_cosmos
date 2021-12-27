@@ -21,7 +21,9 @@ public class GwBoardController {
 	private BoardService boardService;
 	
 	@GetMapping("/board.do")
-	public void board() {}
+	public void board() {
+		
+	}
 	
 	@GetMapping("/notice.do")
 	public void notice(){}

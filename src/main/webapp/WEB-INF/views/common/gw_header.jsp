@@ -142,10 +142,10 @@
            	<c:if test="${not empty boardList}">
            		<c:forEach var="boardRoom" items="${boardList}">
            			<c:if test="${fn:contains(boardRoom.boardType, 'B')}">
-	            		<li><a href="${pageContext.request.contextPath }/gw/board/boardRoom.do?boardRoomNo=${boardRoom.boardNo}&groupNo=${currGroupNo }" class="link-dark rounded">${boardRoom.boardName}</a></li>
+	            		<li><a href="${pageContext.request.contextPath }/gw/board/board.do?boardRoomNo=${boardRoom.boardNo}&groupNo=${currGroupNo }" class="link-dark rounded">${boardRoom.boardName}</a></li>
 	            	</c:if>
 	            	<c:if test="${fn:contains(boardRoom.boardType, 'A')}">
-	            		<li><a href="${pageContext.request.contextPath }/gw/board/boardRoom.do?boardRoomNo=${boardRoom.boardNo}&groupNo=${currGroupNo }" class="link-dark rounded">${boardRoom.boardName}</a></li>
+	            		<li><a href="${pageContext.request.contextPath }/gw/board/anonymous.do?boardRoomNo=${boardRoom.boardNo}&groupNo=${currGroupNo }" class="link-dark rounded">${boardRoom.boardName}</a></li>
 	            	</c:if>
 	            	<c:if test="${fn:contains(boardRoom.boardType, 'F')}">
 	            		<li><a href="${pageContext.request.contextPath }/gw/fileBoard/fileBoard.do?boardRoomNo=${boardRoom.boardNo}&groupNo=${currGroupNo }" class="link-dark rounded">${boardRoom.boardName}</a></li>
