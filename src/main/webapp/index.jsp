@@ -280,10 +280,7 @@ window.addEventListener("load", function(){
 			                         			<c:otherwise>
 			                         				<i class="far fa-heart"  data-group-no="\${v.groupNo}"><span>\${v.groupLikeCount}</span></i>
 			                         			</c:otherwise>
-			                         		</c:choose>
-			                         		
-			                         		
->>>>>>> branch 'master' of https://github.com/dbrhkdgus/finalProject_cosmos.git
+			                         		</c:choose>			                         		
 			                         </sec:authorize>
 			                     </div>
                         	</div>
