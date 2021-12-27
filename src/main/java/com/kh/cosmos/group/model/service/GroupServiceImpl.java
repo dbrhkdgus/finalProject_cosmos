@@ -249,12 +249,7 @@ public class GroupServiceImpl implements GroupService {
 		return groupDao.deleteInterestGroupByParam(param);
 	}
 
-	@Override
-	public int selectBannerAttach() {
-		return groupDao.selectBannerAttach();
-	}
-	
-	
+
 
 	
 	
