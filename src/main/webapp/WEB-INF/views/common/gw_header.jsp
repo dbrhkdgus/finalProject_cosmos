@@ -180,10 +180,8 @@
 		</div>
         <div class="collapse" id="v-chatting-collapse">
           <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-            <li><a href="#" class="link-dark rounded">라운지</a></li>
-            <li><a href="#" class="link-dark rounded">김길동 작업장</a></li>
-            <li><a href="#" class="link-dark rounded">백길동 작업장</a></li>
-            <li><a href="#" class="link-dark rounded">홍길동 작업장</a></li>
+			<li><a href="${pageContext.request.contextPath }/gw/voiceChat/zoomConnecting.do?groupNo=${currGroupNo}" class="link-dark rounded">ZOOM 접속하기</a></li>
+            <li><a href="${pageContext.request.contextPath }/gw/voiceChat/voiceChatSetting.do?groupNo=${currGroupNo}" class="link-dark rounded">ZOOM 채널 설정</a></li>
           </ul>
         </div>
       </li>
