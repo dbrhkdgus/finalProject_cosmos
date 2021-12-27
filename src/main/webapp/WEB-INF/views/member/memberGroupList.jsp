@@ -130,7 +130,7 @@
 			                          </p>
 			                        </div>
 			                        <div>
-			                      	  <button onclick="location.href='${pageContext.request.contextPath}/gw/gw.do'">입장하기</button>
+			                      	  <button onclick="location.href='${pageContext.request.contextPath}/gw/gw.do?groupNo=${myGroup.groupNo }'">입장하기</button>
 			                        </div>
 			                      </div>
 			                    </div>
