@@ -228,8 +228,9 @@ window.addEventListener("load", function(){
 		dataType: "json",
 		success(data){
 			$.each(data, (k,v)=>{
+				console.log(data);
 				$("#best-box").append(`
-						<div class="card mb-4 search-card" style="width: 350px; height: 400px;">
+						<div class="card mb-4 search-card" style="width: 350px; height: 420px;">
 	                        <a href="${pageContext.request.contextPath}/group/groupDetail.do?groupNo=\${v.groupNo}">
 	                            	<img class="card-img-top" 
 	                            	style = "width: 410px; height: 250px;"
@@ -248,12 +249,13 @@ window.addEventListener("load", function(){
 	                        		</div>
 	                        		<div>
                     					<p class="card-text">\${v.category1Name}</p>
-                    					<p class="card-text">\${v.category2Name}</p>
+                    					
                     				</div>
 	                            </div>
+	                            
 	                            <h2 class="card-title h4" style="margin: 0.2rem 0 0.2rem 0;">\${v.groupName}</h2>
-	                            	<p class="card-text" style="margin-bottom: 5px;">\${v.giTitle }</p>
-	                        
+                            	<p class="card-text" style="margin-bottom: 5px;">\${v.giTitle }</p>
+	                        	<p class="card-text" style="margin-bottom: 5px;">\${v.category2Name}</p>
 	                        
 	                        <div class="search-inner-button">
 	                        <!--좋아요 기능구현 해보는중  -->
@@ -262,15 +264,20 @@ window.addEventListener("load", function(){
 			                           		<i class="far fa-heart"  data-group-no="\${v.groupNo}"><span>\${v.groupLikeCount}</span></i>
 			                       </sec:authorize>
 			                         <sec:authorize access="isAuthenticated()">
-			                         		${v.bool eq "true"}
-			                         		<c:if test="\${\${v.bool} eq true}"> 
-			                           			<i class="fas fa-heart"  data-group-no="\${v.groupNo}"><span>\${v.groupLikeCount}</span></i>
-			                         		</c:if>
-			                         		<c:if test="\${\${v.bool} eq false}"> 
-			                         			<i class="far fa-heart"  data-group-no="\${v.groupNo}"><span>\${v.groupLikeCount}</span></i>
-			                         		</c:if>
+			                         		\${v.bool==true}
+			                         		<c:choose>
+			                         			<c:when test="${v.bool==true}">
+			                         				<i class="fas fa-heart"  data-group-no="\${v.groupNo}"><span>\${v.groupLikeCount}</span></i>
+			                         			</c:when>
+			                         			<c:otherwise>
+			                         				<i class="far fa-heart"  data-group-no="\${v.groupNo}"><span>\${v.groupLikeCount}</span></i>
+			                         			</c:otherwise>
+			                         		</c:choose>
+			                         		
+			                         		
 			                         </sec:authorize>
 			                     </div>
+                        	</div>
 	                     </div>
 	                   </div>
 					
@@ -294,7 +301,7 @@ window.addEventListener("load", function(){
 		success(data){
 			$.each(data, (k,v)=>{
 				$("#new-box").append(`
-						<div class="card mb-4 search-card" style="width: 350px; height: 400px;">
+						<div class="card mb-4 search-card" style="width: 350px; height: 420px;">
 	                        <a href="${pageContext.request.contextPath}/group/groupDetail.do?groupNo=\${v.groupNo}">
 	                            	<img class="card-img-top" 
 	                            	style = "width: 410px; height: 250px;"
@@ -313,23 +320,34 @@ window.addEventListener("load", function(){
 	                        		</div>
 	                        		<div>
 	                					<p class="card-text">\${v.category1Name}</p>
-	                					<p class="card-text">\${v.category2Name}</p>
 	                				</div>
 	                            </div>
 	                            <h2 class="card-title h4" style="margin: 0.2rem 0 0.2rem 0;">\${v.groupName}</h2>
-	                            	<p class="card-text" style="margin-bottom: 5px;">\${v.giTitle }</p>
-		                            	 <div class="search-inner-button">
-		     	                        <!--좋아요 기능구현 해보는중  -->
-		     		                        <div class="like-button-outer">
-		     			                       <sec:authorize access="isAnonymous()">
-		     			                           		<i class="far fa-heart"  data-group-no="\${v.groupNo}"><span>\${v.groupLikeCount}</span></i>
-		     			                       </sec:authorize>
-		     			                         <sec:authorize access="isAuthenticated()">
-		     			                           		<i class="fas fa-heart"  data-group-no="\${v.groupNo}"><span>\${v.groupLikeCount}</span></i>
-		     			                         </sec:authorize>
-		     			                     </div>
-		     	                    	 </div>
-		     	                    </div>
+                            	<p class="card-text" style="margin-bottom: 5px;">\${v.giTitle }</p>
+                            	<p class="card-text" style="margin-bottom: 5px;">\${v.category2Name}</p>
+    	                        
+    	                        <div class="search-inner-button">
+    	                        <!--좋아요 기능구현 해보는중  -->
+    		                        <div class="like-button-outer">
+    			                       <sec:authorize access="isAnonymous()">
+    			                           		<i class="far fa-heart"  data-group-no="\${v.groupNo}"><span>\${v.groupLikeCount}</span></i>
+    			                       </sec:authorize>
+    			                         <sec:authorize access="isAuthenticated()">
+    			                         		<c:choose>
+    			                         			<c:when test="\${v.bool == true}">
+    			                         				<i class="fas fa-heart"  data-group-no="\${v.groupNo}"><span>\${v.groupLikeCount}</span></i>
+    			                         			</c:when>
+    			                         			<c:otherwise>
+    			                         				<i class="far fa-heart"  data-group-no="\${v.groupNo}"><span>\${v.groupLikeCount}</span></i>
+    			                         			</c:otherwise>
+    			                         		</c:choose>
+    			                         		
+    			                         		
+    			                         </sec:authorize>
+    			                     </div>
+                            	</div>
+    	                     </div>
+    	                   </div>
 					
 						`);
 			});
