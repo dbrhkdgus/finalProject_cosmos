@@ -263,6 +263,7 @@ window.addEventListener("load", function(){
 			                       </sec:authorize>
 			                         <sec:authorize access="isAuthenticated()">
 			                         		${v.bool eq "true"}
+			                         		console.log(${v.bool eq "true"})
 			                         		<c:if test="\${\${v.bool} eq true}"> 
 			                           			<i class="fas fa-heart"  data-group-no="\${v.groupNo}"><span>\${v.groupLikeCount}</span></i>
 			                         		</c:if>
