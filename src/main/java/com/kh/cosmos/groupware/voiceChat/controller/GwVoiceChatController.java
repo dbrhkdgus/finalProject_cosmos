@@ -5,17 +5,21 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kh.cosmos.common.attachment.model.vo.Attachment;
 import com.kh.cosmos.group.model.vo.Group;
 import com.kh.cosmos.groupware.chat.model.service.ChatService;
 import com.kh.cosmos.groupware.chat.model.vo.ChatRoom;
+import com.kh.cosmos.groupware.model.vo.Room;
 import com.kh.cosmos.groupware.service.GroupwareService;
 import com.kh.cosmos.member.model.vo.Member;
 
@@ -32,9 +36,16 @@ public class GwVoiceChatController {
 	private GroupwareService gwService;
 	
 	@GetMapping("/selectAllRoomList.do")
-	public Map<String,String> selectAllRoomList(int groupNo, Model model, Authentication auth) {
-		Map<String,String> map = new HashMap<String,String>();
+	public Map<String,Room> selectAllRoomList(@RequestParam int groupNo, Model model, HttpServletRequest request, Authentication auth) {
+		Map<String,Room> map = new HashMap<String,Room>();
 		log.debug("groupNo = {}",groupNo);
+		List<Room> roomList = gwService.selectAllZoomRoomList(groupNo);
+		log.debug("roomList = {}",roomList);
+		int num = 1;
+		for(Room room : roomList) {
+			map.put(Integer.toString(num), room);
+			num++;
+		}
 		return map;
 	}
 	@GetMapping("/zoomConnecting.do")

@@ -271,8 +271,8 @@
 			dataType: "json",
 			type: "GET",
 			data: {'groupNo' : $groupNo},
-			success(jsonStr){
-				console.log(jsonStr);
+			success(data){
+				console.log(data);
 			},
 			error(xhr, textStatus, err){
 				console.log(xhr, textStatus, err);

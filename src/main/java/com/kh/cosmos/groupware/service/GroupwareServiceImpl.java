@@ -9,6 +9,7 @@ import com.kh.cosmos.common.attachment.model.vo.Attachment;
 import com.kh.cosmos.group.model.vo.Group;
 import com.kh.cosmos.groupware.chat.model.vo.ChatRoom;
 import com.kh.cosmos.groupware.dao.GroupwareDao;
+import com.kh.cosmos.groupware.model.vo.Room;
 import com.kh.cosmos.member.model.vo.Member;
 
 @Service
@@ -51,6 +52,11 @@ public class GroupwareServiceImpl implements GroupwareService {
 	public List<ChatRoom> selectAllChatRoomByGroupNo(int groupNo) {
 		// TODO Auto-generated method stub
 		return gwDao.selectAllChatRoomByGroupNo(groupNo);
+	}
+
+	@Override
+	public List<Room> selectAllZoomRoomList(int groupNo) {
+		return gwDao.selectAllZoomRoomList(groupNo);
 	}
 
 

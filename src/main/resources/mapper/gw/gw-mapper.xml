@@ -26,4 +26,7 @@
   select * from chat_room where group_no = #{groupNo}
   </select>
 
+<select id="selectAllZoomRoomList" resultType="Room">
+select * from zoom_room where group_no = #{groupNo}
+</select>
 </mapper>
