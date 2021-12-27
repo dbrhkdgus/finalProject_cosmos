@@ -13,14 +13,27 @@
 </jsp:include>
 
    <div class="container mt-5">
+    <div class="row tm-content-row">
+       <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">
+           <div class="tm-bg-primary-dark tm-block">
+               <h2 class="tm-block-title">
+                   주간 가입자 수
+                        
+               </h2>
+               <canvas class="chart-size col-12" id="activityChart" ></canvas>
+           </div>
+       </div>
+       <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">
+           <div class="tm-bg-primary-dark tm-block">
+               <h2 class="tm-block-title">
+                   성별 분포
+                     
+               </h2>
+	          <canvas id="pie-chart" class="col-12"></canvas>
+           </div>
+       </div>       
+    </div>
 
-      <div class="study-admin-box">
-        <div class="amount-of-study-activity">
-          <h4 class="text-white">스터디 활동량</h4>
-          <canvas class="chart-size" id="activityChart" width="400" height="400"></canvas>
-          <h4 class="text-white">성별 회원 분포</h4>
-          <canvas id="pie-chart" width="250" height="250"></canvas>
-        </div>
         
       
       </div>
@@ -83,11 +96,10 @@ var date = now.getDate();
 			    },
 			    options: {
 			      responsive: false,
-			      title: {
+/* 			      title: {
 			        display: true,
-			        color: "white",
 			        text: '주간 가입자 수'
-			      },
+			      }, */
 			      legend: {
 			    	  labels: {
 			    		  fontColor: "white",
@@ -127,6 +139,33 @@ var date = now.getDate();
 		dataType: "json",
 		success: function(data){
 			console.log(data);
+			console.log(data.genderData.male);
+			console.log(data.genderData.female);
+			
+			new Chart(document.getElementById("pie-chart"), {
+			    type: 'pie',
+			    data: {
+			      labels: ["남", "여"],
+			      datasets: [{
+			        label: "Population (millions)",
+			        backgroundColor: ["blue", "red"],
+			        data: [data.genderData.male,data.genderData.female]
+			      }]
+			    },
+			    options: {
+/* 			      title: {
+			        display: true,
+			        text: '회원 성별 비율'
+			      }, */
+			      legend: {
+			    	  labels: {
+			    		  fontColor: "white",
+			    		  fontSize: 18
+			    	  }
+			      },
+			    }
+			});
+			
 		},
 		error: console.log
 	});
@@ -134,23 +173,6 @@ var date = now.getDate();
 
 })()
 
-new Chart(document.getElementById("pie-chart"), {
-    type: 'pie',
-    data: {
-      labels: ["남", "녀"],
-      datasets: [{
-        label: "Population (millions)",
-        backgroundColor: ["blue", "red"],
-        data: [2478,5267]
-      }]
-    },
-    options: {
-      title: {
-        display: true,
-        text: 'Predicted world population (millions) in 2050'
-      }
-    }
-});
   
 </script>  
 
