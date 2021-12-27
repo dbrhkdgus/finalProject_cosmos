@@ -25,5 +25,7 @@
   <select id="selectAllChatRoomByGroupNo" resultType="chatRoom">
   select * from chat_room where group_no = #{groupNo}
   </select>
-
+  <select id="selectAllBoardRoomByGroupNo" resultType="board">
+  select * from board where group_no = #{groupNo}
+  </select>
 </mapper>
