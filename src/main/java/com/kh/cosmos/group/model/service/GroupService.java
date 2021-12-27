@@ -77,8 +77,6 @@ public interface GroupService {
 
 	List<MemberInterestGroup> selectAllInterstGroup();
 
-	List<GroupCategory> selectAllgroupCategory();
-
 	List<GroupCategory> selectAllGroupCategory();
 
 	List<CategoryTwo> selectAllCategoryTwoList();
@@ -99,6 +97,7 @@ public interface GroupService {
 	int deleteInterestGroupByParam(Map<String, Object> param);
 
 	
+
 
 
 
