@@ -379,7 +379,7 @@ public class MainController {
 				}
 				for(MemberInterestGroup mig :groupInterestList) {
 					if(mig.getGroupNo() == jag.getGroupNo()) {
-						jag.setBool("true");
+						jag.setBool(true);
 						
 					}
 				}
@@ -409,7 +409,7 @@ public class MainController {
 				}
 				for(MemberInterestGroup mig :groupInterestList) {
 					if(mig.getGroupNo() == jag.getGroupNo()) {
-						jag.setBool("true");
+						jag.setBool(true);
 						
 					}
 				}

@@ -34,4 +34,5 @@ public interface MemberService {
 
 	int updateMemberProfileAsDefault(String id);
 
+	int delete(int groupNo);
 }

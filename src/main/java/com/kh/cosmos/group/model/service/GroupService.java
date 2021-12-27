@@ -96,6 +96,8 @@ public interface GroupService {
 
 	List<ApplocationGroup> selectALGroupListByGroupNo(String groupNo);
 
+	int deleteInterestGroupByParam(Map<String, Object> param);
+
 
 
 

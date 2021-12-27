@@ -33,6 +33,8 @@ public interface MemberDao {
 	List<MemberInterestGroup> selectmyInterestedGroupList(String userId);
 
 	int updateMemberProfileAsDefault(String id);
+
+	int delete(int groupNo);
 	
 	
 
