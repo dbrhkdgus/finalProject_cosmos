@@ -247,8 +247,8 @@ public class GroupController {
 			groupEnroll.setGroupPrivate('U');
 		}
 		
-		Attachment attach = new Attachment();
 		
+		Attachment attach = new Attachment();
 		try {
 			
 			// application객체(ServletContext)
@@ -276,6 +276,16 @@ public class GroupController {
 				attach.setMemberId(groupEnroll.getMemberId());
 				attach.setImgFlag("Y");
 				
+				
+			}else {
+
+				String originalFilename = ("group-banner-default.png");
+				String renamedFilename = ("20211227_141032234_521.png");
+				
+				attach.setOriginalFilename(originalFilename);
+				attach.setRenamedFilename(renamedFilename);
+				attach.setMemberId(groupEnroll.getMemberId());
+				attach.setImgFlag("Y");
 				
 			}
 			

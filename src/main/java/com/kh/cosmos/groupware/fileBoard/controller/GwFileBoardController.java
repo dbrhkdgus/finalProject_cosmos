@@ -14,5 +14,7 @@ public class GwFileBoardController {
 	public void fileBoard() {}
 	
 	@GetMapping("/fileEnroll.do")
-	public void fileEnroll() {}
+	public void fileEnroll() {
+		
+	}
 }

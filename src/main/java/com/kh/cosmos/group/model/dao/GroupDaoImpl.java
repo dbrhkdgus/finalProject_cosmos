@@ -245,6 +245,7 @@ public class GroupDaoImpl implements GroupDao {
 		return session.delete("group.deleteInterestGroupByParam",param);
 	}
 
+
 	
 	
 	
