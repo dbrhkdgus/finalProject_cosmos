@@ -324,7 +324,7 @@ window.addEventListener("load", function(){
 		dataType: "json",
 		success(data){
 			$.each(data, (k,v)=>{
-				console.log(data);
+				//console.log(data);
 				$("#best-box").append(`
 						<div class="card mb-4 search-card" style="width: 350px; height: 420px;">
 	                        <a href="${pageContext.request.contextPath}/group/groupDetail.do?groupNo=\${v.groupNo}">
