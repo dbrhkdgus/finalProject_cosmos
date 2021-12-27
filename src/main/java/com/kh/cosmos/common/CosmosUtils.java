@@ -166,30 +166,5 @@ public class CosmosUtils {
 		return sdf.format(new Date()) + df.format(Math.random() * 999) + ext;
 	}
 	
-	public static void groupwareHeaderSet(int groupNo, Model model, Authentication auth) {
-		Member loginMember = (Member) auth.getPrincipal();
-		Group myGroup = gwService.selectMyGroup(groupNo);
-		List<Member> myGroupMemberList = gwService.selectAllGroupMembers(groupNo);
-		
-		
-		
-		List<Group> myGroupList = gwService.selectAllMyGroup(loginMember.getId());
-		List<Attachment> groupBannerAttachList = gwService.selectAllGroupBannerAttach();
-		List<String> memberProfileRenamedFilenameList = new ArrayList<String>();
-		for(Member m : myGroupMemberList) {
-			String memberProfileRenamedFilename = gwService.selectMemberProfileRenamedFilename(m.getId());
-			memberProfileRenamedFilenameList.add(memberProfileRenamedFilename);
-		}
-
-		List<ChatRoom> chattingChannelList = gwService.selectAllChatRoomByGroupNo(groupNo);
-		
-		model.addAttribute("currGroupNo", groupNo);
-		model.addAttribute("myGroup", myGroup);
-		model.addAttribute("myGroupMemberList", myGroupMemberList);
-		model.addAttribute("chattingChannelList", chattingChannelList);
-		model.addAttribute("profile", gwService.selectMemberProfileRenamedFilename(loginMember.getId()));
-		model.addAttribute("memberProfileRenamedFilenameList", memberProfileRenamedFilenameList);
-		model.addAttribute("groupBannerAttachList", groupBannerAttachList);
-		model.addAttribute("myGroupList", myGroupList);
-	}
+	
 }
