@@ -226,7 +226,45 @@
       <form:form name="createChatRoomFrm" method="post" action="${pageContext.request.contextPath }/gw/chat/createChatRoom.do">
 	      <div class="modal-body mx-3">
 	        <div class="md-form mb-5">
-	          	<div class="dm-profile-container">
+	          	<div class="dm-profile-container mb-3">
+	          	
+		          <div class="dm-user-profile">
+		            <img class="dm-user-profile-img" src="https://i.pinimg.com/564x/9e/60/60/9e6060db90687be57c52ca5c5566c487.jpg" alt="">
+		          </div>
+		          
+		          <div class="dm-message-box">
+		          
+		            <div class="dm-message-sender">
+		              <span><strong>홍길동</strong></span>
+		              <span>11:10</span>
+		            </div>
+		            
+		            <div class="dm-message-content">
+		              <p>가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하</p>
+		            </div>
+		            
+		          </div>
+		        </div>
+		        <div class="dm-profile-container mb-3">
+	          	
+		          <div class="dm-user-profile">
+		            <img class="dm-user-profile-img" src="https://i.pinimg.com/564x/9e/60/60/9e6060db90687be57c52ca5c5566c487.jpg" alt="">
+		          </div>
+		          
+		          <div class="dm-message-box">
+		          
+		            <div class="dm-message-sender">
+		              <span><strong>홍길동</strong></span>
+		              <span>11:10</span>
+		            </div>
+		            
+		            <div class="dm-message-content">
+		              <p>가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하</p>
+		            </div>
+		            
+		          </div>
+		        </div>
+		        <div class="dm-profile-container mb-3">
 	          	
 		          <div class="dm-user-profile">
 		            <img class="dm-user-profile-img" src="https://i.pinimg.com/564x/9e/60/60/9e6060db90687be57c52ca5c5566c487.jpg" alt="">
@@ -263,6 +301,9 @@
 </div>
 
 <script>
+$(".dm-profile-container").click((e)=>{
+	console.log("click");
+});
 $("#btn-DM-modal").click((e)=>{
 	$("#DMModal").modal('show');
 	
