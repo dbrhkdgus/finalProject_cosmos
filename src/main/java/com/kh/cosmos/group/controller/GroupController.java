@@ -280,13 +280,12 @@ public class GroupController {
 			}else {
 
 				String originalFilename = ("group-banner-default.png");
-//				String renamedFilename = (application.getRealPath("/resources/upFile/group/20211227_141032234_521.png");
+				String renamedFilename = ("20211227_141032234_521.png");
 				
 				attach.setOriginalFilename(originalFilename);
-//				attach.setRenamedFilename(renamedFilename);
+				attach.setRenamedFilename(renamedFilename);
 				attach.setMemberId(groupEnroll.getMemberId());
 				attach.setImgFlag("Y");
-				
 				
 			}
 			

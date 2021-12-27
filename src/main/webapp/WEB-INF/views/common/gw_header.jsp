@@ -82,7 +82,7 @@
         <div class="groupwear-channel-title">
 
           <h5> ${title }</h5>
-
+			
         </div>
           
       </div>  
@@ -107,7 +107,6 @@
     	</c:if> 
     	</c:forEach>
     </c:forEach>
-
     </ul>
     <div class="dropdown border-top">
       <a href="#" class="d-flex align-items-center justify-content-center p-3 link-dark text-decoration-none dropdown-toggle" id="dropdownUser3" data-bs-toggle="dropdown" aria-expanded="false">
@@ -137,7 +136,7 @@
           <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
             <li><a href="${pageContext.request.contextPath }/gw/board/notice.do?groupNo=${currGroupNo}" class="link-dark rounded">공지사항</a></li>
             <li><a href="${pageContext.request.contextPath }/gw/" class="link-dark rounded">일반 게시판</a></li>
-            <li><a href="${pageContext.request.contextPath }/gw/" class="link-dark rounded">파일 게시판</a></li>
+            <li><a href="${pageContext.request.contextPath }/gw/fileBoard/fileBoard.do?groupNo=${currGroupNo}" class="link-dark rounded">파일 게시판</a></li>
             <li><a href="${pageContext.request.contextPath }/gw/" class="link-dark rounded">투표</a></li>
             <li><a href="${pageContext.request.contextPath }/gw/" class="link-dark rounded">설문</a></li>
             <li><a href="${pageContext.request.contextPath }/gw/" class="link-dark rounded">사다리 타기</a></li>
@@ -149,15 +148,24 @@
 	        <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#chatting-collapse" aria-expanded="false">
 	          채팅 채널
 	        </button>
-	        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
-				  <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
-			</svg>
+	        <div class="createChatRoom" style="cursor: pointer;">
+		        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
+					  <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
+				</svg>
+	        </div>
 		</div>
         <div class="collapse" id="chatting-collapse">
           <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-            <li><a href="#" class="link-dark rounded">코딩 관련 정보 공유</a></li>
-            <li><a href="#" class="link-dark rounded">떠드는 곳</a></li>
-            <li><a href="#" class="link-dark rounded">추천방(도서, 인강)</a></li>
+          	<c:choose>
+	          	<c:when test="${not empty chattingChannelList}">
+	          		<c:forEach var="chatRoom" items="${chattingChannelList }">
+			            <li><a href="${pageContext.request.contextPath }/gw/chat/chatRoom.do?chatRoomNo=${chatRoom.chatRoomNo}&groupNo=${currGroupNo }" class="link-dark rounded">${chatRoom.chatRoomName }</a></li>
+	          		</c:forEach>
+	          	</c:when>
+	          	<c:otherwise>
+	          	    <li><a class="createChatRoom link-dark rounded text-secondary">(채팅방 개설하기)</a></li>
+	          	</c:otherwise>
+          	</c:choose>
           </ul>
         </div>
       </li>
@@ -209,7 +217,49 @@
       </li>
     </ul>
   </div>
+  
+<div class="modal fade" id="createChatRoomModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">채팅방 개설하기</h4>
+        <button type="button" class="close close-modal" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form:form name="createChatRoomFrm" method="post" action="${pageContext.request.contextPath }/gw/chat/createChatRoom.do">
+	      <div class="modal-body mx-3">
+	        <div class="md-form mb-5">
+	          <label  for="defaultForm-email">채팅방 이름</label>
+	          <input type="text" name="chatRoomName" class="form-control validate" placeholder="새로운 채팅방">
+	        </div>
+	      </div>
+	      <input type="hidden" name="groupNo" value="${currGroupNo }" />
+      </form:form>
+      <div class="modal-footer d-flex justify-content-center">
+        <button class="btn btn-createChatRoom">개설</button>
+        <button class="btn close-modal">취소</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
  <script>
+ $(".btn-createChatRoom").click((e)=>{
+	 $(document.createChatRoomFrm).submit();
+ });
+ $(".createChatRoom").click((e)=>{
+	 $("#createChatRoomModal").modal('show');
+ });
+
+ $(".close-modal").click((e)=>{
+	 $("#createChatRoomModal").modal('hide');
+ });
+
+
  $("#gw-logout").click((e)=>{
 	 $("#memberLogoutFrm").submit();
  });

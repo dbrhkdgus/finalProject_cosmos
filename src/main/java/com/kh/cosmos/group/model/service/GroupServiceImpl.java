@@ -242,7 +242,6 @@ public class GroupServiceImpl implements GroupService {
 		return groupDao.deleteInterestGroupByParam(param);
 	}
 
-	
 
 
 	

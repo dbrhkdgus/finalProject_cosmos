@@ -263,4 +263,6 @@
 	delete from interest_group where member_id = #{memberId} and group_no = #{groupNo}
 	</delete>
 	
+
+
 </mapper>
