@@ -98,7 +98,7 @@ public interface GroupService {
 
 	int deleteInterestGroupByParam(Map<String, Object> param);
 
-	int selectBannerAttach();
+	
 
 
 

@@ -247,7 +247,7 @@ public class GroupController {
 			groupEnroll.setGroupPrivate('U');
 		}
 		
-		int attachNo = 0;
+		
 		Attachment attach = new Attachment();
 		try {
 			
@@ -276,26 +276,23 @@ public class GroupController {
 				attach.setMemberId(groupEnroll.getMemberId());
 				attach.setImgFlag("Y");
 				
-				 attachNo = groupService.insertAttach(attach);
 				
 			}else {
 
-//				String originalFilename = ("group-banner-default.png");
-//				String renamedFilename = ("20211227_141032234_521.png");
-//				
-//				attach.setOriginalFilename(originalFilename);
-//				attach.setRenamedFilename(renamedFilename);
-//				attach.setMemberId(groupEnroll.getMemberId());
-//				attach.setImgFlag("Y");
+				String originalFilename = ("group-banner-default.png");
+				String renamedFilename = ("20211227_141032234_521.png");
 				
-				attachNo = 138;
-				
+				attach.setOriginalFilename(originalFilename);
+				attach.setRenamedFilename(renamedFilename);
+				attach.setMemberId(groupEnroll.getMemberId());
+				attach.setImgFlag("Y");
 				
 			}
 			
 			
 			int result = groupService.insertGroup(groupEnroll);
 			
+			int attachNo = groupService.insertAttach(attach);
 //			log.debug("attachNo = {}", attachNo);
 			
 			result = groupService.insertGroupInfoConnect(groupInfoConnect);
