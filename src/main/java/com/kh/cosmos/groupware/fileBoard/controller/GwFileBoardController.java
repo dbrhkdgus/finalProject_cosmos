@@ -84,25 +84,6 @@ public class GwFileBoardController {
     
     	
     	Member member = (Member)authentication.getPrincipal();
-    	Post post= new Post();    	
-    	
-    	
-    	post.setMemberId(member.getId());
-    	post.setBoardNo(boardNo);
-    	post.setPostTitle(fileEnroll.getFileTitle());
-    	post.setBoardCategoryNo(fileEnroll.getFileCategoryNo());
-    	
-    	log.debug("post = {} " , post);
-    	
-    	Board board = new Board();
-    	board.setBoardNo(boardNo);
-    	board.setGroupNo(groupNo);
-    	board.setBoardType('F');
-    	
-    	int filePostResult = fileBoardService.insertFilePost(post);
-    	
-    	log.debug("filePostResult = {} " , filePostResult);
-    	
     	
     	Attachment attach = new Attachment();
     
@@ -124,7 +105,8 @@ public class GwFileBoardController {
 //		log.debug("dest = {}", dest);
 				upFile.transferTo(dest);
 				// 2.DB에 attachment 레코드 등록
-			
+				
+		
 			attach.setRenamedFilename(renamedFilename);
 			attach.setOriginalFilename(originalFilename);
 			attach.setGroupNo(groupNo);
@@ -136,11 +118,30 @@ public class GwFileBoardController {
 			int attachNo =0;
 			 attachNo = fileBoardService.insertFileAttach(attach);
 			
+			 Post post= new Post();    	
+			 
+			 
+			 post.setMemberId(member.getId());
+			 post.setBoardNo(boardNo);
+			 post.setPostTitle(fileEnroll.getFileTitle());
+			 post.setBoardCategoryNo(fileEnroll.getFileCategoryNo());
+			 log.debug("post = {} " , post);
+			 
+			 Board board = new Board();
+			 board.setBoardNo(boardNo);
+			 board.setGroupNo(groupNo);
+			 board.setBoardType('F');
+			 
+			 
+			 
+			 int filePostResult = fileBoardService.insertFilePost(post);
+			 
+			 log.debug("filePostResult = {} " , filePostResult);
+			 
 			 
 			
 			
-			
-			log.debug("fileEnroll ={} ",fileEnroll);
+
 			
 //			log.debug("attachNo ={} ",attachNo);
 			

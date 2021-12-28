@@ -18,6 +18,12 @@
 		)
   </insert>
   <insert id="insertFilePost">
+  <selectKey keyProperty="attachNo" resultType="_int" order="BEFORE">
+			select
+				seq_attach_no_no.currval
+			from
+				dual
+		</selectKey>
   insert into
   	post
   	values
@@ -29,7 +35,7 @@
   		null,
   		current_date,
   		null,
-  		null,
+  		#{attachNo},
   		#{boardCategoryNo}
   		)
   	
