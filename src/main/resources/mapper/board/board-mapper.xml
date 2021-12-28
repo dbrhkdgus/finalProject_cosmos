@@ -6,4 +6,7 @@
   <insert id="createBoardRoom">
   	insert into board values(seq_board_no_no.nextval, #{groupNo}, #{boardName}, #{boardType})
   </insert>
+  <select id="selectAllPostInBoard" resultType="post">
+	select * from post where board_no = #{boardNo}
+  </select>
 </mapper>
