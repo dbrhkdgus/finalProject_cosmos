@@ -57,6 +57,19 @@ public class ChatServiceImpl implements ChatService {
 		// TODO Auto-generated method stub
 		return chatDao.selectChatUserList(chatRoomNo);
 	}
+
+	@Override
+	public List<String> selectChatUserIdList(int chatRoomNo) {
+		// TODO Auto-generated method stub
+		return chatDao.selectChatUserIdList(chatRoomNo);
+	}
+
+	@Override
+	public int insertChatUserByParamWithAdminNo(Map<String, Object> param) {
+		// TODO Auto-generated method stub
+		return chatDao.insertChatUserByParamWithAdminNo(param);
+	}
+	
 	
 	
 }
