@@ -290,13 +290,7 @@
               <div class="modal-member-box" style="border: 1px solid black; ">
               
               
-		              	<div class="modal-member-profile">
-		              		<input class="ml-2 mr-2"type="checkbox" name="memberId" value=""/>
-		              		<div class="modal-member-profile-box">
-			              		<img src="${pageContext.request.contextPath }/resources/upFile/profile/" alt="" class="modal-member-profile-img" />
-		              		</div>
-		              		<span class="modal-member-name"></span>
-		              	</div>
+		              	
             
               	
               	
@@ -366,12 +360,33 @@ $(".modal-member-box").hide();
  });
 
  $("input[name=chatRoomOpenType]").change((e)=>{
-	 console.log("click");
 	 var val = $("input[name=chatRoomOpenType]:checked").val();
 	 if(val == 'all'){
 		 $(".modal-member-box").hide();
 	 }else{
-		 
+		 var $groupNo = ${currGroupNo};
+		 $.ajax({
+			url: `${pageContext.request.contextPath}/gw/chat/selectMember.do`,
+			method : "get",
+			data: {'groupNo' : $groupNo},
+			contentType: "application/json; charset=utf-8",
+		 	success(res){
+		 		$.each(res,(k,v)=>{
+		 			console.log(v);
+		 			$(".modal-member-box").append(`
+		 					<div class="modal-member-profile">
+		              		<input class="ml-2 mr-2"type="checkbox" name="memberId" value="\${v.memberId}"/>
+		              		<div class="modal-member-profile-box">
+			              		<img src="${pageContext.request.contextPath }/resources/upFile/profile/\${v.profileRenamedFilename}" alt="" class="modal-member-profile-img" />
+		              		</div>
+		              		<span class="modal-member-name">\${v.memberName}</span>
+		              	</div>`);		 				
+
+		 		});
+		 	},
+		 	error : console.log
+			
+		 });
 		 
 		 
 		 $(".modal-member-box").show();
