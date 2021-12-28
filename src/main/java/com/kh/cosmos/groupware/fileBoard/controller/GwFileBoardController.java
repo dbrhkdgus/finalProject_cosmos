@@ -8,6 +8,7 @@ import java.util.List;
 import javax.servlet.ServletContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.cosmos.common.CosmosUtils;
+import com.kh.cosmos.common.attachment.model.service.AttachmentService;
 import com.kh.cosmos.common.attachment.model.vo.Attachment;
 import com.kh.cosmos.group.model.vo.Group;
 import com.kh.cosmos.groupware.chat.model.vo.ChatRoom;
@@ -39,17 +41,21 @@ public class GwFileBoardController {
 	@Autowired
 	private GroupwareService gwService ;
 	private FileBoardService fileBoardService;
+	private AttachmentService attachmentService;
+	
+	@Autowired
+	ResourceLoader resourceLoader;
 	
     @GetMapping("/fileBoard.do")
     public void fileBoard(Model model,@RequestParam int groupNo,@RequestParam int boardNo) {
-        log.debug("groupNo={}", groupNo);
-        log.debug("boardNo={}", boardNo);
-        model.addAttribute("currGroupNo", groupNo);
+    	model.addAttribute("groupNo", groupNo);
         model.addAttribute("boardNo", boardNo);
     }
     
     @GetMapping("/fileEnroll.do")
-    public void fileEnroll(@RequestParam int groupNo) {
+    public void fileEnroll(@RequestParam int groupNo,@RequestParam int boardNo, Model model) {
+    	model.addAttribute("boardNo", boardNo);
+    	model.addAttribute("groupNo", groupNo);
         
     }
     
@@ -57,8 +63,8 @@ public class GwFileBoardController {
     public String fileEnroll(FileEnroll fileEnroll,@RequestParam int groupNo,@RequestParam int boardNo,
     		@RequestParam(value="upFile", required=false) MultipartFile upFile,
     		Authentication authentication)throws IllegalStateException, IOException  {
-    	log.debug("fileEnrolll ={}" ,fileEnroll );
-    	log.debug("boardNo ={}" ,boardNo );
+//   	log.debug("fileEnrolll ={}" ,fileEnroll );
+//    	log.debug("boardNo ={}" ,boardNo );
     	
     	
     	Member member = (Member)authentication.getPrincipal();
@@ -69,10 +75,12 @@ public class GwFileBoardController {
 			String saveDirectory = application.getRealPath("/resources/upFile/fileBoard");
 			
 			
-		log.debug("upFile = {}", upFile);
+		log.debug("upFile = {}", upFile.getOriginalFilename());
 //		log.debug("upFile.name = {}", upFile.getOriginalFilename());
 //		log.debug("upFile.size = {}", upFile.getSize());
 //		
+			
+		
 			String originalFilename = upFile.getOriginalFilename();
 			String renamedFilename = CosmosUtils.getRenamedFilename(originalFilename);
 
@@ -89,10 +97,10 @@ public class GwFileBoardController {
 			
 //			int result = gwFileService.insertGroup(fileEnroll);
 			
+			
 			int attachNo = fileBoardService.insertFileAttach(attach);
 			
 			log.debug("attachNo ={} ",attachNo);
-			
 			
 		} catch (IllegalStateException e) {
 			e.printStackTrace();

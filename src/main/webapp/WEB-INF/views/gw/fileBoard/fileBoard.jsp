@@ -90,7 +90,7 @@
     </tbody>
   </table>
   <div class="d-grid gap-2 d-md-flex justify-content-md-end mr-2 ">
-   <a href="${pageContext.request.contextPath}/gw/fileBoard/fileEnroll.do?boardNo=${boardNo}&groupNo=${currGroupNo} "> <button class="btn btn-primary me-md-2" type="button">글쓰기</button></a>
+   <a href="${pageContext.request.contextPath}/gw/fileBoard/fileEnroll.do?boardNo=${boardNo}&groupNo=${groupNo} "> <button class="btn btn-primary me-md-2" type="button">글쓰기</button></a>
   </div>
   <div class="test-board-pagebar">
     
