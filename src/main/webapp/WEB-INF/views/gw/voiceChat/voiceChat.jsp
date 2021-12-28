@@ -34,22 +34,21 @@ body{width: none !important;height: none !important;}
         <div id="navbar" class="websdktest">
             <form class="navbar-form navbar-right" id="meeting_form">
                 <div class="form-group">
-                    <input type="text" name="display_name" id="display_name" value="${loginMember.nickname }" maxLength="100"
-                        placeholder="Name" class="form-control" required>
+                    <input type="hidden" name="display_name" id="display_name" value="${loginMember.nickname }" maxLength="100"
+                        placeholder="Name" class="form-control" required readonly>
                 </div>
                 <div class="form-group">
-                    <input type="text" name="meeting_number2" id="meeting_number" value='${roomInfo.zoomId }' maxLength="200"
-                        style="width:150px" placeholder="" class="form-control" required>
+                    <input type="hidden" name="meeting_number2" id="meeting_number" value='${roomInfo.zoomId }' maxLength="200"
+                        style="width:150px" placeholder="" class="form-control" required readonly>
                 </div>
                 <div class="form-group">
-                    <input type="text" name="meeting_pwd2" id="meeting_pwd" value='${roomInfo.zoomPassword }' style="width:150px"
-                        maxLength="32" placeholder="" class="form-control">
+                    <input type="hidden" name="meeting_pwd2" id="meeting_pwd" value='${roomInfo.zoomPassword }' style="width:150px"
+                        maxLength="32" placeholder="" class="form-control" readonly>
                 </div>
                 <div class="form-group">
                     <input type="text" name="meeting_email" id="meeting_email" value="" style="width:150px"
-                        maxLength="32" placeholder="Email option" class="form-control">
+                        maxLength="32" placeholder="Email 선택사항" class="form-control">
                 </div>
-
                 <div class="form-group">
                     <select id="meeting_role" class="sdk-select">
                         <option value=0>회의참석자</option>

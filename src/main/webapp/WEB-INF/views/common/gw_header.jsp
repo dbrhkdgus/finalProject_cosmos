@@ -188,7 +188,7 @@
       <li class="mb-1">
       	<div class="d-flex justify-content-between align-items-center">
 	        <button id="selectAllZoomRoomList" class="btn btn-toggle align-items-center rounded collapsed" data-group-no="${currGroupNo}" data-bs-toggle="collapse" data-bs-target="#v-chatting-collapse" aria-expanded="false">
-	          음성 채널
+	          화상 채널
 	        </button>
 	        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
 				  <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
@@ -343,7 +343,7 @@
 					let html = `<li><a href="${pageContext.request.contextPath}/gw/voiceChat/zoomConnecting.do?roomNo=\${v.roomNo}" onclick="window.open(this.href, '\${v.roomName}','width=980,height=600'); return false;" class='link-dark rounded'>\${v.roomName}</a></li>`
 					$Chatli.append(html);
 				});
-				let html = `<li><a href='${pageContext.request.contextPath}/gw/voiceChat/voiceChatAdd.do?groupNo=${v.groupNo}' class='link-dark rounded'>채널 추가</a></li>`
+				let html = `<li><a href='${pageContext.request.contextPath}/gw/voiceChat/voiceChatAdd.do?groupNo=${currGroupNo}' class='link-dark rounded'>채널 추가</a></li>`
 					$Chatli.append(html);
 				$("#voiceChat").html($Chatli);
 			},

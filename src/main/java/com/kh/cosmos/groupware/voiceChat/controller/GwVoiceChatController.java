@@ -64,7 +64,8 @@ public class GwVoiceChatController {
 	}
 	
 	@GetMapping("/voiceChatAdd.do")
-	public String voiceChatAdd() {
+	public String voiceChatAdd(@RequestParam(value="groupNo", defaultValue="0") int groupNo, Model model) {
+		log.debug("groupNo = {}",groupNo);
 		return "/gw/voiceChat/voiceChatAdd";
 	}
 	@ResponseBody
