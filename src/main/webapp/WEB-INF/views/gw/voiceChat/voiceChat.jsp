@@ -36,11 +36,11 @@ body{width: none !important;height: none !important;}
                         placeholder="Name" class="form-control" required>
                 </div>
                 <div class="form-group">
-                    <input type="text" name="meeting_number2" id="meeting_number2" value='${roomInfo.zoomId }' maxLength="200"
+                    <input type="text" name="meeting_number2" id="meeting_number" value='${roomInfo.zoomId }' maxLength="200"
                         style="width:150px" placeholder="" class="form-control" required>
                 </div>
                 <div class="form-group">
-                    <input type="text" name="meeting_pwd2" id="meeting_pwd2" value='${roomInfo.zoomPassword }' style="width:150px"
+                    <input type="text" name="meeting_pwd2" id="meeting_pwd" value='${roomInfo.zoomPassword }' style="width:150px"
                         maxLength="32" placeholder="" class="form-control">
                 </div>
                 <div class="form-group">
@@ -109,6 +109,13 @@ window.addEventListener('DOMContentLoaded', function(event) {
 	  var API_KEY = "ua1hutGgSeqC1Uo8PdTjwQ";
 	  var API_SECRET = "9TATzljhOhPC1nT6guYaJvVBg87lYgfNYsQN";
 
+	  document.getElementById("display_name").value =
+		    "CDN" +
+		    ZoomMtg.getJSSDKVersion()[0] +
+		    testTool.detectOS() +
+		    "#" +
+		    testTool.getBrowserInfo();
+	  
 	  document
 	    .getElementById("meeting_lang")
 	    .addEventListener("change", function (e) {
@@ -132,8 +139,6 @@ window.addEventListener('DOMContentLoaded', function(event) {
 	        alert("Meeting number or username is empty");
 	        return false;
 	      }
-
-	      
 	      testTool.setCookie("meeting_number", meetingConfig.mn);
 	      testTool.setCookie("meeting_pwd", meetingConfig.pwd);
 
