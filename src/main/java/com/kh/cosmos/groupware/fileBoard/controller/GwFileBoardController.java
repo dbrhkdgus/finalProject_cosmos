@@ -30,9 +30,11 @@ public class GwFileBoardController {
 	private GroupwareService gwService;
 	
     @GetMapping("/fileBoard.do")
-    public void fileBoard(Model model,@RequestParam int groupNo) {
+    public void fileBoard(Model model,@RequestParam int groupNo,@RequestParam int boardNo) {
         log.debug("groupNo={}", groupNo);
+        log.debug("boardNo={}", boardNo);
         model.addAttribute("currGroupNo", groupNo);
+        model.addAttribute("boardNo", boardNo);
     }
     
     @GetMapping("/fileEnroll.do")
@@ -41,14 +43,16 @@ public class GwFileBoardController {
     }
     
     @PostMapping("/fileEnroll.do")
-    public String fileEnroll(FileEnroll fileEnroll) {
+    public String fileEnroll(FileEnroll fileEnroll,@RequestParam int groupNo,@RequestParam int boardNo) {
     	log.debug("fileEnrolll ={}" ,fileEnroll );
+    	log.debug("boardNo ={}" ,boardNo );
     	
     	Attachment attachment = new Attachment();
     	
         
         
-    	return "fileBoard/fileEnroll";
+        return "redirect:/gw/fileBoard/fileBoard.do?boardNo="+boardNo+"&groupNo="+groupNo;
+
     }
 
     public void groupwareHeaderSet(int groupNo, Model model, Authentication auth) {
