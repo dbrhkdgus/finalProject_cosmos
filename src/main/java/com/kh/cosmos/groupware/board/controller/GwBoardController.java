@@ -47,6 +47,8 @@ public class GwBoardController {
 		List<Post> boardPostList = boardService.selectAllPostInBoard(boardNo);
 		log.debug("boardPostList = {}", boardPostList);
 		model.addAttribute("boardPostList", boardPostList);
+		model.addAttribute("boardNo", boardNo);
+		model.addAttribute("groupNo", groupNo);
 		model.addAttribute("title", "abcde");
 		
 		
@@ -63,21 +65,21 @@ public class GwBoardController {
 		List<Post> noticePostList = boardService.selectAllPostInNotice(boardNo);
 		log.debug("noticePostList = {}", noticePostList);
 		model.addAttribute("noticePostList", noticePostList);
-		model.addAttribute("boardNo", boardNo);
-		
 		
 		return "gw/board/notice";
 	}
 	
 	@GetMapping("/noticeFrm.do")
-	public String noticeFrm(int boardNo, Model model) {
+	public String noticeFrm() {
 		
 		return "gw/board/noticeFrm";
 	}
 	
-	@PostMapping("/boardFrm.do")
-	public String boardFrm(int boardNo, Model model, HttpServletRequest request) {
-		log.debug("boardNo = {}", boardNo);
+	@GetMapping("/boardFrm.do")
+	public String boardFrm(int boardNo, int groupNo, Model model) {
+		model.addAttribute("boardNo", boardNo);
+    	model.addAttribute("groupNo", groupNo);
+		
 		return "gw/board/boardFrm";
 	}
 	

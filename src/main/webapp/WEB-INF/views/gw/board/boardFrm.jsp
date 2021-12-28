@@ -16,6 +16,7 @@
 <script src="${pageContext.request.contextPath }/resources/js/summernote-ko-KR.js"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/summernote-lite.css">
 
+<div class="workspace-box">
 <div class="groupware-board-enroll-outter">
   <!-- form 안에 에디터를 사용하는 경우 (보통 이경우를 많이 사용하는듯)-->
 <h2 class="text-center mt-3">게시글 작성</h2>
@@ -42,6 +43,7 @@
 	<div class="d-grid gap-2 col-6 mx-auto">
 		<button id="btn-send" class="btn btn-primary" type="button">작성 완료</button>
 	</div>
+</div>
 </div>
   <script>
 
