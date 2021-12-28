@@ -86,6 +86,7 @@ public class GwFileBoardController {
     	Member member = (Member)authentication.getPrincipal();
     	Post post= new Post();    	
     	
+    	
     	post.setMemberId(member.getId());
     	post.setBoardNo(boardNo);
     	post.setPostTitle(fileEnroll.getFileTitle());
@@ -98,6 +99,9 @@ public class GwFileBoardController {
     	board.setGroupNo(groupNo);
     	board.setBoardType('F');
     	
+    	int filePostResult = fileBoardService.insertFilePost(post);
+    	
+    	log.debug("filePostResult = {} " , filePostResult);
     	
     	
     	Attachment attach = new Attachment();
@@ -132,7 +136,13 @@ public class GwFileBoardController {
 			int attachNo =0;
 			 attachNo = fileBoardService.insertFileAttach(attach);
 			
-			log.debug("attachNo ={} ",attachNo);
+			 
+			
+			
+			
+			log.debug("fileEnroll ={} ",fileEnroll);
+			
+//			log.debug("attachNo ={} ",attachNo);
 			
 		} catch (IllegalStateException e) {
 			e.printStackTrace();
