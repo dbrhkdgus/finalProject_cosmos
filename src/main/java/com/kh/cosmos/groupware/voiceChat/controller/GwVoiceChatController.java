@@ -80,6 +80,15 @@ public class GwVoiceChatController {
 	}
 	
 	@ResponseBody
+	@GetMapping(value = "/deleteVoiceChatRoom.do", produces = "application/text; charset=utf8")
+	public String deleteVoiceChatRoom(@RequestParam int roomNo, Model model, Authentication auth) {
+		log.debug("groupNo = {}",roomNo);
+		int result = gwService.deleteVoiceChatRoom(roomNo);
+		String msg = result >= 0 ? "삭제 성공" : "삭제 실패";
+		return msg;
+	}
+	
+	@ResponseBody
 	@GetMapping("/selectAllZoomRoomList.do")
 	public Map<String,Room> selectAllRoomList(int groupNo) {
 		Map<String,Room> map = new HashMap<>();
