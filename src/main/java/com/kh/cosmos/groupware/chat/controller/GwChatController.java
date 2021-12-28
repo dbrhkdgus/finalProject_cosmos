@@ -14,9 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -59,7 +57,7 @@ public class GwChatController {
 				
 			}
 			// 채팅방이 전체 채팅방인 경우, 입장 인원에 대해 chatUser테이블에 인서트
-		}else if(chatRoom.getChatRoomOpenType().equals("all")) {
+		}else if(chatRoom.getChatRoomOpenType().equals("all")) { 
 			if(!chatUserIdList.contains(loginMember.getId())){
 				Map<String, Object> param = new HashMap<String, Object>();
 				param.put("chatAdminNo", chatAdminNo);
@@ -74,8 +72,8 @@ public class GwChatController {
 		
 		groupwareHeaderSet(groupNo, model, auth);
 		
-		
 		List<ChatMessage> messageList = chatService.selectAllMessageFromChatRoomNo(chatRoomNo);
+		model.addAttribute("chatUserList",chatUserList);
 		model.addAttribute("messageList",messageList);
 		model.addAttribute("title", "#"+chatRoom.getChatRoomName());
 		model.addAttribute("chatRoomNo",chatRoomNo);
