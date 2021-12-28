@@ -5,15 +5,14 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <fmt:requestEncoding value="utf-8"/> 
 <jsp:include page="/WEB-INF/views/common/gw_header.jsp">
-	<jsp:param value="" name="title"/>
+	<jsp:param value="공지사항" name="title"/>
 </jsp:include>
 <script>
-function goNoticeEnroll(){
-	location.href = "${pageContext.request.contextPath}/main/noticeEnroll.do";
+function goNoticeFrm(){
+	location.href = "${pageContext.request.contextPath}/gw/board/noticeFrm.do";
 }
 
 </script>
-
  <div class="test-notice-outter">
   <div class="test-board-title-container">
     <div class="test-board-title">
@@ -38,7 +37,7 @@ function goNoticeEnroll(){
     </tbody>
   </table>
   <div class="d-grid gap-2 d-md-flex justify-content-md-end mr-2 ">
-    <button class="btn btn-primary me-md-2" type="button" onclick="goNoticeEnroll();">글쓰기</button>
+    <button class="btn btn-primary me-md-2" type="button" onclick="goNoticeFrm();">글쓰기</button>
   </div>
   <div class="test-board-pagebar">
     

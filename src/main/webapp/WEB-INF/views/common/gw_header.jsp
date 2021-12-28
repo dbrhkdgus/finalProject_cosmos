@@ -142,7 +142,7 @@
       	</div>
         <div class="collapse show" id="board-collapse">
           <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-            <li><a href="${pageContext.request.contextPath }/gw/board/notice.do?groupNo=${currGroupNo}" class="link-dark rounded">공지사항</a></li>
+            <li><a href="${pageContext.request.contextPath }/gw/board/notice.do?boardNo=1&groupNo=${currGroupNo}" class="link-dark rounded">공지사항</a></li>
            	<c:if test="${not empty boardList}">
            		<c:forEach var="boardRoom" items="${boardList}">
            			<c:if test="${fn:contains(boardRoom.boardType, 'B')}">
@@ -365,6 +365,11 @@ $(".modal-member-box").hide();
 		 $(".modal-member-box").hide();
 	 }else{
 		 var $groupNo = ${currGroupNo};
+		 var script = document.createElement("script");
+		 script.innerHTML = `var radioVal = '';
+		 radioVal += $("input[name=memberId]:checked").val();
+		 $("input[name=selectedMemberId]").val(radioVal);`
+		 
 		 $.ajax({
 			url: `${pageContext.request.contextPath}/gw/chat/selectMember.do`,
 			method : "get",
@@ -383,6 +388,8 @@ $(".modal-member-box").hide();
 		              	</div>`);		 				
 
 		 		});
+		 		$(".modal-member-box").append(`<input type="hidden" name="selectedMemberId" value="" />`);
+		 		$(".modal-member-box").append(script);
 		 	},
 		 	error : console.log
 			

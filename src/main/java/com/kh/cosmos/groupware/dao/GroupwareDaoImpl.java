@@ -80,6 +80,12 @@ public class GroupwareDaoImpl implements GroupwareDao {
 		return session.insert("gw.insertVoiceChatRoom",room);
 	}
 
+	@Override
+	public int deleteVoiceChatRoom(int roomNo) {
+		// TODO Auto-generated method stub
+		return session.delete("gw.deleteVoiceChatRoom",roomNo);
+	}
+
 
 
 
