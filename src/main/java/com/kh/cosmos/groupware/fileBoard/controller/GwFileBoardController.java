@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.cosmos.common.CosmosUtils;
 import com.kh.cosmos.common.attachment.model.service.AttachmentService;
@@ -40,7 +41,11 @@ public class GwFileBoardController {
 	
 	@Autowired
 	private GroupwareService gwService ;
+	
+	@Autowired
 	private FileBoardService fileBoardService;
+	
+	@Autowired
 	private AttachmentService attachmentService;
 	
 	@Autowired
@@ -64,8 +69,8 @@ public class GwFileBoardController {
     
     @PostMapping("/fileEnroll.do")
     public String fileEnroll(FileEnroll fileEnroll,@RequestParam int groupNo,@RequestParam int boardNo,
-    		@RequestParam(value="upFile", required=false) MultipartFile upFile,
-    		Authentication authentication)throws IllegalStateException, IOException  {
+    		@RequestParam(value="upFile", required=false) MultipartFile upFile,RedirectAttributes redirectAttr,
+    		Authentication authentication )throws IllegalStateException, IOException  {
 //   	log.debug("fileEnrolll ={}" ,fileEnroll );
 //    	log.debug("boardNo ={}" ,boardNo );
     	
@@ -75,7 +80,7 @@ public class GwFileBoardController {
     	Attachment attach = new Attachment();
     
     	try {
-			String saveDirectory = application.getRealPath("/resources/upFile/fileBoard");
+			String saveDirectory = application.getRealPath("/resources/upFile/fileboard");
 			
 			
 		log.debug("upFile = {}", upFile.getOriginalFilename());
