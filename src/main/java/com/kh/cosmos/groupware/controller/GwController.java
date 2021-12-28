@@ -29,11 +29,11 @@ public class GwController {
 	private GroupwareService gwService;
 	
 	@GetMapping("/gw.do")
-	public String gw(@RequestParam int groupNo, Model model, Authentication auth) {
+	public String gw(@RequestParam int groupNo, @RequestParam(required=false) String msg, Model model, Authentication auth) {
 		Member loginMember = (Member) auth.getPrincipal();
 		Group myGroup = gwService.selectMyGroup(groupNo);
 		List<Member> myGroupMemberList = gwService.selectAllGroupMembers(groupNo);
-		
+		log.debug("msg = {}", msg);
 		
 		
 		List<Group> myGroupList = gwService.selectAllMyGroup(loginMember.getId());
@@ -56,6 +56,9 @@ public class GwController {
 		model.addAttribute("memberProfileRenamedFilenameList", memberProfileRenamedFilenameList);
 		model.addAttribute("groupBannerAttachList", groupBannerAttachList);
 		model.addAttribute("myGroupList", myGroupList);
+		
+		model.addAttribute("msg",msg);
+		
 		model.addAttribute("title", "메인화면");
 		return "gw/gw";
 	}
