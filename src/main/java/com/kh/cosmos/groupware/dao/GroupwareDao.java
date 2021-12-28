@@ -30,6 +30,8 @@ public interface GroupwareDao {
 
 	Room selectRoomInfoByGroupNoAndRoomNo(Map<String, Object> param);
 
+	int insertVoiceChatRoom(Room room);
+
 
 
 	

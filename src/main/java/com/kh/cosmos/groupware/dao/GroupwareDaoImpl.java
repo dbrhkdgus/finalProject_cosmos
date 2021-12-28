@@ -74,6 +74,12 @@ public class GroupwareDaoImpl implements GroupwareDao {
 		return session.selectOne("gw.selectRoomInfoByGroupNoAndRoomNo",param);
 	}
 
+	@Override
+	public int insertVoiceChatRoom(Room room) {
+		// TODO Auto-generated method stub
+		return session.insert("gw.insertVoiceChatRoom",room);
+	}
+
 
 
 

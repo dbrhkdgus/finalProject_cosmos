@@ -29,76 +29,16 @@
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td>01</td>
-        <td>공지사항</td>
-        <td colspan="2">공지사항 테스트</td>
-        <td>홍길동</td>
-        <td>21-12-12</td>
-      </tr>
-      <tr>
-        <td>01</td>
-        <td>공지사항</td>
-        <td colspan="2">공지사항 테스트</td>
-        <td>홍길동</td>
-        <td>21-12-12</td>
-      </tr>
-      <tr>
-        <td>01</td>
-        <td>공지사항</td>
-        <td colspan="2">공지사항 테스트</td>
-        <td>홍길동</td>
-        <td>21-12-12</td>
-      </tr>
-      <tr>
-        <td>01</td>
-        <td>공지사항</td>
-        <td colspan="2">공지사항 테스트</td>
-        <td>홍길동</td>
-        <td>21-12-12</td>
-      </tr>
-      <tr>
-        <td>01</td>
-        <td>공지사항</td>
-        <td colspan="2">공지사항 테스트</td>
-        <td>홍길동</td>
-        <td>21-12-12</td>
-      </tr>
-      <tr>
-        <td>01</td>
-        <td>공지사항</td>
-        <td colspan="2">공지사항 테스트</td>
-        <td>홍길동</td>
-        <td>21-12-12</td>
-      </tr>
-      <tr>
-        <td>01</td>
-        <td>공지사항</td>
-        <td colspan="2">공지사항 테스트</td>
-        <td>홍길동</td>
-        <td>21-12-12</td>
-      </tr>
-      <tr>
-        <td>01</td>
-        <td>공지사항</td>
-        <td colspan="2">공지사항 테스트</td>
-        <td>홍길동</td>
-        <td>21-12-12</td>
-      </tr>
-      <tr>
-        <td>01</td>
-        <td>공지사항</td>
-        <td colspan="2">공지사항 테스트</td>
-        <td>홍길동</td>
-        <td>21-12-12</td>
-      </tr>
-      <tr>
-        <td>01</td>
-        <td>공지사항</td>
-        <td colspan="2">공지사항 테스트</td>
-        <td>홍길동</td>
-        <td>21-12-12</td>
-      </tr>
+    	<c:forEach var="post" items="${boardPostList}" varStatus="vs">
+    		<tr>
+		        <td>${vs.count}</td>
+		        <td>${post.boardCategory}</td>
+		        <td colspan="2">${post.postTitle}</td>
+		        <td>${post.memberId}</td>
+		        <td><fmt:formatDate value="${post.postRegDate}" pattern="yy-MM-dd"/></td>
+		     </tr>
+    	</c:forEach>
+      
       
     </tbody>
    
