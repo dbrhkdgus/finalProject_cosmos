@@ -62,7 +62,7 @@
           <input class="upload-name form-control" value="선택된 파일 없음" disabled="disabled" style="width: 250px;">
           
           <label for="input_file">업로드</label>
-          <input type="file" id="input_file" class="upload-hidden"> 
+          <input type="file" id="input_file" class="upload-hidden" name="upFile" > 
         </div>
       </div>
       
