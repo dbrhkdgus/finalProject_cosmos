@@ -52,7 +52,6 @@
         -moz-user-select: none;
         user-select: none;
       }
-
       @media (min-width: 768px) {
         .bd-placeholder-img-lg {
           font-size: 3.5rem;
@@ -62,8 +61,6 @@
 <c:if test="${not empty msg}">
 <script>
 	alert("${msg}");
-
-
 </script>
 </c:if>
   </head>
@@ -137,9 +134,7 @@
 	        <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#board-collapse" aria-expanded="true">
 	          게시판 채널
 	        </button>
-
 	        <div class="createBoardRoom" style="cursor: pointer;">
-
         	<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
 			  <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
 			</svg>
@@ -270,7 +265,6 @@
     </div>
   </div>
 </div>
-
 <div class="modal fade" id="createChatRoomModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
   aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -318,8 +312,6 @@
     </div>
   </div>
 </div>
-
-
 <div class="modal fade" id="createVoiceChatRoomModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
   aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -367,7 +359,6 @@ $(".modal-member-box").hide();
  $(".createChatRoom").click((e)=>{
 	 $("#createChatRoomModal").modal('show');
  });
-
  $(".close-modal").click((e)=>{
 	 $("#createChatRoomModal").modal('hide');
 	 $("#createBoardRoomModal").modal('hide');
@@ -389,6 +380,7 @@ $(".modal-member-box").hide();
  });
 
 
+
  
  
  $(".btn-createBoardRoom").click((e)=>{
@@ -405,7 +397,6 @@ $(".modal-member-box").hide();
  $(".createVoiceChatRoom").click((e)=>{
 	 $("#createVoiceChatRoomModal").modal('show');
  });
-
  
  $("#gw-logout").click((e)=>{
 	 $("#memberLogoutFrm").submit();
