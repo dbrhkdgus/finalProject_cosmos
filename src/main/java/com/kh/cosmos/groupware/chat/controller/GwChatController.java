@@ -1,9 +1,12 @@
 package com.kh.cosmos.groupware.chat.controller;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -84,11 +87,12 @@ public class GwChatController {
 	public void dm() {}
 	
 	@PostMapping("/createChatRoom.do")
-	public String createChatRoom(ChatRoom chatRoom, String chatRoomOpenType,int groupNo, RedirectAttributes redirectAtt, Authentication auth) {
+	public String createChatRoom(ChatRoom chatRoom, String chatRoomOpenType,int groupNo,HttpServletRequest request, RedirectAttributes redirectAtt, Authentication auth) {
 		log.debug("chatRoom = {}", chatRoom);
 		Member loginMember = (Member) auth.getPrincipal(); 
 		List<Member> myGroupMemberList = gwService.selectAllGroupMembers(groupNo);
 		
+
 		
 		//채팅방 개설
 		int result = chatService.createChatRoom(chatRoom);
@@ -116,6 +120,18 @@ public class GwChatController {
 				result = chatService.insertChatUserByParam(param);
 							
 							
+			}
+		// 전체채팅방이 아닌 경우, 선택된 그룹원만 채팅방의 참여자로 설정한다.
+		}else {
+			String[] selectedMemberId = request.getParameterValues("memberId");
+			List<String> selectedMemberIdList = Arrays.asList(selectedMemberId);
+			
+			for(String id : selectedMemberIdList) {
+				Map<String, Object> param = new HashMap<>();
+				param.put("chatRoomNo", chatRoom.getChatRoomNo());
+				param.put("memberId",id);
+								
+				result = chatService.insertChatUserByParam(param);
 			}
 		}
 

@@ -23,6 +23,8 @@ import com.kh.cosmos.common.CosmosUtils;
 import com.kh.cosmos.common.attachment.model.service.AttachmentService;
 import com.kh.cosmos.common.attachment.model.vo.Attachment;
 import com.kh.cosmos.group.model.vo.Group;
+import com.kh.cosmos.groupware.board.model.vo.Board;
+import com.kh.cosmos.groupware.board.model.vo.Post;
 import com.kh.cosmos.groupware.chat.model.vo.ChatRoom;
 import com.kh.cosmos.groupware.fileBoard.model.service.FileBoardService;
 import com.kh.cosmos.groupware.fileBoard.vo.FileEnroll;
@@ -53,14 +55,19 @@ public class GwFileBoardController {
 	
 
     @GetMapping("/fileBoard.do")
-    public void fileBoard(Model model,@RequestParam int groupNo,@RequestParam int boardNo) {
+    public String fileBoard(Model model,@RequestParam int groupNo,@RequestParam int boardNo,Authentication authentication) {
+    	groupwareHeaderSet(groupNo, model, authentication);
     	model.addAttribute("groupNo", groupNo);
         model.addAttribute("boardNo", boardNo);
+        model.addAttribute("title", "파일게시판");
+        
+    	
+        return "gw/fileBoard/fileBoard";
     }
     
     @GetMapping("/fileEnroll.do")
-
-    public void fileEnroll(@RequestParam int groupNo,@RequestParam int boardNo, Model model) {
+    public void fileEnroll(@RequestParam int groupNo,@RequestParam int boardNo, Model model ) {
+    	
     	model.addAttribute("boardNo", boardNo);
     	model.addAttribute("groupNo", groupNo);
 
@@ -70,12 +77,28 @@ public class GwFileBoardController {
     @PostMapping("/fileEnroll.do")
     public String fileEnroll(FileEnroll fileEnroll,@RequestParam int groupNo,@RequestParam int boardNo,
     		@RequestParam(value="upFile", required=false) MultipartFile upFile,RedirectAttributes redirectAttr,
-    		Authentication authentication )throws IllegalStateException, IOException  {
+    		Authentication authentication)throws IllegalStateException, IOException  {
+    	
 //   	log.debug("fileEnrolll ={}" ,fileEnroll );
 //    	log.debug("boardNo ={}" ,boardNo );
-    	
+    
     	
     	Member member = (Member)authentication.getPrincipal();
+    	Post post= new Post();    	
+    	
+    	post.setMemberId(member.getId());
+    	post.setBoardNo(boardNo);
+    	post.setPostTitle(fileEnroll.getFileTitle());
+    	post.setBoardCategoryNo(fileEnroll.getFileCategoryNo());
+    	
+    	log.debug("post = {} " , post);
+    	
+    	Board board = new Board();
+    	board.setBoardNo(boardNo);
+    	board.setGroupNo(groupNo);
+    	board.setBoardType('F');
+    	
+    	
     	
     	Attachment attach = new Attachment();
     
