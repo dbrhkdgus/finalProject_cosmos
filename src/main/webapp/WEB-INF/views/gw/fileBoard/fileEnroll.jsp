@@ -18,7 +18,12 @@
   <div class="groupware-board-detail-outter">
     <h4>파일 업로드</h4>
    
-		<form:form class="file-board-form" >
+		<form
+		class="file-board-form"   
+		enctype="multipart/form-data" 
+		action="${pageContext.request.contextPath}/gw/fileBoard/fileEnroll.do?${_csrf.parameterName}=${_csrf.token}"
+		method="POST" 
+		>
       <div class="form-group row">
 		
 		
@@ -62,7 +67,7 @@
           <input class="upload-name form-control" value="선택된 파일 없음" disabled="disabled" style="width: 250px;">
           
           <label for="input_file">업로드</label>
-          <input type="file" id="input_file" class="upload-hidden"> 
+          <input type="file" id="input_file" class="upload-hidden" name ="upFile"> 
         </div>
       </div>
       
@@ -76,14 +81,15 @@
       <div class="upload-except-img">
         
       </div>
-
+		<input type="hidden" value="${boardNo}" name="boardNo">
+		<input type="hidden" value="${groupNo}" name="groupNo">
       <div class="board-form-buttons">
         <button type="submit" class="btn btn-primary">작성하기</button>
         <button type="submit" class="btn btn-secondary">취소하기</button>
 
       </div>
   </div>
-    </form:form>
+    </form>
 
 </div>
 <script>

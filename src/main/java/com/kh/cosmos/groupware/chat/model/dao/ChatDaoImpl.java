@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.cosmos.groupware.chat.model.vo.ChatMessage;
 import com.kh.cosmos.groupware.chat.model.vo.ChatRoom;
+import com.kh.cosmos.groupware.chat.model.vo.ChatUser;
 
 @Repository
 public class ChatDaoImpl implements ChatDao {
@@ -50,6 +51,25 @@ public class ChatDaoImpl implements ChatDao {
 		// TODO Auto-generated method stub
 		return session.insert("chat.insertChatUserByParam", param);
 	}
+
+	@Override
+	public List<ChatUser> selectChatUserList(int chatRoomNo) {
+		// TODO Auto-generated method stub
+		return session.selectList("chat.selectChatUserList", chatRoomNo);
+	}
+
+	@Override
+	public List<String> selectChatUserIdList(int chatRoomNo) {
+		// TODO Auto-generated method stub
+		return session.selectList("chat.selectChatUserIdList", chatRoomNo);
+	}
+
+	@Override
+	public int insertChatUserByParamWithAdminNo(Map<String, Object> param) {
+		// TODO Auto-generated method stub
+		return session.insert("chat.insertChatUserByParamWithAdminNo", param);
+	}
+	
 	
 	
 }

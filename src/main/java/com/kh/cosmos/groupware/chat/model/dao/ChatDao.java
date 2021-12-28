@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.kh.cosmos.groupware.chat.model.vo.ChatMessage;
 import com.kh.cosmos.groupware.chat.model.vo.ChatRoom;
+import com.kh.cosmos.groupware.chat.model.vo.ChatUser;
 
 public interface ChatDao {
 
@@ -19,5 +20,11 @@ public interface ChatDao {
 	int insertChatAdminByParam(Map<String, Object> param);
 
 	int insertChatUserByParam(Map<String, Object> param);
+
+	List<ChatUser> selectChatUserList(int chatRoomNo);
+
+	List<String> selectChatUserIdList(int chatRoomNo);
+
+	int insertChatUserByParamWithAdminNo(Map<String, Object> param);
 
 }
