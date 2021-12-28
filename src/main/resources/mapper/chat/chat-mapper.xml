@@ -4,7 +4,13 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="chat">
   <insert id="createChatRoom">
-  insert into chat_room values(seq_chat_room_no.nextval, #{chatRoomName}, 'Y', 'N', sysdate, sysdate, #{groupNo})
+  insert into chat_room values(seq_chat_room_no.nextval, #{chatRoomName}, 'Y', 'N', sysdate, sysdate, #{groupNo}, #{chatRoomOpenType})
+	  <selectKey keyProperty="chatRoomNo" resultType="_int" order="AFTER">
+					select
+						seq_chat_room_no.currval
+					from
+						dual
+	  </selectKey>
   </insert>
   <select id="selectChatRoomByChatRoomNo" resultType="chatRoom">
   select * from chat_room where chat_room_no = #{chatRoomNo}
@@ -12,4 +18,20 @@
   <select id="selectAllMessageFromChatRoomNo" resultType="chatMessage">
   select * from chat_message where chat_room_no = #{chatRoomNo}
   </select>
+  <select id="selectGroupMasterId" resultType="string">
+  select member_id from applocation_group where group_no = #{groupNo} and role = 'G'
+  </select>
+  <insert id="insertChatAdminByParam">
+  insert into chat_admin values(seq_chat_admin_no.nextval, #{chatRoomNo}, #{memberId})
+  </insert>
+  <insert id="insertChatUserByParam">
+	  <selectKey keyProperty="chatAdminNo"  resultType="_int" order="BEFORE">
+				select
+					seq_chat_admin_no.currval
+				from
+					dual
+	  </selectKey>
+
+  insert into chat_user values(seq_chat_user_no.nextval, #{chatRoomNo}, #{memberId}, #{chatAdminNo})
+  </insert>
 </mapper>
