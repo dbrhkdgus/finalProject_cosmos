@@ -101,6 +101,8 @@ main {
 /* 채팅 css */
 .chat-content {
   padding: 1rem;
+  height: 90%;
+  margin-bottom: 11%;
 }
 .chat-message-box {
   width: 95%;
