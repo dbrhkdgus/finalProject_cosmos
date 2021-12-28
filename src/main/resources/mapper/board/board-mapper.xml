@@ -6,7 +6,17 @@
   <insert id="createBoardRoom">
   	insert into board values(seq_board_no_no.nextval, #{groupNo}, #{boardName}, #{boardType})
   </insert>
-  <select id="selectAllPostInBoard" resultType="post">
-	select * from post where board_no = #{boardNo}
+  <select id="selectAllPostInBoard" resultType="PostWithCategory">
+	select
+	    p.*,
+	    bc.board_category
+	from
+	    post p left join board_category bc
+	        on p.board_category_no = bc.board_category_no 
+	where board_no = #{boardNo}
   </select>
+  
+ <select id="selectAllPostInNotice" resultType="Post">
+  	select * from post where board_no = #{boardNo}
+  </select> 
 </mapper>

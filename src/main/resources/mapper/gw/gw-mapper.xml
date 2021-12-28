@@ -41,6 +41,7 @@ select * from zoom_room where room_no = #{roomNo}
 insert into zoom_room values(seq_zoom_room_no.nextval, #{groupNo}, #{zoomId}, #{zoomPassword},#{roomName}, #{roomAdmin})
 </insert>
 
+
 <delete id="deleteVoiceChatRoom">
 delete from zoom_room where room_no = #{roomNo}
 </delete>
