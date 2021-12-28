@@ -91,7 +91,7 @@
         <div class="groupwear-channel-title">
 
           <h5> ${title }</h5>
-			${msg }
+
         </div>
           
       </div>  

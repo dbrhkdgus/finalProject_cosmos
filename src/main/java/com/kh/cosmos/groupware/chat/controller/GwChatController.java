@@ -39,10 +39,19 @@ public class GwChatController {
 		// 채팅방이 전체 채팅방인 경우(chatRoomOpenType == all), 채팅방에 입장한 사람들은 
 		// 기존 chat_user 테이블에 인서트
 		// 채팅방이 전체 채팅방이 아닌 경우는 리턴처리.
-		Member loginMember = (Member) auth.getPrincipal(); 
-		List<ChatUser> chatUserList = chatService.selectChatUserList(chatRoomNo);
-		for(ChatUser cu : chatUserList) {
-			if(!cu.getMemberId().equals(loginMember.getId())) {
+		ChatRoom chatRoom = chatService.selectChatRoomByChatRoomNo(chatRoomNo);
+		if(!chatRoom.getChatRoomOpenType().equals("all")) {
+				
+			Member loginMember = (Member) auth.getPrincipal(); 
+			List<ChatUser> chatUserList = chatService.selectChatUserList(chatRoomNo);
+			log.debug("chatUserList = {}",chatUserList);
+			boolean flag = false;
+			for(ChatUser cu : chatUserList) {
+				if(cu.getMemberId().equals(loginMember.getId())) {
+					flag = true;
+				}
+			}
+			if(!flag) {
 				redirectAtt.addAttribute("msg", "채팅방 입장 권한이 없습니다.");
 				return "redirect:/gw/gw.do?groupNo="+groupNo;
 			}
@@ -52,7 +61,7 @@ public class GwChatController {
 		
 		groupwareHeaderSet(groupNo, model, auth);
 		
-		ChatRoom chatRoom = chatService.selectChatRoomByChatRoomNo(chatRoomNo);
+		
 		List<ChatMessage> messageList = chatService.selectAllMessageFromChatRoomNo(chatRoomNo);
 		model.addAttribute("messageList",messageList);
 		model.addAttribute("title", "#"+chatRoom.getChatRoomName());
