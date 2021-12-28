@@ -284,8 +284,8 @@
             <div class="md-form mb-5">
               <label  for="defaultForm-email">채팅방 인원을 선택하세요.</label>
               <div class="create-chat-radio-box">
-	              <input type="radio" name="chatMember"  value="all" >전체
-	              <input type="radio" name="chatMember" value="select">선택
+	              <input type="radio" name="chatRoomOpenType"  value="all" >전체
+	              <input type="radio" name="chatRoomOpenType" value="select">선택
               </div>
             </div>
           </div>

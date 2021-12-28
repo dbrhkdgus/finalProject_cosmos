@@ -1,6 +1,7 @@
 package com.kh.cosmos.groupware.chat.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,24 @@ public class ChatDaoImpl implements ChatDao {
 	public List<ChatMessage> selectAllMessageFromChatRoomNo(int chatRoomNo) {
 		// TODO Auto-generated method stub
 		return session.selectList("chat.selectAllMessageFromChatRoomNo", chatRoomNo);
+	}
+
+	@Override
+	public String selectGroupMasterId(int groupNo) {
+		// TODO Auto-generated method stub
+		return session.selectOne("chat.selectGroupMasterId", groupNo);
+	}
+
+	@Override
+	public int insertChatAdminByParam(Map<String, Object> param) {
+		// TODO Auto-generated method stub
+		return session.insert("chat.insertChatAdminByParam", param);
+	}
+
+	@Override
+	public int insertChatUserByParam(Map<String, Object> param) {
+		// TODO Auto-generated method stub
+		return session.insert("chat.insertChatUserByParam", param);
 	}
 	
 	

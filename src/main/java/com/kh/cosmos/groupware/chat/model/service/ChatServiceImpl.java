@@ -1,6 +1,7 @@
 package com.kh.cosmos.groupware.chat.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,6 +31,24 @@ public class ChatServiceImpl implements ChatService {
 	public List<ChatMessage> selectAllMessageFromChatRoomNo(int chatRoomNo) {
 		// TODO Auto-generated method stub
 		return chatDao.selectAllMessageFromChatRoomNo(chatRoomNo);
+	}
+
+	@Override
+	public String selectGroupMasterId(int groupNo) {
+		// TODO Auto-generated method stub
+		return chatDao.selectGroupMasterId(groupNo);
+	}
+
+	@Override
+	public int insertChatAdminByParam(Map<String, Object> param) {
+		// TODO Auto-generated method stub
+		return chatDao.insertChatAdminByParam(param);
+	}
+
+	@Override
+	public int insertChatUserByParam(Map<String, Object> param) {
+		// TODO Auto-generated method stub
+		return chatDao.insertChatUserByParam(param);
 	}
 	
 	
