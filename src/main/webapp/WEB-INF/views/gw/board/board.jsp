@@ -7,6 +7,13 @@
 <jsp:include page="/WEB-INF/views/common/gw_header.jsp">
 	<jsp:param value="" name="title"/>
 </jsp:include>
+<script>
+function goBoardEnroll(){
+	location.href = "${pageContext.request.contextPath}/gw/board/boardEnroll.do";
+}
+
+</script>
+
 		 <div class="test-board-outter">
   <div class="test-board-title-container">
     <div class="test-board-title">
@@ -45,7 +52,7 @@
     
   </table>
   <div class="d-grid gap-2 d-md-flex justify-content-md-end mr-2 ">
-    <button class="btn btn-primary me-md-2" type="button">글쓰기</button>
+    <button class="btn btn-primary me-md-2" type="button" onclick="goBoardEnroll();">글쓰기</button>
   </div>
   <div class="test-board-pagebar">
     
