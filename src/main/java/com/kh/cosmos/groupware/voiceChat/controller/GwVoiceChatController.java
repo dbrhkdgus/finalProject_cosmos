@@ -40,7 +40,7 @@ public class GwVoiceChatController {
 	
 	@GetMapping("/zoomConnecting.do")
 	public String zoomConnecting(@RequestParam(value="roomNo", defaultValue="0") int roomNo, @RequestParam(value="display_name", defaultValue="null") String display_name, Model model, Authentication auth) {
-		if(display_name == "null") {	
+		if(display_name.equals("null")) {	
 		Map<String,Object> param = new HashMap<>();
 		log.debug("roomNo = {}",roomNo);
 		param.put("roomNo", roomNo);
@@ -54,7 +54,10 @@ public class GwVoiceChatController {
 			return "/gw/voiceChat/meeting";
 		}
 	}
-	
+	@GetMapping("/meeting.do")
+	public String zoomConnecting() {
+		return "/gw/voiceChat/meeting";
+	}
 	@ResponseBody
 	@GetMapping("/selectAllZoomRoomList.do")
 	public Map<String,Room> selectAllRoomList(int groupNo) {
