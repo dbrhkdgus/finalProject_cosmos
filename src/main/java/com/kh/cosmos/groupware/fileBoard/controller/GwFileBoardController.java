@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.cosmos.common.CosmosUtils;
 import com.kh.cosmos.common.attachment.model.service.AttachmentService;
@@ -40,7 +41,7 @@ public class GwFileBoardController {
 	
 	@Autowired
 	private GroupwareService gwService ;
-
+	
 	@Autowired
 	private FileBoardService fileBoardService;
 
@@ -50,6 +51,7 @@ public class GwFileBoardController {
 	@Autowired
 	ResourceLoader resourceLoader;
 	
+
     @GetMapping("/fileBoard.do")
     public void fileBoard(Model model,@RequestParam int groupNo,@RequestParam int boardNo) {
     	model.addAttribute("groupNo", groupNo);
@@ -57,16 +59,18 @@ public class GwFileBoardController {
     }
     
     @GetMapping("/fileEnroll.do")
+
     public void fileEnroll(@RequestParam int groupNo,@RequestParam int boardNo, Model model) {
     	model.addAttribute("boardNo", boardNo);
     	model.addAttribute("groupNo", groupNo);
+
         
     }
     
     @PostMapping("/fileEnroll.do")
     public String fileEnroll(FileEnroll fileEnroll,@RequestParam int groupNo,@RequestParam int boardNo,
-    		@RequestParam(value="upFile", required=false) MultipartFile upFile,
-    		Authentication authentication)throws IllegalStateException, IOException  {
+    		@RequestParam(value="upFile", required=false) MultipartFile upFile,RedirectAttributes redirectAttr,
+    		Authentication authentication )throws IllegalStateException, IOException  {
 //   	log.debug("fileEnrolll ={}" ,fileEnroll );
 //    	log.debug("boardNo ={}" ,boardNo );
     	
@@ -116,6 +120,7 @@ public class GwFileBoardController {
 			
     	
         return "redirect:/gw/fileBoard/fileBoard.do?boardNo="+boardNo+"&groupNo="+groupNo;
+
     }
 
     public void groupwareHeaderSet(int groupNo, Model model, Authentication auth) {

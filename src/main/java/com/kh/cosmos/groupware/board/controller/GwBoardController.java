@@ -36,8 +36,8 @@ public class GwBoardController {
 		int offset = (cPage - 1) * limit;
 		
 		List<Post> boardPostList = boardService.selectAllPostInBoard(boardNo);
-//		log.debug("list = {}", list);
-//		model.addAttribute("list", list);
+		log.debug("boardPostList = {}", boardPostList);
+		model.addAttribute("boardPostList", boardPostList);
 		
 		
 		return "gw/board/board";

@@ -39,25 +39,32 @@ public class GwChatController {
 		// 채팅방이 전체 채팅방인 경우(chatRoomOpenType == all), 채팅방에 입장한 사람들은 
 		// 기존 chat_user 테이블에 인서트
 		// 채팅방이 전체 채팅방이 아닌 경우는 리턴처리.
+		Member loginMember = (Member) auth.getPrincipal(); 
 		ChatRoom chatRoom = chatService.selectChatRoomByChatRoomNo(chatRoomNo);
+		List<ChatUser> chatUserList = chatService.selectChatUserList(chatRoomNo);
+		List<String> chatUserIdList = chatService.selectChatUserIdList(chatRoomNo);
+		int chatAdminNo = (int)chatUserList.get(0).getChatAdminNo();
+		
 		if(!chatRoom.getChatRoomOpenType().equals("all")) {
 				
-			Member loginMember = (Member) auth.getPrincipal(); 
-			List<ChatUser> chatUserList = chatService.selectChatUserList(chatRoomNo);
-			log.debug("chatUserList = {}",chatUserList);
-			boolean flag = false;
-			for(ChatUser cu : chatUserList) {
-				if(cu.getMemberId().equals(loginMember.getId())) {
-					flag = true;
-				}
-			}
-			if(!flag) {
+			if(!chatUserIdList.contains(loginMember.getId())){
 				redirectAtt.addAttribute("msg", "채팅방 입장 권한이 없습니다.");
 				return "redirect:/gw/gw.do?groupNo="+groupNo;
+				
+			}
+			// 채팅방이 전체 채팅방인 경우, 입장 인원에 대해 chatUser테이블에 인서트
+		}else if(chatRoom.getChatRoomOpenType().equals("all")) {
+			if(!chatUserIdList.contains(loginMember.getId())){
+				Map<String, Object> param = new HashMap<String, Object>();
+				param.put("chatAdminNo", chatAdminNo);
+				param.put("chatRoomNo", chatRoomNo);
+				param.put("memberId", loginMember.getId());
+				
+				int result = chatService.insertChatUserByParamWithAdminNo(param);
+				
 			}
 		}
 		
-		// 채팅방이 전체 채팅방인 경우, 입장 인원에 대해 chatUser테이블에 인서트
 		
 		groupwareHeaderSet(groupNo, model, auth);
 		
