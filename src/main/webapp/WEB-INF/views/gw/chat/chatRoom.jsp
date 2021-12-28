@@ -3,10 +3,15 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>	
 <fmt:requestEncoding value="utf-8"/> 
 <jsp:include page="/WEB-INF/views/common/gw_header.jsp">
 	<jsp:param value="" name="title"/>
 </jsp:include>
+<sec:authorize access="isAuthenticated()">
+	<sec:authentication property="principal" var="loginMember"/>
+</sec:authorize>
   <div class="workspace-box" >
     <div class="chat-content">
 
@@ -43,7 +48,7 @@
 		    <div class="chat-input-box">
 		
 		      <div class="chat-txt border-top">
-		        <input type="text" class="form-control" name="chatMessageContent">
+		        <input id="chatMessageContent" type="text" class="form-control" name="chatMessageContent">
 		      </div>
 		      <div class="btn-group">
 		        <i class="fa fa-meh-o" aria-hidden="true"></i>
@@ -59,12 +64,37 @@
 <!-- jquery.form.js  -->
 <script src="http://malsup.github.com/jquery.form.js"></script>
 <script>
-$("#btn-message-send").click((e)=>{
+///chat/chatId
+//1. Stomp Client 객체 생성(websocket)
+
+	const ws = new SockJS(`http://\${location.host}${pageContext.request.contextPath}/stomp`);
+	const stompClient = Stomp.over(ws);
 	
-/* 	$.ajax({
-		url:"${pageContext.request.contextPath}/gw/chat/chatEnroll.do",
+	// 2. 연결요청
+	stompClient.connect({}, (frame) =>{
+		console.log("Stomp Connected : ", frame);
 		
-	}); */
+	// 3. 구독요청
+	stompClient.subscribe(`/chat/${chatRoomNo}`, (chatMessageContent) =>{
+		console.log("chatMessageContent : ", chatMessageContent);
+		const obj = JSON.parse(chatMessageContent.body);
+		console.log(obj);
+		const {memberId, msg} = obj;
+		//$(data).append(`<li class="list-group-item">\${memberId} : \${msg}</li>`);
+	});
+	
+});
+
+$("#btn-message-send").click((e) =>{
+	const obj = {
+		chatRoomNo : "${chatRoomNo}",
+		memberId : "${loginMember.id}",
+		msg : $(chatMessageContent).val(),
+		logTime : Date.now()
+	};
+	
+	stompClient.send("/app/chat/${chatRoomNo}", {}, JSON.stringify(obj));
+	$(chatMessageContent).val(''); // #message 초기화
 });
 </script>
       

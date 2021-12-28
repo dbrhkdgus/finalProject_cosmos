@@ -27,13 +27,16 @@
     
     
     
-  <!-- bootstrap js: jquery load 이후에 작성할것.-->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-
-<!-- bootstrap css -->
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
-
+  	<!-- bootstrap js: jquery load 이후에 작성할것.-->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+	
+	<!-- bootstrap css -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+	<!-- sock.js 라이브러리 추가 -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.2/sockjs.min.js" integrity="sha512-ayb5R/nKQ3fgNrQdYynCti/n+GD0ybAhd3ACExcYvOR2J1o3HebiAe/P0oZDx5qwB+xkxuKG6Nc0AFTsPT/JDQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<!-- stomp.js 라이브러리 추가 -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js" integrity="sha512-iKDtgDyTHjAitUDdLljGhenhPwrbBfqTKWO1mkhSFH3A7blITC9MhYon6SjnMhp4o0rADGw9yAC6EW4t5a4K3g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <!-- include summernote css/js-->
     <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css" rel="stylesheet">
     <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
@@ -142,13 +145,13 @@
            	<c:if test="${not empty boardList}">
            		<c:forEach var="boardRoom" items="${boardList}">
            			<c:if test="${fn:contains(boardRoom.boardType, 'B')}">
-	            		<li><a href="${pageContext.request.contextPath }/gw/board/boardRoom.do?boardRoomNo=${boardRoom.boardNo}&groupNo=${currGroupNo }" class="link-dark rounded">${boardRoom.boardName}</a></li>
+	            		<li><a href="${pageContext.request.contextPath }/gw/board/board.do?boardNo=${boardRoom.boardNo}&groupNo=${currGroupNo }" class="link-dark rounded">${boardRoom.boardName}</a></li>
 	            	</c:if>
 	            	<c:if test="${fn:contains(boardRoom.boardType, 'A')}">
-	            		<li><a href="${pageContext.request.contextPath }/gw/board/boardRoom.do?boardRoomNo=${boardRoom.boardNo}&groupNo=${currGroupNo }" class="link-dark rounded">${boardRoom.boardName}</a></li>
+	            		<li><a href="${pageContext.request.contextPath }/gw/board/anonymous.do?boardNo=${boardRoom.boardNo}&groupNo=${currGroupNo }" class="link-dark rounded">${boardRoom.boardName}</a></li>
 	            	</c:if>
 	            	<c:if test="${fn:contains(boardRoom.boardType, 'F')}">
-	            		<li><a href="${pageContext.request.contextPath }/gw/fileBoard/fileBoard.do?boardRoomNo=${boardRoom.boardNo}&groupNo=${currGroupNo }" class="link-dark rounded">${boardRoom.boardName}</a></li>
+	            		<li><a href="${pageContext.request.contextPath }/gw/fileBoard/fileBoard.do?boardNo=${boardRoom.boardNo}&groupNo=${currGroupNo }" class="link-dark rounded">${boardRoom.boardName}</a></li>
 	            	</c:if>
            		</c:forEach>
             </c:if>	
@@ -184,7 +187,7 @@
       </li>
       <li class="mb-1">
       	<div class="d-flex justify-content-between align-items-center">
-	        <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#v-chatting-collapse" aria-expanded="false">
+	        <button id="selectAllZoomRoomList" class="btn btn-toggle align-items-center rounded collapsed" data-group-no="${currGroupNo}" data-bs-toggle="collapse" data-bs-target="#v-chatting-collapse" aria-expanded="false">
 	          음성 채널
 	        </button>
 	        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
@@ -192,11 +195,9 @@
 			</svg>
 		</div>
         <div class="collapse" id="v-chatting-collapse">
-          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-            <li><a href="#" class="link-dark rounded">라운지</a></li>
-            <li><a href="#" class="link-dark rounded">김길동 작업장</a></li>
-            <li><a href="#" class="link-dark rounded">백길동 작업장</a></li>
-            <li><a href="#" class="link-dark rounded">홍길동 작업장</a></li>
+          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small" id="voiceChat">
+			<%-- <li><a href="${pageContext.request.contextPath }/gw/voiceChat/zoomConnecting.do?groupNo=${currGroupNo}" class="link-dark rounded">ZOOM 접속하기</a></li>
+            <li><a href="${pageContext.request.contextPath }/gw/voiceChat/voiceChatSetting.do?groupNo=${currGroupNo}" class="link-dark rounded">ZOOM 채널 추가하기</a></li> --%>
           </ul>
         </div>
       </li>
@@ -280,6 +281,13 @@
               <label  for="defaultForm-email">채팅방 이름</label>
               <input type="text" name="chatRoomName" class="form-control validate" placeholder="새로운 채팅방">
             </div>
+            <div class="md-form mb-5">
+              <label  for="defaultForm-email">채팅방 인원을 선택하세요.</label>
+              <div class="create-chat-radio-box">
+	              <input type="radio" name="chatMember"  value="all" >전체
+	              <input type="radio" name="chatMember" value="select">선택
+              </div>
+            </div>
           </div>
           <input type="hidden" name="groupNo" value="${currGroupNo }" />
       </form:form>
@@ -317,4 +325,31 @@
  $("#gw-logout").click((e)=>{
 	 $("#memberLogoutFrm").submit();
  });
+ 
+ $("#selectAllZoomRoomList").click((e)=>{
+		let $target = $(e.target);
+		let $groupNo = $target.data("groupNo");
+		
+		$.ajax({
+			url: `${pageContext.request.contextPath}/gw/voiceChat/selectAllZoomRoomList.do`,
+			data: {'groupNo' : $groupNo},
+			type: "GET",
+			contentType: "application/json; charset=utf-8",
+			dataType: "json",
+			success(List){
+				const $Chatli = $(`<ul class="btn-toggle-nav list-unstyled fw-normal pb-1"></ul>`);
+				console.log(List);
+				$.each(List,(k,v)=>{
+					let html = `<li><a href="${pageContext.request.contextPath}/gw/voiceChat/zoomConnecting.do?roomNo=\${v.roomNo}" onclick="window.open(this.href, '\${v.roomName}','width=980,height=600'); return false;" class='link-dark rounded'>\${v.roomName}</a></li>`
+					$Chatli.append(html);
+				});
+				let html = `<li><a href='${pageContext.request.contextPath}/gw/voiceChat/voiceChatSetting.do?groupNo=${v.groupNo}' class='link-dark rounded'>채널 추가</a></li>`
+					$Chatli.append(html);
+				$("#voiceChat").html($Chatli);
+			},
+			error(xhr,textStatus,err){
+				console.log(xhr,textStatus,err);
+			}
+		});
+	}); 
  </script>
