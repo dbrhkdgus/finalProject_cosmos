@@ -19,7 +19,7 @@
       <textarea id="summernote" name="editordata"></textarea>
   </form>
   <div class="d-grid gap-2 col-6 mx-auto">
-      <button class="btn btn-primary" type="button">작성 완료</button>
+      <button class="btn btn-primary" type="submit">작성 완료</button>
   </div>
 </div>
   <script>

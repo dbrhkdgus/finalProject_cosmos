@@ -5,15 +5,14 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <fmt:requestEncoding value="utf-8"/> 
 <jsp:include page="/WEB-INF/views/common/gw_header.jsp">
-	<jsp:param value="" name="title"/>
+	<jsp:param value="공지사항" name="title"/>
 </jsp:include>
 <script>
 function goNoticeEnroll(){
-	location.href = "${pageContext.request.contextPath}/main/noticeEnroll.do";
+	location.href = "${pageContext.request.contextPath}/gw/board/noticeEnroll.do";
 }
 
 </script>
-
  <div class="test-notice-outter">
   <div class="test-board-title-container">
     <div class="test-board-title">
