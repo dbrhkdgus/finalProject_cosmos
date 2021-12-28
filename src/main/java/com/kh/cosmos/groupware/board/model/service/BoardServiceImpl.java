@@ -27,5 +27,11 @@ public class BoardServiceImpl implements BoardService {
 		return boardDao.selectAllPostInBoard(boardNo);
 	}
 
+	@Override
+	public List<Post> selectAllPostInNotice(int boardNo) {
+		// TODO Auto-generated method stub
+		return  boardDao.selectAllPostInNotice(boardNo);
+	}
+
 	
 }
