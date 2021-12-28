@@ -365,6 +365,11 @@ $(".modal-member-box").hide();
 		 $(".modal-member-box").hide();
 	 }else{
 		 var $groupNo = ${currGroupNo};
+		 var script = document.createElement("script");
+		 script.innerHTML = `var radioVal = '';
+		 radioVal += $("input[name=memberId]:checked").val();
+		 $("input[name=selectedMemberId]").val(radioVal);`
+		 
 		 $.ajax({
 			url: `${pageContext.request.contextPath}/gw/chat/selectMember.do`,
 			method : "get",
@@ -383,6 +388,8 @@ $(".modal-member-box").hide();
 		              	</div>`);		 				
 
 		 		});
+		 		$(".modal-member-box").append(`<input type="hidden" name="selectedMemberId" value="" />`);
+		 		$(".modal-member-box").append(script);
 		 	},
 		 	error : console.log
 			
