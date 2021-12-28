@@ -34,4 +34,7 @@
 
   insert into chat_user values(seq_chat_user_no.nextval, #{chatRoomNo}, #{memberId}, #{chatAdminNo})
   </insert>
+  <select id="selectChatUserList" resultType="chatUser">
+  select * from chat_user where chat_room_no = #{chatRoomNo}
+  </select>
 </mapper>
