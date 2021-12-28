@@ -20,13 +20,22 @@
 <div class="groupware-board-enroll-outter">
   <!-- form 안에 에디터를 사용하는 경우 (보통 이경우를 많이 사용하는듯)-->
 <h2 class="text-center mt-3">게시글 작성</h2>
+<p>${boardNo}</p>
 <div class="container">
-  <form name="boardFrm" action="${pageContext.request.contextPath }/gw/board/boardEnroll.do?${_csrf.parameterName}=${_csrf.token}" method="post" enctype="multipart/form-data">
+  
+  <form
+		name="boardFrm"   
+		enctype="multipart/form-data" 
+		action="${pageContext.request.contextPath }/gw/board/boardEnroll.do?${_csrf.parameterName}=${_csrf.token}" method="post"
+		method="POST" 
+		>
 		<div class="input-group mb-3 mx-auto">
 			<span class="input-group-text" id="inputGroup-sizing-default">제목</span>
 			<input id="title" name="postTitle" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="제목을 입력해 주세요.">
 			<input type="hidden" name="memberId" value="${member.id }" />
 			<input type="hidden" name="memberName" value="${member.memberName }" />
+			<input type="hidden" name="boardNo" value="${boardNo}" />
+			<%-- <input type="hidden" name="groupNo" value="${groupNo}"/> --%>
 		</div>
 		<textarea id="summernote" name="postContent"></textarea>
 		<div class="input-group mb-3" style="padding:0px; padding-top: 5px;">

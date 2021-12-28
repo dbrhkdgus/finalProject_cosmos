@@ -20,7 +20,6 @@
     <thead>
       <tr>
         <th>No</th>
-        <th>카테고리</th>
         <th colspan="2">제목</th>
         <th>작성자</th>
         <th>날짜</th>
@@ -30,7 +29,6 @@
     	<c:forEach var="post" items="${boardPostList}" varStatus="vs">
     		<tr>
 		        <td>${vs.count}</td>
-		        <td>${post.boardCategory}</td>
 		        <td colspan="2">${post.postTitle}</td>
 		        <td>${post.memberId}</td>
 		        <td><fmt:formatDate value="${post.postRegDate}" pattern="yy-MM-dd"/></td>
@@ -43,7 +41,7 @@
     
   </table>
   <div class="d-grid gap-2 d-md-flex justify-content-md-end mr-2 ">
-  	<a href="${pageContext.request.contextPath}/gw/board/boardFrm.do?boardNo=${boardNo}&groupNo=${groupNo} ">
+  	<a href="${pageContext.request.contextPath}/gw/board/boardEnroll.do?boardNo=${boardNo}&groupNo=${groupNo} ">
 	    <button class="btn btn-primary me-md-2" type="button">글쓰기</button>
   	</a>
   </div>

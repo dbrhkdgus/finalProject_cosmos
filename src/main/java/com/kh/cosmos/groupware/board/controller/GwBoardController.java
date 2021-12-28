@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.cosmos.common.attachment.model.vo.Attachment;
@@ -76,7 +77,7 @@ public class GwBoardController {
 	}
 	
 	@GetMapping("/boardEnroll.do")
-	public void boardEnroll(int boardNo, int groupNo, Model model) {
+	public void boardEnroll(@RequestParam int boardNo, @RequestParam int groupNo, Model model) {
 		
 		model.addAttribute("boardNo", boardNo);
     	model.addAttribute("groupNo", groupNo);
@@ -84,19 +85,20 @@ public class GwBoardController {
 	}
 	
 	@PostMapping("/boardEnroll.do")
-	public String boardEnroll(Post post){
+	public String boardEnroll(Post post, @RequestParam int boardNo, @RequestParam int groupNo,
+			@RequestParam(value="upFile", required=false) MultipartFile upFile,RedirectAttributes redirectAttr,
+    		Authentication authentication) {
 		log.debug("post = {}", post);
-		
+		log.debug("boardNo = {}", boardNo);
 		String memberId = post.getMemberId();
 		log.debug("memberId = {}", post.getMemberId());
 		
 		int result = boardService.insertPost(post);
 		
 		
-		return "redirect:/gw/board/board.do";
-	
-		
+		return "redirect:/gw/board/board.do?boardNo="+boardNo+"&groupNo="+groupNo;
 	}
+
 	@GetMapping("/boardDetail.do")
 	public void boardDetail() {}
 	
