@@ -25,5 +25,6 @@ public class ChatRoom implements Serializable {
 	private Date chatRegDate;
 	private Date chatUpdate;
 	private int groupNo;
+	private String chatRoomOpenType;
 
 }
