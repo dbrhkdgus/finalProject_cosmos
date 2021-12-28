@@ -40,7 +40,11 @@ public class GwFileBoardController {
 	
 	@Autowired
 	private GroupwareService gwService ;
+
+	@Autowired
 	private FileBoardService fileBoardService;
+
+	@Autowired
 	private AttachmentService attachmentService;
 	
 	@Autowired
@@ -72,10 +76,10 @@ public class GwFileBoardController {
     	Attachment attach = new Attachment();
     
     	try {
-			String saveDirectory = application.getRealPath("/resources/upFile/fileBoard");
+			String saveDirectory = application.getRealPath("/resources/upFile/fileboard");
 			
 			
-		log.debug("upFile = {}", upFile.getOriginalFilename());
+		log.debug("saveDirectory = {}", saveDirectory);
 //		log.debug("upFile.name = {}", upFile.getOriginalFilename());
 //		log.debug("upFile.size = {}", upFile.getSize());
 //		
@@ -97,8 +101,9 @@ public class GwFileBoardController {
 			
 //			int result = gwFileService.insertGroup(fileEnroll);
 			
-			
-			int attachNo = fileBoardService.insertFileAttach(attach);
+			log.debug("attach ={} ",attach);
+			int attachNo =0;
+			 attachNo = fileBoardService.insertFileAttach(attach);
 			
 			log.debug("attachNo ={} ",attachNo);
 			
