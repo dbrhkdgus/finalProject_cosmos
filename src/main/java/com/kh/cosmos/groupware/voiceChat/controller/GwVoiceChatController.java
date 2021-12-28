@@ -5,18 +5,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.View;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.cosmos.common.attachment.model.vo.Attachment;
 import com.kh.cosmos.group.model.vo.Group;
@@ -63,11 +61,23 @@ public class GwVoiceChatController {
 		return "/gw/voiceChat/Close";
 	}
 	
-	@GetMapping("/voiceChatAdd.do")
-	public String voiceChatAdd(@RequestParam(value="groupNo", defaultValue="0") int groupNo, Model model) {
+	@GetMapping("/voiceChatEdit.do")
+	public String voiceChatEdit(@RequestParam(value="groupNo", defaultValue="0") int groupNo, Model model, Authentication auth) {
+		groupwareHeaderSet(groupNo, model, auth);
 		log.debug("groupNo = {}",groupNo);
-		return "/gw/voiceChat/voiceChatAdd";
+		model.addAttribute("groupNo", groupNo);
+		return "/gw/voiceChat/voiceChatEdit";
 	}
+	
+	@PostMapping("/roomEnroll.do")
+	public String voiceChatAdd(Room room, Model model, RedirectAttributes redirectAtt, Authentication auth) {
+		log.debug("room = {}",room);
+		int result = gwService.insertVoiceChatRoom(room);
+		
+		redirectAtt.addAttribute("groupNo", room.getGroupNo());
+		return "redirect:/gw/gw.do";
+	}
+	
 	@ResponseBody
 	@GetMapping("/selectAllZoomRoomList.do")
 	public Map<String,Room> selectAllRoomList(int groupNo) {
