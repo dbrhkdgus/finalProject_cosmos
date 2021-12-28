@@ -53,7 +53,6 @@ body{width: none !important;height: none !important;}
                     <select id="meeting_role" class="sdk-select">
                         <option value=0>회의참석자</option>
                         <option value=1>회의주최자</option>
-                        <option value=5>회의보조</option>
                     </select>
                 </div>
                 <div class="form-group">
