@@ -48,7 +48,7 @@ public class GwFileBoardController {
     	
         
         
-        return "/fileBoard";
+    	return "fileBoard/fileEnroll";
     }
 
     public void groupwareHeaderSet(int groupNo, Model model, Authentication auth) {
