@@ -352,6 +352,7 @@
  <script>
 /* modal 제어 */
 $(".modal-member-box").hide();
+
  $(".btn-createChatRoom").click((e)=>{
 	 $(document.createChatRoomFrm).submit();
  });
@@ -363,6 +364,7 @@ $(".modal-member-box").hide();
 	 $("#createBoardRoomModal").modal('hide');
 	 $("#createVoiceChatRoomModal").modal('hide');
  });
+
  $("input[name=chatRoomOpenType]").change((e)=>{
 	 console.log("click");
 	 var val = $("input[name=chatRoomOpenType]:checked").val();
@@ -376,6 +378,9 @@ $(".modal-member-box").hide();
 	 }
 	 
  });
+
+
+
  
  
  $(".btn-createBoardRoom").click((e)=>{
