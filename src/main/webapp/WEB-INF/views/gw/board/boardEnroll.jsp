@@ -35,7 +35,7 @@
 			<input type="hidden" name="memberId" value="${member.id }" />
 			<input type="hidden" name="memberName" value="${member.memberName }" />
 			<input type="hidden" name="boardNo" value="${boardNo}" />
-			<%-- <input type="hidden" name="groupNo" value="${groupNo}"/> --%>
+			<input type="hidden" name="groupNo" value="${groupNo}"/>
 		</div>
 		<textarea id="summernote" name="postContent"></textarea>
 		<div class="input-group mb-3" style="padding:0px; padding-top: 5px;">
