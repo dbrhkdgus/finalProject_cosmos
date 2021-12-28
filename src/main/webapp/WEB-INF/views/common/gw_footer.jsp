@@ -32,47 +32,18 @@
 
       </div>
     </div> 
-<%-- <div class="modal fade" id="gw-DM-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-  aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">채팅방 개설하기</h4>
-        <button type="button" class="close close-modal" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <form:form name="createChatRoomFrm" method="post" action="${pageContext.request.contextPath }/gw/chat/createChatRoom.do">
-          <div class="modal-body mx-3">
-            <div class="md-form mb-5">
-              <label  for="defaultForm-email">채팅방 이름</label>
-              <input type="text" name="chatRoomName" class="form-control validate" placeholder="새로운 채팅방">
-            </div>
-            <div class="md-form mb-5">
-              <label  for="defaultForm-email">채팅방 인원을 선택하세요.</label>
-              <div class="create-chat-radio-box mb-3">
-	              <input type="radio" name="chatRoomOpenType"  value="all" >전체
-	              <input type="radio" name="chatRoomOpenType" value="select">선택
-              </div>
-              <div class="modal-member-box" style="border: 1px solid black; ">
-              </div>
-            </div>
-          </div>
-          <input type="hidden" name="groupNo" value="${currGroupNo }" />
-      </form:form>
-      <div class="modal-footer d-flex justify-content-center">
-        <button class="btn btn-createChatRoom">개설</button>
-        <button class="btn close-modal">취소</button>
-      </div>
-    </div>
-  </div>
-</div> --%>
+
   </section>
 </main>
 <script>
-$("#gw-DM-modal").hide();
+/* DM modal 제어 */
 $(".btn-profile").click((e)=>{
-	$("#gw-DM-modal").show();
+	console.log("click");
+	 $("#gwDMModal").modal('show');
+});
+$(".close-modal").click((e)=>{
+	 $("#gwDMModal").modal('hide');
+
 });
 </script>
   </body>
