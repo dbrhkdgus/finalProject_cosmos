@@ -10,6 +10,6 @@
   select * from chat_room where chat_room_no = #{chatRoomNo}
   </select>
   <select id="selectAllMessageFromChatRoomNo" resultType="chatMessage">
-  select * from chat_message where chat_room_no = #{chatRoomNo} order by chat_message_at
+  select * from chat_message where chat_room_no = #{chatRoomNo}
   </select>
 </mapper>

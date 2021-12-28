@@ -40,6 +40,7 @@ public class GwChatController {
 		List<ChatMessage> messageList = chatService.selectAllMessageFromChatRoomNo(chatRoomNo);
 		model.addAttribute("messageList",messageList);
 		model.addAttribute("title", "#"+chatRoom.getChatRoomName());
+		model.addAttribute("chatRoomNo",chatRoomNo);
 	}
 	
 	@GetMapping("/dm.do")
