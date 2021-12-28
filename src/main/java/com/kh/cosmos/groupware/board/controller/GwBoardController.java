@@ -1,5 +1,7 @@
 package com.kh.cosmos.groupware.board.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,12 +13,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.cosmos.common.CosmosUtils;
+import com.kh.cosmos.common.attachment.model.vo.Attachment;
 import com.kh.cosmos.groupware.board.model.service.BoardService;
 import com.kh.cosmos.groupware.board.model.vo.Board;
 import com.kh.cosmos.groupware.board.model.vo.Post;
+import com.kh.cosmos.main.model.vo.Notice;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -58,20 +63,26 @@ public class GwBoardController {
 		return "gw/board/notice";
 	}
 	
-	@GetMapping("/noticeEnroll.do")
-	public String noticeEnroll() {
+	@GetMapping("/noticeFrm.do")
+	public String noticeFrm() {
 		
-		return "gw/board/noticeEnroll";
+		return "gw/board/noticeFrm";
 	}
 	
-	
-	@GetMapping("/boardEnroll.do")
-	public String boardEnroll() {
+	@GetMapping("/boardFrm.do")
+	public String boardFrm() {
 		
-		return "gw/board/boardEnroll";
+		return "gw/board/boardFrm";
 	}
 	
+	@PostMapping("/boardEnroll.do")
+	public String boardEnroll(){
+		
+		
+		return "redirect:/gw/board/board.do";
 	
+		
+	}
 	@GetMapping("/boardDetail.do")
 	public void boardDetail() {}
 	
