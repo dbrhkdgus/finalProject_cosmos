@@ -8,8 +8,8 @@
 	<jsp:param value="공지사항" name="title"/>
 </jsp:include>
 <script>
-function goNoticeEnroll(){
-	location.href = "${pageContext.request.contextPath}/gw/board/noticeEnroll.do";
+function goNoticeFrm(){
+	location.href = "${pageContext.request.contextPath}/gw/board/noticeFrm.do";
 }
 
 </script>
@@ -37,7 +37,7 @@ function goNoticeEnroll(){
     </tbody>
   </table>
   <div class="d-grid gap-2 d-md-flex justify-content-md-end mr-2 ">
-    <button class="btn btn-primary me-md-2" type="button" onclick="goNoticeEnroll();">글쓰기</button>
+    <button class="btn btn-primary me-md-2" type="button" onclick="goNoticeFrm();">글쓰기</button>
   </div>
   <div class="test-board-pagebar">
     
