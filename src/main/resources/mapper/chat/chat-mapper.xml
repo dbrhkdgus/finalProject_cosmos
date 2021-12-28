@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="chat">
   <insert id="createChatRoom">
-  insert into chat_room values(seq_chat_room_no.nextval, #{chatRoomName}, 'Y', 'N', sysdate, sysdate, #{groupNo}, #{chatRoomOpenType})
+  insert into chat_room values(seq_chat_room_no.nextval, #{chatRoomName}, 'Y', 'N', default, default, #{groupNo}, #{chatRoomOpenType})
 	  <selectKey keyProperty="chatRoomNo" resultType="_int" order="AFTER">
 					select
 						seq_chat_room_no.currval
@@ -16,7 +16,7 @@
   select * from chat_room where chat_room_no = #{chatRoomNo}
   </select>
   <select id="selectAllMessageFromChatRoomNo" resultType="chatMessage">
-  select * from chat_message where chat_room_no = #{chatRoomNo}
+  select * from chat_message where chat_room_no = #{chatRoomNo} order by "CHAT_MESSAGE_At"
   </select>
   <select id="selectGroupMasterId" resultType="string">
   select member_id from applocation_group where group_no = #{groupNo} and role = 'G'
@@ -39,7 +39,14 @@
   	#{chatAdminNo})
   </insert>
   <select id="selectChatUserList" resultType="chatUser">
-  select * from chat_user where chat_room_no = #{chatRoomNo}
+  select 
+    u.*, 
+    m.member_name,
+    a.renamed_filename
+  from 
+    chat_user u join tb_member m on u.member_id = m.id 
+    join (select * from attachment where img_flag = 'P') a on a.member_id = m.id
+  where chat_room_no = #{chatRoomNo}
   </select>
   
   <select id="selectChatUserIdList" resultType="string">
@@ -53,4 +60,17 @@
   	#{memberId}, 
   	#{chatAdminNo})
   </insert>
+  
+  <select id="selectChatUserNoByMemberId" resultType="_int">
+  select chat_user_no from chat_user where member_id = #{id} and chat_room_no = #{chatRoomNo}
+  </select>
+  
+  <insert id="insertChatMessage">
+  insert into chat_message values(seq_chat_message_no.nextval, #{chatRoomNo}, #{chatUserNo}, #{chatMessageContent}, default, #{chatMessageTypeNo}, null)
+  </insert>
+  
+  <select id="selectMemberNameByMemberId" resultType="string">
+  select member_name from tb_member where id = #{id}
+  </select>
+  
 </mapper>

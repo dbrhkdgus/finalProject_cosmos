@@ -1,24 +1,32 @@
 package com.kh.cosmos.ws.controller;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.kh.cosmos.groupware.chat.model.service.ChatService;
 import com.kh.cosmos.groupware.chat.model.vo.ChatMessage;
+import com.kh.cosmos.groupware.service.GroupwareService;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @Slf4j
 public class StompApplicationDestinationController {
-
+	@Autowired
+	private ChatService chatService;
+	@Autowired
+	private GroupwareService gwService;
 	/**
 	 * /app 메시지를 발행시 처리할 핸들러
 	 * @MessageMapping : prefix를 제외한 주소
@@ -59,9 +67,30 @@ public class StompApplicationDestinationController {
 			chatMessage.setChatMessageTypeNo(1);
 		}
 		
+		// 멤버 -> userNo
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("id", map.get("memberId"));
+		param.put("chatRoomNo", map.get("chatRoomNo"));
 		
+		chatMessage.setChatUserNo(chatService.selectChatUserNoByMemberId(param));
 		log.debug("chatMessage = {}", chatMessage);
 		
+		// chat_message 테이블 인서트
+		int result = chatService.insertChatMessage(chatMessage);
+		
+		
+		// 구독자에게 JsonStr전송하기
+		map.put("memberName", chatService.selectMemberNameByMemberId(map.get("memberId")));
+		map.put("profileRenamedFilename", gwService.selectMemberProfileRenamedFilename(map.get("memberId")));
+		
+		try {
+			String jsonStr = mapper.writeValueAsString(map);
+			return jsonStr;
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 		return chatMessageContent;
 	}
 	

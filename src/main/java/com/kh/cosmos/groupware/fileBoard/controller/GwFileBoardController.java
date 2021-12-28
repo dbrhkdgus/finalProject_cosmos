@@ -25,6 +25,7 @@ import com.kh.cosmos.common.attachment.model.vo.Attachment;
 import com.kh.cosmos.group.model.vo.Group;
 import com.kh.cosmos.groupware.board.model.vo.Board;
 import com.kh.cosmos.groupware.board.model.vo.Post;
+import com.kh.cosmos.groupware.board.model.vo.PostWithCategory;
 import com.kh.cosmos.groupware.chat.model.vo.ChatRoom;
 import com.kh.cosmos.groupware.fileBoard.model.service.FileBoardService;
 import com.kh.cosmos.groupware.fileBoard.vo.FileEnroll;
@@ -55,12 +56,20 @@ public class GwFileBoardController {
 	
 
     @GetMapping("/fileBoard.do")
-    public String fileBoard(Model model,@RequestParam int groupNo,@RequestParam int boardNo,Authentication authentication) {
+    public String fileBoard(@RequestParam(defaultValue = "1") int cPage,Model model,@RequestParam int groupNo,@RequestParam int boardNo,Authentication authentication) {
     	groupwareHeaderSet(groupNo, model, authentication);
+//    	log.debug("cPage = {}", cPage);
+//		log.debug("boardNo = {}", boardNo);
+		int limit = 10;
+		int offset = (cPage - 1) * limit;
     	model.addAttribute("groupNo", groupNo);
         model.addAttribute("boardNo", boardNo);
         model.addAttribute("title", "파일게시판");
         
+        List<PostWithCategory> fileboardPostList = fileBoardService.selectAllPostInfileBoard(boardNo);
+		log.debug("boardPostList = {}", fileboardPostList);
+
+		model.addAttribute("fileboardPostList", fileboardPostList);
     	
         return "gw/fileBoard/fileBoard";
     }
