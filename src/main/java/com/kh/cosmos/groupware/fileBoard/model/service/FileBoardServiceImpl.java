@@ -10,7 +10,7 @@ import com.kh.cosmos.groupware.fileBoard.model.dao.FileBoardDao;
 public class FileBoardServiceImpl implements FileBoardService {
 	
 	@Autowired
-	FileBoardDao fileBoardDao;
+	private FileBoardDao fileBoardDao;
 	
 	@Override
 	public int insertFileAttach(Attachment attach) {

@@ -9,11 +9,11 @@ import com.kh.cosmos.common.attachment.model.vo.Attachment;
 @Repository
 public class FileBoardDaoImpl implements FileBoardDao {
 	@Autowired
-	SqlSession session;
+	private SqlSession session;
 	
 	@Override
 	public int insertFileAttach(Attachment attach) {
-		return session.insert("fileboard.insertFileAttach",attach);
+		return session.insert("fileBoard.insertFileAttach",attach);
 	}
 
 		
