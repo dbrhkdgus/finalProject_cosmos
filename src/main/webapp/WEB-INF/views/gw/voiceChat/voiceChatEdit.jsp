@@ -16,32 +16,15 @@
 <div class="test-board-outter">
   <div class="test-board-title-container">
     <div class="test-board-title">
-      <h1>화상 채널 추가</h1>
-	
+      <h1>화상 채널 관리</h1>
+		${roomList}
     </div>
   </div>
 </div>
 
 
 <script>
-function AddZoomRoomSubmit(){
-	var $roomName = $("[name=roomName]");
-	if(/^(.|\n)+$/.test($roomName.val()) == false){
-		alert("채팅방 이름을 입력하세요");
-		return false;
-	}
-	var $zoomId = $("[name=zoomId]");
-	if(/^(.|\n)+$/.test($zoomId.val()) == false){
-		alert("zoomId를 입력하세요");
-		return false;
-	}
-	var $zoomPassword = $("[name=zoomPassword]");
-	if(/^(.|\n)+$/.test($zoomPassword.val()) == false){
-		alert("zoomPassword를 입력하세요");
-		return false;
-	}
-	return true;
-}
+
 </script>
 
 

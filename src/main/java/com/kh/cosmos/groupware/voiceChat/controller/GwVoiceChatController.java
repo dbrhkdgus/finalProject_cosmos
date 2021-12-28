@@ -65,7 +65,8 @@ public class GwVoiceChatController {
 	public String voiceChatEdit(@RequestParam(value="groupNo", defaultValue="0") int groupNo, Model model, Authentication auth) {
 		groupwareHeaderSet(groupNo, model, auth);
 		log.debug("groupNo = {}",groupNo);
-		model.addAttribute("groupNo", groupNo);
+		List<Room> roomList = gwService.selectAllZoomRoomList(groupNo);
+		model.addAttribute(roomList);
 		return "/gw/voiceChat/voiceChatEdit";
 	}
 	
