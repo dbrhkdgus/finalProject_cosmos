@@ -45,10 +45,20 @@ public class StompApplicationDestinationController {
 		} catch (IOException e) {
 			
 		}  
-
+		
+		// 메시지 객체화
 		ChatMessage chatMessage = new ChatMessage();
 		chatMessage.setChatMessageContent(map.get("msg"));
 		chatMessage.setChatRoomNo(Integer.parseInt(map.get("chatRoomNo")));
+		// 메시지 타입 분기
+		if(chatMessage.getChatMessageContent().startsWith("https://")) {
+			chatMessage.setChatMessageTypeNo(2);
+		}else if(chatMessage.getChatMessageContent().endsWith(".jpg") || chatMessage.getChatMessageContent().endsWith(".png") ) {
+			chatMessage.setChatMessageTypeNo(3);
+		}else {
+			chatMessage.setChatMessageTypeNo(1);
+		}
+		
 		
 		log.debug("chatMessage = {}", chatMessage);
 		
