@@ -73,6 +73,12 @@ public class GroupwareServiceImpl implements GroupwareService {
 		return gwDao.selectRoomInfoByGroupNoAndRoomNo(param);
 	}
 
+	@Override
+	public int insertVoiceChatRoom(Room room) {
+		// TODO Auto-generated method stub
+		return gwDao.insertVoiceChatRoom(room);
+	}
+
 
 	
 }

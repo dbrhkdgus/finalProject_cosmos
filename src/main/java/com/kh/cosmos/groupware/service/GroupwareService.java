@@ -30,4 +30,6 @@ public interface GroupwareService {
 
 	Room selectRoomInfoByGroupNoAndRoomNo(Map<String, Object> param);
 
+	int insertVoiceChatRoom(Room room);
+
 }

@@ -36,4 +36,8 @@ select * from zoom_room where group_no = #{groupNo}
 <select id="selectRoomInfoByGroupNoAndRoomNo" resultType="Room">
 select * from zoom_room where room_no = #{roomNo}
 </select>
+
+<insert id="insertVoiceChatRoom">
+insert into zoom_room values(seq_zoom_room_no.nextval, #{groupNo}, #{zoomId}, #{zoomPassword},#{roomName}, #{roomAdmin})
+</insert>
 </mapper>
