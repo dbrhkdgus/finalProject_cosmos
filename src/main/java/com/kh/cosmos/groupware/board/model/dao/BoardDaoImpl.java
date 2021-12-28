@@ -33,5 +33,11 @@ public class BoardDaoImpl implements BoardDao {
 		return session.selectList("board.selectAllPostInNotice", boardNo);
 	}
 
+	@Override
+	public int insertPost(Post post) {
+		// TODO Auto-generated method stub
+		return session.insert("board.insertPost", post);
+	}
+
 	
 }
