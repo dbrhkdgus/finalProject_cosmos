@@ -15,4 +15,8 @@
 	        on p.board_category_no = bc.board_category_no 
 	where board_no = #{boardNo}
   </select>
+  
+ <select id="selectAllPostInNotice" resultType="Post">
+  	select * from post where board_no = #{boardNo}
+  </select> 
 </mapper>

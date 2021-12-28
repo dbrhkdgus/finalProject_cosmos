@@ -44,7 +44,19 @@ public class GwBoardController {
 	}
 	
 	@GetMapping("/notice.do")
-	public void notice(){}
+	public String notice(@RequestParam(defaultValue = "1") int cPage, int boardNo, Model model, HttpServletRequest request) {
+		log.debug("cPage = {}", cPage);
+		log.debug("boardNo = {}", boardNo);
+		int limit = 10;
+		int offset = (cPage - 1) * limit;
+		
+		List<Post> noticePostList = boardService.selectAllPostInNotice(boardNo);
+		log.debug("noticePostList = {}", noticePostList);
+		model.addAttribute("noticePostList", noticePostList);
+		
+		
+		return "gw/board/notice";
+	}
 	
 	@GetMapping("/boardEnroll.do")
 	public void boardEnroll() {}
