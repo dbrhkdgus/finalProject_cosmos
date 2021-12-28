@@ -33,5 +33,6 @@ public interface GroupwareDao {
 	int insertVoiceChatRoom(Room room);
 
 
+
 	
 }

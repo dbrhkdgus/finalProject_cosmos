@@ -289,9 +289,23 @@
             </div>
             <div class="md-form mb-5">
               <label  for="defaultForm-email">채팅방 인원을 선택하세요.</label>
-              <div class="create-chat-radio-box">
+              <div class="create-chat-radio-box mb-3">
 	              <input type="radio" name="chatRoomOpenType"  value="all" >전체
 	              <input type="radio" name="chatRoomOpenType" value="select">선택
+              </div>
+              <div class="modal-member-box" style="border: 1px solid black; ">
+              
+              
+		              	<div class="modal-member-profile">
+		              		<input class="ml-2 mr-2"type="checkbox" name="memberId" value=""/>
+		              		<div class="modal-member-profile-box">
+			              		<img src="${pageContext.request.contextPath }/resources/upFile/profile/" alt="" class="modal-member-profile-img" />
+		              		</div>
+		              		<span class="modal-member-name"></span>
+		              	</div>
+            
+              	
+              	
               </div>
             </div>
           </div>
@@ -344,6 +358,9 @@
 
 
  <script>
+/* modal 제어 */
+$(".modal-member-box").hide();
+
  $(".btn-createChatRoom").click((e)=>{
 	 $(document.createChatRoomFrm).submit();
  });
@@ -357,6 +374,22 @@
 	 $("#createVoiceChatRoomModal").modal('hide');
  });
 
+ $("input[name=chatRoomOpenType]").change((e)=>{
+	 console.log("click");
+	 var val = $("input[name=chatRoomOpenType]:checked").val();
+	 if(val == 'all'){
+		 $(".modal-member-box").hide();
+	 }else{
+		 
+		 
+		 
+		 $(".modal-member-box").show();
+	 }
+	 
+ });
+
+
+ 
  
  $(".btn-createBoardRoom").click((e)=>{
 	 $(document.createBoardRoomFrm).submit();
