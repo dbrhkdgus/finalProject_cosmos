@@ -212,7 +212,7 @@
 		</div>
         <div class="collapse" id="schedule-collapse">
           <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-            <li><a href="${pageContext.request.contextPath }/gw/calendar/calendar.do" class="link-dark rounded">팀 일정공유</a></li>
+            <li><a href="${pageContext.request.contextPath }/gw/calendar/calendar.do?groupNo=${currGroupNo}" class="link-dark rounded">팀 일정공유</a></li>
             
           </ul>
         </div>
