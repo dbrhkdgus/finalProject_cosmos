@@ -13,7 +13,7 @@ public class FileBoardDaoImpl implements FileBoardDao {
 	
 	@Override
 	public int insertFileAttach(Attachment attach) {
-		return session.insert("fileboard.insertFileAttach");
+		return session.insert("fileboard.insertFileAttach",attach);
 	}
 
 		
