@@ -32,4 +32,6 @@ public interface GroupwareService {
 
 	int insertVoiceChatRoom(Room room);
 
+	int deleteVoiceChatRoom(int roomNo);
+
 }
