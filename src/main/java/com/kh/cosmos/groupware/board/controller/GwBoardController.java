@@ -75,12 +75,12 @@ public class GwBoardController {
 		return "gw/board/noticeFrm";
 	}
 	
-	@GetMapping("/boardFrm.do")
-	public String boardFrm(int boardNo, int groupNo, Model model) {
+	@GetMapping("/boardEnroll.do")
+	public void boardEnroll(int boardNo, int groupNo, Model model) {
+		
 		model.addAttribute("boardNo", boardNo);
     	model.addAttribute("groupNo", groupNo);
 		
-		return "gw/board/boardFrm";
 	}
 	
 	@PostMapping("/boardEnroll.do")
