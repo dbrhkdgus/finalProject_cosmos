@@ -58,8 +58,19 @@ public class GwBoardController {
 		return "gw/board/notice";
 	}
 	
+	@GetMapping("/noticeEnroll.do")
+	public String noticeEnroll() {
+		
+		return "gw/board/noticeEnroll";
+	}
+	
+	
 	@GetMapping("/boardEnroll.do")
-	public void boardEnroll() {}
+	public String boardEnroll() {
+		
+		return "gw/board/boardEnroll";
+	}
+	
 	
 	@GetMapping("/boardDetail.do")
 	public void boardDetail() {}
