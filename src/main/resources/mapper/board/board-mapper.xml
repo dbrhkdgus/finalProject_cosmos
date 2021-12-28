@@ -18,5 +18,20 @@
   
  <select id="selectAllPostInNotice" resultType="Post">
   	select * from post where board_no = #{boardNo}
-  </select> 
+  </select>
+  <insert id="insertPost">
+	insert into 
+		post
+	values(
+		SEQ_POST_NO_NO.nextval,
+		#{memberId},
+		#{boardNo},
+		#{postTitle},
+		#{postContent},
+		sysdate,
+		null,
+		null,
+		null
+	)
+  </insert>
 </mapper>

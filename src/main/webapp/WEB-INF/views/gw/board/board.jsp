@@ -8,8 +8,8 @@
 	<jsp:param value="" name="title"/>
 </jsp:include>
 <script>
-function goBoardEnroll(){
-	location.href = "${pageContext.request.contextPath}/gw/board/boardEnroll.do";
+function goBoardFrm(){
+	location.href = "${pageContext.request.contextPath}/gw/board/boardFrm.do";
 }
 
 </script>
@@ -52,7 +52,10 @@ function goBoardEnroll(){
     
   </table>
   <div class="d-grid gap-2 d-md-flex justify-content-md-end mr-2 ">
-    <button class="btn btn-primary me-md-2" type="button" onclick="goBoardEnroll();">글쓰기</button>
+  	<form name="writePost" action="${pageContext.request.contextPath}/gw/board/boardFrm.do" method="post" enctype="multipart/form-data">
+  		<input type="hidden" name="boardNo" value="${boardNo }" />
+    	<input type="submit" class="btn btn-primary me-md-2" value="글쓰기">
+  	</form>
   </div>
   <div class="test-board-pagebar">
     

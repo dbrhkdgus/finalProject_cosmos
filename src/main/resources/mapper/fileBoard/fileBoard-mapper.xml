@@ -17,4 +17,28 @@
 			default
 		)
   </insert>
+  <insert id="insertFilePost">
+  <selectKey keyProperty="attachNo" resultType="_int" order="BEFORE">
+			select
+				seq_attach_no_no.currval
+			from
+				dual
+		</selectKey>
+  insert into
+  	post
+  	values
+  	(
+  		seq_post_no_no.nextval,
+  		#{memberId},
+  		#{boardNo},
+  		#{postTitle},
+  		null,
+  		current_date,
+  		null,
+  		#{attachNo},
+  		#{boardCategoryNo}
+  		)
+  	
+  </insert>
+  
 </mapper>

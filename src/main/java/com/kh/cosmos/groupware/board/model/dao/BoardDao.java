@@ -13,4 +13,6 @@ public interface BoardDao {
 
 	List<Post> selectAllPostInNotice(int boardNo);
 
+	int insertPost(Post post);
+
 }

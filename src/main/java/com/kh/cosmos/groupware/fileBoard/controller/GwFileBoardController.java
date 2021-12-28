@@ -23,6 +23,8 @@ import com.kh.cosmos.common.CosmosUtils;
 import com.kh.cosmos.common.attachment.model.service.AttachmentService;
 import com.kh.cosmos.common.attachment.model.vo.Attachment;
 import com.kh.cosmos.group.model.vo.Group;
+import com.kh.cosmos.groupware.board.model.vo.Board;
+import com.kh.cosmos.groupware.board.model.vo.Post;
 import com.kh.cosmos.groupware.chat.model.vo.ChatRoom;
 import com.kh.cosmos.groupware.fileBoard.model.service.FileBoardService;
 import com.kh.cosmos.groupware.fileBoard.vo.FileEnroll;
@@ -44,7 +46,7 @@ public class GwFileBoardController {
 	
 	@Autowired
 	private FileBoardService fileBoardService;
-	
+
 	@Autowired
 	private AttachmentService attachmentService;
 	
@@ -53,14 +55,19 @@ public class GwFileBoardController {
 	
 
     @GetMapping("/fileBoard.do")
-    public void fileBoard(Model model,@RequestParam int groupNo,@RequestParam int boardNo) {
+    public String fileBoard(Model model,@RequestParam int groupNo,@RequestParam int boardNo,Authentication authentication) {
+    	groupwareHeaderSet(groupNo, model, authentication);
     	model.addAttribute("groupNo", groupNo);
         model.addAttribute("boardNo", boardNo);
+        model.addAttribute("title", "파일게시판");
+        
+    	
+        return "gw/fileBoard/fileBoard";
     }
     
     @GetMapping("/fileEnroll.do")
-
-    public void fileEnroll(@RequestParam int groupNo,@RequestParam int boardNo, Model model) {
+    public void fileEnroll(@RequestParam int groupNo,@RequestParam int boardNo, Model model ) {
+    	
     	model.addAttribute("boardNo", boardNo);
     	model.addAttribute("groupNo", groupNo);
 
@@ -70,10 +77,11 @@ public class GwFileBoardController {
     @PostMapping("/fileEnroll.do")
     public String fileEnroll(FileEnroll fileEnroll,@RequestParam int groupNo,@RequestParam int boardNo,
     		@RequestParam(value="upFile", required=false) MultipartFile upFile,RedirectAttributes redirectAttr,
-    		Authentication authentication )throws IllegalStateException, IOException  {
+    		Authentication authentication)throws IllegalStateException, IOException  {
+    	
 //   	log.debug("fileEnrolll ={}" ,fileEnroll );
 //    	log.debug("boardNo ={}" ,boardNo );
-    	
+    
     	
     	Member member = (Member)authentication.getPrincipal();
     	
@@ -83,7 +91,7 @@ public class GwFileBoardController {
 			String saveDirectory = application.getRealPath("/resources/upFile/fileboard");
 			
 			
-		log.debug("upFile = {}", upFile.getOriginalFilename());
+		log.debug("saveDirectory = {}", saveDirectory);
 //		log.debug("upFile.name = {}", upFile.getOriginalFilename());
 //		log.debug("upFile.size = {}", upFile.getSize());
 //		
@@ -97,7 +105,8 @@ public class GwFileBoardController {
 //		log.debug("dest = {}", dest);
 				upFile.transferTo(dest);
 				// 2.DB에 attachment 레코드 등록
-			
+				
+		
 			attach.setRenamedFilename(renamedFilename);
 			attach.setOriginalFilename(originalFilename);
 			attach.setGroupNo(groupNo);
@@ -105,10 +114,36 @@ public class GwFileBoardController {
 			
 //			int result = gwFileService.insertGroup(fileEnroll);
 			
+			log.debug("attach ={} ",attach);
+			int attachNo =0;
+			 attachNo = fileBoardService.insertFileAttach(attach);
 			
-			int attachNo = fileBoardService.insertFileAttach(attach);
+			 Post post= new Post();    	
+			 
+			 
+			 post.setMemberId(member.getId());
+			 post.setBoardNo(boardNo);
+			 post.setPostTitle(fileEnroll.getFileTitle());
+			 post.setBoardCategoryNo(fileEnroll.getFileCategoryNo());
+			 log.debug("post = {} " , post);
+			 
+			 Board board = new Board();
+			 board.setBoardNo(boardNo);
+			 board.setGroupNo(groupNo);
+			 board.setBoardType('F');
+			 
+			 
+			 
+			 int filePostResult = fileBoardService.insertFilePost(post);
+			 
+			 log.debug("filePostResult = {} " , filePostResult);
+			 
+			 
 			
-			log.debug("attachNo ={} ",attachNo);
+			
+
+			
+//			log.debug("attachNo ={} ",attachNo);
 			
 		} catch (IllegalStateException e) {
 			e.printStackTrace();
