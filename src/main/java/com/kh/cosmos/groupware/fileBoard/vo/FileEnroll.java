@@ -28,10 +28,6 @@ public class FileEnroll implements Serializable {
 	private String boardType;
 	private String boardTypeName;
 	private String boardName;
-	
-	
-	
-	
-	
+
 	
 }

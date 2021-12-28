@@ -17,4 +17,22 @@
 			default
 		)
   </insert>
+  <insert id="insertFilePost">
+  insert into
+  	post
+  	values
+  	(
+  		seq_post_no_no.nextval,
+  		#{memberId},
+  		#{boardNo},
+  		#{postTitle},
+  		null,
+  		current_date,
+  		null,
+  		null,
+  		#{boardCategoryNo}
+  		)
+  	
+  </insert>
+  
 </mapper>
