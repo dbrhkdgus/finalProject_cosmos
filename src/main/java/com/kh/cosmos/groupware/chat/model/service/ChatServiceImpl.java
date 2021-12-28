@@ -6,10 +6,12 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.cosmos.common.attachment.model.vo.Attachment;
 import com.kh.cosmos.groupware.chat.model.dao.ChatDao;
 import com.kh.cosmos.groupware.chat.model.vo.ChatMessage;
 import com.kh.cosmos.groupware.chat.model.vo.ChatRoom;
 import com.kh.cosmos.groupware.chat.model.vo.ChatUser;
+import com.kh.cosmos.member.model.vo.Member;
 
 @Service
 public class ChatServiceImpl implements ChatService {
@@ -68,6 +70,30 @@ public class ChatServiceImpl implements ChatService {
 	public int insertChatUserByParamWithAdminNo(Map<String, Object> param) {
 		// TODO Auto-generated method stub
 		return chatDao.insertChatUserByParamWithAdminNo(param);
+	}
+
+	@Override
+	public int selectChatUserNoByMemberId(Map<String, Object> param) {
+		// TODO Auto-generated method stub
+		return chatDao.selectChatUserNoByMemberId(param);
+	}
+
+	@Override
+	public int insertChatMessage(ChatMessage chatMessage) {
+		// TODO Auto-generated method stub
+		return chatDao.insertChatMessage(chatMessage);
+	}
+
+	@Override
+	public String selectMemberNameByMemberId(String id) {
+		// TODO Auto-generated method stub
+		return chatDao.selectMemberNameByMemberId(id);
+	}
+
+	@Override
+	public List<Attachment> selectMemberProfileAttachList() {
+		// TODO Auto-generated method stub
+		return chatDao.selectMemberProfileAttachList();
 	}
 	
 	

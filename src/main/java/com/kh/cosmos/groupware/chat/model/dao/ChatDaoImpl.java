@@ -7,9 +7,11 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.kh.cosmos.common.attachment.model.vo.Attachment;
 import com.kh.cosmos.groupware.chat.model.vo.ChatMessage;
 import com.kh.cosmos.groupware.chat.model.vo.ChatRoom;
 import com.kh.cosmos.groupware.chat.model.vo.ChatUser;
+import com.kh.cosmos.member.model.vo.Member;
 
 @Repository
 public class ChatDaoImpl implements ChatDao {
@@ -69,6 +71,31 @@ public class ChatDaoImpl implements ChatDao {
 		// TODO Auto-generated method stub
 		return session.insert("chat.insertChatUserByParamWithAdminNo", param);
 	}
+
+	@Override
+	public int selectChatUserNoByMemberId(Map<String, Object> param) {
+		// TODO Auto-generated method stub
+		return session.selectOne("chat.selectChatUserNoByMemberId", param);
+	}
+
+	@Override
+	public int insertChatMessage(ChatMessage chatMessage) {
+		// TODO Auto-generated method stub
+		return session.insert("chat.insertChatMessage", chatMessage);
+	}
+
+	@Override
+	public String selectMemberNameByMemberId(String id) {
+		// TODO Auto-generated method stub
+		return session.selectOne("chat.selectMemberNameByMemberId", id);
+	}
+
+	@Override
+	public List<Attachment> selectMemberProfileAttachList() {
+		// TODO Auto-generated method stub
+		return session.selectList("chat.selectMemberProfileAttachList");
+	}
+	
 	
 	
 	
