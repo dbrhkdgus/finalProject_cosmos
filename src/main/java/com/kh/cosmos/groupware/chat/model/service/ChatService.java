@@ -23,4 +23,8 @@ public interface ChatService {
 
 	List<ChatUser> selectChatUserList(int chatRoomNo);
 
+	List<String> selectChatUserIdList(int chatRoomNo);
+
+	int insertChatUserByParamWithAdminNo(Map<String, Object> param);
+
 }
