@@ -19,4 +19,6 @@ public class ChatUser implements Serializable{/**
 	private int chatRoomNo;
 	private String memberId;
 	private int chatAdminNo;
+	private String memberName;
+	private String renamedFilename;
 }

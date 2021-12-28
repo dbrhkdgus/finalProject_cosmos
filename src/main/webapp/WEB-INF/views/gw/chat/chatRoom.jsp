@@ -12,37 +12,31 @@
 <sec:authorize access="isAuthenticated()">
 	<sec:authentication property="principal" var="loginMember"/>
 </sec:authorize>
+
   <div class="workspace-box" >
     <div class="chat-content">
-
-        <!-- 채팅1 시작 -->
-        <c:choose>
-	        <c:when test="${not empty messageList }">
-		        <div class="chat-profile-container">
-		          <div class="chat-user-profile">
-		            <img class="chat-user-profile-img" src="https://i.pinimg.com/564x/9e/60/60/9e6060db90687be57c52ca5c5566c487.jpg" alt="">
-		          </div>
-		          <div class="chat-message-box">
-		            <div class="chat-message-sender">
-		              <span><strong>홍길동</strong></span>
-		              <span>11:10</span>
-		            </div>
-		            <div class="chat-message-content">
-		              <p>가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하</p>
-		            </div>
-		          </div>
-		        </div>
-	        </c:when>
-	        <c:otherwise>
-		        <div class="chat-message-content">
-			              <p>새로운 채팅을 시작해보세요!</p>
-			    </div>
-	        </c:otherwise>
-        </c:choose>
-        <!-- 채팅1  끝 -->
-        
- 
-       
+	        <c:if test="${not empty messageList }">
+		        <c:forEach var="message" items="${messageList }">
+		        	<c:forEach var="user" items="${chatUserList }">
+		        		<c:if test="${message.chatUserNo == user.chatUserNo }">
+				        <div class="chat-profile-container">
+				          <div class="chat-user-profile">
+				            <img class="chat-user-profile-img" src="${pageContext.request.contextPath }/resources/upFile/profile/${user.renamedFilename}" alt="">
+				          </div>
+				          <div class="chat-message-box">
+				            <div class="chat-message-sender">
+				              <span><strong>${user.memberName }</strong></span>
+				              <span>11:10</span>
+				            </div>
+				            <div class="chat-message-content">
+				              <p>${message.chatMessageContent}</p>
+				            </div>
+				          </div>
+				        </div>
+		        		</c:if>
+		        	</c:forEach>
+		        </c:forEach>
+	        </c:if>
         </div>
         
 		    <div class="chat-input-box">
@@ -62,8 +56,15 @@
         
       </div>
 <!-- jquery.form.js  -->
-<script src="http://malsup.github.com/jquery.form.js"></script>
+<!-- <script src="http://malsup.github.com/jquery.form.js"></script> -->
 <script>
+//저장된 채팅 내역이 없는 경우 (처음 만들엉진 채팅방인 경우)
+if($(".chat-content").children().length == 0){
+	$(".chat-content").append(`<div class="chat-message-box">
+            <p>새로운 채팅을 시작해보세요!</p>
+          </div>
+        </div>`);
+}
 ///chat/chatId
 //1. Stomp Client 객체 생성(websocket)
 
@@ -76,21 +77,43 @@
 		
 	// 3. 구독요청
 	stompClient.subscribe(`/chat/${chatRoomNo}`, (chatMessageContent) =>{
-		console.log("chatMessageContent : ", chatMessageContent);
+		
+		
+		
+		/* console.log("chatMessageContent : ", chatMessageContent); */
 		const obj = JSON.parse(chatMessageContent.body);
-		console.log(obj);
-		const {memberId, msg} = obj;
-		//$(data).append(`<li class="list-group-item">\${memberId} : \${msg}</li>`);
+		 console.log(obj); 
+		 const {memberName, msg, profileRenamedFilename, messageAt, logTime} = obj;
+		 
+		$(".chat-content").append(`<div class="chat-profile-container">
+		          <div class="chat-user-profile">
+	            <img class="chat-user-profile-img" src="${pageContext.request.contextPath}/resources/upFile/profile/\${profileRenamedFilename}" alt="">
+	          </div>
+	          <div class="chat-message-box">
+	            <div class="chat-message-sender">
+	              <span><strong>\${memberName}</strong></span>
+	              <span>\${logTime}</span>
+	            </div>
+	            <div class="chat-message-content">
+	              <p>\${msg}</p> 
+	            </div>
+	          </div>
+	        </div>
+				
+				`); 
 	});
 	
 });
 
 $("#btn-message-send").click((e) =>{
+	var today = new Date();
+	var hours = today.getHours(); // 시
+	var minutes = today.getMinutes();  // 분
 	const obj = {
 		chatRoomNo : "${chatRoomNo}",
 		memberId : "${loginMember.id}",
 		msg : $(chatMessageContent).val(),
-		logTime : Date.now()
+		logTime : hours + ":" + minutes
 	};
 	
 	stompClient.send("/app/chat/${chatRoomNo}", {}, JSON.stringify(obj));
