@@ -22,9 +22,12 @@ public class FileEnroll implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	private String fileTitle;
-	private String fileCategory;
+	private int fileCategoryNo;
 	private Date fileRegDate;
 	private int groupNo;
-	
+	private String boardType;
+	private String boardTypeName;
+	private String boardName;
+
 	
 }

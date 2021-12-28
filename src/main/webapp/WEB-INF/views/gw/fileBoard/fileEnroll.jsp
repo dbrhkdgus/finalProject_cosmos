@@ -31,11 +31,13 @@
         <div class="col-sm-10">
 
        
-          <select class="form-control" id="file-category" name="fileCategory">
-            <option value="공부자료">공부자료</option>
-            <option value="코드파일">코드파일</option>
-            <option value="압축파일">압축파일</option>
-            <option value="공유파일">공유파일</option>
+          <select class="form-control" id="file-category" name="fileCategoryNo">
+            <option value="5">이미지</option>
+            <option value="6">문서</option>
+            <option value="7">압축파일</option>
+            <option value="8">코트파일</option>
+            <option value="9">기타</option>
+            
           </select>
         </div>
       </div>
@@ -67,7 +69,7 @@
           <input class="upload-name form-control" value="선택된 파일 없음" disabled="disabled" style="width: 250px;">
           
           <label for="input_file">업로드</label>
-          <input type="file" id="input_file" class="upload-hidden" name ="upFile"> 
+          <input type="file" id="input_file" class="upload-hidden" name ="upFile" required="required"> 
         </div>
       </div>
       
