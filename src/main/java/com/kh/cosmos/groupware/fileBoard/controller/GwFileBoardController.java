@@ -8,6 +8,7 @@ import java.util.List;
 import javax.servlet.ServletContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -40,6 +41,9 @@ public class GwFileBoardController {
 	private GroupwareService gwService ;
 	private FileBoardService fileBoardService;
 	
+	@Autowired
+	ResourceLoader resourceLoader;
+	
     @GetMapping("/fileBoard.do")
     public void fileBoard(Model model,@RequestParam int groupNo,@RequestParam int boardNo) {
         log.debug("groupNo={}", groupNo);
@@ -49,7 +53,8 @@ public class GwFileBoardController {
     }
     
     @GetMapping("/fileEnroll.do")
-    public void fileEnroll(@RequestParam int groupNo) {
+    public void fileEnroll(
+    ) {
         
     }
     
