@@ -194,16 +194,16 @@
       <li class="mb-1">
       	<div class="d-flex justify-content-between align-items-center">
 	        <button id="selectAllZoomRoomList" class="btn btn-toggle align-items-center rounded collapsed" data-group-no="${currGroupNo}" data-bs-toggle="collapse" data-bs-target="#v-chatting-collapse" aria-expanded="false">
-	          음성 채널
+	          화상 채널
 	        </button>
-	        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
-				  <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
-			</svg>
+	        <div class="createVoiceChatRoom" style="cursor: pointer;">
+		        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
+					  <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
+				</svg>
+			</div>
 		</div>
         <div class="collapse" id="v-chatting-collapse">
           <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small" id="voiceChat">
-			<%-- <li><a href="${pageContext.request.contextPath }/gw/voiceChat/zoomConnecting.do?groupNo=${currGroupNo}" class="link-dark rounded">ZOOM 접속하기</a></li>
-            <li><a href="${pageContext.request.contextPath }/gw/voiceChat/voiceChatSetting.do?groupNo=${currGroupNo}" class="link-dark rounded">ZOOM 채널 추가하기</a></li> --%>
           </ul>
         </div>
       </li>
@@ -306,6 +306,43 @@
 </div>
 
 
+<div class="modal fade" id="createVoiceChatRoomModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">화상 채팅방 개설하기</h4>
+        <button type="button" class="close close-modal" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form:form name="createVoiceChatRoomFrm" method="post" action="${pageContext.request.contextPath}/gw/voiceChat/roomEnroll.do">
+          <div class="modal-body mx-3">
+            <div class="md-form mb-5">
+              <label  for="room-name">채널명</label>
+              <input type="text" id="room-name" class="form-control" name="roomName" required/>
+            </div>
+            <div class="md-form mb-5">
+              <label  for="zoom-id">zoom 회의실 ID</label>
+              <input type="text" id="zoom-id" class="form-control" name="zoomId" required/>
+            </div>
+            <div class="md-form mb-5">
+              <label  for="zoom-password">zoom 회의실 password</label>
+              <input type="text" id="zoom-password" class="form-control" name="zoomPassword" required/>
+            </div>
+          </div>
+          <input type="hidden" name="roomAdmin" value="<sec:authentication property="principal.id"/>" readonly/>
+          <input type="hidden" name="groupNo" value="${currGroupNo }" />
+      </form:form>
+      <div class="modal-footer d-flex justify-content-center">
+        <button class="btn btn-createVoiceChatRoom">생성</button>
+        <button class="btn close-modal">취소</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
  <script>
  $(".btn-createChatRoom").click((e)=>{
 	 $(document.createChatRoomFrm).submit();
@@ -317,6 +354,7 @@
  $(".close-modal").click((e)=>{
 	 $("#createChatRoomModal").modal('hide');
 	 $("#createBoardRoomModal").modal('hide');
+	 $("#createVoiceChatRoomModal").modal('hide');
  });
 
  
@@ -325,6 +363,14 @@
  });
  $(".createBoardRoom").click((e)=>{
 	 $("#createBoardRoomModal").modal('show');
+ });
+ 
+ 
+ $(".btn-createVoiceChatRoom").click((e)=>{
+	 $(document.createVoiceChatRoomFrm).submit();
+ });
+ $(".createVoiceChatRoom").click((e)=>{
+	 $("#createVoiceChatRoomModal").modal('show');
  });
 
  
@@ -349,7 +395,7 @@
 					let html = `<li><a href="${pageContext.request.contextPath}/gw/voiceChat/zoomConnecting.do?roomNo=\${v.roomNo}" onclick="window.open(this.href, '\${v.roomName}','width=980,height=600'); return false;" class='link-dark rounded'>\${v.roomName}</a></li>`
 					$Chatli.append(html);
 				});
-				let html = `<li><a href='${pageContext.request.contextPath}/gw/voiceChat/voiceChatSetting.do?groupNo=${v.groupNo}' class='link-dark rounded'>채널 추가</a></li>`
+				let html = `<li><a href='${pageContext.request.contextPath}/gw/voiceChat/voiceChatEdit.do?groupNo=${currGroupNo}' class='link-dark rounded'>채널 관리</a></li>`
 					$Chatli.append(html);
 				$("#voiceChat").html($Chatli);
 			},
