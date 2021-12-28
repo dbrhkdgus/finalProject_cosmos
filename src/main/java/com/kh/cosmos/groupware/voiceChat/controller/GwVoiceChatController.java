@@ -58,6 +58,15 @@ public class GwVoiceChatController {
 	public String zoomConnecting() {
 		return "/gw/voiceChat/meeting";
 	}
+	@GetMapping("/close.do")
+	public String close() {
+		return "/gw/voiceChat/Close";
+	}
+	
+	@GetMapping("/voiceChatAdd.do")
+	public String voiceChatAdd() {
+		return "/gw/voiceChat/voiceChatAdd";
+	}
 	@ResponseBody
 	@GetMapping("/selectAllZoomRoomList.do")
 	public Map<String,Room> selectAllRoomList(int groupNo) {

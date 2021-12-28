@@ -23,7 +23,9 @@
 #websdk-iframe {width: 700px;height: 500px;border: 1px;border-color: red;border-style: dashed;position: fixed;top: 50%;left: 50%;transform: translate(-50%, -50%);left: 50%;margin: 0;}
 body{width: none !important;height: none !important;}
 </style>
-
+<sec:authorize access="isAuthenticated()">
+	<sec:authentication property="principal" var="loginMember"/>
+</sec:authorize>
     <nav id="nav-tool" class="navbar">
     <div class="container">
         <div class="navbar-header">
@@ -32,7 +34,7 @@ body{width: none !important;height: none !important;}
         <div id="navbar" class="websdktest">
             <form class="navbar-form navbar-right" id="meeting_form">
                 <div class="form-group">
-                    <input type="text" name="display_name" id="display_name" value="2.1.1#CDN" maxLength="100"
+                    <input type="text" name="display_name" id="display_name" value="${loginMember.nickname }" maxLength="100"
                         placeholder="Name" class="form-control" required>
                 </div>
                 <div class="form-group">
@@ -109,12 +111,12 @@ window.addEventListener('DOMContentLoaded', function(event) {
 	  var API_KEY = "ua1hutGgSeqC1Uo8PdTjwQ";
 	  var API_SECRET = "9TATzljhOhPC1nT6guYaJvVBg87lYgfNYsQN";
 
-	  document.getElementById("display_name").value =
+	  /* document.getElementById("display_name").value =
 		    "CDN" +
 		    ZoomMtg.getJSSDKVersion()[0] +
 		    testTool.detectOS() +
 		    "#" +
-		    testTool.getBrowserInfo();
+		    testTool.getBrowserInfo(); */
 	  
 	  document
 	    .getElementById("meeting_lang")

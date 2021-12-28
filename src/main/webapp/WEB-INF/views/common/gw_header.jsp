@@ -343,7 +343,7 @@
 					let html = `<li><a href="${pageContext.request.contextPath}/gw/voiceChat/zoomConnecting.do?roomNo=\${v.roomNo}" onclick="window.open(this.href, '\${v.roomName}','width=980,height=600'); return false;" class='link-dark rounded'>\${v.roomName}</a></li>`
 					$Chatli.append(html);
 				});
-				let html = `<li><a href='${pageContext.request.contextPath}/gw/voiceChat/voiceChatSetting.do?groupNo=${v.groupNo}' class='link-dark rounded'>채널 추가</a></li>`
+				let html = `<li><a href='${pageContext.request.contextPath}/gw/voiceChat/voiceChatAdd.do?groupNo=${v.groupNo}' class='link-dark rounded'>채널 추가</a></li>`
 					$Chatli.append(html);
 				$("#voiceChat").html($Chatli);
 			},
