@@ -30,4 +30,5 @@ public interface GroupwareService {
 
 	Room selectRoomInfoByGroupNoAndRoomNo(Map<String, Object> param);
 
+
 }

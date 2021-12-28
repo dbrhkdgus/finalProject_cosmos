@@ -36,4 +36,5 @@ select * from zoom_room where group_no = #{groupNo}
 <select id="selectRoomInfoByGroupNoAndRoomNo" resultType="Room">
 select * from zoom_room where room_no = #{roomNo}
 </select>
+
 </mapper>
