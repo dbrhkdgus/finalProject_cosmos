@@ -46,7 +46,7 @@ public class GwFileBoardController {
 	
 	@Autowired
 	private FileBoardService fileBoardService;
-	
+
 	@Autowired
 	private AttachmentService attachmentService;
 	
@@ -86,6 +86,7 @@ public class GwFileBoardController {
     	Member member = (Member)authentication.getPrincipal();
     	Post post= new Post();    	
     	
+    	
     	post.setMemberId(member.getId());
     	post.setBoardNo(boardNo);
     	post.setPostTitle(fileEnroll.getFileTitle());
@@ -98,6 +99,9 @@ public class GwFileBoardController {
     	board.setGroupNo(groupNo);
     	board.setBoardType('F');
     	
+    	int filePostResult = fileBoardService.insertFilePost(post);
+    	
+    	log.debug("filePostResult = {} " , filePostResult);
     	
     	
     	Attachment attach = new Attachment();
@@ -106,7 +110,7 @@ public class GwFileBoardController {
 			String saveDirectory = application.getRealPath("/resources/upFile/fileboard");
 			
 			
-		log.debug("upFile = {}", upFile.getOriginalFilename());
+		log.debug("saveDirectory = {}", saveDirectory);
 //		log.debug("upFile.name = {}", upFile.getOriginalFilename());
 //		log.debug("upFile.size = {}", upFile.getSize());
 //		
@@ -128,10 +132,17 @@ public class GwFileBoardController {
 			
 //			int result = gwFileService.insertGroup(fileEnroll);
 			
+			log.debug("attach ={} ",attach);
+			int attachNo =0;
+			 attachNo = fileBoardService.insertFileAttach(attach);
 			
-			int attachNo = fileBoardService.insertFileAttach(attach);
+			 
 			
-			log.debug("attachNo ={} ",attachNo);
+			
+			
+			log.debug("fileEnroll ={} ",fileEnroll);
+			
+//			log.debug("attachNo ={} ",attachNo);
 			
 		} catch (IllegalStateException e) {
 			e.printStackTrace();
