@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.kh.cosmos.groupware.chat.model.dao.ChatDao;
 import com.kh.cosmos.groupware.chat.model.vo.ChatMessage;
 import com.kh.cosmos.groupware.chat.model.vo.ChatRoom;
+import com.kh.cosmos.groupware.chat.model.vo.ChatUser;
 
 @Service
 public class ChatServiceImpl implements ChatService {
@@ -49,6 +50,12 @@ public class ChatServiceImpl implements ChatService {
 	public int insertChatUserByParam(Map<String, Object> param) {
 		// TODO Auto-generated method stub
 		return chatDao.insertChatUserByParam(param);
+	}
+
+	@Override
+	public List<ChatUser> selectChatUserList(int chatRoomNo) {
+		// TODO Auto-generated method stub
+		return chatDao.selectChatUserList(chatRoomNo);
 	}
 	
 	
