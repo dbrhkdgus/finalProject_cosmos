@@ -65,7 +65,8 @@ public class GwVoiceChatController {
 	public String voiceChatEdit(@RequestParam(value="groupNo", defaultValue="0") int groupNo, Model model, Authentication auth) {
 		groupwareHeaderSet(groupNo, model, auth);
 		log.debug("groupNo = {}",groupNo);
-		model.addAttribute("groupNo", groupNo);
+		List<Room> roomList = gwService.selectAllZoomRoomList(groupNo);
+		model.addAttribute(roomList);
 		return "/gw/voiceChat/voiceChatEdit";
 	}
 	
@@ -76,6 +77,15 @@ public class GwVoiceChatController {
 		
 		redirectAtt.addAttribute("groupNo", room.getGroupNo());
 		return "redirect:/gw/gw.do";
+	}
+	
+	@ResponseBody
+	@GetMapping(value = "/deleteVoiceChatRoom.do", produces = "application/text; charset=utf8")
+	public String deleteVoiceChatRoom(@RequestParam int roomNo, Model model, Authentication auth) {
+		log.debug("groupNo = {}",roomNo);
+		int result = gwService.deleteVoiceChatRoom(roomNo);
+		String msg = result >= 0 ? "삭제 성공" : "삭제 실패";
+		return msg;
 	}
 	
 	@ResponseBody

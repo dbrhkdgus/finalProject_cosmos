@@ -5,8 +5,14 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <fmt:requestEncoding value="utf-8"/> 
 <jsp:include page="/WEB-INF/views/common/gw_header.jsp">
-	<jsp:param value="" name="title"/>
+	<jsp:param value="공지사항" name="title"/>
 </jsp:include>
+<script>
+function goNoticeFrm(){
+	location.href = "${pageContext.request.contextPath}/gw/board/noticeFrm.do";
+}
+
+</script>
  <div class="test-notice-outter">
   <div class="test-board-title-container">
     <div class="test-board-title">
@@ -20,36 +26,18 @@
   </div>
   <table class="table table-borderless">
     <tbody>
+    <c:forEach var="post" items="${noticePostList}" varStatus="vs">
       <tr>
-        <td colspan="3">• 스터디 그룹 이용안내 입니다.</td>
-        <td><span class="text-secondary">12-10</span></td>
+        <td colspan="3">•${post.postTitle}</td>
+        <td><span class="text-secondary"><fmt:formatDate value="${post.postRegDate}" pattern="yy-MM-dd"/></span></td>
       </tr>
-      <tr>
-        <td colspan="3">• 스터디 그룹 이용안내 입니다.</td>
-        <td><span>12-10</span></td>
-      </tr>
-      <tr>
-        <td colspan="3">• 스터디 그룹 이용안내 입니다.</td>
-        <td><span>12-10</span></td>
-      </tr>
-      <tr>
-        <td colspan="3">• 스터디 그룹 이용안내 입니다.</td>
-        <td><span>12-10</span></td>
-      </tr>
-      <tr>
-        <td colspan="3">• 스터디 그룹 이용안내 입니다.</td>
-        <td><span>12-10</span></td>
-      </tr>
-      <tr>
-        <td colspan="3">• 스터디 그룹 이용안내 입니다.</td>
-        <td><span>12-10</span></td>
-      </tr>
-
+      </c:forEach>
+      
 
     </tbody>
   </table>
   <div class="d-grid gap-2 d-md-flex justify-content-md-end mr-2 ">
-    <button class="btn btn-primary me-md-2" type="button">글쓰기</button>
+    <button class="btn btn-primary me-md-2" type="button" onclick="goNoticeFrm();">글쓰기</button>
   </div>
   <div class="test-board-pagebar">
     

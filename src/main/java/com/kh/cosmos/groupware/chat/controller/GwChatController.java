@@ -1,9 +1,12 @@
 package com.kh.cosmos.groupware.chat.controller;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -11,7 +14,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.cosmos.common.attachment.model.vo.Attachment;
@@ -81,11 +87,12 @@ public class GwChatController {
 	public void dm() {}
 	
 	@PostMapping("/createChatRoom.do")
-	public String createChatRoom(ChatRoom chatRoom, String chatRoomOpenType,int groupNo, RedirectAttributes redirectAtt, Authentication auth) {
+	public String createChatRoom(ChatRoom chatRoom, String chatRoomOpenType,int groupNo,HttpServletRequest request, RedirectAttributes redirectAtt, Authentication auth) {
 		log.debug("chatRoom = {}", chatRoom);
 		Member loginMember = (Member) auth.getPrincipal(); 
 		List<Member> myGroupMemberList = gwService.selectAllGroupMembers(groupNo);
 		
+
 		
 		//채팅방 개설
 		int result = chatService.createChatRoom(chatRoom);
@@ -114,11 +121,42 @@ public class GwChatController {
 							
 							
 			}
+		// 전체채팅방이 아닌 경우, 선택된 그룹원만 채팅방의 참여자로 설정한다.
+		}else {
+			String[] selectedMemberId = request.getParameterValues("memberId");
+			List<String> selectedMemberIdList = Arrays.asList(selectedMemberId);
+			
+			for(String id : selectedMemberIdList) {
+				Map<String, Object> param = new HashMap<>();
+				param.put("chatRoomNo", chatRoom.getChatRoomNo());
+				param.put("memberId",id);
+								
+				result = chatService.insertChatUserByParam(param);
+			}
 		}
 
 		
 		redirectAtt.addAttribute("groupNo", chatRoom.getGroupNo());
 		return "redirect:/gw/gw.do";
+	}
+	@ResponseBody
+	@GetMapping("/selectMember.do")
+	public List<Map<String,String>> selectMember(int groupNo){
+		log.debug("groupNo = {}", groupNo);
+		List<Map<String,String>> resultList = new ArrayList<>();
+		
+		List<Member> memberList = gwService.selectAllGroupMembers(groupNo);
+		for(Member m : memberList) {
+			Map<String, String> map = new HashMap<>();
+			String profileRenamedFilename = gwService.selectMemberProfileRenamedFilename(m.getId());
+			map.put("profileRenamedFilename", profileRenamedFilename);
+			map.put("memberName", m.getMemberName());
+			map.put("memberId", m.getId());
+			resultList.add(map);
+		}
+		
+		
+		return resultList;
 	}
 	
 	public void groupwareHeaderSet(int groupNo, Model model, Authentication auth) {

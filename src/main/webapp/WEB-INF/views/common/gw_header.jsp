@@ -52,7 +52,6 @@
         -moz-user-select: none;
         user-select: none;
       }
-
       @media (min-width: 768px) {
         .bd-placeholder-img-lg {
           font-size: 3.5rem;
@@ -62,8 +61,6 @@
 <c:if test="${not empty msg}">
 <script>
 	alert("${msg}");
-
-
 </script>
 </c:if>
   </head>
@@ -137,9 +134,7 @@
 	        <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#board-collapse" aria-expanded="true">
 	          게시판 채널
 	        </button>
-
 	        <div class="createBoardRoom" style="cursor: pointer;">
-
         	<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
 			  <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
 			</svg>
@@ -147,7 +142,7 @@
       	</div>
         <div class="collapse show" id="board-collapse">
           <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-            <li><a href="${pageContext.request.contextPath }/gw/board/notice.do?groupNo=${currGroupNo}" class="link-dark rounded">공지사항</a></li>
+            <li><a href="${pageContext.request.contextPath }/gw/board/notice.do?boardNo=1&groupNo=${currGroupNo}" class="link-dark rounded">공지사항</a></li>
            	<c:if test="${not empty boardList}">
            		<c:forEach var="boardRoom" items="${boardList}">
            			<c:if test="${fn:contains(boardRoom.boardType, 'B')}">
@@ -270,7 +265,6 @@
     </div>
   </div>
 </div>
-
 <div class="modal fade" id="createChatRoomModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
   aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -296,13 +290,7 @@
               <div class="modal-member-box" style="border: 1px solid black; ">
               
               
-		              	<div class="modal-member-profile">
-		              		<input class="ml-2 mr-2"type="checkbox" name="memberId" value=""/>
-		              		<div class="modal-member-profile-box">
-			              		<img src="${pageContext.request.contextPath }/resources/upFile/profile/" alt="" class="modal-member-profile-img" />
-		              		</div>
-		              		<span class="modal-member-name"></span>
-		              	</div>
+		              	
             
               	
               	
@@ -318,8 +306,6 @@
     </div>
   </div>
 </div>
-
-
 <div class="modal fade" id="createVoiceChatRoomModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
   aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -367,7 +353,6 @@ $(".modal-member-box").hide();
  $(".createChatRoom").click((e)=>{
 	 $("#createChatRoomModal").modal('show');
  });
-
  $(".close-modal").click((e)=>{
 	 $("#createChatRoomModal").modal('hide');
 	 $("#createBoardRoomModal").modal('hide');
@@ -375,18 +360,47 @@ $(".modal-member-box").hide();
  });
 
  $("input[name=chatRoomOpenType]").change((e)=>{
-	 console.log("click");
 	 var val = $("input[name=chatRoomOpenType]:checked").val();
 	 if(val == 'all'){
 		 $(".modal-member-box").hide();
 	 }else{
+		 var $groupNo = ${currGroupNo};
+		 var script = document.createElement("script");
+		 script.innerHTML = `var radioVal = '';
+		 radioVal += $("input[name=memberId]:checked").val();
+		 $("input[name=selectedMemberId]").val(radioVal);`
 		 
+		 $.ajax({
+			url: `${pageContext.request.contextPath}/gw/chat/selectMember.do`,
+			method : "get",
+			data: {'groupNo' : $groupNo},
+			contentType: "application/json; charset=utf-8",
+		 	success(res){
+		 		$.each(res,(k,v)=>{
+		 			console.log(v);
+		 			$(".modal-member-box").append(`
+		 					<div class="modal-member-profile">
+		              		<input class="ml-2 mr-2"type="checkbox" name="memberId" value="\${v.memberId}"/>
+		              		<div class="modal-member-profile-box">
+			              		<img src="${pageContext.request.contextPath }/resources/upFile/profile/\${v.profileRenamedFilename}" alt="" class="modal-member-profile-img" />
+		              		</div>
+		              		<span class="modal-member-name">\${v.memberName}</span>
+		              	</div>`);		 				
+
+		 		});
+		 		$(".modal-member-box").append(`<input type="hidden" name="selectedMemberId" value="" />`);
+		 		$(".modal-member-box").append(script);
+		 	},
+		 	error : console.log
+			
+		 });
 		 
 		 
 		 $(".modal-member-box").show();
 	 }
 	 
  });
+
 
 
  
@@ -405,7 +419,6 @@ $(".modal-member-box").hide();
  $(".createVoiceChatRoom").click((e)=>{
 	 $("#createVoiceChatRoomModal").modal('show');
  });
-
  
  $("#gw-logout").click((e)=>{
 	 $("#memberLogoutFrm").submit();
