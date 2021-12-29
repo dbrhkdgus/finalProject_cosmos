@@ -20,10 +20,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.cosmos.common.attachment.model.vo.Attachment;
 import com.kh.cosmos.group.model.vo.Group;
+import com.kh.cosmos.groupware.board.model.vo.Board;
 import com.kh.cosmos.groupware.chat.model.service.ChatService;
 import com.kh.cosmos.groupware.chat.model.vo.ChatMessage;
 import com.kh.cosmos.groupware.chat.model.vo.ChatRoom;
 import com.kh.cosmos.groupware.chat.model.vo.ChatUser;
+import com.kh.cosmos.groupware.chat.model.vo.DM;
 import com.kh.cosmos.groupware.service.GroupwareService;
 import com.kh.cosmos.member.model.vo.Member;
 
@@ -158,6 +160,41 @@ public class GwChatController {
 		
 		return resultList;
 	}
+	@ResponseBody
+	@GetMapping("/loadDM.do")
+	public List<DM> loadDM(String sender, String receiver){
+		log.debug("sender = {}", sender);
+		log.debug("receiver = {}", receiver);
+	
+		
+		Map<String, String> param = new HashMap<String, String>();
+		param.put("sender", sender);
+		param.put("receiver", receiver);
+		List<DM> dmList = chatService.selectDMListByParam(param);
+		
+		
+		return dmList;
+		
+	}
+	@ResponseBody
+	@GetMapping("/indexDMList.do")
+	public List<DM> indexDMList(Authentication auth){
+		String receiver = ((Member) auth.getPrincipal()).getId();
+		List<String> mySenderList = chatService.selectMySenderList(receiver);
+		List<DM> dmList = new ArrayList<DM>();
+		for(String sender : mySenderList) {
+			Map<String, String> param = new HashMap<String, String>();
+			param.put("receiver", receiver);
+			param.put("sender", sender);
+			
+			dmList.add(chatService.selectMynewDM(param));
+		}
+		
+		
+		return dmList;
+		
+	}
+	
 	
 	public void groupwareHeaderSet(int groupNo, Model model, Authentication auth) {
 		Member loginMember = (Member) auth.getPrincipal();
@@ -175,7 +212,8 @@ public class GwChatController {
 		}
 
 		List<ChatRoom> chattingChannelList = gwService.selectAllChatRoomByGroupNo(groupNo);
-		
+		List<Board> boardList = gwService.selectAllBoardRoomByGroupNo(groupNo);
+		model.addAttribute("boardList", boardList);
 		model.addAttribute("currGroupNo", groupNo);
 		model.addAttribute("myGroup", myGroup);
 		model.addAttribute("myGroupMemberList", myGroupMemberList);
