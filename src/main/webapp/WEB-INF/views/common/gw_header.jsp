@@ -406,7 +406,7 @@
 	        <div class="modal-dm-input-box">
 		
 		      <div class="modal-dm-txt border-top">
-		        <input id="chatMessageContent" type="text" class="form-control" name="chatMessageContent">
+		        <input id="dm-chatMessageContent" type="text" class="form-control" name="chatMessageContent">
 		      </div>
 		      <div class="btn-group">
 		        <i class="fa fa-meh-o" aria-hidden="true"></i>
