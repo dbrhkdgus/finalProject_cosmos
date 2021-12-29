@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.kh.cosmos.common.attachment.model.vo.Attachment;
 import com.kh.cosmos.groupware.board.model.vo.Board;
 import com.kh.cosmos.groupware.board.model.vo.Post;
+import com.kh.cosmos.member.model.vo.MemberWithGroup;
 
 @Repository
 public class BoardDaoImpl implements BoardDao {
@@ -69,6 +70,12 @@ public class BoardDaoImpl implements BoardDao {
 	public int selectPostInBoardTotalCount(int boardNo) {
 		// TODO Auto-generated method stub
 		return session.selectOne("board.selectPostInBoardTotalCount", boardNo);
+	}
+
+	@Override
+	public List<MemberWithGroup> memberWithGroupList(int groupNo) {
+		// TODO Auto-generated method stub
+		return session.selectList("board.memberWithGroupList", groupNo);
 	}
 
 	
