@@ -42,4 +42,8 @@ public interface ChatService {
 
 	List<DM> selectDMListByParam(Map<String, String> param);
 
+	DM selectMynewDM(Map<String, String> param);
+
+	List<String> selectMySenderList(String receiver);
+
 }

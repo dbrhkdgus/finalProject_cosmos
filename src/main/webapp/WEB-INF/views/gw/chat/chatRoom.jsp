@@ -200,33 +200,7 @@ $("#btn-message-send").click((e) =>{
 	
 	$(chatMessageContent).val(''); // #message 초기화
 });
-/* 메시지 수신처리 */
-function dmWriter(obj) {
-	const {senderName, msg, profileRenamedFilename, messageAt, logTime} = obj;
-	console.log(obj);
-	$(".dm-profile-container").append(`<div class="dm-message-content-box">
-          	
-	          <div class="dm-user-profile">
-	            <img class="dm-user-profile-img" src="${pageContext.request.contextPath}/resources/upFile/profile/\${profileRenamedFilename}" alt="">
-	          </div>
-	          
-	          <div class="dm-message-box">
-	          
-	            <div class="dm-message-sender">
-	              <span><strong>\${senderName}</strong></span>
-	              <span>\${logTime}</span>
-	            </div>
-	            
-	            <div class="dm-message-content">
-	              <p>\${msg}</p>
-	            </div>
-	            
-	          </div>
-        </div>	
-			
-			`);
-};
-
+/* DM DB 조회 ajax */
 function loadDM(obj){
 	$(".dm-profile-container").text('');
 	const {receiver, sender, senderName, msg, profileRenamedFilename, messageAt, logTime} = obj;

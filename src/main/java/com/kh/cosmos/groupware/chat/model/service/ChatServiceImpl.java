@@ -108,6 +108,18 @@ public class ChatServiceImpl implements ChatService {
 		// TODO Auto-generated method stub
 		return chatDao.selectDMListByParam(param);
 	}
+
+	@Override
+	public DM selectMynewDM(Map<String, String> param) {
+		// TODO Auto-generated method stub
+		return chatDao.selectMynewDM(param);
+	}
+
+	@Override
+	public List<String> selectMySenderList(String receiver) {
+		// TODO Auto-generated method stub
+		return chatDao.selectMySenderList(receiver);
+	}
 	
 	
 	
