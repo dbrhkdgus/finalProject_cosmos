@@ -12,6 +12,7 @@
     <div class="study-join-admin-box">
       <div class="study-member-table">
         <h4>그룹원 관리</h4>
+
         <table class="table table-sm text-center">
           <thead>
             <tr>
