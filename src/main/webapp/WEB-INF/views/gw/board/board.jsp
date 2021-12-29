@@ -7,7 +7,9 @@
 <jsp:include page="/WEB-INF/views/common/gw_header.jsp">
 	<jsp:param value="" name="title"/>
 </jsp:include>
+<script>
 
+</script>
  <div class="test-board-outter">
   <div class="test-board-title-container">
     <div class="test-board-search">
@@ -27,12 +29,12 @@
     </thead>
     <tbody>
     	<c:forEach var="post" items="${boardPostList}" varStatus="vs">
-    		<tr>
+    		<tr onclick="location.href='${pageContext.request.contextPath}/gw/board/boardDetail.do?postNo=${post.postNo}'">
 		        <td>${vs.count}</td>
 		        <td colspan="2">${post.postTitle}</td>
 		        <td>${memberWithGroupMap[post.memberId]}</td>
 		        <td><fmt:formatDate value="${post.postRegDate}" pattern="yy-MM-dd"/></td>
-		     </tr>
+		     </a></tr>
     	</c:forEach>
       
       
