@@ -31,13 +31,19 @@ public class GwAdminController {
 	
 	
 	@GetMapping("/memberManager.do")
-	public void memberManager(Model model,@RequestParam int groupNo,Authentication authentication) {
+	public String memberManager(Model model, int groupNo,Authentication authentication) {
 		groupwareHeaderSet(groupNo, model, authentication);
+		model.addAttribute("groupNo", groupNo);
+		return "gw/admin/memberManager?groupNo="+groupNo;
 		
 	}
 	
 	@GetMapping("/groupManager.do")
-	public void groupManager() {}
+	public String groupManager(int groupNo,Model model) {
+		model.addAttribute("groupNo", groupNo);
+		return "gw/admin/groupManager?groupNo="+groupNo;
+		
+	}
 
 	
 	
