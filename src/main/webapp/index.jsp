@@ -285,10 +285,7 @@ $("#btn-DM-modal").click((e)=>{
 	});
 	};
 	`;
-	script.innerHTML += `function writeDM2(data){
-		console.log(data);
-		/* $.each 이하 불러와서 처리해 */
-	}`;
+	script.innerHTML += 'function writeDM2(data){console.log(data);/* $.each 이하 불러와서 처리해 */}';
 	
 //////////////////////////////////////////////////////////////////////////////////////		
 	$.ajax({
