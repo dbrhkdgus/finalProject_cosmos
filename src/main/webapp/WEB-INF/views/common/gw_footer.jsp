@@ -52,9 +52,6 @@ $(".close-modal").click((e)=>{
 
 /* DM websocket */
 
-	
-
-
 
 $("#btn-dm-message-send").click((e) =>{
 	var today = new Date();
@@ -63,7 +60,7 @@ $("#btn-dm-message-send").click((e) =>{
 	const obj = {
 		chatRoomNo : "${chatRoomNo}",
 		memberId : "${loginMember.id}",
-		msg : $(chatMessageContent).val(),
+		msg : $("#dm-chatMessageContent").val(),
 		logTime : hours + ":" + minutes
 	};
 	
