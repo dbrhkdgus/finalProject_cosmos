@@ -71,4 +71,28 @@
 	<delete id="deleteOneAttach" >
 		delete from attachment where attach_no =#{attachNo}
 	</delete> 
+	
+<!--파일보드 검색쿼리 -->
+	<select id="selectAllFileBoardListByParam" resultType="PostWithCategory">
+	 select 
+	         p.*,
+	         bc.board_category
+	         from
+	  post p join board_category bc
+	    on 
+	  p.board_category_no = bc.board_category_no
+	  where p.board_category_no in (5,6,7,8,9)
+	<where>		
+		<if test="searchType == 'all'">
+			 and member_id like '%'||#{searchKeyword}||'%' or post_title like '%'||#{searchKeyword}||'%'
+		</if>
+	<!-- 	<if test="searchType == 'img'">
+			 and member_id like '%'||#{searchKeyword}||'%' or post_title like '%'||#{searchKeyword}||'%'
+		</if>		
+		<if test="searchType == 'code'">
+			 and group_location like '%'||#{searchKeyword}||'%'
+		</if>	 -->
+	</where>
+		order by post_reg_date desc
+	</select>
 </mapper>
