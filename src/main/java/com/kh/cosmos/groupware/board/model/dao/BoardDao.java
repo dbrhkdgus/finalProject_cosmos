@@ -5,6 +5,7 @@ import java.util.List;
 import com.kh.cosmos.common.attachment.model.vo.Attachment;
 import com.kh.cosmos.groupware.board.model.vo.Board;
 import com.kh.cosmos.groupware.board.model.vo.Post;
+import com.kh.cosmos.member.model.vo.MemberWithGroup;
 
 public interface BoardDao {
 
@@ -25,6 +26,8 @@ public interface BoardDao {
 	Board selectBoardByBoardNo(int boardNo);
 
 	int selectPostInBoardTotalCount(int boardNo);
+
+	List<MemberWithGroup> memberWithGroupList(int groupNo);
 
 	
 
