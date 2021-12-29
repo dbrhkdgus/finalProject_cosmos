@@ -34,7 +34,6 @@ public class FileBoardServiceImpl implements FileBoardService {
 	
 	@Override
 	public Attachment selectOneAttachment(int attachNo) {
-		// TODO Auto-generated method stub
 		return fileBoardDao.selectOneAttachment(attachNo);
 	}
 
@@ -43,6 +42,18 @@ public class FileBoardServiceImpl implements FileBoardService {
 	public List<Attachment> selectAttachmentList() {
 		return fileBoardDao.selectAttachmentList();
 	}
+
+	@Override
+	public int deleteFilePost(int postNo) {
+		return fileBoardDao.deleteFilePost(postNo);
+	}
+
+	@Override
+	public int deleteOneAttach(int attachNo) {
+		return fileBoardDao.deleteOneAttach(attachNo);
+	}
+	
+	
 	
 	
 
