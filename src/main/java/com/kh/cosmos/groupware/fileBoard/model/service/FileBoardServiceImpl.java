@@ -31,8 +31,13 @@ public class FileBoardServiceImpl implements FileBoardService {
 	public int insertFilePost(Post post) {
 		return fileBoardDao.insertFilePost(post);
 	}
-	
 
+	@Override
+	public List<Attachment> selectAttachmentList() {
+		return fileBoardDao.selectAttachmentList();
+	}
+	
+	
 
 		
 }

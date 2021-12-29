@@ -9,6 +9,7 @@ import javax.servlet.ServletContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ResourceLoader;
+import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -55,24 +57,24 @@ public class GwFileBoardController {
 	ResourceLoader resourceLoader;
 	
 
-    @GetMapping("/fileBoard.do")
-    public String fileBoard(@RequestParam(defaultValue = "1") int cPage,Model model,@RequestParam int groupNo,@RequestParam int boardNo,Authentication authentication) {
-    	groupwareHeaderSet(groupNo, model, authentication);
-//    	log.debug("cPage = {}", cPage);
-//		log.debug("boardNo = {}", boardNo);
-		int limit = 10;
-		int offset = (cPage - 1) * limit;
-    	model.addAttribute("groupNo", groupNo);
-        model.addAttribute("boardNo", boardNo);
-        model.addAttribute("title", "파일게시판");
-        
-        List<PostWithCategory> fileboardPostList = fileBoardService.selectAllPostInfileBoard(boardNo);
-		log.debug("boardPostList = {}", fileboardPostList);
+	  @GetMapping("/fileBoard.do")
+	    public String fileBoard(@RequestParam(defaultValue = "1") int cPage,Model model,@RequestParam int groupNo,@RequestParam int boardNo,Authentication authentication) {
+	        groupwareHeaderSet(groupNo, model, authentication);
+//	        log.debug("cPage = {}", cPage);
+//	        log.debug("boardNo = {}", boardNo);
+	        int limit = 10;
+	        int offset = (cPage - 1) * limit;
+	        model.addAttribute("groupNo", groupNo);
+	        model.addAttribute("boardNo", boardNo);
+	        model.addAttribute("title", "파일게시판");
+	        
+	        List<PostWithCategory> fileboardPostList = fileBoardService.selectAllPostInfileBoard(boardNo);
+	        log.debug("boardPostList = {}", fileboardPostList);
 
-		model.addAttribute("fileboardPostList", fileboardPostList);
-    	
-        return "gw/fileBoard/fileBoard";
-    }
+	        model.addAttribute("fileboardPostList", fileboardPostList);
+	        
+	        return "gw/fileBoard/fileBoard";
+	    }
     
     @GetMapping("/fileEnroll.do")
     public void fileEnroll(@RequestParam int groupNo,@RequestParam int boardNo, Model model ) {
