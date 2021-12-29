@@ -63,12 +63,12 @@ $("#btn-dm-message-send").click((e) =>{
 	const obj = {
 		chatRoomNo : "${chatRoomNo}",
 		memberId : "${loginMember.id}",
-		msg : $(chatMessageContent).val(),
+		msg : $("#dm-chatMessageContent").val(),
 		logTime : hours + ":" + minutes
 	};
 	
 	stompClient.send(`/app/dm/\${$("input[name=dm-memberId]").val()}`, {}, JSON.stringify(obj));
-	$(chatMessageContent).val(''); // #message 초기화
+	$("#dm-chatMessageContent").val(''); // #message 초기화
 });
 </script>
   </body>
