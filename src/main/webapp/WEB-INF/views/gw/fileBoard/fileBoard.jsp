@@ -7,6 +7,7 @@
 <jsp:include page="/WEB-INF/views/common/gw_header.jsp">
 	<jsp:param value="" name="title"/>
 </jsp:include>
+
  <div class="test-notice-outter">
   <div class="test-board-title-container">
     <div class="test-board-title">
@@ -30,17 +31,25 @@
       </tr>
     </thead>
     <tbody>
-    	<c:forEach var="post" items="${fileboardPostList}" varStatus="status">
-    		<tr>
-    			<td>${fn:length(fileboardPostList)- status.count+1}</td>   
-		        <td>${post.boardCategory}</td>
-		        <td colspan="2">${post.postTitle}</td>
-		        <td><a href="${pageContext.request.contextPath}/gw/fileBoard/fileDown.do?attachNo=${post.attachNo}" >뭘깝숑</a></td>
-		        <td>${post.memberId}</td>
-		        <td><fmt:formatDate value="${post.postRegDate}" pattern="yy-MM-dd"/></td>
-		     </tr>
-    	</c:forEach>
-      
+
+  <c:forEach var="post" items="${fileboardPostList}" varStatus="status">
+            <tr>
+                <td>${fn:length(fileboardPostList)- status.count+1}</td>
+                
+                <td>${post.boardCategory}</td>
+                <td colspan="2">${post.postTitle}</td>
+                <td><a href="${pageContext.request.contextPath}/gw/fileBoard/fileDown.do?attachNo=${post.attachNo}" >
+				  <c:forEach var="attach" items="${attach}" varStatus="status">
+				  	<c:if test="${post.attachNo eq attach.attachNo}">
+				                ${attach.originalFilename}
+				                </c:if>
+				        </c:forEach>
+                </a></td>
+                <td>${post.memberId}</td>
+                <td><fmt:formatDate value="${post.postRegDate}" pattern="yy-MM-dd"/></td>
+             </tr>
+        </c:forEach>      
+
     </tbody>
   </table>
   <div class="d-grid gap-2 d-md-flex justify-content-md-end mr-2 ">

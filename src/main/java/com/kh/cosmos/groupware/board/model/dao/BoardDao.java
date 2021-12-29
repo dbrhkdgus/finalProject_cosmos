@@ -10,7 +10,7 @@ public interface BoardDao {
 
 	int createBoardRoom(Board board);
 
-	List<Post> selectAllPostInBoard(int boardNo);
+	List<Post> selectAllPostInBoard(int boardNo, int limit, int offset);
 
 	List<Post> selectAllPostInNotice(int boardNo);
 
@@ -19,5 +19,9 @@ public interface BoardDao {
 	int insertAttach(Attachment attach);
 
 	int insertPostFile(Post post);
+
+	Board selectBoardByBoardNo(int boardNo);
+
+	int selectPostInBoardTotalCount(int boardNo);
 
 }

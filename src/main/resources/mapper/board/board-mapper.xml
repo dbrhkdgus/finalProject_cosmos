@@ -16,7 +16,17 @@
 	where board_no = #{boardNo}
 	order by post_no desc
   </select>
-  
+  <select id="selectBoardByBoardNo" resultType="board">
+		select * from board where board_no = #{boardNo}
+  </select>
+  <select id="selectPostInBoardTotalCount" resultType="_int">
+		select 
+			count(*) 
+		from 
+			post
+		where
+			board_no = #{boardNo}
+	</select>
  <select id="selectAllPostInNotice" resultType="Post">
   	select * from post where board_no = #{boardNo} order by post_no desc
   </select>

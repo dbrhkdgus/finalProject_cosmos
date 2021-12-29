@@ -73,9 +73,13 @@ public class GwFileBoardController {
         model.addAttribute("title", "파일게시판");
         
         List<PostWithCategory> fileboardPostList = fileBoardService.selectAllPostInfileBoard(boardNo);
-		log.debug("boardPostList = {}", fileboardPostList);
+//		log.debug("boardPostList = {}", fileboardPostList);
 	        model.addAttribute("fileboardPostList", fileboardPostList);
 	        
+	        
+	    List<Attachment> attach = fileBoardService.selectAttachmentList();
+	    log.debug("attach = {}", attach);
+	        model.addAttribute("attach",attach);
 	        return "gw/fileBoard/fileBoard";
 	    }
     
@@ -177,7 +181,7 @@ public class GwFileBoardController {
 			produces = MediaType.APPLICATION_OCTET_STREAM_VALUE
 		)
 		@ResponseBody
-		public Resource fileDownload(@RequestParam int attachNo, HttpServletResponse response) throws UnsupportedEncodingException {
+		public Resource fileDownload(@RequestParam int attachNo, HttpServletResponse response,Model model) throws UnsupportedEncodingException {
 			// 1.업무로직 : db attachment행 조회
 			Attachment attach = fileBoardService.selectOneAttachment(attachNo);
 			log.debug("attach = {}", attach);
@@ -195,6 +199,8 @@ public class GwFileBoardController {
 			String filename = new String(attach.getOriginalFilename().getBytes("utf-8"), "iso-8859-1");
 //			response.setContentType("application/octet-stream; charset=utf-8");
 			response.addHeader("Content-Disposition", "attachment; filename=" + filename);
+			
+		
 			
 			return resource;
 		}
