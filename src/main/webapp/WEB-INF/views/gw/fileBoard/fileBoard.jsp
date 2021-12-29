@@ -35,7 +35,7 @@
 		        <td>${vs.count}</td>
 		        <td>${post.boardCategory}</td>
 		        <td colspan="2">${post.postTitle}</td>
-		        <td><a href="${pageContext.request.contextPath}/gw/fileBoard/fileDown.do">가랏</a></td>
+		        <td><a href="${pageContext.request.contextPath}/gw/fileBoard/fileDown.do"></a></td>
 		        <td>${post.memberId}</td>
 		        <td><fmt:formatDate value="${post.postRegDate}" pattern="yy-MM-dd"/></td>
 		     </tr>
