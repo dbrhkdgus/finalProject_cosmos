@@ -9,6 +9,8 @@ import com.kh.cosmos.groupware.board.model.vo.Post;
 public interface BoardDao {
 
 	int createBoardRoom(Board board);
+	
+	int updateBoardRoom(Board board);
 
 	List<Post> selectAllPostInBoard(int boardNo, int limit, int offset);
 
@@ -23,5 +25,7 @@ public interface BoardDao {
 	Board selectBoardByBoardNo(int boardNo);
 
 	int selectPostInBoardTotalCount(int boardNo);
+
+	
 
 }
