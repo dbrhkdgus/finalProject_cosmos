@@ -29,6 +29,13 @@ public interface BoardDao {
 
 	List<MemberWithGroup> memberWithGroupList(int groupNo);
 
+	Attachment selectOneAttachInBoard(int attachNo);
+
+	Post selectOnePostInBoard(int postNo);
+
+	Post selectOnePostInNotice(int postNo);
+
+
 	
 
 }

@@ -28,6 +28,12 @@ public interface BoardService {
 	int updateBoardRoom(Board board);
 
 	List<MemberWithGroup> memberWithGroupList(int groupNo);
+
+	Post selectOnePostInBoard(int postNo);
+
+	Attachment selectOneAttachInBoard(int attachNo);
+
+	Post selectOnePostInNotice(int postNo);
 	
 	
 

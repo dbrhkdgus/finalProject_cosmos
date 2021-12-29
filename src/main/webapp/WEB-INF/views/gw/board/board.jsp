@@ -29,7 +29,7 @@
     </thead>
     <tbody>
     	<c:forEach var="post" items="${boardPostList}" varStatus="vs">
-    		<tr onclick="location.href='${pageContext.request.contextPath}/gw/board/boardDetail.do?boardNo=${boardNo}'">
+    		<tr onclick="location.href='${pageContext.request.contextPath}/gw/board/boardDetail.do?postNo=${post.postNo}'">
 		        <td>${vs.count}</td>
 		        <td colspan="2">${post.postTitle}</td>
 		        <td>${memberWithGroupMap[post.memberId]}</td>
