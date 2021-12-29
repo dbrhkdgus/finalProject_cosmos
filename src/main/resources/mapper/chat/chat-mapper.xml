@@ -73,4 +73,8 @@
   select member_name from tb_member where id = #{id}
   </select>
   
+  <insert id="insertDm">
+  insert into dm values(seq_dm_no.nextval, #{dmSender}, #{dmReceiver}, #{dmContent}, default, #{chatMessageTypeNo}, null)
+  </insert>
+  
 </mapper>
