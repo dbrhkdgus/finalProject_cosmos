@@ -14,13 +14,7 @@
 <sec:authorize access="isAuthenticated()">
 	<sec:authentication property="principal" var="loginMember"/>
 </sec:authorize>
-<script>
-$("#button-addon2").click((e)=>{
-    const searchType = $("select[name=searchType]").val();
-    const searchKeyword = $("input[name=searchKeyword]").val();
-   
-});
-</script>
+
  <div class="test-notice-outter">
   <div class="test-board-title-container">
     <div class="test-board-title">
@@ -108,5 +102,14 @@ $("#button-addon2").click((e)=>{
     </nav> 
   </div>
 </div>
+
+<script>
+$("#button-addon2").click((e)=>{
+    const searchType = $("select[name=searchType]").val();
+    const searchKeyword = $("input[name=searchKeyword]").val();
+    location.href=`${pageContext.request.contextPath}/gw/fileBoard/fileBoard.do?boardNo=${boardNo}&groupNo=${groupNo}&searchType=\${searchType}&searchKeyword=\${searchKeyword}`; 
+   
+});
+</script>
 <jsp:include page="/WEB-INF/views/common/gw_footer.jsp"></jsp:include>
 
