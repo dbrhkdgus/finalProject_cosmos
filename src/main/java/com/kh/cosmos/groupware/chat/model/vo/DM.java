@@ -25,6 +25,6 @@ public class DM implements Serializable {
 	private int chatMessageTypeNo;
 	private int attchNo;
 	
-	private String dmReceiverName;
-	private String dmReceiverProfileRenamedFilename;
+	private String dmSenderName;
+	private String dmSenderProfileRenamedFilename;
 }

@@ -9,6 +9,7 @@ import com.kh.cosmos.common.attachment.model.vo.Attachment;
 import com.kh.cosmos.groupware.board.model.dao.BoardDao;
 import com.kh.cosmos.groupware.board.model.vo.Board;
 import com.kh.cosmos.groupware.board.model.vo.Post;
+import com.kh.cosmos.member.model.vo.MemberWithGroup;
 
 @Service
 public class BoardServiceImpl implements BoardService {
@@ -70,6 +71,31 @@ public class BoardServiceImpl implements BoardService {
 		return boardDao.selectPostInBoardTotalCount(boardNo);
 	}
 
+	@Override
+	public List<MemberWithGroup> memberWithGroupList(int groupNo) {
+		// TODO Auto-generated method stub
+		return boardDao.memberWithGroupList(groupNo);
+	}
+
+	@Override
+	public Post selectOnePostInBoard(int postNo) {
+		// TODO Auto-generated method stub
+		return boardDao.selectOnePostInBoard(postNo);
+	}
+
+	@Override
+	public Attachment selectOneAttachInBoard(int attachNo) {
+		// TODO Auto-generated method stub
+		return boardDao.selectOneAttachInBoard(attachNo);
+	}
+
+	@Override
+	public Post selectOnePostInNotice(int postNo) {
+		// TODO Auto-generated method stub
+		return boardDao.selectOnePostInNotice(postNo);
+	}
+
+	
 	
 
 	

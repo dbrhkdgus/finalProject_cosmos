@@ -5,6 +5,7 @@ import java.util.List;
 import com.kh.cosmos.common.attachment.model.vo.Attachment;
 import com.kh.cosmos.groupware.board.model.vo.Board;
 import com.kh.cosmos.groupware.board.model.vo.Post;
+import com.kh.cosmos.member.model.vo.MemberWithGroup;
 
 public interface BoardService {
 
@@ -25,6 +26,14 @@ public interface BoardService {
 	int selectPostInBoardTotalCount(int boardNo);
 
 	int updateBoardRoom(Board board);
+
+	List<MemberWithGroup> memberWithGroupList(int groupNo);
+
+	Post selectOnePostInBoard(int postNo);
+
+	Attachment selectOneAttachInBoard(int attachNo);
+
+	Post selectOnePostInNotice(int postNo);
 	
 	
 

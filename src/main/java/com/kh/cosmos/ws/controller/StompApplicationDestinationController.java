@@ -38,7 +38,7 @@ public class StompApplicationDestinationController {
 	@MessageMapping("/dm/{receiver}")
 	@SendTo("/dm/{receiver}")
 	public String app(String chatMessageContent, @DestinationVariable String receiver) {
-		
+		log.debug(chatMessageContent);
 		ObjectMapper mapper = new ObjectMapper();
 		HashMap<String, String> map = new HashMap<String, String>();
 		try {
@@ -65,7 +65,22 @@ public class StompApplicationDestinationController {
 		
 		log.debug("dm = {}", dm);
 		
+		
+		
 		int result = chatService.insertDm(dm);
+		
+		
+		// 구독자에게 JsonStr전송하기
+		map.put("senderName", chatService.selectMemberNameByMemberId(dm.getDmSender()));
+		map.put("profileRenamedFilename", gwService.selectMemberProfileRenamedFilename(dm.getDmSender()));
+
+		try {
+			String jsonStr = mapper.writeValueAsString(map);
+			return jsonStr;
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		return chatMessageContent;
 	}

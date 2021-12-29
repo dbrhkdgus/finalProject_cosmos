@@ -14,13 +14,7 @@
 <sec:authorize access="isAuthenticated()">
 	<sec:authentication property="principal" var="loginMember"/>
 </sec:authorize>
-<script>
-$("#button-addon2").click((e)=>{
-    const searchType = $("select[name=searchType]").val();
-    const searchKeyword = $("input[name=searchKeyword]").val();
-   
-});
-</script>
+
  <div class="test-notice-outter">
   <div class="test-board-title-container">
     <div class="test-board-title">
@@ -57,8 +51,9 @@ $("#button-addon2").click((e)=>{
       </tr>
     </thead>
     <tbody>
-
-  <c:forEach var="post" items="${fileboardPostList}" varStatus="status">
+<!--  -->
+  <c:if test="${not empty fileBoardList}">
+  <c:forEach var="post" items="${fileBoardList}" varStatus="status">
             <tr>
                 <td>${fn:length(fileboardPostList)- status.count+1}</td>
                 
@@ -89,7 +84,42 @@ $("#button-addon2").click((e)=>{
                 </td>
              </tr>
         </c:forEach>      
+	</c:if>
 
+<!--  -->
+	<c:if test="${empty fileBoardList and !isListempty}">
+	  <c:forEach var="post" items="${fileboardPostList}" varStatus="status">
+	            <tr>
+	                <td>${fn:length(fileboardPostList)- status.count+1}</td>
+	                
+	                <td>${post.boardCategory}</td>
+	                <td colspan="2">${post.postTitle}</td>
+	                <td><a href="${pageContext.request.contextPath}/gw/fileBoard/fileDown.do?attachNo=${post.attachNo}" >
+					  <c:forEach var="attach" items="${attach}" varStatus="status">
+						  	<c:if test="${post.attachNo eq attach.attachNo}">
+						                ${attach.originalFilename}
+						    </c:if>
+		                  </c:forEach>
+	                </a></td>
+	                <td>${post.memberId}</td>
+	                <td ><fmt:formatDate value="${post.postRegDate}" pattern="yy-MM-dd"/>
+		                <c:if test="${loginMember.id eq post.memberId}">
+			                <form  action="${pageContext.request.contextPath}/gw/fileBoard/deletefilePost.do?postNo=${post.postNo}" method="GET">
+							  <c:forEach var="attach" items="${attach}" varStatus="status">
+								  	<c:if test="${post.attachNo eq attach.attachNo}"> 
+				                		<button id="fileBoard-delete">삭제</button>
+					                	<input type="hidden" value="${groupNo}" name ="groupNo">
+					                	<input type="hidden" value="${post.postNo}"  name="postNo">
+					                	<input type="hidden" value="${boardNo}" name = "boardNo">		                	
+					                	<input type="hidden" value="${attach.attachNo}" name = "attachNo">		                	
+					     		    </c:if>
+			                  </c:forEach>
+			                </form>
+		                </c:if>
+	                </td>
+	             </tr>
+	        </c:forEach>      
+	 </c:if>
     </tbody>
   </table>
   <div class="d-grid gap-2 d-md-flex justify-content-md-end mr-2 ">
@@ -108,5 +138,14 @@ $("#button-addon2").click((e)=>{
     </nav> 
   </div>
 </div>
+
+<script>
+$("#button-addon2").click((e)=>{
+    const searchType = $("select[name=searchType]").val();
+    const searchKeyword = $("input[name=searchKeyword]").val();
+    location.href=`${pageContext.request.contextPath}/gw/fileBoard/fileBoard.do?boardNo=${boardNo}&groupNo=${groupNo}&searchType=\${searchType}&searchKeyword=\${searchKeyword}`; 
+   
+});
+</script>
 <jsp:include page="/WEB-INF/views/common/gw_footer.jsp"></jsp:include>
 

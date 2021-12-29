@@ -21,7 +21,7 @@
   <table class="table table-borderless">
     <tbody>
     <c:forEach var="post" items="${noticePostList}" varStatus="vs">
-      <tr>
+      <tr onclick="location.href='${pageContext.request.contextPath}/gw/board/noticeDetail.do?postNo=${post.postNo}'">
         <td colspan="3">•${post.postTitle}</td>
         <td><span class="text-secondary"><fmt:formatDate value="${post.postRegDate}" pattern="yy-MM-dd"/></span></td>
       </tr>

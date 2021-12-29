@@ -7,12 +7,12 @@
 <jsp:include page="/WEB-INF/views/common/gw_header.jsp">
 	<jsp:param value="" name="title"/>
 </jsp:include>
-
   <div class="workspace-box">
 
     <div class="study-join-admin-box">
       <div class="study-member-table">
         <h4>그룹원 관리</h4>
+
         <table class="table table-sm text-center">
           <thead>
             <tr>

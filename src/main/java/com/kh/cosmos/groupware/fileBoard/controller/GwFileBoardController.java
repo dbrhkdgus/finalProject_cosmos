@@ -77,17 +77,28 @@ public class GwFileBoardController {
 		int offset = (cPage - 1) * limit;
 		Map<String, Object> param = new HashMap<String, Object>();
 		
-		List<Post> fileBoardList = new ArrayList<Post>();
+		List<PostWithCategory> fileBoardList = new ArrayList<PostWithCategory>();
 		String searchType = request.getParameter("searchType");
 		String searchKeyword = request.getParameter("searchKeyword");
 		param.put("searchType", searchType);
 		param.put("searchKeyword", searchKeyword);
-//		fileBoardList = fileBoardService.selectAllFileBoardListByParam(param,limit,offset);
+				
+		fileBoardList = fileBoardService.selectAllFileBoardListByParam(param,limit,offset);		
+		model.addAttribute("fileBoardList",fileBoardList);
+		
+		boolean isListempty = false;
+		if(fileBoardList.isEmpty()) {
+			isListempty = true;
+		}
+		
+		log.debug("isListempty ={}" ,isListempty );
+		model.addAttribute("isListempty",isListempty);
+			
 		
 		model.addAttribute("groupNo", groupNo);
         model.addAttribute("boardNo", boardNo);
         model.addAttribute("title", "파일게시판");
-  
+        
         
         List<PostWithCategory> fileboardPostList = fileBoardService.selectAllPostInfileBoard(boardNo);
 //		log.debug("boardPostList = {}", fileboardPostList);
@@ -95,7 +106,7 @@ public class GwFileBoardController {
 	        
 	        
 	    List<Attachment> attach = fileBoardService.selectAttachmentList();
-	    log.debug("attach = {}", attach);
+//	    log.debug("attach = {}", attach);
 	        model.addAttribute("attach",attach);
 	        return "gw/fileBoard/fileBoard";
 	    }
@@ -148,7 +159,7 @@ public class GwFileBoardController {
 			
 //			int result = gwFileService.insertGroup(fileEnroll);
 			
-			log.debug("attach ={} ",attach);
+//			log.debug("attach ={} ",attach);
 			 int attachNo = 0;
 			 attachNo = fileBoardService.insertFileAttach(attach);
 			
@@ -159,7 +170,7 @@ public class GwFileBoardController {
 			 post.setBoardNo(boardNo);
 			 post.setPostTitle(fileEnroll.getFileTitle());
 			 post.setBoardCategoryNo(fileEnroll.getFileCategoryNo());
-			 log.debug("post = {} " , post);
+//			 log.debug("post = {} " , post);
 			 
 			 Board board = new Board();
 			 board.setBoardNo(boardNo);
@@ -170,7 +181,7 @@ public class GwFileBoardController {
 			 
 			 int filePostResult = fileBoardService.insertFilePost(post);
 			 
-			 log.debug("filePostResult = {} " , filePostResult);
+
 			 
 			 
 			
@@ -248,7 +259,8 @@ public class GwFileBoardController {
             String memberProfileRenamedFilename = gwService.selectMemberProfileRenamedFilename(m.getId());
             memberProfileRenamedFilenameList.add(memberProfileRenamedFilename);
         }
-
+        List<Board> boardList = gwService.selectAllBoardRoomByGroupNo(groupNo);
+        model.addAttribute("boardList", boardList);
         List<ChatRoom> chattingChannelList = gwService.selectAllChatRoomByGroupNo(groupNo);
         
         model.addAttribute("currGroupNo", groupNo);
