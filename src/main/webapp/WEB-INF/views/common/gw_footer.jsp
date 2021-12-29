@@ -38,36 +38,7 @@
 
   </section>
 </main>
-<script>
-/* DM modal 제어 */
-$(".btn-profile").click((e)=>{
-	$("input[name=dm-memberId]").val($(e.target).siblings().val());
-	console.log($("input[name=dm-memberId]").val());
-	$("#gwDMModal").modal('show');
-});
-$(".close-modal").click((e)=>{
-	 $("#gwDMModal").modal('hide');
 
-});
-
-/* DM websocket */
-
-
-$("#btn-dm-message-send").click((e) =>{
-	var today = new Date();
-	var hours = today.getHours(); // 시
-	var minutes = today.getMinutes();  // 분
-	const obj = {
-		chatRoomNo : "${chatRoomNo}",
-		memberId : "${loginMember.id}",
-		msg : $("#dm-chatMessageContent").val(),
-		logTime : hours + ":" + minutes
-	};
-	
-	stompClient.send(`/app/dm/\${$("input[name=dm-memberId]").val()}`, {}, JSON.stringify(obj));
-	$("#dm-chatMessageContent").val(''); // #message 초기화
-});
-</script>
   </body>
 
 </html>
