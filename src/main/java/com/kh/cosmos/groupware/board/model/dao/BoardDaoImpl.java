@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.kh.cosmos.common.attachment.model.vo.Attachment;
 import com.kh.cosmos.groupware.board.model.vo.Board;
 import com.kh.cosmos.groupware.board.model.vo.Post;
 
@@ -39,5 +40,18 @@ public class BoardDaoImpl implements BoardDao {
 		return session.insert("board.insertPost", post);
 	}
 
+	@Override
+	public int insertAttach(Attachment attach) {
+		// TODO Auto-generated method stub
+		return session.insert("board.insertAttach", attach);
+	}
+
+	@Override
+	public int insertPostFile(Post post) {
+		// TODO Auto-generated method stub
+		return session.insert("board.insertPostFile", post);
+	}
+
+	
 	
 }

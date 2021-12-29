@@ -376,7 +376,6 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form:form name="createChatRoomFrm" method="post" action="${pageContext.request.contextPath }/gw/chat/createChatRoom.do">
 	      <div class="modal-body mx-3">
 	        <div class="md-form mb-5">
 	          	<div class="dm-profile-container mb-3">
@@ -398,14 +397,28 @@
 		            
 		          </div>
 		        </div>
-
-
-	          
-
+		        
 	        </div>
+	        
 	      </div>
-	      <input type="hidden" name="groupNo" value="${currGroupNo }" />
-      </form:form>
+	       <div class="modal-body mx-3">
+	       
+	        <div class="modal-dm-input-box">
+		
+		      <div class="modal-dm-txt border-top">
+		        <input id="chatMessageContent" type="text" class="form-control" name="chatMessageContent">
+		      </div>
+		      <div class="btn-group">
+		        <i class="fa fa-meh-o" aria-hidden="true"></i>
+		        <!-- <button type="button" class="btn btn-white" data-original-title="" title="">
+		        </button> -->
+		          <i class="fa fa-paperclip"></i>
+		      </div>
+		      <input type="hidden" name="dm-memberId" value="" />
+		      <button id="btn-dm-message-send" class="btn btn-danger" data-original-title="" title="">Send</button>
+		    </div> 
+	       </div>
+
       <div class="modal-footer d-flex justify-content-center">
         <button class="btn close-modal">닫기</button>
       </div>

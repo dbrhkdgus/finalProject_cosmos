@@ -785,3 +785,12 @@ div.list-group1{
     bottom: 0;
     width: inherit;
 }
+.modal-dm-txt{
+	float: left;
+	width: 90%;
+	margin-right: 5px;
+}
+.modal-dm-input-box{
+	display: flex;
+	justify-content: center;
+}
