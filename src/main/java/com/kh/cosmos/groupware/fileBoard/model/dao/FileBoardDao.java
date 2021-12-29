@@ -15,7 +15,15 @@ public interface FileBoardDao {
 
 	List<PostWithCategory> selectAllPostInfileBoard(int boardNo);
 
+
+	Attachment selectOneAttachment(int attachNo);
+
 	List<Attachment> selectAttachmentList();
+
+	int deleteFilePost(int postNo);
+
+	int deleteOneAttach(int attachNo);
+
 	
 
 }

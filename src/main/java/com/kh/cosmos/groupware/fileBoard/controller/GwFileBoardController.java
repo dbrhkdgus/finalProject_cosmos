@@ -2,12 +2,15 @@ package com.kh.cosmos.groupware.fileBoard.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
@@ -57,22 +60,26 @@ public class GwFileBoardController {
 	ResourceLoader resourceLoader;
 	
 
-	  @GetMapping("/fileBoard.do")
-	    public String fileBoard(@RequestParam(defaultValue = "1") int cPage,Model model,@RequestParam int groupNo,@RequestParam int boardNo,Authentication authentication) {
-	        groupwareHeaderSet(groupNo, model, authentication);
-//	        log.debug("cPage = {}", cPage);
-//	        log.debug("boardNo = {}", boardNo);
-	        int limit = 10;
-	        int offset = (cPage - 1) * limit;
-	        model.addAttribute("groupNo", groupNo);
-	        model.addAttribute("boardNo", boardNo);
-	        model.addAttribute("title", "파일게시판");
-	        
-	        List<PostWithCategory> fileboardPostList = fileBoardService.selectAllPostInfileBoard(boardNo);
-	        log.debug("boardPostList = {}", fileboardPostList);
-
+	
+    @GetMapping("/fileBoard.do")
+    public String fileBoard(@RequestParam(defaultValue = "1") int cPage,Model model,@RequestParam int groupNo,@RequestParam int boardNo,Authentication authentication) {
+    	groupwareHeaderSet(groupNo, model, authentication);
+//    	log.debug("cPage = {}", cPage);
+//		log.debug("boardNo = {}", boardNo);
+		int limit = 10;
+		int offset = (cPage - 1) * limit;
+    	model.addAttribute("groupNo", groupNo);
+        model.addAttribute("boardNo", boardNo);
+        model.addAttribute("title", "파일게시판");
+        
+        List<PostWithCategory> fileboardPostList = fileBoardService.selectAllPostInfileBoard(boardNo);
+//		log.debug("boardPostList = {}", fileboardPostList);
 	        model.addAttribute("fileboardPostList", fileboardPostList);
 	        
+	        
+	    List<Attachment> attach = fileBoardService.selectAttachmentList();
+	    log.debug("attach = {}", attach);
+	        model.addAttribute("attach",attach);
 	        return "gw/fileBoard/fileBoard";
 	    }
     
@@ -168,6 +175,50 @@ public class GwFileBoardController {
 
     }
 
+    
+	@GetMapping(
+			value = "/fileDown.do",
+			produces = MediaType.APPLICATION_OCTET_STREAM_VALUE
+		)
+		@ResponseBody
+		public Resource fileDownload(@RequestParam int attachNo, HttpServletResponse response,Model model) throws UnsupportedEncodingException {
+			// 1.업무로직 : db attachment행 조회
+			Attachment attach = fileBoardService.selectOneAttachment(attachNo);
+			log.debug("attach = {}", attach);
+			
+			// 2.다운로드할 파일 경로 가져오기
+			String saveDirectory = application.getRealPath("/resources/upFile/fileboard");
+			File downFile = new File(saveDirectory, attach.getRenamedFilename());
+			
+			// 3.Resource객체 생성
+//			Resource resource = new FileSystemResource(downFile);
+			Resource resource = resourceLoader.getResource("file:" + downFile);
+			log.debug("file:{}", downFile);
+			
+			// 4.헤더값 설정
+			String filename = new String(attach.getOriginalFilename().getBytes("utf-8"), "iso-8859-1");
+//			response.setContentType("application/octet-stream; charset=utf-8");
+			response.addHeader("Content-Disposition", "attachment; filename=" + filename);
+			
+		
+			
+			return resource;
+		}
+    
+    
+	@GetMapping(
+			value = "/resource.do",
+			produces = MediaType.APPLICATION_OCTET_STREAM_VALUE
+		)
+		@ResponseBody
+		public Resource resource(HttpServletResponse response) {
+			Resource resource = resourceLoader.getResource("https://docs.oracle.com/javase/8/docs/api/java/io/File.html");
+			log.debug("resource = {}", resource);
+			response.addHeader("Content-Disposition", "attachment; filename=File.html");
+			return resource;
+		}
+    
+    
     public void groupwareHeaderSet(int groupNo, Model model, Authentication auth) {
         Member loginMember = (Member) auth.getPrincipal();
         Group myGroup = gwService.selectMyGroup(groupNo);
@@ -192,5 +243,26 @@ public class GwFileBoardController {
         model.addAttribute("memberProfileRenamedFilenameList", memberProfileRenamedFilenameList);
         model.addAttribute("groupBannerAttachList", groupBannerAttachList);
         model.addAttribute("myGroupList", myGroupList);
+    }
+    
+    
+    @GetMapping("/deletefilePost.do")
+    public String deletefilePost(@RequestParam int postNo,@RequestParam int boardNo,@RequestParam int groupNo,
+    		@RequestParam int attachNo,
+    		RedirectAttributes redirectAttr) {
+    	
+    	String msg ="";
+    	
+    	try {
+			int postDelete  = fileBoardService.deleteFilePost(postNo);
+			int attachDelete  = fileBoardService.deleteOneAttach(attachNo);
+			
+			msg = postDelete + attachDelete > 1 ? "글삭제 성공!" : "글삭제 실패!";
+		} catch (Exception e) {
+			log.error(e.getMessage(), e); // 로깅
+		}
+    	redirectAttr.addFlashAttribute("msg", msg);
+    	
+   	return  "redirect:/gw/fileBoard/fileBoard.do?boardNo="+boardNo+"&groupNo="+groupNo;
     }
 }

@@ -3,13 +3,22 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>	
 <fmt:requestEncoding value="utf-8" />
+
 <jsp:include page="/WEB-INF/views/common/gw_header.jsp">
 	<jsp:param value="" name="title" />
 </jsp:include>
 
+<sec:authorize access="isAuthenticated()">
+	<sec:authentication property="principal" var="loginMember"/>
+</sec:authorize>
+
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/full_calendar/main.css" />
 <script src='${pageContext.request.contextPath}/resources/css/full_calendar/main.js'></script>
+<script src='${pageContext.request.contextPath}/resources/js/moment.min.js'></script>
+
 
 <style>
 
@@ -46,30 +55,32 @@
                     </button>
                 </div>
                 <div class="modal-body">
+                <form name="insertSchedule" action="${pageContext.request.contextPath}/gw/calendar/insertSchedule.do">
                     <div class="form-group">
                     <div class="float-right">
-                    	<input type="radio" name="category" id="privateCategory"value="P"/><label for="privateCategory">개인 일정</label>&nbsp &nbsp 
-                    	<input type="radio" name="category" id="groupCategory" value="G"/><label for="groupCategory">모임 일정</label>
+                    	<input type="radio" name="category" id="privateCategory"value="P" /><label for="privateCategory">개인 일정</label>&nbsp &nbsp 
+                    	<input type="radio" name="category" id="groupCategory" value="G" checked/><label for="groupCategory">모임 일정</label>
                     </div>
                     <br />
                         <label for="taskId" class="col-form-label">일정 제목</label>
-                        <input type="text" class="form-control col-11" id="calendar_title" name="calendar_title">
+                        <input type="text" class="form-control col-11" id="title" name="title">
 	                        <label for="taskId" class="col-form-label  ">시작 날짜&nbsp &nbsp 
-                       		<input type="checkbox" class="" name="allDay"  id="allDay"/>
+                       		<input type="checkbox" name="allDay"  id="allDay" value="T"/>
                         	<label for="allDay" style="margin: 0px;"><span style="font-size: 10px">하루종일</span></label>
 	                        </label>
                         <div class="">
-	                        <input type="date" class="form-control col-6 d-inline" id="calendar_start_date" name="calendar_start_date">
-	                        <input type="time" class="form-control col-5 d-inline" id="calendar_start_time" name="calendar_start_time">	                        
+	                        <input type="date" class="form-control col-6 d-inline" id="start_date" name="start_date">
+	                        <input type="time" class="form-control col-5 d-inline" id="start_time" name="start_time" value="00:00">
                         </div>
 	                        <label for="taskId" class="col-form-label  ">종료 날짜</label><br />
                         <div class="">
-	                        <input type="date" class="form-control col-6 d-inline" id="calendar_end_date" name="calendar_end_date">
-	                        <input type="time" class="form-control col-5 d-inline" id="calendar_end_time" name="calendar_end_time">
+	                        <input type="date" class="form-control col-6 d-inline" id="end_date" name="end_date">
+	                        <input type="time" class="form-control col-5 d-inline" id="end_time" name="end_time" value="00:00">
 						</div>
 						<br />
                         <label for="taskId" class="col-form-label">일정 내용</label>
-                        <textarea class="form-control col-11" id="calendar_content" name="calendar_content"></textarea>
+                        <textarea class="form-control col-11" id="content" name="content"></textarea>
+                        
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -77,18 +88,48 @@
                     <button type="button" class="btn btn-secondary" data-dismiss="modal"
                         id="sprintSettingModalClose">취소</button>
                 </div>
+                <!-- 접속자 아이디 전달 -->
+				<input type="hidden" name="loginMember" value="${loginMember.id}" id="memberId" />
+				<input type="hidden" name="groupNo" value="" id="groupNo"/>
+                </form>
     
             </div>
         </div>
     </div>
 
-
-
-
-
-
 <script>
-$(allDay).change((e)=>{
+$("#allDay").change((e)=>{
+    if($("#allDay").is(":checked")){
+		$("#start_time").prop('readonly', true);
+		$("#end_time").prop('readonly', true);
+		$("#allDay").val('T');
+    }else{
+		$("#start_time").prop('readonly', false);
+		$("#end_time").prop('readonly', false);
+		$("#allDay").val('F');
+    }
+})
+
+
+
+//일정 추가
+
+//URL 속 groupNo 활용하기
+function get_query(){ 
+	var url = document.location.href; 
+	var qs = url.substring(url.indexOf('?') + 1).split('&'); 
+	for(var i = 0, result = {}; i < qs.length; i++){ 
+		qs[i] = qs[i].split('='); 
+		result[qs[i][0]] = decodeURIComponent(qs[i][1]); 
+	} 
+	return result;
+}
+var result = get_query();
+console.log(result.groupNo);
+$(groupNo).val(result.groupNo);
+
+
+/* $(allDay).change((e)=>{
 	if($(allDay).is(":checked")){
 		alert("체크");
 		$(calendar_start_time).attr("disabled", true);
@@ -98,11 +139,12 @@ $(allDay).change((e)=>{
 		$(calendar_start_time).attr("disabled", false);
 		$(calendar_end_time).attr("disabled", false);
 	}
-})
+}) */
 
 document.addEventListener('DOMContentLoaded', function() {
   var calendarEl = document.getElementById('calendar');
-
+  var start_date = document.getElementById('start_date').value;
+  var end_date = document.getElementById('end_date').value;
   var calendar = new FullCalendar.Calendar(calendarEl, {
     headerToolbar: {
       left: 'prevYear,prev,next,nextYear today',
@@ -120,44 +162,35 @@ document.addEventListener('DOMContentLoaded', function() {
                             $("#calendarModal").modal("show"); // modal 나타내기
 
                             $("#addCalendar").on("click",function(){  // modal의 추가 버튼 클릭 시
-                            	var title = $("#calendar_title").val();
-                                var start_date = $("#calendar_start_date").val();
-                                var end_date = $("#calendar_end_date").val();
-                                var start_time = $("#calendar_start_time").val()
-                                var end_time = $("#calendar_end_time").val()
-                                var content = $("#calendar_content").val();
-                                var allDay = $("#allDay").val();
-                                var category = $("category").val();
-                                
-                                //내용 입력 여부 확인
-                                if(content == null || content == ""){
-                                    alert("내용을 입력하세요.");
-                                }else if(start_date == "" || end_date ==""){
-                                    alert("날짜를 입력하세요.");
-                                }else if(new Date(end_date)- new Date(start_date) < 0){ // date 타입으로 변경 후 확인
-                                    alert("종료일이 시작일보다 먼저입니다.");
-                                }else{ // 정상적인 입력 시
-                                    var obj = {
-                                        "title" : title,
-                                        "content" : content,
-                                        "start_date" : start_date,
-                                        "start_time" : start_time,
-                                        "end_date" : end_date,
-                                        "end_time" : end_time,
-                                        "allDay" : allDay,
-                                        "category" : category
-                                    }//전송할 객체 생성
-                        			$.ajax({
-                        				url: `${pageContext.request.contextPath}/gw/calendar/selectScheduleList.do`,
-                        				data: obj,
-                        				dataType: "json",
-                        				success: function(data){
-                        					console.log(data);
-                        				},
-                        				error: console.log
-                        			})
+                            	
+                            	
 
-                                    console.log(obj); //서버로 해당 객체를 전달해서 DB 연동 가능
+                            	
+								var start_date= $("#start_date").val();
+								var end_date = $("#end_date").val();
+								var start_time = $("#start_time").val();
+								var end_time = $("#end_time").val();
+								var allDay = $("#allDay").val();
+
+								
+                                //내용 입력 여부 확인
+                                if($("#title").val() == null || $("#title").val() == ""){
+                                    alert("제목을 입력하세요.");                                	
+                                }
+                                else if($("#content").val() == null || $("#content").val() == ""){
+                                    alert("내용을 입력하세요.");
+                                }else if($("#start_date").val() == "" || $("#end_date").val() ==""){
+                                    alert("날짜를 입력하세요.");
+                                }else if(end_date- start_date < 0){ // 시작날짜 종료날짜 올바른지 확인
+                                    alert("종료일이 시작일보다 먼저입니다.");
+                                }else if(end_date == start_date){ // 시작시간 종료시간 올바른지 확인
+                                	if(end_time - start_time < 0){
+                                		alert("종료시간이 시작시간보다 먼저입니다.");
+                                	}                                
+                        			$(insertSchedule).submit();
+                                }else{ // 정상적인 입력 시
+                                	
+                        			$(insertSchedule).submit();
                                 }
                             });
                         }
@@ -166,70 +199,74 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
     /* 버튼관련 종료 */
-    initialDate: '2020-09-12',
+    /* initialDate: '2021-12-12', */
     navLinks: true, // can click day/week names to navigate views
     editable: true,
     dayMaxEvents: true, // allow "more" link when too many events
     events: [
       {
         title: 'All Day',
-        start: '2020-09-01T16:00:00',
+        start: '2021-12-01T16:00:00',
         allDay: 'true'
       },
       {
         title: 'Long Event',
-        start: '2020-09-07',
-        end: '2020-09-10'
+        start: '2021-12-07',
+        end: '2021-12-10'
       },
       {
         groupId: 999,
         title: 'Repeating Event',
-        start: '2020-09-09T16:00:00',
-        end: '2020-09-12T16:00:00'
+        start: '2021-12-09T16:00:00',
+        end: '2021-12-12T16:00:00'
         
       },
       {
         groupId: 999,
         title: 'Repeating Event',
-        start: '2020-09-16T16:00:00'
+        start: '2021-12-16T16:00:00'
       },
       {
     	title : "초록색 배경 & 주황색 테두리",
     	backgroundColor : "#008000",
     	borderColor : "#FF4500",
-        start: '2020-09-11',
-        end: '2020-09-13'
+        start: '2021-12-11',
+        end: '2021-12-13'
       },
       {
         title: 'Meeting',
-        start: '2020-09-12T10:30:00',
-        end: '2020-09-12T12:30:00'
+        start: '2021-12-12T10:30:00',
+        end: '2021-12-12T12:30:00'
       },
       {
         title: 'Lunch',
-        start: '2020-09-12T12:00:00'
+        start: '2021-12-12T12:00:00'
       },
       {
         title: 'Meeting',
-        start: '2020-09-12T14:30:00'
+        start: '2021-12-12T14:30:00'
       },
       {
         title: 'Happy Hour',
-        start: '2020-09-12T17:30:00'
+        start: '2021-12-12T17:30:00'
       },
       {
         title: 'Dinner',
-        start: '2020-09-12T20:00:00'
+        start: '2021-12-12T20:00:00'
       },
       {
         title: 'Birthday Party',
-        start: '2020-09-13T07:00:00'
+        start: '2021-12-13T07:00:00'
       },
       {
         title: 'Click for Google',
         url: 'http://google.com/',
-        start: '2020-09-28'
-      }
+        start: '2021-12-28'
+      },
+      {
+          title: 'naver.com',
+          start: '2021-12-29 08:00'
+        }
     ]
   });
 

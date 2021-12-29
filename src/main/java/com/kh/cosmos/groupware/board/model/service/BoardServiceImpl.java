@@ -21,17 +21,23 @@ public class BoardServiceImpl implements BoardService {
 		// TODO Auto-generated method stub
 		return boardDao.createBoardRoom(board);
 	}
-
+	
 	@Override
-	public List<Post> selectAllPostInBoard(int boardNo) {
+	public int updateBoardRoom(Board board) {
 		// TODO Auto-generated method stub
-		return boardDao.selectAllPostInBoard(boardNo);
+		return boardDao.updateBoardRoom(board);
 	}
 
 	@Override
-	public List<Post> selectAllPostInNotice(int boardNo) {
+	public List<Post> selectAllPostInBoard(int boardNo, int limit, int offset) {
 		// TODO Auto-generated method stub
-		return  boardDao.selectAllPostInNotice(boardNo);
+		return boardDao.selectAllPostInBoard(boardNo, limit, offset);
+	}
+
+	@Override
+	public List<Post> selectAllPostInNotice(int boardNo, int limit, int offset) {
+		// TODO Auto-generated method stub
+		return  boardDao.selectAllPostInNotice(boardNo, limit, offset);
 	}
 
 	@Override
@@ -51,6 +57,20 @@ public class BoardServiceImpl implements BoardService {
 		// TODO Auto-generated method stub
 		return boardDao.insertPostFile(post);
 	}
+
+	@Override
+	public Board selectBoardByBoardNo(int boardNo) {
+		// TODO Auto-generated method stub
+		return boardDao.selectBoardByBoardNo(boardNo);
+	}
+
+	@Override
+	public int selectPostInBoardTotalCount(int boardNo) {
+		// TODO Auto-generated method stub
+		return boardDao.selectPostInBoardTotalCount(boardNo);
+	}
+
+	
 
 	
 	

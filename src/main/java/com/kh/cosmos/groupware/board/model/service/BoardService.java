@@ -10,15 +10,21 @@ public interface BoardService {
 
 	int createBoardRoom(Board board);
 
-	List<Post> selectAllPostInBoard(int boardNo);
+	List<Post> selectAllPostInBoard(int boardNo, int limit, int offset);
 
-	List<Post> selectAllPostInNotice(int boardNo);
+	List<Post> selectAllPostInNotice(int boardNo, int limit, int offset);
 
 	int insertPost(Post post);
 
 	int insertAttach(Attachment attach);
 
 	int insertPostFile(Post post);
+
+	Board selectBoardByBoardNo(int boardNo);
+
+	int selectPostInBoardTotalCount(int boardNo);
+
+	int updateBoardRoom(Board board);
 	
 	
 

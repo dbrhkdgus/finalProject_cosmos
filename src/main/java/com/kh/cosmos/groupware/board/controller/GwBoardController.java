@@ -45,57 +45,138 @@ public class GwBoardController {
 	@GetMapping("/board.do")
 	public String board(@RequestParam(defaultValue = "1") int cPage, int boardNo, int groupNo, Model model, HttpServletRequest request, Authentication auth) {
 		groupwareHeaderSet(groupNo, model, auth);
-		log.debug("cPage = {}", cPage);
-		log.debug("boardNo = {}", boardNo);
+		
 		int limit = 10;
 		int offset = (cPage - 1) * limit;
 		
-		List<Post> boardPostList = boardService.selectAllPostInBoard(boardNo);
+		List<Post> boardPostList = boardService.selectAllPostInBoard(boardNo, limit, offset);
+		Board board = boardService.selectBoardByBoardNo(boardNo);
 		log.debug("boardPostList = {}", boardPostList);
 		model.addAttribute("boardPostList", boardPostList);
 		model.addAttribute("boardNo", boardNo);
 		model.addAttribute("groupNo", groupNo);
-		model.addAttribute("title", "abcde");
+		model.addAttribute("title", "# " + board.getBoardName());
 		
+		int totalContent = boardService.selectPostInBoardTotalCount(boardNo);
+		log.debug("totalContent = {}", totalContent);
+		model.addAttribute("totalContent", totalContent);
+		
+		String url = request.getRequestURI();
+		String pagebar = CosmosUtils.getPagebar(cPage, limit, totalContent, url);
+		
+		model.addAttribute("pagebar", pagebar);
 		
 		return "gw/board/board";
 	}
 	
 	@GetMapping("/notice.do")
-	public String notice(@RequestParam(defaultValue = "1") int cPage, int boardNo, Model model, HttpServletRequest request) {
-		log.debug("cPage = {}", cPage);
-		log.debug("boardNo = {}", boardNo);
+	public String notice(@RequestParam(defaultValue = "1") int cPage, int boardNo, int groupNo, Model model, HttpServletRequest request, Authentication auth) {
+		groupwareHeaderSet(groupNo, model, auth);
+		
 		int limit = 10;
 		int offset = (cPage - 1) * limit;
 		
-		List<Post> noticePostList = boardService.selectAllPostInNotice(boardNo);
+		List<Post> noticePostList = boardService.selectAllPostInNotice(boardNo, limit, offset);
+		Board board = boardService.selectBoardByBoardNo(boardNo);
 		log.debug("noticePostList = {}", noticePostList);
 		model.addAttribute("noticePostList", noticePostList);
+		model.addAttribute("boardNo", boardNo);
+		model.addAttribute("groupNo", groupNo);
+		model.addAttribute("title", "# " + board.getBoardName());
+		
+		int totalContent = boardService.selectPostInBoardTotalCount(boardNo);
+		log.debug("totalContent = {}", totalContent);
+		model.addAttribute("totalContent", totalContent);
+		
+		String url = request.getRequestURI();
+		String pagebar = CosmosUtils.getPagebar(cPage, limit, totalContent, url);
+		
+		model.addAttribute("pagebar", pagebar);
 		
 		return "gw/board/notice";
 	}
 	
-	@GetMapping("/noticeFrm.do")
-	public String noticeFrm() {
-		
-		return "gw/board/noticeFrm";
-	}
-	
-	@GetMapping("/boardEnroll.do")
-	public void boardEnroll(@RequestParam int boardNo, @RequestParam int groupNo, Model model) {
-		
+	@GetMapping("/noticeEnroll.do")
+	public void noticeEnroll(@RequestParam int boardNo, @RequestParam int groupNo, Model model, Authentication auth) {
+		groupwareHeaderSet(groupNo, model, auth);
+		Board board = boardService.selectBoardByBoardNo(boardNo);
 		model.addAttribute("boardNo", boardNo);
     	model.addAttribute("groupNo", groupNo);
-		
+    	model.addAttribute("title", "# " + board.getBoardName() + " 작성");
+	}
+	
+//	@PostMapping("/noticeEnroll.do")
+//	public String noticeEnroll(Post post, int boardNo, int groupNo,
+//			@RequestParam(value="upFile", required=false) MultipartFile upFile,RedirectAttributes redirectAttr,
+//    		Authentication authentication) {
+//		
+//		String memberId = post.getMemberId();
+//		log.debug("memberId = {}", post.getMemberId());
+//		Board board = boardService.selectBoardByBoardNo(boardNo);
+//		log.debug("***********board = {}", board);
+//		 try {
+//			 String saveDirectory = application.getRealPath("/resources/upFile/fileboard");
+//			 log.debug("saveDirectory = {}", saveDirectory);
+//		 
+//			 
+//		 if(upFile != null && !upFile.isEmpty() && upFile.getSize() != 0) {
+//			 log.debug("upFile = {}", upFile);
+//			 log.debug("upFile.name = {}",upFile.getOriginalFilename());
+//			 log.debug("upFile.size = {}",upFile.getSize());
+//		 
+//			 String originalFilename = upFile.getOriginalFilename();
+//			 String renamedFilename = CosmosUtils.getRenamedFilename(originalFilename);
+//			 
+//			 // 1.서버컴퓨터에 저장
+//			 File dest = new File(saveDirectory, renamedFilename);
+//			 log.debug("dest = {}", dest);
+//			 upFile.transferTo(dest);
+//			 
+//			 // 2.DB에 attachment 레코드 등록
+//			 Attachment attach = new Attachment();
+//			 attach.setRenamedFilename(renamedFilename);
+//			 attach.setOriginalFilename(originalFilename);
+//			 attach.setGroupNo(groupNo);
+//			 attach.setMemberId(memberId);
+//			 
+//			 int attachNo = boardService.insertAttach(attach);
+//			 
+//			 int result = boardService.insertPostFile(post);
+//		 } else {
+//			 // 업무로직
+//			 int result = boardService.insertPost(post);
+//		 } 
+//		 
+//		 } catch (Exception e) {
+//			log.error(e.getMessage(), e); // 로깅 throw e; //spring container에게 던짐.
+//			 	
+//		 }
+//		log.debug("***************boardType = {}", board.getBoardType());
+//		if(board.getBoardType() == 'N') {
+//			return "redirect:/gw/board/notice.do?boardNo="+boardNo+"&groupNo="+groupNo;
+//		} else {
+//			return "redirect:/gw/board/board.do?boardNo="+boardNo+"&groupNo="+groupNo;
+//		}
+//	}
+	
+	@GetMapping("/boardEnroll.do")
+	public void boardEnroll(@RequestParam int boardNo, @RequestParam int groupNo, Model model, Authentication auth) {
+		groupwareHeaderSet(groupNo, model, auth);
+		Board board = boardService.selectBoardByBoardNo(boardNo);
+		model.addAttribute("boardNo", boardNo);
+    	model.addAttribute("groupNo", groupNo);
+    	model.addAttribute("title", "# " + board.getBoardName() + " - 글쓰기");
+    	
 	}
 	
 	@PostMapping("/boardEnroll.do")
 	public String boardEnroll(Post post, int boardNo, int groupNo,
 			@RequestParam(value="upFile", required=false) MultipartFile upFile,RedirectAttributes redirectAttr,
     		Authentication authentication) {
-
+		
 		String memberId = post.getMemberId();
 		log.debug("memberId = {}", post.getMemberId());
+		Board board = boardService.selectBoardByBoardNo(boardNo);
 		
 		 try {
 			 String saveDirectory = application.getRealPath("/resources/upFile/fileboard");
@@ -135,7 +216,11 @@ public class GwBoardController {
 			 	
 		 }
 		
-		return "redirect:/gw/board/board.do?boardNo="+boardNo+"&groupNo="+groupNo;
+		 if(board.getBoardType() == 'N') {
+				return "redirect:/gw/board/notice.do?boardNo="+boardNo+"&groupNo="+groupNo;
+		} else {
+			return "redirect:/gw/board/board.do?boardNo="+boardNo+"&groupNo="+groupNo;
+		}
 	}
 
 	@GetMapping("/boardDetail.do")
@@ -154,6 +239,19 @@ public class GwBoardController {
 		
 		return "redirect:/gw/gw.do";
 	}
+	
+	@PostMapping("/updateBoardRoom.do")
+	public String updateBoardRoom(Board board, RedirectAttributes redirectAtt) {
+		
+		int result = boardService.updateBoardRoom(board);
+		redirectAtt.addAttribute("groupNo", board.getGroupNo());
+		redirectAtt.addAttribute("msg", result > 0 ? "채팅방 ["+board.getBoardName()+"]이 수정되었습니다." : "실패");
+		
+		
+		return "redirect:/gw/gw.do";
+	}
+	
+	
 	
     public void groupwareHeaderSet(int groupNo, Model model, Authentication auth) {
         Member loginMember = (Member) auth.getPrincipal();

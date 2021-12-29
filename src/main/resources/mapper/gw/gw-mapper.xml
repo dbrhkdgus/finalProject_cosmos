@@ -26,7 +26,7 @@
   select * from chat_room where group_no = #{groupNo}
   </select>
   <select id="selectAllBoardRoomByGroupNo" resultType="board">
-  select * from board where group_no = #{groupNo}
+  select * from board where group_no = #{groupNo} order by board_no
   </select>
 
 <select id="selectAllZoomRoomList" resultType="Room">

@@ -39,6 +39,23 @@ public class FileBoardDaoImpl implements FileBoardDao {
 	}
 
 
+	@Override
+	public Attachment selectOneAttachment(int attachNo) {
+		return  session.selectOne("fileBoard.selectOneAttachment", attachNo);
+	}
 
+	@Override
+	public int deleteFilePost(int postNo) {
+		return session.delete("fileBoard.deleteFilePost",postNo);
+	}
+
+	@Override
+	public int deleteOneAttach(int attachNo) {
+		return session.delete("fileBoard.deleteOneAttach",attachNo);
+	}
+	
+	
+
+	
 		
 }

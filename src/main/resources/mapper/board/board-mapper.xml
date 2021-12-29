@@ -6,6 +6,10 @@
   <insert id="createBoardRoom">
   	insert into board values(seq_board_no_no.nextval, #{groupNo}, #{boardName}, #{boardType})
   </insert>
+  
+  <update id="updateBoardRoom">
+  	update board set boardName = #{boardName}, boardType = #{boardType} where groupNo = #{gropNo}
+  </update>
   <select id="selectAllPostInBoard" resultType="PostWithCategory">
 	select
 	    p.*,
@@ -16,7 +20,17 @@
 	where board_no = #{boardNo}
 	order by post_no desc
   </select>
-  
+  <select id="selectBoardByBoardNo" resultType="board">
+		select * from board where board_no = #{boardNo}
+  </select>
+  <select id="selectPostInBoardTotalCount" resultType="_int">
+		select 
+			count(*) 
+		from 
+			post
+		where
+			board_no = #{boardNo}
+	</select>
  <select id="selectAllPostInNotice" resultType="Post">
   	select * from post where board_no = #{boardNo} order by post_no desc
   </select>

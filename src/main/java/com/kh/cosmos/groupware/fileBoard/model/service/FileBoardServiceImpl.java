@@ -21,7 +21,7 @@ public class FileBoardServiceImpl implements FileBoardService {
 	public List<PostWithCategory> selectAllPostInfileBoard(int boardNo) {
 		return fileBoardDao.selectAllPostInfileBoard(boardNo);
 	}
-	
+
 	@Override
 	public int insertFileAttach(Attachment attach) {
 		return fileBoardDao.insertFileAttach(attach);
@@ -31,11 +31,29 @@ public class FileBoardServiceImpl implements FileBoardService {
 	public int insertFilePost(Post post) {
 		return fileBoardDao.insertFilePost(post);
 	}
+	
+	@Override
+	public Attachment selectOneAttachment(int attachNo) {
+		return fileBoardDao.selectOneAttachment(attachNo);
+	}
+
 
 	@Override
 	public List<Attachment> selectAttachmentList() {
 		return fileBoardDao.selectAttachmentList();
 	}
+
+	@Override
+	public int deleteFilePost(int postNo) {
+		return fileBoardDao.deleteFilePost(postNo);
+	}
+
+	@Override
+	public int deleteOneAttach(int attachNo) {
+		return fileBoardDao.deleteOneAttach(attachNo);
+	}
+	
+	
 	
 	
 
