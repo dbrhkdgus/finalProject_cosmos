@@ -78,6 +78,26 @@ public class BoardDaoImpl implements BoardDao {
 		return session.selectList("board.memberWithGroupList", groupNo);
 	}
 
+	@Override
+	public Post selectOnePostInBoard(int postNo) {
+		// TODO Auto-generated method stub
+		return session.selectOne("board.selectOnePostInBoard", postNo);
+	}
+
+	@Override
+	public Attachment selectOneAttachInBoard(int attachNo) {
+		// TODO Auto-generated method stub
+		return  session.selectOne("board.selectOneAttachInBoard", attachNo);
+	}
+
+	@Override
+	public Post selectOnePostInNotice(int postNo) {
+		// TODO Auto-generated method stub
+		return session.selectOne("board.selectOnePostInNotice", postNo);
+	}
+	
+	
+	
 	
 
 	
