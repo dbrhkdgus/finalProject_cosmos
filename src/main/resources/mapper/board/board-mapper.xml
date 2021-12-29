@@ -72,5 +72,21 @@
 		</selectKey>
 		insert into post values(SEQ_POST_NO_NO.nextval, #{memberId}, #{boardNo}, #{postTitle}, #{postContent}, current_date, null, #{attachNo}, null)
 		
-	</insert>
+  </insert>
+  <select id="memberWithGroupList" resultType ="MemberWithGroup">
+  	select
+	    m.*,
+	    (select group_name from tb_group tb where m.group_no = tb.group_no) "GROUP_NAME",
+		(select renamed_filename from attachment a where a.attach_no = m.attach_no) "renamed_FileName"	    
+	from
+	    (select
+	        m.*,
+	        group_no
+	    from 
+	        tb_member m 
+	        left join applocation_group ag on m.id = ag.member_id) m	
+    where
+	    group_no=#{groupNo}
+  </select>
+	
 </mapper>

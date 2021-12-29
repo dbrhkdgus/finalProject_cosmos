@@ -71,4 +71,39 @@
 	<delete id="deleteOneAttach" >
 		delete from attachment where attach_no =#{attachNo}
 	</delete> 
+	
+<!--파일보드 검색쿼리 -->
+	<select id="selectAllFileBoardListByParam" resultType="PostWithCategory">
+	 select 
+	         p.*,
+	         bc.board_category
+	         from
+	  post p join board_category bc
+	    on 
+	  p.board_category_no = bc.board_category_no
+	<where>		
+	  
+	 p.board_category_no in (5,6,7,8,9)
+		
+		<if test="searchType == 'all'">
+			 and    member_id like '%'||#{searchKeyword}||'%' or post_title like '%'||#{searchKeyword}||'%'  and p.board_category_no in (5,6,7,8,9)
+		</if>
+		<if test="searchType == 'img'">
+			 and  p.board_category_no = 5 and member_id like '%'||#{searchKeyword}||'%' or post_title like '%'||#{searchKeyword}||'%' and p.board_category_no in (5)
+		</if>	
+		<if test="searchType == 'document'">
+			 and  p.board_category_no = 6 and member_id like '%'||#{searchKeyword}||'%' or post_title like '%'||#{searchKeyword}||'%'and p.board_category_no in (6)
+		</if>			
+		<if test="searchType == 'zip'">
+			 and  p.board_category_no = 7 and member_id like '%'||#{searchKeyword}||'%' or post_title like '%'||#{searchKeyword}||'%' and p.board_category_no in (7)
+		</if>
+		<if test="searchType == 'code'">
+			 and  p.board_category_no = 8 and member_id like '%'||#{searchKeyword}||'%' or post_title like '%'||#{searchKeyword}||'%' and p.board_category_no in (8)
+		</if>
+		<if test="searchType == 'etc'">
+			 and  p.board_category_no = 9 and member_id like '%'||#{searchKeyword}||'%' or post_title like '%'||#{searchKeyword}||'%' and p.board_category_no in (9)
+		</if>			
+	</where>
+		order by post_reg_date desc
+	</select>
 </mapper>
