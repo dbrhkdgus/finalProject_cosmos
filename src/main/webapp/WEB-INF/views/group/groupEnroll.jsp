@@ -237,7 +237,7 @@ window.addEventListener("load", function(){
         window.name = "parentForm";
         // window.open("open할 window", "자식창 이름", "팝업창 옵션");
         window.open("${pageContext.request.contextPath}/kakao/kakaoPay.do",
-        		"childForm", "width=350, height=700, resizable = yes, scrollbars = yes"); 
+        		"childForm", "width=350, height=500, resizable = yes, scrollbars = yes"); 
     }
 
 
