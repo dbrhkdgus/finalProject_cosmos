@@ -2,7 +2,9 @@ package com.kh.cosmos.groupware.board.controller;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -27,6 +29,7 @@ import com.kh.cosmos.groupware.board.model.vo.Post;
 import com.kh.cosmos.groupware.chat.model.vo.ChatRoom;
 import com.kh.cosmos.groupware.service.GroupwareService;
 import com.kh.cosmos.member.model.vo.Member;
+import com.kh.cosmos.member.model.vo.MemberWithGroup;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -60,6 +63,16 @@ public class GwBoardController {
 		int totalContent = boardService.selectPostInBoardTotalCount(boardNo);
 		log.debug("totalContent = {}", totalContent);
 		model.addAttribute("totalContent", totalContent);
+		
+		// MemberWithGroupList 불러오기
+		List<MemberWithGroup> memberWithGroupList = boardService.memberWithGroupList(groupNo);
+		
+		// memberId, nickname map에 담기
+		Map<String, String> memberWithGroupMap = new HashMap<>(); 
+		for(MemberWithGroup memberWithGroup : memberWithGroupList) {
+			memberWithGroupMap.put(memberWithGroup.getId(), memberWithGroup.getNickname());
+		}
+		model.addAttribute("memberWithGroupMap", memberWithGroupMap);
 		
 		String url = request.getRequestURI();
 		String pagebar = CosmosUtils.getPagebar(cPage, limit, totalContent, url);
@@ -216,8 +229,8 @@ public class GwBoardController {
 			 	
 		 }
 		
-		 if(board.getBoardType() == 'N') {
-				return "redirect:/gw/board/notice.do?boardNo="+boardNo+"&groupNo="+groupNo;
+		if(board.getBoardType() == 'N') {
+			 return "redirect:/gw/board/notice.do?boardNo="+boardNo+"&groupNo="+groupNo;
 		} else {
 			return "redirect:/gw/board/board.do?boardNo="+boardNo+"&groupNo="+groupNo;
 		}
@@ -269,6 +282,7 @@ public class GwBoardController {
         }
 
         List<ChatRoom> chattingChannelList = gwService.selectAllChatRoomByGroupNo(groupNo);
+        List<Board> boardList = gwService.selectAllBoardRoomByGroupNo(groupNo);
         
         model.addAttribute("currGroupNo", groupNo);
         model.addAttribute("myGroup", myGroup);
@@ -277,6 +291,7 @@ public class GwBoardController {
         model.addAttribute("profile", gwService.selectMemberProfileRenamedFilename(loginMember.getId()));
         model.addAttribute("memberProfileRenamedFilenameList", memberProfileRenamedFilenameList);
         model.addAttribute("groupBannerAttachList", groupBannerAttachList);
+        model.addAttribute("boardList", boardList);
         model.addAttribute("myGroupList", myGroupList);
     }
 	
