@@ -1,5 +1,7 @@
 package com.kh.cosmos.groupware.fileBoard.model.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,8 +25,13 @@ public class FileBoardServiceImpl implements FileBoardService {
 	public int insertFilePost(Post post) {
 		return fileBoardDao.insertFilePost(post);
 	}
-	
 
+	@Override
+	public List<Attachment> selectAttachmentList() {
+		return fileBoardDao.selectAttachmentList();
+	}
+	
+	
 
 		
 }

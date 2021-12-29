@@ -1,5 +1,7 @@
 package com.kh.cosmos.groupware.fileBoard.model.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -21,6 +23,11 @@ public class FileBoardDaoImpl implements FileBoardDao {
 	@Override
 	public int insertFilePost(Post post) {
 		return session.insert("fileBoard.insertFilePost",post);
+	}
+
+	@Override
+	public List<Attachment> selectAttachmentList() {
+		return session.selectList("fileBoard.selectAttachmentList");
 	}
 
 
