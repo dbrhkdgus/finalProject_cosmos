@@ -11,6 +11,7 @@ import com.kh.cosmos.groupware.chat.model.dao.ChatDao;
 import com.kh.cosmos.groupware.chat.model.vo.ChatMessage;
 import com.kh.cosmos.groupware.chat.model.vo.ChatRoom;
 import com.kh.cosmos.groupware.chat.model.vo.ChatUser;
+import com.kh.cosmos.groupware.chat.model.vo.DM;
 import com.kh.cosmos.member.model.vo.Member;
 
 @Service
@@ -94,6 +95,12 @@ public class ChatServiceImpl implements ChatService {
 	public List<Attachment> selectMemberProfileAttachList() {
 		// TODO Auto-generated method stub
 		return chatDao.selectMemberProfileAttachList();
+	}
+
+	@Override
+	public int insertDm(DM dm) {
+		// TODO Auto-generated method stub
+		return chatDao.insertDm(dm);
 	}
 	
 	

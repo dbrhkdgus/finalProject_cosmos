@@ -11,6 +11,7 @@ import com.kh.cosmos.common.attachment.model.vo.Attachment;
 import com.kh.cosmos.groupware.chat.model.vo.ChatMessage;
 import com.kh.cosmos.groupware.chat.model.vo.ChatRoom;
 import com.kh.cosmos.groupware.chat.model.vo.ChatUser;
+import com.kh.cosmos.groupware.chat.model.vo.DM;
 import com.kh.cosmos.member.model.vo.Member;
 
 @Repository
@@ -94,6 +95,12 @@ public class ChatDaoImpl implements ChatDao {
 	public List<Attachment> selectMemberProfileAttachList() {
 		// TODO Auto-generated method stub
 		return session.selectList("chat.selectMemberProfileAttachList");
+	}
+
+	@Override
+	public int insertDm(DM dm) {
+		// TODO Auto-generated method stub
+		return session.insert("chat.insertDm", dm);
 	}
 	
 	
