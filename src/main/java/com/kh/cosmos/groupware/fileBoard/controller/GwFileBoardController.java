@@ -244,4 +244,25 @@ public class GwFileBoardController {
         model.addAttribute("groupBannerAttachList", groupBannerAttachList);
         model.addAttribute("myGroupList", myGroupList);
     }
+    
+    
+    @GetMapping("/deletefilePost.do")
+    public String deletefilePost(@RequestParam int postNo,@RequestParam int boardNo,@RequestParam int groupNo,
+    		@RequestParam int attachNo,
+    		RedirectAttributes redirectAttr) {
+    	
+    	String msg ="";
+    	
+    	try {
+			int postDelete  = fileBoardService.deleteFilePost(postNo);
+			int attachDelete  = fileBoardService.deleteOneAttach(attachNo);
+			
+			msg = postDelete + attachDelete > 1 ? "글삭제 성공!" : "글삭제 실패!";
+		} catch (Exception e) {
+			log.error(e.getMessage(), e); // 로깅
+		}
+    	redirectAttr.addFlashAttribute("msg", msg);
+    	
+   	return  "redirect:/gw/fileBoard/fileBoard.do?boardNo="+boardNo+"&groupNo="+groupNo;
+    }
 }

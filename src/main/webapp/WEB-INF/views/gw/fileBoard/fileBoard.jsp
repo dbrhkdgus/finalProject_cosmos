@@ -3,10 +3,16 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>	
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+
 <fmt:requestEncoding value="utf-8"/> 
 <jsp:include page="/WEB-INF/views/common/gw_header.jsp">
 	<jsp:param value="" name="title"/>
 </jsp:include>
+<sec:authorize access="isAuthenticated()">
+	<sec:authentication property="principal" var="loginMember"/>
+</sec:authorize>
 
  <div class="test-notice-outter">
   <div class="test-board-title-container">
@@ -41,13 +47,27 @@
                 <td colspan="2">${post.postTitle}</td>
                 <td><a href="${pageContext.request.contextPath}/gw/fileBoard/fileDown.do?attachNo=${post.attachNo}" >
 				  <c:forEach var="attach" items="${attach}" varStatus="status">
-				  	<c:if test="${post.attachNo eq attach.attachNo}">
-				                ${attach.originalFilename}
-				                </c:if>
-				        </c:forEach>
+					  	<c:if test="${post.attachNo eq attach.attachNo}">
+					                ${attach.originalFilename}
+					    </c:if>
+	                  </c:forEach>
                 </a></td>
                 <td>${post.memberId}</td>
-                <td><fmt:formatDate value="${post.postRegDate}" pattern="yy-MM-dd"/></td>
+                <td ><fmt:formatDate value="${post.postRegDate}" pattern="yy-MM-dd"/>
+	                <c:if test="${loginMember.id eq post.memberId}">
+		                <form  action="${pageContext.request.contextPath}/gw/fileBoard/deletefilePost.do?postNo=${post.postNo}" method="GET">
+						  <c:forEach var="attach" items="${attach}" varStatus="status">
+							  	<c:if test="${post.attachNo eq attach.attachNo}"> 
+			                		<button>삭제</button>
+				                	<input type="hidden" value="${groupNo}" name ="groupNo">
+				                	<input type="hidden" value="${post.postNo}"  name="postNo">
+				                	<input type="hidden" value="${boardNo}" name = "boardNo">		                	
+				                	<input type="hidden" value="${attach.attachNo}" name = "attachNo">		                	
+				     		    </c:if>
+		                  </c:forEach>
+		                </form>
+	                </c:if>
+                </td>
              </tr>
         </c:forEach>      
     </tbody>
