@@ -12,7 +12,7 @@ public interface BoardDao {
 
 	List<Post> selectAllPostInBoard(int boardNo, int limit, int offset);
 
-	List<Post> selectAllPostInNotice(int boardNo);
+	List<Post> selectAllPostInNotice(int boardNo, int limit, int offset);
 
 	int insertPost(Post post);
 
