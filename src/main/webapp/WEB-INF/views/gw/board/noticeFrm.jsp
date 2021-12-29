@@ -22,7 +22,7 @@
       <button class="btn btn-primary" type="button">작성 완료</button>
   </div>
 </div>
-  <script>
+<script>
 
 $(document).ready(function() {
     //여기 아래 부분
