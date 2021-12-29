@@ -91,7 +91,7 @@
 			</websocket:handshake-interceptors>
 			<websocket:sockjs />
 		</websocket:stomp-endpoint>
-		<websocket:simple-broker prefix="/foo,/topic,/notice,/chat"/>
+		<websocket:simple-broker prefix="/foo,/topic,/notice,/chat,/dm"/>
 		
 	</websocket:message-broker>
 	

@@ -40,8 +40,11 @@
 </style>
 
 <div class="main-container">
+${scheduleList}
   <div id='calendar'></div>
 </div>
+<input type="hidden" id="_groupNo" value="${groupNo}" />
+
 
 <!-- modal 추가 -->
     <div class="modal fade" id="calendarModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -90,7 +93,7 @@
                 </div>
                 <!-- 접속자 아이디 전달 -->
 				<input type="hidden" name="loginMember" value="${loginMember.id}" id="memberId" />
-				<input type="hidden" name="groupNo" value="" id="groupNo"/>
+				<input type="hidden" name="groupNo" value="${groupNo}" id="groupNo"/>
                 </form>
     
             </div>
@@ -114,19 +117,7 @@ $("#allDay").change((e)=>{
 
 //일정 추가
 
-//URL 속 groupNo 활용하기
-function get_query(){ 
-	var url = document.location.href; 
-	var qs = url.substring(url.indexOf('?') + 1).split('&'); 
-	for(var i = 0, result = {}; i < qs.length; i++){ 
-		qs[i] = qs[i].split('='); 
-		result[qs[i][0]] = decodeURIComponent(qs[i][1]); 
-	} 
-	return result;
-}
-var result = get_query();
-console.log(result.groupNo);
-$(groupNo).val(result.groupNo);
+
 
 
 /* $(allDay).change((e)=>{
@@ -141,10 +132,19 @@ $(groupNo).val(result.groupNo);
 	}
 }) */
 
+
+
 document.addEventListener('DOMContentLoaded', function() {
+	
+	
   var calendarEl = document.getElementById('calendar');
   var start_date = document.getElementById('start_date').value;
   var end_date = document.getElementById('end_date').value;
+  var groupNo = $("#_groupNo").val();
+  console.log("aaaa"+groupNo);
+  
+
+  
   var calendar = new FullCalendar.Calendar(calendarEl, {
     headerToolbar: {
       left: 'prevYear,prev,next,nextYear today',
@@ -197,77 +197,39 @@ document.addEventListener('DOMContentLoaded', function() {
                     }//end addEventButton
                 },//end customButtons
 
+               
 
     /* 버튼관련 종료 */
     /* initialDate: '2021-12-12', */
     navLinks: true, // can click day/week names to navigate views
     editable: true,
-    dayMaxEvents: true, // allow "more" link when too many events
-    events: [
-      {
-        title: 'All Day',
-        start: '2021-12-01T16:00:00',
-        allDay: 'true'
-      },
-      {
-        title: 'Long Event',
-        start: '2021-12-07',
-        end: '2021-12-10'
-      },
-      {
-        groupId: 999,
-        title: 'Repeating Event',
-        start: '2021-12-09T16:00:00',
-        end: '2021-12-12T16:00:00'
-        
-      },
-      {
-        groupId: 999,
-        title: 'Repeating Event',
-        start: '2021-12-16T16:00:00'
-      },
-      {
-    	title : "초록색 배경 & 주황색 테두리",
-    	backgroundColor : "#008000",
-    	borderColor : "#FF4500",
-        start: '2021-12-11',
-        end: '2021-12-13'
-      },
-      {
-        title: 'Meeting',
-        start: '2021-12-12T10:30:00',
-        end: '2021-12-12T12:30:00'
-      },
-      {
-        title: 'Lunch',
-        start: '2021-12-12T12:00:00'
-      },
-      {
-        title: 'Meeting',
-        start: '2021-12-12T14:30:00'
-      },
-      {
-        title: 'Happy Hour',
-        start: '2021-12-12T17:30:00'
-      },
-      {
-        title: 'Dinner',
-        start: '2021-12-12T20:00:00'
-      },
-      {
-        title: 'Birthday Party',
-        start: '2021-12-13T07:00:00'
-      },
-      {
-        title: 'Click for Google',
-        url: 'http://google.com/',
-        start: '2021-12-28'
-      },
-      {
-          title: 'naver.com',
-          start: '2021-12-29 08:00'
-        }
-    ]
+    dayMaxEvents: true // allow "more" link when too many events
+    ,	events: [
+		  $.ajax({
+				type: "get",
+				url: `${pageContext.request.contextPath}/gw/calendar/selectList.do`,
+				dataType: "json",
+				data:{
+					groupNo : groupNo
+				},
+				success: function(data){
+					console.log("data: "+data);
+					console.log("data.list: "+data.list);
+					result = data.list;
+					console.log("data.list.length: "+data.list.length);
+					for(i=0; i < result.length; i++){
+						calendar.addEvent({
+							title: result[i]['title'],
+							start: result[i]['startDate'],
+							end: result[i]['endDate'],
+							all: result[i]['allDay']=='T' ?'true' : 'false'
+						})
+					}
+				},
+				error: console.log
+			})
+	
+		]
   });
 
   calendar.render();
