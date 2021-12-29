@@ -123,20 +123,16 @@ window.addEventListener("load", function(){
 
 								<div class="form-group row">
 								<label for="permanent_address"
-									class="col-md-4 col-form-label text-md-right">프리미엄여부</label>
+									class="col-md-4 col-form-label text-md-right"></label>
 								<div class="col-md-6 group-text-input gender-radio">
 									<div class="form-check">
-										<input class="form-check-input" type="radio"
-											name="groupCharge" id="flexRadioDefault1" value="P"> <label
-											class="form-check-label" for="flexRadioDefault1"> 유료
+										<input class="form-check-input" type="checkbox"
+											id="flexRadioDefault1" onclick="pay()"> <label
+											class="form-check-label" for="flexRadioDefault1">프리미엄 그룹 결제
 										</label>
 									</div>
-
 									<div class="form-check">
-										<input class="form-check-input" type="radio"
-											name="groupCharge" id="flexRadioDefault1" value="F"> <label
-											class="form-check-label" for="flexRadioDefault1"> 무료
-										</label>
+										<input type="hidden" name="groupCharge" id="pInput" value="F" readonly>
 									</div>
 								</div>
 							</div>
@@ -233,6 +229,18 @@ window.addEventListener("load", function(){
 
 	</main>
 	<script>
+	
+	var openWin;
+	
+	function pay() {
+        // window.name = "부모창 이름"; 
+        window.name = "parentForm";
+        // window.open("open할 window", "자식창 이름", "팝업창 옵션");
+        window.open("${pageContext.request.contextPath}/kakao/kakaoPay.do",
+        		"childForm", "width=350, height=500, resizable = yes, scrollbars = yes"); 
+    }
+
+
 	// 없습니다. 반드시 파일을 선택해야 합니다
 /* 	function EnrollFormSubmit() {		
 		const filename = $("[name=upFile]").prop("files")[0].name
@@ -248,9 +256,6 @@ window.addEventListener("load", function(){
 		}
 		
 	} */
-	</script>
-
-	<script>
 
 		/* function YnCheck(obj) {
 			var checked = obj.checked;

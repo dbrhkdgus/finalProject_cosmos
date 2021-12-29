@@ -748,14 +748,12 @@ div.list-group1{
   padding: 1rem;
 }
 .dm-message-box {
-  width: 95%;
-  height: 10vh;
-  overflow: hidden;
+  width: 90%;
+
 }
 .dm-profile-container {
-  display: -webkit-box;
-  /* margin-top: 10px;
-  margin-bottom: 10px; */
+  display: flex;
+  flex-direction: column;
 }
 .dm-user-profile {
   width: 40px;
@@ -793,4 +791,18 @@ div.list-group1{
 .modal-dm-input-box{
 	display: flex;
 	justify-content: center;
+}
+
+
+/*그룹웨어 파일게시판  */
+#fileBoard-delete{
+	background: transparent;
+    border: none;
+}
+.dm-message-content-box{
+	display: flex;
+}
+.dm-modal-body{
+	height: 65vh;
+    overflow-y: auto;
 }
