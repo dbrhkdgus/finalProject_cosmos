@@ -9,6 +9,7 @@ import javax.servlet.ServletContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ResourceLoader;
+import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -54,8 +56,9 @@ public class GwFileBoardController {
 	@Autowired
 	ResourceLoader resourceLoader;
 	
-
-    @GetMapping("/fileBoard.do")
+	
+	 @GetMapping(value= "/fileBoard.do",produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+	 @ResponseBody
     public String fileBoard(@RequestParam(defaultValue = "1") int cPage,Model model,@RequestParam int groupNo,@RequestParam int boardNo,Authentication authentication) {
     	groupwareHeaderSet(groupNo, model, authentication);
 //    	log.debug("cPage = {}", cPage);
