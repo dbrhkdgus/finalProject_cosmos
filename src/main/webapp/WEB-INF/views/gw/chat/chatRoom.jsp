@@ -134,6 +134,14 @@ if($(".chat-content").children().length == 0){
 				
 				`); 
 	});
+	stompClient.subscribe(`/dm/\*/${loginMember.id}`, (chatMessageContent) =>{
+		/* console.log("chatMessageContent : ", chatMessageContent); */
+		const obj = JSON.parse(chatMessageContent.body);
+		 console.log(obj); 
+		 const {memberName, msg, profileRenamedFilename, messageAt, logTime} = obj;
+		
+	});
+	
 	
 
 	
