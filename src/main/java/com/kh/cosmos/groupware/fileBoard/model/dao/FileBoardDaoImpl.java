@@ -39,6 +39,12 @@ public class FileBoardDaoImpl implements FileBoardDao {
 	}
 
 
+	@Override
+	public Attachment selectOneAttachment(int no) {
+		// TODO Auto-generated method stub
+		return  session.selectOne("fileBoard.selectOneAttachment", no);
+	}
+
 
 		
 }
