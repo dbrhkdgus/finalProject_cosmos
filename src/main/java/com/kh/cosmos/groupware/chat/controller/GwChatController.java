@@ -14,7 +14,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -177,6 +176,25 @@ public class GwChatController {
 		return dmList;
 		
 	}
+	@ResponseBody
+	@GetMapping("/indexDMList.do")
+	public List<DM> indexDMList(Authentication auth){
+		String receiver = ((Member) auth.getPrincipal()).getId();
+		List<String> mySenderList = chatService.selectMySenderList(receiver);
+		List<DM> dmList = new ArrayList<DM>();
+		for(String sender : mySenderList) {
+			Map<String, String> param = new HashMap<String, String>();
+			param.put("receiver", receiver);
+			param.put("sender", sender);
+			
+			dmList.add(chatService.selectMynewDM(param));
+		}
+		
+		
+		return dmList;
+		
+	}
+	
 	
 	public void groupwareHeaderSet(int groupNo, Model model, Authentication auth) {
 		Member loginMember = (Member) auth.getPrincipal();

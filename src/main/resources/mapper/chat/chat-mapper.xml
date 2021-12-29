@@ -87,4 +87,23 @@ from
 where (dm_receiver = #{receiver} and dm_sender = #{sender} and img_flag = 'P')or (dm_receiver =  #{sender} and dm_sender = #{receiver} and img_flag = 'P')
 order by d."DM_MESSAGE_At"
   </select>
+  <select id="selectMySenderList" resultType="string">
+  select DISTINCT dm_sender from dm where dm_receiver = #{receiver} and dm_sender != #{receiver}
+  </select>
+  <select id="selectMynewDM" resultType="DM">
+  select
+    *
+from (
+select 
+d.*,
+    m.member_name dm_sender_name,
+    a.renamed_filename dm_sender_profile_renamed_filename
+from 
+    dm d join tb_member m on d.dm_sender = m.id 
+    join attachment a on d.dm_sender = a.member_id
+where (dm_receiver = #{receiver} and dm_sender = #{sender} and img_flag = 'P')or (dm_receiver = #{sender} and dm_sender = #{receiver} and img_flag = 'P') order by d."DM_MESSAGE_At" desc
+) e    
+where 
+    rownum = '1'
+  </select>
 </mapper>
