@@ -366,9 +366,55 @@
   </div>
 </div>
 
+<div class="modal fade" id="gwDMModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">DM</h4>
+        <button type="button" class="close close-modal" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form:form name="createChatRoomFrm" method="post" action="${pageContext.request.contextPath }/gw/chat/createChatRoom.do">
+	      <div class="modal-body mx-3">
+	        <div class="md-form mb-5">
+	          	<div class="dm-profile-container mb-3">
+	          	
+		          <div class="dm-user-profile">
+		            <img class="dm-user-profile-img" src="https://i.pinimg.com/564x/9e/60/60/9e6060db90687be57c52ca5c5566c487.jpg" alt="">
+		          </div>
+		          
+		          <div class="dm-message-box">
+		          
+		            <div class="dm-message-sender">
+		              <span><strong>홍길동</strong></span>
+		              <span>11:10</span>
+		            </div>
+		            
+		            <div class="dm-message-content">
+		              <p>가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하</p>
+		            </div>
+		            
+		          </div>
+		        </div>
+
+
+	          
+
+	        </div>
+	      </div>
+	      <input type="hidden" name="groupNo" value="${currGroupNo }" />
+      </form:form>
+      <div class="modal-footer d-flex justify-content-center">
+        <button class="btn close-modal">닫기</button>
+      </div>
+    </div>
+  </div>
+</div>
 
  <script>
-/* modal 제어 */
+/* 채팅방 개설 modal 제어 */
 $(".modal-member-box").hide();
 
  $(".btn-createChatRoom").click((e)=>{
@@ -424,7 +470,6 @@ $(".modal-member-box").hide();
 	 }
 	 
  });
-
 
 
  

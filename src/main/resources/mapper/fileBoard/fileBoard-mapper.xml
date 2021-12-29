@@ -40,9 +40,18 @@
   		)
   	
   </insert>
-  
+
+  <select id="selectAllPostInfileBoard" resultType="PostWithCategory">
+  		select
+	    p.*,
+	    bc.board_category
+	from
+	    post p left join board_category bc
+	        on p.board_category_no = bc.board_category_no 
+	where board_no = #{boardNo}
+  </select>
+  	
   <select id="selectAttachmentList" resultType="attachment">
   select*from attachment
   </select>
-  
 </mapper>

@@ -8,12 +8,20 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.cosmos.common.attachment.model.vo.Attachment;
 import com.kh.cosmos.groupware.board.model.vo.Post;
+import com.kh.cosmos.groupware.board.model.vo.PostWithCategory;
 import com.kh.cosmos.groupware.fileBoard.vo.FileEnroll;
 
 @Repository
 public class FileBoardDaoImpl implements FileBoardDao {
+
 	@Autowired
 	private SqlSession session;
+	
+	@Override
+	public List<PostWithCategory> selectAllPostInfileBoard(int boardNo) {
+		// TODO Auto-generated method stub
+		return session.selectList("fileBoard.selectAllPostInfileBoard",boardNo);
+	}
 	
 	@Override
 	public int insertFileAttach(Attachment attach) {
