@@ -15,7 +15,6 @@ public interface FileBoardService {
 
 	List<PostWithCategory> selectAllPostInfileBoard(int boardNo);
 
-
 	Attachment selectOneAttachment(int attachNo);
 
 	List<Attachment> selectAttachmentList();
