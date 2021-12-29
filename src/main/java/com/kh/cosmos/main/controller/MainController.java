@@ -298,39 +298,7 @@ public class MainController {
 	}
 	
 	@GetMapping("/qaDetail.do")
-	public String queDetail(@RequestParam int queNo, Model model, Authentication authentication, RedirectAttributes redirectAttr) {
-
-		log.debug("queNo = {}", queNo);
-		Question que = mainService.selectOneQuestionByNo(queNo);
-		Attachment att = mainService.selectOneAttach(que.getAttachNo());
-		
-		Member member = (Member)authentication.getPrincipal();
-		log.debug("member = {}", member);
-		
-		String memberProfileRenamedFileName = mainService.selectMemberProfileRenamedFileName(member.getId());
-		log.debug("memberProfileRenamedFileName = {}", memberProfileRenamedFileName);
-		
-		
-		List<Reply> replyList = mainService.selectReplyListByqueNo(queNo);
-		log.debug("reply = {}", replyList);
-		String role = authentication.getAuthorities().toString();
-		Member loginMember = (Member) authentication.getPrincipal();
-		
-		if(!que.getMemberId().equals(loginMember.getId()) && !role.equals("[ROLE_ADMIN]")) {
-
-			redirectAttr.addFlashAttribute("msg", "작성자만 확인 가능합니다.");
-			return "redirect:/main/qa.do";
-		}
-		
-		log.debug("que = {} ", que);
-		model.addAttribute("que",que);
-		model.addAttribute("att",att);
-		model.addAttribute("replyList",replyList);
-		model.addAttribute("memberProfileRenamedFileName",memberProfileRenamedFileName);
-		
-		
-		return "main/qaDetail";
-	}
+	
 	
 	@PostMapping("/deleteQueReply.do")
 	public String deleteQueReply(@RequestParam int replyNo,@RequestParam int queNo) {

@@ -226,6 +226,7 @@ public class GwBoardController {
 	@GetMapping("/boardDetail.do")
 	public void boardDetail() {}
 	
+	
 	@GetMapping("/anonymous.do")
 	public void anonymous() {}
 	
