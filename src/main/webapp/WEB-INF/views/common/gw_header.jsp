@@ -56,15 +56,15 @@
         .bd-placeholder-img-lg {
           font-size: 3.5rem;
         }
-   	 }
+   	}
     
-    .updateBoardRoom{
+   	  .updateBoardRoom{
     	display:none;
     	
-    }
-    #main:hover>#sub{
+      }
+   	  #main:hover>#sub{
     	display:inline;
-    }
+   	  }
     
    	
     </style>
