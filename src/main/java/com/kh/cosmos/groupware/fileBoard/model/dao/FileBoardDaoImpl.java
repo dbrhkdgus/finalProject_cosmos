@@ -33,6 +33,17 @@ public class FileBoardDaoImpl implements FileBoardDao {
 		return session.insert("fileBoard.insertFilePost",post);
 	}
 
+	@Override
+	public List<Attachment> selectAttachmentList() {
+		return session.selectList("fileBoard.selectAttachmentList");
+	}
+
+
+	@Override
+	public Attachment selectOneAttachment(int attachNo) {
+		// TODO Auto-generated method stub
+		return  session.selectOne("fileBoard.selectOneAttachment", attachNo);
+	}
 
 
 		

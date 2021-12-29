@@ -16,16 +16,25 @@
 <script src="${pageContext.request.contextPath }/resources/js/summernote-ko-KR.js"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/summernote-lite.css">
 
+<div class="workspace-box">
 <div class="groupware-board-enroll-outter">
   <!-- form 안에 에디터를 사용하는 경우 (보통 이경우를 많이 사용하는듯)-->
-<h2 class="text-center mt-3">게시글 작성</h2>
+
 <div class="container">
-  <form name="boardFrm" action="${pageContext.request.contextPath }/gw/board/boardEnroll.do?${_csrf.parameterName}=${_csrf.token}" method="post" enctype="multipart/form-data">
+  
+  <form
+		name="boardFrm"   
+		enctype="multipart/form-data" 
+		action="${pageContext.request.contextPath }/gw/board/boardEnroll.do?${_csrf.parameterName}=${_csrf.token}" method="post"
+		method="POST" 
+		>
 		<div class="input-group mb-3 mx-auto">
 			<span class="input-group-text" id="inputGroup-sizing-default">제목</span>
 			<input id="title" name="postTitle" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="제목을 입력해 주세요.">
 			<input type="hidden" name="memberId" value="${member.id }" />
 			<input type="hidden" name="memberName" value="${member.memberName }" />
+			<input type="hidden" name="boardNo" value="${boardNo}" />
+			<input type="hidden" name="groupNo" value="${groupNo}"/>
 		</div>
 		<textarea id="summernote" name="postContent"></textarea>
 		<div class="input-group mb-3" style="padding:0px; padding-top: 5px;">
@@ -42,6 +51,7 @@
 	<div class="d-grid gap-2 col-6 mx-auto">
 		<button id="btn-send" class="btn btn-primary" type="button">작성 완료</button>
 	</div>
+</div>
 </div>
   <script>
 
@@ -83,7 +93,7 @@ $(document).ready(function() {
 		  ],
 		fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋움체','바탕체'],
 		fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72']
-});
+	});
 
     function uploadSummernoteImageFile(file, editor) {
 		data = new FormData();
@@ -99,9 +109,7 @@ $(document).ready(function() {
 				$(editor).summernote('insertImage', data.url);
 			}
 		});
-	}
-});
-
+	};
 	$("#btn-send").click((e)=>{
 		
 		
@@ -118,6 +126,22 @@ $(document).ready(function() {
 		
 		$(document.boardFrm).submit();
 	});
+	
+	$(()=>{
+		$("[name=upFile]").change((e)=>{
+			const file = $(e.target).prop("files")[0];
+			const filename = file?.name;
+			console.dir(e.target);
+			console.log(file);
+			const $label = $(e.target).next();
+			if(file != undefined)
+				$label.html(filename);
+			else
+				$label.html("파일을 선택하세요.");
+		});
+	});
+});
+
 
   </script>
 </div>

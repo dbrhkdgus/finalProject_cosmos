@@ -14,10 +14,21 @@
 	    post p left join board_category bc
 	        on p.board_category_no = bc.board_category_no 
 	where board_no = #{boardNo}
+	order by post_no desc
   </select>
-  
+  <select id="selectBoardByBoardNo" resultType="board">
+		select * from board where board_no = #{boardNo}
+  </select>
+  <select id="selectPostInBoardTotalCount" resultType="_int">
+		select 
+			count(*) 
+		from 
+			post
+		where
+			board_no = #{boardNo}
+	</select>
  <select id="selectAllPostInNotice" resultType="Post">
-  	select * from post where board_no = #{boardNo}
+  	select * from post where board_no = #{boardNo} order by post_no desc
   </select>
   <insert id="insertPost">
 	insert into 
@@ -34,4 +45,28 @@
 		null
 	)
   </insert>
+  <insert id="insertAttach">
+		insert into
+			attachment
+		values(
+			seq_attach_no_no.nextval,
+			#{memberId},
+			#{groupNo},
+			#{originalFilename},
+			#{renamedFilename},
+			sysdate,
+			default,
+			default
+		)
+  </insert>
+  <insert id="insertPostFile">
+		<selectKey keyProperty="attachNo" resultType="_int" order="BEFORE">
+			select
+				seq_attach_no_no.currval
+			from
+				dual
+		</selectKey>
+		insert into post values(SEQ_POST_NO_NO.nextval, #{memberId}, #{boardNo}, #{postTitle}, #{postContent}, current_date, null, #{attachNo}, null)
+		
+	</insert>
 </mapper>

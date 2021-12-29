@@ -87,6 +87,8 @@ public class GwChatController {
 	@PostMapping("/createChatRoom.do")
 	public String createChatRoom(ChatRoom chatRoom, String chatRoomOpenType,int groupNo,HttpServletRequest request, RedirectAttributes redirectAtt, Authentication auth) {
 		log.debug("chatRoom = {}", chatRoom);
+		log.debug("chatRoomOpenType = {}", chatRoomOpenType);
+		
 		Member loginMember = (Member) auth.getPrincipal(); 
 		List<Member> myGroupMemberList = gwService.selectAllGroupMembers(groupNo);
 		

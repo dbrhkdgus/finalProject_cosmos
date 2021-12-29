@@ -34,12 +34,15 @@ public class StompApplicationDestinationController {
 	 * 
 	 * @return
 	 */
-	@MessageMapping("/{path}")
-	@SendTo("/dm/{path}")
-	public String app(String chatMessageContent, @DestinationVariable String path) {
+	@MessageMapping("/dm/{dmTarget}")
+	@SendTo("/dm/{dmTarget}")
+	public String app(String chatMessageContent, @DestinationVariable String dmTarget) {
 		log.debug("message = {}",chatMessageContent);
+		log.debug("dmTarget = {}",dmTarget);
 		return chatMessageContent;
 	}
+	
+	
 	@MessageMapping("/chat/{chatRoomNo}")
 	@SendTo("/chat/{chatRoomNo}")
 	public String chat(String chatMessageContent, @DestinationVariable int chatRoomNo) {

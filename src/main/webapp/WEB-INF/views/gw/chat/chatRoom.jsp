@@ -21,18 +21,20 @@
 		        		<c:if test="${message.chatUserNo == user.chatUserNo }">
 				        <div class="chat-profile-container">
 				          <div class="chat-user-profile">
-				            <img class="chat-user-profile-img" src="${pageContext.request.contextPath }/resources/upFile/profile/${user.renamedFilename}" alt="">
+				            <img class="btn-profile chat-user-profile-img" src="${pageContext.request.contextPath }/resources/upFile/profile/${user.renamedFilename}" alt="">
+				          	<input type="hidden" id="chat-profile-memberId" value="${user.memberId }" />
 				          </div>
 				          <div class="chat-message-box">
 				            <div class="chat-message-sender">
 				              <span><strong>${user.memberName }</strong></span>
-				              <span>11:10</span>
+				              <span><fmt:formatDate value="${message.chatMessageAt}" pattern="HH:mm"/></span>
 				            </div>
 				            <div class="chat-message-content">
 				              <p>${message.chatMessageContent}</p>
 				            </div>
 				          </div>
 				        </div>
+				        
 		        		</c:if>
 		        	</c:forEach>
 		        </c:forEach>
@@ -77,9 +79,6 @@ if($(".chat-content").children().length == 0){
 		
 	// 3. 구독요청
 	stompClient.subscribe(`/chat/${chatRoomNo}`, (chatMessageContent) =>{
-		
-		
-		
 		/* console.log("chatMessageContent : ", chatMessageContent); */
 		const obj = JSON.parse(chatMessageContent.body);
 		 console.log(obj); 
@@ -101,6 +100,15 @@ if($(".chat-content").children().length == 0){
 	        </div>
 				
 				`); 
+	});
+	
+	stompClient.subscribe(`/dm/${loginMember.id}`, (chatMessageContent) =>{
+		console.log("test");
+		console.log("chatMessageContent : ", chatMessageContent);
+		const obj = JSON.parse(chatMessageContent.body);
+		 console.log(obj); 
+		 const {memberName, msg, profileRenamedFilename, messageAt, logTime} = obj;
+
 	});
 	
 });
