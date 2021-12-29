@@ -65,7 +65,7 @@ $("#btn-dm-message-send").click((e) =>{
 	};
 	
 	stompClient.send(`/app/dm/\${$("input[name=dm-memberId]").val()}`, {}, JSON.stringify(obj));
-	$(chatMessageContent).val(''); // #message 초기화
+	$("#dm-chatMessageContent").val(''); // #message 초기화
 });
 </script>
   </body>
