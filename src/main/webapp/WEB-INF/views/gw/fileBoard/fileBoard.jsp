@@ -87,7 +87,7 @@
 	</c:if>
 
 <!--  -->
-	<c:if test="${empty fileBoardList}">
+	<c:if test="${empty fileBoardList and !isListempty}">
 	  <c:forEach var="post" items="${fileboardPostList}" varStatus="status">
 	            <tr>
 	                <td>${fn:length(fileboardPostList)- status.count+1}</td>
@@ -138,13 +138,14 @@
     </nav> 
   </div>
 </div>
+
 <script>
 $("#button-addon2").click((e)=>{
     const searchType = $("select[name=searchType]").val();
     const searchKeyword = $("input[name=searchKeyword]").val();
-    location.href=`${pageContext.request.contextPath}/gw/fileBoard/fileBoard.do?boardNo=${boardNo}&groupNo=${groupNo}&searchType=\${searchType}&searchKeyword=\${searchKeyword}`;    			   
-}
-);
+    location.href=`${pageContext.request.contextPath}/gw/fileBoard/fileBoard.do?boardNo=${boardNo}&groupNo=${groupNo}&searchType=\${searchType}&searchKeyword=\${searchKeyword}`; 
+   
+});
 </script>
 <jsp:include page="/WEB-INF/views/common/gw_footer.jsp"></jsp:include>
 

@@ -86,6 +86,15 @@ public class GwFileBoardController {
 		fileBoardList = fileBoardService.selectAllFileBoardListByParam(param,limit,offset);		
 		model.addAttribute("fileBoardList",fileBoardList);
 		
+		boolean isListempty = false;
+		if(fileBoardList.isEmpty()) {
+			isListempty = true;
+		}
+		
+		log.debug("isListempty ={}" ,isListempty );
+		model.addAttribute("isListempty",isListempty);
+			
+		
 		model.addAttribute("groupNo", groupNo);
         model.addAttribute("boardNo", boardNo);
         model.addAttribute("title", "파일게시판");
