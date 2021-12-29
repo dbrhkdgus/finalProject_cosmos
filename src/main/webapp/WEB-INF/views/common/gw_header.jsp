@@ -56,15 +56,15 @@
         .bd-placeholder-img-lg {
           font-size: 3.5rem;
         }
-   	 }
-    
-    .updateBoardRoom{
+   	}
+    	
+   	  .updateBoardRoom{
     	display:none;
     	
-    }
-    #main:hover>#sub{
+      }
+   	  #main:hover>#sub{
     	display:inline;
-    }
+   	  }
     
    	
     </style>
@@ -306,7 +306,7 @@
       </li>
     </ul>
   </div>
-  
+ <!-- 게시판 개설하기 위한 모달창 --> 
 <div class="modal fade" id="createBoardRoomModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
   aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -340,6 +340,7 @@
   </div>
 </div>
 
+<!-- 게시판 수정하기 위한 모달창 -->
 <div class="modal fade" id="updateBoardRoomModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
   aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -354,7 +355,7 @@
 	      <div class="modal-body mx-3">
 	        <div class="md-form mb-5">
 	          <label  for="defaultForm-email">게시판 이름</label>
-	          <input type="text" name="boardName" class="form-control validate" placeholder="">
+	          <input type="text" name="boardName" class="form-control validate" placeholder="${boardName}">
 	          <label for="boardType">게시판 종류</label>
 	          <select class="boardType form-select" name="boardType" required>
 	          	<option value="B">일반 게시판</option>
@@ -363,10 +364,10 @@
 	          </select>
 	        </div>
 	      </div>
-	      <input type="hidden" name="groupNo" value="${currGroupNo }" />
+	      <input type="hidden" name="groupNo" value="${currGroupNo}" />
       </form:form>
       <div class="modal-footer d-flex justify-content-center">
-        <button class="btn btn-createBoardRoom">개설</button>
+        <button class="btn btn-createBoardRoom">수정</button>
         <button class="btn close-modal">취소</button>
       </div>
     </div>
@@ -437,11 +438,7 @@
 	              <input type="radio" name="chatRoomOpenType" value="select">선택
               </div>
               <div class="modal-member-box" style="border: 1px solid black; ">
-              
-              
-		              	
-            
-              	
+     
               	
               </div>
             </div>
@@ -566,6 +563,7 @@ $(".modal-member-box").hide();
  $(".close-modal").click((e)=>{
 	 $("#createChatRoomModal").modal('hide');
 	 $("#createBoardRoomModal").modal('hide');
+	 $("#updateBoardRoomModal").modal('hide');
 	 $("#createVoiceChatRoomModal").modal('hide');
  });
 
@@ -625,7 +623,7 @@ $(".modal-member-box").hide();
 	 $(document.updateBoardRoomFrm).submit();
  });
  $(".updateBoardRoom").click((e)=>{
-	 $("#updateeBoardRoomModal").modal('show');
+	 $("#updateBoardRoomModal").modal('show');
  });
  
  $(".btn-createVoiceChatRoom").click((e)=>{
