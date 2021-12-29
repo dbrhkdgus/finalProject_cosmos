@@ -1,12 +1,11 @@
 package com.kh.cosmos.groupware.calendar.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -19,6 +18,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kh.cosmos.common.attachment.model.vo.Attachment;
 import com.kh.cosmos.group.model.vo.Group;
+import com.kh.cosmos.groupware.calendar.model.service.GwCalendarService;
+import com.kh.cosmos.groupware.calendar.model.vo.Schedule;
 import com.kh.cosmos.groupware.chat.model.vo.ChatRoom;
 import com.kh.cosmos.groupware.service.GroupwareService;
 import com.kh.cosmos.member.model.vo.Member;
@@ -29,6 +30,80 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RequestMapping("/gw/calendar")
 public class GwCalendarController {
+	
+	@Autowired
+	private GroupwareService gwService; 
+	
+	@Autowired
+	private GwCalendarService gwCalendarService;
+	
+	
+
+		
+	@GetMapping("/calendar.do")
+	public String calendar(int groupNo, Model model, Authentication authentication){
+		groupwareHeaderSet(groupNo, model, authentication);
+		log.debug("groupNO = {}", groupNo);
+		
+		
+		/*
+		 * List<Schedule> scheduleList = gwCalendarService.selectScheduleList(groupNo);
+		 * 
+		 * log.debug("scheduleList = {}", scheduleList);
+		 */
+		
+		return "gw/calendar/calendar";
+	}
+
+	@GetMapping("/insertSchedule.do")
+	public String insertSchedule(@RequestParam Map<String, Object> obj, Model model){
+		log.debug("obj = {}", obj);
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		
+		//날짜와 시간을 합쳐준다.
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+		
+		String _start_date = obj.get("start_date")+"";
+		String _start_time = obj.get("start_time")+"";
+
+		String _end_date = obj.get("end_date")+"";
+		String _end_time = obj.get("end_time")+"";
+		
+		String start_date = _start_date +" "+_start_time+":00";
+		String end_date = _end_date + " " + _end_time+":00";
+		//합쳐진 값을 새롭게 obj에 넣어준다.
+		obj.put("start_date", start_date);
+		obj.put("end_date", end_date);
+		
+		//allDay가 빈값일 때는 여기서 F값을 넣어준다.
+		if(obj.get("allDay")== null) {
+			obj.put("allDay", "F");
+		}
+		
+		
+		
+		//업무로직
+		int result = gwCalendarService.insertSchedule(obj);
+		log.debug("result = {}", result);
+		model.addAttribute("result", result);
+		
+//		return "redirect:/gw/calendar/calendar.do?groupNo="+String.valueOf(obj.get("groupNo"));
+		return "gw/calendar/calendar";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	public void groupwareHeaderSet(int groupNo, Model model, Authentication auth) {
@@ -56,28 +131,6 @@ public class GwCalendarController {
 		model.addAttribute("memberProfileRenamedFilenameList", memberProfileRenamedFilenameList);
 		model.addAttribute("groupBannerAttachList", groupBannerAttachList);
 		model.addAttribute("myGroupList", myGroupList);
-	}
-	
-	@Autowired
-	private GroupwareService gwService; 
-		
-	@GetMapping("/calendar.do")
-	public String calendar(int groupNo, Model model, Authentication authentication){
-		groupwareHeaderSet(groupNo, model, authentication);
-		log.debug("groupNO = {}", groupNo);
-		
-		return "gw/calendar/calendar";
-	}
-	
-	@GetMapping("/selectScheduleList.do")
-	@ResponseBody
-	public Map<String, Object> selectScheduleList(HttpServletRequest request, @RequestParam Map<String, String> obj){
-		log.debug("obj = {}", obj);
-		String groupNo = request.getParameter("groupNo");
-		log.debug("groupNo = {}", groupNo);
-		
-		Map<String, Object> map = new HashMap<>();
-		return map;
 	}
 	
 }
