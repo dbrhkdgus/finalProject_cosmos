@@ -3,24 +3,52 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <fmt:requestEncoding value="utf-8"/> 
 <jsp:include page="/WEB-INF/views/common/gw_header.jsp">
 	<jsp:param value="공지사항 작성" name="title"/>
 </jsp:include>
+<sec:authorize access="isAuthenticated()">
+	<sec:authentication property="principal" var="member"/>
+</sec:authorize>
+<script src="${pageContext.request.contextPath }/resources/js/summernote-lite.js"></script>
+<script src="${pageContext.request.contextPath }/resources/js/summernote-ko-KR.js"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/summernote-lite.css">
+
+<div class="workspace-box">
+
 <div class="groupware-board-enroll-outter">
   <!-- form 안에 에디터를 사용하는 경우 (보통 이경우를 많이 사용하는듯)-->
-<h2 class="text-center mt-3">공지사항 작성</h2>
 <div class="container">
-  <form method="post">
-      <div class="input-group mb-3 w-50 mx-auto">
-          <span class="input-group-text" id="inputGroup-sizing-default">제목</span>
-          <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="제목을 입력해 주세요.">
-      </div>
-      <textarea id="summernote" name="editordata"></textarea>
-  </form>
-  <div class="d-grid gap-2 col-6 mx-auto">
-      <button class="btn btn-primary" type="button">작성 완료</button>
-  </div>
+  <form
+		name="boardFrm"   
+		enctype="multipart/form-data" 
+		action="${pageContext.request.contextPath }/gw/board/noticeEnroll.do?${_csrf.parameterName}=${_csrf.token}" method="post"
+		method="POST" 
+		>
+      <div class="input-group mb-3 mx-auto">
+			<span class="input-group-text" id="inputGroup-sizing-default">제목</span>
+			<input id="title" name="postTitle" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="제목을 입력해 주세요.">
+			<input type="hidden" name="memberId" value="${member.id }" />
+			<input type="hidden" name="memberName" value="${member.memberName }" />
+			<input type="hidden" name="boardNo" value="${boardNo}" />
+			<input type="hidden" name="groupNo" value="${groupNo}"/>
+		</div>
+		<textarea id="summernote" name="postContent"></textarea>
+		<div class="input-group mb-3" style="padding:0px; padding-top: 5px;">
+			<div class="input-group-prepend" style="padding:0px;">
+			    <span class="input-group-text">첨부파일1</span>
+			  </div>
+			  <div class="custom-file">
+			    <input type="file" class="custom-file-input" name="upFile"  >
+			    <label class="custom-file-label" for="upFile1">파일을 선택하세요</label>
+			</div>
+		</div>
+		
+	</form>
+	<div class="d-grid gap-2 col-6 mx-auto">
+		<button id="btn-send" class="btn btn-primary" type="button">작성 완료</button>
+	</div>
 </div>
 <script>
 
@@ -55,6 +83,7 @@ $('.summernote').summernote({
       });
 
   </script>
+</div>
 </div>
 <jsp:include page="/WEB-INF/views/common/gw_footer.jsp"></jsp:include>
 
