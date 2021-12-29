@@ -134,11 +134,33 @@ if($(".chat-content").children().length == 0){
 				
 				`); 
 	});
-	stompClient.subscribe(`/dm/\*/${loginMember.id}`, (chatMessageContent) =>{
+	stompClient.subscribe(`/dm/${loginMember.id}`, (chatMessageContent) =>{
 		/* console.log("chatMessageContent : ", chatMessageContent); */
 		const obj = JSON.parse(chatMessageContent.body);
 		 console.log(obj); 
-		 const {memberName, msg, profileRenamedFilename, messageAt, logTime} = obj;
+		 const {senderName, msg, profileRenamedFilename, messageAt, logTime} = obj;
+		 $(".dm-profile-container").append(`<div class="dm-message-content-box">
+		          	
+		          <div class="dm-user-profile">
+		            <img class="dm-user-profile-img" src="${pageContext.request.contextPath}/resources/upFile/profile/\${profileRenamedFilename}" alt="">
+		          </div>
+		          
+		          <div class="dm-message-box">
+		          
+		            <div class="dm-message-sender">
+		              <span><strong>\${senderName}</strong></span>
+		              <span>\${logTime}</span>
+		            </div>
+		            
+		            <div class="dm-message-content">
+		              <p>\${msg}</p>
+		            </div>
+		            
+		          </div>
+	          </div>	
+				
+				`);
+		 
 		
 	});
 	
@@ -153,7 +175,8 @@ $(".btn-profile").click((e)=>{
 	
 	$("#gwDMModal").modal('show');
 });
-$(".close-modal").click((e)=>{
+$(".close-dm-modal").click((e)=>{
+	$(".dm-profile-container").text('');
 	$("#gwDMModal").modal('hide');
 
 });
