@@ -23,6 +23,8 @@ public interface BoardService {
 	Board selectBoardByBoardNo(int boardNo);
 
 	int selectPostInBoardTotalCount(int boardNo);
+
+	int updateBoardRoom(Board board);
 	
 	
 

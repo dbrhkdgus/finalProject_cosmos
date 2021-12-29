@@ -169,6 +169,19 @@ public class GwBoardController {
 		return "redirect:/gw/gw.do";
 	}
 	
+	@PostMapping("/updateBoardRoom.do")
+	public String updateBoardRoom(Board board, RedirectAttributes redirectAtt) {
+		
+		int result = boardService.updateBoardRoom(board);
+		redirectAtt.addAttribute("groupNo", board.getGroupNo());
+		redirectAtt.addAttribute("msg", result > 0 ? "채팅방 ["+board.getBoardName()+"]이 수정되었습니다." : "실패");
+		
+		
+		return "redirect:/gw/gw.do";
+	}
+	
+	
+	
     public void groupwareHeaderSet(int groupNo, Model model, Authentication auth) {
         Member loginMember = (Member) auth.getPrincipal();
         Group myGroup = gwService.selectMyGroup(groupNo);

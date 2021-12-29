@@ -21,6 +21,12 @@ public class BoardServiceImpl implements BoardService {
 		// TODO Auto-generated method stub
 		return boardDao.createBoardRoom(board);
 	}
+	
+	@Override
+	public int updateBoardRoom(Board board) {
+		// TODO Auto-generated method stub
+		return boardDao.updateBoardRoom(board);
+	}
 
 	@Override
 	public List<Post> selectAllPostInBoard(int boardNo, int limit, int offset) {
@@ -63,6 +69,8 @@ public class BoardServiceImpl implements BoardService {
 		// TODO Auto-generated method stub
 		return boardDao.selectPostInBoardTotalCount(boardNo);
 	}
+
+	
 
 	
 	
