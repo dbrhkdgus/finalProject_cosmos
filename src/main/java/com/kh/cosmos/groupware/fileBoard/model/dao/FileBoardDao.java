@@ -15,6 +15,8 @@ public interface FileBoardDao {
 
 	List<PostWithCategory> selectAllPostInfileBoard(int boardNo);
 
+	Attachment selectOneAttachment(int no);
+
 	
 
 }

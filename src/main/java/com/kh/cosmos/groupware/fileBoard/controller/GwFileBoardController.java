@@ -2,12 +2,15 @@ package com.kh.cosmos.groupware.fileBoard.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
@@ -57,8 +60,7 @@ public class GwFileBoardController {
 	ResourceLoader resourceLoader;
 	
 	
-	 @GetMapping(value= "/fileBoard.do",produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
-	 @ResponseBody
+    @GetMapping("/fileBoard.do")
     public String fileBoard(@RequestParam(defaultValue = "1") int cPage,Model model,@RequestParam int groupNo,@RequestParam int boardNo,Authentication authentication) {
     	groupwareHeaderSet(groupNo, model, authentication);
 //    	log.debug("cPage = {}", cPage);
@@ -169,6 +171,48 @@ public class GwFileBoardController {
 
     }
 
+    
+	@GetMapping(
+			value = "/fileDown.do",
+			produces = MediaType.APPLICATION_OCTET_STREAM_VALUE
+		)
+		@ResponseBody
+		public Resource fileDownload(@RequestParam int no, HttpServletResponse response) throws UnsupportedEncodingException {
+			// 1.업무로직 : db attachment행 조회
+			Attachment attach = fileBoardService.selectOneAttachment(no);
+			log.debug("attach = {}", attach);
+			
+			// 2.다운로드할 파일 경로 가져오기
+			String saveDirectory = application.getRealPath("/resources/upFile/fileboard");
+			File downFile = new File(saveDirectory, attach.getRenamedFilename());
+			
+			// 3.Resource객체 생성
+//			Resource resource = new FileSystemResource(downFile);
+			Resource resource = resourceLoader.getResource("file:" + downFile);
+			log.debug("file:{}", downFile);
+			
+			// 4.헤더값 설정
+			String filename = new String(attach.getOriginalFilename().getBytes("utf-8"), "iso-8859-1");
+//			response.setContentType("application/octet-stream; charset=utf-8");
+			response.addHeader("Content-Disposition", "attachment; filename=" + filename);
+			
+			return resource;
+		}
+    
+    
+	@GetMapping(
+			value = "/resource.do",
+			produces = MediaType.APPLICATION_OCTET_STREAM_VALUE
+		)
+		@ResponseBody
+		public Resource resource(HttpServletResponse response) {
+			Resource resource = resourceLoader.getResource("https://docs.oracle.com/javase/8/docs/api/java/io/File.html");
+			log.debug("resource = {}", resource);
+			response.addHeader("Content-Disposition", "attachment; filename=File.html");
+			return resource;
+		}
+    
+    
     public void groupwareHeaderSet(int groupNo, Model model, Authentication auth) {
         Member loginMember = (Member) auth.getPrincipal();
         Group myGroup = gwService.selectMyGroup(groupNo);
