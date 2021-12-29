@@ -16,6 +16,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kh.cosmos.groupware.chat.model.service.ChatService;
 import com.kh.cosmos.groupware.chat.model.vo.ChatMessage;
+import com.kh.cosmos.groupware.chat.model.vo.DM;
 import com.kh.cosmos.groupware.service.GroupwareService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -34,11 +35,38 @@ public class StompApplicationDestinationController {
 	 * 
 	 * @return
 	 */
-	@MessageMapping("/dm/{dmTarget}")
-	@SendTo("/dm/{dmTarget}")
-	public String app(String chatMessageContent, @DestinationVariable String dmTarget) {
-		log.debug("message = {}",chatMessageContent);
-		log.debug("dmTarget = {}",dmTarget);
+	@MessageMapping("/dm/{receiver}")
+	@SendTo("/dm/{receiver}")
+	public String app(String chatMessageContent, @DestinationVariable String receiver) {
+		
+		ObjectMapper mapper = new ObjectMapper();
+		HashMap<String, String> map = new HashMap<String, String>();
+		try {
+			map = mapper.readValue(chatMessageContent, 
+			        new TypeReference<HashMap<String, String>>() {});
+		} catch (IOException e) {
+			
+		}  
+		
+		// 메시지 객체화
+		DM dm = new DM();
+		dm.setDmSender(map.get("sender"));
+		dm.setDmReceiver(receiver);
+		dm.setDmContent(map.get("msg"));
+		
+		// 메시지 타입 분기
+		if(dm.getDmContent().startsWith("https://")) {
+			dm.setChatMessageTypeNo(2);
+		}else if(dm.getDmContent().endsWith(".jpg") || dm.getDmContent().endsWith(".png") ) {
+			dm.setChatMessageTypeNo(3);
+		}else {
+			dm.setChatMessageTypeNo(1);
+		}
+		
+		log.debug("dm = {}", dm);
+		
+		int result = chatService.insertDm(dm);
+		
 		return chatMessageContent;
 	}
 	

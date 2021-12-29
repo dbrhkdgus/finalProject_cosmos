@@ -18,7 +18,7 @@ public class Schedule implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String title;
 	private String content;
-	private Date startDate;
+	private String startDate;
 	private String endDate;
 	private String allDay;
 	private String category;

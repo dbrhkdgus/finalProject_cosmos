@@ -792,6 +792,13 @@ div.list-group1{
 	display: flex;
 	justify-content: center;
 }
+
+
+/*그룹웨어 파일게시판  */
+#fileBoard-delete{
+	background: transparent;
+    border: none;
+}
 .dm-message-content-box{
 	display: flex;
 }

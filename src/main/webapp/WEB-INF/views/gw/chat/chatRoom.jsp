@@ -134,21 +134,23 @@ if($(".chat-content").children().length == 0){
 				
 				`); 
 	});
-	
-	stompClient.subscribe(`/dm/${loginMember.id}`, (chatMessageContent) =>{
-		console.log("test");
-		console.log("chatMessageContent : ", chatMessageContent);
+	stompClient.subscribe(`/dm/\*/${loginMember.id}`, (chatMessageContent) =>{
+		/* console.log("chatMessageContent : ", chatMessageContent); */
 		const obj = JSON.parse(chatMessageContent.body);
 		 console.log(obj); 
 		 const {memberName, msg, profileRenamedFilename, messageAt, logTime} = obj;
-
+		
 	});
+	
+	
+
 	
 });
 /* DM modal 제어 */
 $(".btn-profile").click((e)=>{
 	$("input[name=dm-memberId]").val($(e.target).siblings().val());
-	console.log($("input[name=dm-memberId]").val());
+	
+	
 	$("#gwDMModal").modal('show');
 });
 $(".close-modal").click((e)=>{
@@ -163,8 +165,8 @@ $("#btn-dm-message-send").click((e) =>{
 	var hours = today.getHours(); // 시
 	var minutes = today.getMinutes();  // 분
 	const obj = {
-		chatRoomNo : "${chatRoomNo}",
-		memberId : "${loginMember.id}",
+		sender : "${loginMember.id}",
+		receiver : $("input[name=dm-memberId]").val(),
 		msg : $("#dm-chatMessageContent").val(),
 		logTime : hours + ":" + minutes
 	};
