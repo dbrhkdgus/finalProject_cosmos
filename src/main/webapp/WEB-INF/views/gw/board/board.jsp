@@ -47,15 +47,7 @@
   </div>
   <div class="test-board-pagebar">
     
-    <nav aria-label="Page navigation example test-board-pagebar">
-      <ul class="pagination">
-        <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-        <li class="page-item"><a class="page-link" href="#">1</a></li>
-        <li class="page-item"><a class="page-link" href="#">2</a></li>
-        <li class="page-item"><a class="page-link" href="#">3</a></li>
-        <li class="page-item"><a class="page-link" href="#">Next</a></li>
-      </ul>
-    </nav> 
+    ${pagebar} 
   </div>
 </div>
 <jsp:include page="/WEB-INF/views/common/gw_footer.jsp"></jsp:include>
