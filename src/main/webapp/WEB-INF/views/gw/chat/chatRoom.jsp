@@ -149,19 +149,8 @@ if($(".chat-content").children().length == 0){
 /* DM modal 제어 */
 $(".btn-profile").click((e)=>{
 	$("input[name=dm-memberId]").val($(e.target).siblings().val());
-	var receiver = $("input[name=dm-memberId]").val();
 	
-	//구독 추가
-	var script = document.createElement("script");
-	script.innerHTML = `stompClient.subscribe("/dm/${loginMember.id}/\${receiver}", (chatMessageContent) =>{
-		console.log("test");
-	console.log("chatMessageContent : ", chatMessageContent);
-	const obj = JSON.parse(chatMessageContent.body);
-	 console.log(obj); 
-	 const {memberName, msg, profileRenamedFilename, messageAt, logTime} = obj;
-
-	});`;
-	document.body.appendChild(script);
+	
 	$("#gwDMModal").modal('show');
 });
 $(".close-modal").click((e)=>{
@@ -176,13 +165,13 @@ $("#btn-dm-message-send").click((e) =>{
 	var hours = today.getHours(); // 시
 	var minutes = today.getMinutes();  // 분
 	const obj = {
-		chatRoomNo : "${chatRoomNo}",
-		memberId : "${loginMember.id}",
+		sender : "${loginMember.id}",
+		receiver : $("input[name=dm-memberId]").val(),
 		msg : $("#dm-chatMessageContent").val(),
 		logTime : hours + ":" + minutes
 	};
 		
-	stompClient.send(`/app/dm/${loginMember.id}/\${$("input[name=dm-memberId]").val()}`, {}, JSON.stringify(obj));
+	stompClient.send(`/app/dm/\${$("input[name=dm-memberId]").val()}`, {}, JSON.stringify(obj));
 	$("#dm-chatMessageContent").val(''); // #message 초기화
 });
 $("#btn-message-send").click((e) =>{

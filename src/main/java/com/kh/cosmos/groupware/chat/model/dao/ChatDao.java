@@ -7,6 +7,7 @@ import com.kh.cosmos.common.attachment.model.vo.Attachment;
 import com.kh.cosmos.groupware.chat.model.vo.ChatMessage;
 import com.kh.cosmos.groupware.chat.model.vo.ChatRoom;
 import com.kh.cosmos.groupware.chat.model.vo.ChatUser;
+import com.kh.cosmos.groupware.chat.model.vo.DM;
 import com.kh.cosmos.member.model.vo.Member;
 
 public interface ChatDao {
@@ -36,5 +37,7 @@ public interface ChatDao {
 	String selectMemberNameByMemberId(String id);
 
 	List<Attachment> selectMemberProfileAttachList();
+
+	int insertDm(DM dm);
 
 }
