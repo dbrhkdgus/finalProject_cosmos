@@ -54,4 +54,13 @@
   <select id="selectAttachmentList" resultType="attachment">
   select*from attachment
   </select>
+  
+  <select id="selectOneAttachment" resultType="attachment">
+		select
+			*
+		from
+			attachment
+		where
+			no = #{no}
+	</select>
 </mapper>
