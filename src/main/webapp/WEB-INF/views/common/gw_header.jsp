@@ -142,7 +142,7 @@
       	</div>
         <div class="collapse show" id="board-collapse">
           <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-            <li><a href="${pageContext.request.contextPath }/gw/board/notice.do?boardNo=1&groupNo=${currGroupNo}" class="link-dark rounded">공지사항</a></li>
+            <li><a href="${pageContext.request.contextPath }/gw/board/notice.do?boardNo=${boardNo}&groupNo=${currGroupNo}" class="link-dark rounded">공지사항</a></li>
            	<c:if test="${not empty boardList}">
            		<c:forEach var="boardRoom" items="${boardList}">
            			<c:if test="${fn:contains(boardRoom.boardType, 'B')}">

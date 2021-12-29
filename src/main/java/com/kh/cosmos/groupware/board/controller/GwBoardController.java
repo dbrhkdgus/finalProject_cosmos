@@ -45,6 +45,7 @@ public class GwBoardController {
 	@GetMapping("/board.do")
 	public String board(@RequestParam(defaultValue = "1") int cPage, int boardNo, int groupNo, Model model, HttpServletRequest request, Authentication auth) {
 		groupwareHeaderSet(groupNo, model, auth);
+		
 		int limit = 10;
 		int offset = (cPage - 1) * limit;
 		
@@ -69,15 +70,19 @@ public class GwBoardController {
 	}
 	
 	@GetMapping("/notice.do")
-	public String notice(@RequestParam(defaultValue = "1") int cPage, int boardNo, Model model, HttpServletRequest request) {
-		log.debug("cPage = {}", cPage);
-		log.debug("boardNo = {}", boardNo);
+	public String notice(@RequestParam(defaultValue = "1") int cPage, int boardNo, int groupNo, Model model, HttpServletRequest request, Authentication auth) {
+		groupwareHeaderSet(groupNo, model, auth);
+		
 		int limit = 10;
 		int offset = (cPage - 1) * limit;
 		
 		List<Post> noticePostList = boardService.selectAllPostInNotice(boardNo);
+		Board board = boardService.selectBoardByBoardNo(boardNo);
 		log.debug("noticePostList = {}", noticePostList);
 		model.addAttribute("noticePostList", noticePostList);
+		model.addAttribute("boardNo", boardNo);
+		model.addAttribute("groupNo", groupNo);
+		model.addAttribute("title", "# " + board.getBoardName());
 		
 		return "gw/board/notice";
 	}
