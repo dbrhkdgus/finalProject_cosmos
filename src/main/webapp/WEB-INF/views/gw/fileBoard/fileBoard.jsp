@@ -15,7 +15,7 @@
 	<sec:authentication property="principal" var="loginMember"/>
 </sec:authorize>
 <script>
-$("#button-file").click((e)=>{
+$("#button-addon2").click((e)=>{
     const searchType = $("select[name=searchType]").val();
     const searchKeyword = $("input[name=searchKeyword]").val();
    
@@ -27,21 +27,22 @@ $("#button-file").click((e)=>{
       <!-- <h1>파일 게시판</h1> -->
     </div>
     <!-- 정렬 및 검색 -->
-    <form action="${pageContext.request.contextPath}/gw/fileBoard/fileBoard.do?boardNo=${boardNo}&groupNo=${groupNo}">
+    <form action="${pageContext.request.contextPath}/gw/fileBoard/fileBoard.do?boardNo=${boardNo}&groupNo=${groupNo}" method="get">
 	    <div class="test-board-search">
-	    	<div class="dropdown">
-			  <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-			    전체보기
-			  </a>		
-			  <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-			    <li><a class="dropdown-item" href="#">Action</a></li>
-			    <li><a class="dropdown-item" href="#">Another action</a></li>
-			    <li><a class="dropdown-item" href="#">Something else here</a></li>
-			  </ul>
-			</div>
-	    <input type="text">
-	      <input type="button" value="검색" id="button-file">
-	    </div>
+	    	 <select name="searchType" class="form-select search-select" aria-label="Default select example">
+		        <option value="all" ${searchType == 'all' ? "selected":'' }> 전체보기 </option>
+		        <option value="img" ${searchType == 'img' ? "selected":'' }>이미지</option>
+		        <option value="document" ${searchType == 'document' ? "selected":'' }>문서</option>
+		        <option value="zip" ${searchType == 'zip' ? "selected":'' }>압축파일</option>
+		        <option value="code" ${searchType == 'code' ? "selected":'' }>코드파일</option>
+		        <option value="etc" ${searchType == 'etc' ? "selected":'' }>기타</option>
+		     </select>
+		     
+		   <div class="input-group mb-3 search-input">
+		      <input type="text" class="form-control" name="searchKeyword" value="${searchKeyword }" placeholder="작성자 또는 제목으로 검색"  aria-describedby="button-addon2">
+		   		<button class="btn btn-outline-secondary" type="button" id="button-addon2" >검색</button>
+		   </div>   
+		</div>       
     </form>
   </div>
   <table class="table file-board-table">

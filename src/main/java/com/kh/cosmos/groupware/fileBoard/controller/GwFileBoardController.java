@@ -82,7 +82,7 @@ public class GwFileBoardController {
 		String searchKeyword = request.getParameter("searchKeyword");
 		param.put("searchType", searchType);
 		param.put("searchKeyword", searchKeyword);
-		fileBoardList = fileBoardService.selectAllFileBoardListByParam(param,limit,offset);
+//		fileBoardList = fileBoardService.selectAllFileBoardListByParam(param,limit,offset);
 		
 		model.addAttribute("groupNo", groupNo);
         model.addAttribute("boardNo", boardNo);
