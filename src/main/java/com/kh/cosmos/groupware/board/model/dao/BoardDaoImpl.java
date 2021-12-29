@@ -2,6 +2,7 @@ package com.kh.cosmos.groupware.board.model.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -23,9 +24,9 @@ public class BoardDaoImpl implements BoardDao {
 	}
 
 	@Override
-	public List<Post> selectAllPostInBoard(int boardNo) {
-		// TODO Auto-generated method stub
-		return session.selectList("board.selectAllPostInBoard", boardNo);
+	public List<Post> selectAllPostInBoard(int boardNo, int limit, int offset) {
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		return session.selectList("board.selectAllPostInBoard", boardNo, rowBounds);
 	}
 
 	@Override
@@ -50,6 +51,18 @@ public class BoardDaoImpl implements BoardDao {
 	public int insertPostFile(Post post) {
 		// TODO Auto-generated method stub
 		return session.insert("board.insertPostFile", post);
+	}
+
+	@Override
+	public Board selectBoardByBoardNo(int boardNo) {
+		// TODO Auto-generated method stub
+		return session.selectOne("board.selectBoardByBoardNo", boardNo);
+	}
+
+	@Override
+	public int selectPostInBoardTotalCount(int boardNo) {
+		// TODO Auto-generated method stub
+		return session.selectOne("board.selectPostInBoardTotalCount", boardNo);
 	}
 
 	

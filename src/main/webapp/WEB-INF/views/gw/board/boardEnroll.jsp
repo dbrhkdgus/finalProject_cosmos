@@ -19,8 +19,7 @@
 <div class="workspace-box">
 <div class="groupware-board-enroll-outter">
   <!-- form 안에 에디터를 사용하는 경우 (보통 이경우를 많이 사용하는듯)-->
-<h2 class="text-center mt-3">게시글 작성</h2>
-<p>${boardNo}</p>
+
 <div class="container">
   
   <form
