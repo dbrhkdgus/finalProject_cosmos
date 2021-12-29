@@ -12,6 +12,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -43,16 +44,20 @@ public class GwCalendarController {
 	@GetMapping("/calendar.do")
 	public String calendar(int groupNo, Model model, Authentication authentication){
 		groupwareHeaderSet(groupNo, model, authentication);
-		log.debug("groupNO = {}", groupNo);
-		
-		
-		/*
-		 * List<Schedule> scheduleList = gwCalendarService.selectScheduleList(groupNo);
-		 * 
-		 * log.debug("scheduleList = {}", scheduleList);
-		 */
-		
+		log.debug("groupNOOOOOOOOOOOOOOOOOOOOO = {}", groupNo);
+		model.addAttribute("groupNo", groupNo);
+
 		return "gw/calendar/calendar";
+	}
+	
+	@GetMapping("/selectList.do")
+	@ResponseBody
+	public Map<String, Object>list(int groupNo, Authentication authentication, Model model) {
+		groupwareHeaderSet(groupNo, model, authentication);		
+		System.out.println("kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk");
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("list", gwCalendarService.selectScheduleList(groupNo));
+		return map;
 	}
 
 	@GetMapping("/insertSchedule.do")
