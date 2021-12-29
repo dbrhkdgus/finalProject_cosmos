@@ -177,9 +177,9 @@ public class GwFileBoardController {
 			produces = MediaType.APPLICATION_OCTET_STREAM_VALUE
 		)
 		@ResponseBody
-		public Resource fileDownload(@RequestParam int no, HttpServletResponse response) throws UnsupportedEncodingException {
+		public Resource fileDownload(@RequestParam int attachNo, HttpServletResponse response) throws UnsupportedEncodingException {
 			// 1.업무로직 : db attachment행 조회
-			Attachment attach = fileBoardService.selectOneAttachment(no);
+			Attachment attach = fileBoardService.selectOneAttachment(attachNo);
 			log.debug("attach = {}", attach);
 			
 			// 2.다운로드할 파일 경로 가져오기

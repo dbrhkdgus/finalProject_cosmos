@@ -61,6 +61,6 @@
 		from
 			attachment
 		where
-			no = #{no}
+			attach_no = #{attachNo}
 	</select>
 </mapper>
