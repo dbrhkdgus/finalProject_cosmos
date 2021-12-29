@@ -235,7 +235,7 @@
 	        </div>
 	        
 	      </div>
-	       <div class="modal-body mx-3">
+<!-- 	       <div class="modal-body mx-3">
 	       
 	        <div class="modal-dm-input-box">
 		
@@ -243,16 +243,16 @@
 		        <input id="dm-chatMessageContent" type="text" class="form-control" name="chatMessageContent">
 		      </div>
 		      <div class="btn-group">
-<!-- 		        <i class="fa fa-meh-o" aria-hidden="true"></i>
+		        <i class="fa fa-meh-o" aria-hidden="true"></i>
 		        <button type="button" class="btn btn-white" data-original-title="" title="">
 		        </button>
-		          <i class="fa fa-paperclip"></i> -->
+		          <i class="fa fa-paperclip"></i>
 		      </div>
 		      <button id="btn-dm-message-send" class="btn btn-danger" data-original-title="" title="">Send</button>
 		      <input type="hidden" name="dm-memberId" value="" />
 		      
 		    </div> 
-	       </div>
+	       </div> -->
 
       <div class="modal-footer d-flex justify-content-center">
         <button class="btn close-dm-modal">닫기</button>
@@ -260,44 +260,62 @@
     </div>
   </div>
 </div>
+<div class="dmScript">
 
+</div>
 
 <script>
 /* dm modal 제어 */
 $("#btn-DM-modal").click((e)=>{
 	$("input[name=dm-memberId]").val($(e.target).siblings().val());
+	$(".dm-profile-container").text('');
+	var script = document.createElement("script");
+	script.innerHTML = `
+	function writeDM(sender){
+		$.ajax({
+		url: "${pageContext.request.contextPath}/gw/chat/indexDM.do",
+		data : {
+			sender : sender
+		},
+		dataType: "json",
+		success(data){
+			writeDM2(data);
+		},
+		error: console.log
+	});
+	};
+	`;
+	script.innerHTML += 'function writeDM2(data){console.log(data);/* $.each 이하 불러와서 처리해 */}';
+	
+//////////////////////////////////////////////////////////////////////////////////////		
 	$.ajax({
 		url: `${pageContext.request.contextPath}/gw/chat/indexDMList.do`,
 		dataType: "json",
 		success(data){
 			$.each(data, (k,v)=>{
-				console.log(v);
 				if(v.dmSender != "${loginMember.id}"){
-					$(".dm-profile-container").append(`<div class="dm-message-content-box">
-				          	
-					          <div class="dm-user-profile">
-					            <img class="dm-user-profile-img" src="${pageContext.request.contextPath}/resources/upFile/profile/\${v.dmSenderProfileRenamedFilename}" alt="">
-					          </div>
-					          
-					          <div class="dm-message-box">
-					          
-					            <div class="dm-message-sender">
-					              <span><strong>\${v.dmSenderName}</strong></span>
-					              <span>\${v.dmMessageAt}</span>
-					            </div>
-					            
-					            <div class="dm-message-content">
-					              <p>\${v.dmContent}</p>
-					            </div>
-					            
-					          </div>
-				        </div>	
+					$(".dm-profile-container").append(`
+							<div class="dm-message-content-box-lv1" onclick="writeDM('\${v.dmSender}')" style="cursor : pointer;">
+						        <div class="dm-user-profile">
+						        	<img class="dm-user-profile-img" src="${pageContext.request.contextPath}/resources/upFile/profile/\${v.dmSenderProfileRenamedFilename}" alt="">
+						        </div>
+						        <div class="dm-message-box">
+								    <div class="dm-message-sender">
+										<span><strong>\${v.dmSenderName}</strong></span>
+										<span>\${v.dmMessageAt}</span>
+									</div>
+								    <div class="dm-message-content">
+								    	<p>\${v.dmContent}</p>
+								    </div>
+						        </div>
+				            </div>	
 							
 							`);
+					
 				}
 				
 			});
-			
+			$(".dmScript").append(script);
 		},
 		error: console.log
 	});
@@ -308,6 +326,8 @@ $(".close-dm-modal").click((e)=>{
 	$("#gwDMModal").modal('hide');
 
 });
+
+
 
 ///chat/chatId
 //1. Stomp Client 객체 생성(websocket)

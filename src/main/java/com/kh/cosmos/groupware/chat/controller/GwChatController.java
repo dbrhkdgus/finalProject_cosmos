@@ -195,6 +195,19 @@ public class GwChatController {
 		
 	}
 	
+	@ResponseBody
+	@GetMapping("/indexDM.do")
+	public List<DM> indexDM(String sender, Authentication auth){
+		Member loginMember = (Member) auth.getPrincipal();
+		
+		Map<String, String> param = new HashMap<String, String>();
+		param.put("sender", sender);
+		param.put("receiver", loginMember.getId());
+		List<DM> dmList = chatService.selectDMListByParam(param);
+		
+		return dmList;
+	}
+	
 	
 	public void groupwareHeaderSet(int groupNo, Model model, Authentication auth) {
 		Member loginMember = (Member) auth.getPrincipal();
