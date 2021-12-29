@@ -21,12 +21,12 @@
 		        		<c:if test="${message.chatUserNo == user.chatUserNo }">
 				        <div class="chat-profile-container">
 				          <div class="chat-user-profile">
-				            <img class="chat-user-profile-img" src="${pageContext.request.contextPath }/resources/upFile/profile/${user.renamedFilename}" alt="">
+				            <img class="btn-profile chat-user-profile-img" src="${pageContext.request.contextPath }/resources/upFile/profile/${user.renamedFilename}" alt="">
 				          </div>
 				          <div class="chat-message-box">
 				            <div class="chat-message-sender">
 				              <span><strong>${user.memberName }</strong></span>
-				              <span>11:10</span>
+				              <span><fmt:formatDate value="${message.chatMessageAt}" pattern="HH:mm"/></span>
 				            </div>
 				            <div class="chat-message-content">
 				              <p>${message.chatMessageContent}</p>

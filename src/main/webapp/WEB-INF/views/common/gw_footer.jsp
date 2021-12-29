@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>	
 <!-- Footer-->
     <!-- 그룹원 리스트(축약버전) (오른쪽) -->
@@ -11,7 +12,7 @@
 		<c:forEach var="profile" items="${memberProfileRenamedFilenameList }">
 	        <div class="test-member-profile">
 	          <div class="member-profile-img-box">
-	            <img class="member-profile-img" src="${pageContext.request.contextPath }/resources/upFile/profile/${profile}" alt="">
+	            <img class="btn-profile member-profile-img" src="${pageContext.request.contextPath }/resources/upFile/profile/${profile}" alt="">
 	          </div>
 	        </div>
 		</c:forEach>
@@ -34,7 +35,17 @@
 
   </section>
 </main>
+<script>
+/* DM modal 제어 */
+$(".btn-profile").click((e)=>{
+	console.log("click");
+	 $("#gwDMModal").modal('show');
+});
+$(".close-modal").click((e)=>{
+	 $("#gwDMModal").modal('hide');
 
+});
+</script>
   </body>
-  </body>
+
 </html>
