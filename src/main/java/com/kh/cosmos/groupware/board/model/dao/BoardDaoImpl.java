@@ -22,6 +22,12 @@ public class BoardDaoImpl implements BoardDao {
 		// TODO Auto-generated method stub
 		return session.insert("board.createBoardRoom", board);
 	}
+	
+	@Override
+	public int updateBoardRoom(Board board) {
+		// TODO Auto-generated method stub
+		return session.update("board.updateBoardRoom", board);
+	}
 
 	@Override
 	public List<Post> selectAllPostInBoard(int boardNo, int limit, int offset) {
@@ -30,9 +36,9 @@ public class BoardDaoImpl implements BoardDao {
 	}
 
 	@Override
-	public List<Post> selectAllPostInNotice(int boardNo) {
-		// TODO Auto-generated method stub
-		return session.selectList("board.selectAllPostInNotice", boardNo);
+	public List<Post> selectAllPostInNotice(int boardNo, int limit, int offset) {
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		return session.selectList("board.selectAllPostInNotice", boardNo, rowBounds);
 	}
 
 	@Override
@@ -64,6 +70,8 @@ public class BoardDaoImpl implements BoardDao {
 		// TODO Auto-generated method stub
 		return session.selectOne("board.selectPostInBoardTotalCount", boardNo);
 	}
+
+	
 
 	
 	

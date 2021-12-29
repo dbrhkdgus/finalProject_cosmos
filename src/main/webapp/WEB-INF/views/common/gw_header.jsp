@@ -56,15 +56,15 @@
         .bd-placeholder-img-lg {
           font-size: 3.5rem;
         }
-   	 }
-    
-    .updateBoardRoom{
+   	}
+    	
+   	  .updateBoardRoom{
     	display:none;
     	
-    }
-    #main:hover>#sub{
+      }
+   	  #main:hover>#sub{
     	display:inline;
-    }
+   	  }
     
    	
     </style>
@@ -186,7 +186,7 @@
            		<c:forEach var="boardRoom" items="${boardList}">
            			<c:if test="${fn:contains(boardRoom.boardType, 'N')}">
            			<div class="d-flex justify-content-between align-items-center" id="main">
-	            		<li><a href="${pageContext.request.contextPath }/gw/board/board.do?boardNo=${boardRoom.boardNo}&groupNo=${currGroupNo }" class="link-dark rounded">${boardRoom.boardName} </a></li>
+	            		<li><a href="${pageContext.request.contextPath }/gw/board/notice.do?boardNo=${boardRoom.boardNo}&groupNo=${currGroupNo }" class="link-dark rounded">${boardRoom.boardName} </a></li>
 	            		<div class="updateBoardRoom" style="cursor:pointer;" id="sub">
 	            		<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gear" viewBox="0 0 16 16">
   							<path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492zM5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0z"/>
@@ -306,7 +306,7 @@
       </li>
     </ul>
   </div>
-  
+ <!-- 게시판 개설하기 위한 모달창 --> 
 <div class="modal fade" id="createBoardRoomModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
   aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -340,6 +340,7 @@
   </div>
 </div>
 
+<!-- 게시판 수정하기 위한 모달창 -->
 <div class="modal fade" id="updateBoardRoomModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
   aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -354,7 +355,7 @@
 	      <div class="modal-body mx-3">
 	        <div class="md-form mb-5">
 	          <label  for="defaultForm-email">게시판 이름</label>
-	          <input type="text" name="boardName" class="form-control validate" placeholder="">
+	          <input type="text" name="boardName" class="form-control validate" placeholder="${boardName}">
 	          <label for="boardType">게시판 종류</label>
 	          <select class="boardType form-select" name="boardType" required>
 	          	<option value="B">일반 게시판</option>
@@ -363,10 +364,10 @@
 	          </select>
 	        </div>
 	      </div>
-	      <input type="hidden" name="groupNo" value="${currGroupNo }" />
+	      <input type="hidden" name="groupNo" value="${currGroupNo}" />
       </form:form>
       <div class="modal-footer d-flex justify-content-center">
-        <button class="btn btn-createBoardRoom">개설</button>
+        <button class="btn btn-createBoardRoom">수정</button>
         <button class="btn close-modal">취소</button>
       </div>
     </div>
@@ -437,11 +438,7 @@
 	              <input type="radio" name="chatRoomOpenType" value="select">선택
               </div>
               <div class="modal-member-box" style="border: 1px solid black; ">
-              
-              
-		              	
-            
-              	
+     
               	
               </div>
             </div>
@@ -503,25 +500,66 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-	      <div class="modal-body mx-3">
+	      <div class="dm-modal-body modal-body mx-3">
 	        <div class="md-form mb-5">
 	          	<div class="dm-profile-container mb-3">
+	          	<div class="dm-message-content-box">
 	          	
-		          <div class="dm-user-profile">
-		            <img class="dm-user-profile-img" src="https://i.pinimg.com/564x/9e/60/60/9e6060db90687be57c52ca5c5566c487.jpg" alt="">
+			          <div class="dm-user-profile">
+			            <img class="dm-user-profile-img" src="https://i.pinimg.com/564x/9e/60/60/9e6060db90687be57c52ca5c5566c487.jpg" alt="">
+			          </div>
+			          
+			          <div class="dm-message-box">
+			          
+			            <div class="dm-message-sender">
+			              <span><strong>홍길동</strong></span>
+			              <span>11:10</span>
+			            </div>
+			            
+			            <div class="dm-message-content">
+			              <p>가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하</p>
+			            </div>
+			            
+			          </div>
 		          </div>
 		          
-		          <div class="dm-message-box">
-		          
-		            <div class="dm-message-sender">
-		              <span><strong>홍길동</strong></span>
-		              <span>11:10</span>
-		            </div>
-		            
-		            <div class="dm-message-content">
-		              <p>가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하</p>
-		            </div>
-		            
+		          	          	<div class="dm-message-content-box">
+	          	
+			          <div class="dm-user-profile">
+			            <img class="dm-user-profile-img" src="https://i.pinimg.com/564x/9e/60/60/9e6060db90687be57c52ca5c5566c487.jpg" alt="">
+			          </div>
+			          
+			          <div class="dm-message-box">
+			          
+			            <div class="dm-message-sender">
+			              <span><strong>홍길동</strong></span>
+			              <span>11:10</span>
+			            </div>
+			            
+			            <div class="dm-message-content">
+			              <p>가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하</p>
+			            </div>
+			            
+			          </div>
+		          </div>
+		          		          	          	<div class="dm-message-content-box">
+	          	
+			          <div class="dm-user-profile">
+			            <img class="dm-user-profile-img" src="https://i.pinimg.com/564x/9e/60/60/9e6060db90687be57c52ca5c5566c487.jpg" alt="">
+			          </div>
+			          
+			          <div class="dm-message-box">
+			          
+			            <div class="dm-message-sender">
+			              <span><strong>홍길동</strong></span>
+			              <span>11:10</span>
+			            </div>
+			            
+			            <div class="dm-message-content">
+			              <p>가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하</p>
+			            </div>
+			            
+			          </div>
 		          </div>
 		        </div>
 		        
@@ -566,6 +604,7 @@ $(".modal-member-box").hide();
  $(".close-modal").click((e)=>{
 	 $("#createChatRoomModal").modal('hide');
 	 $("#createBoardRoomModal").modal('hide');
+	 $("#updateBoardRoomModal").modal('hide');
 	 $("#createVoiceChatRoomModal").modal('hide');
  });
 
@@ -625,7 +664,7 @@ $(".modal-member-box").hide();
 	 $(document.updateBoardRoomFrm).submit();
  });
  $(".updateBoardRoom").click((e)=>{
-	 $("#updateeBoardRoomModal").modal('show');
+	 $("#updateBoardRoomModal").modal('show');
  });
  
  $(".btn-createVoiceChatRoom").click((e)=>{

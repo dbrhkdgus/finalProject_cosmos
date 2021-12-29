@@ -19,6 +19,10 @@ public interface FileBoardService {
 
 	List<Attachment> selectAttachmentList();
 
+	int deleteFilePost(int postNo);
+
+	int deleteOneAttach(int attachNo);
+
 
 
 }

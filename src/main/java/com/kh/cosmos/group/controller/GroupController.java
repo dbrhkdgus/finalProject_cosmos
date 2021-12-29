@@ -239,6 +239,10 @@ public class GroupController {
 //		log.debug("CateCheckBox = {}", groupEnroll.getCateCheckBox());
 //		log.debug("groupId={}",groupEnroll.getMemberId());
 //		
+		if(groupEnroll.getGroupCharge() != 'P') {
+			groupEnroll.setGroupCharge('F');
+		}
+		
 		String[] groupInfoArray = groupInfo.getGiContent().split(",");
 		for(String g : groupInfoArray) {
 //			log.debug("g = {}", g);
