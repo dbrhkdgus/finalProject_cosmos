@@ -525,8 +525,9 @@
 		        </button> -->
 		          <i class="fa fa-paperclip"></i>
 		      </div>
-		      <input type="hidden" name="dm-memberId" value="" />
 		      <button id="btn-dm-message-send" class="btn btn-danger" data-original-title="" title="">Send</button>
+		      <input type="hidden" name="dm-memberId" value="" />
+		      
 		    </div> 
 	       </div>
 

@@ -102,6 +102,12 @@ public class ChatDaoImpl implements ChatDao {
 		// TODO Auto-generated method stub
 		return session.insert("chat.insertDm", dm);
 	}
+
+	@Override
+	public List<DM> selectDMListByParam(Map<String, String> param) {
+		// TODO Auto-generated method stub
+		return session.selectList("chat.selectDMListByParam", param);
+	}
 	
 	
 	

@@ -40,4 +40,6 @@ public interface ChatService {
 
 	int insertDm(DM dm);
 
+	List<DM> selectDMListByParam(Map<String, String> param);
+
 }
