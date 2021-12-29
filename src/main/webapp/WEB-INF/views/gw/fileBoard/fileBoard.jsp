@@ -58,7 +58,7 @@
 		                <form  action="${pageContext.request.contextPath}/gw/fileBoard/deletefilePost.do?postNo=${post.postNo}" method="GET">
 						  <c:forEach var="attach" items="${attach}" varStatus="status">
 							  	<c:if test="${post.attachNo eq attach.attachNo}"> 
-			                		<button>삭제</button>
+			                		<button id="fileBoard-delete">삭제</button>
 				                	<input type="hidden" value="${groupNo}" name ="groupNo">
 				                	<input type="hidden" value="${post.postNo}"  name="postNo">
 				                	<input type="hidden" value="${boardNo}" name = "boardNo">		                	
