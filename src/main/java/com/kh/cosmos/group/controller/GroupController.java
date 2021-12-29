@@ -65,7 +65,9 @@ public class GroupController {
 	ResourceLoader resourceLoader;
 	
 	@GetMapping("/groupSearch.do")
-	public String groupSearch(@RequestParam(defaultValue = "1") int cPage, @RequestParam(defaultValue = "0") String ca1No, @RequestParam(defaultValue = "0") String ca2No, Model model, 
+	public String groupSearch(@RequestParam(defaultValue = "1") int cPage,
+			@RequestParam(defaultValue = "0") String ca1No, 
+			@RequestParam(defaultValue = "0") String ca2No, Model model, 
 			HttpServletRequest request,Authentication auth) {
 		int limit = 9;
 		int offset = (cPage - 1) * limit;

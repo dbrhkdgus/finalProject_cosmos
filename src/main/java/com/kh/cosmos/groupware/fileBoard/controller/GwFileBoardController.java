@@ -1,12 +1,17 @@
 package com.kh.cosmos.groupware.fileBoard.controller;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,15 +67,27 @@ public class GwFileBoardController {
 
 	
     @GetMapping("/fileBoard.do")
-    public String fileBoard(@RequestParam(defaultValue = "1") int cPage,Model model,@RequestParam int groupNo,@RequestParam int boardNo,Authentication authentication) {
+    public String fileBoard(@RequestParam(defaultValue = "1") int cPage,Model model,
+    		@RequestParam int groupNo,HttpServletRequest request,
+    		@RequestParam int boardNo,Authentication authentication) {
     	groupwareHeaderSet(groupNo, model, authentication);
 //    	log.debug("cPage = {}", cPage);
 //		log.debug("boardNo = {}", boardNo);
 		int limit = 10;
 		int offset = (cPage - 1) * limit;
-    	model.addAttribute("groupNo", groupNo);
+		Map<String, Object> param = new HashMap<String, Object>();
+		
+		List<Post> fileBoardList = new ArrayList<Post>();
+		String searchType = request.getParameter("searchType");
+		String searchKeyword = request.getParameter("searchKeyword");
+		param.put("searchType", searchType);
+		param.put("searchKeyword", searchKeyword);
+		fileBoardList = fileBoardService.selectAllFileBoardListByParam(param,limit,offset);
+		
+		model.addAttribute("groupNo", groupNo);
         model.addAttribute("boardNo", boardNo);
         model.addAttribute("title", "파일게시판");
+  
         
         List<PostWithCategory> fileboardPostList = fileBoardService.selectAllPostInfileBoard(boardNo);
 //		log.debug("boardPostList = {}", fileboardPostList);
@@ -85,10 +102,9 @@ public class GwFileBoardController {
     
     @GetMapping("/fileEnroll.do")
     public void fileEnroll(@RequestParam int groupNo,@RequestParam int boardNo, Model model ) {
-    	
     	model.addAttribute("boardNo", boardNo);
     	model.addAttribute("groupNo", groupNo);
-
+    	
         
     }
     

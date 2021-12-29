@@ -54,7 +54,7 @@
 	                    </div>
 	                    
 		                <form action="${pageContext.request.contextPath}/group/groupSearch.do?ca1No=${ca1No}&ca2No=${ca2No}" method="get">
-	                    <div class="search-outer-top right">
+	                      <div class="search-outer-top right">
 	       
 		                    <select name="searchType" class="form-select search-select" aria-label="Default select example">
 		                      <option value="groupName" ${searchType == 'groupName' ? "selected":'' }>스터디 그룹명 검색 </option>
@@ -66,6 +66,7 @@
 		                        <input type="text" class="form-control" name="searchKeyword" value="${searchKeyword }" placeholder="스터디그룹을 찾아보세요"  aria-describedby="button-addon2">
 		                        <button class="btn btn-outline-secondary" type="button" id="button-addon2" >검색</button>
 		                      </div>
+		                    </div>
               		      </form>
 	                    </div>
                       
