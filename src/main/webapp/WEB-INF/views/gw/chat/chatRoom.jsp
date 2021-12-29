@@ -135,20 +135,25 @@ if($(".chat-content").children().length == 0){
 				`); 
 	});
 	
-	stompClient.subscribe(`/dm/${loginMember.id}`, (chatMessageContent) =>{
-		console.log("test");
-		console.log("chatMessageContent : ", chatMessageContent);
-		const obj = JSON.parse(chatMessageContent.body);
-		 console.log(obj); 
-		 const {memberName, msg, profileRenamedFilename, messageAt, logTime} = obj;
 
-	});
 	
 });
 /* DM modal 제어 */
 $(".btn-profile").click((e)=>{
 	$("input[name=dm-memberId]").val($(e.target).siblings().val());
-	console.log($("input[name=dm-memberId]").val());
+	var receiver = $("input[name=dm-memberId]").val();
+	
+	//구독 추가
+	var script = document.createElement("script");
+	script.innerHTML = `stompClient.subscribe("/dm/${loginMember.id}/\${receiver}", (chatMessageContent) =>{
+		console.log("test");
+	console.log("chatMessageContent : ", chatMessageContent);
+	const obj = JSON.parse(chatMessageContent.body);
+	 console.log(obj); 
+	 const {memberName, msg, profileRenamedFilename, messageAt, logTime} = obj;
+
+	});`;
+	document.body.appendChild(script);
 	$("#gwDMModal").modal('show');
 });
 $(".close-modal").click((e)=>{
@@ -169,7 +174,7 @@ $("#btn-dm-message-send").click((e) =>{
 		logTime : hours + ":" + minutes
 	};
 		
-	stompClient.send(`/app/dm/\${$("input[name=dm-memberId]").val()}`, {}, JSON.stringify(obj));
+	stompClient.send(`/app/dm/${loginMember.id}/\${$("input[name=dm-memberId]").val()}`, {}, JSON.stringify(obj));
 	$("#dm-chatMessageContent").val(''); // #message 초기화
 });
 $("#btn-message-send").click((e) =>{
