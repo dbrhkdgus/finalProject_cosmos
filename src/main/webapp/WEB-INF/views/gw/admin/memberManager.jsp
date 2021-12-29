@@ -7,7 +7,6 @@
 <jsp:include page="/WEB-INF/views/common/gw_header.jsp">
 	<jsp:param value="" name="title"/>
 </jsp:include>
-
   <div class="workspace-box">
 
     <div class="study-join-admin-box">
