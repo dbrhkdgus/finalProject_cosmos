@@ -1,6 +1,7 @@
 package com.kh.cosmos.groupware.fileBoard.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,8 @@ import com.kh.cosmos.groupware.fileBoard.vo.FileEnroll;
 
 @Service
 public class FileBoardServiceImpl implements FileBoardService {
+	
+
 	
 
 	@Autowired
@@ -54,8 +57,11 @@ public class FileBoardServiceImpl implements FileBoardService {
 	}
 	
 	
-	
-	
+	@Override
+	public List<PostWithCategory> selectAllFileBoardListByParam(Map<String, Object> param, int limit, int offset) {
+		// TODO Auto-generated method stub
+		return fileBoardDao.selectAllFileBoardListByParam(param, limit, offset);
+	}
 
 		
 }
