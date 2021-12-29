@@ -38,7 +38,7 @@ public class StompApplicationDestinationController {
 	@MessageMapping("/dm/{receiver}")
 	@SendTo("/dm/{receiver}")
 	public String app(String chatMessageContent, @DestinationVariable String receiver) {
-		
+		log.debug(chatMessageContent);
 		ObjectMapper mapper = new ObjectMapper();
 		HashMap<String, String> map = new HashMap<String, String>();
 		try {
@@ -67,7 +67,7 @@ public class StompApplicationDestinationController {
 		
 		
 		
-		//int result = chatService.insertDm(dm);
+		int result = chatService.insertDm(dm);
 		
 		
 		// 구독자에게 JsonStr전송하기

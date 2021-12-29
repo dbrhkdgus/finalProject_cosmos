@@ -90,6 +90,9 @@
 
   </section>
 </main>
+<div class="subscribe">
+
+</div>
 <!-- jquery.form.js  -->
 <!-- <script src="http://malsup.github.com/jquery.form.js"></script> -->
 <script>
@@ -137,30 +140,9 @@ if($(".chat-content").children().length == 0){
 	stompClient.subscribe(`/dm/${loginMember.id}`, (chatMessageContent) =>{
 		/* console.log("chatMessageContent : ", chatMessageContent); */
 		const obj = JSON.parse(chatMessageContent.body);
-		 console.log(obj); 
-		 const {senderName, msg, profileRenamedFilename, messageAt, logTime} = obj;
-		 $(".dm-profile-container").append(`<div class="dm-message-content-box">
-		          	
-		          <div class="dm-user-profile">
-		            <img class="dm-user-profile-img" src="${pageContext.request.contextPath}/resources/upFile/profile/\${profileRenamedFilename}" alt="">
-		          </div>
-		          
-		          <div class="dm-message-box">
-		          
-		            <div class="dm-message-sender">
-		              <span><strong>\${senderName}</strong></span>
-		              <span>\${logTime}</span>
-		            </div>
-		            
-		            <div class="dm-message-content">
-		              <p>\${msg}</p>
-		            </div>
-		            
-		          </div>
-	          </div>	
-				
-				`);
+		 //dmWriter(obj);
 		 
+		 loadDM(obj);
 		
 	});
 	
@@ -171,8 +153,11 @@ if($(".chat-content").children().length == 0){
 /* DM modal 제어 */
 $(".btn-profile").click((e)=>{
 	$("input[name=dm-memberId]").val($(e.target).siblings().val());
-	
-	
+	const obj = {
+			sender : "${loginMember.id}",
+			receiver : $(e.target).siblings().val()
+		};
+	 loadDM(obj);
 	$("#gwDMModal").modal('show');
 });
 $(".close-dm-modal").click((e)=>{
@@ -181,20 +166,23 @@ $(".close-dm-modal").click((e)=>{
 
 });
 
-
-
+/* dm 메시지 전송 처리 */
 $("#btn-dm-message-send").click((e) =>{
+	var receiver = $(e.target).siblings("input").val();
 	var today = new Date();
 	var hours = today.getHours(); // 시
 	var minutes = today.getMinutes();  // 분
 	const obj = {
 		sender : "${loginMember.id}",
-		receiver : $("input[name=dm-memberId]").val(),
-		msg : $("#dm-chatMessageContent").val(),
-		logTime : hours + ":" + minutes
+		receiver : receiver,
+		msg : $("#dm-chatMessageContent").val()
 	};
 		
 	stompClient.send(`/app/dm/\${$("input[name=dm-memberId]").val()}`, {}, JSON.stringify(obj));
+	setTimeout(function() { loadDM(obj)}
+	, 90);
+	
+	
 	$("#dm-chatMessageContent").val(''); // #message 초기화
 });
 $("#btn-message-send").click((e) =>{
@@ -209,8 +197,51 @@ $("#btn-message-send").click((e) =>{
 	};
 	
 	stompClient.send("/app/chat/${chatRoomNo}", {}, JSON.stringify(obj));
+	
 	$(chatMessageContent).val(''); // #message 초기화
 });
+/* DM DB 조회 ajax */
+function loadDM(obj){
+	$(".dm-profile-container").text('');
+	const {receiver, sender, senderName, msg, profileRenamedFilename, messageAt, logTime} = obj;
+	$.ajax({
+		url: `${pageContext.request.contextPath}/gw/chat/loadDM.do`,
+		data: {
+			sender: sender,
+			receiver: receiver
+		},
+		dataType: "json",
+		success(data){
+			$.each(data, (k,v)=>{
+				console.log(v);
+				$(".dm-profile-container").append(`<div class="dm-message-content-box">
+			          	
+				          <div class="dm-user-profile">
+				            <img class="dm-user-profile-img" src="${pageContext.request.contextPath}/resources/upFile/profile/\${v.dmSenderProfileRenamedFilename}" alt="">
+				          </div>
+				          
+				          <div class="dm-message-box">
+				          
+				            <div class="dm-message-sender">
+				              <span><strong>\${v.dmSenderName}</strong></span>
+				              <span>\${v.dmMessageAt}</span>
+				            </div>
+				            
+				            <div class="dm-message-content">
+				              <p>\${v.dmContent}</p>
+				            </div>
+				            
+				          </div>
+			        </div>	
+						
+						`);
+			});
+			
+		},
+		error: console.log
+	});
+}
+ 
 </script>
   </body>
 

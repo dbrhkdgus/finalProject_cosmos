@@ -21,4 +21,5 @@ public class Board implements Serializable {
 	private String boardName;
 	private char boardType;
 	
+	
 }
