@@ -87,7 +87,7 @@
 	</c:if>
 
 <!--  -->
-	<c:if test="${empty fileBoardList}">
+	<c:if test="${empty fileBoardList and !isListempty}">
 	  <c:forEach var="post" items="${fileboardPostList}" varStatus="status">
 	            <tr>
 	                <td>${fn:length(fileboardPostList)- status.count+1}</td>
