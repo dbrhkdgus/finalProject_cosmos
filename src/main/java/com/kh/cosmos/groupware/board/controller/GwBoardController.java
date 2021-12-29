@@ -45,18 +45,25 @@ public class GwBoardController {
 	@GetMapping("/board.do")
 	public String board(@RequestParam(defaultValue = "1") int cPage, int boardNo, int groupNo, Model model, HttpServletRequest request, Authentication auth) {
 		groupwareHeaderSet(groupNo, model, auth);
-		log.debug("cPage = {}", cPage);
-		log.debug("boardNo = {}", boardNo);
 		int limit = 10;
 		int offset = (cPage - 1) * limit;
 		
-		List<Post> boardPostList = boardService.selectAllPostInBoard(boardNo);
+		List<Post> boardPostList = boardService.selectAllPostInBoard(boardNo, limit, offset);
+		Board board = boardService.selectBoardByBoardNo(boardNo);
 		log.debug("boardPostList = {}", boardPostList);
 		model.addAttribute("boardPostList", boardPostList);
 		model.addAttribute("boardNo", boardNo);
 		model.addAttribute("groupNo", groupNo);
-		model.addAttribute("title", "abcde");
+		model.addAttribute("title", "# " + board.getBoardName());
 		
+		int totalContent = boardService.selectPostInBoardTotalCount(boardNo);
+		log.debug("totalContent = {}", totalContent);
+		model.addAttribute("totalContent", totalContent);
+		
+		String url = request.getRequestURI();
+		String pagebar = CosmosUtils.getPagebar(cPage, limit, totalContent, url);
+		
+		model.addAttribute("pagebar", pagebar);
 		
 		return "gw/board/board";
 	}
@@ -82,10 +89,12 @@ public class GwBoardController {
 	}
 	
 	@GetMapping("/boardEnroll.do")
-	public void boardEnroll(@RequestParam int boardNo, @RequestParam int groupNo, Model model) {
-		
+	public void boardEnroll(@RequestParam int boardNo, @RequestParam int groupNo, Model model, Authentication auth) {
+		groupwareHeaderSet(groupNo, model, auth);
+		Board board = boardService.selectBoardByBoardNo(boardNo);
 		model.addAttribute("boardNo", boardNo);
     	model.addAttribute("groupNo", groupNo);
+    	model.addAttribute("title", "# " + board.getBoardName() + " - 글쓰기");
 		
 	}
 	
@@ -93,7 +102,7 @@ public class GwBoardController {
 	public String boardEnroll(Post post, int boardNo, int groupNo,
 			@RequestParam(value="upFile", required=false) MultipartFile upFile,RedirectAttributes redirectAttr,
     		Authentication authentication) {
-
+		
 		String memberId = post.getMemberId();
 		log.debug("memberId = {}", post.getMemberId());
 		
