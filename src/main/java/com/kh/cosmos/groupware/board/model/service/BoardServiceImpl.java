@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.cosmos.common.attachment.model.vo.Attachment;
 import com.kh.cosmos.groupware.board.model.dao.BoardDao;
 import com.kh.cosmos.groupware.board.model.vo.Board;
 import com.kh.cosmos.groupware.board.model.vo.Post;
@@ -39,5 +40,18 @@ public class BoardServiceImpl implements BoardService {
 		return boardDao.insertPost(post);
 	}
 
+	@Override
+	public int insertAttach(Attachment attach) {
+		// TODO Auto-generated method stub
+		return boardDao.insertAttach(attach);
+	}
+
+	@Override
+	public int insertPostFile(Post post) {
+		// TODO Auto-generated method stub
+		return boardDao.insertPostFile(post);
+	}
+
+	
 	
 }

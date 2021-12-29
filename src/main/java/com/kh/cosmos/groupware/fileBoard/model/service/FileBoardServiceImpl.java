@@ -32,13 +32,19 @@ public class FileBoardServiceImpl implements FileBoardService {
 		return fileBoardDao.insertFilePost(post);
 	}
 	
-	
 	@Override
 	public Attachment selectOneAttachment(int no) {
 		// TODO Auto-generated method stub
 		return fileBoardDao.selectOneAttachment(no);
 	}
 
+
+	@Override
+	public List<Attachment> selectAttachmentList() {
+		return fileBoardDao.selectAttachmentList();
+	}
+	
+	
 
 		
 }

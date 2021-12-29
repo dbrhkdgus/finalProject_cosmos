@@ -59,6 +59,7 @@ public class GwFileBoardController {
 	@Autowired
 	ResourceLoader resourceLoader;
 	
+
 	
     @GetMapping("/fileBoard.do")
     public String fileBoard(@RequestParam(defaultValue = "1") int cPage,Model model,@RequestParam int groupNo,@RequestParam int boardNo,Authentication authentication) {
@@ -73,11 +74,10 @@ public class GwFileBoardController {
         
         List<PostWithCategory> fileboardPostList = fileBoardService.selectAllPostInfileBoard(boardNo);
 		log.debug("boardPostList = {}", fileboardPostList);
-
-		model.addAttribute("fileboardPostList", fileboardPostList);
-    	
-        return "gw/fileBoard/fileBoard";
-    }
+	        model.addAttribute("fileboardPostList", fileboardPostList);
+	        
+	        return "gw/fileBoard/fileBoard";
+	    }
     
     @GetMapping("/fileEnroll.do")
     public void fileEnroll(@RequestParam int groupNo,@RequestParam int boardNo, Model model ) {
