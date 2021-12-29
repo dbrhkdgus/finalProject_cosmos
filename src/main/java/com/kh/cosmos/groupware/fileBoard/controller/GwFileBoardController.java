@@ -84,10 +84,12 @@ public class GwFileBoardController {
 		param.put("searchKeyword", searchKeyword);
 				
 		fileBoardList = fileBoardService.selectAllFileBoardListByParam(param,limit,offset);		
+		model.addAttribute("fileBoardList",fileBoardList);
+		
 		model.addAttribute("groupNo", groupNo);
         model.addAttribute("boardNo", boardNo);
         model.addAttribute("title", "파일게시판");
-  
+        
         
         List<PostWithCategory> fileboardPostList = fileBoardService.selectAllPostInfileBoard(boardNo);
 //		log.debug("boardPostList = {}", fileboardPostList);
@@ -248,7 +250,8 @@ public class GwFileBoardController {
             String memberProfileRenamedFilename = gwService.selectMemberProfileRenamedFilename(m.getId());
             memberProfileRenamedFilenameList.add(memberProfileRenamedFilename);
         }
-
+        List<Board> boardList = gwService.selectAllBoardRoomByGroupNo(groupNo);
+        model.addAttribute("boardList", boardList);
         List<ChatRoom> chattingChannelList = gwService.selectAllChatRoomByGroupNo(groupNo);
         
         model.addAttribute("currGroupNo", groupNo);
