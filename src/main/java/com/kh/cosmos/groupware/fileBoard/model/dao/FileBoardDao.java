@@ -1,6 +1,7 @@
 package com.kh.cosmos.groupware.fileBoard.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.kh.cosmos.common.attachment.model.vo.Attachment;
 import com.kh.cosmos.groupware.board.model.vo.Post;
@@ -23,6 +24,8 @@ public interface FileBoardDao {
 	int deleteFilePost(int postNo);
 
 	int deleteOneAttach(int attachNo);
+
+	List<PostWithCategory> selectAllFileBoardListByParam(Map<String, Object> param, int limit, int offset);
 
 	
 
