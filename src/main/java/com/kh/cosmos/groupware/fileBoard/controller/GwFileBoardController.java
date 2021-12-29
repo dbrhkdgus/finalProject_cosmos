@@ -129,7 +129,7 @@ public class GwFileBoardController {
 //			int result = gwFileService.insertGroup(fileEnroll);
 			
 			log.debug("attach ={} ",attach);
-			int attachNo =0;
+			 int attachNo = 0;
 			 attachNo = fileBoardService.insertFileAttach(attach);
 			
 			 Post post= new Post();    	

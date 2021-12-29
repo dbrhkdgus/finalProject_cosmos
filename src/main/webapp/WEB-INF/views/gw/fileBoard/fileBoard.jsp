@@ -30,13 +30,12 @@
       </tr>
     </thead>
     <tbody>
-    	<c:forEach var="post" items="${fileboardPostList}" varStatus="vs">
+    	<c:forEach var="post" items="${fileboardPostList}" varStatus="status">
     		<tr>
-    		
-		        <td>${vs.count}</td>
+    			<td>${fn:length(fileboardPostList)- status.count+1}</td>   
 		        <td>${post.boardCategory}</td>
 		        <td colspan="2">${post.postTitle}</td>
-		        <td><a href="${pageContext.request.contextPath}/gw/fileBoard/fileDown.do?attachNo=${post.attachNo}" >가랏</a></td>
+		        <td><a href="${pageContext.request.contextPath}/gw/fileBoard/fileDown.do?attachNo=${post.attachNo}" >뭘깝숑</a></td>
 		        <td>${post.memberId}</td>
 		        <td><fmt:formatDate value="${post.postRegDate}" pattern="yy-MM-dd"/></td>
 		     </tr>
