@@ -13,11 +13,12 @@
 		id="bcryptPasswordEncoder"
 		class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
 		
-<!-- 	<beans:bean id="httpFirewall"
+	<beans:bean id="httpFirewall"
       class="org.springframework.security.web.firewall.StrictHttpFirewall"
+      p:allowSemicolon="true"
       p:allowUrlEncodedSlash="true"/>
 
-	<http-firewall ref="httpFirewall"/>	 -->
+	<http-firewall ref="httpFirewall"/>
 		
 	
 	<!-- <beans:bean id="filterChainProxy" class="org.springframework.security.web.FilterChainProxy">
@@ -47,6 +48,7 @@
 	<http security="none" pattern="/resources/**" />
 	
 	<http auto-config="true" use-expressions="true">
+		<intercept-url pattern="/stomp/**" access="permitAll"/>
 		<intercept-url pattern="/" access="permitAll"/>
 		<intercept-url pattern="/main/qaDetail.do" access="isAuthenticated()"/> 
 		<intercept-url pattern="/group/groupLikeSearch.do" access="isAuthenticated()"/> 
