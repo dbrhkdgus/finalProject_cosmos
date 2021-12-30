@@ -77,4 +77,12 @@
 	<update id="updateMemberProfileAsDefault">
 	update attachment set original_filename = 'defaultProfile.png', renamed_filename = 'defaultProfile.png' where member_id = #{id} and img_flag='P'
 	</update>
+	
+	
+	<select id="selectAllMemberList" resultType="member">
+	select 
+		* 
+		from tb_member 	
+	
+	</select>
 </mapper>
