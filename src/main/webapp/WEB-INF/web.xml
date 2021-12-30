@@ -50,6 +50,7 @@
 	<filter>
 		<filter-name>encodingFilter</filter-name>
 		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<async-supported>true</async-supported>
 		<init-param>
 			<param-name>encoding</param-name>
 			<param-value>utf-8</param-value>
@@ -62,17 +63,25 @@
   	<filter-mapping>
   		<filter-name>encodingFilter</filter-name>
   		<url-pattern>/*</url-pattern>
+  		<!-- index websocket error filter 적용 -->
+  		<dispatcher>REQUEST</dispatcher>
+        <dispatcher>ASYNC</dispatcher>
   	</filter-mapping>
   	
   	<!-- #8.1 securityFilterChain 등록 : application-context빈으로 등록  -->
   	<filter>
 		<filter-name>springSecurityFilterChain</filter-name>
 		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+		<async-supported>true</async-supported>
 	</filter>
 	<filter-mapping>
 		<filter-name>springSecurityFilterChain</filter-name>
 		<url-pattern>/*</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+	    <dispatcher>ERROR</dispatcher>
 	</filter-mapping>	
-	
+
+
+
 
 </web-app>

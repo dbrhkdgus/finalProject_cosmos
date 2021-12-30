@@ -18,7 +18,7 @@ VALUES(
 	to_date(#{start_date}, 'yyyy/mm/dd hh24:mi:ss'),
 	to_date(#{end_date}, 'yyyy/mm/dd hh24:mi:ss'),
 	#{category},
-	'N'
+	sysdate
 	)
 </insert>
 
@@ -28,15 +28,13 @@ select
 from
 	schedule
 where
-	group_no = #{groupNo} and deleted = 'N'
+	group_no = #{groupNo}
 </select>
   
-<update id="deleteSchedule">
-update 
+<delete id="deleteSchedule">
+delete from 
 	schedule
-set
-	deleted = 'Y'
 where
 	group_no = #{groupNo} and schedule_no = #{scheduleNo}
-</update>
+</delete>
 </mapper>

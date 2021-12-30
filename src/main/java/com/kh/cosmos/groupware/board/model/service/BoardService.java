@@ -46,5 +46,8 @@ public interface BoardService {
 
 	Post selectOnePostInAnonymous(int postNo);
 
+	int insertPostInAnonymous(Post post);
+
+
 
 }

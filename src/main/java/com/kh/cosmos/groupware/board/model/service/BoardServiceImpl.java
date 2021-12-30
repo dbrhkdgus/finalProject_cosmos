@@ -125,6 +125,13 @@ public class BoardServiceImpl implements BoardService {
 		return boardDao.selectOnePostInAnonymous(postNo);
 	}
 
+	@Override
+	public int insertPostInAnonymous(Post post) {
+		// TODO Auto-generated method stub
+		return boardDao.insertPostInAnonymous(post);
+	}
+
+	
 	
 	
 

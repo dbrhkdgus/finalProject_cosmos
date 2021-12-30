@@ -140,6 +140,7 @@
 			        </div>
 			        <div class="membergroup-list d-flex flex-column align-items-center">
 	        		<br><br>
+	        		
 	        		<p>관리자 심사 대기중인 그룹입니다.</p>
 			        	<c:forEach var="myNAG" items="${myNotAllowedGroupList}">
 			               	  <div class="card mb-3" style="max-width:500px;">
@@ -190,6 +191,7 @@
 			                    </div>
 			                  </div>
 		                </c:forEach>
+			                  
 			        </div>
                 </div>       
 <!--관심그룹 tab  -->
