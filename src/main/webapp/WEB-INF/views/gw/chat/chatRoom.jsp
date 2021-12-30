@@ -132,6 +132,8 @@ if($(".chat-content").children().length == 0){
 		
 	// 3. 구독요청
 	stompClient.subscribe(`/chat/${chatRoomNo}`, (chatMessageContent) =>{
+		var script = document.createElement("script");
+		script.innerHTML = `$(".workspace-box").scrollTop($(".workspace-box")[0].scrollHeight); `;
 		/* console.log("chatMessageContent : ", chatMessageContent); */
 		const obj = JSON.parse(chatMessageContent.body);
 		 console.log(obj); 
@@ -153,6 +155,7 @@ if($(".chat-content").children().length == 0){
 	        </div>
 				
 				`); 
+		$(".subscribe").append(script);
 	});
 	stompClient.subscribe(`/dm/${loginMember.id}`, (chatMessageContent) =>{
 		/* console.log("chatMessageContent : ", chatMessageContent); */
