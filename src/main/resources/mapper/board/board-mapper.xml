@@ -10,6 +10,9 @@
   <update id="updateBoardRoom">
   	update board set board_name = #{boardName} where board_no = #{boardNo}
   </update>
+  <delete id="deleteBoardRoom">
+	delete from board where board_no = #{boardNo}
+  </delete>
   <select id="selectAllPostInBoard" resultType="PostWithCategory">
 	select
 	    p.*,

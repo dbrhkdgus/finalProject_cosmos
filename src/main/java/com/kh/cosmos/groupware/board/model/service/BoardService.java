@@ -28,14 +28,16 @@ public interface BoardService {
 
 	List<MemberWithGroup> memberWithGroupList(int groupNo);
 
-	int updateBoardRoom(Map<String, Object> param);
+	int updateBoardRoom(Board board);
 
+	int deleteBoardRoom(Board board);
+	
 	Post selectOnePostInBoard(int postNo);
 
 	Attachment selectOneAttachInBoard(int attachNo);
 
 	Post selectOnePostInNotice(int postNo);
-	
+
 	
 
 }

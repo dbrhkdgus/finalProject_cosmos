@@ -74,9 +74,15 @@ public class BoardDaoImpl implements BoardDao {
 	}
 
 	@Override
-	public int updateBoardRoom(Map<String, Object> param) {
+	public int updateBoardRoom(Board board) {
 		// TODO Auto-generated method stub
-		return session.update("board.updateBoardRoom", param);
+		return session.update("board.updateBoardRoom", board);
+	}
+	
+	@Override
+	public int deleteBoardRoom(Board board) {
+		// TODO Auto-generated method stub
+		return session.delete("board.deleteBoardRoom", board);
 	}
 
 	public Post selectOnePostInBoard(int postNo) {

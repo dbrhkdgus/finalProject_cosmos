@@ -73,11 +73,16 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public int updateBoardRoom(Map<String, Object> param) {
+	public int updateBoardRoom(Board board) {
 		// TODO Auto-generated method stub
-		return boardDao.updateBoardRoom(param);
+		return boardDao.updateBoardRoom(board);
 	}
 
+	@Override
+	public int deleteBoardRoom(Board board) {
+		// TODO Auto-generated method stub
+		return boardDao.deleteBoardRoom(board);
+	}
 
 	public Post selectOnePostInBoard(int postNo) {
 		// TODO Auto-generated method stub

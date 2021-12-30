@@ -28,13 +28,16 @@ public interface BoardDao {
 
 	List<MemberWithGroup> memberWithGroupList(int groupNo);
 
-	int updateBoardRoom(Map<String, Object> param);
+	int updateBoardRoom(Board board);
 
+	int deleteBoardRoom(Board board);
+	
 	Attachment selectOneAttachInBoard(int attachNo);
 
 	Post selectOnePostInBoard(int postNo);
 
 	Post selectOnePostInNotice(int postNo);
+
 
 
 	

@@ -191,7 +191,7 @@
 					</c:if>
            			<c:if test="${fn:contains(boardRoom.boardType, 'B')}">
            			<div class="d-flex justify-content-between align-items-center" id="main">
-	            		<li><a href="${pageContext.request.contextPath }/gw/board/board.do?boardNo=${boardRoom.boardNo}&groupNo=${currGroupNo }" class="link-dark rounded">${boardRoom.boardName} </a><p>${boardRoom.boardNo }</p></li>
+	            		<li><a href="${pageContext.request.contextPath }/gw/board/board.do?boardNo=${boardRoom.boardNo}&groupNo=${currGroupNo }" class="link-dark rounded">${boardRoom.boardName} </a><span class="d-none">${boardRoom.boardNo }</span></li>
 	            		<div class="updateBoardRoom div_sub" style="cursor:pointer;" id="sub">
 	            		<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gear" viewBox="0 0 16 16">
   							<path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492zM5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0z"/>
@@ -202,7 +202,7 @@
 	            	</c:if>
 	            	<c:if test="${fn:contains(boardRoom.boardType, 'A')}">
 	            	<div class="d-flex justify-content-between align-items-center" id="main">
-	            		<li><a href="${pageContext.request.contextPath }/gw/board/anonymous.do?boardNo=${boardRoom.boardNo}&groupNo=${currGroupNo }" class="link-dark rounded">${boardRoom.boardName}</a></li>
+	            		<li><a href="${pageContext.request.contextPath }/gw/board/anonymous.do?boardNo=${boardRoom.boardNo}&groupNo=${currGroupNo }" class="link-dark rounded">${boardRoom.boardName}</a>${boardRoom.boardNo }</li>
 	            		<div class="updateBoardRoom div_sub" style="cursor: pointer;" id="sub">
 	            		<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gear" viewBox="0 0 16 16">
   							<path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492zM5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0z"/>
@@ -213,7 +213,7 @@
 	            	</c:if>
 	            	<c:if test="${fn:contains(boardRoom.boardType, 'F')}">
 	            	<div class="d-flex justify-content-between align-items-center" id="main">
-	            		<li><a href="${pageContext.request.contextPath }/gw/fileBoard/fileBoard.do?boardNo=${boardRoom.boardNo}&groupNo=${currGroupNo }" class="link-dark rounded">${boardRoom.boardName}</a></li>
+	            		<li><a href="${pageContext.request.contextPath }/gw/fileBoard/fileBoard.do?boardNo=${boardRoom.boardNo}&groupNo=${currGroupNo }" class="link-dark rounded">${boardRoom.boardName}</a>${boardRoom.boardNo }</li>
 	            		<div class="updateBoardRoom div_sub" style="cursor: pointer;" id="sub">
 	            		<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gear" viewBox="0 0 16 16">
   							<path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492zM5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0z"/>
@@ -597,9 +597,19 @@ $(".modal-member-box").hide();
 	 $("#createBoardRoomModal").modal('show');
  });
  
- $(document).on("click", ".btn-updateBoardRoom", function() {
+ $(".btn-updateBoardRoom").click((e)=> {
+ 	$(document.updateBoardRoomFrm).submit();
+ });
+ 
+ $(".btn-deleteBoardRoom").click((e)=> {
+	$("#updateBoardRoomFrm").prop('action','${pageContext.request.contextPath }/gw/board/deleteBoardRoom.do');
+	$(document.updateBoardRoomFrm).submit();
+ });
+ /* $(document).on("click", ".btn-updateBoardRoom", function() {
 	if(confirm("정말 수정하시겠습니까?") == true) {
 	 // 데이터를 담아내는 부분
+	 var form = $('#updateBoardRoomFrm')[0];
+	 var data = new FormData(form);
 	 var boardNo = $("#boardNoForDML").val();
 	 var boardName = $("#changingBoardName").val();
 	 
@@ -609,28 +619,22 @@ $(".modal-member-box").hide();
 	 }
 	 
 	 $.ajax({
-		 type:"get",
-		 data: {
-			 boardName : boardName,
-			 boardNo : boardNo,
-		 },
-		 enctype: 'multipart/form-data',
+		 url: "${pageContext.request.contextPath }/gw/board/updateBoardRoom.do",
+		 method: "POST",
+		 data: jsonStr,
 		 contentType: "application/json; charset=utf-8",
 		 headers: {
 			"${_csrf.headerName}" : "${_csrf.token}" // "X-CSRF-TOKEN" : "fa8eab06-2c37-419b-a443-e47a1167e741"
 		 },
-		 url: `${pageContext.request.contextPath }/gw/board/updateBoardRoom.do`,
-		 success: function(data) {
+		 success(res) {
 			 alert('수정 완료');
-			 console.log(data);
+			 console.log(res);
 			 location.reload();
 		 },
-		 error: function(e) {
-			 console.log("error : ", e);
-		 }
+		 error: console.log
 	 })
 	}		 
- });
+ }); */
  
  $(".btn-deleteBoardRoom").click((e)=>{
 	 $(document.updateBoardRoomFrm).submit();
