@@ -41,12 +41,15 @@ public class Member implements Serializable, UserDetails {
 	
 	private String phone;
 	private String memberGender;
+	
 	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
 	private Date memberEnrollDate;
 	private String memberJob;
 	private String memberAchieve;
 	private int attachNo;
 	private boolean enabled;//회원 활성화 여부
+	
+	private String RenamedFilename;
 
 	
 	/**
