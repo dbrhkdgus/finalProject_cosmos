@@ -156,7 +156,14 @@
     </ul>
     <div class="dropdown border-top">
       <a href="#" class="d-flex align-items-center justify-content-center p-3 link-dark text-decoration-none dropdown-toggle" id="dropdownUser3" data-bs-toggle="dropdown" aria-expanded="false">
-        <img src="${pageContext.request.contextPath }/resources/upFile/profile/${profile}" alt="mdo" width="24" height="24" class="rounded-circle">
+        <c:choose>
+	        <c:when test="${fn:startsWith(profile, 'http')}">
+		        <img src="${profile}" alt="mdo" width="24" height="24" class="rounded-circle">
+	        </c:when>
+	        <c:otherwise>
+	        	<img src="${pageContext.request.contextPath }/resources/upFile/profile/${profile}" alt="mdo" width="24" height="24" class="rounded-circle">
+	        </c:otherwise>
+        </c:choose>
       </a>
       <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser3">
         <li><a class="dropdown-item" href="#">상태 변경</a></li>

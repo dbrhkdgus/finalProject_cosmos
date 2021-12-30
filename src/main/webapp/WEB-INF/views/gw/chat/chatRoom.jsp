@@ -143,8 +143,8 @@ if($(".chat-content").children().length == 0){
 		 const {memberName, msg, profileRenamedFilename, messageAt, logTime} = obj;
 		 
 		$(".chat-content").append(`<div class="chat-profile-container">
-		          <div class="chat-user-profile">
-	            <img class="chat-user-profile-img" src="${pageContext.request.contextPath}/resources/upFile/profile/\${profileRenamedFilename}" alt="">
+		      <div class="chat-user-profile">
+		
 	          </div>
 	          <div class="chat-message-box">
 	            <div class="chat-message-sender">
@@ -155,11 +155,17 @@ if($(".chat-content").children().length == 0){
 	              <p>\${msg}</p> 
 	            </div>
 	          </div>
-	        </div>
-				
-				`); 
+	        </div>`); 
+	
+		if(profileRenamedFilename.startsWith('http')){
+			$(".chat-user-profile").append(`<img class="chat-user-profile-img" src="\${profileRenamedFilename}" alt="" style="height : 40px; width : 40px;"/> `);
+			
+		}else{
+			$(".chat-user-profile").append(`<img class="chat-user-profile-img" src="${pageContext.request.contextPath}/resources/upFile/profile/\${profileRenamedFilename}" alt="">`);
+		}
 		$(".subscribe").append(script);
 	});
+	//dm 구독
 	stompClient.subscribe(`/dm/${loginMember.id}`, (chatMessageContent) =>{
 		/* console.log("chatMessageContent : ", chatMessageContent); */
 		const obj = JSON.parse(chatMessageContent.body);

@@ -17,7 +17,7 @@
 	          <div class="member-profile-img-box">
 	          <c:choose>
 	          	<c:when test="${fn:startsWith(member.renamedFilename,'http')}">
-					<img class="btn-profile3 btn-profile member-profile-img" src="${profile}" alt="" style="width: 150px"/>
+					<img class="btn-profile3 btn-profile member-profile-img" src="${member.renamedFilename}" alt="" style="width: 1px; zoom : 30;"/>
 					<input type="hidden" name="profile_owner" value="${member.id}" />
 				</c:when>
 				<c:otherwise>

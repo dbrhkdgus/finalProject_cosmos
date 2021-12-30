@@ -101,7 +101,7 @@
 		</div>
 		<div class="login-index category " style="margin-bottom:5px;">
 				<div class="index-member-box d-flex">
-					<img src="${pageContext.request.contextPath }/resources/images/facebook.png" alt="" />					
+					<img id="index-profile" src="${pageContext.request.contextPath }/resources/images/facebook.png" alt="" />					
 					<div class="index-member-info">
 					<a href="${pageContext.request.contextPath }/member/memberUpdate.do" ><p style="font-size: 20px;">&nbsp;<sec:authentication property="principal.memberName"/>님 </p></a>
 					<form:form action="${pageContext.request.contextPath }/member/memberLogout.do" method="POST">
@@ -282,7 +282,29 @@ window.addEventListener("load", function(){
 });
 </script>
 </sec:authorize>
-
+<script>
+window.addEventListener("load", function(){
+	var id = $(loginMemberId).val();
+	$.ajax({
+         type:"post",
+         url:"${pageContext.request.contextPath}/member/profileCheck.do",
+         data:{id: id},
+         headers: {
+				"${_csrf.headerName}" : "${_csrf.token}"
+		 },
+         success(res){
+			// console.log(res);
+			 if(/^http/.test(res)){
+				 $("#index-profile").attr('src', `\${res}`)				
+			 }else{
+				 
+				$("#index-profile").attr('src', `${pageContext.request.contextPath}/resources/upFile/profile/\${res}`)						    					
+			 }
+		},
+		error:console.log
+     });
+});
+</script>
 
 
 <script>

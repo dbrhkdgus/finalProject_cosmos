@@ -118,7 +118,7 @@ public class GwChatController {
 				Map<String, Object> param = new HashMap<>();
 				param.put("chatRoomNo", chatRoom.getChatRoomNo());
 				param.put("memberId", m.getId());
-								
+				
 				result = chatService.insertChatUserByParam(param);
 							
 							
