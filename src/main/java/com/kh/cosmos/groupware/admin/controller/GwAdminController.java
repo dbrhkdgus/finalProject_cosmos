@@ -10,6 +10,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -47,12 +48,15 @@ public class GwAdminController {
 	}
 
 	
-	@GetMapping("/groupAccecpt.do")
-	public void groupAccept(int groupNo,Model model,Authentication authentication) {
+	@PostMapping("/groupAccept.do")
+	public String groupAccept(@RequestParam int groupNo, Model model,Authentication authentication) {
 		groupwareHeaderSet(groupNo, model, authentication);
 		String checkYN = ""; 
-	log.debug("checkYN = {}" , checkYN);
+		String check = ""; 
 		
+		log.debug("check = {}" , check);
+		log.debug("checkYN = {}" , checkYN);
+		return "gw/admin/memberManager";
 	}
 	
 	

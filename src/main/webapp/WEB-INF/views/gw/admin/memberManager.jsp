@@ -3,6 +3,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>	
+
 <fmt:requestEncoding value="utf-8"/> 
 <jsp:include page="/WEB-INF/views/common/gw_header.jsp">
 	<jsp:param value="" name="title"/>
@@ -170,7 +173,8 @@
       </div>
       <div class="study-join-table">
         <h4>그룹 가입 요청</h4>
-        <form action="${pageContext.request.contextPath}/gw/admin/groupAccept.do?${_csrf.parameterName}=${_csrf.token}" method="post">
+        <form:form 
+        action="${pageContext.request.contextPath }/gw/admin/groupAccept.do" method="post" >
         <table class="table table-sm text-center">
           <thead>
             <tr>
@@ -187,7 +191,7 @@
               <td>홍길동</td>
               <td>네</td>
               <td>2021-12-16</td>
-              <td><input type="checkbox" name="" id=""></td>
+              <td><input type="checkbox" name="checkYN" id="" value="check"></td>
             </tr>
           
             <tr>
@@ -195,17 +199,18 @@
               <td>홍길동</td>
               <td>네</td>
               <td>2021-12-16</td>
-              <td><input type="checkbox" name="" id=""></td>
+              <td><input type="checkbox" name="checkYN" id="" value="check"></td>
             </tr>
           
           </tbody>
         </table>
       </div>
       <div class="study-join-buttons text-center">
-        <button type="button" class="btn btn-primary" value="Y" name="checkYN">가입 승인</button>
-        <button type="button" class="btn btn-secondary" value="N" name="checkYN">가입 거절</button>
+        <button type="submit" class="btn btn-primary" value="Y" name="checkYN">가입 승인</button>
+        <button type="submit" class="btn btn-secondary" value="N" name="checkYN">가입 거절</button>
       </div>
-      </form>
+      <input type="hidden" name = "groupNo" value="${groupNo}">
+     </form:form>
     </div>
     
   </div>
