@@ -21,4 +21,10 @@ public class GwAdminServiceImpl implements GwAdminService {
 		return gwAdminDao.selectAllAcceptGroupMemberList(groupNo);
 	}
 
+	@Override
+	public List<ApplocationGroup> selectAllWaitingGroupMemberList(int groupNo) {
+		// TODO Auto-generated method stub
+		return gwAdminDao.selectAllWaitingGroupMemberList(groupNo);
+	}
+
 }

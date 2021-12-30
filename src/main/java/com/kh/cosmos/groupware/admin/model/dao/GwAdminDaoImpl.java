@@ -21,5 +21,13 @@ public class GwAdminDaoImpl implements GwAdminDao {
 		// TODO Auto-generated method stub
 		return session.selectList("gwAdmin.selectAllAcceptGroupMemberList",groupNo);
 	}
+
+	@Override
+	public List<ApplocationGroup> selectAllWaitingGroupMemberList(int groupNo) {
+		// TODO Auto-generated method stub
+		return session.selectList("gwAdmin.selectAllWaitingGroupMemberList", groupNo);
+	}
+	
+	
 	
 }

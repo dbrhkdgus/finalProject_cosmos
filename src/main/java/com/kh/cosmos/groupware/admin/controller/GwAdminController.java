@@ -40,9 +40,16 @@ public class GwAdminController {
 		groupwareHeaderSet(groupNo, model, authentication);
 		model.addAttribute("groupNo", groupNo);
 		
-		List<ApplocationGroup> applocationGroup = new ArrayList<ApplocationGroup>();
-		applocationGroup = gwAdminService.selectAllAcceptGroupMemberList(groupNo);
-		log.debug("applocationGroup = {}" ,applocationGroup);
+		List<ApplocationGroup> acceptApplocationGroupList = new ArrayList<ApplocationGroup>();
+		acceptApplocationGroupList = gwAdminService.selectAllAcceptGroupMemberList(groupNo);
+		log.debug("applocationGroup = {}" ,acceptApplocationGroupList);
+		model.addAttribute(acceptApplocationGroupList);
+		
+		//그룹장 승인 대기하는 애들
+		List<ApplocationGroup> waitingApplocationGroupList = new ArrayList<ApplocationGroup>();
+		waitingApplocationGroupList = gwAdminService.selectAllWaitingGroupMemberList(groupNo);
+		log.debug("applocationGroup = {}" ,waitingApplocationGroupList);
+		model.addAttribute(waitingApplocationGroupList);
 		
 		
 		return "gw/admin/memberManager";
