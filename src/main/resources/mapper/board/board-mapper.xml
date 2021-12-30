@@ -51,7 +51,7 @@
   		delete from post where post_no =#{postNo}
   </delete>
    <delete id="deleteAttachInBoard">
-  		delete from post where post_no =#{postNo}
+  		delete from post where attach_no =#{attachNo}
   </delete>
   
   <insert id="insertPost">
@@ -63,7 +63,8 @@
 		#{boardNo},
 		#{postTitle},
 		#{postContent},
-		sysdate,2
+		sysdate,
+		null,
 		null,
 		null,
 		null
@@ -90,7 +91,7 @@
 			from
 				dual
 		</selectKey>
-		insert into post values(SEQ_POST_NO_NO.nextval, #{memberId}, #{boardNo}, #{postTitle}, #{postContent}, current_date, null, #{attachNo}, null)
+		insert into post values(SEQ_POST_NO_NO.nextval, #{memberId}, #{boardNo}, #{postTitle}, #{postContent}, current_date, null, #{attachNo}, null, null)
 		
   </insert>
   <select id="memberWithGroupList" resultType ="MemberWithGroup">
