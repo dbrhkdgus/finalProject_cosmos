@@ -50,6 +50,28 @@
   </section>
 </main>
 <script>
+///chat/chatId
+//1. Stomp Client 객체 생성(websocket)
+
+	const ws = new SockJS(`http://\${location.host}${pageContext.request.contextPath}/stomp`);
+	const stompClient = Stomp.over(ws);
+	
+	// 2. 연결요청
+	stompClient.connect({}, (frame) =>{
+		console.log("Stomp Connected : ", frame);
+		
+	// 3. 구독요청
+	stompClient.subscribe(`/dm/${loginMember.id}`, (chatMessageContent) =>{
+		/* console.log("chatMessageContent : ", chatMessageContent); */
+		const obj = JSON.parse(chatMessageContent.body);
+		 //dmWriter(obj);
+		 
+		 loadDM(obj);
+
+	});
+	});
+</script>
+<script>
 $(".btn-profile3").click((e)=>{
 	var receiver = $(e.target).next().val();
  	$("input[name=dm-memberId]").val(receiver);
