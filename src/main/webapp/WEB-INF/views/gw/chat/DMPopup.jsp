@@ -125,7 +125,9 @@ $("#btn-dm-message-send").click((e) =>{
 		};
 			
 		stompClient.send(`/app/dm/${sender}`, {}, JSON.stringify(obj));
-		location.reload();
+		setTimeout(function() { location.reload()}
+		, 90);
+		
 		
 		
 		$("#dm-chatMessageContent").val(''); // #message 초기화
