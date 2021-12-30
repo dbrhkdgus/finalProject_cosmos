@@ -293,8 +293,8 @@
         </button>
         <div class="collapse" id="account-collapse">
           <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-            <li><a href="#" class="link-dark rounded">그룹 관리</a></li>
-            <li><a href="#" class="link-dark rounded">그룹 가입 요청</a></li>
+            <li><a href="${pageContext.request.contextPath }/gw/admin/memberManager.do?groupNo=${currGroupNo}" class="link-dark rounded">그룹 관리</a></li>
+            <li><a href="${pageContext.request.contextPath }/gw/admin/groupManager.do?groupNo=${currGroupNo}" class="link-dark rounded">그룹 가입 요청</a></li>
           </ul>
         </div>
       </li>
@@ -515,8 +515,9 @@
 		        </button> -->
 		          <i class="fa fa-paperclip"></i>
 		      </div>
-		      <input type="hidden" name="dm-memberId" value="" />
 		      <button id="btn-dm-message-send" class="btn btn-danger" data-original-title="" title="">Send</button>
+		      <input type="hidden" name="dm-memberId" value="" />
+		      
 		    </div> 
 	       </div>
 

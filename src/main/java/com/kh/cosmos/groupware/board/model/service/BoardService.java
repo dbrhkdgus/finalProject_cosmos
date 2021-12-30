@@ -30,6 +30,12 @@ public interface BoardService {
 
 	int updateBoardRoom(Map<String, Object> param);
 
+	Post selectOnePostInBoard(int postNo);
+
+	Attachment selectOneAttachInBoard(int attachNo);
+
+	Post selectOnePostInNotice(int postNo);
+	
 	
 
 }

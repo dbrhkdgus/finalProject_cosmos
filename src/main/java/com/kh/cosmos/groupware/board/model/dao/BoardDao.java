@@ -30,6 +30,13 @@ public interface BoardDao {
 
 	int updateBoardRoom(Map<String, Object> param);
 
+	Attachment selectOneAttachInBoard(int attachNo);
+
+	Post selectOnePostInBoard(int postNo);
+
+	Post selectOnePostInNotice(int postNo);
+
+
 	
 
 }
