@@ -163,9 +163,7 @@ if($(".chat-content").children().length == 0){
 		 //dmWriter(obj);
 		 
 		 loadDM(obj);
-		 var script = document.createElement("script");
-		 script.innerHTML = `$(".dm-modal-body").scrollTop($(".dm-modal-body")[0].scrollHeight); `;
-		 $(".subscribe").append(script);
+
 	});
 	
 	
@@ -182,9 +180,11 @@ $(".btn-profile").click((e)=>{
 	 loadDM(obj);
 
 	$("#gwDMModal").modal('show');
-});
+ 
+}); 
 $(".close-dm-modal").click((e)=>{
 	$(".dm-profile-container").text('');
+	 $(".subscribe").text('\n\n');
 	$("#gwDMModal").modal('hide');
 
 });
@@ -235,8 +235,8 @@ function loadDM(obj){
 		},
 		dataType: "json",
 		success(data){
+			var script = document.createElement("script");
 			$.each(data, (k,v)=>{
-				console.log(v);
 				$(".dm-profile-container").append(`<div class="dm-message-content-box">
 			          	
 				          <div class="dm-user-profile">
@@ -259,8 +259,8 @@ function loadDM(obj){
 						
 						`);
 			});
-			 var script = document.createElement("script");
-			 script.innerHTML = `$(".dm-modal-body").scrollTop($(".dm-modal-body")[0].scrollHeight); `;
+			 
+			 script.innerHTML = `$(".dm-modal-body").scrollTop($(".dm-modal-body")[0].scrollHeight);`;
 			 $(".subscribe").append(script);
 		},
 		error: console.log
