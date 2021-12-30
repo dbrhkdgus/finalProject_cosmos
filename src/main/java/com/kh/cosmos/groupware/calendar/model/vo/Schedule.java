@@ -16,10 +16,14 @@ public class Schedule implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private String scheduleNo;
+	private String groupNo;
+	private String memberId;
 	private String title;
 	private String content;
 	private String startDate;
 	private String endDate;
 	private String allDay;
 	private String category;
+	
 }

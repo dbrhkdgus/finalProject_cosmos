@@ -11,4 +11,6 @@ public interface GwCalendarDao {
 
 	List<Schedule> selectScheduleList(int groupNo);
 
+	int deleteSchedule(Map<String, String> param);
+
 }

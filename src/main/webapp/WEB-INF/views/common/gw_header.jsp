@@ -187,11 +187,17 @@
            			<c:if test="${fn:contains(boardRoom.boardType, 'N')}">
            			<div class="d-flex justify-content-between align-items-center" id="main">
 	            		<li><a href="${pageContext.request.contextPath }/gw/board/notice.do?boardNo=${boardRoom.boardNo}&groupNo=${currGroupNo }" class="link-dark rounded">${boardRoom.boardName} </a></li>
+	            		<div class="updateBoardRoom div_sub" style="cursor:pointer;" id="sub">
+	            		<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gear" viewBox="0 0 16 16">
+  							<path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492zM5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0z"/>
+  							<path d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52l-.094-.319zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115l.094-.319z"/>
+						</svg>
+						</div>
 					</div>
 					</c:if>
            			<c:if test="${fn:contains(boardRoom.boardType, 'B')}">
            			<div class="d-flex justify-content-between align-items-center" id="main">
-	            		<li><a href="${pageContext.request.contextPath }/gw/board/board.do?boardNo=${boardRoom.boardNo}&groupNo=${currGroupNo }" class="link-dark rounded">${boardRoom.boardName} </a><span class="d-none">${boardRoom.boardNo }</span></li>
+	            		<li><a href="${pageContext.request.contextPath }/gw/board/board.do?boardNo=${boardRoom.boardNo}&groupNo=${currGroupNo }" class="link-dark rounded">${boardRoom.boardName} </a></li>
 	            		<div class="updateBoardRoom div_sub" style="cursor:pointer;" id="sub">
 	            		<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gear" viewBox="0 0 16 16">
   							<path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492zM5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0z"/>
@@ -202,7 +208,7 @@
 	            	</c:if>
 	            	<c:if test="${fn:contains(boardRoom.boardType, 'A')}">
 	            	<div class="d-flex justify-content-between align-items-center" id="main">
-	            		<li><a href="${pageContext.request.contextPath }/gw/board/anonymous.do?boardNo=${boardRoom.boardNo}&groupNo=${currGroupNo }" class="link-dark rounded">${boardRoom.boardName}</a><span class="d-none">${boardRoom.boardNo }</span></li>
+	            		<li><a href="${pageContext.request.contextPath }/gw/board/anonymous.do?boardNo=${boardRoom.boardNo}&groupNo=${currGroupNo }" class="link-dark rounded">${boardRoom.boardName}</a></li>
 	            		<div class="updateBoardRoom div_sub" style="cursor: pointer;" id="sub">
 	            		<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gear" viewBox="0 0 16 16">
   							<path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492zM5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0z"/>
@@ -213,7 +219,7 @@
 	            	</c:if>
 	            	<c:if test="${fn:contains(boardRoom.boardType, 'F')}">
 	            	<div class="d-flex justify-content-between align-items-center" id="main">
-	            		<li><a href="${pageContext.request.contextPath }/gw/fileBoard/fileBoard.do?boardNo=${boardRoom.boardNo}&groupNo=${currGroupNo }" class="link-dark rounded">${boardRoom.boardName}</a><span class="d-none">${boardRoom.boardNo }</span></li>
+	            		<li><a href="${pageContext.request.contextPath }/gw/fileBoard/fileBoard.do?boardNo=${boardRoom.boardNo}&groupNo=${currGroupNo }" class="link-dark rounded">${boardRoom.boardName}</a></li>
 	            		<div class="updateBoardRoom div_sub" style="cursor: pointer;" id="sub">
 	            		<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gear" viewBox="0 0 16 16">
   							<path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492zM5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0z"/>
@@ -293,8 +299,8 @@
         </button>
         <div class="collapse" id="account-collapse">
           <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-            <li><a href="${pageContext.request.contextPath }/gw/admin/memberManager.do?groupNo=${currGroupNo}" class="link-dark rounded">그룹 관리</a></li>
-            <li><a href="${pageContext.request.contextPath }/gw/admin/groupManager.do?groupNo=${currGroupNo}" class="link-dark rounded">그룹 가입 요청</a></li>
+            <li><a href="#" class="link-dark rounded">그룹 관리</a></li>
+            <li><a href="#" class="link-dark rounded">그룹 가입 요청</a></li>
           </ul>
         </div>
       </li>
@@ -340,24 +346,28 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">게시판 관리</h4>
+        <h4 class="modal-title w-100 font-weight-bold">게시판 수정하기</h4>
         <button type="button" class="close close-modal" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form:form id="updateBoardRoomFrm" name="updateBoardRoomFrm" method="post" action="${pageContext.request.contextPath }/gw/board/updateBoardRoom.do">
+      <form:form name="updateBoardRoomFrm" method="post" action="${pageContext.request.contextPath }/gw/board/updateBoardRoom.do">
 	      <div class="modal-body mx-3">
 	        <div class="md-form mb-5">
 	          <label  for="defaultForm-email">게시판 이름</label>
-	          <input type="text" name="boardName" id = "changingBoardName" class="form-control validate">
-		      <input type="hidden" id="boardNoForDML" name="boardNo" />
-		      <input type="hidden" name="groupNo" value="${currGroupNo}" />
+	          <input type="text" name="boardName" class="form-control validate" placeholder="${boardName}" id="changingBoardName">
+	          <label for="boardType">게시판 종류</label>
+	          <select class="boardType form-select" name="boardType" required>
+	          	<option value="B">일반 게시판</option>
+	          	<option value="A">익명 게시판</option>
+	          	<option value="F">파일 게시판</option>
+	          </select>
 	        </div>
 	      </div>
+	      <input type="hidden" name="groupNo" value="${currGroupNo}" />
       </form:form>
       <div class="modal-footer d-flex justify-content-center">
-        <button class="btn btn-updateBoardRoom">수정</button>
-        <button class="btn btn-deleteBoardRoom">삭제</button>
+        <button class="btn btn-createBoardRoom">수정</button>
         <button class="btn close-modal">취소</button>
       </div>
     </div>
@@ -486,17 +496,71 @@
     <div class="modal-content">
       <div class="modal-header text-center">
         <h4 class="modal-title w-100 font-weight-bold">DM</h4>
-        <button type="button" class="close close-dm-modal" data-dismiss="modal" aria-label="Close">
+        <button type="button" class="close close-modal" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
 	      <div class="dm-modal-body modal-body mx-3">
 	        <div class="md-form mb-5">
 	          	<div class="dm-profile-container mb-3">
+	          	<div class="dm-message-content-box">
 	          	
+			          <div class="dm-user-profile">
+			            <img class="dm-user-profile-img" src="https://i.pinimg.com/564x/9e/60/60/9e6060db90687be57c52ca5c5566c487.jpg" alt="">
+			          </div>
+			          
+			          <div class="dm-message-box">
+			          
+			            <div class="dm-message-sender">
+			              <span><strong>홍길동</strong></span>
+			              <span>11:10</span>
+			            </div>
+			            
+			            <div class="dm-message-content">
+			              <p>가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하</p>
+			            </div>
+			            
+			          </div>
+		          </div>
 		          
-		        
-
+		          	          	<div class="dm-message-content-box">
+	          	
+			          <div class="dm-user-profile">
+			            <img class="dm-user-profile-img" src="https://i.pinimg.com/564x/9e/60/60/9e6060db90687be57c52ca5c5566c487.jpg" alt="">
+			          </div>
+			          
+			          <div class="dm-message-box">
+			          
+			            <div class="dm-message-sender">
+			              <span><strong>홍길동</strong></span>
+			              <span>11:10</span>
+			            </div>
+			            
+			            <div class="dm-message-content">
+			              <p>가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하</p>
+			            </div>
+			            
+			          </div>
+		          </div>
+		          		          	          	<div class="dm-message-content-box">
+	          	
+			          <div class="dm-user-profile">
+			            <img class="dm-user-profile-img" src="https://i.pinimg.com/564x/9e/60/60/9e6060db90687be57c52ca5c5566c487.jpg" alt="">
+			          </div>
+			          
+			          <div class="dm-message-box">
+			          
+			            <div class="dm-message-sender">
+			              <span><strong>홍길동</strong></span>
+			              <span>11:10</span>
+			            </div>
+			            
+			            <div class="dm-message-content">
+			              <p>가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하</p>
+			            </div>
+			            
+			          </div>
+		          </div>
 		        </div>
 		        
 	        </div>
@@ -515,20 +579,26 @@
 		        </button> -->
 		          <i class="fa fa-paperclip"></i>
 		      </div>
-		      <button id="btn-dm-message-send" class="btn btn-danger" data-original-title="" title="">Send</button>
 		      <input type="hidden" name="dm-memberId" value="" />
-		      
+		      <button id="btn-dm-message-send" class="btn btn-danger" data-original-title="" title="">Send</button>
 		    </div> 
 	       </div>
 
       <div class="modal-footer d-flex justify-content-center">
-        <button class="btn close-dm-modal">닫기</button>
+        <button class="btn close-modal">닫기</button>
       </div>
     </div>
   </div>
 </div>
 
  <script>
+
+ $(".div_sub").click((e)=>{
+	var boardName = e.target.parentNode.children[0].children[0].innerText;
+	console.log(boardName);
+	$("#changingBoardName").val(boardName);
+ })
+ 
 /* 채팅방 개설 modal 제어 */
 $(".modal-member-box").hide();
 
@@ -597,46 +667,7 @@ $(".modal-member-box").hide();
 	 $("#createBoardRoomModal").modal('show');
  });
  
- $(".btn-updateBoardRoom").click((e)=> {
- 	$(document.updateBoardRoomFrm).submit();
- });
- 
- $(".btn-deleteBoardRoom").click((e)=> {
-	$("#updateBoardRoomFrm").prop('action','${pageContext.request.contextPath }/gw/board/deleteBoardRoom.do');
-	$(document.updateBoardRoomFrm).submit();
- });
- /* $(document).on("click", ".btn-updateBoardRoom", function() {
-	if(confirm("정말 수정하시겠습니까?") == true) {
-	 // 데이터를 담아내는 부분
-	 var form = $('#updateBoardRoomFrm')[0];
-	 var data = new FormData(form);
-	 var boardNo = $("#boardNoForDML").val();
-	 var boardName = $("#changingBoardName").val();
-	 
-	 if(boardName == ""){
-		 alert('게시판 이름을 입력해주세요.');
-		 return;
-	 }
-	 
-	 $.ajax({
-		 url: "${pageContext.request.contextPath }/gw/board/updateBoardRoom.do",
-		 method: "POST",
-		 data: jsonStr,
-		 contentType: "application/json; charset=utf-8",
-		 headers: {
-			"${_csrf.headerName}" : "${_csrf.token}" // "X-CSRF-TOKEN" : "fa8eab06-2c37-419b-a443-e47a1167e741"
-		 },
-		 success(res) {
-			 alert('수정 완료');
-			 console.log(res);
-			 location.reload();
-		 },
-		 error: console.log
-	 })
-	}		 
- }); */
- 
- $(".btn-deleteBoardRoom").click((e)=>{
+ $(".btn-updateBoardRoom").click((e)=>{
 	 $(document.updateBoardRoomFrm).submit();
  });
  $(".updateBoardRoom").click((e)=>{
@@ -679,15 +710,5 @@ $(".modal-member-box").hide();
 				console.log(xhr,textStatus,err);
 			}
 		});
-	});
- 
- $(".div_sub").click((e)=>{
-		var boardName = e.target.parentNode.children[0].children[0].innerText;
-		var boardNo = e.target.parentNode.children[0].children[1].innerText;
-		console.log(boardName);
-		$("#changingBoardName").val(boardName);
-		$("#boardNoForDML").val(boardNo);
-	 })
-
- 
+	}); 
  </script>

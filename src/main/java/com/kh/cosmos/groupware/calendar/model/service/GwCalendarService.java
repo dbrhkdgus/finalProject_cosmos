@@ -13,4 +13,6 @@ public interface GwCalendarService {
 
 	List<Schedule> selectScheduleList(int groupNo);
 
+	int deleteSchedule(Map<String, String> param);
+
 }
