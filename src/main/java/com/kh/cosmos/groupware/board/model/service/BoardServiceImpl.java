@@ -113,6 +113,18 @@ public class BoardServiceImpl implements BoardService {
 		return boardDao.deleteAttachInBoard(attachNo);
 	}
 
+	@Override
+	public List<Post> selectAllPostInAnonymous(int boardNo, int limit, int offset) {
+		// TODO Auto-generated method stub
+		return  boardDao.selectAllPostInAnonymous(boardNo, limit, offset);
+	}
+
+	@Override
+	public Post selectOnePostInAnonymous(int postNo) {
+		// TODO Auto-generated method stub
+		return boardDao.selectOnePostInAnonymous(postNo);
+	}
+
 	
 	
 
