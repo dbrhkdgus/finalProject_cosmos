@@ -27,5 +27,10 @@ public class GwCalendarServiceImpl implements GwCalendarService {
 	public List<Schedule> selectScheduleList(int groupNo) {
 		return gwCalendarDao.selectScheduleList(groupNo);
 	}
+
+	@Override
+	public int deleteSchedule(Map<String, String> param) {
+		return gwCalendarDao.deleteSchedule(param);
+	}
 	
 }

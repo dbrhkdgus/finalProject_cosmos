@@ -1,6 +1,7 @@
 package com.kh.cosmos.groupware.board.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
@@ -22,12 +23,6 @@ public class BoardDaoImpl implements BoardDao {
 	public int createBoardRoom(Board board) {
 		// TODO Auto-generated method stub
 		return session.insert("board.createBoardRoom", board);
-	}
-	
-	@Override
-	public int updateBoardRoom(Board board) {
-		// TODO Auto-generated method stub
-		return session.update("board.updateBoardRoom", board);
 	}
 
 	@Override
@@ -79,6 +74,17 @@ public class BoardDaoImpl implements BoardDao {
 	}
 
 	@Override
+	public int updateBoardRoom(Board board) {
+		// TODO Auto-generated method stub
+		return session.update("board.updateBoardRoom", board);
+	}
+	
+	@Override
+	public int deleteBoardRoom(Board board) {
+		// TODO Auto-generated method stub
+		return session.delete("board.deleteBoardRoom", board);
+	}
+
 	public Post selectOnePostInBoard(int postNo) {
 		// TODO Auto-generated method stub
 		return session.selectOne("board.selectOnePostInBoard", postNo);
@@ -94,6 +100,18 @@ public class BoardDaoImpl implements BoardDao {
 	public Post selectOnePostInNotice(int postNo) {
 		// TODO Auto-generated method stub
 		return session.selectOne("board.selectOnePostInNotice", postNo);
+	}
+
+	@Override
+	public int deletePostInBoard(int postNo) {
+		// TODO Auto-generated method stub
+		return session.delete("board.deletePostInBoard", postNo);
+	}
+
+	@Override
+	public int deleteAttachInBoard(int attachNo) {
+		// TODO Auto-generated method stub
+		return session.delete("board.deleteAttachInBoard", attachNo);
 	}
 	
 	

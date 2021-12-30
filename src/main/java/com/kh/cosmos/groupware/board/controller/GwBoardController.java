@@ -10,12 +10,14 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,6 +25,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.cosmos.common.CosmosUtils;
+import com.kh.cosmos.common.attachment.model.service.AttachmentService;
 import com.kh.cosmos.common.attachment.model.vo.Attachment;
 import com.kh.cosmos.group.model.vo.Group;
 import com.kh.cosmos.groupware.board.model.service.BoardService;
@@ -45,6 +48,10 @@ public class GwBoardController {
 	private BoardService boardService;
 	@Autowired
 	private GroupwareService gwService;
+	
+	@Autowired
+	private AttachmentService attachmentService;
+	
 	@Autowired
 	ServletContext application;
 
@@ -245,7 +252,7 @@ public class GwBoardController {
 
 		Post post = boardService.selectOnePostInBoard(postNo);
 		log.debug("post = {}", post);
-		/* Attachment attach = boardService.selectOneAttachInBoard(groupNo); */
+		/* Attachment attach = boardService.selectOneAttachInBoard(attachNo); */
 		model.addAttribute("post", post);
 		/* model.addAttribute("attach", attach); */
 
@@ -265,7 +272,26 @@ public class GwBoardController {
 		return "gw/board/noticeDetail";
 	}
 
-	
+	 @GetMapping("/deletePostBoard.do")
+	public String deletePostBoard(@RequestParam int postNo, int boardNo, int groupNo, RedirectAttributes redirectAttr) {
+		    	
+		 String msg ="";
+
+		 Post post = boardService.selectOnePostInBoard(postNo);
+		 
+		 try {
+			int postDelete  = boardService.deletePostInBoard(postNo);
+			/* int attachDelete = boardService.deleteAttachInBoard(attachNo); */
+			msg = postDelete> 1 ? "글삭제 성공!" : "글삭제 실패!";
+			} catch (Exception e) {
+				log.error(e.getMessage(), e); // 로깅
+		}
+		    redirectAttr.addAttribute("msg", msg);
+		    	
+		 return  "redirect:/gw/board/board.do?boardNo="+boardNo+"&groupNo="+groupNo;
+	}
+	 
+    
 	@GetMapping("/anonymous.do")
 	public void anonymous() {
 	}
@@ -275,19 +301,55 @@ public class GwBoardController {
 
 		int result = boardService.createBoardRoom(board);
 		redirectAtt.addAttribute("groupNo", board.getGroupNo());
-		redirectAtt.addAttribute("msg", result > 0 ? "채팅방 [" + board.getBoardName() + "]이 개설되었습니다." : "실패");
-
+		redirectAtt.addAttribute("msg", result > 0 ? "게시판 ["+board.getBoardName()+"]이 개설되었습니다." : "실패");
+		
 		return "redirect:/gw/gw.do";
 	}
-
+	
 	@PostMapping("/updateBoardRoom.do")
-	public String updateBoardRoom(Board board, RedirectAttributes redirectAtt) {
-
-		int result = boardService.updateBoardRoom(board);
-		redirectAtt.addAttribute("groupNo", board.getGroupNo());
-		redirectAtt.addAttribute("msg", result > 0 ? "채팅방 [" + board.getBoardName() + "]이 수정되었습니다." : "실패");
-
-		return "redirect:/gw/gw.do";
+	public String updateBoardRoom(@ModelAttribute Board board, RedirectAttributes redirectAtt, HttpSession session) {
+		String location = "/";
+		try {
+			log.debug("board = {}", board);
+			
+			int result = boardService.updateBoardRoom(board);
+			redirectAtt.addFlashAttribute("msg", result > 0 ? "게시판이 변경되었습니다." : "실패");
+			
+			String redirect = (String) session.getAttribute("redirect");
+			log.debug("redirect = {}", redirect);
+			if(redirect != null) {
+				location = redirect;
+				session.removeAttribute("redirect");
+			}
+		} catch(Exception e) {
+			log.error("게시판 변경 실패!", e);
+			throw e;
+		}
+		
+		return "redirect:/gw/gw.do?groupNo=" + board.getGroupNo();
+	}
+	
+	@PostMapping("/deleteBoardRoom.do")
+	public String deleteBoardRoom(@ModelAttribute Board board, RedirectAttributes redirectAtt, HttpSession session) {
+		String location = "/";
+		try {
+			log.debug("board = {}", board);
+			
+			int result = boardService.deleteBoardRoom(board);
+			redirectAtt.addFlashAttribute("msg", result > 0 ? "게시판이 삭제되었습니다." : "실패");
+			
+			String redirect = (String) session.getAttribute("redirect");
+			log.debug("redirect = {}", redirect);
+			if(redirect != null) {
+				location = redirect;
+				session.removeAttribute("redirect");
+			}
+		} catch(Exception e) {
+			log.error("게시판 변경 실패!", e);
+			throw e;
+		}
+		
+		return "redirect:/gw/gw.do?groupNo=" + board.getGroupNo();
 	}
 
 	public void groupwareHeaderSet(int groupNo, Model model, Authentication auth) {

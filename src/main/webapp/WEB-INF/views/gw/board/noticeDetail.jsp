@@ -7,12 +7,18 @@
 <jsp:include page="/WEB-INF/views/common/gw_header.jsp">
 	<jsp:param value="" name="title"/>
 </jsp:include>
+<style>
+#btn{
+ 	
+ 	
+}
+</style>
 <div class="groupware-board-detail-outter">
   <div class="groupware-board-detail-title-outter">
 
     <div class="groupware-board-detail-title">
       <hr>
-      <p class="text-secondary">카테고리</p>
+      <p class="text-secondary"></p>
       <h3>${post.postTitle}</h3>
       <p>${post.memberId}<span><fmt:formatDate value="${post.postRegDate}" pattern="yy-MM-dd"/></span></p>
       <hr>
@@ -41,6 +47,11 @@
 			<div class="form-inline mb-3 groupware-board-detail-rep-profile">
 				<img class="member-profile-img" src="https://i.pinimg.com/564x/9e/60/60/9e6060db90687be57c52ca5c5566c487.jpg" alt="">
 			</div>
+			<div class="d-grid gap-2 d-md-block" style="text-align: right;">
+				<button class="btn btn-primary" type="button" style="margin:20px;">수정</button>&nbsp;
+				<button class="btn btn-primary" type="button">삭제</button>
+			</div>
+				
 			<textarea class="form-control" id="exampleFormControlTextarea1" rows="1"></textarea>
 			<button type="button" class="btn btn-dark ml-1   groupware-board-detail-rep-btn-enroll" onClick="javascript:addReply();">등록</button>
 		    </li>

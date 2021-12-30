@@ -8,8 +8,11 @@
   </insert>
   
   <update id="updateBoardRoom">
-  	update board set boardName = #{boardName}, boardType = #{boardType} where groupNo = #{gropNo}
+  	update board set board_name = #{boardName} where board_no = #{boardNo}
   </update>
+  <delete id="deleteBoardRoom">
+	delete from board where board_no = #{boardNo}
+  </delete>
   <select id="selectAllPostInBoard" resultType="PostWithCategory">
 	select
 	    p.*,
@@ -44,6 +47,13 @@
   <select id="selectOneAttach" resultType="attachment">
 		select * from attachment where attach_no = #{attachNo}
   </select>
+  <delete id="deletePostInBoard">
+  		delete from post where post_no =#{postNo}
+  </delete>
+   <delete id="deleteAttachInBoard">
+  		delete from post where post_no =#{postNo}
+  </delete>
+  
   <insert id="insertPost">
 	insert into 
 		post
@@ -53,7 +63,7 @@
 		#{boardNo},
 		#{postTitle},
 		#{postContent},
-		sysdate,
+		sysdate,2
 		null,
 		null,
 		null

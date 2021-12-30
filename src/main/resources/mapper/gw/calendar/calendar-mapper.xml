@@ -28,7 +28,15 @@ select
 from
 	schedule
 where
-	group_no = #{groupNo}
+	group_no = #{groupNo} and deleted = 'N'
 </select>
   
+<update id="deleteSchedule">
+update 
+	schedule
+set
+	deleted = 'Y'
+where
+	group_no = #{groupNo} and schedule_no = #{scheduleNo}
+</update>
 </mapper>
