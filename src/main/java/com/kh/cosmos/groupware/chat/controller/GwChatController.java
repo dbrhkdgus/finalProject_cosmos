@@ -195,7 +195,49 @@ public class GwChatController {
 		
 	}
 	
-	
+	@ResponseBody
+	@GetMapping("/indexDM.do")
+	public List<DM> indexDM(String sender, Authentication auth){
+		Member loginMember = (Member) auth.getPrincipal();
+		
+		Map<String, String> param = new HashMap<String, String>();
+		param.put("sender", sender);
+		param.put("receiver", loginMember.getId());
+		List<DM> dmList = chatService.selectDMListByParam(param);
+		
+		return dmList;
+	}
+	@GetMapping("/DMPopup.do")
+	public void DMPopup(String sender, Authentication auth, Model model) {
+		Map<String, String> param = new HashMap<String, String>();
+		param.put("sender", sender);
+		param.put("receiver", ((Member)auth.getPrincipal()).getId());
+		
+		List<DM> messageList = chatService.selectDMListByParam(param);
+		model.addAttribute("messageList", messageList);
+		model.addAttribute("sender", sender);
+		
+	}
+	@GetMapping("/DMPopup2.do")
+	public String DMPopup2(String sender, Authentication auth, Model model) {
+		Map<String, String> param = new HashMap<String, String>();
+		param.put("sender", ((Member)auth.getPrincipal()).getId());
+		param.put("receiver", sender);
+		
+		List<DM> messageList = chatService.selectDMListByParam(param);
+		model.addAttribute("messageList", messageList);
+		model.addAttribute("sender", sender);
+		
+		return "gw/chat/DMPopup";
+	}
+	@ResponseBody
+	@GetMapping("/newDMCheck.do")
+	public int newDMCheck(Authentication auth) {
+		int result = 0;
+		Member loginMember = (Member) auth.getPrincipal();
+		result = chatService.newDMCheck(loginMember.getId());
+		return result;
+	}
 	public void groupwareHeaderSet(int groupNo, Model model, Authentication auth) {
 		Member loginMember = (Member) auth.getPrincipal();
 		Group myGroup = gwService.selectMyGroup(groupNo);

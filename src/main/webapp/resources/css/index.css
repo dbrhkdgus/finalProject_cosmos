@@ -208,6 +208,11 @@
 	font-size : 25px;
 	color: red;
 }
+.fa-comment:before {
+	margin-left: 10px;
+	font-size: 25px;
+	color: black;
+}
 
 
 /*그룹 생성하기 css*/
@@ -803,7 +808,7 @@ ul.tabs li.current{
 	display: flex;
 	justify-content: center;
 } 	
-.dm-message-content-box{
+.dm-message-content-box-lv1{
 	display: flex;
 }
 
