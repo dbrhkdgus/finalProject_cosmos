@@ -40,4 +40,12 @@ public interface ChatDao {
 
 	int insertDm(DM dm);
 
+	List<DM> selectDMListByParam(Map<String, String> param);
+
+	DM selectMynewDM(Map<String, String> param);
+
+	List<String> selectMySenderList(String receiver);
+
+	int newDMCheck(String id);
+
 }

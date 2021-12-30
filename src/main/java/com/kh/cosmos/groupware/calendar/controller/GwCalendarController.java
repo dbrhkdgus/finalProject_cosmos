@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kh.cosmos.common.attachment.model.vo.Attachment;
 import com.kh.cosmos.group.model.vo.Group;
+import com.kh.cosmos.groupware.board.model.vo.Board;
 import com.kh.cosmos.groupware.calendar.model.service.GwCalendarService;
 import com.kh.cosmos.groupware.calendar.model.vo.Schedule;
 import com.kh.cosmos.groupware.chat.model.vo.ChatRoom;
@@ -61,7 +62,10 @@ public class GwCalendarController {
 	}
 
 	@GetMapping("/insertSchedule.do")
-	public String insertSchedule(@RequestParam Map<String, Object> obj, Model model){
+	public String insertSchedule(int groupNo, Authentication authentication, @RequestParam Map<String, Object> obj, Model model){
+		groupwareHeaderSet(groupNo, model, authentication);		
+
+		
 		log.debug("obj = {}", obj);
 		Map<String, Object> map = new HashMap<String, Object>();
 		
@@ -86,19 +90,27 @@ public class GwCalendarController {
 		if(obj.get("allDay")== null) {
 			obj.put("allDay", "F");
 		}
-		
-		
-		
+
 		//업무로직
 		int result = gwCalendarService.insertSchedule(obj);
 		log.debug("result = {}", result);
 		model.addAttribute("result", result);
 		
 //		return "redirect:/gw/calendar/calendar.do?groupNo="+String.valueOf(obj.get("groupNo"));
-		return "gw/calendar/calendar";
+		return  "redirect:/gw/calendar/calendar.do?groupNo="+groupNo;
 	}
 	
-	
+	@GetMapping("/deleteSchedule")
+	public String deleteSchedule(@RequestParam Map<String, String> param, int groupNo, Model model, Authentication authentication) {
+		groupwareHeaderSet(groupNo, model, authentication);
+		
+		int result = gwCalendarService.deleteSchedule(param);
+		log.debug("result = {}", result);
+				
+		
+		log.debug("param = " + param);
+		return  "redirect:/gw/calendar/calendar.do?groupNo="+groupNo;
+	}
 	
 	
 	
@@ -127,6 +139,8 @@ public class GwCalendarController {
 		}
 		
 		List<ChatRoom> chattingChannelList = gwService.selectAllChatRoomByGroupNo(groupNo);
+		List<Board> boardList = gwService.selectAllBoardRoomByGroupNo(groupNo);
+		model.addAttribute("boardList", boardList);
 		
 		model.addAttribute("currGroupNo", groupNo);
 		model.addAttribute("myGroup", myGroup);

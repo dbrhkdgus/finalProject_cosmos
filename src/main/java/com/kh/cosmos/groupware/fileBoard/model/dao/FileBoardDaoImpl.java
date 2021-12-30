@@ -1,7 +1,9 @@
 package com.kh.cosmos.groupware.fileBoard.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
+import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -14,6 +16,7 @@ import com.kh.cosmos.groupware.fileBoard.vo.FileEnroll;
 @Repository
 public class FileBoardDaoImpl implements FileBoardDao {
 
+	
 	@Autowired
 	private SqlSession session;
 	
@@ -54,7 +57,12 @@ public class FileBoardDaoImpl implements FileBoardDao {
 		return session.delete("fileBoard.deleteOneAttach",attachNo);
 	}
 	
-	
+	@Override
+	public List<PostWithCategory> selectAllFileBoardListByParam(Map<String, Object> param, int limit, int offset) {
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		return session.selectList("fileBoard.selectAllFileBoardListByParam", param, rowBounds);
+	}
+
 
 	
 		

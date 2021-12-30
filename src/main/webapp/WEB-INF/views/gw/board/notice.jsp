@@ -7,7 +7,9 @@
 <jsp:include page="/WEB-INF/views/common/gw_header.jsp">
 	<jsp:param value="공지사항" name="title"/>
 </jsp:include>
-
+<style>
+ tr{cursor:pointer;}
+</style>
  <div class="test-notice-outter">
   <div class="test-board-title-container">
     <div class="test-board-title">
@@ -21,7 +23,7 @@
   <table class="table table-borderless">
     <tbody>
     <c:forEach var="post" items="${noticePostList}" varStatus="vs">
-      <tr>
+      <tr onclick="location.href='${pageContext.request.contextPath}/gw/board/noticeDetail.do?postNo=${post.postNo}'">
         <td colspan="3">•${post.postTitle}</td>
         <td><span class="text-secondary"><fmt:formatDate value="${post.postRegDate}" pattern="yy-MM-dd"/></span></td>
       </tr>

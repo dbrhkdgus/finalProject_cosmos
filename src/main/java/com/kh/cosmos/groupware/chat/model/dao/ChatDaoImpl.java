@@ -102,6 +102,31 @@ public class ChatDaoImpl implements ChatDao {
 		// TODO Auto-generated method stub
 		return session.insert("chat.insertDm", dm);
 	}
+
+	@Override
+	public List<DM> selectDMListByParam(Map<String, String> param) {
+		// TODO Auto-generated method stub
+		return session.selectList("chat.selectDMListByParam", param);
+	}
+
+	@Override
+	public DM selectMynewDM(Map<String, String> param) {
+		// TODO Auto-generated method stub
+		return session.selectOne("chat.selectMynewDM", param);
+	}
+
+	@Override
+	public List<String> selectMySenderList(String receiver) {
+		// TODO Auto-generated method stub
+		return session.selectList("chat.selectMySenderList", receiver);
+	}
+
+	@Override
+	public int newDMCheck(String id) {
+		// TODO Auto-generated method stub
+		return session.selectOne("chat.newDMCheck", id);
+	}
+	
 	
 	
 	
