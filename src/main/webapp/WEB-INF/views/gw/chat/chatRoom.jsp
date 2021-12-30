@@ -111,6 +111,8 @@
 <!-- jquery.form.js  -->
 <!-- <script src="http://malsup.github.com/jquery.form.js"></script> -->
 <script>
+// 스크롤 최하단 유지
+ $(".workspace-box").scrollTop($(".workspace-box")[0].scrollHeight); 
 //저장된 채팅 내역이 없는 경우 (처음 만들엉진 채팅방인 경우)
 if($(".chat-content").children().length == 0){
 	$(".chat-content").append(`<div class="chat-message-box">
@@ -130,6 +132,8 @@ if($(".chat-content").children().length == 0){
 		
 	// 3. 구독요청
 	stompClient.subscribe(`/chat/${chatRoomNo}`, (chatMessageContent) =>{
+		var script = document.createElement("script");
+		script.innerHTML = `$(".workspace-box").scrollTop($(".workspace-box")[0].scrollHeight); `;
 		/* console.log("chatMessageContent : ", chatMessageContent); */
 		const obj = JSON.parse(chatMessageContent.body);
 		 console.log(obj); 
@@ -151,6 +155,7 @@ if($(".chat-content").children().length == 0){
 	        </div>
 				
 				`); 
+		$(".subscribe").append(script);
 	});
 	stompClient.subscribe(`/dm/${loginMember.id}`, (chatMessageContent) =>{
 		/* console.log("chatMessageContent : ", chatMessageContent); */
