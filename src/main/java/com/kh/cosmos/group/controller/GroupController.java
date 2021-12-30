@@ -286,7 +286,7 @@ public class GroupController {
 			}else {
 
 				String originalFilename = ("group-banner-default.png");
-				String renamedFilename = ("20211227_141032234_521.png");
+				String renamedFilename = ("group-banner-default.png");
 				
 				attach.setOriginalFilename(originalFilename);
 				attach.setRenamedFilename(renamedFilename);
