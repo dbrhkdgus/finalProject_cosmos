@@ -101,6 +101,18 @@ public class BoardServiceImpl implements BoardService {
 		return boardDao.selectOnePostInNotice(postNo);
 	}
 
+	@Override
+	public int deletePostInBoard(int postNo) {
+		// TODO Auto-generated method stub
+		return boardDao.deletePostInBoard(postNo);
+	}
+
+	@Override
+	public int deleteAttachInBoard(int attachNo) {
+		// TODO Auto-generated method stub
+		return boardDao.deleteAttachInBoard(attachNo);
+	}
+
 	
 	
 

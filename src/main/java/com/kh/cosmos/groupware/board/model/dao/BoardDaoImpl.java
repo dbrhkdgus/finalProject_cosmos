@@ -101,6 +101,18 @@ public class BoardDaoImpl implements BoardDao {
 		// TODO Auto-generated method stub
 		return session.selectOne("board.selectOnePostInNotice", postNo);
 	}
+
+	@Override
+	public int deletePostInBoard(int postNo) {
+		// TODO Auto-generated method stub
+		return session.delete("board.deletePostInBoard", postNo);
+	}
+
+	@Override
+	public int deleteAttachInBoard(int attachNo) {
+		// TODO Auto-generated method stub
+		return session.delete("board.deleteAttachInBoard", attachNo);
+	}
 	
 	
 	
