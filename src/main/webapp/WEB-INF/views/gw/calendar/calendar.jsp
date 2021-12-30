@@ -39,7 +39,9 @@ body {
 }
 
 #calendar {
-	margin: 0 auto;
+	margin-left: 30px;
+	margin-top: 30px;
+	margin-bottom: 30px;
 }
 
 .modal-body {
@@ -140,7 +142,7 @@ body {
 	aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-sm modal-dialog-centered"
 		role="document">
-		<div class="modal-content" style="background-color: #fff8bc;">
+		<div class="modal-content" style="background-color: #fffadf;">
 			<div class="modal-header" id="detail-modal-header">
 				<h5 class="modal-title font-italic" id="detailTitle">제목입니다</h5>
 				<button type="button" class="close" data-bs-dismiss="modal"
@@ -183,6 +185,22 @@ $("#allDay").change((e)=>{
     }
 })
 
+//날짜 변형 함수
+function dateFormat(date) {
+       let month = date.getMonth() + 1;
+       let day = date.getDate();
+       let hour = date.getHours();
+       let minute = date.getMinutes();
+       let second = date.getSeconds();
+
+       month = month >= 10 ? month : '0' + month;
+       day = day >= 10 ? day : '0' + day;
+       hour = hour >= 10 ? hour : '0' + hour;
+       minute = minute >= 10 ? minute : '0' + minute;
+       second = second >= 10 ? second : '0' + second;
+
+       return date.getFullYear() + '-' + month + '-' + day + ' ' + hour + ':' + minute;
+}
 
 //캘린더 관련 시작
 document.addEventListener('DOMContentLoaded', function() {
@@ -270,13 +288,27 @@ document.addEventListener('DOMContentLoaded', function() {
 					for(i=0; i < result.length; i++){
 
 						console.log("result[i] = "+result[i]);
-						console.log("result[i]['allDay'] = ", result[i]['allDay']);
+						console.log("result[i]['endDate'] = ", result[i]['endDate']);
+						console.log(new Date(result[i]['endDate']));
+						let date = new Date(result[i]['endDate']);
+						console.log("수정 전: "+ date);
+						console.log("수정 전: "+ date.getDate());
+						
+						/* fullcalendar는 종일 일정 기간에서 마지막 기간은 포함하지 않는다. 따라서 종일일정일 경우, +1일을 한다. */
+						if(result[i]['allDay']== 'T'){
+							date.setDate(date.getDate()+1);
+						}
+						
+						console.log("수정 후: "+ date);
+						console.log("수정 후: "+ date.getDate());
+						
+						console.log();
 						calendar.addEvent({
 							title: result[i]['title'],
 							start: result[i]['startDate'],
-							end: result[i]['endDate'],
+							end: date,
 							allDay : result[i]['allDay']== 'T'? true : false,
-							color: result[i]['category'] == 'G'? "blue" : "gray",
+							color: result[i]['category'] == 'G'? "#75b7ff" : "#c4c4c4",
 							content: result[i]['content'],
 							writer: result[i]['memberId'],
 							scheduleNo: result[i]['scheduleNo']
@@ -296,53 +328,26 @@ document.addEventListener('DOMContentLoaded', function() {
 			
 			var eventObj = info.event;
 			console.log(eventObj);
-			console.log(eventObj.extendedProps.content);
-			
-			
-			
-			let date = new Date();
-			function dateFormat(date) {
-		        let month = date.getMonth() + 1;
-		        let day = date.getDate();
-		        let hour = date.getHours();
-		        let minute = date.getMinutes();
-		        let second = date.getSeconds();
 
-		        month = month >= 10 ? month : '0' + month;
-		        day = day >= 10 ? day : '0' + day;
-		        hour = hour >= 10 ? hour : '0' + hour;
-		        minute = minute >= 10 ? minute : '0' + minute;
-		        second = second >= 10 ? second : '0' + second;
-
-		        return date.getFullYear() + '-' + month + '-' + day + ' ' + hour + ':' + minute;
+			/* fullcalendar는 종일 일정 기간에서 마지막 기간은 포함하지 않는다. 위에서 +1일을 해줬기에, 종일 일정일 경우 다시 -1일을 한다.*/
+			console.log("++++++++++++++++++++++++++++++++++++++++")
+			let minusDate = new Date(eventObj.end);
+			if(JSON.stringify(eventObj.allDay == 'true')){
+				minusDate.setDate(minusDate.getDate()-1);				
 			}
+			console.log("변경 후: "+minusDate);
 			
-			/* 시작일시, 종료일시 format 변경하기 위한 과정 */
-			
-			console.log(typeof(eventObj.start));
+
+			console.log("++++++++++++++++++++++++++++++++++++++++")
+
 			//JSON 객체 String 타입으로 형 변환
-			console.log(typeof(JSON.stringify(eventObj.start)));
-			//데이트 타입으로 형변환
+			//데이트 타입으로 형변환- 입력한 값보다 -1일 되서 나와야 함.
 			var detailStartDateForm = new Date(eventObj.start);
-			var detailEndDateForm = new Date(eventObj.end);
+			var detailEndDateForm = new Date(minusDate);
 			
 			//console.log("typeof: "+typeof(detailStartDateForm_direct));
 			//console.log(detailStartDateForm.getMonth)
 			
-			function dateFormat(date) {
-		        let month = date.getMonth() + 1;
-		        let day = date.getDate();
-		        let hour = date.getHours();
-		        let minute = date.getMinutes();
-		        let second = date.getSeconds();
-
-		        month = month >= 10 ? month : '0' + month;
-		        day = day >= 10 ? day : '0' + day;
-		        hour = hour >= 10 ? hour : '0' + hour;
-		        minute = minute >= 10 ? minute : '0' + minute;
-
-		        return date.getFullYear() + '-' + month + '-' + day + ' ' + hour + ':' + minute;
-			}
 
 			//console.log('변환값= '+ dateFormat(detailStartDateForm));
 			//console.log('종료일' + document.querySelector("#detailEnd").innerText);
@@ -352,25 +357,22 @@ document.addEventListener('DOMContentLoaded', function() {
 			$("#detailStart").text(dateFormat(detailStartDateForm));
 			$("#detailEnd").text(dateFormat(detailEndDateForm));
 			$("#detailContent").text(eventObj.extendedProps.content).css('font-style','italic');
-			console.log("--------------------------------")
-			console.log(loginMember == eventObj.extendedProps.writer);
-			console.log(loginMember);
-			console.log(typeof(loginMember));
-			console.log(eventObj.extendedProps.writer);
-			console.log(typeof(eventObj.extendedProps.writer));
+			$("#detail-modal-shceduleNo").val(eventObj.extendedProps.scheduleNo);			
+			
+			//작성자 일시 상세 모달에 '삭제' 버튼이 표기된다
  			if(loginMember != eventObj.extendedProps.writer){
 				$("#detailDeleteBtn").css('display', 'none');				
 			}else{
 				$("#detailDeleteBtn").css('display', 'block');				
 			}
- 			console.log(eventObj.extendedProps.scheduleNo);
- 			console.log(typeof(eventObj.extendedProps.scheduleNo));
- 			$("#detail-modal-shceduleNo").val(eventObj.extendedProps.scheduleNo);
+			
 		}
   });
 
   calendar.render();
 });
+
+
 //일정 삭제 
 $("#detailDeleteBtn").click((e)=>{
 	if(confirm("일정을 삭제하시겠습니까?") == true){

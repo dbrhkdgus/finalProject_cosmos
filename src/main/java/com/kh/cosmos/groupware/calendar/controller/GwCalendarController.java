@@ -98,7 +98,7 @@ public class GwCalendarController {
 		String msg = result > 0? "일정이 추가되었습니다." : "일정 추가에 실패하였습니다.";
 		model.addAttribute("msg", msg);
 		
-		redirectAttr.addAttribute("msg", msg);
+		redirectAttr.addFlashAttribute("msg", msg);
 		
 		return  "redirect:/gw/calendar/calendar.do?groupNo="+groupNo;
 	}
@@ -106,10 +106,11 @@ public class GwCalendarController {
 	@GetMapping("/deleteSchedule")
 	public String deleteSchedule(@RequestParam Map<String, String> param, int groupNo, Model model, Authentication authentication, RedirectAttributes redirectAttr) {
 		
+		log.debug("param = {}", param);
 		int result = gwCalendarService.deleteSchedule(param);
 		log.debug("result = {}", result);
 		String msg = result > 0 ? "일정이 삭제되었습니다." : "일정 삭제에 실패하였습니다.";
-		redirectAttr.addAttribute("msg", msg);
+		redirectAttr.addFlashAttribute("msg", msg);
 		log.debug("msg = {}", msg);
 		
 		log.debug("param = " + param);
