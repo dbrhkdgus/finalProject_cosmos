@@ -96,7 +96,7 @@
 				from
 					dual
 			</selectKey>
-		insert into applocation_group values(seq_alg_no_no.nextval,#{memberId},#{groupNo},default,null,'G')
+		insert into applocation_group values(seq_alg_no_no.nextval,#{memberId},#{groupNo},default,null,'G',default)
 	
 	</insert>
 	<select id="selectGroupTotalCount" resultType="_int">
