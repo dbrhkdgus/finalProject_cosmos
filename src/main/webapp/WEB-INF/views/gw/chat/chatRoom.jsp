@@ -163,7 +163,9 @@ if($(".chat-content").children().length == 0){
 		 //dmWriter(obj);
 		 
 		 loadDM(obj);
-		
+		 var script = document.createElement("script");
+		 script.innerHTML = `$(".dm-modal-body").scrollTop($(".dm-modal-body")[0].scrollHeight); `;
+		 $(".subscribe").append(script);
 	});
 	
 	
@@ -178,6 +180,7 @@ $(".btn-profile").click((e)=>{
 			receiver : $(e.target).siblings().val()
 		};
 	 loadDM(obj);
+
 	$("#gwDMModal").modal('show');
 });
 $(".close-dm-modal").click((e)=>{
@@ -256,7 +259,9 @@ function loadDM(obj){
 						
 						`);
 			});
-			
+			 var script = document.createElement("script");
+			 script.innerHTML = `$(".dm-modal-body").scrollTop($(".dm-modal-body")[0].scrollHeight); `;
+			 $(".subscribe").append(script);
 		},
 		error: console.log
 	});
