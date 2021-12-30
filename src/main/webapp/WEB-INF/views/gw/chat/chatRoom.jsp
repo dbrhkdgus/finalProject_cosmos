@@ -165,6 +165,7 @@ if($(".chat-content").children().length == 0){
 		}
 		$(".subscribe").append(script);
 	});
+	//dm 구독
 	stompClient.subscribe(`/dm/${loginMember.id}`, (chatMessageContent) =>{
 		/* console.log("chatMessageContent : ", chatMessageContent); */
 		const obj = JSON.parse(chatMessageContent.body);
