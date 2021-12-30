@@ -54,9 +54,9 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js" integrity="sha512-iKDtgDyTHjAitUDdLljGhenhPwrbBfqTKWO1mkhSFH3A7blITC9MhYon6SjnMhp4o0rADGw9yAC6EW4t5a4K3g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <link href="${pageContext.request.contextPath }/resources/css/groupware.css" rel="stylesheet" />
 </head>
-<body>
+<body style="overflow-x: hidden;">
 	
-    <div class="chat-content">
+    <div class="chat-content" style="margin-bottom: 0px;">
 	        <c:if test="${not empty messageList }">
 		        <c:forEach var="message" items="${messageList }">
 				        <div class="chat-profile-container">
@@ -78,9 +78,9 @@
 	        </c:if>
         </div>
         
-		    <div class="chat-input-box" style="width: 80vh;">
-		      <div class="chat-txt border-top" style="width: 70%;">
-		        <input id="dm-chatMessageContent" type="text" class="form-control" name="chatMessageContent" style="width: 90%">
+		    <div class="chat-input-box" style="width: 80vh; position: relative;">
+		      <div class="chat-txt border-top">
+		        <input id="dm-chatMessageContent" type="text" class="form-control" name="chatMessageContent" style="width: 100%%;">
 		      </div>
 		      <div class="btn-group">
 		        <i class="fa fa-meh-o" aria-hidden="true"></i>

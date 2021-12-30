@@ -374,7 +374,7 @@
   </div>
 </div>
 
-
+<!-- 채팅방 개설 모달창 -->
 <div class="modal fade" id="createChatRoomModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
   aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -414,82 +414,7 @@
   </div>
 </div>
 
-
-<div class="modal fade" id="createChatRoomModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-  aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">채팅방 개설하기</h4>
-        <button type="button" class="close close-modal" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <form:form name="createChatRoomFrm" method="post" action="${pageContext.request.contextPath }/gw/chat/createChatRoom.do">
-          <div class="modal-body mx-3">
-            <div class="md-form mb-5">
-              <label  for="defaultForm-email">채팅방 이름</label>
-              <input type="text" name="chatRoomName" class="form-control validate" placeholder="새로운 채팅방">
-            </div>
-            <div class="md-form mb-5">
-              <label  for="defaultForm-email">채팅방 인원을 선택하세요.</label>
-              <div class="create-chat-radio-box mb-3">
-	              <input type="radio" name="chatRoomOpenType"  value="all" >전체
-	              <input type="radio" name="chatRoomOpenType" value="select">선택
-              </div>
-              <div class="modal-member-box" style="border: 1px solid black; ">
-     
-              	
-              </div>
-            </div>
-          </div>
-          <input type="hidden" name="groupNo" value="${currGroupNo }" />
-      </form:form>
-      <div class="modal-footer d-flex justify-content-center">
-        <button class="btn btn-createChatRoom">개설</button>
-        <button class="btn close-modal">취소</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-<div class="modal fade" id="createVoiceChatRoomModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-  aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">화상 채팅방 개설하기</h4>
-        <button type="button" class="close close-modal" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <form:form name="createVoiceChatRoomFrm" method="post" action="${pageContext.request.contextPath}/gw/voiceChat/roomEnroll.do">
-          <div class="modal-body mx-3">
-            <div class="md-form mb-5">
-              <label  for="room-name">채널명</label>
-              <input type="text" id="room-name" class="form-control" name="roomName" required/>
-            </div>
-            <div class="md-form mb-5">
-              <label  for="zoom-id">zoom 회의실 ID</label>
-              <input type="text" id="zoom-id" class="form-control" name="zoomId" required/>
-            </div>
-            <div class="md-form mb-5">
-              <label  for="zoom-password">zoom 회의실 password</label>
-              <input type="text" id="zoom-password" class="form-control" name="zoomPassword" required/>
-            </div>
-          </div>
-          <input type="hidden" name="roomAdmin" value="<sec:authentication property="principal.id"/>" readonly/>
-          <input type="hidden" name="groupNo" value="${currGroupNo }" />
-      </form:form>
-      <div class="modal-footer d-flex justify-content-center">
-        <button class="btn btn-createVoiceChatRoom">생성</button>
-        <button class="btn close-modal">취소</button>
-      </div>
-    </div>
-  </div>
-</div>
-
+<!-- DM 모달창 -->
 <div class="modal fade" id="gwDMModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
   aria-hidden="true">
   <div class="modal-dialog" role="document">
