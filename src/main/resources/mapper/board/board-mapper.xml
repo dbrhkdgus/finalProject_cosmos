@@ -59,7 +59,7 @@
   		delete from post where post_no =#{postNo}
   </delete>
    <delete id="deleteAttachInBoard">
-  		delete from post where attach_no =#{attachNo}
+  		delete from attachment where attach_no =#{attachNo}
   </delete>
   
   <insert id="insertPost">

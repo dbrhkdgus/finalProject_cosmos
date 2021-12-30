@@ -97,6 +97,12 @@ public class MemberServiceImpl implements MemberService {
 		// TODO Auto-generated method stub
 		return memberDao.delete(groupNo);
 	}
+
+	@Override
+	public List<Member> selectAllMemberList() {
+		// TODO Auto-generated method stub
+		return memberDao.selectAllMemberList();
+	}
 	
 	
 	

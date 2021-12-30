@@ -49,7 +49,7 @@
 			</div>
 			<div class="d-grid gap-2 d-md-block" style="text-align: right;">
 				<button class="btn btn-primary" type="button" style="margin:20px;">수정</button>&nbsp;
-				<button class="btn btn-primary" type="button">삭제</button>
+				<button class="btn btn-primary" type="button" onclick="location.href='${pageContext.request.contextPath}/gw/board/deletePostBoard.do?postNo=${post.postNo}'">삭제</button>
 			</div>
 				
 			<textarea class="form-control" id="exampleFormControlTextarea1" rows="1"></textarea>

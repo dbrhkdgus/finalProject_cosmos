@@ -121,33 +121,6 @@ public class GwBoardController {
 		return "gw/board/notice";
 	}
 	
-	@GetMapping("/anonymous.do")
-	public String anonymous(@RequestParam(defaultValue = "1") int cPage, int boardNo, int groupNo, Model model,
-			HttpServletRequest request, Authentication auth) {
-		groupwareHeaderSet(groupNo, model, auth);
-
-		int limit = 10;
-		int offset = (cPage - 1) * limit;
-
-		List<Post> anonymousPostList = boardService.selectAllPostInAnonymous(boardNo, limit, offset);
-		Board board = boardService.selectBoardByBoardNo(boardNo);
-		log.debug("anonymousPostList = {}", anonymousPostList);
-		model.addAttribute("anonymousPostList", anonymousPostList);
-		model.addAttribute("boardNo", boardNo);
-		model.addAttribute("groupNo", groupNo);
-		model.addAttribute("title", "# " + board.getBoardName());
-
-		int totalContent = boardService.selectPostInBoardTotalCount(boardNo);
-		log.debug("totalContent = {}", totalContent);
-		model.addAttribute("totalContent", totalContent);
-
-		String url = request.getRequestURI();
-		String pagebar = CosmosUtils.getPagebar(cPage, limit, totalContent, url);
-
-		model.addAttribute("pagebar", pagebar);
-
-		return "gw/board/anonymous";
-	}
 
 	@GetMapping("/noticeEnroll.do")
 	public void noticeEnroll(@RequestParam int boardNo, @RequestParam int groupNo, Model model, Authentication auth) {
@@ -371,7 +344,7 @@ public class GwBoardController {
 	}
 
 
-	 @GetMapping("/deletePostBoard.do")
+	@GetMapping("/deletePostBoard.do")
 	public String deletePostBoard(@RequestParam int postNo, RedirectAttributes redirectAttr) {
 		    	
 		 Post post = boardService.selectOnePostInBoard(postNo);
@@ -388,16 +361,49 @@ public class GwBoardController {
 					boardService.deleteAttachInBoard(post.getAttachNo());
 				}
 				int result  = boardService.deletePostInBoard(postNo);
+				log.debug("********** result = {} ", result);
+				redirectAttr.addFlashAttribute("msg", result > 0 ? "게시물이 삭제되었습니다." : "실패");
 
 			} catch (Exception e) {
 				log.error(e.getMessage(), e); // 로깅
 		}
+
+		if (board.getBoardType() == 'N') {
+			return "redirect:/gw/board/notice.do?boardNo=" + post.getBoardNo() + "&groupNo=" + board.getGroupNo();
+		} else {
+			return "redirect:/gw/board/board.do?boardNo=" + post.getBoardNo() + "&groupNo=" + board.getGroupNo();
+		}
 		 
-		    	
-		 return  "redirect:/gw/board/board.do?boardNo="+post.getBoardNo()+"&groupNo="+board.getGroupNo();
 	}
-	 
-   
+	
+	@GetMapping("/anonymous.do")
+	public String anonymous(@RequestParam(defaultValue = "1") int cPage, int boardNo, int groupNo, Model model,
+			HttpServletRequest request, Authentication auth) {
+		groupwareHeaderSet(groupNo, model, auth);
+
+		int limit = 10;
+		int offset = (cPage - 1) * limit;
+
+		List<Post> anonymousPostList = boardService.selectAllPostInAnonymous(boardNo, limit, offset);
+		Board board = boardService.selectBoardByBoardNo(boardNo);
+		log.debug("anonymousPostList = {}", anonymousPostList);
+		model.addAttribute("anonymousPostList", anonymousPostList);
+		model.addAttribute("boardNo", boardNo);
+		model.addAttribute("groupNo", groupNo);
+		model.addAttribute("title", "# " + board.getBoardName());
+
+		int totalContent = boardService.selectPostInBoardTotalCount(boardNo);
+		log.debug("totalContent = {}", totalContent);
+		model.addAttribute("totalContent", totalContent);
+
+		String url = request.getRequestURI();
+		String pagebar = CosmosUtils.getPagebar(cPage, limit, totalContent, url);
+
+		model.addAttribute("pagebar", pagebar);
+
+		return "gw/board/anonymous";
+	}
+
 	
 	@PostMapping("/createBoardRoom.do")
 	public String createBoardRoom(Board board, RedirectAttributes redirectAtt) {
