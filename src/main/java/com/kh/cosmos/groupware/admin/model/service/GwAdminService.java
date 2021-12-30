@@ -8,4 +8,6 @@ public interface GwAdminService {
 
 	List<ApplocationGroup> selectAllAcceptGroupMemberList(int groupNo);
 
+	List<ApplocationGroup> selectAllWaitingGroupMemberList(int groupNo);
+
 }

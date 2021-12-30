@@ -12,4 +12,13 @@
 		group_no = #{groupNo} and group_accept='Y'
   
   </select>
+  
+  <select  id="selectAllWaitingGroupMemberList" resultType="applocationGroup">
+     	select 
+  		* 
+  	from 
+  		applocation_group
+	where 
+		group_no = #{groupNo} and group_accept='N'
+  </select>
 </mapper>
