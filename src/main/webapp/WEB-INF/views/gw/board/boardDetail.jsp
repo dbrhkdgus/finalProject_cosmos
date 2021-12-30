@@ -44,7 +44,7 @@
 		<ul class="list-group list-group-flush">
 		    <li class="list-group-item">
 			<div class="form-inline mb-3 groupware-board-detail-rep-profile">
-				<img class="member-profile-img" src="https://i.pinimg.com/564x/9e/60/60/9e6060db90687be57c52ca5c5566c487.jpg" alt="">
+				<img class="member-profile-img" src="${pageContext.request.contextPath }/resources/upFile/fileboard/${attach.renamedFilename}" alt="">
 			</div>
 			<div class="d-grid gap-2 d-md-block" style="text-align: right;">
 				<button class="btn btn-primary" type="button" style="margin:10px;">수정</button>&nbsp;
