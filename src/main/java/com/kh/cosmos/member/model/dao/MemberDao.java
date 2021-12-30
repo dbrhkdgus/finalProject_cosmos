@@ -35,6 +35,8 @@ public interface MemberDao {
 	int updateMemberProfileAsDefault(String id);
 
 	int delete(int groupNo);
+
+	List<Member> selectAllMemberList();
 	
 	
 
