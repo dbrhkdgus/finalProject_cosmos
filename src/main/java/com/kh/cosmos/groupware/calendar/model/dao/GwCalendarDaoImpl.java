@@ -29,4 +29,9 @@ public class GwCalendarDaoImpl implements GwCalendarDao {
 		return session.selectList("calendar.selectScheduleList", groupNo);
 	}
 
+	@Override
+	public int deleteSchedule(Map<String, String> param) {
+		return session.update("calendar.deleteSchedule", param);
+	}
+
 }
