@@ -302,7 +302,7 @@ public class GwBoardController {
 			throw e;
 		}
 		
-		return "redirect:" + location;
+		return "redirect:/gw/gw.do?groupNo=" + board.getGroupNo();
 	}
 	
 	@PostMapping("/deleteBoardRoom.do")
@@ -325,7 +325,7 @@ public class GwBoardController {
 			throw e;
 		}
 		
-		return "redirect:" + location;
+		return "redirect:/gw/gw.do?groupNo=" + board.getGroupNo();
 	}
 
 	public void groupwareHeaderSet(int groupNo, Model model, Authentication auth) {

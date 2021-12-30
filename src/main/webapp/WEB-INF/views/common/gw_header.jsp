@@ -202,7 +202,7 @@
 	            	</c:if>
 	            	<c:if test="${fn:contains(boardRoom.boardType, 'A')}">
 	            	<div class="d-flex justify-content-between align-items-center" id="main">
-	            		<li><a href="${pageContext.request.contextPath }/gw/board/anonymous.do?boardNo=${boardRoom.boardNo}&groupNo=${currGroupNo }" class="link-dark rounded">${boardRoom.boardName}</a>${boardRoom.boardNo }</li>
+	            		<li><a href="${pageContext.request.contextPath }/gw/board/anonymous.do?boardNo=${boardRoom.boardNo}&groupNo=${currGroupNo }" class="link-dark rounded">${boardRoom.boardName}</a><span class="d-none">${boardRoom.boardNo }</span></li>
 	            		<div class="updateBoardRoom div_sub" style="cursor: pointer;" id="sub">
 	            		<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gear" viewBox="0 0 16 16">
   							<path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492zM5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0z"/>
@@ -213,7 +213,7 @@
 	            	</c:if>
 	            	<c:if test="${fn:contains(boardRoom.boardType, 'F')}">
 	            	<div class="d-flex justify-content-between align-items-center" id="main">
-	            		<li><a href="${pageContext.request.contextPath }/gw/fileBoard/fileBoard.do?boardNo=${boardRoom.boardNo}&groupNo=${currGroupNo }" class="link-dark rounded">${boardRoom.boardName}</a>${boardRoom.boardNo }</li>
+	            		<li><a href="${pageContext.request.contextPath }/gw/fileBoard/fileBoard.do?boardNo=${boardRoom.boardNo}&groupNo=${currGroupNo }" class="link-dark rounded">${boardRoom.boardName}</a><span class="d-none">${boardRoom.boardNo }</span></li>
 	            		<div class="updateBoardRoom div_sub" style="cursor: pointer;" id="sub">
 	            		<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gear" viewBox="0 0 16 16">
   							<path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492zM5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0z"/>
