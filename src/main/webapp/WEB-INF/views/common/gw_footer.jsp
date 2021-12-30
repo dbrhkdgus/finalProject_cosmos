@@ -15,7 +15,14 @@
 		<c:forEach var="profile" items="${memberProfileRenamedFilenameList }">
 	        <div class="test-member-profile">
 	          <div class="member-profile-img-box">
-	            <img class="btn-profile member-profile-img" src="${pageContext.request.contextPath }/resources/upFile/profile/${profile}" alt="">
+	          <c:choose>
+	          	<c:when test="${fn:startsWith(profile,'http')}">
+					<img class="btn-profile member-profile-img" src="${profile}" alt="" style="width: 150px"/>
+				</c:when>
+				<c:otherwise>
+	            	<img class="btn-profile member-profile-img" src="${pageContext.request.contextPath }/resources/upFile/profile/${profile}" alt="">
+	            </c:otherwise>
+	          </c:choose>
 	          </div>
 	        </div>
 		</c:forEach>
