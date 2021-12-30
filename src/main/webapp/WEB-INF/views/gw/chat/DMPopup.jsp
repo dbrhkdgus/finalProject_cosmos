@@ -55,8 +55,8 @@
 <link href="${pageContext.request.contextPath }/resources/css/groupware.css" rel="stylesheet" />
 </head>
 <body style="overflow-x: hidden;">
-	
-    <div class="chat-content" style="margin-bottom: 0px;">
+	<div class="dmPopup-box">
+    <div class="chat-content" style="margin-bottom: 25px;">
 	        <c:if test="${not empty messageList }">
 		        <c:forEach var="message" items="${messageList }">
 				        <div class="chat-profile-container">
@@ -78,7 +78,7 @@
 	        </c:if>
         </div>
         
-		    <div class="chat-input-box" style="width: 80vh; position: relative;">
+		    <div class="chat-input-box" style="width: 80vh;">
 		      <div class="chat-txt border-top">
 		        <input id="dm-chatMessageContent" type="text" class="form-control" name="chatMessageContent" style="width: 100%%;">
 		      </div>
@@ -90,6 +90,8 @@
 		      </div>
 		      <button id="btn-dm-message-send" class="btn btn-danger" data-original-title="" title="">Send</button>
 		    </div> 
+	</div>
+		    
 <script>
 window.scrollTo(0,document.body.scrollHeight);
 ///chat/chatId
