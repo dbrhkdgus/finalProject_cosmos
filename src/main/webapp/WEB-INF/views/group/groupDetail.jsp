@@ -48,7 +48,6 @@ function hasScrolled() {
 
 </script> 
 <!-- detail시작부분 -->
-
 <div class="class-detail-wrap">
 	<!-- 왼쪽 클래스 정보 -->
 	<div class="class-detail-left-container">
@@ -208,9 +207,14 @@ function hasScrolled() {
 							<c:if test="${fn:contains(alg.groupAccept, 'Y')}">
 								<button type="button" class="btn btn-secondary btn-m  ml-3"  style="color:black; border:none; background-color:#CCE6FD;"  disabled>가입된 그룹입니다</button>
 							</c:if>
+							
 							<c:set var="flag2" value="Y" />
 						</c:if>
 					</c:forEach>
+					<c:if test="${fn:contains(group.groupClose, 'Y')}">
+								<button type="button" class="btn btn-secondary btn-m  ml-3"  style="color:black; border:none; background-color:#CCE6FD;"  disabled>모집 마감</button>
+								<c:set var="flag2" value="Y" />
+							</c:if>
 					<c:if test="${flag2 == 'N'}">
 						<button type="button" class="btn btn-secondary btn-m ml-3" onclick="location.href='${pageContext.request.contextPath}/group/groupJoin.do?groupNo=${group.groupNo}';"  style="color:black; border:none; background-color:#CCE6FD;">가입신청</button>
 					</c:if>
