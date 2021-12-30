@@ -34,8 +34,11 @@ body {
 	font-size: 14px;
 }
 
+#calendar{
+    width: 65vw;
+}
+
 #calendar {
-	max-width: 1100px;
 	margin: 0 auto;
 }
 
@@ -59,6 +62,8 @@ body {
 #detail-modal-body{
 	padding: 16px;
 }
+
+
 </style>
 
 <div class="main-container">
@@ -137,7 +142,7 @@ body {
 		role="document">
 		<div class="modal-content" style="background-color: #fff8bc;">
 			<div class="modal-header" id="detail-modal-header">
-				<h5 class="modal-title" id="detailTitle">제목입니다</h5>
+				<h5 class="modal-title font-italic" id="detailTitle">제목입니다</h5>
 				<button type="button" class="close" data-bs-dismiss="modal"
 					aria-label="Close">
 					<span aria-hidden="true">&times;</span>
@@ -192,6 +197,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   
   var calendar = new FullCalendar.Calendar(calendarEl, {
+	height: '100%',
     headerToolbar: {
       left: 'prevYear,prev,next,nextYear today',
       center: 'title',

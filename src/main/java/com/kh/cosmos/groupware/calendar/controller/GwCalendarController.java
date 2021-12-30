@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.cosmos.common.attachment.model.vo.Attachment;
 import com.kh.cosmos.group.model.vo.Group;
@@ -62,7 +63,7 @@ public class GwCalendarController {
 	}
 
 	@GetMapping("/insertSchedule.do")
-	public String insertSchedule(int groupNo, Authentication authentication, @RequestParam Map<String, Object> obj, Model model){
+	public String insertSchedule(int groupNo, Authentication authentication, @RequestParam Map<String, Object> obj, Model model, RedirectAttributes redirectAttr){
 		groupwareHeaderSet(groupNo, model, authentication);		
 
 		
@@ -94,19 +95,22 @@ public class GwCalendarController {
 		//업무로직
 		int result = gwCalendarService.insertSchedule(obj);
 		log.debug("result = {}", result);
-		model.addAttribute("result", result);
+		String msg = result > 0? "일정이 추가되었습니다." : "일정 추가에 실패하였습니다.";
+		model.addAttribute("msg", msg);
 		
-//		return "redirect:/gw/calendar/calendar.do?groupNo="+String.valueOf(obj.get("groupNo"));
+		redirectAttr.addAttribute("msg", msg);
+		
 		return  "redirect:/gw/calendar/calendar.do?groupNo="+groupNo;
 	}
 	
 	@GetMapping("/deleteSchedule")
-	public String deleteSchedule(@RequestParam Map<String, String> param, int groupNo, Model model, Authentication authentication) {
-		groupwareHeaderSet(groupNo, model, authentication);
+	public String deleteSchedule(@RequestParam Map<String, String> param, int groupNo, Model model, Authentication authentication, RedirectAttributes redirectAttr) {
 		
 		int result = gwCalendarService.deleteSchedule(param);
 		log.debug("result = {}", result);
-				
+		String msg = result > 0 ? "일정이 삭제되었습니다." : "일정 삭제에 실패하였습니다.";
+		redirectAttr.addAttribute("msg", msg);
+		log.debug("msg = {}", msg);
 		
 		log.debug("param = " + param);
 		return  "redirect:/gw/calendar/calendar.do?groupNo="+groupNo;
