@@ -8,6 +8,7 @@
 <jsp:include page="/WEB-INF/views/common/gw_header.jsp">
 	<jsp:param value="게시글 작성" name="title"/>
 </jsp:include>
+
 <sec:authorize access="isAuthenticated()">
 	<sec:authentication property="principal" var="member"/>
 </sec:authorize>
@@ -35,25 +36,35 @@
 			<input type="hidden" name="boardNo" value="${boardNo}" />
 			<input type="hidden" name="groupNo" value="${groupNo}"/>
 		</div>
-		<textarea id="summernote" name="postContent"></textarea>
-		<div class="input-group mb-3" style="padding:0px; padding-top: 5px;">
-			<div class="input-group-prepend" style="padding:0px;">
-			    <span class="input-group-text">첨부파일1</span>
-			  </div>
-			  <div class="custom-file">
-			    <input type="file" class="custom-file-input" name="upFile"  >
-			    <label class="custom-file-label" for="upFile1">파일을 선택하세요</label>
-			</div>
-		</div>
-		
-	</form>
+		<div class="input-group input-group-sm mb-3">
+  			<span class="input-group-text" id="inputGroup-sizing-sm">비밀번호</span>
+  			<input id="pw" name="postPassword" type="text" class="form-control"  onChange="checkNumber()" maxlength="4" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="숫자 4자리를 입력해 주세요.">
+			
+			
+		</div>		
+			<textarea id="summernote" name="postContent"></textarea>
+		<div class="input-group mb-3" style="padding:0px; padding-top: 5px;"></div>
+		</form>
 	<div class="d-grid gap-2 col-6 mx-auto">
-		<button id="btn-send" class="btn btn-primary" type="button">작성 완료</button>
+		<button id="btn-send" class="btn btn-primary" type="button" >작성 완료</button>
 	</div>
 </div>
 </div>
   <script>
+  function checkNumber() {
+	var objEv = event.srcElement;
+	var numPattern = /([^0-9])/;
+	var numPattern = objEv.value.match(numPattern);
+	if (numPattern != null) {
+		alert("숫자만 입력하세요");
+		objEv.value = "";
+		objEv.focus();
+		return false;
+	}
 
+}
+
+  
 $(document).ready(function() {
     //여기 아래 부분
     $('#summernote').summernote({
@@ -62,7 +73,7 @@ $(document).ready(function() {
 		maxHeight: null,             // 최대 높이
 		focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
 		lang: "ko-KR",					// 한글 설정
-		placeholder: '공지사항 내용 작성란',	//placeholder 설정
+		placeholder: '게시판 내용 작성란',	//placeholder 설정
 		spellCheck: false,
 		callbacks: {	//여기 부분이 이미지를 첨부하는 부분
 			onImageUpload : function(files) {
@@ -117,14 +128,20 @@ $(document).ready(function() {
 			alert("제목을 입력해주세요.");
 			return;
 		}
+	 	if($(pw).val() != null && $(pw).val() != ''){
+		}else{
+			alert("비밀번호를 입력해주세요.");
+			return;
+		}
 		if($(summernote).val() != null && $(summernote).val() != ''){	
 		}else{
 			alert("내용을 입력해주세요.");
 			return;
 		}
-		
+
 		$(document.boardFrm).submit();
 	});
+	
 	
 	$(()=>{
 		$("[name=upFile]").change((e)=>{
@@ -137,10 +154,12 @@ $(document).ready(function() {
 				$label.html(filename);
 			else
 				$label.html("파일을 선택하세요.");
-		});
+		}); 
 	});
 });
 
+
+	
 
   </script>
 </div>

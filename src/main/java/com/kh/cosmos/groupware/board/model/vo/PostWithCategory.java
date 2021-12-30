@@ -20,8 +20,8 @@ public class PostWithCategory extends Post implements Serializable {
 	private String boardCategory;
 
 	public PostWithCategory(int postNo, String memberId, int boardNo, String postTitle, String postContent,
-			Date postRegDate, Date postUpdate, int attachNo, int boardCategoryNo, String boardCategory) {
-		super(postNo, memberId, boardNo, postTitle, postContent, postRegDate, postUpdate, attachNo, boardCategoryNo);
+			Date postRegDate, Date postUpdate, int attachNo, int boardCategoryNo, String boardCategory, int postPassword) {
+		super(postNo, memberId, boardNo, postTitle, postContent, postRegDate, postUpdate, attachNo, boardCategoryNo, postPassword);
 		this.boardCategory = boardCategory;
 	}
 	
