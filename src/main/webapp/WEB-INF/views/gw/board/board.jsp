@@ -34,7 +34,7 @@
 		        <td colspan="2">${post.postTitle}</td>
 		        <td>${memberWithGroupMap[post.memberId]}</td>
 		        <td><fmt:formatDate value="${post.postRegDate}" pattern="yy-MM-dd"/></td>
-		     </a></tr>
+		    </tr>
     	</c:forEach>
       
       
