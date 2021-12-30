@@ -741,7 +741,7 @@ div.list-group1{
   object-fit: cover;
 }
 /* DM css */
-.btn-profile, .btn-profile2{
+.btn-profile, .btn-profile2, .btn-profile3{
 	cursor: pointer;
 }
 .dm-content {
