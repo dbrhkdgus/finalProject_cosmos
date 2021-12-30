@@ -170,6 +170,7 @@
       </div>
       <div class="study-join-table">
         <h4>그룹 가입 요청</h4>
+        <form action="${pageContext.request.contextPath}/gw/admin/groupAccept.do?${_csrf.parameterName}=${_csrf.token}" method="post">
         <table class="table table-sm text-center">
           <thead>
             <tr>
@@ -201,10 +202,10 @@
         </table>
       </div>
       <div class="study-join-buttons text-center">
-        <button type="button" class="btn btn-primary">가입 승인</button>
-        <button type="button" class="btn btn-secondary">가입 거절</button>
+        <button type="button" class="btn btn-primary" value="Y" name="checkYN">가입 승인</button>
+        <button type="button" class="btn btn-secondary" value="N" name="checkYN">가입 거절</button>
       </div>
-      
+      </form>
     </div>
     
   </div>

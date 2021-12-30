@@ -34,17 +34,26 @@ public class GwAdminController {
 	public String memberManager(Model model, int groupNo,Authentication authentication) {
 		groupwareHeaderSet(groupNo, model, authentication);
 		model.addAttribute("groupNo", groupNo);
-		return "gw/admin/memberManager?groupNo="+groupNo;
+		return "gw/admin/memberManager";
 		
 	}
 	
 	@GetMapping("/groupManager.do")
-	public String groupManager(int groupNo,Model model) {
+	public String groupManager(int groupNo,Model model,Authentication authentication) {
+		groupwareHeaderSet(groupNo, model, authentication);
 		model.addAttribute("groupNo", groupNo);
-		return "gw/admin/groupManager?groupNo="+groupNo;
+		return "gw/admin/groupManager";
 		
 	}
 
+	
+	@GetMapping("/groupAccecpt.do")
+	public void groupAccept(int groupNo,Model model,Authentication authentication) {
+		groupwareHeaderSet(groupNo, model, authentication);
+		String checkYN = ""; 
+	log.debug("checkYN = {}" , checkYN);
+		
+	}
 	
 	
 	
