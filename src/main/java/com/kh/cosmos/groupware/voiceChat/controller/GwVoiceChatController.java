@@ -18,6 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.cosmos.common.attachment.model.vo.Attachment;
 import com.kh.cosmos.group.model.vo.Group;
+import com.kh.cosmos.groupware.board.model.vo.Board;
 import com.kh.cosmos.groupware.chat.model.service.ChatService;
 import com.kh.cosmos.groupware.chat.model.vo.ChatRoom;
 import com.kh.cosmos.groupware.model.vo.Room;
@@ -120,7 +121,8 @@ public class GwVoiceChatController {
         }
 
         List<ChatRoom> chattingChannelList = gwService.selectAllChatRoomByGroupNo(groupNo);
-        
+        List<Board> boardList = gwService.selectAllBoardRoomByGroupNo(groupNo);
+        model.addAttribute("boardList", boardList);
         model.addAttribute("currGroupNo", groupNo);
         model.addAttribute("myGroup", myGroup);
         model.addAttribute("myGroupMemberList", myGroupMemberList);

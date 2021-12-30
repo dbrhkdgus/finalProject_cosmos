@@ -264,7 +264,29 @@
 
 </div>
 
+
+<sec:authorize access="isAuthenticated()">
 <script>
+window.addEventListener("load", function(){
+	$.ajax({
+		url : "${pageContext.request.contextPath }/gw/chat/newDMCheck.do",
+		success(data){
+			if(data > 0){
+				alert("새로 도착한 DM이 있습니다.");
+			}
+		},
+		error : console.log
+	
+	
+	});
+});
+</script>
+</sec:authorize>
+
+
+
+<script>
+
 /* dm modal 제어 */
 $("#btn-DM-modal").click((e)=>{
 	$("input[name=dm-memberId]").val($(e.target).siblings().val());
@@ -277,6 +299,7 @@ $("#btn-DM-modal").click((e)=>{
         // window.open("open할 window", "자식창 이름", "팝업창 옵션");
         openWin = window.open("${pageContext.request.contextPath}/gw/chat/DMPopup.do?sender="+$sender,
         		"childForm", "width=350, height=500, resizable = yes, scrollbars = yes"); 
+		$("#gwDMModal").modal('hide');
     }
 	
 	`;

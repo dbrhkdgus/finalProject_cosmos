@@ -49,12 +49,12 @@ public class GwAdminController {
 
 	
 	@PostMapping("/groupAccept.do")
-	public String groupAccept(@RequestParam int groupNo, Model model,Authentication authentication) {
+	public String groupAccept(@RequestParam int groupNo,HttpServletRequest request, Model model,Authentication authentication) {
 		groupwareHeaderSet(groupNo, model, authentication);
-		String checkYN = ""; 
-		String check = ""; 
-		
-		log.debug("check = {}" , check);
+		String checkValid = request.getParameter("checkValid");
+		String checkYN = request.getParameter("checkYN");
+		 
+		log.debug("check = {}" , checkValid);
 		log.debug("checkYN = {}" , checkYN);
 		return "gw/admin/memberManager";
 	}
