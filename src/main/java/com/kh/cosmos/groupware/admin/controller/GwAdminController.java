@@ -36,12 +36,14 @@ public class GwAdminController {
 	@Autowired
 	private GwAdminService gwAdminService;
 	
+	@Autowired
+	private MemberService memberService;
+	
 	@GetMapping("/memberManager.do")
 	public String memberManager(Model model, int groupNo,Authentication authentication) {
 		groupwareHeaderSet(groupNo, model, authentication);
 		model.addAttribute("groupNo", groupNo);
 
-		
 		List<ApplocationGroup> acceptApplocationGroupList = new ArrayList<ApplocationGroup>();
 		acceptApplocationGroupList = gwAdminService.selectAllAcceptGroupMemberList(groupNo);
 		log.debug("applocationGroup = {}" ,acceptApplocationGroupList);
@@ -53,6 +55,10 @@ public class GwAdminController {
 		log.debug("applocationGroup = {}" ,waitingApplocationGroupList);
 		model.addAttribute("waitingApplocationGroupList",waitingApplocationGroupList);
 		
+		List<Member> memberList = new ArrayList<Member>();
+		memberList = memberService.selectAllMemberList();
+		log.debug("memberList = {}" ,memberList);
+		model.addAttribute("memberList",memberList);
 		
 		return "gw/admin/memberManager";
 		

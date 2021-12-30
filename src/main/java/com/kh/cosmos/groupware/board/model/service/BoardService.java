@@ -41,6 +41,6 @@ public interface BoardService {
 	int deletePostInBoard(int postNo);
 
 	int deleteAttachInBoard(int attachNo);
-	
+
 
 }

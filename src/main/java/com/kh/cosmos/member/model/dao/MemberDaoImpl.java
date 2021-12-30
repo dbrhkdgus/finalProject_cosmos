@@ -90,5 +90,11 @@ public class MemberDaoImpl implements MemberDao {
 		// TODO Auto-generated method stub
 		return session.delete("member.delete",groupNo);
 	}
-	
+
+	@Override
+	public List<Member> selectAllMemberList() {
+		// TODO Auto-generated method stub
+		return session.selectList("member.selectAllMemberList");
+	}
+	 
 }

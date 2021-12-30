@@ -70,17 +70,20 @@
 	<sec:authentication property="principal" var="loginMember"/>
 </sec:authorize>
     <!-- 그룹원 리스트(축약버전) (오른쪽) -->
+    
      <div class="test-member-list-small bg-light">
       <div class="online-member-list">
-		<c:forEach var="profile" items="${memberProfileRenamedFilenameList }">
+		<c:forEach var="user" items="${chatUserList }">
 	        <div class="test-member-profile">
-	          <div class="member-profile-img-box">
+	          <div class="member-profile-img-box btn-profile2">
 	            <c:choose>
-	          	<c:when test="${fn:startsWith(profile,'http')}">
-					<img class="btn-profile member-profile-img" src="${profile}" alt="" style="width: 150px"/>
+	          	<c:when test="${fn:startsWith(user.renamedFilename,'http')}">
+					<img class="member-profile-img" src="${profile}" alt="" style="width: 150px"/>
+					<input type="hidden" name="profile_owner" value="${user.memberId }"/>
 				</c:when>
 				<c:otherwise>
-	            	<img class="btn-profile member-profile-img" src="${pageContext.request.contextPath }/resources/upFile/profile/${profile}" alt="">
+	            	<img class="member-profile-img" src="${pageContext.request.contextPath }/resources/upFile/profile/${user.renamedFilename}" alt="">
+	            	<input type="hidden" name="profile_owner" value="${user.memberId }"/>
 	            </c:otherwise>
 	          </c:choose>
 	          </div>
@@ -178,9 +181,29 @@ $(".btn-profile").click((e)=>{
 			receiver : $(e.target).siblings().val()
 		};
 	 loadDM(obj);
+	 var script = document.createElement("script");
+	 script.innerHTML = `$(".dm-modal-body").scrollTop($(".dm-modal-body")[0].scrollHeight);`;
+	 $(".subscribe").append(script);
 
 	$("#gwDMModal").modal('show');
+    
  
+});
+$(".btn-profile2").click((e)=>{
+	var receiver = $(e.target).next().val();
+	$("input[name=dm-memberId]").val(receiver);
+	console.log(receiver);
+	const obj = {
+			sender : "${loginMember.id}",
+			receiver : receiver
+		};
+	 loadDM(obj);
+	 var script = document.createElement("script");
+	 script.innerHTML = `$(".dm-modal-body").scrollTop($(".dm-modal-body")[0].scrollHeight);`;
+	 $(".subscribe").append(script);
+
+	$("#gwDMModal").modal('show');
+     
 }); 
 $(".close-dm-modal").click((e)=>{
 	$(".dm-profile-container").text('');
@@ -192,6 +215,7 @@ $(".close-dm-modal").click((e)=>{
 /* dm 메시지 전송 처리 */
 $("#btn-dm-message-send").click((e) =>{
 	var receiver = $(e.target).siblings("input").val();
+
 	var today = new Date();
 	var hours = today.getHours(); // 시
 	var minutes = today.getMinutes();  // 분
@@ -235,7 +259,7 @@ function loadDM(obj){
 		},
 		dataType: "json",
 		success(data){
-			var script = document.createElement("script");
+			
 			$.each(data, (k,v)=>{
 				$(".dm-profile-container").append(`<div class="dm-message-content-box">
 			          	
@@ -259,14 +283,14 @@ function loadDM(obj){
 						
 						`);
 			});
-			 
+			var script = document.createElement("script");
 			 script.innerHTML = `$(".dm-modal-body").scrollTop($(".dm-modal-body")[0].scrollHeight);`;
 			 $(".subscribe").append(script);
+			
 		},
 		error: console.log
 	});
 }
- 
 </script>
   </body>
 
