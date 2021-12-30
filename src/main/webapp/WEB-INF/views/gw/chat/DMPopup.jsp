@@ -53,6 +53,9 @@
 	<!-- stomp.js 라이브러리 추가 -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js" integrity="sha512-iKDtgDyTHjAitUDdLljGhenhPwrbBfqTKWO1mkhSFH3A7blITC9MhYon6SjnMhp4o0rADGw9yAC6EW4t5a4K3g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <link href="${pageContext.request.contextPath }/resources/css/groupware.css" rel="stylesheet" />
+</head>
+<body>
+	
     <div class="chat-content">
 	        <c:if test="${not empty messageList }">
 		        <c:forEach var="message" items="${messageList }">
@@ -88,6 +91,7 @@
 		      <button id="btn-dm-message-send" class="btn btn-danger" data-original-title="" title="">Send</button>
 		    </div> 
 <script>
+window.scrollTo(0,document.body.scrollHeight);
 ///chat/chatId
 //1. Stomp Client 객체 생성(websocket)
 
@@ -132,3 +136,4 @@ $("#btn-dm-message-send").click((e) =>{
 
 
 </script>
+</body>
