@@ -37,12 +37,20 @@
  <select id="selectAllPostInNotice" resultType="Post">
   	select * from post where board_no = #{boardNo} order by post_no desc
   </select>
+  <select id="selectAllPostInAnonymous" resultType="Post">
+  	select * from post where board_no = #{boardNo} order by post_no desc
+  </select>
   <select id="selectOnePostInBoard" resultType="post">
 		select * from post where post_no = #{postNo}
   </select>
+  
   <select id="selectOnePostInNotice" resultType="post">
 		select * from post where post_no = #{postNo}
   </select>
+  <select id="selectOnePostInAnonymous" resultType="post">
+		select * from post where post_no = #{postNo}
+  </select>
+  
   
   <select id="selectOneAttach" resultType="attachment">
 		select * from attachment where attach_no = #{attachNo}

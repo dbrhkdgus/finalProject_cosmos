@@ -42,5 +42,9 @@ public interface BoardService {
 
 	int deleteAttachInBoard(int attachNo);
 
+	List<Post> selectAllPostInAnonymous(int boardNo, int limit, int offset);
+
+	Post selectOnePostInAnonymous(int postNo);
+
 
 }

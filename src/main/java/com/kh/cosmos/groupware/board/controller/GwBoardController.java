@@ -120,6 +120,7 @@ public class GwBoardController {
 
 		return "gw/board/notice";
 	}
+	
 
 	@GetMapping("/noticeEnroll.do")
 	public void noticeEnroll(@RequestParam int boardNo, @RequestParam int groupNo, Model model, Authentication auth) {
@@ -183,6 +184,64 @@ public class GwBoardController {
 //			return "redirect:/gw/board/board.do?boardNo="+boardNo+"&groupNo="+groupNo;
 //		}
 //	}
+	
+	@GetMapping("/anonymousEnroll.do")
+	public void anonymousEnroll(@RequestParam int boardNo, @RequestParam int groupNo, Model model, Authentication auth) {
+		groupwareHeaderSet(groupNo, model, auth);
+		Board board = boardService.selectBoardByBoardNo(boardNo);
+		model.addAttribute("boardNo", boardNo);
+		model.addAttribute("groupNo", groupNo);
+		model.addAttribute("title", "# " + board.getBoardName() + " - 글쓰기");
+
+	} 
+	
+	@PostMapping("/anonymousEnroll.do")
+	public String anonymousEnroll(Post post, int boardNo, int groupNo, @RequestParam(value = "upFile", required = false) MultipartFile upFile, RedirectAttributes redirectAttr, Authentication authentication) {
+
+		String memberId = post.getMemberId();
+		log.debug("memberId = {}", post.getMemberId());
+		Board board = boardService.selectBoardByBoardNo(boardNo);
+
+		try {
+			String saveDirectory = application.getRealPath("/resources/upFile/fileboard");
+			log.debug("saveDirectory = {}", saveDirectory);
+
+			if (upFile != null && !upFile.isEmpty() && upFile.getSize() != 0) {
+				log.debug("upFile = {}", upFile);
+				log.debug("upFile.name = {}", upFile.getOriginalFilename());
+				log.debug("upFile.size = {}", upFile.getSize());
+
+				String originalFilename = upFile.getOriginalFilename();
+				String renamedFilename = CosmosUtils.getRenamedFilename(originalFilename);
+
+				// 1.서버컴퓨터에 저장
+				File dest = new File(saveDirectory, renamedFilename);
+				log.debug("dest = {}", dest);
+				upFile.transferTo(dest);
+
+				// 2.DB에 attachment 레코드 등록
+				Attachment attach = new Attachment();
+				attach.setRenamedFilename(renamedFilename);
+				attach.setOriginalFilename(originalFilename);
+				attach.setGroupNo(groupNo);
+				attach.setMemberId(memberId);
+
+				int attachNo = boardService.insertAttach(attach);
+
+				int result = boardService.insertPostFile(post);
+			} else {
+				// 업무로직
+				int result = boardService.insertPost(post);
+			}
+
+		} catch (Exception e) {
+			log.error(e.getMessage(), e); // 로깅 throw e; //spring container에게 던짐.
+
+		}
+
+		return "redirect:/gw/board/anonymous.do?boardNo=" + boardNo + "&groupNo=" + groupNo;
+	}
+	
 
 	@GetMapping("/boardEnroll.do")
 	public void boardEnroll(@RequestParam int boardNo, @RequestParam int groupNo, Model model, Authentication auth) {
@@ -248,29 +307,45 @@ public class GwBoardController {
 	}
 
 	@GetMapping("/boardDetail.do")
-	public String boardDetail(@RequestParam int postNo, Model model, HttpServletRequest request, HttpServletResponse response) {
-		
+	public String boardDetail(@RequestParam int postNo, Model model, HttpServletRequest request, HttpServletResponse response, Authentication auth) {
 		Post post = boardService.selectOnePostInBoard(postNo);
+		Board board = boardService.selectBoardByBoardNo(post.getBoardNo());
+		int groupNo = board.getGroupNo();
+		groupwareHeaderSet(groupNo, model, auth);
+		Attachment attach = mainService.selectOneAttach(post.getAttachNo());
 		log.debug("post = {}", post);
-		/* Attachment attach = boardService.selectOneAttachInBoard(attachNo); */
 		model.addAttribute("post", post);
-		/* model.addAttribute("attach", attach); */
+		model.addAttribute("attach", attach);
 
 		return "gw/board/boardDetail";
 	}
 	
-
 	@GetMapping("/noticeDetail.do")
-	public String noticeDetail(@RequestParam int postNo, Model model, HttpServletRequest request, HttpServletResponse response) {
-
+	public String noticeDetail(@RequestParam int postNo, Model model, HttpServletRequest request, HttpServletResponse response, Authentication auth) {
 		Post post = boardService.selectOnePostInNotice(postNo);
+		Board board = boardService.selectBoardByBoardNo(post.getBoardNo());
+		int groupNo = board.getGroupNo();
+		groupwareHeaderSet(groupNo, model, auth);
+		Attachment attach = mainService.selectOneAttach(post.getAttachNo());
+		log.debug("post = {}", post);
+		model.addAttribute("post", post);
+		model.addAttribute("attach", attach);
+
+		return "gw/board/noticeDetail";
+	}
+	
+	@GetMapping("/anonymousDetail.do")
+	public String anonymousDetail(@RequestParam int postNo, Model model, HttpServletRequest request, HttpServletResponse response) {
+
+		Post post = boardService.selectOnePostInAnonymous(postNo);
 		log.debug("post = {}", post);
 		/* Attachment attach = boardService.selectOneAttachInBoard(groupNo); */
 		model.addAttribute("post", post);
 		/* model.addAttribute("attach", attach); */
 
-		return "gw/board/noticeDetail";
+		return "gw/board/anonymousDetail";
 	}
+
 
 	@GetMapping("/deletePostBoard.do")
 	public String deletePostBoard(@RequestParam int postNo, RedirectAttributes redirectAttr) {
@@ -303,11 +378,36 @@ public class GwBoardController {
 		}
 		 
 	}
-    
+	
 	@GetMapping("/anonymous.do")
-	public void anonymous() {
+	public String anonymous(@RequestParam(defaultValue = "1") int cPage, int boardNo, int groupNo, Model model,
+			HttpServletRequest request, Authentication auth) {
+		groupwareHeaderSet(groupNo, model, auth);
+
+		int limit = 10;
+		int offset = (cPage - 1) * limit;
+
+		List<Post> anonymousPostList = boardService.selectAllPostInAnonymous(boardNo, limit, offset);
+		Board board = boardService.selectBoardByBoardNo(boardNo);
+		log.debug("anonymousPostList = {}", anonymousPostList);
+		model.addAttribute("anonymousPostList", anonymousPostList);
+		model.addAttribute("boardNo", boardNo);
+		model.addAttribute("groupNo", groupNo);
+		model.addAttribute("title", "# " + board.getBoardName());
+
+		int totalContent = boardService.selectPostInBoardTotalCount(boardNo);
+		log.debug("totalContent = {}", totalContent);
+		model.addAttribute("totalContent", totalContent);
+
+		String url = request.getRequestURI();
+		String pagebar = CosmosUtils.getPagebar(cPage, limit, totalContent, url);
+
+		model.addAttribute("pagebar", pagebar);
+
+		return "gw/board/anonymous";
 	}
 
+	
 	@PostMapping("/createBoardRoom.do")
 	public String createBoardRoom(Board board, RedirectAttributes redirectAtt) {
 
