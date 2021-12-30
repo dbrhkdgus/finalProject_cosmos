@@ -170,7 +170,7 @@
       </div>
       <div class="study-join-table">
         <h4>그룹 가입 요청</h4>
-        <form action="${pageContext.request.contextPath}/gw/admin/groupAccept.do?${_csrf.parameterName}=${_csrf.token}" method="post">
+        <form action="${pageContext.request.contextPath}/gw/admin/groupAccept.do?${_csrf.parameterName}=${_csrf.token}" method="post" >
         <table class="table table-sm text-center">
           <thead>
             <tr>

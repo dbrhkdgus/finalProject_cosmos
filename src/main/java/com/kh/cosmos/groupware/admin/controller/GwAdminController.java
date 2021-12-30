@@ -47,11 +47,12 @@ public class GwAdminController {
 	}
 
 	
-	@GetMapping("/groupAccecpt.do")
-	public void groupAccept(int groupNo,Model model,Authentication authentication) {
+	@GetMapping("/groupAccept.do")
+	public String groupAccept(int groupNo,Model model,Authentication authentication) {
 		groupwareHeaderSet(groupNo, model, authentication);
 		String checkYN = ""; 
 	log.debug("checkYN = {}" , checkYN);
+		return "gw/admin/groupAccept";
 		
 	}
 	
