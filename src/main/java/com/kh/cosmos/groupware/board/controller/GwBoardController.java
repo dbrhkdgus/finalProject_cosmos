@@ -23,6 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.cosmos.common.CosmosUtils;
+import com.kh.cosmos.common.attachment.model.service.AttachmentService;
 import com.kh.cosmos.common.attachment.model.vo.Attachment;
 import com.kh.cosmos.group.model.vo.Group;
 import com.kh.cosmos.groupware.board.model.service.BoardService;
@@ -45,6 +46,10 @@ public class GwBoardController {
 	private BoardService boardService;
 	@Autowired
 	private GroupwareService gwService;
+	
+	@Autowired
+	private AttachmentService attachmentService;
+	
 	@Autowired
 	ServletContext application;
 
@@ -245,7 +250,7 @@ public class GwBoardController {
 
 		Post post = boardService.selectOnePostInBoard(postNo);
 		log.debug("post = {}", post);
-		/* Attachment attach = boardService.selectOneAttachInBoard(groupNo); */
+		/* Attachment attach = boardService.selectOneAttachInBoard(attachNo); */
 		model.addAttribute("post", post);
 		/* model.addAttribute("attach", attach); */
 
@@ -265,7 +270,26 @@ public class GwBoardController {
 		return "gw/board/noticeDetail";
 	}
 
-	
+	 @GetMapping("/deletePostBoard.do")
+	public String deletePostBoard(@RequestParam int postNo, int boardNo, int groupNo, RedirectAttributes redirectAttr) {
+		    	
+		 String msg ="";
+
+		 Post post = boardService.selectOnePostInBoard(postNo);
+		 
+		 try {
+			int postDelete  = boardService.deletePostInBoard(postNo);
+			/* int attachDelete = boardService.deleteAttachInBoard(attachNo); */
+			msg = postDelete> 1 ? "글삭제 성공!" : "글삭제 실패!";
+			} catch (Exception e) {
+				log.error(e.getMessage(), e); // 로깅
+		}
+		    redirectAttr.addAttribute("msg", msg);
+		    	
+		 return  "redirect:/gw/board/board.do?boardNo="+boardNo+"&groupNo="+groupNo;
+	}
+	 
+    
 	@GetMapping("/anonymous.do")
 	public void anonymous() {
 	}

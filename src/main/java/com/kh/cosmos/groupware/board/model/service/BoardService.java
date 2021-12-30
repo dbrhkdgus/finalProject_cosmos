@@ -34,6 +34,10 @@ public interface BoardService {
 	Attachment selectOneAttachInBoard(int attachNo);
 
 	Post selectOnePostInNotice(int postNo);
+
+	int deletePostInBoard(int postNo);
+
+	int deleteAttachInBoard(int attachNo);
 	
 	
 

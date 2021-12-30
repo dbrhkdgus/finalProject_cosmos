@@ -7,7 +7,9 @@
 <jsp:include page="/WEB-INF/views/common/gw_header.jsp">
 	<jsp:param value="공지사항" name="title"/>
 </jsp:include>
-
+<style>
+ tr{cursor:pointer;}
+</style>
  <div class="test-notice-outter">
   <div class="test-board-title-container">
     <div class="test-board-title">

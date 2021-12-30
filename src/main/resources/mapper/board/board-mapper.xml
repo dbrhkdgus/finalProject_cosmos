@@ -44,6 +44,13 @@
   <select id="selectOneAttach" resultType="attachment">
 		select * from attachment where attach_no = #{attachNo}
   </select>
+  <delete id="deletePostInBoard">
+  		delete from post where post_no =#{postNo}
+  </delete>
+   <delete id="deleteAttachInBoard">
+  		delete from post where post_no =#{postNo}
+  </delete>
+  
   <insert id="insertPost">
 	insert into 
 		post
@@ -53,7 +60,7 @@
 		#{boardNo},
 		#{postTitle},
 		#{postContent},
-		sysdate,
+		sysdate,2
 		null,
 		null,
 		null

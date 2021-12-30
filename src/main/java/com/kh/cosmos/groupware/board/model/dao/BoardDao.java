@@ -35,6 +35,10 @@ public interface BoardDao {
 
 	Post selectOnePostInNotice(int postNo);
 
+	int deletePostInBoard(int postNo);
+
+	int deleteAttachInBoard(int attachNo);
+
 
 	
 
