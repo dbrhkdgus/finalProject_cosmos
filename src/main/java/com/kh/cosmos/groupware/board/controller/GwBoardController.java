@@ -272,7 +272,7 @@ public class GwBoardController {
 		return "gw/board/noticeDetail";
 	}
 
-	 @GetMapping("/deletePostBoard.do")
+	@GetMapping("/deletePostBoard.do")
 	public String deletePostBoard(@RequestParam int postNo, RedirectAttributes redirectAttr) {
 		    	
 		 Post post = boardService.selectOnePostInBoard(postNo);
@@ -289,15 +289,20 @@ public class GwBoardController {
 					boardService.deleteAttachInBoard(post.getAttachNo());
 				}
 				int result  = boardService.deletePostInBoard(postNo);
+				log.debug("********** result = {} ", result);
+				redirectAttr.addFlashAttribute("msg", result > 0 ? "게시물이 삭제되었습니다." : "실패");
 
 			} catch (Exception e) {
 				log.error(e.getMessage(), e); // 로깅
 		}
+
+		if (board.getBoardType() == 'N') {
+			return "redirect:/gw/board/notice.do?boardNo=" + post.getBoardNo() + "&groupNo=" + board.getGroupNo();
+		} else {
+			return "redirect:/gw/board/board.do?boardNo=" + post.getBoardNo() + "&groupNo=" + board.getGroupNo();
+		}
 		 
-		    	
-		 return  "redirect:/gw/board/board.do?boardNo="+post.getBoardNo()+"&groupNo="+board.getGroupNo();
 	}
-	 
     
 	@GetMapping("/anonymous.do")
 	public void anonymous() {
