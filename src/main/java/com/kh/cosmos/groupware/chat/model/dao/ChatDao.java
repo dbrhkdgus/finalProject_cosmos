@@ -46,4 +46,6 @@ public interface ChatDao {
 
 	List<String> selectMySenderList(String receiver);
 
+	int newDMCheck(String id);
+
 }

@@ -48,6 +48,7 @@ function hasScrolled() {
 
 </script> 
 <!-- detail시작부분 -->
+
 <div class="class-detail-wrap">
 	<!-- 왼쪽 클래스 정보 -->
 	<div class="class-detail-left-container">
@@ -189,12 +190,13 @@ function hasScrolled() {
 	                      <c:forEach var="git" items="${groupInterestList}" >
 	                          <c:if test="${git.memberId == loginMember.id && group.groupNo == git.groupNo}"> 
 	                          		<c:set var="flag" value="Y"/>                                                 
-	                                  <i class="fas fa-heart"  data-group-no="${group.groupNo }"><span>${group.groupLikeCount }</span></i>
+	                                  <i class="fas fa-heart"  data-group-no="${group.groupNo }"><span>${group.groupLikeCount }</span></i>  
 	                          </c:if>
 	                      </c:forEach>
 	                      <c:if test="${flag == 'N'}">
 	                      	<i class="far fa-heart"  data-group-no="${group.groupNo }"><span>${group.groupLikeCount }</span></i>
-	                      </c:if>				    	
+	                      </c:if>
+	                      <i class="far fa-comment"  data-GM-id="${member.id }" onclick="DMPopup2('${member.id}')"><span>DM</span></i>			    	
 					<c:set var="flag2" value="N" />
 					<c:forEach var="alg" items="${ALGroupList}">
 						<c:if test="${alg.memberId == loginMember.id}">
@@ -221,6 +223,15 @@ function hasScrolled() {
 </div>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=753f0f237470af5e83541545d143b9c3&libraries=services,clusterer,drawing"></script>
 ﻿<script>
+//DM popup
+function DMPopup2(sender) {
+		var $sender = sender;
+        window.name = "DM";
+        // window.open("open할 window", "자식창 이름", "팝업창 옵션");
+        openWin = window.open("${pageContext.request.contextPath}/gw/chat/DMPopup2.do?sender="+$sender,
+        		"childForm", "width=350, height=500, resizable = yes, scrollbars = yes"); 
+    };
+    
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 mapOption = {
     center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표

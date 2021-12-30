@@ -120,6 +120,13 @@ public class ChatDaoImpl implements ChatDao {
 		// TODO Auto-generated method stub
 		return session.selectList("chat.selectMySenderList", receiver);
 	}
+
+	@Override
+	public int newDMCheck(String id) {
+		// TODO Auto-generated method stub
+		return session.selectOne("chat.newDMCheck", id);
+	}
+	
 	
 	
 	
