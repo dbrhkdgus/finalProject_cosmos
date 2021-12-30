@@ -127,6 +127,12 @@ public class BoardDaoImpl implements BoardDao {
 		return session.selectOne("board.selectOnePostInAnonymous", postNo);
 	}
 
+	@Override
+	public int insertPostInAnonymous(Post post) {
+		// TODO Auto-generated method stub
+		return session.insert("board.insertPostInAnonymous", post);
+	}
+
 }
 	
 	

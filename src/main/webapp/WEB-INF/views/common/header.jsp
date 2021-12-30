@@ -114,10 +114,10 @@
 						    	
 							    	
 							    			<li>
-							    			<a class="dropdown-item" href="${pageContext.request.contextPath}/member/memberGroupList.do?type=application-group" style="color: black; font-size:14px; ">가입한 그룹</a>
+							    			<a class="dropdown-item" href="${pageContext.request.contextPath}/member/memberGroupList.do?type=application-group" style="color: black; font-size:14px; ">가입신청 그룹</a>
 							    			</li>
 										    <li> 
-										     <a class="dropdown-item" href="${pageContext.request.contextPath}/member/memberGroupList.do?type=join-group" style="color: black; font-size:14px; ">가입신청그룹</a>
+										     <a class="dropdown-item" href="${pageContext.request.contextPath}/member/memberGroupList.do?type=join-group" style="color: black; font-size:14px; ">가입한 그룹</a>
 										    </li>
 										    <li>
 										     <a class="dropdown-item" href="${pageContext.request.contextPath}/member/memberGroupList.do?type=liked-group" style="color: black; font-size:14px; ">관심 그룹</a>

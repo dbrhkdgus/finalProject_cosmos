@@ -78,6 +78,24 @@
 		null
 	)
   </insert>
+    
+  <insert id="insertPostInAnonymous">
+	insert into 
+		post
+	values(
+		SEQ_POST_NO_NO.nextval,
+		#{memberId},
+		#{boardNo},
+		#{postTitle},
+		#{postContent},
+		sysdate,
+		null,
+		null,
+		null,
+		#{postPassword}
+	)
+  </insert>
+  
   <insert id="insertAttach">
 		insert into
 			attachment

@@ -46,6 +46,8 @@ public interface BoardDao {
 
 	Post selectOnePostInAnonymous(int postNo);
 
+	int insertPostInAnonymous(Post post);
+
 
 
 	
