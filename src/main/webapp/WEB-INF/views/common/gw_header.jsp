@@ -191,7 +191,7 @@
 					</c:if>
            			<c:if test="${fn:contains(boardRoom.boardType, 'B')}">
            			<div class="d-flex justify-content-between align-items-center" id="main">
-	            		<li><a href="${pageContext.request.contextPath }/gw/board/board.do?boardNo=${boardRoom.boardNo}&groupNo=${currGroupNo }" class="link-dark rounded">${boardRoom.boardName} </a></li>
+	            		<li><a href="${pageContext.request.contextPath }/gw/board/board.do?boardNo=${boardRoom.boardNo}&groupNo=${currGroupNo }" class="link-dark rounded">${boardRoom.boardName} </a><span class="d-none">${boardRoom.boardNo }</span></li>
 	            		<div class="updateBoardRoom div_sub" style="cursor:pointer;" id="sub">
 	            		<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gear" viewBox="0 0 16 16">
   							<path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492zM5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0z"/>
@@ -202,7 +202,7 @@
 	            	</c:if>
 	            	<c:if test="${fn:contains(boardRoom.boardType, 'A')}">
 	            	<div class="d-flex justify-content-between align-items-center" id="main">
-	            		<li><a href="${pageContext.request.contextPath }/gw/board/anonymous.do?boardNo=${boardRoom.boardNo}&groupNo=${currGroupNo }" class="link-dark rounded">${boardRoom.boardName}</a></li>
+	            		<li><a href="${pageContext.request.contextPath }/gw/board/anonymous.do?boardNo=${boardRoom.boardNo}&groupNo=${currGroupNo }" class="link-dark rounded">${boardRoom.boardName}</a><span class="d-none">${boardRoom.boardNo }</span></li>
 	            		<div class="updateBoardRoom div_sub" style="cursor: pointer;" id="sub">
 	            		<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gear" viewBox="0 0 16 16">
   							<path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492zM5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0z"/>
@@ -213,7 +213,7 @@
 	            	</c:if>
 	            	<c:if test="${fn:contains(boardRoom.boardType, 'F')}">
 	            	<div class="d-flex justify-content-between align-items-center" id="main">
-	            		<li><a href="${pageContext.request.contextPath }/gw/fileBoard/fileBoard.do?boardNo=${boardRoom.boardNo}&groupNo=${currGroupNo }" class="link-dark rounded">${boardRoom.boardName}</a></li>
+	            		<li><a href="${pageContext.request.contextPath }/gw/fileBoard/fileBoard.do?boardNo=${boardRoom.boardNo}&groupNo=${currGroupNo }" class="link-dark rounded">${boardRoom.boardName}</a><span class="d-none">${boardRoom.boardNo }</span></li>
 	            		<div class="updateBoardRoom div_sub" style="cursor: pointer;" id="sub">
 	            		<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gear" viewBox="0 0 16 16">
   							<path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492zM5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0z"/>
@@ -340,28 +340,24 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">게시판 수정하기</h4>
+        <h4 class="modal-title w-100 font-weight-bold">게시판 관리</h4>
         <button type="button" class="close close-modal" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form:form name="updateBoardRoomFrm" method="post" action="${pageContext.request.contextPath }/gw/board/updateBoardRoom.do">
+      <form:form id="updateBoardRoomFrm" name="updateBoardRoomFrm" method="post" action="${pageContext.request.contextPath }/gw/board/updateBoardRoom.do">
 	      <div class="modal-body mx-3">
 	        <div class="md-form mb-5">
 	          <label  for="defaultForm-email">게시판 이름</label>
-	          <input type="text" name="boardName" id = "changingBoardName" class="form-control validate" placeholder="${boardName}">
-	          <label for="boardType">게시판 종류</label>
-	          <select class="boardType form-select" name="boardType" required>
-	          	<option value="B">일반 게시판</option>
-	          	<option value="A">익명 게시판</option>
-	          	<option value="F">파일 게시판</option>
-	          </select>
+	          <input type="text" name="boardName" id = "changingBoardName" class="form-control validate">
+		      <input type="hidden" id="boardNoForDML" name="boardNo" />
+		      <input type="hidden" name="groupNo" value="${currGroupNo}" />
 	        </div>
 	      </div>
-	      <input type="hidden" name="groupNo" value="${currGroupNo}" />
       </form:form>
       <div class="modal-footer d-flex justify-content-center">
-        <button class="btn btn-createBoardRoom">수정</button>
+        <button class="btn btn-updateBoardRoom">수정</button>
+        <button class="btn btn-deleteBoardRoom">삭제</button>
         <button class="btn close-modal">취소</button>
       </div>
     </div>
@@ -601,7 +597,46 @@ $(".modal-member-box").hide();
 	 $("#createBoardRoomModal").modal('show');
  });
  
- $(".btn-updateBoardRoom").click((e)=>{
+ $(".btn-updateBoardRoom").click((e)=> {
+ 	$(document.updateBoardRoomFrm).submit();
+ });
+ 
+ $(".btn-deleteBoardRoom").click((e)=> {
+	$("#updateBoardRoomFrm").prop('action','${pageContext.request.contextPath }/gw/board/deleteBoardRoom.do');
+	$(document.updateBoardRoomFrm).submit();
+ });
+ /* $(document).on("click", ".btn-updateBoardRoom", function() {
+	if(confirm("정말 수정하시겠습니까?") == true) {
+	 // 데이터를 담아내는 부분
+	 var form = $('#updateBoardRoomFrm')[0];
+	 var data = new FormData(form);
+	 var boardNo = $("#boardNoForDML").val();
+	 var boardName = $("#changingBoardName").val();
+	 
+	 if(boardName == ""){
+		 alert('게시판 이름을 입력해주세요.');
+		 return;
+	 }
+	 
+	 $.ajax({
+		 url: "${pageContext.request.contextPath }/gw/board/updateBoardRoom.do",
+		 method: "POST",
+		 data: jsonStr,
+		 contentType: "application/json; charset=utf-8",
+		 headers: {
+			"${_csrf.headerName}" : "${_csrf.token}" // "X-CSRF-TOKEN" : "fa8eab06-2c37-419b-a443-e47a1167e741"
+		 },
+		 success(res) {
+			 alert('수정 완료');
+			 console.log(res);
+			 location.reload();
+		 },
+		 error: console.log
+	 })
+	}		 
+ }); */
+ 
+ $(".btn-deleteBoardRoom").click((e)=>{
 	 $(document.updateBoardRoomFrm).submit();
  });
  $(".updateBoardRoom").click((e)=>{
@@ -648,8 +683,10 @@ $(".modal-member-box").hide();
  
  $(".div_sub").click((e)=>{
 		var boardName = e.target.parentNode.children[0].children[0].innerText;
+		var boardNo = e.target.parentNode.children[0].children[1].innerText;
 		console.log(boardName);
 		$("#changingBoardName").val(boardName);
+		$("#boardNoForDML").val(boardNo);
 	 })
 
  
