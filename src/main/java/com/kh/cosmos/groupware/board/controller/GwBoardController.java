@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletContext;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -33,7 +32,7 @@ import com.kh.cosmos.groupware.board.model.vo.Board;
 import com.kh.cosmos.groupware.board.model.vo.Post;
 import com.kh.cosmos.groupware.chat.model.vo.ChatRoom;
 import com.kh.cosmos.groupware.service.GroupwareService;
-import com.kh.cosmos.main.model.vo.Notice;
+import com.kh.cosmos.main.model.service.MainService;
 import com.kh.cosmos.member.model.vo.Member;
 import com.kh.cosmos.member.model.vo.MemberWithGroup;
 
@@ -48,9 +47,10 @@ public class GwBoardController {
 	private BoardService boardService;
 	@Autowired
 	private GroupwareService gwService;
-	
 	@Autowired
 	private AttachmentService attachmentService;
+	@Autowired
+	private MainService mainService;
 	
 	@Autowired
 	ServletContext application;
@@ -249,7 +249,7 @@ public class GwBoardController {
 
 	@GetMapping("/boardDetail.do")
 	public String boardDetail(@RequestParam int postNo, Model model, HttpServletRequest request, HttpServletResponse response) {
-
+		
 		Post post = boardService.selectOnePostInBoard(postNo);
 		log.debug("post = {}", post);
 		/* Attachment attach = boardService.selectOneAttachInBoard(attachNo); */
@@ -272,25 +272,37 @@ public class GwBoardController {
 		return "gw/board/noticeDetail";
 	}
 
-	 @GetMapping("/deletePostBoard.do")
-	public String deletePostBoard(@RequestParam int postNo, int boardNo, int groupNo, RedirectAttributes redirectAttr) {
+	@GetMapping("/deletePostBoard.do")
+	public String deletePostBoard(@RequestParam int postNo, RedirectAttributes redirectAttr) {
 		    	
-		 String msg ="";
-
 		 Post post = boardService.selectOnePostInBoard(postNo);
+		 Board board = boardService.selectBoardByBoardNo(post.getBoardNo());
+		 Attachment attachment = mainService.selectOneAttach(post.getAttachNo());
 		 
 		 try {
-			int postDelete  = boardService.deletePostInBoard(postNo);
-			/* int attachDelete = boardService.deleteAttachInBoard(attachNo); */
-			msg = postDelete> 1 ? "글삭제 성공!" : "글삭제 실패!";
+				String saveDirectory = application.getRealPath("/resources/upFile/fileboard");
+				String filename = attachment.getRenamedFilename();
+				File delFile = new File(saveDirectory, filename);
+				boolean delBool = delFile.delete();
+				
+				if(delBool == true) {
+					boardService.deleteAttachInBoard(post.getAttachNo());
+				}
+				int result  = boardService.deletePostInBoard(postNo);
+				log.debug("********** result = {} ", result);
+				redirectAttr.addFlashAttribute("msg", result > 0 ? "게시물이 삭제되었습니다." : "실패");
+
 			} catch (Exception e) {
 				log.error(e.getMessage(), e); // 로깅
 		}
-		    redirectAttr.addAttribute("msg", msg);
-		    	
-		 return  "redirect:/gw/board/board.do?boardNo="+boardNo+"&groupNo="+groupNo;
+
+		if (board.getBoardType() == 'N') {
+			return "redirect:/gw/board/notice.do?boardNo=" + post.getBoardNo() + "&groupNo=" + board.getGroupNo();
+		} else {
+			return "redirect:/gw/board/board.do?boardNo=" + post.getBoardNo() + "&groupNo=" + board.getGroupNo();
+		}
+		 
 	}
-	 
     
 	@GetMapping("/anonymous.do")
 	public void anonymous() {
