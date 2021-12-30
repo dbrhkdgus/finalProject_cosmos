@@ -8,6 +8,6 @@
   </select>
   
   <select id="selectGroupAttachmentListByGroupNo" resultType="attachment">
-  	select * from attachment where group_no = #{groupNo}
+  	select * from attachment where group_no = #{groupNo} and img_flag = 'Y'
   </select>
 </mapper>
