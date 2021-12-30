@@ -120,6 +120,13 @@ public class ChatServiceImpl implements ChatService {
 		// TODO Auto-generated method stub
 		return chatDao.selectMySenderList(receiver);
 	}
+
+	@Override
+	public int newDMCheck(String id) {
+		// TODO Auto-generated method stub
+		return chatDao.newDMCheck(id);
+	}
+	
 	
 	
 	
