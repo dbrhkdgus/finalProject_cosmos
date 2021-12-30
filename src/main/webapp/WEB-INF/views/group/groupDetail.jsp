@@ -196,7 +196,9 @@ function hasScrolled() {
 	                      <c:if test="${flag == 'N'}">
 	                      	<i class="far fa-heart"  data-group-no="${group.groupNo }"><span>${group.groupLikeCount }</span></i>
 	                      </c:if>
-	                      <i class="far fa-comment"  data-GM-id="${member.id }" onclick="DMPopup2('${member.id}')"><span>DM</span></i>			    	
+	  					  <c:if test="${member.id != loginMember.id }">
+		                      <i class="far fa-comment"  data-GM-id="${member.id }" onclick="DMPopup2('${member.id}')"><span>DM</span></i>			    	
+	  					  </c:if>
 					<c:set var="flag2" value="N" />
 					<c:forEach var="alg" items="${ALGroupList}">
 						<c:if test="${alg.memberId == loginMember.id}">

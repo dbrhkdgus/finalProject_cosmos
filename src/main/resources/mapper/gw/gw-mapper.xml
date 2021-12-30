@@ -8,7 +8,7 @@
   </select>
   
   <select id="selectAllGroupMembers" resultType="member">
-  select m.* from applocation_group a join tb_member m on a.member_id = m.id where group_no = #{groupNo}
+  select m.*, a.renamed_filename from tb_member m join attachment a on m.id = a.member_id join applocation_group g on m.id = g.member_id where a.img_flag = 'P' and g.group_no = #{groupNo}
   </select>
   
   <select id="selectMemberProfileRenamedFilename" resultType="string">
