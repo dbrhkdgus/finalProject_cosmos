@@ -307,26 +307,29 @@ public class GwBoardController {
 	}
 
 	@GetMapping("/boardDetail.do")
-	public String boardDetail(@RequestParam int postNo, Model model, HttpServletRequest request, HttpServletResponse response) {
-		
+	public String boardDetail(@RequestParam int postNo, Model model, HttpServletRequest request, HttpServletResponse response, Authentication auth) {
 		Post post = boardService.selectOnePostInBoard(postNo);
+		Board board = boardService.selectBoardByBoardNo(post.getBoardNo());
+		int groupNo = board.getGroupNo();
+		groupwareHeaderSet(groupNo, model, auth);
+		Attachment attach = mainService.selectOneAttach(post.getAttachNo());
 		log.debug("post = {}", post);
-		/* Attachment attach = boardService.selectOneAttachInBoard(attachNo); */
 		model.addAttribute("post", post);
-		/* model.addAttribute("attach", attach); */
+		model.addAttribute("attach", attach);
 
 		return "gw/board/boardDetail";
 	}
 	
-
 	@GetMapping("/noticeDetail.do")
-	public String noticeDetail(@RequestParam int postNo, Model model, HttpServletRequest request, HttpServletResponse response) {
-
+	public String noticeDetail(@RequestParam int postNo, Model model, HttpServletRequest request, HttpServletResponse response, Authentication auth) {
 		Post post = boardService.selectOnePostInNotice(postNo);
+		Board board = boardService.selectBoardByBoardNo(post.getBoardNo());
+		int groupNo = board.getGroupNo();
+		groupwareHeaderSet(groupNo, model, auth);
+		Attachment attach = mainService.selectOneAttach(post.getAttachNo());
 		log.debug("post = {}", post);
-		/* Attachment attach = boardService.selectOneAttachInBoard(groupNo); */
 		model.addAttribute("post", post);
-		/* model.addAttribute("attach", attach); */
+		model.addAttribute("attach", attach);
 
 		return "gw/board/noticeDetail";
 	}
