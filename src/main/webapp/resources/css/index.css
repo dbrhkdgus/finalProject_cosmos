@@ -207,11 +207,13 @@
 .fa-heart:before {
 	font-size : 25px;
 	color: red;
+	cursor: pointer;
 }
 .fa-comment:before {
 	margin-left: 10px;
 	font-size: 25px;
 	color: black;
+	cursor: pointer;
 }
 
 

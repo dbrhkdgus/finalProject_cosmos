@@ -806,3 +806,9 @@ div.list-group1{
 	height: 65vh;
     overflow-y: auto;
 }
+/* 디엠 팝업 */
+.dmPopup-box{
+	display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
