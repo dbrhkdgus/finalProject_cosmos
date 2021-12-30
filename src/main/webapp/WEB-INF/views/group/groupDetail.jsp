@@ -203,10 +203,10 @@ function hasScrolled() {
 					<c:forEach var="alg" items="${ALGroupList}">
 						<c:if test="${alg.memberId == loginMember.id}">
 							<c:if test="${fn:contains(alg.groupAccept, 'N')}">
-								<button type="button" class="btn btn-secondary btn-m  ml-3" onclick="location.href='#';" style="color:black; border:none; background-color:#CCE6FD;" >승인 대기중</button>
+								<button type="button" class="btn btn-secondary btn-m  ml-3" style="color:black; border:none; background-color:#CCE6FD;"  disabled>승인 대기중</button>
 							</c:if>
 							<c:if test="${fn:contains(alg.groupAccept, 'Y')}">
-								<button type="button" class="btn btn-secondary btn-m  ml-3" onclick="location.href='#';"  style="color:black; border:none; background-color:#CCE6FD;">가입된 그룹입니다</button>
+								<button type="button" class="btn btn-secondary btn-m  ml-3"  style="color:black; border:none; background-color:#CCE6FD;"  disabled>가입된 그룹입니다</button>
 							</c:if>
 							<c:set var="flag2" value="Y" />
 						</c:if>
