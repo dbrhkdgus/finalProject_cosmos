@@ -247,21 +247,20 @@ public class GwBoardController {
 		
 		int result = boardService.createBoardRoom(board);
 		redirectAtt.addAttribute("groupNo", board.getGroupNo());
-		redirectAtt.addAttribute("msg", result > 0 ? "채팅방 ["+board.getBoardName()+"]이 개설되었습니다." : "실패");
+		redirectAtt.addAttribute("msg", result > 0 ? "게시판 ["+board.getBoardName()+"]이 개설되었습니다." : "실패");
 		
 		
 		return "redirect:/gw/gw.do";
 	}
 	
-	@PostMapping("/updateBoardRoom.do")
-	public String updateBoardRoom(Board board, RedirectAttributes redirectAtt) {
-		
-		int result = boardService.updateBoardRoom(board);
-		redirectAtt.addAttribute("groupNo", board.getGroupNo());
-		redirectAtt.addAttribute("msg", result > 0 ? "채팅방 ["+board.getBoardName()+"]이 수정되었습니다." : "실패");
-		
-		
-		return "redirect:/gw/gw.do";
+	@GetMapping("/updateBoardRoom.do")
+	public Map<String, Object> updateBoardRoom(@RequestParam Map<String, Object> param, RedirectAttributes redirectAtt) {
+		Map<String, Object> map = new HashMap<>();
+		log.debug("넘겨져온 param = {}", param);
+		int result = boardService.updateBoardRoom(param);
+		redirectAtt.addAttribute("msg", result > 0 ? "게시판이 변경되었습니다." : "실패");
+		map.put("msg", "게시판 변경");
+		return map;
 	}
 	
 	

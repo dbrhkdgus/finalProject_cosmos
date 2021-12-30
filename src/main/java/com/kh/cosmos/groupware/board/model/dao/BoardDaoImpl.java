@@ -1,6 +1,7 @@
 package com.kh.cosmos.groupware.board.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
@@ -22,12 +23,6 @@ public class BoardDaoImpl implements BoardDao {
 	public int createBoardRoom(Board board) {
 		// TODO Auto-generated method stub
 		return session.insert("board.createBoardRoom", board);
-	}
-	
-	@Override
-	public int updateBoardRoom(Board board) {
-		// TODO Auto-generated method stub
-		return session.update("board.updateBoardRoom", board);
 	}
 
 	@Override
@@ -76,6 +71,12 @@ public class BoardDaoImpl implements BoardDao {
 	public List<MemberWithGroup> memberWithGroupList(int groupNo) {
 		// TODO Auto-generated method stub
 		return session.selectList("board.memberWithGroupList", groupNo);
+	}
+
+	@Override
+	public int updateBoardRoom(Map<String, Object> param) {
+		// TODO Auto-generated method stub
+		return session.update("board.updateBoardRoom", param);
 	}
 
 	

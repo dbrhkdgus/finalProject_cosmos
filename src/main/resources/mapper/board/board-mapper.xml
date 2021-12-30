@@ -8,7 +8,7 @@
   </insert>
   
   <update id="updateBoardRoom">
-  	update board set boardName = #{boardName}, boardType = #{boardType} where groupNo = #{gropNo}
+  	update board set board_name = #{boardName} where board_no = #{boardNo}
   </update>
   <select id="selectAllPostInBoard" resultType="PostWithCategory">
 	select

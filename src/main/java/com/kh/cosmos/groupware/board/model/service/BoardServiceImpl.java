@@ -1,6 +1,7 @@
 package com.kh.cosmos.groupware.board.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,12 +22,6 @@ public class BoardServiceImpl implements BoardService {
 	public int createBoardRoom(Board board) {
 		// TODO Auto-generated method stub
 		return boardDao.createBoardRoom(board);
-	}
-	
-	@Override
-	public int updateBoardRoom(Board board) {
-		// TODO Auto-generated method stub
-		return boardDao.updateBoardRoom(board);
 	}
 
 	@Override
@@ -77,7 +72,13 @@ public class BoardServiceImpl implements BoardService {
 		return boardDao.memberWithGroupList(groupNo);
 	}
 
-	
+	@Override
+	public int updateBoardRoom(Map<String, Object> param) {
+		// TODO Auto-generated method stub
+		return boardDao.updateBoardRoom(param);
+	}
+
+
 
 	
 	
