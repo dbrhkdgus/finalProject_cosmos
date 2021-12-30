@@ -83,6 +83,6 @@
 	select 
 		* 
 		from tb_member 	
-	
+		
 	</select>
 </mapper>
