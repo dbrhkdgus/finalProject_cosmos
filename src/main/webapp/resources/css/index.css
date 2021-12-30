@@ -208,6 +208,11 @@
 	font-size : 25px;
 	color: red;
 }
+.fa-comment:before {
+	margin-left: 10px;
+	font-size: 25px;
+	color: black;
+}
 
 
 /*그룹 생성하기 css*/

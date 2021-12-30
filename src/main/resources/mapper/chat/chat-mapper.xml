@@ -106,4 +106,20 @@ where (dm_receiver = #{receiver} and dm_sender = #{sender} and img_flag = 'P')or
 where 
     rownum = '1'
   </select>
+  <select id="newDMCheck" resultType="int">
+select count(dm_sender) from (select
+    *
+from (
+select 
+d.*,
+    m.member_name dm_sender_name,
+    a.renamed_filename dm_sender_profile_renamed_filename
+from 
+    dm d join tb_member m on d.dm_sender = m.id 
+    join attachment a on d.dm_sender = a.member_id
+where (dm_receiver = #{id} and img_flag = 'P')or (dm_sender = #{id} and img_flag = 'P') order by d."DM_MESSAGE_At" desc
+) e    
+where 
+    rownum = 1) group by dm_sender having dm_sender != #{id}
+  </select>
 </mapper>
