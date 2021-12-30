@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kh.cosmos.common.attachment.model.vo.Attachment;
+import com.kh.cosmos.group.model.vo.ApplocationGroup;
 import com.kh.cosmos.group.model.vo.Group;
+import com.kh.cosmos.groupware.admin.model.service.GwAdminService;
 import com.kh.cosmos.groupware.board.model.vo.Board;
 import com.kh.cosmos.groupware.chat.model.vo.ChatRoom;
 import com.kh.cosmos.groupware.service.GroupwareService;
@@ -30,11 +32,26 @@ public class GwAdminController {
 	@Autowired
 	private GroupwareService gwService ;
 	
+	@Autowired
+	private GwAdminService gwAdminService;
 	
 	@GetMapping("/memberManager.do")
 	public String memberManager(Model model, int groupNo,Authentication authentication) {
 		groupwareHeaderSet(groupNo, model, authentication);
 		model.addAttribute("groupNo", groupNo);
+		
+		List<ApplocationGroup> acceptApplocationGroupList = new ArrayList<ApplocationGroup>();
+		acceptApplocationGroupList = gwAdminService.selectAllAcceptGroupMemberList(groupNo);
+		log.debug("applocationGroup = {}" ,acceptApplocationGroupList);
+		model.addAttribute(acceptApplocationGroupList);
+		
+		//그룹장 승인 대기하는 애들
+		List<ApplocationGroup> waitingApplocationGroupList = new ArrayList<ApplocationGroup>();
+		waitingApplocationGroupList = gwAdminService.selectAllWaitingGroupMemberList(groupNo);
+		log.debug("applocationGroup = {}" ,waitingApplocationGroupList);
+		model.addAttribute(waitingApplocationGroupList);
+		
+		
 		return "gw/admin/memberManager";
 		
 	}
@@ -48,12 +65,12 @@ public class GwAdminController {
 	}
 
 	
+
 	@PostMapping("/groupAccept.do")
 	public String groupAccept(@RequestParam int groupNo,HttpServletRequest request, Model model,Authentication authentication) {
 		groupwareHeaderSet(groupNo, model, authentication);
 		String checkValid = request.getParameter("checkValid");
-		String checkYN = request.getParameter("checkYN");
-		 
+		String checkYN = request.getParameter("checkYN");		 
 		log.debug("check = {}" , checkValid);
 		log.debug("checkYN = {}" , checkYN);
 		return "gw/admin/memberManager";
