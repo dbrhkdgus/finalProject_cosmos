@@ -21,8 +21,16 @@
 		        		<c:if test="${message.chatUserNo == user.chatUserNo }">
 				        <div class="chat-profile-container">
 				          <div class="chat-user-profile">
-				            <img class="btn-profile chat-user-profile-img" src="${pageContext.request.contextPath }/resources/upFile/profile/${user.renamedFilename}" alt="">
-				          	<input type="hidden" id="chat-profile-memberId" value="${user.memberId }" />
+					          <c:choose>
+					          	<c:when test="${fn:startsWith(user.renamedFilename,'http')}">
+									<img class="btn-profile chat-user-profile-img" src="${user.renamedFilename}" alt=""/>
+									<input type="hidden" id="chat-profile-memberId" value="${user.memberId }" />
+								</c:when>
+								<c:otherwise>
+					            <img class="btn-profile chat-user-profile-img" src="${pageContext.request.contextPath }/resources/upFile/profile/${user.renamedFilename}" alt="">
+					          	<input type="hidden" id="chat-profile-memberId" value="${user.memberId }" />
+					            </c:otherwise>
+					          </c:choose>
 				          </div>
 				          <div class="chat-message-box">
 				            <div class="chat-message-sender">
@@ -67,7 +75,14 @@
 		<c:forEach var="profile" items="${memberProfileRenamedFilenameList }">
 	        <div class="test-member-profile">
 	          <div class="member-profile-img-box">
-	            <img class="btn-profile member-profile-img" src="${pageContext.request.contextPath }/resources/upFile/profile/${profile}" alt="">
+	            <c:choose>
+	          	<c:when test="${fn:startsWith(profile,'http')}">
+					<img class="btn-profile member-profile-img" src="${profile}" alt="" style="width: 150px"/>
+				</c:when>
+				<c:otherwise>
+	            	<img class="btn-profile member-profile-img" src="${pageContext.request.contextPath }/resources/upFile/profile/${profile}" alt="">
+	            </c:otherwise>
+	          </c:choose>
 	          </div>
 	        </div>
 		</c:forEach>

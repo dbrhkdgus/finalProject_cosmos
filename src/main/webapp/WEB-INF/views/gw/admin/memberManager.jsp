@@ -191,7 +191,7 @@
               <td>홍길동</td>
               <td>네</td>
               <td>2021-12-16</td>
-              <td><input type="checkbox" name="checkYN" id="" value="check"></td>
+              <td><input type="checkbox" name="checkValid" id="" value="check"></td>
             </tr>
           
             <tr>
@@ -199,7 +199,7 @@
               <td>홍길동</td>
               <td>네</td>
               <td>2021-12-16</td>
-              <td><input type="checkbox" name="checkYN" id="" value="check"></td>
+              <td><input type="checkbox" name="checkValid" id="" value="check"></td>
             </tr>
           
           </tbody>
