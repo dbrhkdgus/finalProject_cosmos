@@ -38,6 +38,10 @@ public interface BoardDao {
 
 	Post selectOnePostInNotice(int postNo);
 	
+	int updatePostFile(Post post);
+	
+	int updatePost(Post post);
+	
 	int deletePostInBoard(int postNo);
 
 	int deleteAttachInBoard(int attachNo);
@@ -47,6 +51,8 @@ public interface BoardDao {
 	Post selectOnePostInAnonymous(int postNo);
 
 	int insertPostInAnonymous(Post post);
+
+
 
 
 

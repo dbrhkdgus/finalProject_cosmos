@@ -22,14 +22,14 @@
 <div class="container">
   
   <form
-		name="boardFrm"   
+		name="postModifyFrm"   
 		enctype="multipart/form-data" 
 		action="${pageContext.request.contextPath }/gw/board/postModify.do?${_csrf.parameterName}=${_csrf.token}" method="post"
 		method="POST" 
 		>
 		<div class="input-group mb-3 mx-auto">
 			<span class="input-group-text" id="inputGroup-sizing-default">제목</span>
-			<input id="title" name="postTitle" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value="${post.postTitle}">
+			<input id="title" name="postTitle" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value="${post.postTitle}"/>
 			<input type="hidden" name="memberId" value="${member.id }" />
 			<input type="hidden" name="memberName" value="${member.memberName }" />
 			<input type="hidden" name="boardNo" value="${boardNo}" />
@@ -42,14 +42,14 @@
 			  </div>
 			  <div class="custom-file">
 			    <input type="file" class="custom-file-input" name="upFile"  >
-			    <label class="custom-file-label" for="upFile1">이미지 변경</label>
+			    <label class="custom-file-label" for="upFile1">${attach.originalFilename}</label>
 			</div>
 		</div>
 		
 	</form>
 	<div class="d-grid gap-2 col-6 mx-auto">
 		<button id="btn-send" class="btn btn-primary" type="button">수정하기</button>
-		<button id="btn-send" class="btn btn-primary" type="button">취소하기</button>
+		<button id="btn-cancel" class="btn btn-primary" type="button">취소하기</button>
 	</div>
 </div>
 </div>
@@ -110,8 +110,6 @@ $(document).ready(function() {
 		});
 	};
 	$("#btn-send").click((e)=>{
-		
-		
 		if($(title).val() != null && $(title).val() != ''){
 		}else{
 			alert("제목을 입력해주세요.");
@@ -123,8 +121,11 @@ $(document).ready(function() {
 			return;
 		}
 		
-		$(document.boardFrm).submit();
+		$(document.postModifyFrm).submit();
 	});
+	$("#btn-cancel").click((e)=> {
+		location.href="${pageContext.request.contextPath }/gw/board/board.do?boardNo="+${boardNo}+"&groupNo="+${groupNo}
+	})
 	
 	$(()=>{
 		$("[name=upFile]").change((e)=>{
