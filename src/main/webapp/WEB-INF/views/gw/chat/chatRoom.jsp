@@ -1,11 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>	
-<fmt:requestEncoding value="utf-8"/> 
+<%-- <fmt:requestEncoding value="utf-8"/>  --%>
 <jsp:include page="/WEB-INF/views/common/gw_header.jsp">
 	<jsp:param value="" name="title"/>
 </jsp:include>
@@ -13,7 +12,7 @@
 	<sec:authentication property="principal" var="loginMember"/>
 </sec:authorize>
 
-  <div class="workspace-box" >
+  <div class="workspace-box drop-zone" >
     <div class="chat-content">
 	        <c:if test="${not empty messageList }">
 		        <c:forEach var="message" items="${messageList }">
@@ -39,6 +38,11 @@
 				            </div>
 				            <div class="chat-message-content">
 				              <p>${message.chatMessageContent}</p>
+				              <div class="chatFile">
+				              		<c:if test="${message.attachNo != '' }">
+					              		<img src="${pageContext.request.contextPath }/resources/upFile/chatRoom/${message.chatFileRenamedFilename}" alt="" style="width:30%; height:30%; margin-left:25%"/>
+				              		</c:if>
+				              </div>
 				            </div>
 				          </div>
 				        </div>
@@ -50,7 +54,6 @@
         </div>
         
 		    <div class="chat-input-box">
-		
 		      <div class="chat-txt border-top">
 		        <input id="chatMessageContent" type="text" class="form-control" name="chatMessageContent">
 		      </div>
@@ -62,7 +65,9 @@
 		      </div>
 		      <button id="btn-message-send" class="btn btn-danger" data-original-title="" title="">Send</button>
 		    </div> 
-        
+        <form id="file-form"action="" method="POST" enctype="multipart/form-data">
+		 	<input type="file" id="file" name ="file" style="display: none;">
+        </form>
         
       </div>
 <!-- Footer-->
@@ -114,6 +119,87 @@
 <!-- jquery.form.js  -->
 <!-- <script src="http://malsup.github.com/jquery.form.js"></script> -->
 <script>
+// drag & drop
+         (function() {
+            
+            var $file = document.getElementById("file")
+            var dropZone = document.querySelector(".drop-zone")
+
+            
+            
+           var showFiles = function(files) {
+                dropZone.innerHTML = ""
+                for(var i = 0, len = files.length; i < len; i++) {
+                    dropZone.innerHTML += "<p>" + files[i].name + "</p>"
+                }
+            }
+
+            var selectFile = function(files) {
+                // input file 영역에 드랍된 파일들로 대체
+                $file.files = files
+                //showFiles($file.files)
+                
+            }
+            
+            $file.addEventListener("change", function(e) {
+                showFiles(e.target.files)
+            })
+
+            // 드래그한 파일이 최초로 진입했을 때
+            dropZone.addEventListener("dragenter", function(e) {
+                e.stopPropagation()
+                e.preventDefault()
+
+            	console.log("진입");
+                //toggleClass("dragenter")
+
+            })
+
+            // 드래그한 파일이 dropZone 영역을 벗어났을 때
+            dropZone.addEventListener("dragleave", function(e) {
+                e.stopPropagation()
+                e.preventDefault()
+
+            	console.log("벗어남");
+                //toggleClass("dragleave")
+
+            })
+
+            // 드래그한 파일이 dropZone 영역에 머물러 있을 때
+            dropZone.addEventListener("dragover", function(e) {
+                //e.stopPropagation()
+            	console.log("머무르는중"); //미친듯이 찍음
+                e.preventDefault()
+
+                //toggleClass("dragover")
+
+            })
+
+            // 드래그한 파일이 드랍되었을 때
+            dropZone.addEventListener("drop", function(e) {
+                e.preventDefault()
+
+                //toggleClass("drop")
+
+                var files = e.dataTransfer && e.dataTransfer.files
+
+
+                if (files != null) {
+                    if (files.length < 1) {
+                        alert("폴더 업로드 불가")
+                        return
+                    }
+                    selectFile(files)
+                } else {
+                    alert("ERROR")
+                }
+
+            })
+
+        })();
+        
+
+
 // 스크롤 최하단 유지
  $(".workspace-box").scrollTop($(".workspace-box")[0].scrollHeight); 
 //저장된 채팅 내역이 없는 경우 (처음 만들엉진 채팅방인 경우)
@@ -134,14 +220,20 @@ if($(".chat-content").children().length == 0){
 		console.log("Stomp Connected : ", frame);
 		
 	// 3. 구독요청
+	// 채팅방 구독
 	stompClient.subscribe(`/chat/${chatRoomNo}`, (chatMessageContent) =>{
 		var script = document.createElement("script");
 		script.innerHTML = `$(".workspace-box").scrollTop($(".workspace-box")[0].scrollHeight); `;
 		/* console.log("chatMessageContent : ", chatMessageContent); */
 		const obj = JSON.parse(chatMessageContent.body);
 		 console.log(obj); 
-		 const {memberName, msg, profileRenamedFilename, messageAt, logTime} = obj;
+		 const {memberName, msg, profileRenamedFilename, messageAt, logTime, chatFile} = obj;
 		 
+		 if(chatFile != null){
+			 var target = chatFile.split(".")[0];			 
+		 }else{
+			 var target = "foo";
+		 }
 		$(".chat-content").append(`<div class="chat-profile-container">
 		      <div class="chat-user-profile">
 		
@@ -152,7 +244,10 @@ if($(".chat-content").children().length == 0){
 	              <span>\${logTime}</span>
 	            </div>
 	            <div class="chat-message-content">
-	              <p>\${msg}</p> 
+	              <p>\${msg}</p>
+	              <div class="\${target}">
+	              	
+	              </div>
 	            </div>
 	          </div>
 	        </div>`); 
@@ -162,6 +257,11 @@ if($(".chat-content").children().length == 0){
 			
 		}else{
 			$(".chat-user-profile").append(`<img class="chat-user-profile-img" src="${pageContext.request.contextPath}/resources/upFile/profile/\${profileRenamedFilename}" alt="">`);
+		}
+		if(chatFile != null){
+			var target2 = "." + target
+			console.log(target);
+			$(target2).append(`<img src="${pageContext.request.contextPath}/resources/upFile/chatRoom/\${chatFile}" alt="" style="width:30%; height:30%; margin-left:25%"/>`);
 		}
 		$(".subscribe").append(script);
 	});
@@ -195,7 +295,9 @@ $(".btn-profile").click((e)=>{
     
  
 });
+
 $(".btn-profile2").click((e)=>{
+
 	var receiver = $(e.target).next().val();
 	$("input[name=dm-memberId]").val(receiver);
 	console.log(receiver);
@@ -238,18 +340,60 @@ $("#btn-dm-message-send").click((e) =>{
 	
 	$("#dm-chatMessageContent").val(''); // #message 초기화
 });
+// 채팅 메시지 발송처리
 $("#btn-message-send").click((e) =>{
+	if($(file).prop('files').length == 0){
+		if($("#chatMessageContent").val() == '') return;
+		
+	};
 	var today = new Date();
 	var hours = today.getHours(); // 시
 	var minutes = today.getMinutes();  // 분
-	const obj = {
-		chatRoomNo : "${chatRoomNo}",
-		memberId : "${loginMember.id}",
-		msg : $(chatMessageContent).val(),
-		logTime : hours + ":" + minutes
+	var obj = {};
+	
+	console.log();
+	
+ 	if($(file).prop('files').length == 0){
+	 	obj = {
+			chatRoomNo : "${chatRoomNo}",
+			memberId : "${loginMember.id}",
+			msg : $(chatMessageContent).val(),
+			logTime : hours + ":" + minutes,
+		};
+	 	
+	}else{
+		var form = $('#file-form')[0];
+	    var formData = new FormData(form);
+	 
+	    $.ajax({
+	        url : "${pageContext.request.contextPath}/gw/chat/uploadImg.do",
+	        type : 'POST',
+	        data : formData,
+	        contentType : false,
+	        processData : false,
+	        headers: {
+				"${_csrf.headerName}" : "${_csrf.token}"
+		 	},
+		 	success(data){
+		 		obj = {
+						chatRoomNo : "${chatRoomNo}",
+						memberId : "${loginMember.id}",
+						msg : $(chatMessageContent).val(),
+						logTime : hours + ":" + minutes,
+						chatFile : data
+						};
+		        $('#file-form')[0].reset();
+		 	},
+		 	error : console.log
+	    });  
 	};
 	
-	stompClient.send("/app/chat/${chatRoomNo}", {}, JSON.stringify(obj));
+	
+	setTimeout(function() {stompClient.send("/app/chat/${chatRoomNo}", {}, JSON.stringify(obj))}
+	, 500);
+
+	
+	
 	
 	$(chatMessageContent).val(''); // #message 초기화
 });

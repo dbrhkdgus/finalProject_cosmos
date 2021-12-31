@@ -48,4 +48,6 @@ public interface ChatService {
 
 	int newDMCheck(String id);
 
+	int insertChatMessageWithFile(ChatMessage chatMessage);
+
 }
