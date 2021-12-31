@@ -1,6 +1,7 @@
 package com.kh.cosmos.groupware.admin.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,4 +28,9 @@ public class GwAdminServiceImpl implements GwAdminService {
 		return gwAdminDao.selectAllWaitingGroupMemberList(groupNo);
 	}
 
+	@Override
+	public int updategroupAccept(Map<String, String> idList) {
+		return gwAdminDao.updategroupAccept(idList);
+	}
+	
 }
