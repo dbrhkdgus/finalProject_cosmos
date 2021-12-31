@@ -16,7 +16,7 @@
   select * from chat_room where chat_room_no = #{chatRoomNo}
   </select>
   <select id="selectAllMessageFromChatRoomNo" resultType="chatMessage">
-  select * from chat_message where chat_room_no = #{chatRoomNo} order by "CHAT_MESSAGE_At"
+  select m.*, a.renamed_filename as "chatFileRenamedFilename" from chat_message m left join attachment a on m.attach_no = a.attach_no where chat_room_no = #{chatRoomNo} order by "CHAT_MESSAGE_At"
   </select>
   <select id="selectGroupMasterId" resultType="string">
   select member_id from applocation_group where group_no = #{groupNo} and role = 'G'

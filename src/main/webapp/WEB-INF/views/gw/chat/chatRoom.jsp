@@ -39,8 +39,8 @@
 				            <div class="chat-message-content">
 				              <p>${message.chatMessageContent}</p>
 				              <div class="chatFile">
-				              		<c:if test="${not empty message.attachNo }">
-					              		<img src="" alt="" />
+				              		<c:if test="${message.attachNo != '' }">
+					              		<img src="${pageContext.request.contextPath }/resources/upFile/chatRoom/${message.chatFileRenamedFilename}" alt="" style="width:30%; height:30%; margin-left:25%"/>
 				              		</c:if>
 				              </div>
 				            </div>
@@ -229,6 +229,11 @@ if($(".chat-content").children().length == 0){
 		 console.log(obj); 
 		 const {memberName, msg, profileRenamedFilename, messageAt, logTime, chatFile} = obj;
 		 
+		 if(chatFile != null){
+			 var target = chatFile.split(".")[0];			 
+		 }else{
+			 var target = "foo";
+		 }
 		$(".chat-content").append(`<div class="chat-profile-container">
 		      <div class="chat-user-profile">
 		
@@ -240,7 +245,7 @@ if($(".chat-content").children().length == 0){
 	            </div>
 	            <div class="chat-message-content">
 	              <p>\${msg}</p>
-	              <div class="chatFile">
+	              <div class="\${target}">
 	              	
 	              </div>
 	            </div>
@@ -254,7 +259,9 @@ if($(".chat-content").children().length == 0){
 			$(".chat-user-profile").append(`<img class="chat-user-profile-img" src="${pageContext.request.contextPath}/resources/upFile/profile/\${profileRenamedFilename}" alt="">`);
 		}
 		if(chatFile != null){
-			$(".chatFile").append(`<img src="${pageContext.request.contextPath}/resources/upFile/chatRoom/\${chatFile}" alt="" style="width:50%; height:50%; margin-left:25%"/>`);
+			var target2 = "." + target
+			console.log(target);
+			$(target2).append(`<img src="${pageContext.request.contextPath}/resources/upFile/chatRoom/\${chatFile}" alt="" style="width:30%; height:30%; margin-left:25%"/>`);
 		}
 		$(".subscribe").append(script);
 	});
@@ -288,7 +295,9 @@ $(".btn-profile").click((e)=>{
     
  
 });
+
 $(".btn-profile2").click((e)=>{
+
 	var receiver = $(e.target).next().val();
 	$("input[name=dm-memberId]").val(receiver);
 	console.log(receiver);
@@ -333,7 +342,10 @@ $("#btn-dm-message-send").click((e) =>{
 });
 // 채팅 메시지 발송처리
 $("#btn-message-send").click((e) =>{
-
+	if($(file).prop('files').length == 0){
+		if($("#chatMessageContent").val() == '') return;
+		
+	};
 	var today = new Date();
 	var hours = today.getHours(); // 시
 	var minutes = today.getMinutes();  // 분
