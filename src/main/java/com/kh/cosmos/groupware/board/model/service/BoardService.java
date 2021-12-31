@@ -48,6 +48,8 @@ public interface BoardService {
 
 	int insertPostInAnonymous(Post post);
 
+	int deletePostInAnonymous(int postNo);
+
 
 
 }

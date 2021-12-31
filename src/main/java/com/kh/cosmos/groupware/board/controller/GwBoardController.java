@@ -33,6 +33,7 @@ import com.kh.cosmos.groupware.board.model.vo.Post;
 import com.kh.cosmos.groupware.chat.model.vo.ChatRoom;
 import com.kh.cosmos.groupware.service.GroupwareService;
 import com.kh.cosmos.main.model.service.MainService;
+import com.kh.cosmos.member.model.service.MemberService;
 import com.kh.cosmos.member.model.vo.Member;
 import com.kh.cosmos.member.model.vo.MemberWithGroup;
 
@@ -51,7 +52,7 @@ public class GwBoardController {
 	private AttachmentService attachmentService;
 	@Autowired
 	private MainService mainService;
-	
+
 	@Autowired
 	ServletContext application;
 
@@ -301,17 +302,42 @@ public class GwBoardController {
 	}
 	
 	@GetMapping("/anonymousDetail.do")
-	public String anonymousDetail(@RequestParam int postNo, Model model, HttpServletRequest request, HttpServletResponse response) {
-
+	public String anonymousDetail(@RequestParam int postNo, Model model, HttpServletRequest request, HttpServletResponse response, Authentication auth) {
+		
 		Post post = boardService.selectOnePostInAnonymous(postNo);
-		log.debug("post = {}", post);
-		/* Attachment attach = boardService.selectOneAttachInBoard(groupNo); */
-		model.addAttribute("post", post);
-		/* model.addAttribute("attach", attach); */
+		Board board = boardService.selectBoardByBoardNo(post.getBoardNo());
+		int groupNo = board.getGroupNo();
+		groupwareHeaderSet(groupNo, model, auth);
 
+		log.debug("post = {}", post);
+		model.addAttribute("post", post);
+		
 		return "gw/board/anonymousDetail";
+	
 	}
 
+	@PostMapping("/deletePostAnonymous.do")
+	public String deletePostAnonymous(@RequestParam int postNo, int postPassword, RedirectAttributes redirectAttr) {
+		    	
+		Post post = boardService.selectOnePostInAnonymous(postNo);
+		Board board = boardService.selectBoardByBoardNo(post.getBoardNo());
+		
+		if(post.getPostPassword() != postPassword){
+		
+			redirectAttr.addFlashAttribute("msg","비밀번호가 일치하지 않습니다.");
+			return "redirect:/gw/board/anonymousDetail.do?postNo="+ postNo;
+		}else{
+			
+			int result  = boardService.deletePostInAnonymous(postNo);
+			log.debug("********** result = {} ", result);
+			redirectAttr.addFlashAttribute("msg", result > 0 ? "게시물이 삭제되었습니다." : "실패");
+			
+			
+			return "redirect:/gw/board/anonymous.do?boardNo=" + post.getBoardNo() + "&groupNo=" + board.getGroupNo();
+		}
+	}
+		 
+	
 
 	@GetMapping("/deletePostBoard.do")
 	public String deletePostBoard(@RequestParam int postNo, RedirectAttributes redirectAttr) {

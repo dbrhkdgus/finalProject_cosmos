@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <fmt:requestEncoding value="utf-8"/> 
 <jsp:include page="/WEB-INF/views/common/gw_header.jsp">
 	<jsp:param value="" name="title"/>
@@ -35,7 +36,7 @@
      
     <div class="d-grid gap-2 d-md-block" style="text-align: right;">
 				<button class="btn btn-primary" type="button" style="margin:5px;">수정</button>&nbsp;
-				<button class="btn btn-primary" type="button" >삭제</button>
+				<button class="deleteAnonymousPost btn btn-primary" type="button" >삭제</button>
 			</div>
   </div>
   <div class="card mb-2">
@@ -54,6 +55,65 @@
 	</div>
 </div>
 </div>
-  
+
+<!-- 익명게시판 삭제하기 위한 모달창 -->
+<div class="modal fade" id="deleteAnonymousModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">삭제하시려면 비밀번호를 입력해주세요</h4>
+        <button type="button" class="close close-modal" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form:form name="deleteAnonymousFrm" method="post" action="${pageContext.request.contextPath}/gw/board/deletePostAnonymous.do?postNo=${post.postNo}">
+	      <div class="modal-body mx-3">
+	        <div class="md-form mb-5">
+	          <label  for="defaultForm-email">비밀번호</label>
+	          <input type="text" name="postPassword" class="form-control validate"  maxlength="4" onChange="checkNumber()" id="deleteanonymous">
+	        </div>
+	      </div>
+	      <input type="hidden" name="groupNo" value="${currGroupNo}" />
+      </form:form>
+      <div class="modal-footer d-flex justify-content-center">
+        <button class="btn btn-deleteAnonymousPost">삭제</button>
+        <button class="btn close-modal">취소</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+
+function checkNumber() {
+	var objEv = event.srcElement;
+	var numPattern = /([^0-9])/;
+	var numPattern = objEv.value.match(numPattern);
+	if (numPattern != null) {
+		alert("숫자만 입력하세요");
+		objEv.value = "";
+		objEv.focus();
+		return false;
+	}
+
+}
+
+$(".modal-member-box").hide();
+
+ $(".close-modal").click((e)=>{
+	 $("#deleteAnonymousModal").modal('hide');
+ });
+
+ 
+ $(".btn-deleteAnonymousPost").click((e)=>{
+	 $(document.deleteAnonymousFrm).submit();
+ });
+ $(".deleteAnonymousPost").click((e)=>{
+	 $("#deleteAnonymousModal").modal('show');
+ });
+
+ 
+</script>
 <jsp:include page="/WEB-INF/views/common/gw_footer.jsp"></jsp:include>
 
