@@ -108,38 +108,36 @@
   $("[id='checkYN']").click((e) => {
 		e.preventDefault();
 		
-	let rowNum = $("input[name='checkValid']").length;
+	let rowNum = $("input[name='checkValid']:checked").length;
     var idList = [];
    
     for(i=0; i<rowNum; i++) {
-        let id= $("input[name='checkValid']").eq(i).val()
-           idList.push("id : "+id); 
-  /*           console.log(id) */
+        let id= $("input[name='checkValid']:checked").eq(i).val()
+           idList.push(id); 
     };
+    
             console.log(idList)
-    	  var data2 = {"ressId":idList};
+		var idString = idList.toString();
+		 
+		console.log(idString);    
             
-//         var allData = { "userId": JSON.stringify(idList)};
-            
- 		 	$.ajax({
-				url: `${pageContext.request.contextPath}/gw/admin/groupAccept.do`,
+//	   	 	  var data2 = {"ressId":idList};
+//            var jsonData = JSON.stringify(idList);
+			
+			$.ajax({
+				url: `${pageContext.request.contextPath}/gw/admin/groupAccept.do?groupNo=${groupNo}`,
 //				method:"POST",
 				dataType: "json", //돌려받는거
 				traditional : true,
 				data:  {
-		            "idList": idList
+		            "idList": idString
 		        },
 				contentType: "application/json; charset=utf-8", //주는타입
 				success(data){
 					console.log(data);
-				
-			
 			},
 			error: console.log
-			
 	 	 }) 
-
-
   });    
 		
 </script>

@@ -25,5 +25,6 @@ public class ChatMessage implements Serializable {
 	private Date chatMessageAt;
 	private int chatMessageTypeNo;
 	private int attachNo;
+	private String chatFileRenamedFilename;
 
 }

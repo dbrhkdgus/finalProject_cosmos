@@ -126,6 +126,12 @@ public class ChatDaoImpl implements ChatDao {
 		// TODO Auto-generated method stub
 		return session.selectOne("chat.newDMCheck", id);
 	}
+
+	@Override
+	public int insertChatMessageWithFile(ChatMessage chatMessage) {
+		// TODO Auto-generated method stub
+		return session.insert("chat.insertChatMessageWithFile", chatMessage);
+	}
 	
 	
 	
