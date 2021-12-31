@@ -71,35 +71,7 @@
 <c:if test="${not empty msg}">
 <script>
 	alert("${msg}");
-	/* 
-	let span = document.querySelector("a.link-dark rounded");
-	let hiddenText = document.querySelector(".hidden");
 
-	function Show() {
-	  hiddenText.innerHTML = "마우스가 올라왔습니다.";
-	}
-
-	function hide() {
-	  hiddenText.innerHTML = "";
-	}
-
-	span.addEventListener("mouseover", Show);
-	span.addEventListener("mouseout", hide); */
-	
-	/* $(function(){
-		$('#sub').hide();
-		$('#updateBoard').hover(function(){
-			$(this).parent().find('#sub').slideDown(200);
-			$(this).parent().hover(function(){
-			},function(){
-				$(this).parent().find('#sub').slideUp(200);
-			})
-	
-	});
-	}); */
-	$('#link-dark rounded').hover(function(){
-		updateboard.style.visibility="visible";
-	}
 	
 </script>
 </c:if>
@@ -374,7 +346,7 @@
 	      <input type="hidden" name="groupNo" value="${currGroupNo}" />
       </form:form>
       <div class="modal-footer d-flex justify-content-center">
-        <button class="btn btn-createBoardRoom">수정</button>
+        <button class="btn btn-updateBoardRoom">수정</button>
         <button class="btn close-modal">취소</button>
       </div>
     </div>
@@ -406,8 +378,7 @@
               </div>
               <div class="modal-member-box" style="border: 1px solid black; ">
               
-     
-              	
+
               </div>
             </div>
           </div>
@@ -435,9 +406,7 @@
 	      <div class="dm-modal-body modal-body mx-3">
 	        <div class="md-form mb-5">
 	          	<div class="dm-profile-container mb-3">
-	          	
-		          
-		        
+
 
 		        </div>
 		        
@@ -481,7 +450,7 @@
 /* 채팅방 개설 modal 제어 */
 $(".modal-member-box").hide();
 
- $(".btn-createChatRoom").click((e)=>{
+$(".btn-createChatRoom").click((e)=>{
 	 $(document.createChatRoomFrm).submit();
  });
  $(".createChatRoom").click((e)=>{
@@ -537,7 +506,6 @@ $(".modal-member-box").hide();
  });
 
 
- 
  
  $(".btn-createBoardRoom").click((e)=>{
 	 $(document.createBoardRoomFrm).submit();
