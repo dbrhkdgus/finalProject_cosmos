@@ -131,59 +131,59 @@ public class GwBoardController {
 		model.addAttribute("title", "# " + board.getBoardName() + " 작성");
 	}
 
-//	@PostMapping("/noticeEnroll.do")
-//	public String noticeEnroll(Post post, int boardNo, int groupNo,
-//			@RequestParam(value="upFile", required=false) MultipartFile upFile,RedirectAttributes redirectAttr,
-//    		Authentication authentication) {
-//		
-//		String memberId = post.getMemberId();
-//		log.debug("memberId = {}", post.getMemberId());
-//		Board board = boardService.selectBoardByBoardNo(boardNo);
-//		log.debug("***********board = {}", board);
-//		 try {
-//			 String saveDirectory = application.getRealPath("/resources/upFile/fileboard");
-//			 log.debug("saveDirectory = {}", saveDirectory);
-//		 
-//			 
-//		 if(upFile != null && !upFile.isEmpty() && upFile.getSize() != 0) {
-//			 log.debug("upFile = {}", upFile);
-//			 log.debug("upFile.name = {}",upFile.getOriginalFilename());
-//			 log.debug("upFile.size = {}",upFile.getSize());
-//		 
-//			 String originalFilename = upFile.getOriginalFilename();
-//			 String renamedFilename = CosmosUtils.getRenamedFilename(originalFilename);
-//			 
-//			 // 1.서버컴퓨터에 저장
-//			 File dest = new File(saveDirectory, renamedFilename);
-//			 log.debug("dest = {}", dest);
-//			 upFile.transferTo(dest);
-//			 
-//			 // 2.DB에 attachment 레코드 등록
-//			 Attachment attach = new Attachment();
-//			 attach.setRenamedFilename(renamedFilename);
-//			 attach.setOriginalFilename(originalFilename);
-//			 attach.setGroupNo(groupNo);
-//			 attach.setMemberId(memberId);
-//			 
-//			 int attachNo = boardService.insertAttach(attach);
-//			 
-//			 int result = boardService.insertPostFile(post);
-//		 } else {
-//			 // 업무로직
-//			 int result = boardService.insertPost(post);
-//		 } 
-//		 
-//		 } catch (Exception e) {
-//			log.error(e.getMessage(), e); // 로깅 throw e; //spring container에게 던짐.
-//			 	
-//		 }
-//		log.debug("***************boardType = {}", board.getBoardType());
-//		if(board.getBoardType() == 'N') {
-//			return "redirect:/gw/board/notice.do?boardNo="+boardNo+"&groupNo="+groupNo;
-//		} else {
-//			return "redirect:/gw/board/board.do?boardNo="+boardNo+"&groupNo="+groupNo;
-//		}
-//	}
+	@PostMapping("/noticeEnroll.do")
+	public String noticeEnroll(Post post, int boardNo, int groupNo,
+			@RequestParam(value="upFile", required=false) MultipartFile upFile,RedirectAttributes redirectAttr,
+    		Authentication authentication) {
+		
+		String memberId = post.getMemberId();
+		log.debug("memberId = {}", post.getMemberId());
+		Board board = boardService.selectBoardByBoardNo(boardNo);
+		log.debug("***********board = {}", board);
+		 try {
+			 String saveDirectory = application.getRealPath("/resources/upFile/fileboard");
+			 log.debug("saveDirectory = {}", saveDirectory);
+		 
+			 
+		 if(upFile != null && !upFile.isEmpty() && upFile.getSize() != 0) {
+			 log.debug("upFile = {}", upFile);
+			 log.debug("upFile.name = {}",upFile.getOriginalFilename());
+			 log.debug("upFile.size = {}",upFile.getSize());
+		 
+			 String originalFilename = upFile.getOriginalFilename();
+			 String renamedFilename = CosmosUtils.getRenamedFilename(originalFilename);
+			 
+			 // 1.서버컴퓨터에 저장
+			 File dest = new File(saveDirectory, renamedFilename);
+			 log.debug("dest = {}", dest);
+			 upFile.transferTo(dest);
+			 
+			 // 2.DB에 attachment 레코드 등록
+			 Attachment attach = new Attachment();
+			 attach.setRenamedFilename(renamedFilename);
+			 attach.setOriginalFilename(originalFilename);
+			 attach.setGroupNo(groupNo);
+			 attach.setMemberId(memberId);
+			 
+			 int attachNo = boardService.insertAttach(attach);
+			 
+			 int result = boardService.insertPostFile(post);
+		 } else {
+			 // 업무로직
+			 int result = boardService.insertPost(post);
+		 } 
+		 
+		 } catch (Exception e) {
+			log.error(e.getMessage(), e); // 로깅 throw e; //spring container에게 던짐.
+			 	
+		 }
+		log.debug("***************boardType = {}", board.getBoardType());
+		if(board.getBoardType() == 'N') {
+			return "redirect:/gw/board/notice.do?boardNo="+boardNo+"&groupNo="+groupNo;
+		} else {
+			return "redirect:/gw/board/board.do?boardNo="+boardNo+"&groupNo="+groupNo;
+		}
+	}
 	
 	@GetMapping("/anonymousEnroll.do")
 	public void anonymousEnroll(@RequestParam int boardNo, @RequestParam int groupNo, Model model, Authentication auth) {
@@ -209,6 +209,76 @@ public class GwBoardController {
 	}
 	
 
+	@GetMapping("/postModify.do")
+	public void postModify(@RequestParam int postNo, Model model, Authentication auth) {
+		Post post = boardService.selectOnePostInBoard(postNo);
+		int boardNo = post.getBoardNo();
+		Board board = boardService.selectBoardByBoardNo(boardNo);
+		int groupNo = board.getGroupNo();
+		Attachment attach = boardService.selectOneAttachInBoard(post.getAttachNo());
+		groupwareHeaderSet(groupNo, model, auth);
+		model.addAttribute("boardNo", boardNo);
+		model.addAttribute("groupNo", groupNo);
+		model.addAttribute("post", post);
+		model.addAttribute("board", board);
+		model.addAttribute("attach", attach);
+		model.addAttribute("title", "# " + board.getBoardName());
+		
+	}
+	
+	@PostMapping("/postModify.do")
+	public String postModify(Post post, int boardNo, int groupNo,
+			@RequestParam(value = "upFile", required = false) MultipartFile upFile, RedirectAttributes redirectAttr,
+			Authentication authentication) {
+		
+		String memberId = post.getMemberId();
+		log.debug("memberId = {}", post.getMemberId());
+		Board board = boardService.selectBoardByBoardNo(boardNo);
+		
+		try {
+			String saveDirectory = application.getRealPath("/resources/upFile/fileboard");
+			log.debug("saveDirectory = {}", saveDirectory);
+			
+			if (upFile != null && !upFile.isEmpty() && upFile.getSize() != 0) {
+				log.debug("upFile = {}", upFile);
+				log.debug("upFile.name = {}", upFile.getOriginalFilename());
+				log.debug("upFile.size = {}", upFile.getSize());
+				
+				String originalFilename = upFile.getOriginalFilename();
+				String renamedFilename = CosmosUtils.getRenamedFilename(originalFilename);
+				
+				// 1.서버컴퓨터에 저장
+				File dest = new File(saveDirectory, renamedFilename);
+				log.debug("dest = {}", dest);
+				upFile.transferTo(dest);
+				
+				// 2.DB에 attachment 레코드 등록
+				Attachment attach = new Attachment();
+				attach.setRenamedFilename(renamedFilename);
+				attach.setOriginalFilename(originalFilename);
+				attach.setGroupNo(groupNo);
+				attach.setMemberId(memberId);
+				
+				int attachNo = boardService.insertAttach(attach);
+				
+				int result = boardService.updatePostFile(post);
+			} else {
+				// 업무로직
+				int result = boardService.updatePost(post);
+			}
+			
+		} catch (Exception e) {
+			log.error(e.getMessage(), e); // 로깅 throw e; //spring container에게 던짐.
+			
+		}
+		
+		if (board.getBoardType() == 'N') {
+			return "";
+		} else {
+			return "redirect:/gw/board/board.do?boardNo=" + boardNo + "&groupNo=" + groupNo;
+		}
+	}
+	
 	@GetMapping("/boardEnroll.do")
 	public void boardEnroll(@RequestParam int boardNo, @RequestParam int groupNo, Model model, Authentication auth) {
 		groupwareHeaderSet(groupNo, model, auth);
@@ -279,9 +349,21 @@ public class GwBoardController {
 		int groupNo = board.getGroupNo();
 		groupwareHeaderSet(groupNo, model, auth);
 		Attachment attach = mainService.selectOneAttach(post.getAttachNo());
+		
+		// MemberWithGroupList 불러오기
+		List<MemberWithGroup> memberWithGroupList = boardService.memberWithGroupList(groupNo);
+
+		// memberId, nickname map에 담기
+		Map<String, String> memberWithGroupMap = new HashMap<>();
+		for (MemberWithGroup memberWithGroup : memberWithGroupList) {
+			memberWithGroupMap.put(memberWithGroup.getId(), memberWithGroup.getNickname());
+		}
+		model.addAttribute("memberWithGroupMap", memberWithGroupMap);
+		
 		log.debug("post = {}", post);
 		model.addAttribute("post", post);
 		model.addAttribute("attach", attach);
+		model.addAttribute("title", "# " + board.getBoardName());
 
 		return "gw/board/boardDetail";
 	}
@@ -293,9 +375,21 @@ public class GwBoardController {
 		int groupNo = board.getGroupNo();
 		groupwareHeaderSet(groupNo, model, auth);
 		Attachment attach = mainService.selectOneAttach(post.getAttachNo());
+		
+		// MemberWithGroupList 불러오기
+		List<MemberWithGroup> memberWithGroupList = boardService.memberWithGroupList(groupNo);
+
+		// memberId, nickname map에 담기
+		Map<String, String> memberWithGroupMap = new HashMap<>();
+		for (MemberWithGroup memberWithGroup : memberWithGroupList) {
+			memberWithGroupMap.put(memberWithGroup.getId(), memberWithGroup.getNickname());
+		}
+		model.addAttribute("memberWithGroupMap", memberWithGroupMap);
+		
 		log.debug("post = {}", post);
 		model.addAttribute("post", post);
 		model.addAttribute("attach", attach);
+		model.addAttribute("title", "# " + board.getBoardName());
 
 		return "gw/board/noticeDetail";
 	}
