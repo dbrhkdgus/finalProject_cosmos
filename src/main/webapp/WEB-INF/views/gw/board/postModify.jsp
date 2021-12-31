@@ -6,7 +6,7 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <fmt:requestEncoding value="utf-8"/> 
 <jsp:include page="/WEB-INF/views/common/gw_header.jsp">
-	<jsp:param value="게시글 작성" name="title"/>
+	<jsp:param value="게시글 수정" name="title"/>
 </jsp:include>
 <sec:authorize access="isAuthenticated()">
 	<sec:authentication property="principal" var="member"/>
@@ -22,47 +22,38 @@
 <div class="container">
   
   <form
-		name="boardFrm"   
+		name="postModifyFrm"   
 		enctype="multipart/form-data" 
-		action="${pageContext.request.contextPath }/gw/board/boardEnroll.do?${_csrf.parameterName}=${_csrf.token}" method="post"
+		action="${pageContext.request.contextPath }/gw/board/postModify.do?${_csrf.parameterName}=${_csrf.token}" method="post"
 		method="POST" 
 		>
 		<div class="input-group mb-3 mx-auto">
 			<span class="input-group-text" id="inputGroup-sizing-default">제목</span>
-			<input id="title" name="postTitle" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="제목을 입력해 주세요.">
+			<input id="title" name="postTitle" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value="${post.postTitle}"/>
 			<input type="hidden" name="memberId" value="${member.id }" />
 			<input type="hidden" name="memberName" value="${member.memberName }" />
 			<input type="hidden" name="boardNo" value="${boardNo}" />
 			<input type="hidden" name="groupNo" value="${groupNo}"/>
 		</div>
-		<textarea id="summernote" name="postContent"></textarea>
+		<textarea id="summernote" name="postContent">${post.postContent}</textarea>
 		<div class="input-group mb-3" style="padding:0px; padding-top: 5px;">
 			<div class="input-group-prepend" style="padding:0px;">
-			    <span class="input-group-text">첨부파일1</span>
+			    <span class="input-group-text">첨부파일</span>
 			  </div>
 			  <div class="custom-file">
 			    <input type="file" class="custom-file-input" name="upFile"  >
-			    <label class="custom-file-label" for="upFile1">파일을 선택하세요</label>
+			    <label class="custom-file-label" for="upFile1">${attach.originalFilename}</label>
 			</div>
 		</div>
 		
-		<div class="upload-display">
-	        <div class="upload-thumb-wrap">
-	          <img src="#" class="upload-thumb">
-	        </div>
-	    </div>
-			
-	    <div class="upload-except-img">
-	        
-	    </div>
-		
 	</form>
 	<div class="d-grid gap-2 col-6 mx-auto">
-		<button id="btn-send" class="btn btn-primary" type="button">작성 완료</button>
+		<button id="btn-send" class="btn btn-primary" type="button">수정하기</button>
+		<button id="btn-cancel" class="btn btn-primary" type="button">취소하기</button>
 	</div>
 </div>
 </div>
-<script>
+  <script>
 
 $(document).ready(function() {
     //여기 아래 부분
@@ -72,7 +63,6 @@ $(document).ready(function() {
 		maxHeight: null,             // 최대 높이
 		focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
 		lang: "ko-KR",					// 한글 설정
-		placeholder: '내용을 입력하세요.',	//placeholder 설정
 		spellCheck: false,
 		callbacks: {	//여기 부분이 이미지를 첨부하는 부분
 			onImageUpload : function(files) {
@@ -103,7 +93,7 @@ $(document).ready(function() {
 		fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋움체','바탕체'],
 		fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72']
 	});
-
+    
     function uploadSummernoteImageFile(file, editor) {
 		data = new FormData();
 		data.append("file", file);
@@ -120,8 +110,6 @@ $(document).ready(function() {
 		});
 	};
 	$("#btn-send").click((e)=>{
-		
-		
 		if($(title).val() != null && $(title).val() != ''){
 		}else{
 			alert("제목을 입력해주세요.");
@@ -133,8 +121,11 @@ $(document).ready(function() {
 			return;
 		}
 		
-		$(document.boardFrm).submit();
+		$(document.postModifyFrm).submit();
 	});
+	$("#btn-cancel").click((e)=> {
+		location.href="${pageContext.request.contextPath }/gw/board/board.do?boardNo="+${boardNo}+"&groupNo="+${groupNo}
+	})
 	
 	$(()=>{
 		$("[name=upFile]").change((e)=>{
@@ -149,49 +140,6 @@ $(document).ready(function() {
 				$label.html("파일을 선택하세요.");
 		});
 	});
-	
-    $(".upload-display").hide();
-    $(".upload-except-img").hide();
-    var fileTarget = $('.custom-file-input .custom-file-label');
-    
-    fileTarget.on('change', function(){
-        if(window.FileReader){
-            // 파일명 추출
-            var filename = $(this)[0].files[0].name;
-		  	console.log(filename);
-        } 
-
-        else {
-            // Old IE 파일명 추출
-            var filename = $(this).val().split('/').pop().split('\\').pop();
-		  	console.log(filename);
-        };
-
-        $(this).siblings('.upload-name').val(filename);
-    });
-    
-    var imgTarget = $('.custom-file .custom-file-input');
-    
-    imgTarget.on('change', function() {
-	    var parent = $(this).parent();
-	    console.log(parent);
-	    parent.children('.upload-display').remove();
-	    console.log(parent.children());
-	    
-	    if(window.FileReader){
-	        //image 파일만
-	        if ($(this)[0].files[0].type.match(/image\//)){
-	          var reader = new FileReader();
-	          reader.onload = function(e){
-	            var src = e.target.result;
-	            $(".upload-display").show();
-	            $(".upload-except-img").hide();
-	            $(".upload-thumb").attr('src', src);
-	          }
-	          reader.readAsDataURL($(this)[0].files[0]);
-	        }
-	    };
-    });
 });
 
 

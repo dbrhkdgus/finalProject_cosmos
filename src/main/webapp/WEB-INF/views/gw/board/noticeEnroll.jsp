@@ -45,6 +45,16 @@
 			</div>
 		</div>
 		
+		<div class="upload-display">
+	        <div class="upload-thumb-wrap">
+	          <img src="#" class="upload-thumb">
+	        </div>
+	    </div>
+			
+	    <div class="upload-except-img">
+	        
+	    </div>
+		
 	</form>
 	<div class="d-grid gap-2 col-6 mx-auto">
 		<button id="btn-send" class="btn btn-primary" type="button">작성 완료</button>
@@ -55,33 +65,132 @@
 $(document).ready(function() {
     //여기 아래 부분
     $('#summernote').summernote({
-          height: 300,                 // 에디터 높이
-          minHeight: 100,             // 최소 높이
-          maxHeight: 500,             // 최대 높이
-          focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
-          lang: "ko-KR",                    // 한글 설정
-          placeholder: '문의사항을 작성해 주세요.'    //placeholder 설정
+    	height: 300,                 // 에디터 높이
+		minHeight: 300,             // 최소 높이
+		maxHeight: null,             // 최대 높이
+		focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
+		lang: "ko-KR",					// 한글 설정
+		placeholder: '내용을 입력하세요.',	//placeholder 설정
+		spellCheck: false,
+		callbacks: {	//여기 부분이 이미지를 첨부하는 부분
+			onImageUpload : function(files) {
+				uploadSummernoteImageFile(files[0],this);
+			},
+			onPaste: function (e) {
+				var clipboardData = e.originalEvent.clipboardData;
+				if (clipboardData && clipboardData.items && clipboardData.items.length) {
+					var item = clipboardData.items[0];
+					if (item.kind === 'file' && item.type.indexOf('image/') !== -1) {
+						e.preventDefault();
+					}
+				}
+			}
+		},
+		toolbar: [
+		    // [groupName, [list of button]]
+		    ['fontname', ['fontname']],
+		    ['fontsize', ['fontsize']],
+		    ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
+		    ['color', ['forecolor','color']],
+		    ['table', ['table']],
+		    ['para', ['ul', 'ol', 'paragraph']],
+		    ['height', ['height']],
+		    //['insert', ['picture','link']],
+		    ['view', ['fullscreen', 'help']]
+		  ],
+		fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋움체','바탕체'],
+		fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72']
+	});
 
+    function uploadSummernoteImageFile(file, editor) {
+		data = new FormData();
+		data.append("file", file);
+		$.ajax({
+			data : data,
+			type : "POST",
+			url : "/uploadSummernoteImageFile",
+			contentType : false,
+			processData : false,
+			success : function(data) {
+            	//항상 업로드된 파일의 url이 있어야 한다.
+				$(editor).summernote('insertImage', data.url);
+			}
+		});
+	};
+	$("#btn-send").click((e)=>{
+		
+		
+		if($(title).val() != null && $(title).val() != ''){
+		}else{
+			alert("제목을 입력해주세요.");
+			return;
+		}
+		if($(summernote).val() != null && $(summernote).val() != ''){	
+		}else{
+			alert("내용을 입력해주세요.");
+			return;
+		}
+		
+		$(document.boardFrm).submit();
+	});
+	
+	$(()=>{
+		$("[name=upFile]").change((e)=>{
+			const file = $(e.target).prop("files")[0];
+			const filename = file?.name;
+			console.dir(e.target);
+			console.log(file);
+			const $label = $(e.target).next();
+			if(file != undefined)
+				$label.html(filename);
+			else
+				$label.html("파일을 선택하세요.");
+		});
+	});
+	
+    $(".upload-display").hide();
+    $(".upload-except-img").hide();
+    var fileTarget = $('.custom-file-input .custom-file-label');
+    
+    fileTarget.on('change', function(){
+        if(window.FileReader){
+            // 파일명 추출
+            var filename = $(this)[0].files[0].name;
+		  	console.log(filename);
+        } 
+
+        else {
+            // Old IE 파일명 추출
+            var filename = $(this).val().split('/').pop().split('\\').pop();
+		  	console.log(filename);
+        };
+
+        $(this).siblings('.upload-name').val(filename);
+    });
+    
+    var imgTarget = $('.custom-file .custom-file-input');
+    
+    imgTarget.on('change', function() {
+	    var parent = $(this).parent();
+	    console.log(parent);
+	    parent.children('.upload-display').remove();
+	    console.log(parent.children());
+	    
+	    if(window.FileReader){
+	        //image 파일만
+	        if ($(this)[0].files[0].type.match(/image\//)){
+	          var reader = new FileReader();
+	          reader.onload = function(e){
+	            var src = e.target.result;
+	            $(".upload-display").show();
+	            $(".upload-except-img").hide();
+	            $(".upload-thumb").attr('src', src);
+	          }
+	          reader.readAsDataURL($(this)[0].files[0]);
+	        }
+	    };
     });
 });
-
-$('.summernote').summernote({
-          toolbar: [
-                // [groupName, [list of button]]
-                ['fontname', ['fontname']],
-                ['fontsize', ['fontsize']],
-                ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
-                ['color', ['forecolor','color']],
-                ['table', ['table']],
-                ['para', ['ul', 'ol', 'paragraph']],
-                ['height', ['height']],
-                ['insert',['picture','link','video']],
-                ['view', ['fullscreen', 'help']]
-              ],
-            fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋움체','바탕체'],
-            fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72']
-      });
-
   </script>
 </div>
 </div>
