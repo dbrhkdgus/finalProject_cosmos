@@ -90,9 +90,8 @@ public class StompApplicationDestinationController {
 	
 	@MessageMapping("/chat/{chatRoomNo}")
 	@SendTo("/chat/{chatRoomNo}")
-	public String chat(String chatMessageContent, @DestinationVariable int chatRoomNo, @RequestParam(value="upFile", required=false) MultipartFile file) {
+	public String chat(String chatMessageContent, @DestinationVariable int chatRoomNo) {
 		log.debug("chatMessageContent = {}",chatMessageContent);
-		log.debug("file = {}",file);
 
 		ObjectMapper mapper = new ObjectMapper();
 		HashMap<String, String> map = new HashMap<String, String>();

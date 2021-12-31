@@ -1,11 +1,14 @@
 package com.kh.cosmos.groupware.chat.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +18,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.kh.cosmos.common.CosmosUtils;
 import com.kh.cosmos.common.attachment.model.vo.Attachment;
 import com.kh.cosmos.group.model.vo.Group;
 import com.kh.cosmos.groupware.board.model.vo.Board;
@@ -39,6 +45,9 @@ public class GwChatController {
 	private ChatService chatService;
 	@Autowired
 	private GroupwareService gwService;
+	@Autowired
+	ServletContext application;
+	
 	@GetMapping("/chatRoom.do")
 	public String chatRoom(int groupNo, int chatRoomNo, Model model, Authentication auth, RedirectAttributes redirectAtt) {
 		// 채팅방 참여 인원만 입장가능
@@ -238,6 +247,47 @@ public class GwChatController {
 		result = chatService.newDMCheck(loginMember.getId());
 		return result;
 	}
+	
+	@ResponseBody
+	@PostMapping("/uploadImg.do")
+	public String uploadImg(@RequestParam(value="file", required=false) MultipartFile file, Authentication auth) {
+		log.debug("file = {}", file);
+		String memberId = ((Member) auth.getPrincipal()).getId();
+		String saveDirectory = application.getRealPath("/resources/upFile/notice");
+		String attachmentRenameFilename = "";
+		if(!file.isEmpty() && file.getSize() != 0) {
+			 log.debug("upFile = {}", file);
+			 log.debug("upFile.name = {}",file.getOriginalFilename());
+			 log.debug("upFile.size = {}",file.getSize());
+		 
+			 String originalFilename = file.getOriginalFilename();
+			 String renamedFilename = CosmosUtils.getRenamedFilename(originalFilename);
+			 
+			 // 1.서버컴퓨터에 저장
+			 File dest = new File(saveDirectory, renamedFilename);
+			 log.debug("dest = {}", dest);
+			 try {
+				file.transferTo(dest);
+			} catch (IllegalStateException | IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			 
+			 // 2.DB에 attachment 레코드 등록
+			 Attachment attach = new Attachment();
+			 attach.setRenamedFilename(renamedFilename);
+			 attach.setOriginalFilename(originalFilename);
+			 attach.setMemberId(memberId);
+			 
+			 log.debug("attach = {}",attach);
+			 //int attachNo = mainService.insertAttach(attach);
+			 attachmentRenameFilename = attach.getRenamedFilename();
+		 }
+		 
+		return attachmentRenameFilename;
+	}
+	
+	
 	public void groupwareHeaderSet(int groupNo, Model model, Authentication auth) {
 		Member loginMember = (Member) auth.getPrincipal();
 		Group myGroup = gwService.selectMyGroup(groupNo);

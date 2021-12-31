@@ -1,11 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>	
-<fmt:requestEncoding value="utf-8"/> 
+<%-- <fmt:requestEncoding value="utf-8"/>  --%>
 <jsp:include page="/WEB-INF/views/common/gw_header.jsp">
 	<jsp:param value="" name="title"/>
 </jsp:include>
@@ -50,7 +49,6 @@
         </div>
         
 		    <div class="chat-input-box">
-		 	<input type="file" id="file" style="display: none;">
 		      <div class="chat-txt border-top">
 		        <input id="chatMessageContent" type="text" class="form-control" name="chatMessageContent">
 		      </div>
@@ -62,7 +60,9 @@
 		      </div>
 		      <button id="btn-message-send" class="btn btn-danger" data-original-title="" title="">Send</button>
 		    </div> 
-        
+        <form id="file-form"action="" method="POST" enctype="multipart/form-data">
+		 	<input type="file" id="file" name ="file">
+        </form>
         
       </div>
 <!-- Footer-->
@@ -115,25 +115,12 @@
 <!-- <script src="http://malsup.github.com/jquery.form.js"></script> -->
 <script>
 // drag & drop
-        (function() {
+/*         (function() {
             
             var $file = document.getElementById("file")
             var dropZone = document.querySelector(".drop-zone")
 
-            var toggleClass = function(className) {
-                
-                console.log("current event: " + className)
-
-                var list = ["dragenter", "dragleave", "dragover", "drop"]
-
-                for (var i = 0; i < list.length; i++) {
-                    if (className === list[i]) {
-                        dropZone.classList.add("drop-zone-" + list[i])
-                    } else {
-                        dropZone.classList.remove("drop-zone-" + list[i])
-                    }
-                }
-            }
+            
             
            var showFiles = function(files) {
                 dropZone.innerHTML = ""
@@ -190,7 +177,7 @@
                 //toggleClass("drop")
 
                 var files = e.dataTransfer && e.dataTransfer.files
-                //console.log(files)
+
 
                 if (files != null) {
                     if (files.length < 1) {
@@ -204,7 +191,8 @@
 
             })
 
-        })();
+        })(); */
+        
 
 
 // 스크롤 최하단 유지
@@ -333,21 +321,66 @@ $("#btn-dm-message-send").click((e) =>{
 });
 // 채팅 메시지 발송처리
 $("#btn-message-send").click((e) =>{
-	
-	var file = $('#file').prop('files');
+
 	var today = new Date();
 	var hours = today.getHours(); // 시
 	var minutes = today.getMinutes();  // 분
-
- 	const obj = {
-		chatRoomNo : "${chatRoomNo}",
-		memberId : "${loginMember.id}",
-		msg : $(chatMessageContent).val(),
-		logTime : hours + ":" + minutes,
-		file : file
-	};  
+	var obj = {};
 	
-	stompClient.send("/app/chat/${chatRoomNo}", {}, JSON.stringify(obj));
+	
+	
+/* 	if(file.length == 0){
+	 	obj = {
+			chatRoomNo : "${chatRoomNo}",
+			memberId : "${loginMember.id}",
+			msg : $(chatMessageContent).val(),
+			logTime : hours + ":" + minutes,
+		};
+	 	
+	}else{ */
+		var form = $('#file-form')[0];
+	    var formData = new FormData(form);
+	 
+	    $.ajax({
+	        url : "${pageContext.request.contextPath}/gw/chat/uploadImg.do",
+	        type : 'POST',
+	        data : formData,
+	        contentType : false,
+	        processData : false,
+	        headers: {
+				"${_csrf.headerName}" : "${_csrf.token}"
+		 	}
+	    }).done(function(data){
+	        console.log(data);
+	    });
+
+		/* $.ajax({
+			data : $("#file-form"),
+			type : "POST",
+			url : "${pageContext.request.contextPath}/gw/chat/uploadImg.do",
+			contentType : "charset=utf-8",
+			dataType : "text",
+			headers: {
+				"${_csrf.headerName}" : "${_csrf.token}"
+		 	},
+			success(res) {
+            	console.log(res);
+			},
+			error : console.log
+		});
+ */
+		/*
+		obj = {
+				chatRoomNo : "${chatRoomNo}",
+				memberId : "${loginMember.id}",
+				msg : $(chatMessageContent).val(),
+				logTime : hours + ":" + minutes,
+				fileUrl : fileUrl
+			};
+	} */
+
+	
+	//stompClient.send("/app/chat/${chatRoomNo}", {}, JSON.stringify(obj));
 	
 	$(chatMessageContent).val(''); // #message 초기화
 });
