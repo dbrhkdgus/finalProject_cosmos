@@ -63,46 +63,86 @@
       <div class="study-join-table">
         <h4>그룹 가입 요청</h4>
         <form:form 
+         id="checkValidList"
         action="${pageContext.request.contextPath }/gw/admin/groupAccept.do" method="post" >
-	        <table class="table table-sm text-center">
-	          <thead>
-	            <tr>
-	              <th>번호</th>
-	              <th>이름</th>
-	              <th>질문답변</th>
-	              <th>가입신청일</th>
-	              <th>선택</th>
-	            </tr>
-	          </thead>
-	          <tbody>
-	          <c:forEach var="memberList" items="${memberList }" >
-	           	<c:forEach var="watingList" items="${waitingApplocationGroupList }" varStatus="vs" >
-				            <c:if test="${memberList.id eq watingList.memberId}">
-						         <c:set var="i" value="${i+1}"/>
-	                            <tr>
-	                              <td>${i}</td>
-	                              <td>${memberList.nickname}</td>                 
-	                              <td>${watingList.answer }</td>
-	                              <td><fmt:formatDate value="${watingList.joinRegDate}" pattern="yy-MM-dd"/></td>
-	                              <td><input type="checkbox" name="checkValid" id="" value="${memberList.id}"></td>
-	                            </tr>
-				            </c:if>
-			      </c:forEach> 
-	          </c:forEach>
-	          </tbody>
-	          
-              
+            <table class="table table-sm text-center">
+              <thead>
+                <tr>
+                  <th>번호</th>
+                  <th>이름</th>
+                  <th>질문답변</th>
+                  <th>가입신청일</th>
+                  <th>선택</th>
+                </tr>
+              </thead>
+              <tbody>
+              <c:forEach var="memberList" items="${memberList}" >
+                   <c:forEach var="watingList" items="${waitingApplocationGroupList }" varStatus="vs"  >
+                            <c:if test="${memberList.id eq watingList.memberId}" >
+                            
+                            <c:set var="i" value="${i+1}"/>
+                            <tr>
+                              <td>${i}</td>
+                              <td>${memberList.nickname}</td>                 
+                              <td>${watingList.answer }</td>
+                              <td><fmt:formatDate value="${watingList.joinRegDate}" pattern="yy-MM-dd"/></td>
+                              <td><input type="checkbox" name="checkValid" id="" value="${memberList.id}"></td>
+                            </tr>
+                           
+                            </c:if>
+                  </c:forEach> 
+              </c:forEach>
+              </tbody>
             </table>
       </div>
       <div class="study-join-buttons text-center">
-        <button type="submit" class="btn btn-primary" value="Y" name="checkYN">가입 승인</button>
-        <button type="submit" class="btn btn-secondary" value="N" name="checkYN">가입 거절</button>
+        <button type="button" class="btn btn-primary" value="Y" name="checkYN" id="checkYN">가입 승인</button>
+        <button type="button" class="btn btn-secondary" value="N" name="checkYN">가입 거절</button>
       </div>
       <input type="hidden" name = "groupNo" value="${groupNo}">
      </form:form>
     </div>
     
   </div>
-  
+  <script>
+  $("[id='checkYN']").click((e) => {
+		e.preventDefault();
+		
+	let rowNum = $("input[name='checkValid']").length;
+    var idList = [];
+   
+    for(i=0; i<rowNum; i++) {
+        let id= $("input[name='checkValid']").eq(i).val()
+           idList.push("id : "+id); 
+  /*           console.log(id) */
+    };
+            console.log(idList)
+    	  var data2 = {"ressId":idList};
+            
+//         var allData = { "userId": JSON.stringify(idList)};
+            
+ 		 	$.ajax({
+				url: `${pageContext.request.contextPath}/gw/admin/groupAccept.do`,
+//				method:"POST",
+				dataType: "json", //돌려받는거
+				traditional : true,
+				data:  {
+		            "idList": idList
+		        },
+				contentType: "application/json; charset=utf-8", //주는타입
+				success(data){
+					console.log(data);
+				
+			
+			},
+			error: console.log
+			
+	 	 }) 
+
+
+  });    
+		
+</script>
+
 
 <jsp:include page="/WEB-INF/views/common/gw_footer.jsp"></jsp:include>
