@@ -51,11 +51,16 @@
 		select * from post where post_no = #{postNo}
   </select>
   
-  
   <select id="selectOneAttach" resultType="attachment">
 		select * from attachment where attach_no = #{attachNo}
   </select>
   <update id="updatePostFile">
+  	<selectKey keyProperty="attachNo" resultType="_int" order="BEFORE">
+		select
+			seq_attach_no_no.currval
+		from
+			dual
+	</selectKey>
   	update post 
   	set post_title = #{postTitle}, post_content=#{postContent}, post_update=sysdate, attach_no=#{attachNo} 
   	where post_no = #{postNo}
@@ -70,6 +75,9 @@
   </delete>
    <delete id="deleteAttachInBoard">
   		delete from attachment where attach_no =#{attachNo}
+  </delete>
+  <delete id="deletePostInAnonymous">
+  		delete from post where post_no =#{postNo}
   </delete>
   
   <insert id="insertPost">

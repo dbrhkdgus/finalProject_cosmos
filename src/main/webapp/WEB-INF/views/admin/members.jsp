@@ -343,6 +343,7 @@ var showMemberInfo = $(".selectOne").click((e)=>{
 			/* Promise 사용하기 위해 변수에 담기 */
 			fileName = data.profileImg[data.member.id];
 			calledId = data.member.id;
+			
 		},
 		/* 변경된 사항의 리스트 행을 클릭시 해당 회원의 정보에 맞춰 버튼의 색깔이 변경된다.*/
 		complete : function(){
@@ -353,6 +354,19 @@ var showMemberInfo = $(".selectOne").click((e)=>{
 			  document.getElementById('blackListBtn').className = 'btn btn-success btn-block text-uppercase';
 			  document.getElementById('blackListBtn').innerText = '블랙리스트 회원 해제';
 			}
+			
+			console.log("여기는 complete 입니다.");
+			console.log("complete함수: calledId = "+calledId);
+			console.log("complete함수: fileName = "+fileName);
+			console.log("typeOf(fileName): " +typeof(fileName));
+			
+				
+			if(typeof fileName == 'undefined' || fileName==null || fileName ==""){
+				document.getElementById('profileImg').src = `${pageContext.request.contextPath}/resources/upFile/profile/defaultProfile.png`;
+			}else if(fileName.indexOf('http://k.kakaocdn')==0){
+				document.getElementById('profileImg').src = fileName;
+			} 
+			
 		},
 		error: console.log
 	/* Promise 사용해보기. */
@@ -360,23 +374,7 @@ var showMemberInfo = $(".selectOne").click((e)=>{
 		console.log("여기는 Promise 함수입니다.");
 		console.log("Promise함수: calledId = "+calledId);
 		console.log("Promise함수: fileName = "+fileName);
-		if( fileName == undefined){
-			$.ajax({
-				url: `${pageContext.request.contextPath}/admin/selectKakaoImage.do`,
-				data: {
-					id: calledId,
-				},
-				dataType: "json",
-				success: function(data){
-					if(data.imgSrc != ''){
-						document.getElementById('profileImg').src = data.imgSrc;
-					}else{
-						document.getElementById('profileImg').src = `${pageContext.request.contextPath}/resources/images/sample.png`;
-					}
-				},
-				error: console.log
-			})
-		}		
+	
 	});
 })
 

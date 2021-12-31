@@ -33,6 +33,7 @@ import com.kh.cosmos.groupware.board.model.vo.Post;
 import com.kh.cosmos.groupware.chat.model.vo.ChatRoom;
 import com.kh.cosmos.groupware.service.GroupwareService;
 import com.kh.cosmos.main.model.service.MainService;
+import com.kh.cosmos.member.model.service.MemberService;
 import com.kh.cosmos.member.model.vo.Member;
 import com.kh.cosmos.member.model.vo.MemberWithGroup;
 
@@ -51,7 +52,7 @@ public class GwBoardController {
 	private AttachmentService attachmentService;
 	@Autowired
 	private MainService mainService;
-	
+
 	@Autowired
 	ServletContext application;
 
@@ -227,10 +228,10 @@ public class GwBoardController {
 	}
 	
 	@PostMapping("/postModify.do")
-	public String postModify(Post post, int boardNo, int groupNo,
+	public String postModify(Post post, int exAttachNo, int boardNo, int groupNo,
 			@RequestParam(value = "upFile", required = false) MultipartFile upFile, RedirectAttributes redirectAttr,
 			Authentication authentication) {
-		
+		log.debug("******post = {} " , post);
 		String memberId = post.getMemberId();
 		log.debug("memberId = {}", post.getMemberId());
 		Board board = boardService.selectBoardByBoardNo(boardNo);
@@ -238,6 +239,7 @@ public class GwBoardController {
 		try {
 			String saveDirectory = application.getRealPath("/resources/upFile/fileboard");
 			log.debug("saveDirectory = {}", saveDirectory);
+			Attachment exAttachment = mainService.selectOneAttach(exAttachNo);
 			
 			if (upFile != null && !upFile.isEmpty() && upFile.getSize() != 0) {
 				log.debug("upFile = {}", upFile);
@@ -259,9 +261,19 @@ public class GwBoardController {
 				attach.setGroupNo(groupNo);
 				attach.setMemberId(memberId);
 				
-				int attachNo = boardService.insertAttach(attach);
+				int result = boardService.insertAttach(attach);
 				
-				int result = boardService.updatePostFile(post);
+				if(result > 0 && post != null && exAttachNo != 0) {
+					String exFilename = exAttachment.getRenamedFilename();
+					File delFile = new File(saveDirectory, exFilename);
+					boolean delBool = delFile.delete();
+					
+					if(delBool == true) {
+						boardService.deleteAttachInBoard(exAttachNo);
+					}
+				}
+				
+				result = boardService.updatePostFile(post);
 			} else {
 				// 업무로직
 				int result = boardService.updatePost(post);
@@ -273,9 +285,9 @@ public class GwBoardController {
 		}
 		
 		if (board.getBoardType() == 'N') {
-			return "";
+			return "redirect:/gw/board/noticeDetail.do?postNo=" + post.getPostNo();
 		} else {
-			return "redirect:/gw/board/board.do?boardNo=" + boardNo + "&groupNo=" + groupNo;
+			return "redirect:/gw/board/boardDetail.do?postNo=" + post.getPostNo();
 		}
 	}
 	
@@ -395,17 +407,42 @@ public class GwBoardController {
 	}
 	
 	@GetMapping("/anonymousDetail.do")
-	public String anonymousDetail(@RequestParam int postNo, Model model, HttpServletRequest request, HttpServletResponse response) {
-
+	public String anonymousDetail(@RequestParam int postNo, Model model, HttpServletRequest request, HttpServletResponse response, Authentication auth) {
+		
 		Post post = boardService.selectOnePostInAnonymous(postNo);
-		log.debug("post = {}", post);
-		/* Attachment attach = boardService.selectOneAttachInBoard(groupNo); */
-		model.addAttribute("post", post);
-		/* model.addAttribute("attach", attach); */
+		Board board = boardService.selectBoardByBoardNo(post.getBoardNo());
+		int groupNo = board.getGroupNo();
+		groupwareHeaderSet(groupNo, model, auth);
 
+		log.debug("post = {}", post);
+		model.addAttribute("post", post);
+		
 		return "gw/board/anonymousDetail";
+	
 	}
 
+	@PostMapping("/deletePostAnonymous.do")
+	public String deletePostAnonymous(@RequestParam int postNo, int postPassword, RedirectAttributes redirectAttr) {
+		    	
+		Post post = boardService.selectOnePostInAnonymous(postNo);
+		Board board = boardService.selectBoardByBoardNo(post.getBoardNo());
+		
+		if(post.getPostPassword() != postPassword){
+		
+			redirectAttr.addFlashAttribute("msg","비밀번호가 일치하지 않습니다.");
+			return "redirect:/gw/board/anonymousDetail.do?postNo="+ postNo;
+		}else{
+			
+			int result  = boardService.deletePostInAnonymous(postNo);
+			log.debug("********** result = {} ", result);
+			redirectAttr.addFlashAttribute("msg", result > 0 ? "게시물이 삭제되었습니다." : "실패");
+			
+			
+			return "redirect:/gw/board/anonymous.do?boardNo=" + post.getBoardNo() + "&groupNo=" + board.getGroupNo();
+		}
+	}
+		 
+	
 
 	@GetMapping("/deletePostBoard.do")
 	public String deletePostBoard(@RequestParam int postNo, RedirectAttributes redirectAttr) {
@@ -415,14 +452,16 @@ public class GwBoardController {
 		 Attachment attachment = mainService.selectOneAttach(post.getAttachNo());
 		 
 		 try {
-				String saveDirectory = application.getRealPath("/resources/upFile/fileboard");
-				String filename = attachment.getRenamedFilename();
-				File delFile = new File(saveDirectory, filename);
-				boolean delBool = delFile.delete();
+			 	if(post != null && post.getAttachNo() != 0) {
+			 		String saveDirectory = application.getRealPath("/resources/upFile/fileboard");
+			 		String filename = attachment.getRenamedFilename();
+			 		File delFile = new File(saveDirectory, filename);
+			 		boolean delBool = delFile.delete();
+			 		if(delBool == true) {
+			 			boardService.deleteAttachInBoard(post.getAttachNo());
+			 		}
+			 	}
 				
-				if(delBool == true) {
-					boardService.deleteAttachInBoard(post.getAttachNo());
-				}
 				int result  = boardService.deletePostInBoard(postNo);
 				log.debug("********** result = {} ", result);
 				redirectAttr.addFlashAttribute("msg", result > 0 ? "게시물이 삭제되었습니다." : "실패");

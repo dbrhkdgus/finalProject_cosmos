@@ -126,6 +126,12 @@ public class ChatServiceImpl implements ChatService {
 		// TODO Auto-generated method stub
 		return chatDao.newDMCheck(id);
 	}
+
+	@Override
+	public int insertChatMessageWithFile(ChatMessage chatMessage) {
+		// TODO Auto-generated method stub
+		return chatDao.insertChatMessageWithFile(chatMessage);
+	}
 	
 	
 	

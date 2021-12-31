@@ -81,6 +81,7 @@ public class MainController {
 		
 		return "main/noticeForm";
 	}
+	
 	@PostMapping("/noticeEnroll.do")
 	public String noticeEnroll(Notice notice, @RequestParam(value="upFile", required=false) MultipartFile upFile, RedirectAttributes redirectAttr) throws IllegalStateException, IOException {
 		log.debug("notice = {}", notice);
