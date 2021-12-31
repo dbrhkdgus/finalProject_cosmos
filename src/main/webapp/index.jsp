@@ -5,6 +5,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>	
+<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css">
@@ -413,6 +414,7 @@ window.addEventListener("load", function(){
 		data: {groupSelectType: "best"},
 		dataType: "json",
 		success(data){
+			const {numOfMember, groupPool} = data;
 			$.each(data, (k,v)=>{
 				$("#best-box").append(`
 						<div class="card mb-4 search-card" style="width: 350px; height: 420px;">
@@ -424,13 +426,9 @@ window.addEventListener("load", function(){
 	                        </a>
 	                        <div class="index-group-card-body card-body mb-0" style="height:150px">
 	                            <div class="small text-muted d-flex justify-content-between align-items-center">
-		                            <div>
-		                                <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" class="bi bi-circle-fill" viewBox="0 0 16 16">
-										  <circle cx="8" cy="8" r="8"/>
-										</svg>
-		                                <span>
-		                                모집중(\${v.numOfMember}/\${v.groupPool})
-		                                </span>
+		                            <div class="best-\${v.groupNo}">
+											
+
 	                        		</div>
 	                        		<div>
                     					<p class="card-text">\${v.category1Name}</p>
@@ -449,15 +447,12 @@ window.addEventListener("load", function(){
 			                           		<i class="far fa-heart"  data-group-no="\${v.groupNo}"><span>\${v.groupLikeCount}</span></i>
 			                       </sec:authorize>
 			                         <sec:authorize access="isAuthenticated()">
-			                         		${v.bool eq "true"}
-			                         		console.log(${v.bool eq "true"})
 			                         		<c:if test="\${\${v.bool} eq true}"> 
 			                           			<i class="fas fa-heart"  data-group-no="\${v.groupNo}"><span>\${v.groupLikeCount}</span></i>
 			                         		</c:if>
 			                         		<c:if test="\${\${v.bool} eq false}"> 
 			                         			<i class="far fa-heart"  data-group-no="\${v.groupNo}"><span>\${v.groupLikeCount}</span></i>
 			                         		</c:if>
-			                         		\${v.bool==true}
 			                         		<c:choose>
 			                         			<c:when test="${v.bool==true}">
 			                         				<i class="fas fa-heart"  data-group-no="\${v.groupNo}"><span>\${v.groupLikeCount}</span></i>
@@ -471,12 +466,30 @@ window.addEventListener("load", function(){
                         	</div>
 	                     </div>
 	                   </div>
-					
-	                    
 						`);
-			});
-
-			
+	 			 if(v.numOfMember == v.groupPool){
+	 				var target = ".best-" + v.groupNo
+				 	$(target).append(`
+	                    	<svg xmlns="http://www.w3.org/2000/svg" color="red" width="10" height="10" fill="currentColor" class="bi bi-circle-fill" viewBox="0 0 16 16">
+							  <circle cx="8" cy="8" r="8"/>
+							</svg>
+	                      <span>
+	                      모집마감(\${v.numOfMember}/\${v.groupPool})
+	                      </span>
+							`);
+				}else{
+					var target = ".best-" + v.groupNo
+					$(target).append(`
+							<svg xmlns="http://www.w3.org/2000/svg" color="Chartreuse" width="10" height="10" fill="currentColor" class="bi bi-circle-fill" viewBox="0 0 16 16">
+							  <circle cx="8" cy="8" r="8"/>
+							</svg>
+	                      <span>
+	                  		모집중(\${v.numOfMember}/\${v.groupPool})
+	                      </span>
+							`);
+				};
+			}); 
+	
 		},
 		error(xhr,textStatus,err){
 			console.log(xhr,textStatus,err);
@@ -501,13 +514,9 @@ window.addEventListener("load", function(){
 	                        </a>
 	                        <div class="index-group-card-body card-body mb-0" style="height:150px">
 	                            <div class="small text-muted d-flex justify-content-between align-items-center">
-		                            <div>
-		                                <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" class="bi bi-circle-fill" viewBox="0 0 16 16">
-										  <circle cx="8" cy="8" r="8"/>
-										</svg>
-		                                <span>
-		                                모집중(\${v.numOfMember}/\${v.groupPool})
-		                                </span>
+		                            <div class="new-\${v.groupNo}">
+									
+	
 	                        		</div>
 	                        		<div>
 	                					<p class="card-text">\${v.category1Name}</p>
@@ -539,10 +548,32 @@ window.addEventListener("load", function(){
                             	</div>
     	                     </div>
     	                   </div>
-					
 						`);
+				 if(v.numOfMember == v.groupPool){
+		 				var target = ".new-" + v.groupNo
+					 	$(target).append(`
+		                    	<svg xmlns="http://www.w3.org/2000/svg" color="red" width="10" height="10" fill="currentColor" class="bi bi-circle-fill" viewBox="0 0 16 16">
+								  <circle cx="8" cy="8" r="8"/>
+								</svg>
+		                      <span>
+		                      모집마감(\${v.numOfMember}/\${v.groupPool})
+		                      </span>
+								`);
+					}else{
+						var target = ".new-" + v.groupNo
+						$(target).append(`
+								<svg xmlns="http://www.w3.org/2000/svg" color="Chartreuse" width="10" height="10" fill="currentColor" class="bi bi-circle-fill" viewBox="0 0 16 16">
+								  <circle cx="8" cy="8" r="8"/>
+								</svg>
+		                      <span>
+		                  		모집중(\${v.numOfMember}/\${v.groupPool})
+		                      </span>
+								`);
+					};
 			});
-			$("#main-box").append(script); 
+			$("#main-box").append(script);
+
+			
 			
 		},
 		error(xhr,textStatus,err){

@@ -32,5 +32,26 @@ public class GwCalendarServiceImpl implements GwCalendarService {
 	public int deleteSchedule(Map<String, String> param) {
 		return gwCalendarDao.deleteSchedule(param);
 	}
+
+	@Override
+	public int changePrivateColor(Map<String, String> param) {
+		return gwCalendarDao.changePrivateColor(param);
+	}
+
+
+	@Override
+	public Schedule selectColor(Map<String, Object> param) {
+		return gwCalendarDao.selectColor(param);
+	}
+
+	@Override
+	public int changeGroupColor(Map<String, String> param) {
+		return gwCalendarDao.changeGroupColor(param);
+	}
+
+	@Override
+	public Schedule selectGroupColor(int groupNo) {
+		return gwCalendarDao.selectGroupColor(groupNo);
+	}
 	
 }
