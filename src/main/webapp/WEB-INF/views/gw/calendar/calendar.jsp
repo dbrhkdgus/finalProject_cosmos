@@ -35,9 +35,6 @@ body {
 	font-size: 14px;
 }
 
-#calendar{
-    width: 65vw;
-}
 
 #calendar {
 	margin-left: 30px;
@@ -76,25 +73,21 @@ body {
 }
 </style>
 
-
-	개인: ${schedule.privateColor}
-	모임: ${schedule.groupColor}
-
-<div class="main-container">
+<div class="workspace-box">
 	<div id='calendar'></div>
 </div>
 <input type="hidden" id="_groupNo" value="${groupNo}" />
 
 
 <!-- 일정 추가 modal -->
-<div class="modal" id="calendarModal" tabindex="-1" role="dialog"
+<div class="modal fade" id="calendarModal" tabindex="-1" role="dialog"
 	aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
 				<h6 class="modal-title" id="exampleModalLabel">일정을 입력하세요</h6>
-				<button type="button" class="close" data-dismiss="modal"
-					aria-label="Close">
+				<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+				
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
@@ -134,16 +127,15 @@ body {
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-warning" id="addCalendar">추가</button>
-				<button type="button" class="btn btn-secondary"
-					data-bs-dismiss="modal">취소</button>
+				<button type="button" class="btn btn-secondary"	data-bs-dismiss="modal">취소</button>
 
 			</div>
 			<!-- 접속자 아이디 전달 -->
 			<input type="hidden" name="loginMember" value="${loginMember.id}" id="memberId" /> 
 			<input type="hidden" name="groupNo"	value="${groupNo}" id="groupNo" />
 			<!-- 로그인 된 사용자의 설정된 일정 색상값을 받는 input  -->
-			<input type="text" name="groupColor" value="${schedule.groupColor}" id="input_groupColor" />
-			<input type="text" name="privateColor" value="${schedule.privateColor}" id="input_privateColor" />
+			<input type="hidden" name="groupColor" value="${schedule.groupColor}" id="input_groupColor" />
+			<input type="hidden" name="privateColor" value="${schedule.privateColor}" id="input_privateColor" />
 			
 			</form>
 
@@ -185,7 +177,7 @@ body {
 
 
 <!-- 색상 변경 modal -->
-<div class="modal fade" id="changeColor" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="changeColor" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -205,64 +197,88 @@ body {
 	        		<tr>
 	        			<td>
 	        				<div class="text-center color-pick" style="background-color:#e51414;">
-	        					&nbsp<input type="radio" name="groupColor" value="#e51414" />&nbsp
+	        					&nbsp<input type="radio" name="groupColor" value="#e51414" 
+	        					<c:if test="${schedule.groupColor eq '#e51414'}">checked</c:if>
+	        					/>&nbsp
 	        				</div>
 	        			</td>	
 	        			<td>
 	        				<div class="text-center color-pick" style="background-color:#ff8f07;">
-	        					&nbsp<input type="radio" name="groupColor" value="#ff8f07"/>&nbsp
+	        					&nbsp<input type="radio" name="groupColor" value="#ff8f07"
+	        					<c:if test="${schedule.groupColor eq '#ff8f07'}">checked</c:if>
+	        					/>&nbsp
 	        				</div>    			
 	        			</td>	
 	        			<td>
 	        				<div class="text-center color-pick" style="background-color:#ffe100;">
-	        					&nbsp<input type="radio" name="groupColor" value="#ffe100"/>&nbsp
+	        					&nbsp<input type="radio" name="groupColor" value="#ffe100"
+	        					<c:if test="${schedule.groupColor eq '#ffe100'}">checked</c:if>
+	        					/>&nbsp
 	        				</div>          			
 	        			</td>	
 	        			<td>
 	        				<div class="text-center color-pick" style="background-color:#00e03f;">
-	        					&nbsp<input type="radio" name="groupColor" value="#00e03f"/>&nbsp
+	        					&nbsp<input type="radio" name="groupColor" value="#00e03f"
+	        					<c:if test="${schedule.groupColor eq '#00e03f'}">checked</c:if>
+	        					/>&nbsp
 	        				</div>     	        			
 	        			</td>	
 	        			<td>
 	        				<div class="text-center color-pick" style="background-color:#0537ff;">
-	        					&nbsp<input type="radio" name="groupColor" value="#0537ff"/>&nbsp
+	        					&nbsp<input type="radio" name="groupColor" value="#0537ff"
+	        					<c:if test="${schedule.groupColor eq '#0537ff'}">checked</c:if>
+	        					/>&nbsp
 	        				</div>     	        			
 	        			</td>	
 	        			<td>
 	        				<div class="text-center color-pick" style="background-color:#aa00ff;">
-	        					&nbsp<input type="radio" name="groupColor" value="#aa00ff"/>&nbsp
+	        					&nbsp<input type="radio" name="groupColor" value="#aa00ff"
+	        					<c:if test="${schedule.groupColor eq '#aa00ff'}">checked</c:if>
+	        					/>&nbsp
 	        				</div>     	        			
 	        			</td>	
 	        		</tr>
 	        		<tr>
 	        			<td>
 	        				<div class="text-center color-pick" style="background-color:#ff7654;">
-	        					&nbsp<input type="radio" name="groupColor" value="#ff7654"/>&nbsp
+	        					&nbsp<input type="radio" name="groupColor" value="#ff7654"
+	        					<c:if test="${schedule.groupColor eq '#ff7654'}">checked</c:if>
+	        					/>&nbsp
 	        				</div>
 	        			</td>	
 	        			<td>
 	        				<div class="text-center color-pick" style="background-color:#ff7f00;">
-	        					&nbsp<input type="radio" name="groupColor" value="#ff7f00"/>&nbsp
+	        					&nbsp<input type="radio" name="groupColor" value="#ff7f00"
+	        					<c:if test="${schedule.groupColor eq '#ff7f00'}">checked</c:if>
+	        					/>&nbsp
 	        				</div>          			
 	        			</td>	
 	        			<td>
 	        				<div class="text-center color-pick" style="background-color:#fff8bc;">
-	        					&nbsp<input type="radio" name="groupColor" value="#fff8bc"/>&nbsp
+	        					&nbsp<input type="radio" name="groupColor" value="#fff8bc"
+	        					<c:if test="${schedule.groupColor eq '#fff8bc'}">checked</c:if>
+	        					/>&nbsp
 	        				</div>    			
 	        			</td>	
 	        			<td>
 	        				<div class="text-center color-pick" style="background-color:#38f47a;">
-	        					&nbsp<input type="radio" name="groupColor" />&nbsp
+	        					&nbsp<input type="radio" name="groupColor" value= "#38f47a"
+	        					<c:if test="${schedule.groupColor eq '#38f47a'}">checked</c:if>
+	        					/>&nbsp
 	        				</div>     	        			
 	        			</td>	
 	        			<td>
 	        				<div class="text-center color-pick" style="background-color:#75b7ff;">
-	        					&nbsp<input type="radio" name="groupColor" value="#75b7ff"/>&nbsp
+	        					&nbsp<input type="radio" name="groupColor" value="#75b7ff"
+	        					<c:if test="${schedule.groupColor eq '#75b7ff'}">checked</c:if>	        					
+	        					/>&nbsp
 	        				</div>     	        			
 	        			</td>	
 	        			<td>
 	        				<div class="text-center color-pick" style="background-color:#C4C4C4;">
-	        					&nbsp<input type="radio" name="groupColor" value="#C4C4C4"/>&nbsp
+	        					&nbsp<input type="radio" name="groupColor" value="#C4C4C4"
+	        					<c:if test="${schedule.groupColor eq '#C4C4C4'}">checked</c:if>
+	        					/>&nbsp
 	        				</div>     	        			
 	        			</td>	        		
 	        		</tr>
@@ -277,7 +293,9 @@ body {
 	        		<tr>
 	        			<td>
 	        				<div class="text-center color-pick" style="background-color:#e51414;">
-	        					&nbsp<input type="radio" name="privateColor" value="#e51414"/>&nbsp
+	        					&nbsp<input type="radio" name="privateColor" value="#e51414"
+	        					<c:if test="${schedule.privateColor eq '#e51414'}">checked</c:if>
+	        					/>&nbsp
 	        				</div>
 	        			</td>	
 	        			<td>
@@ -289,54 +307,74 @@ body {
 	        			</td>	
 	        			<td>
 	        				<div class="text-center color-pick" style="background-color:#ffe100;">
-	        					&nbsp<input type="radio" name="privateColor" value="#ffe100"/>&nbsp
+	        					&nbsp<input type="radio" name="privateColor" value="#ffe100"
+	        					<c:if test="${schedule.privateColor eq '#ffe100'}">checked</c:if>
+	        					/>&nbsp
 	        				</div>          			
 	        			</td>	
 	        			<td>
 	        				<div class="text-center color-pick" style="background-color:#00e03f;">
-	        					&nbsp<input type="radio" name="privateColor" value="#00e03f"/>&nbsp
+	        					&nbsp<input type="radio" name="privateColor" value="#00e03f"
+	        					<c:if test="${schedule.privateColor eq '#00e03f'}">checked</c:if>
+	        					/>&nbsp
 	        				</div>     	        			
 	        			</td>	
 	        			<td>
 	        				<div class="text-center color-pick" style="background-color:#0537ff;">
-	        					&nbsp<input type="radio" name="privateColor" value="#0537ff"/>&nbsp
+	        					&nbsp<input type="radio" name="privateColor" value="#0537ff"
+	        					<c:if test="${schedule.privateColor eq '#0537ff'}">checked</c:if>
+	        					/>&nbsp
 	        				</div>     	        			
 	        			</td>	
 	        			<td>
 	        				<div class="text-center color-pick" style="background-color:#aa00ff;">
-	        					&nbsp<input type="radio" name="privateColor" value="#aa00ff"/>&nbsp
+	        					&nbsp<input type="radio" name="privateColor" value="#aa00ff"
+	        					<c:if test="${schedule.privateColor eq '#aa00ff'}">checked</c:if>
+	        					/>&nbsp
 	        				</div>     	        			
 	        			</td>	
 	        		</tr>
 	        		<tr>
 	        			<td>
 	        				<div class="text-center color-pick" style="background-color:#ff7654;">
-	        					&nbsp<input type="radio" name="privateColor" value="#ff7654"/>&nbsp
+	        					&nbsp<input type="radio" name="privateColor" value="#ff7654"
+	        					<c:if test="${schedule.privateColor eq '#ff7654'}">checked</c:if>
+	        					/>&nbsp
 	        				</div>
 	        			</td>	
 	        			<td>
 	        				<div class="text-center color-pick" style="background-color:#ff7f00;">
-	        					&nbsp<input type="radio" name="privateColor" value="#ff7f00"/>&nbsp
+	        					&nbsp<input type="radio" name="privateColor" value="#ff7f00"
+	        					<c:if test="${schedule.privateColor eq '#ff7f00'}">checked</c:if>
+	        					/>&nbsp
 	        				</div>          			
 	        			</td>	
 	        			<td>
 	        				<div class="text-center color-pick" style="background-color:#fff8bc;">
-	        					&nbsp<input type="radio" name="privateColor" value="#fff8bc"/>&nbsp
+	        					&nbsp<input type="radio" name="privateColor" value="#fff8bc"
+	        					<c:if test="${schedule.privateColor eq '#fff8bc'}">checked</c:if>
+	        					/>&nbsp
 	        				</div>    			
 	        			</td>	
 	        			<td>
 	        				<div class="text-center color-pick" style="background-color:#38f47a;">
-	        					&nbsp<input type="radio" name="privateColor" value="#38f47a"/>&nbsp
+	        					&nbsp<input type="radio" name="privateColor" value="#38f47a"
+	        					<c:if test="${schedule.privateColor eq '#38f47a'}">checked</c:if>	        					
+	        					/>&nbsp
 	        				</div>     	        			
 	        			</td>	
 	        			<td>
 	        				<div class="text-center color-pick" style="background-color:#75b7ff;">
-	        					&nbsp<input type="radio" name="privateColor" value="#75b7ff"/>&nbsp
+	        					&nbsp<input type="radio" name="privateColor" value="#75b7ff"
+	        					<c:if test="${schedule.privateColor eq '#75b7ff'}">checked</c:if>
+	        					/>&nbsp
 	        				</div>     	        			
 	        			</td>	
 	        			<td>
 	        				<div class="text-center color-pick" style="background-color:#C4C4C4;">
-	        					&nbsp<input type="radio" name="privateColor" value="#C4C4C4"/>&nbsp
+	        					&nbsp<input type="radio" name="privateColor" value="#C4C4C4"
+	        					<c:if test="${schedule.privateColor eq '#C4C4C4'}">checked</c:if>
+	        					/>&nbsp
 	        				</div>     	        			
 	        			</td>	        		
 	        		</tr>
@@ -367,7 +405,9 @@ body {
 var input_groupColor = $("#input_groupColor").val();
 var input_privateColor = $("#input_privateColor").val();
 console.log("모임 색상: "+input_groupColor);
+console.log(typeof(input_groupColor))
 console.log("개인 색상: "+input_privateColor);
+
 
 
 $("#changeColorBtn").click((e)=>{

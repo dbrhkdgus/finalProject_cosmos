@@ -23,7 +23,7 @@
 	        tb_member m 
 	        left join applocation_group ag on m.id = ag.member_id
 	    where 
-        group_accept='N' or group_accept is null) m	
+        group_accept='Y' or group_accept is null) m	
     where
 	    id=#{id}
   </select>
