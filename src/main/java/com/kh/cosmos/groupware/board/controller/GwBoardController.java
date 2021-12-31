@@ -228,10 +228,10 @@ public class GwBoardController {
 	}
 	
 	@PostMapping("/postModify.do")
-	public String postModify(Post post, int boardNo, int groupNo,
+	public String postModify(Post post, int exAttachNo, int boardNo, int groupNo,
 			@RequestParam(value = "upFile", required = false) MultipartFile upFile, RedirectAttributes redirectAttr,
 			Authentication authentication) {
-		
+		log.debug("******post = {} " , post);
 		String memberId = post.getMemberId();
 		log.debug("memberId = {}", post.getMemberId());
 		Board board = boardService.selectBoardByBoardNo(boardNo);
@@ -239,6 +239,7 @@ public class GwBoardController {
 		try {
 			String saveDirectory = application.getRealPath("/resources/upFile/fileboard");
 			log.debug("saveDirectory = {}", saveDirectory);
+			Attachment exAttachment = mainService.selectOneAttach(exAttachNo);
 			
 			if (upFile != null && !upFile.isEmpty() && upFile.getSize() != 0) {
 				log.debug("upFile = {}", upFile);
@@ -260,9 +261,19 @@ public class GwBoardController {
 				attach.setGroupNo(groupNo);
 				attach.setMemberId(memberId);
 				
-				int attachNo = boardService.insertAttach(attach);
+				int result = boardService.insertAttach(attach);
 				
-				int result = boardService.updatePostFile(post);
+				if(result > 0 && post != null && exAttachNo != 0) {
+					String exFilename = exAttachment.getRenamedFilename();
+					File delFile = new File(saveDirectory, exFilename);
+					boolean delBool = delFile.delete();
+					
+					if(delBool == true) {
+						boardService.deleteAttachInBoard(exAttachNo);
+					}
+				}
+				
+				result = boardService.updatePostFile(post);
 			} else {
 				// 업무로직
 				int result = boardService.updatePost(post);
@@ -274,9 +285,9 @@ public class GwBoardController {
 		}
 		
 		if (board.getBoardType() == 'N') {
-			return "";
+			return "redirect:/gw/board/noticeDetail.do?postNo=" + post.getPostNo();
 		} else {
-			return "redirect:/gw/board/board.do?boardNo=" + boardNo + "&groupNo=" + groupNo;
+			return "redirect:/gw/board/boardDetail.do?postNo=" + post.getPostNo();
 		}
 	}
 	
@@ -441,14 +452,16 @@ public class GwBoardController {
 		 Attachment attachment = mainService.selectOneAttach(post.getAttachNo());
 		 
 		 try {
-				String saveDirectory = application.getRealPath("/resources/upFile/fileboard");
-				String filename = attachment.getRenamedFilename();
-				File delFile = new File(saveDirectory, filename);
-				boolean delBool = delFile.delete();
+			 	if(post != null && post.getAttachNo() != 0) {
+			 		String saveDirectory = application.getRealPath("/resources/upFile/fileboard");
+			 		String filename = attachment.getRenamedFilename();
+			 		File delFile = new File(saveDirectory, filename);
+			 		boolean delBool = delFile.delete();
+			 		if(delBool == true) {
+			 			boardService.deleteAttachInBoard(post.getAttachNo());
+			 		}
+			 	}
 				
-				if(delBool == true) {
-					boardService.deleteAttachInBoard(post.getAttachNo());
-				}
 				int result  = boardService.deletePostInBoard(postNo);
 				log.debug("********** result = {} ", result);
 				redirectAttr.addFlashAttribute("msg", result > 0 ? "게시물이 삭제되었습니다." : "실패");
