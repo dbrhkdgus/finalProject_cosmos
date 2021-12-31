@@ -38,6 +38,10 @@ public interface BoardService {
 
 	Post selectOnePostInNotice(int postNo);
 
+	int updatePostFile(Post post);
+
+	int updatePost(Post post);
+
 	int deletePostInBoard(int postNo);
 
 	int deleteAttachInBoard(int attachNo);
@@ -49,6 +53,8 @@ public interface BoardService {
 	int insertPostInAnonymous(Post post);
 
 	int deletePostInAnonymous(int postNo);
+
+
 
 
 

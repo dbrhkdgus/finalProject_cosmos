@@ -1,23 +1,30 @@
 package com.kh.cosmos.groupware.admin.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kh.cosmos.common.attachment.model.vo.Attachment;
 import com.kh.cosmos.group.model.vo.ApplocationGroup;
 import com.kh.cosmos.group.model.vo.Group;
 import com.kh.cosmos.groupware.admin.model.service.GwAdminService;
+import com.kh.cosmos.groupware.admin.model.vo.idList;
 import com.kh.cosmos.groupware.board.model.vo.Board;
 import com.kh.cosmos.groupware.chat.model.vo.ChatRoom;
 import com.kh.cosmos.groupware.service.GroupwareService;
@@ -25,6 +32,7 @@ import com.kh.cosmos.member.model.service.MemberService;
 import com.kh.cosmos.member.model.vo.Member;
 
 import lombok.extern.slf4j.Slf4j;
+import net.sf.json.JSONArray;
 @Controller
 @Slf4j
 @RequestMapping("/gw/admin")
@@ -39,13 +47,13 @@ public class GwAdminController {
 	@Autowired
 	private MemberService memberService;
 	
+
 	@GetMapping("/memberManager.do")
 	public String memberManager(Model model, int groupNo,Authentication authentication) {
 		groupwareHeaderSet(groupNo, model, authentication);
 		model.addAttribute("groupNo", groupNo);
+	
 
-		
-		
 		List<ApplocationGroup> acceptApplocationGroupList = new ArrayList<ApplocationGroup>();
 		acceptApplocationGroupList = gwAdminService.selectAllAcceptGroupMemberList(groupNo);
 		log.debug("applocationGroup = {}" ,acceptApplocationGroupList);
@@ -62,6 +70,7 @@ public class GwAdminController {
 		log.debug("memberList = {}" ,memberList);
 		model.addAttribute("memberList",memberList);
 		
+
 		return "gw/admin/memberManager";
 		
 	}
@@ -75,15 +84,21 @@ public class GwAdminController {
 	}
 
 	
-
-	@PostMapping("/groupAccept.do")
-	public String groupAccept(@RequestParam int groupNo,HttpServletRequest request, Model model,Authentication authentication) {
-		groupwareHeaderSet(groupNo, model, authentication);
+	@ResponseBody
+	@GetMapping("/groupAccept.do")
+	public ResponseEntity<?> groupAccept(HttpServletRequest request, Model model,Authentication authentication,
+			@RequestParam Map<String,List<idList>> idList) {
+		//groupwareHeaderSet(groupNo, model, authentication);
 		String checkValid = request.getParameter("checkValid");
 		String checkYN = request.getParameter("checkYN");		 
 		log.debug("check = {}" , checkValid);
 		log.debug("checkYN = {}" , checkYN);
-		return "gw/admin/memberManager";
+		
+		log.debug("data={}",idList);
+		/* JSONArray jsonArray = JSONArray.fromObject(data); */
+		
+	
+		return ResponseEntity.ok(idList);
 	}
 	
 	

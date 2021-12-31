@@ -48,4 +48,6 @@ public interface ChatDao {
 
 	int newDMCheck(String id);
 
+	int insertChatMessageWithFile(ChatMessage chatMessage);
+
 }

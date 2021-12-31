@@ -34,4 +34,27 @@ public class GwCalendarDaoImpl implements GwCalendarDao {
 		return session.update("calendar.deleteSchedule", param);
 	}
 
+	@Override
+	public int changePrivateColor(Map<String, String> param) {
+		return session.update("calendar.changePrivateColor", param);
+	}
+	
+	@Override
+	public int changeGroupColor(Map<String, String> param) {
+		return session.update("calendar.changeGroupColor", param);
+	}
+
+	@Override
+	public Schedule selectColor(Map<String, Object> param) {
+		return session.selectOne("calendar.selectColor", param);
+	}
+
+	@Override
+	public Schedule selectGroupColor(int groupNo) {
+		return session.selectOne("calendar.selectGroupColor", groupNo);
+	}
+
+
+
+
 }

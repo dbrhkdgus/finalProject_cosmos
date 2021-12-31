@@ -102,6 +102,18 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
+	public int updatePostFile(Post post) {
+		// TODO Auto-generated method stub
+		return boardDao.updatePostFile(post);
+	}
+
+	@Override
+	public int updatePost(Post post) {
+		// TODO Auto-generated method stub
+		return boardDao.updatePost(post);
+	}
+
+	@Override
 	public int deletePostInBoard(int postNo) {
 		// TODO Auto-generated method stub
 		return boardDao.deletePostInBoard(postNo);

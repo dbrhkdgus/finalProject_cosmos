@@ -10,6 +10,8 @@ import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -122,7 +124,14 @@ public class StompApplicationDestinationController {
 		log.debug("chatMessage = {}", chatMessage);
 		
 		// chat_message 테이블 인서트
-		int result = chatService.insertChatMessage(chatMessage);
+		if(map.get("chatFile") != null) {
+			//log.debug("분기점 : 첨부파일 있는 메시지");
+			int result = chatService.insertChatMessageWithFile(chatMessage);
+		}else {
+			//log.debug("분기점 : 첨부파일 없는 메시지");
+			int result = chatService.insertChatMessage(chatMessage);
+			
+		}
 		
 		
 		// 구독자에게 JsonStr전송하기

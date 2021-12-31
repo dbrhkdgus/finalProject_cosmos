@@ -20,7 +20,7 @@
       <hr>
       <p class="text-secondary"></p>
       <h3>${post.postTitle}</h3>
-      <p>${post.memberId}<span><fmt:formatDate value="${post.postRegDate}" pattern="yy-MM-dd"/></span></p>
+      <p>${memberWithGroupMap[post.memberId]}<span><fmt:formatDate value="${post.postRegDate}" pattern="yy-MM-dd"/></span></p>
       <hr>
     </div>
     <div class="groupware-board-detail-title-btns">

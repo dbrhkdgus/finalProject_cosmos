@@ -26,4 +26,6 @@ public class Schedule implements Serializable {
 	private String allDay;
 	private String category;
 	private String regDate;
+	private String groupColor;
+	private String privateColor;
 }
