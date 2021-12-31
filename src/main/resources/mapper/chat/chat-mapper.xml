@@ -69,6 +69,17 @@
   insert into chat_message values(seq_chat_message_no.nextval, #{chatRoomNo}, #{chatUserNo}, #{chatMessageContent}, default, #{chatMessageTypeNo}, null)
   </insert>
   
+  <insert id="insertChatMessageWithFile">
+   <selectKey keyProperty="attachNo"  resultType="_int" order="BEFORE">
+				select
+					seq_attach_no_no.currval
+				from
+					dual
+	  </selectKey>
+  insert into chat_message values(seq_chat_message_no.nextval, #{chatRoomNo}, #{chatUserNo}, #{chatMessageContent}, default, #{chatMessageTypeNo}, #{attachNo})
+  
+  </insert>
+  
   <select id="selectMemberNameByMemberId" resultType="string">
   select member_name from tb_member where id = #{id}
   </select>

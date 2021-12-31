@@ -33,6 +33,7 @@ import com.kh.cosmos.groupware.chat.model.vo.ChatRoom;
 import com.kh.cosmos.groupware.chat.model.vo.ChatUser;
 import com.kh.cosmos.groupware.chat.model.vo.DM;
 import com.kh.cosmos.groupware.service.GroupwareService;
+import com.kh.cosmos.main.model.service.MainService;
 import com.kh.cosmos.member.model.vo.Member;
 
 import lombok.extern.slf4j.Slf4j;
@@ -47,6 +48,8 @@ public class GwChatController {
 	private GroupwareService gwService;
 	@Autowired
 	ServletContext application;
+	@Autowired
+	private MainService mainService;
 	
 	@GetMapping("/chatRoom.do")
 	public String chatRoom(int groupNo, int chatRoomNo, Model model, Authentication auth, RedirectAttributes redirectAtt) {
@@ -253,7 +256,7 @@ public class GwChatController {
 	public String uploadImg(@RequestParam(value="file", required=false) MultipartFile file, Authentication auth) {
 		log.debug("file = {}", file);
 		String memberId = ((Member) auth.getPrincipal()).getId();
-		String saveDirectory = application.getRealPath("/resources/upFile/notice");
+		String saveDirectory = application.getRealPath("/resources/upFile/chatRoom");
 		String attachmentRenameFilename = "";
 		if(!file.isEmpty() && file.getSize() != 0) {
 			 log.debug("upFile = {}", file);
@@ -280,7 +283,7 @@ public class GwChatController {
 			 attach.setMemberId(memberId);
 			 
 			 log.debug("attach = {}",attach);
-			 //int attachNo = mainService.insertAttach(attach);
+			 int attachNo = mainService.insertAttach(attach);
 			 attachmentRenameFilename = attach.getRenamedFilename();
 		 }
 		 

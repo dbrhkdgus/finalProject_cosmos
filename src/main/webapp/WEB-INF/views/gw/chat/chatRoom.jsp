@@ -38,6 +38,11 @@
 				            </div>
 				            <div class="chat-message-content">
 				              <p>${message.chatMessageContent}</p>
+				              <div class="chatFile">
+				              		<c:if test="${not empty message.attachNo }">
+					              		<img src="" alt="" />
+				              		</c:if>
+				              </div>
 				            </div>
 				          </div>
 				        </div>
@@ -61,7 +66,7 @@
 		      <button id="btn-message-send" class="btn btn-danger" data-original-title="" title="">Send</button>
 		    </div> 
         <form id="file-form"action="" method="POST" enctype="multipart/form-data">
-		 	<input type="file" id="file" name ="file">
+		 	<input type="file" id="file" name ="file" style="display: none;">
         </form>
         
       </div>
@@ -115,7 +120,7 @@
 <!-- <script src="http://malsup.github.com/jquery.form.js"></script> -->
 <script>
 // drag & drop
-/*         (function() {
+         (function() {
             
             var $file = document.getElementById("file")
             var dropZone = document.querySelector(".drop-zone")
@@ -191,7 +196,7 @@
 
             })
 
-        })(); */
+        })();
         
 
 
@@ -215,13 +220,14 @@ if($(".chat-content").children().length == 0){
 		console.log("Stomp Connected : ", frame);
 		
 	// 3. 구독요청
+	// 채팅방 구독
 	stompClient.subscribe(`/chat/${chatRoomNo}`, (chatMessageContent) =>{
 		var script = document.createElement("script");
 		script.innerHTML = `$(".workspace-box").scrollTop($(".workspace-box")[0].scrollHeight); `;
 		/* console.log("chatMessageContent : ", chatMessageContent); */
 		const obj = JSON.parse(chatMessageContent.body);
 		 console.log(obj); 
-		 const {memberName, msg, profileRenamedFilename, messageAt, logTime} = obj;
+		 const {memberName, msg, profileRenamedFilename, messageAt, logTime, chatFile} = obj;
 		 
 		$(".chat-content").append(`<div class="chat-profile-container">
 		      <div class="chat-user-profile">
@@ -233,7 +239,10 @@ if($(".chat-content").children().length == 0){
 	              <span>\${logTime}</span>
 	            </div>
 	            <div class="chat-message-content">
-	              <p>\${msg}</p> 
+	              <p>\${msg}</p>
+	              <div class="chatFile">
+	              	
+	              </div>
 	            </div>
 	          </div>
 	        </div>`); 
@@ -243,6 +252,9 @@ if($(".chat-content").children().length == 0){
 			
 		}else{
 			$(".chat-user-profile").append(`<img class="chat-user-profile-img" src="${pageContext.request.contextPath}/resources/upFile/profile/\${profileRenamedFilename}" alt="">`);
+		}
+		if(chatFile != null){
+			$(".chatFile").append(`<img src="${pageContext.request.contextPath}/resources/upFile/chatRoom/\${chatFile}" alt="" style="width:50%; height:50%; margin-left:25%"/>`);
 		}
 		$(".subscribe").append(script);
 	});
@@ -327,9 +339,9 @@ $("#btn-message-send").click((e) =>{
 	var minutes = today.getMinutes();  // 분
 	var obj = {};
 	
+	console.log();
 	
-	
-/* 	if(file.length == 0){
+ 	if($(file).prop('files').length == 0){
 	 	obj = {
 			chatRoomNo : "${chatRoomNo}",
 			memberId : "${loginMember.id}",
@@ -337,7 +349,7 @@ $("#btn-message-send").click((e) =>{
 			logTime : hours + ":" + minutes,
 		};
 	 	
-	}else{ */
+	}else{
 		var form = $('#file-form')[0];
 	    var formData = new FormData(form);
 	 
@@ -349,38 +361,27 @@ $("#btn-message-send").click((e) =>{
 	        processData : false,
 	        headers: {
 				"${_csrf.headerName}" : "${_csrf.token}"
-		 	}
-	    }).done(function(data){
-	        console.log(data);
-	    });
-
-		/* $.ajax({
-			data : $("#file-form"),
-			type : "POST",
-			url : "${pageContext.request.contextPath}/gw/chat/uploadImg.do",
-			contentType : "charset=utf-8",
-			dataType : "text",
-			headers: {
-				"${_csrf.headerName}" : "${_csrf.token}"
 		 	},
-			success(res) {
-            	console.log(res);
-			},
-			error : console.log
-		});
- */
-		/*
-		obj = {
-				chatRoomNo : "${chatRoomNo}",
-				memberId : "${loginMember.id}",
-				msg : $(chatMessageContent).val(),
-				logTime : hours + ":" + minutes,
-				fileUrl : fileUrl
-			};
-	} */
+		 	success(data){
+		 		obj = {
+						chatRoomNo : "${chatRoomNo}",
+						memberId : "${loginMember.id}",
+						msg : $(chatMessageContent).val(),
+						logTime : hours + ":" + minutes,
+						chatFile : data
+						};
+		        $('#file-form')[0].reset();
+		 	},
+		 	error : console.log
+	    });  
+	};
+	
+	
+	setTimeout(function() {stompClient.send("/app/chat/${chatRoomNo}", {}, JSON.stringify(obj))}
+	, 500);
 
 	
-	//stompClient.send("/app/chat/${chatRoomNo}", {}, JSON.stringify(obj));
+	
 	
 	$(chatMessageContent).val(''); // #message 초기화
 });
