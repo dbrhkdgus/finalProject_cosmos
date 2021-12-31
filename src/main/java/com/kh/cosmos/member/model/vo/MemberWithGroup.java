@@ -30,7 +30,7 @@ public class MemberWithGroup extends Member implements Serializable {
 			String memberAchieve, int attachNo, boolean enabled, List<SimpleGrantedAuthority> authorities, int groupNo,
 			String groupName) {
 		super(id, memberName, nickname, password, memberEmail, birthday, phone, memberGender, memberEnrollDate,
-				memberJob, memberAchieve, attachNo, enabled, authorities);
+				memberJob, memberAchieve, attachNo, enabled, groupName, authorities);
 		this.groupNo = groupNo;
 		this.groupName = groupName;
 	}
