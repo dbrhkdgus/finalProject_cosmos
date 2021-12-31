@@ -10,6 +10,8 @@ import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -88,8 +90,9 @@ public class StompApplicationDestinationController {
 	
 	@MessageMapping("/chat/{chatRoomNo}")
 	@SendTo("/chat/{chatRoomNo}")
-	public String chat(String chatMessageContent, @DestinationVariable int chatRoomNo) {
+	public String chat(String chatMessageContent, @DestinationVariable int chatRoomNo, @RequestParam(value="upFile", required=false) MultipartFile file) {
 		log.debug("chatMessageContent = {}",chatMessageContent);
+		log.debug("file = {}",file);
 
 		ObjectMapper mapper = new ObjectMapper();
 		HashMap<String, String> map = new HashMap<String, String>();
@@ -122,7 +125,7 @@ public class StompApplicationDestinationController {
 		log.debug("chatMessage = {}", chatMessage);
 		
 		// chat_message 테이블 인서트
-		int result = chatService.insertChatMessage(chatMessage);
+		//int result = chatService.insertChatMessage(chatMessage);
 		
 		
 		// 구독자에게 JsonStr전송하기

@@ -13,7 +13,7 @@
 	<sec:authentication property="principal" var="loginMember"/>
 </sec:authorize>
 
-  <div class="workspace-box" >
+  <div class="workspace-box drop-zone" >
     <div class="chat-content">
 	        <c:if test="${not empty messageList }">
 		        <c:forEach var="message" items="${messageList }">
@@ -50,7 +50,7 @@
         </div>
         
 		    <div class="chat-input-box">
-		
+		 	<input type="file" id="file" style="display: none;">
 		      <div class="chat-txt border-top">
 		        <input id="chatMessageContent" type="text" class="form-control" name="chatMessageContent">
 		      </div>
@@ -114,6 +114,99 @@
 <!-- jquery.form.js  -->
 <!-- <script src="http://malsup.github.com/jquery.form.js"></script> -->
 <script>
+// drag & drop
+        (function() {
+            
+            var $file = document.getElementById("file")
+            var dropZone = document.querySelector(".drop-zone")
+
+            var toggleClass = function(className) {
+                
+                console.log("current event: " + className)
+
+                var list = ["dragenter", "dragleave", "dragover", "drop"]
+
+                for (var i = 0; i < list.length; i++) {
+                    if (className === list[i]) {
+                        dropZone.classList.add("drop-zone-" + list[i])
+                    } else {
+                        dropZone.classList.remove("drop-zone-" + list[i])
+                    }
+                }
+            }
+            
+           var showFiles = function(files) {
+                dropZone.innerHTML = ""
+                for(var i = 0, len = files.length; i < len; i++) {
+                    dropZone.innerHTML += "<p>" + files[i].name + "</p>"
+                }
+            }
+
+            var selectFile = function(files) {
+                // input file 영역에 드랍된 파일들로 대체
+                $file.files = files
+                //showFiles($file.files)
+                
+            }
+            
+            $file.addEventListener("change", function(e) {
+                showFiles(e.target.files)
+            })
+
+            // 드래그한 파일이 최초로 진입했을 때
+            dropZone.addEventListener("dragenter", function(e) {
+                e.stopPropagation()
+                e.preventDefault()
+
+            	console.log("진입");
+                //toggleClass("dragenter")
+
+            })
+
+            // 드래그한 파일이 dropZone 영역을 벗어났을 때
+            dropZone.addEventListener("dragleave", function(e) {
+                e.stopPropagation()
+                e.preventDefault()
+
+            	console.log("벗어남");
+                //toggleClass("dragleave")
+
+            })
+
+            // 드래그한 파일이 dropZone 영역에 머물러 있을 때
+            dropZone.addEventListener("dragover", function(e) {
+                //e.stopPropagation()
+            	console.log("머무르는중"); //미친듯이 찍음
+                e.preventDefault()
+
+                //toggleClass("dragover")
+
+            })
+
+            // 드래그한 파일이 드랍되었을 때
+            dropZone.addEventListener("drop", function(e) {
+                e.preventDefault()
+
+                //toggleClass("drop")
+
+                var files = e.dataTransfer && e.dataTransfer.files
+                //console.log(files)
+
+                if (files != null) {
+                    if (files.length < 1) {
+                        alert("폴더 업로드 불가")
+                        return
+                    }
+                    selectFile(files)
+                } else {
+                    alert("ERROR")
+                }
+
+            })
+
+        })();
+
+
 // 스크롤 최하단 유지
  $(".workspace-box").scrollTop($(".workspace-box")[0].scrollHeight); 
 //저장된 채팅 내역이 없는 경우 (처음 만들엉진 채팅방인 경우)
@@ -238,16 +331,21 @@ $("#btn-dm-message-send").click((e) =>{
 	
 	$("#dm-chatMessageContent").val(''); // #message 초기화
 });
+// 채팅 메시지 발송처리
 $("#btn-message-send").click((e) =>{
+	
+	var file = $('#file').prop('files');
 	var today = new Date();
 	var hours = today.getHours(); // 시
 	var minutes = today.getMinutes();  // 분
-	const obj = {
+
+ 	const obj = {
 		chatRoomNo : "${chatRoomNo}",
 		memberId : "${loginMember.id}",
 		msg : $(chatMessageContent).val(),
-		logTime : hours + ":" + minutes
-	};
+		logTime : hours + ":" + minutes,
+		file : file
+	};  
 	
 	stompClient.send("/app/chat/${chatRoomNo}", {}, JSON.stringify(obj));
 	
