@@ -447,15 +447,12 @@ window.addEventListener("load", function(){
 			                           		<i class="far fa-heart"  data-group-no="\${v.groupNo}"><span>\${v.groupLikeCount}</span></i>
 			                       </sec:authorize>
 			                         <sec:authorize access="isAuthenticated()">
-			                         		${v.bool eq "true"}
-			                         		console.log(${v.bool eq "true"})
 			                         		<c:if test="\${\${v.bool} eq true}"> 
 			                           			<i class="fas fa-heart"  data-group-no="\${v.groupNo}"><span>\${v.groupLikeCount}</span></i>
 			                         		</c:if>
 			                         		<c:if test="\${\${v.bool} eq false}"> 
 			                         			<i class="far fa-heart"  data-group-no="\${v.groupNo}"><span>\${v.groupLikeCount}</span></i>
 			                         		</c:if>
-			                         		\${v.bool==true}
 			                         		<c:choose>
 			                         			<c:when test="${v.bool==true}">
 			                         				<i class="fas fa-heart"  data-group-no="\${v.groupNo}"><span>\${v.groupLikeCount}</span></i>
@@ -492,10 +489,7 @@ window.addEventListener("load", function(){
 							`);
 				};
 			}); 
-			
-
- 
-			
+	
 		},
 		error(xhr,textStatus,err){
 			console.log(xhr,textStatus,err);
