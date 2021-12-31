@@ -48,7 +48,7 @@
 				<img class="member-profile-img" src="${pageContext.request.contextPath }/resources/upFile/fileboard/${attach.renamedFilename}" alt="">
 			</div>
 			<div class="d-grid gap-2 d-md-block" style="text-align: right;">
-				<button class="btn btn-primary" type="button" style="margin:20px;">수정</button>&nbsp;
+				<button class="btn btn-primary" type="button" style="margin:10px;" onclick="location.href='${pageContext.request.contextPath}/gw/board/postModify.do?postNo=${post.postNo}'">수정</button>&nbsp;
 				<button class="btn btn-primary" type="button" onclick="location.href='${pageContext.request.contextPath}/gw/board/deletePostBoard.do?postNo=${post.postNo}'">삭제</button>
 			</div>
 				

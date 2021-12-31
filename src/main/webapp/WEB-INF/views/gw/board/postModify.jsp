@@ -34,6 +34,8 @@
 			<input type="hidden" name="memberName" value="${member.memberName }" />
 			<input type="hidden" name="boardNo" value="${boardNo}" />
 			<input type="hidden" name="groupNo" value="${groupNo}"/>
+			<input type="hidden" name="postNo" value="${post.postNo}"/>
+			<input type="hidden" name="exAttachNo" value="${post.attachNo}"/>
 		</div>
 		<textarea id="summernote" name="postContent">${post.postContent}</textarea>
 		<div class="input-group mb-3" style="padding:0px; padding-top: 5px;">
@@ -42,7 +44,16 @@
 			  </div>
 			  <div class="custom-file">
 			    <input type="file" class="custom-file-input" name="upFile"  >
-			    <label class="custom-file-label" for="upFile1">${attach.originalFilename}</label>
+			    <label class="custom-file-label" for="upFile1">
+			    <c:choose>
+			    	<c:when test="${attach.originalFilename != null}">
+					    ${attach.originalFilename}
+			    	</c:when>
+			    	<c:otherwise>
+			    		파일을 선택하세요.
+			    	</c:otherwise>
+			    </c:choose>
+			    </label>
 			</div>
 		</div>
 		

@@ -56,6 +56,12 @@
 		select * from attachment where attach_no = #{attachNo}
   </select>
   <update id="updatePostFile">
+  	<selectKey keyProperty="attachNo" resultType="_int" order="BEFORE">
+		select
+			seq_attach_no_no.currval
+		from
+			dual
+	</selectKey>
   	update post 
   	set post_title = #{postTitle}, post_content=#{postContent}, post_update=sysdate, attach_no=#{attachNo} 
   	where post_no = #{postNo}
