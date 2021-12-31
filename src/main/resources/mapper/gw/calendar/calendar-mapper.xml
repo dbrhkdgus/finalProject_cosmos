@@ -18,7 +18,9 @@ VALUES(
 	to_date(#{start_date}, 'yyyy/mm/dd hh24:mi:ss'),
 	to_date(#{end_date}, 'yyyy/mm/dd hh24:mi:ss'),
 	#{category},
-	sysdate
+	sysdate,
+	#{groupColor},
+	#{privateColor}
 	)
 </insert>
 
@@ -37,4 +39,54 @@ delete from
 where
 	group_no = #{groupNo} and schedule_no = #{scheduleNo}
 </delete>
+
+<!-- 색깔 변경: 개인과 그룹 색깔 각각 변경해야 함. -->
+<update id="changePrivateColor">
+update
+	schedule
+set
+	private_color = #{privateColor}
+where
+	member_id = #{loginMember} and group_no = #{groupNo}
+</update>
+<update id="changeGroupColor">
+update
+	schedule
+set
+	group_color = #{groupColor}
+where
+	group_no = #{groupNo}
+</update>
+
+<select id="selectGroupColor" resultType="schedule">
+select
+    group_color
+from(
+    select 
+        group_color,
+        row_number() over (order by group_color) rnum
+    from 
+        schedule 
+    where 
+        group_no = #{groupNo} and category='G')
+where
+    rnum = 1
+</select>
+
+<select id="selectColor" resultType="schedule">
+select
+    group_color,
+    private_color
+from(
+select
+	s.*,
+    row_number() over (order by schedule_no desc) rnum
+from
+	schedule s
+where 
+    category = 'G' and member_id = #{memberId}
+)
+where
+    rnum = 1
+</select>
 </mapper>

@@ -45,9 +45,18 @@ public class GwCalendarController {
 		
 	@GetMapping("/calendar.do")
 	public String calendar(int groupNo, Model model, Authentication authentication){
-		groupwareHeaderSet(groupNo, model, authentication);
-		log.debug("groupNOOOOOOOOOOOOOOOOOOOOO = {}", groupNo);
+		groupwareHeaderSet(groupNo, model, authentication);		
+		Member loginMember = (Member) authentication.getPrincipal();
 		model.addAttribute("groupNo", groupNo);
+		
+		
+		Map<String, Object> param = new HashMap<>();
+		param.put("groupNo", groupNo);
+		param.put("memberId", loginMember.getId());
+		
+		Schedule schedule = gwCalendarService.selectColor(param);
+		log.debug("schedule = {}", schedule);
+		model.addAttribute("schedule", schedule);
 
 		return "gw/calendar/calendar";
 	}
@@ -56,7 +65,6 @@ public class GwCalendarController {
 	@ResponseBody
 	public Map<String, Object>list(int groupNo, Authentication authentication, Model model) {
 		groupwareHeaderSet(groupNo, model, authentication);		
-		System.out.println("kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk");
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("list", gwCalendarService.selectScheduleList(groupNo));
 		return map;
@@ -65,6 +73,17 @@ public class GwCalendarController {
 	@GetMapping("/insertSchedule.do")
 	public String insertSchedule(int groupNo, Authentication authentication, @RequestParam Map<String, Object> obj, Model model, RedirectAttributes redirectAttr){
 		groupwareHeaderSet(groupNo, model, authentication);		
+		
+		//개인이 설정한 스케줄 색상값이 없다면 기본값이 설정된다.
+		if(obj.get("privateColor")==null || obj.get("privateColor")=="") {
+			obj.put("privateColor", "#75b7ff");
+		}
+		if(obj.get("groupColor")==null || obj.get("groupColor")=="") {
+			//그룹 색상을 따로 먼저 선택하지 않았다면, 기존의 그룹 색깔을 유지한다.
+			Schedule schedule = gwCalendarService.selectGroupColor(groupNo);
+			log.debug("나는 처음입력되서 들어가는 그룹색상이랍니다. schedule.groupGolor : "+schedule.getGroupColor());
+			obj.put("groupColor", schedule.getGroupColor());
+		}
 
 		
 		log.debug("obj = {}", obj);
@@ -117,7 +136,17 @@ public class GwCalendarController {
 		return  "redirect:/gw/calendar/calendar.do?groupNo="+groupNo;
 	}
 	
-	
+	@GetMapping("/changeColor")
+	public String changeColor(@RequestParam Map<String,String> param, int groupNo, Model model, Authentication authentication, RedirectAttributes redirectAttr) {
+
+		log.debug("param = {}", param);
+		int result1 = gwCalendarService.changePrivateColor(param);
+		int result2 = gwCalendarService.changeGroupColor(param);
+		log.debug("result1 = {}", result1);
+		log.debug("result2 = {}", result2);
+
+		return "redirect:/gw/calendar/calendar.do?groupNo="+groupNo;
+	}
 	
 	
 	
