@@ -100,12 +100,24 @@
 		                                    <div class="small text-muted d-flex justify-content-between align-items-center">
 			                                    <c:if test="${fn:contains(group.groupClose, 'N')}">
 			                                    	<div>
-					                                    <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" class="bi bi-circle-fill" viewBox="0 0 16 16">
-														  <circle cx="8" cy="8" r="8"/>
-														</svg>
-					                                    <span>
-					                                    모집중(${numberOfGroupMember[group.groupNo]}/${group.groupPool})
-					                                    </span>
+					                                    <c:choose>
+					                                    	<c:when test="${numberOfGroupMember[group.groupNo] == group.groupPool}">
+					                                    	<svg xmlns="http://www.w3.org/2000/svg" color="red" width="10" height="10" fill="currentColor" class="bi bi-circle-fill" viewBox="0 0 16 16">
+																  <circle cx="8" cy="8" r="8"/>
+																</svg>
+							                                    <span>
+							                                    모집마감(${numberOfGroupMember[group.groupNo]}/${group.groupPool})
+							                                    </span>
+					                                    	</c:when>
+					                                    	<c:otherwise>
+							                                    <svg xmlns="http://www.w3.org/2000/svg" color="Chartreuse" width="10" height="10" fill="currentColor" class="bi bi-circle-fill" viewBox="0 0 16 16">
+																  <circle cx="8" cy="8" r="8"/>
+																</svg>
+							                                    <span>
+						                                    		모집중(${numberOfGroupMember[group.groupNo]}/${group.groupPool})
+							                                    </span>
+					                                    	</c:otherwise>
+					                                    </c:choose>
 			                                    	</div>
 			                                    </c:if>
 		                                    	<c:forEach var="cate" items="${caOneList}">

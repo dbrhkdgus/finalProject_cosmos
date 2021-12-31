@@ -15,4 +15,13 @@ public interface GwCalendarService {
 
 	int deleteSchedule(Map<String, String> param);
 
+	int changePrivateColor(Map<String, String> param);
+
+	int changeGroupColor(Map<String, String> param);
+	
+	Schedule selectColor(Map<String, Object> param);
+
+	Schedule selectGroupColor(int groupNo);
+
+
 }

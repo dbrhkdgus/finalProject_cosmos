@@ -37,10 +37,16 @@ public interface BoardDao {
 	Post selectOnePostInBoard(int postNo);
 
 	Post selectOnePostInNotice(int postNo);
-
+	
 	int deletePostInBoard(int postNo);
 
 	int deleteAttachInBoard(int attachNo);
+
+	List<Post> selectAllPostInAnonymous(int boardNo, int limit, int offset);
+
+	Post selectOnePostInAnonymous(int postNo);
+
+	int insertPostInAnonymous(Post post);
 
 
 

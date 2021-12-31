@@ -36,7 +36,7 @@ public class BoardDaoImpl implements BoardDao {
 		RowBounds rowBounds = new RowBounds(offset, limit);
 		return session.selectList("board.selectAllPostInNotice", boardNo, rowBounds);
 	}
-
+ 
 	@Override
 	public int insertPost(Post post) {
 		// TODO Auto-generated method stub
@@ -113,11 +113,27 @@ public class BoardDaoImpl implements BoardDao {
 		// TODO Auto-generated method stub
 		return session.delete("board.deleteAttachInBoard", attachNo);
 	}
-	
-	
+
+	@Override
+	public List<Post> selectAllPostInAnonymous(int boardNo, int limit, int offset) {
+		// TODO Auto-generated method stub
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		return session.selectList("board.selectAllPostInAnonymous", boardNo, rowBounds);
+	}
+
+	@Override
+	public Post selectOnePostInAnonymous(int postNo) {
+		// TODO Auto-generated method stub
+		return session.selectOne("board.selectOnePostInAnonymous", postNo);
+	}
+
+	@Override
+	public int insertPostInAnonymous(Post post) {
+		// TODO Auto-generated method stub
+		return session.insert("board.insertPostInAnonymous", post);
+	}
+
+}
 	
 	
 
-	
-	
-}

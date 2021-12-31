@@ -4,6 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
 <fmt:requestEncoding value="utf-8" />
@@ -34,9 +35,14 @@ body {
 	font-size: 14px;
 }
 
+#calendar{
+    width: 65vw;
+}
+
 #calendar {
-	max-width: 1100px;
-	margin: 0 auto;
+	margin-left: 30px;
+	margin-top: 30px;
+	margin-bottom: 30px;
 }
 
 .modal-body {
@@ -59,16 +65,28 @@ body {
 #detail-modal-body{
 	padding: 16px;
 }
+.color-pick{
+	padding-top: 4px;
+}
+#div-change-color{
+	padding-left: 16px;
+}
+#footer-change-color{
+	border-top: 0 none;
+}
 </style>
 
+
+	개인: ${schedule.privateColor}
+	모임: ${schedule.groupColor}
+
 <div class="main-container">
-	${scheduleList}
 	<div id='calendar'></div>
 </div>
 <input type="hidden" id="_groupNo" value="${groupNo}" />
 
 
-<!-- modal 추가 -->
+<!-- 일정 추가 modal -->
 <div class="modal" id="calendarModal" tabindex="-1" role="dialog"
 	aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered" role="document">
@@ -81,8 +99,7 @@ body {
 				</button>
 			</div>
 			<div class="modal-body">
-				<form name="insertSchedule"
-					action="${pageContext.request.contextPath}/gw/calendar/insertSchedule.do">
+				<form name="insertSchedule" action="${pageContext.request.contextPath}/gw/calendar/insertSchedule.do">
 					<div class="form-group">
 						<div class="float-right">
 							<input type="radio" name="category" id="privateCategory"
@@ -124,6 +141,10 @@ body {
 			<!-- 접속자 아이디 전달 -->
 			<input type="hidden" name="loginMember" value="${loginMember.id}" id="memberId" /> 
 			<input type="hidden" name="groupNo"	value="${groupNo}" id="groupNo" />
+			<!-- 로그인 된 사용자의 설정된 일정 색상값을 받는 input  -->
+			<input type="text" name="groupColor" value="${schedule.groupColor}" id="input_groupColor" />
+			<input type="text" name="privateColor" value="${schedule.privateColor}" id="input_privateColor" />
+			
 			</form>
 
 		</div>
@@ -135,9 +156,9 @@ body {
 	aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-sm modal-dialog-centered"
 		role="document">
-		<div class="modal-content" style="background-color: #fff8bc;">
+		<div class="modal-content" style="background-color: #fffadf;">
 			<div class="modal-header" id="detail-modal-header">
-				<h5 class="modal-title" id="detailTitle">제목입니다</h5>
+				<h5 class="modal-title font-italic" id="detailTitle">제목입니다</h5>
 				<button type="button" class="close" data-bs-dismiss="modal"
 					aria-label="Close">
 					<span aria-hidden="true">&times;</span>
@@ -162,7 +183,197 @@ body {
 	</div>
 </div>
 
+
+<!-- 색상 변경 modal -->
+<div class="modal fade" id="changeColor" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">일정 색상 변경</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" id="div-change-color">
+      <form action="${pageContext.request.contextPath}/gw/calendar/changeColor" name="colorForm">
+        <div>
+        	<p>모임 일정
+        		 
+<!-- 	        	<label for="selectDirect" style="font-size: 5px">직접 입력</label>
+	        	<input type="checkbox" name="selectDirect" id="select-direct-color-group" /> -->
+        	</p>
+        	<table class="table" id="group-color-table">
+        		<tbody>
+	        		<tr>
+	        			<td>
+	        				<div class="text-center color-pick" style="background-color:#e51414;">
+	        					&nbsp<input type="radio" name="groupColor" value="#e51414" />&nbsp
+	        				</div>
+	        			</td>	
+	        			<td>
+	        				<div class="text-center color-pick" style="background-color:#ff8f07;">
+	        					&nbsp<input type="radio" name="groupColor" value="#ff8f07"/>&nbsp
+	        				</div>    			
+	        			</td>	
+	        			<td>
+	        				<div class="text-center color-pick" style="background-color:#ffe100;">
+	        					&nbsp<input type="radio" name="groupColor" value="#ffe100"/>&nbsp
+	        				</div>          			
+	        			</td>	
+	        			<td>
+	        				<div class="text-center color-pick" style="background-color:#00e03f;">
+	        					&nbsp<input type="radio" name="groupColor" value="#00e03f"/>&nbsp
+	        				</div>     	        			
+	        			</td>	
+	        			<td>
+	        				<div class="text-center color-pick" style="background-color:#0537ff;">
+	        					&nbsp<input type="radio" name="groupColor" value="#0537ff"/>&nbsp
+	        				</div>     	        			
+	        			</td>	
+	        			<td>
+	        				<div class="text-center color-pick" style="background-color:#aa00ff;">
+	        					&nbsp<input type="radio" name="groupColor" value="#aa00ff"/>&nbsp
+	        				</div>     	        			
+	        			</td>	
+	        		</tr>
+	        		<tr>
+	        			<td>
+	        				<div class="text-center color-pick" style="background-color:#ff7654;">
+	        					&nbsp<input type="radio" name="groupColor" value="#ff7654"/>&nbsp
+	        				</div>
+	        			</td>	
+	        			<td>
+	        				<div class="text-center color-pick" style="background-color:#ff7f00;">
+	        					&nbsp<input type="radio" name="groupColor" value="#ff7f00"/>&nbsp
+	        				</div>          			
+	        			</td>	
+	        			<td>
+	        				<div class="text-center color-pick" style="background-color:#fff8bc;">
+	        					&nbsp<input type="radio" name="groupColor" value="#fff8bc"/>&nbsp
+	        				</div>    			
+	        			</td>	
+	        			<td>
+	        				<div class="text-center color-pick" style="background-color:#38f47a;">
+	        					&nbsp<input type="radio" name="groupColor" />&nbsp
+	        				</div>     	        			
+	        			</td>	
+	        			<td>
+	        				<div class="text-center color-pick" style="background-color:#75b7ff;">
+	        					&nbsp<input type="radio" name="groupColor" value="#75b7ff"/>&nbsp
+	        				</div>     	        			
+	        			</td>	
+	        			<td>
+	        				<div class="text-center color-pick" style="background-color:#C4C4C4;">
+	        					&nbsp<input type="radio" name="groupColor" value="#C4C4C4"/>&nbsp
+	        				</div>     	        			
+	        			</td>	        		
+	        		</tr>
+        		</tbody>
+        	</table>
+        </div>
+        
+        <div>
+        	<p>개인 일정</p>
+        	<table class="table" id="private-color-table">
+        		<tbody>
+	        		<tr>
+	        			<td>
+	        				<div class="text-center color-pick" style="background-color:#e51414;">
+	        					&nbsp<input type="radio" name="privateColor" value="#e51414"/>&nbsp
+	        				</div>
+	        			</td>	
+	        			<td>
+	        				<div class="text-center color-pick" style="background-color:#ff8f07;">
+	        					&nbsp<input type="radio" name="privateColor" value="#ff8f07"
+	        					<c:if test="${schedule.privateColor}== #ff8f07">checked</c:if>
+	        					/>&nbsp
+	        				</div>    			
+	        			</td>	
+	        			<td>
+	        				<div class="text-center color-pick" style="background-color:#ffe100;">
+	        					&nbsp<input type="radio" name="privateColor" value="#ffe100"/>&nbsp
+	        				</div>          			
+	        			</td>	
+	        			<td>
+	        				<div class="text-center color-pick" style="background-color:#00e03f;">
+	        					&nbsp<input type="radio" name="privateColor" value="#00e03f"/>&nbsp
+	        				</div>     	        			
+	        			</td>	
+	        			<td>
+	        				<div class="text-center color-pick" style="background-color:#0537ff;">
+	        					&nbsp<input type="radio" name="privateColor" value="#0537ff"/>&nbsp
+	        				</div>     	        			
+	        			</td>	
+	        			<td>
+	        				<div class="text-center color-pick" style="background-color:#aa00ff;">
+	        					&nbsp<input type="radio" name="privateColor" value="#aa00ff"/>&nbsp
+	        				</div>     	        			
+	        			</td>	
+	        		</tr>
+	        		<tr>
+	        			<td>
+	        				<div class="text-center color-pick" style="background-color:#ff7654;">
+	        					&nbsp<input type="radio" name="privateColor" value="#ff7654"/>&nbsp
+	        				</div>
+	        			</td>	
+	        			<td>
+	        				<div class="text-center color-pick" style="background-color:#ff7f00;">
+	        					&nbsp<input type="radio" name="privateColor" value="#ff7f00"/>&nbsp
+	        				</div>          			
+	        			</td>	
+	        			<td>
+	        				<div class="text-center color-pick" style="background-color:#fff8bc;">
+	        					&nbsp<input type="radio" name="privateColor" value="#fff8bc"/>&nbsp
+	        				</div>    			
+	        			</td>	
+	        			<td>
+	        				<div class="text-center color-pick" style="background-color:#38f47a;">
+	        					&nbsp<input type="radio" name="privateColor" value="#38f47a"/>&nbsp
+	        				</div>     	        			
+	        			</td>	
+	        			<td>
+	        				<div class="text-center color-pick" style="background-color:#75b7ff;">
+	        					&nbsp<input type="radio" name="privateColor" value="#75b7ff"/>&nbsp
+	        				</div>     	        			
+	        			</td>	
+	        			<td>
+	        				<div class="text-center color-pick" style="background-color:#C4C4C4;">
+	        					&nbsp<input type="radio" name="privateColor" value="#C4C4C4"/>&nbsp
+	        				</div>     	        			
+	        			</td>	        		
+	        		</tr>
+        		</tbody>
+        	</table>        	
+        </div>
+      </div>
+
+	<!-- 접속자 아이디 전달 -->
+	<input type="hidden" name="loginMember" value="${loginMember.id}" id="memberId" /> 
+	<input type="hidden" name="groupNo"	value="${groupNo}" id="groupNo" />
+	<!-- 로그인 된 사용자의 설정된 일정 색상값을 받는 input  -->
+	<input type="hidden" name="groupColor" value="${schedule.groupColor}" id="input_groupColor" />
+	<input type="hidden" name="privateColor" value="${schedule.privateColor}" id="input_privateColor" />	  
+		    
+      <div id="footer-change-color"class="modal-footer" style="margin: auto">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+        <button type="button" class="btn btn-primary" id="changeColorBtn">저장</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+
 <script>
+
+
+var input_groupColor = $("#input_groupColor").val();
+var input_privateColor = $("#input_privateColor").val();
+console.log("모임 색상: "+input_groupColor);
+console.log("개인 색상: "+input_privateColor);
+
+
+$("#changeColorBtn").click((e)=>{
+	$(colorForm).submit();
+})
+
 var loginMember = `${loginMember.id}`;
 
 //하루종일 옵션을 선택하면 시간을 선택할 수 없다
@@ -178,6 +389,22 @@ $("#allDay").change((e)=>{
     }
 })
 
+//날짜 변형 함수
+function dateFormat(date) {
+       let month = date.getMonth() + 1;
+       let day = date.getDate();
+       let hour = date.getHours();
+       let minute = date.getMinutes();
+       let second = date.getSeconds();
+
+       month = month >= 10 ? month : '0' + month;
+       day = day >= 10 ? day : '0' + day;
+       hour = hour >= 10 ? hour : '0' + hour;
+       minute = minute >= 10 ? minute : '0' + minute;
+       second = second >= 10 ? second : '0' + second;
+
+       return date.getFullYear() + '-' + month + '-' + day + ' ' + hour + ':' + minute;
+}
 
 //캘린더 관련 시작
 document.addEventListener('DOMContentLoaded', function() {
@@ -192,16 +419,26 @@ document.addEventListener('DOMContentLoaded', function() {
 
   
   var calendar = new FullCalendar.Calendar(calendarEl, {
+	height: '100%',
     headerToolbar: {
       left: 'prevYear,prev,next,nextYear today',
       center: 'title',
       right: 'dayGridMonth,dayGridWeek,dayGridDay'
     },
     footerToolbar: {
+    	left: 'changeColor',
     	right: 'addEventButton'
     },
-    /* customButtons 버튼관련 */
+    /* changeColor 버튼관련 */
+    
     customButtons: {
+    				changeColor:{
+    					text : "일정 색상 변경",
+    					click: function() { 
+    						$("#changeColor").modal("show");
+    					}
+    				},
+    /* customButtons 버튼관련 */
                     addEventButton: { // 추가한 버튼 설정
                         text : "일정 추가",  // 버튼 내용
                         click : function(){ // 버튼 클릭 시 이벤트 추가
@@ -231,14 +468,13 @@ document.addEventListener('DOMContentLoaded', function() {
                                 	}                                
                         			$(insertSchedule).submit();
                                 }else{ // 정상적인 입력 시
-                                	
                         			$(insertSchedule).submit();
                                 }
                             });
                         }
                     }//end addEventButton
 
-                },//end customButtons
+    },//end customButtons
 	
                
 
@@ -261,26 +497,79 @@ document.addEventListener('DOMContentLoaded', function() {
 					console.log("data.list: "+data.list);
 					result = data.list;
 					console.log("data.list.length: "+data.list.length);
+					
+
 					for(i=0; i < result.length; i++){
 
 						console.log("result[i] = "+result[i]);
-						console.log("result[i]['allDay'] = ", result[i]['allDay']);
+						console.log("result[i]['endDate'] = ", result[i]['endDate']);
+						console.log(new Date(result[i]['endDate']));
+						let date = new Date(result[i]['endDate']);
+						
+						/* fullcalendar는 종일 일정 기간에서 마지막 기간은 포함하지 않는다. 따라서 종일일정일 경우, +1일을 한다. */
+						if(result[i]['allDay']== 'T'){
+							date.setDate(date.getDate()+1);
+						}
+						
+						
+						console.log("테스트출력: "+result[i]['memberId']);
+						console.log("테스트출력: "+$("#memberId").val());
+						let _writer = result[i]['memberId'];
+						let _loginMember = $("#memberId").val();
+						console.log("--------------------------------------")
+						console.log(typeof(_writer));
+						console.log(typeof(_loginMember));
+						console.log(_writer==_loginMember);
+						console.log("--------------------------------------")
+						
+						
+						if(result[i]['category'] == 'G'){
+							changeColor = input_groupColor;
+						}else{
+							changeColor = result[i]['privateColor'];
+						}
+						console.log("컬러: "+changeColor);
+						
 						calendar.addEvent({
 							title: result[i]['title'],
 							start: result[i]['startDate'],
-							end: result[i]['endDate'],
+							end: date,
 							allDay : result[i]['allDay']== 'T'? true : false,
-							color: result[i]['category'] == 'G'? "blue" : "gray",
+							color: result[i]['category'] = changeColor,
 							content: result[i]['content'],
 							writer: result[i]['memberId'],
-							scheduleNo: result[i]['scheduleNo']
+							scheduleNo: result[i]['scheduleNo'],
+							groupColor: result[i]['groupColor'],
+							privateColor: result[i]['privateColor']
 						})
 					}
 				},
 				error: console.log
 			})
 	
-		],
+		],//event Drag & Drop
+ 		eventDrop: function(event, delta, newResource) {
+ 			console.log("+++++++++++++++++++++++++++++++++++++++++++++++++")
+			console.log(event.event);
+			console.log("delta = "+event.delta);
+			console.log("newResource = "+event.newResource);
+
+/* 	        if (allDay) {
+	            alert("Event is now all-day");
+	        }else{
+	            alert("Event has a time-of-day");
+	        }
+
+	        if (!confirm("Are you sure about this change?")) {
+	            revertFunc();
+	        } */
+
+	    },
+		
+		
+		
+		
+		
 		//일정 클릭시 상세 일정이 (포스트잇 모양의) 모달 페이지에 표시된다
 		eventClick : function(info){
 			//기존 모달 숨기기
@@ -290,53 +579,26 @@ document.addEventListener('DOMContentLoaded', function() {
 			
 			var eventObj = info.event;
 			console.log(eventObj);
-			console.log(eventObj.extendedProps.content);
-			
-			
-			
-			let date = new Date();
-			function dateFormat(date) {
-		        let month = date.getMonth() + 1;
-		        let day = date.getDate();
-		        let hour = date.getHours();
-		        let minute = date.getMinutes();
-		        let second = date.getSeconds();
 
-		        month = month >= 10 ? month : '0' + month;
-		        day = day >= 10 ? day : '0' + day;
-		        hour = hour >= 10 ? hour : '0' + hour;
-		        minute = minute >= 10 ? minute : '0' + minute;
-		        second = second >= 10 ? second : '0' + second;
-
-		        return date.getFullYear() + '-' + month + '-' + day + ' ' + hour + ':' + minute;
+			/* fullcalendar는 종일 일정 기간에서 마지막 기간은 포함하지 않는다. 위에서 +1일을 해줬기에, 종일 일정일 경우 다시 -1일을 한다.*/
+			console.log("++++++++++++++++++++++++++++++++++++++++")
+			let minusDate = new Date(eventObj.end);
+			if(JSON.stringify(eventObj.allDay == 'true')){
+				minusDate.setDate(minusDate.getDate()-1);				
 			}
+			console.log("변경 후: "+minusDate);
 			
-			/* 시작일시, 종료일시 format 변경하기 위한 과정 */
-			
-			console.log(typeof(eventObj.start));
+
+			console.log("++++++++++++++++++++++++++++++++++++++++")
+
 			//JSON 객체 String 타입으로 형 변환
-			console.log(typeof(JSON.stringify(eventObj.start)));
-			//데이트 타입으로 형변환
+			//데이트 타입으로 형변환- 입력한 값보다 -1일 되서 나와야 함.
 			var detailStartDateForm = new Date(eventObj.start);
-			var detailEndDateForm = new Date(eventObj.end);
+			var detailEndDateForm = new Date(minusDate);
 			
 			//console.log("typeof: "+typeof(detailStartDateForm_direct));
 			//console.log(detailStartDateForm.getMonth)
 			
-			function dateFormat(date) {
-		        let month = date.getMonth() + 1;
-		        let day = date.getDate();
-		        let hour = date.getHours();
-		        let minute = date.getMinutes();
-		        let second = date.getSeconds();
-
-		        month = month >= 10 ? month : '0' + month;
-		        day = day >= 10 ? day : '0' + day;
-		        hour = hour >= 10 ? hour : '0' + hour;
-		        minute = minute >= 10 ? minute : '0' + minute;
-
-		        return date.getFullYear() + '-' + month + '-' + day + ' ' + hour + ':' + minute;
-			}
 
 			//console.log('변환값= '+ dateFormat(detailStartDateForm));
 			//console.log('종료일' + document.querySelector("#detailEnd").innerText);
@@ -346,25 +608,22 @@ document.addEventListener('DOMContentLoaded', function() {
 			$("#detailStart").text(dateFormat(detailStartDateForm));
 			$("#detailEnd").text(dateFormat(detailEndDateForm));
 			$("#detailContent").text(eventObj.extendedProps.content).css('font-style','italic');
-			console.log("--------------------------------")
-			console.log(loginMember == eventObj.extendedProps.writer);
-			console.log(loginMember);
-			console.log(typeof(loginMember));
-			console.log(eventObj.extendedProps.writer);
-			console.log(typeof(eventObj.extendedProps.writer));
+			$("#detail-modal-shceduleNo").val(eventObj.extendedProps.scheduleNo);			
+			
+			//작성자 일시 상세 모달에 '삭제' 버튼이 표기된다
  			if(loginMember != eventObj.extendedProps.writer){
 				$("#detailDeleteBtn").css('display', 'none');				
 			}else{
 				$("#detailDeleteBtn").css('display', 'block');				
 			}
- 			console.log(eventObj.extendedProps.scheduleNo);
- 			console.log(typeof(eventObj.extendedProps.scheduleNo));
- 			$("#detail-modal-shceduleNo").val(eventObj.extendedProps.scheduleNo);
+			
 		}
   });
 
   calendar.render();
 });
+
+
 //일정 삭제 
 $("#detailDeleteBtn").click((e)=>{
 	if(confirm("일정을 삭제하시겠습니까?") == true){

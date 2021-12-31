@@ -16,7 +16,7 @@
       <div class="study-member-table">
         <h4>그룹원 관리</h4>
 
-        <table class="table table-sm text-center">
+ <table class="table table-sm text-center">
           <thead>
             <tr>
               <th>번호</th>
@@ -27,10 +27,14 @@
             </tr>
           </thead>
 	          <tbody>
+	          
+	            <c:forEach var="memberList" items="${memberList }" >
 		           <c:forEach var="acceptList" items="${acceptApplocationGroupList }" varStatus="vs">
-			            <tr>
-			              <td>${vs.count}</td>
-			              <td>${acceptList.memberId}</td>	             
+		           <c:if test="${memberList.id eq acceptList.memberId}">
+	 					<c:set var="j" value="${j+1}"/>
+	     					 <tr>
+	 					 <td>${j}</td>
+			              <td>${memberList.nickname}</td>	             
 			              <c:if test="${fn:contains(acceptList.role, 'G')}">
 			             	 <td>그룹장</td>
 			              </c:if>
@@ -50,7 +54,9 @@
 			                </svg>
 			              </td>
 			            </tr>
+			          </c:if>
 		        </c:forEach> 
+		       </c:forEach> 
 			  </tbody>
         </table>
       </div>
@@ -87,7 +93,6 @@
                   </c:forEach> 
               </c:forEach>
               </tbody>
-              
             </table>
       </div>
       <div class="study-join-buttons text-center">
@@ -133,6 +138,7 @@
 			error: console.log
 			
 	 	 }) 
+
 
   });    
 		
