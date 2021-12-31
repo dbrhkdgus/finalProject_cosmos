@@ -1,6 +1,7 @@
 package com.kh.cosmos.groupware.admin.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,11 @@ public class GwAdminDaoImpl implements GwAdminDao {
 	public List<ApplocationGroup> selectAllWaitingGroupMemberList(int groupNo) {
 		// TODO Auto-generated method stub
 		return session.selectList("gwAdmin.selectAllWaitingGroupMemberList", groupNo);
+	}
+
+	@Override
+	public int updategroupAccept(Map<String, String> idList) {
+		return session.update("gwAdmin.updategroupAccept",idList);
 	}
 	
 	
