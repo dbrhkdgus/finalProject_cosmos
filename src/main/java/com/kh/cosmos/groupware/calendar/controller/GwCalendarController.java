@@ -55,8 +55,14 @@ public class GwCalendarController {
 		param.put("memberId", loginMember.getId());
 		
 		Schedule schedule = gwCalendarService.selectColor(param);
-		log.debug("schedule = {}", schedule);
+		//DB를 불러올 때, 먼저 입력해 놓은 그룹일정의 색상/ 별개로 기본 개인일정 색상(회색) 세팅한다.
+		if(schedule == null) {
+			schedule = gwCalendarService.selectGroupColor(groupNo);
+			schedule.setPrivateColor("#C4C4C4");
+		}
+		log.debug("여기는calendar.do schedule = {}", schedule);
 		model.addAttribute("schedule", schedule);
+		
 
 		return "gw/calendar/calendar";
 	}
@@ -76,13 +82,16 @@ public class GwCalendarController {
 		
 		//개인이 설정한 스케줄 색상값이 없다면 기본값이 설정된다.
 		if(obj.get("privateColor")==null || obj.get("privateColor")=="") {
-			obj.put("privateColor", "#75b7ff");
+			obj.put("privateColor", "#C4C4C4");
 		}
 		if(obj.get("groupColor")==null || obj.get("groupColor")=="") {
 			//그룹 색상을 따로 먼저 선택하지 않았다면, 기존의 그룹 색깔을 유지한다.
 			Schedule schedule = gwCalendarService.selectGroupColor(groupNo);
-			log.debug("나는 처음입력되서 들어가는 그룹색상이랍니다. schedule.groupGolor : "+schedule.getGroupColor());
-			obj.put("groupColor", schedule.getGroupColor());
+			if(schedule == null) {
+				System.out.println("기본색상이 지정되어 있지 않아, 기본값으로 입력됩니다.");
+				obj.put("groupColor", "#75b7ff");
+			}
+			
 		}
 
 		
@@ -139,7 +148,7 @@ public class GwCalendarController {
 	@GetMapping("/changeColor")
 	public String changeColor(@RequestParam Map<String,String> param, int groupNo, Model model, Authentication authentication, RedirectAttributes redirectAttr) {
 
-		log.debug("param = {}", param);
+		log.debug("여긴느 changeColor입니다. param = {}", param);
 		int result1 = gwCalendarService.changePrivateColor(param);
 		int result2 = gwCalendarService.changeGroupColor(param);
 		log.debug("result1 = {}", result1);
