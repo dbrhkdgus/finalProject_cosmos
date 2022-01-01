@@ -40,7 +40,7 @@
 				              <p>${message.chatMessageContent}</p>
 				              <div class="chatFile">
 				              		<c:if test="${message.attachNo != '' }">
-					              		<img src="${pageContext.request.contextPath }/resources/upFile/chatRoom/${message.chatFileRenamedFilename}" alt="" style="width:30%; height:30%; margin-left:25%; cursor: pointer;" onclick=""/>
+					              		<img src="${pageContext.request.contextPath }/resources/upFile/chatRoom/${message.chatFileRenamedFilename}" alt="" style="width:30%; height:30%; margin-left:25%; cursor: pointer;" onclick="modalView('${message.chatFileRenamedFilename}');"/>
 				              		</c:if>
 				              </div>
 				            </div>
@@ -113,7 +113,17 @@
         </div>
 
       </div>
-    </div> 
+    </div>
+
+<div class="modal fade" id="fileViewModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <img class="modalFileView" src="${pageContext.request.contextPath }/resources/upFile/chatRoom/${message.chatFileRenamedFilename}" alt="" />
+    </div>
+  </div>
+</div>
+
 
   </section>
 </main>
@@ -123,6 +133,13 @@
 <!-- jquery.form.js  -->
 <!-- <script src="http://malsup.github.com/jquery.form.js"></script> -->
 <script>
+function modalView(Filename){
+	console.log(Filename);
+	$("#fileViewModal").modal('show');
+	$("#fileViewModal").modal.find('.modalFileView').val(Filename);
+	
+}
+
 $("#preview-btn-x").hide();
 // drag & drop
          (function() {

@@ -11,9 +11,9 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/resources/css/ladder/ladder_style.css">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/resources/css/ladder/ladder_meterial.css">
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script src="${pageContext.request.contextPath }/resources/js/ladder/ladder.js"></script>
     
-	<div class="app-outter">
-		<div class="app-title-container">
+	<div class="workspace-box">
 			<div class="landing" id="landing">
 		       <div class="start-form">
 		            <div class="landing-form">
@@ -34,7 +34,5 @@
 		        <div class="dim"></div>
 		         <canvas class="ladder_canvas" id="ladder_canvas"></canvas>
 		    </div>
-		</div>
 	</div>
-	<script src="${pageContext.request.contextPath }/resources/js/ladder/ladder.js"></script>
 <jsp:include page="/WEB-INF/views/common/gw_footer.jsp"></jsp:include>
