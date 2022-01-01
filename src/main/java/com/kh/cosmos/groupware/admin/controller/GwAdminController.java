@@ -1,6 +1,7 @@
 package com.kh.cosmos.groupware.admin.controller;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -89,19 +90,22 @@ public class GwAdminController {
 	public ResponseEntity<?> groupAccept(HttpServletRequest request, Model model,Authentication authentication,
 			@RequestParam Map<String, String>  idList) {
 		//groupwareHeaderSet(groupNo, model, authentication);
-		String checkValid = request.getParameter("checkValid");
-		String checkYN = request.getParameter("checkYN");		 
-		log.debug("check = {}" , checkValid);
-		log.debug("checkYN = {}" , checkYN);
 		
-		int result = gwAdminService.updategroupAccept(idList);
-		
-		log.debug("result = {}" , result);
-		
-		
-		/* JSONArray jsonArray = JSONArray.fromObject(data); */
 		
 	
+		String groupNo = idList.get("groupNo");
+		String str = idList.get("idList");
+
+		List<String> idlist = Arrays.asList(str.split(","));		
+		
+
+		Map<String, Object> param = new HashMap<String,Object>();
+		param.put("groupNo",idList.get("groupNo"));
+		param.put("idList",idlist);
+		
+		int result = gwAdminService.updategroupAcceptByList(param);
+		log.debug("result = {}" , result);
+
 		return ResponseEntity.ok(idList);
 	}
 	

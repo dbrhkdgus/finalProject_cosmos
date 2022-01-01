@@ -9,8 +9,66 @@
 <sec:authorize access="isAuthenticated()">
 	<sec:authentication property="principal" var="loginMember"/>
 </sec:authorize>
+	<!-- 그룹원 리스트 (확장버전) -->
+	 <div class="test-member-list bg-light">
+	 	<!-- <button style="width: 100%">controll</button> -->
+	 	<div class="memberList-size-controll-box mb-3" style="cursor: pointer;">
+		 	<svg id="arrow-to-smaller" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-double-right" viewBox="0 0 16 16">
+			  <path fill-rule="evenodd" d="M3.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L9.293 8 3.646 2.354a.5.5 0 0 1 0-.708z"/>
+			  <path fill-rule="evenodd" d="M7.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L13.293 8 7.646 2.354a.5.5 0 0 1 0-.708z"/>
+			</svg> <span class="ml-3">그룹멤버</span>
+	 	</div>
+          <div class="online-member-list">
+<!--             <div class="on-off-text">
+              <p class="on-text">온라인 - 3</p>
+            </div> -->
+    		<c:forEach var="member" items="${myGroupMemberList }">
+    		 <div class="test-member-profile">
+            <div class="member-profile-img-box">
+              <c:choose>
+	          	<c:when test="${fn:startsWith(member.renamedFilename,'http')}">
+					<img class="btn-profile3 btn-profile member-profile-img" src="${member.renamedFilename}" alt="" style="width: 1px; zoom : 30;"/>
+					<input type="hidden" name="profile_owner" value="${member.id}" />
+				</c:when>
+				<c:otherwise>
+	            	<img class="btn-profile3 member-profile-img" src="${pageContext.request.contextPath }/resources/upFile/profile/${member.renamedFilename}" alt="">
+					<input type="hidden" name="profile_owner" value="${member.id}" />
+	            </c:otherwise>
+	          </c:choose>
+	          
+
+		    </div>
+              <span>${member.memberName }</span>
+              </div>
+		    </c:forEach>
+            
+    
+          </div>
+    
+    
+          <div class="offline-member-list">
+            <div class="on-off-text">
+              <p class="off-text">오프라인 - 1</p>
+            </div>
+      
+            <div class="test-member-profile">
+              <div class="member-profile-img-box">
+                <img class="offline member-profile-img" src="https://i.pinimg.com/564x/9e/60/60/9e6060db90687be57c52ca5c5566c487.jpg" alt="">
+              </div>
+                <span>홍길동</span> 
+            </div>
+    
+          </div>
+        </div>
+	
     <!-- 그룹원 리스트(축약버전) (오른쪽) -->
      <div class="test-member-list-small bg-light">
+     	 <div class="memberList-size-controll-box mb-3" style="cursor: pointer;">
+			<svg id="arrow-to-bigger" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-double-left" viewBox="0 0 16 16">
+			  <path fill-rule="evenodd" d="M8.354 1.646a.5.5 0 0 1 0 .708L2.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
+			  <path fill-rule="evenodd" d="M12.354 1.646a.5.5 0 0 1 0 .708L6.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
+			</svg>
+	 	</div>
       <div class="online-member-list">
 		<c:forEach var="member" items="${myGroupMemberList }">
 	        <div class="test-member-profile">
@@ -50,7 +108,17 @@
   </section>
 </main>
 <script>
-///chat/chatId
+// 그룹원 리스트 (확장/축소) 제어
+$(".test-member-list-small").hide();
+
+
+$(".memberList-size-controll-box").click((e)=>{
+	$(".test-member-list-small").toggle();
+	$(".test-member-list").toggle();
+	
+});
+
+//chat/chatId
 //1. Stomp Client 객체 생성(websocket)
 
 	const ws = new SockJS(`http://\${location.host}${pageContext.request.contextPath}/stomp`);

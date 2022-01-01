@@ -84,7 +84,7 @@ select
 from
 	schedule s
 where 
-    category = 'G' and member_id = #{memberId}
+    category = 'G' and member_id = #{memberId} and group_no= #{groupNo}
 )
 where
     rnum = 1
