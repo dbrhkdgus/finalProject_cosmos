@@ -103,6 +103,10 @@ public class GwAdminController {
 		groupPool= gwAdminService.selectGwGroupPool(groupNo);
 		log.debug("groupPool ={}" , groupPool);
 		
+		int groupCount = 0;
+		groupCount = gwAdminService.selectGwGroupCount(groupNo);
+		log.debug("groupCount ={}" , groupCount);
+
 		
 		
 		List<String> idlist = Arrays.asList(str.split(","));		
@@ -111,15 +115,32 @@ public class GwAdminController {
 		Map<String, Object> param = new HashMap<String,Object>();
 		param.put("groupNo",idList.get("groupNo"));
 		param.put("idList",idlist);
-		
-		int result = gwAdminService.updategroupAcceptByList(param);
-		log.debug("result = {}" , result);
-		
-		
+		log.debug("idListLength = {}",idlist.size());
+	
 		String msg ="";
         Map<String, Object> map = new HashMap<>();
-		  map.put("msg", msg);
-		  return ResponseEntity.ok(map);
+	
+		
+		if(groupPool - groupCount <= idlist.size()) {
+			msg="수정 성공!";
+			map.put("msg", msg);
+			log.debug("count = {}" ,groupPool - groupCount <= idlist.size());
+			int result = gwAdminService.updategroupAcceptByList(param);
+			log.debug("result = {}" , result);
+			return ResponseEntity.ok(map);
+		}else {
+			
+			msg="수정실패" + (groupCount+"/"+groupPool);
+			map.put("msg", msg);
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR);
+
+		}
+	
+		
+		
+		
+
+	
 	}
 	
 	

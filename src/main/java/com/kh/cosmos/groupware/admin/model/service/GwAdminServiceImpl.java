@@ -43,6 +43,12 @@ public class GwAdminServiceImpl implements GwAdminService {
 		// TODO Auto-generated method stub
 		return gwAdminDao.selectGwGroupPool(groupNo);
 	}
+
+	@Override
+	public int selectGwGroupCount(String groupNo) {
+		// TODO Auto-generated method stub
+		return gwAdminDao.selectGwGroupCount(groupNo);
+	}
 	
 	
 	
