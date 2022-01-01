@@ -6,6 +6,7 @@ import java.util.Map;
 import com.kh.cosmos.common.attachment.model.vo.Attachment;
 import com.kh.cosmos.groupware.board.model.vo.Board;
 import com.kh.cosmos.groupware.board.model.vo.Post;
+import com.kh.cosmos.main.model.vo.Reply;
 import com.kh.cosmos.member.model.vo.MemberWithGroup;
 
 public interface BoardDao {
@@ -17,6 +18,8 @@ public interface BoardDao {
 	List<Post> selectAllPostInNotice(int boardNo, int limit, int offset);
 
 	int insertPost(Post post);
+	
+	int insertPostReply(Reply reply);
 
 	int insertAttach(Attachment attach);
 
@@ -27,6 +30,8 @@ public interface BoardDao {
 	int selectPostInBoardTotalCount(int boardNo);
 
 	List<MemberWithGroup> memberWithGroupList(int groupNo);
+	
+	List<Reply> selectReplyListByPostNo(int postNo);
 
 	int updateBoardRoom(Board board);
 
@@ -53,6 +58,10 @@ public interface BoardDao {
 	int insertPostInAnonymous(Post post);
 
 	int deletePostInAnonymous(int postNo);
+
+	
+
+	
 
 
 
