@@ -17,4 +17,6 @@ public interface GwAdminService {
 
 	int selectGwGroupPool(String groupNo);
 
+	int selectGwGroupCount(String groupNo);
+
 }

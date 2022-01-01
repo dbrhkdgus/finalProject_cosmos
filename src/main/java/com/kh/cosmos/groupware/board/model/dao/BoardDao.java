@@ -61,16 +61,6 @@ public interface BoardDao {
 
 	int deletePostInAnonymous(int postNo);
 
-	
-
-	
-
-	
-
-
-
-
-
-	
+	int updatePostInAnonymous(Post post);
 
 }

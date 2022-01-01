@@ -168,6 +168,13 @@ public class BoardServiceImpl implements BoardService {
 		return boardDao.deletePostInAnonymous(postNo);
 	}
 
+	@Override
+	public int updatePostInAnonymous(Post post) {
+		// TODO Auto-generated method stub
+		return boardDao.updatePostInAnonymous(post);
+	}
+
+
 	
 	
 	

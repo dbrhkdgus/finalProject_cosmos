@@ -290,6 +290,56 @@ public class GwBoardController {
 			return "redirect:/gw/board/boardDetail.do?postNo=" + post.getPostNo();
 		}
 	}
+
+	
+	
+	@PostMapping("/checkPassword.do")
+	public String checkPassword(@RequestParam int postNo, int postPassword, RedirectAttributes redirectAttr) {
+		Post post = boardService.selectOnePostInAnonymous(postNo);
+		Board board = boardService.selectBoardByBoardNo(post.getBoardNo());
+		
+		if(post.getPostPassword() != postPassword){
+		
+			redirectAttr.addFlashAttribute("msg","비밀번호가 일치하지 않습니다.");
+			return "redirect:/gw/board/anonymousDetail.do?postNo="+ postNo;
+		}else{
+			
+			return "redirect:/gw/board/anonymousPostModify.do?postNo=" + post.getPostNo();
+		
+		}			
+			
+		}
+	
+	@GetMapping("/anonymousPostModify.do")
+	public void anonymousPostModify(@RequestParam int postNo, Model model, Authentication auth) {
+		Post post = boardService.selectOnePostInAnonymous(postNo);
+		int boardNo = post.getBoardNo();
+		Board board = boardService.selectBoardByBoardNo(boardNo);
+		int groupNo = board.getGroupNo();
+		groupwareHeaderSet(groupNo, model, auth);
+		model.addAttribute("boardNo", boardNo);
+		model.addAttribute("groupNo", groupNo);
+		model.addAttribute("post", post);
+		model.addAttribute("board", board);
+		model.addAttribute("title", "# " + board.getBoardName()); 
+
+	} 
+	
+	@PostMapping("/anonymousPostModify.do")
+	public String anonymousPostModify(RedirectAttributes redirectAttr, int postNo, Post post) {
+	
+		Board board = boardService.selectBoardByBoardNo(post.getBoardNo());
+		
+			
+	    int result = boardService.updatePostInAnonymous(post);
+		log.debug("********** result = {} ", result);
+		
+			redirectAttr.addFlashAttribute("msg", result > 0 ? "게시물이 수정되었습니다." : "실패");
+			 
+			return "redirect:/gw/board/anonymousDetail.do?postNo=" + post.getPostNo();
+			
+		}
+	
 	
 	@GetMapping("/boardEnroll.do")
 	public void boardEnroll(@RequestParam int boardNo, @RequestParam int groupNo, Model model, Authentication auth) {
