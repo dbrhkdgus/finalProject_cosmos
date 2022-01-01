@@ -37,6 +37,18 @@ public class GwAdminServiceImpl implements GwAdminService {
 	public int updategroupAcceptByList(Map<String, Object> param) {
 		return gwAdminDao.updategroupAcceptByList(param);
 	}
+
+	@Override
+	public int selectGwGroupPool(String groupNo) {
+		// TODO Auto-generated method stub
+		return gwAdminDao.selectGwGroupPool(groupNo);
+	}
+
+	@Override
+	public int selectGwGroupCount(String groupNo) {
+		// TODO Auto-generated method stub
+		return gwAdminDao.selectGwGroupCount(groupNo);
+	}
 	
 	
 	

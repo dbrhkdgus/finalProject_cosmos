@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kh.cosmos.common.attachment.model.vo.Attachment;
+import com.kh.cosmos.group.model.service.GroupService;
 import com.kh.cosmos.group.model.vo.ApplocationGroup;
 import com.kh.cosmos.group.model.vo.Group;
 import com.kh.cosmos.groupware.admin.model.service.GwAdminService;
@@ -48,6 +49,8 @@ public class GwAdminController {
 	@Autowired
 	private MemberService memberService;
 	
+	@Autowired
+	private GroupService groupService;
 
 	@GetMapping("/memberManager.do")
 	public String memberManager(Model model, int groupNo,Authentication authentication) {
@@ -95,18 +98,48 @@ public class GwAdminController {
 	
 		String groupNo = idList.get("groupNo");
 		String str = idList.get("idList");
+		
+		int groupPool =0;
+		groupPool= gwAdminService.selectGwGroupPool(groupNo);
+		log.debug("groupPool ={}" , groupPool);
+		
+		int groupCount = 0;
+		groupCount = gwAdminService.selectGwGroupCount(groupNo);
+		log.debug("groupCount ={}" , groupCount);
 
+		
+		
 		List<String> idlist = Arrays.asList(str.split(","));		
 		
 
 		Map<String, Object> param = new HashMap<String,Object>();
 		param.put("groupNo",idList.get("groupNo"));
 		param.put("idList",idlist);
+		log.debug("idListLength = {}",idlist.size());
+	
+		String msg ="";
+        Map<String, Object> map = new HashMap<>();
+	
+		  
+		if(groupPool - groupCount >= idlist.size()) {
+			msg="수정 성공!";
+			map.put("msg", msg);
+			log.debug("count = {}" ,groupPool - groupCount <= idlist.size());
+			int result = gwAdminService.updategroupAcceptByList(param);
+			log.debug("result = {}" , result);
+			return ResponseEntity.ok(map);
+		}else {
+			
+			msg="정원" + (groupCount+"/"+groupPool);
+			map.put("msg", msg);
+			return ResponseEntity.ok(map);
+		}
+	
 		
-		int result = gwAdminService.updategroupAcceptByList(param);
-		log.debug("result = {}" , result);
+		
+		
 
-		return ResponseEntity.ok(idList);
+	
 	}
 	
 	

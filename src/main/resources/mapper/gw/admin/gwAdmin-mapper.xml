@@ -23,6 +23,7 @@
   </select>
   
   <update id="updategroupAccept" >
+
 	 update applocation_group SET group_accept ='Y' where group_no =#{groupNo} and member_id in (#{idList})
 </update>
 
@@ -36,4 +37,22 @@
       </foreach>
       )
 </update>
+
+	<select id="selectGwGroupPool" resultType="_int">
+	select
+	group_pool
+		from
+	tb_group 
+	where group_no = #{groupNo}
+	
+	
+	</select>
+	
+	<select id="selectGwGroupCount" resultType="_int">
+	select
+		count(*)
+		from applocation_group where group_accept='Y' and group_no =#{groupNo}
+	
+	
+	</select>
 </mapper>
