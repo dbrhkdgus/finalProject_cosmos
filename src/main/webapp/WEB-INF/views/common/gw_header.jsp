@@ -93,7 +93,6 @@
         
         <div class="groupwear-study-title" style="width: 260px;">
           <a href="${pageContext.request.contextPath }/gw/gw.do?groupNo=${myGroup.groupNo}" class="d-flex align-items-center pb-3 mb-3 link-dark text-decoration-none border-bottom">
-            <svg class="bi me-2" width="30" height="24"><use xlink:href="#bootstrap"/></svg>
             <span class="fs-5 fw-semibold">${myGroup.groupName }</span>
           </a>
         </div>

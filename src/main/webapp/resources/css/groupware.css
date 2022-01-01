@@ -514,18 +514,12 @@ div.list-group1{
 .groupware-board-detail-title p span{
   margin-left: 25px;
 }
-.groupware-board-detail-title-btns{
-
-  top: 6%;
-  position: absolute;
-  right: 1%;
-}
 .groupware-board-detail-title-btns svg{
   margin: 10px;
   overflow: auto;
 }
 .groupware-board-detail-content{
-  overflow: auto;
+  /* overflow: auto; */
   padding: 10px;
   padding-bottom: 40px;
 }

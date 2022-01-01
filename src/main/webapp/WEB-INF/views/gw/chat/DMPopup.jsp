@@ -61,7 +61,15 @@
 		        <c:forEach var="message" items="${messageList }">
 				        <div class="chat-profile-container">
 				          <div class="chat-user-profile">
-				            <img class="btn-profile chat-user-profile-img" src="${pageContext.request.contextPath }/resources/upFile/profile/${message.dmSenderProfileRenamedFilename}" alt="">
+              <c:choose>
+	          	<c:when test="${fn:startsWith(message.dmSenderProfileRenamedFilename,'http')}">
+					<img class="btn-profile chat-user-profile-img" src="${message.dmSenderProfileRenamedFilename}" alt="" style="width: 1px; zoom : 30;"/>
+				</c:when>
+				<c:otherwise>
+					<img class="btn-profile chat-user-profile-img" src="${pageContext.request.contextPath }/resources/upFile/profile/${message.dmSenderProfileRenamedFilename}" alt="">
+	            </c:otherwise>
+	          </c:choose>				          
+				            
 				          </div>
 				          <div class="chat-message-box">
 				            <div class="chat-message-sender">
