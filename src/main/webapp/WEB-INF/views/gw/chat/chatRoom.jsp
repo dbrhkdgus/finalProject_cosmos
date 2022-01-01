@@ -40,7 +40,7 @@
 				              <p>${message.chatMessageContent}</p>
 				              <div class="chatFile">
 				              		<c:if test="${message.attachNo != '' }">
-					              		<img src="${pageContext.request.contextPath }/resources/upFile/chatRoom/${message.chatFileRenamedFilename}" alt="" style="width:30%; height:30%; margin-left:25%; cursor: pointer;" onclick=""/>
+					              		<img src="${pageContext.request.contextPath }/resources/upFile/chatRoom/${message.chatFileRenamedFilename}" alt="" style="width:30%; height:30%; margin-left:25%; cursor: pointer;" onclick="imgZooom('${message.chatFileRenamedFilename}')"/>
 				              		</c:if>
 				              </div>
 				            </div>
@@ -113,8 +113,19 @@
         </div>
 
       </div>
-    </div> 
+    </div>
+<style>
 
+</style>    
+<!-- 이미지 확대 모달창 -->
+<div class="modal fade" id="img-zoom-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <img src="" alt="" id="img-zoom" />
+    </div>
+  </div>
+</div>
   </section>
 </main>
 <div class="subscribe">
@@ -220,6 +231,18 @@ function deletePreview(){
 	$('#file-form')[0].reset();
 };
 
+// 이미지 확대 모달 제어
+function imgZooom(chatFileRenamedFilename){	
+	$("#img-zoom-modal").modal('show').css({
+	    'margin-top': function (e) { //vertical centering
+	        return -($(e.target).height() / 2);
+	    },
+	    'margin-left': function (e) { //Horizontal centering
+	        return -($(e.target).width() / 2);
+	    }
+	});
+	$("#img-zoom").attr('src',`${pageContext.request.contextPath }/resources/upFile/chatRoom/\${chatFileRenamedFilename}`);
+}
 
 
 // 스크롤 최하단 유지
