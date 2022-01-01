@@ -40,7 +40,7 @@
 				              <p>${message.chatMessageContent}</p>
 				              <div class="chatFile">
 				              		<c:if test="${message.attachNo != '' }">
-					              		<img src="${pageContext.request.contextPath }/resources/upFile/chatRoom/${message.chatFileRenamedFilename}" alt="" style="width:30%; height:30%; margin-left:25%"/>
+					              		<img src="${pageContext.request.contextPath }/resources/upFile/chatRoom/${message.chatFileRenamedFilename}" alt="" style="width:30%; height:30%; margin-left:25%; cursor: pointer;" onclick=""/>
 				              		</c:if>
 				              </div>
 				            </div>
@@ -283,7 +283,7 @@ if($(".chat-content").children().length == 0){
 		if(chatFile != null){
 			var target2 = "." + target
 			console.log(target);
-			$(target2).append(`<img src="${pageContext.request.contextPath}/resources/upFile/chatRoom/\${chatFile}" alt="" style="width:30%; height:30%; margin-left:25%"/>`);
+			$(target2).append(`<img src="${pageContext.request.contextPath}/resources/upFile/chatRoom/\${chatFile}" alt="" style="width:30%; height:30%; margin-left:25%; cursor:pointer;"/>`);
 		}
 		$(".subscribe").append(script);
 	});
