@@ -20,7 +20,7 @@
       <hr>
    
     </div>
-        <%--   </c:forEach> --%>
+        <%--  </c:forEach> --%>
     <div class="groupware-board-detail-title-btns">
       <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-share" viewBox="0 0 16 16">
         <path d="M13.5 1a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM11 2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.499 2.499 0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5zm-8.5 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zm11 5.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3z"/>
@@ -35,7 +35,7 @@
   		${post.postContent }
      
     <div class="d-grid gap-2 d-md-block" style="text-align: right;">
-				<button class="btn btn-primary" type="button" style="margin:5px;">수정</button>&nbsp;
+				<button class="updateAnonymousPost btn btn-primary" type="button" style="margin:5px;" >수정</button>&nbsp;
 				<button class="deleteAnonymousPost btn btn-primary" type="button" >삭제</button>
 			</div>
   </div>
@@ -56,7 +56,7 @@
 </div>
 </div>
 
-<!-- 익명게시판 삭제하기 위한 모달창 -->
+<!-- 익명게시글 삭제하기 위한 모달창 -->
 <div class="modal fade" id="deleteAnonymousModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
   aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -84,6 +84,35 @@
   </div>
 </div>
 
+<!-- 익명게시글 수정하기 위한 모달창 -->
+<div class="modal fade" id="updateAnonymousModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">수정하시려면 비밀번호를 입력해주세요</h4>
+        <button type="button" class="close close-modal" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form:form name="updateAnonymousFrm" method="post" action="${pageContext.request.contextPath}/gw/board/checkPassword.do?postNo=${post.postNo}">
+	      <div class="modal-body mx-3">
+	        <div class="md-form mb-5">
+	          <label  for="defaultForm-email">비밀번호</label>
+	          <input type="text" name="postPassword" class="form-control validate"  maxlength="4" onChange="checkNumber()" id="deleteanonymous">
+	        </div>
+	      </div>
+	      <input type="hidden" name="groupNo" value="${currGroupNo}" />
+      </form:form>
+      <div class="modal-footer d-flex justify-content-center">
+        <button class="btn btn-updateAnonymousPost">수정</button>
+        <button class="btn close-modal">취소</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 <script>
 
 function checkNumber() {
@@ -99,10 +128,9 @@ function checkNumber() {
 
 }
 
-$(".modal-member-box").hide();
-
  $(".close-modal").click((e)=>{
 	 $("#deleteAnonymousModal").modal('hide');
+	 $("#updateAnonymousModal").modal('hide');
  });
 
  
@@ -111,6 +139,12 @@ $(".modal-member-box").hide();
  });
  $(".deleteAnonymousPost").click((e)=>{
 	 $("#deleteAnonymousModal").modal('show');
+ });
+ $(".btn-updateAnonymousPost").click((e)=>{
+	 $(document.updateAnonymousFrm).submit();
+ });
+ $(".updateAnonymousPost").click((e)=>{
+	 $("#updateAnonymousModal").modal('show');
  });
 
  
