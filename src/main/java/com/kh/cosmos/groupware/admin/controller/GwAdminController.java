@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kh.cosmos.common.attachment.model.vo.Attachment;
+import com.kh.cosmos.group.model.service.GroupService;
 import com.kh.cosmos.group.model.vo.ApplocationGroup;
 import com.kh.cosmos.group.model.vo.Group;
 import com.kh.cosmos.groupware.admin.model.service.GwAdminService;
@@ -48,6 +49,8 @@ public class GwAdminController {
 	@Autowired
 	private MemberService memberService;
 	
+	@Autowired
+	private GroupService groupService;
 
 	@GetMapping("/memberManager.do")
 	public String memberManager(Model model, int groupNo,Authentication authentication) {
@@ -95,7 +98,13 @@ public class GwAdminController {
 	
 		String groupNo = idList.get("groupNo");
 		String str = idList.get("idList");
-
+		
+		int groupPool =0;
+		groupPool= gwAdminService.selectGwGroupPool(groupNo);
+		log.debug("groupPool ={}" , groupPool);
+		
+		
+		
 		List<String> idlist = Arrays.asList(str.split(","));		
 		
 
@@ -105,8 +114,12 @@ public class GwAdminController {
 		
 		int result = gwAdminService.updategroupAcceptByList(param);
 		log.debug("result = {}" , result);
-
-		return ResponseEntity.ok(idList);
+		
+		
+		String msg ="";
+        Map<String, Object> map = new HashMap<>();
+		  map.put("msg", msg);
+		  return ResponseEntity.ok(map);
 	}
 	
 	
