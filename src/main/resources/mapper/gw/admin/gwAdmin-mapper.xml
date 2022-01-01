@@ -23,6 +23,10 @@
   </select>
   
   <update id="updategroupAccept" >
-  update applocation_group SET group_accept ='Y' where group_no =#{groupNo} and member_id in (#{idList})
+  update applocation_group SET group_accept ='Y' where
+   group_no =#{groupNo} and 
+  	member_id in 
+    <foreach collection="idList"  item="l" open="'" separator="," close="'">${l}
+   </foreach>
   </update>
 </mapper>
