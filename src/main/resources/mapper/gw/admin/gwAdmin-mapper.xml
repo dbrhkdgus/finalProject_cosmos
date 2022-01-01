@@ -51,7 +51,7 @@
 	<select id="selectGwGroupCount" resultType="_int">
 	select
 		count(*)
-		from applocation_group where group_no =#{groupNo}
+		from applocation_group where group_accept='Y' and group_no =#{groupNo}
 	
 	
 	</select>

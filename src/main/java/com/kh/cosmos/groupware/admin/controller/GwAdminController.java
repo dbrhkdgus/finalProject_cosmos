@@ -120,8 +120,8 @@ public class GwAdminController {
 		String msg ="";
         Map<String, Object> map = new HashMap<>();
 	
-		
-		if(groupPool - groupCount <= idlist.size()) {
+		  
+		if(groupPool - groupCount >= idlist.size()) {
 			msg="수정 성공!";
 			map.put("msg", msg);
 			log.debug("count = {}" ,groupPool - groupCount <= idlist.size());
@@ -132,8 +132,7 @@ public class GwAdminController {
 			
 			msg="수정실패" + (groupCount+"/"+groupPool);
 			map.put("msg", msg);
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR);
-
+			return ResponseEntity.ok(map);
 		}
 	
 		
