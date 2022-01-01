@@ -333,26 +333,35 @@ $("#btn-DM-modal").click((e)=>{
 		url: `${pageContext.request.contextPath}/gw/chat/indexDMList.do`,
 		dataType: "json",
 		success(data){
+			console.log(data); 
 			$.each(data, (k,v)=>{
-				if(v.dmSender != "${loginMember.id}"){
-					$(".dm-profile-container").append(`
-							<div class="dm-message-content-box-lv1" onclick="DMPopup('\${v.dmSender}')" style="cursor : pointer;">
-						        <div class="dm-user-profile">
-						        	<img class="dm-user-profile-img" src="${pageContext.request.contextPath}/resources/upFile/profile/\${v.dmSenderProfileRenamedFilename}" alt="">
-						        </div>
-						        <div class="dm-message-box">
-								    <div class="dm-message-sender">
-										<span><strong>\${v.dmSenderName}</strong></span>
-										<span>\${v.dmMessageAt}</span>
-									</div>
-								    <div class="dm-message-content">
-								    	<p>\${v.dmContent}</p>
-								    </div>
-						        </div>
-				            </div>	
-							
-							`);
-				}
+				console.log(v.dmSender);
+				$(".dm-profile-container").append(`
+						<div class="dm-message-content-box-lv1" onclick="DMPopup('\${v.dmSender}')" style="cursor : pointer;">
+					        <div class="dm-\${v.dmSender}-profile dm-user-profile">
+							 
+
+					        </div>
+					        <div class="dm-message-box">
+							    <div class="dm-message-sender">
+									<span><strong>\${v.dmSenderName}</strong></span>
+									<span>\${v.dmMessageAt}</span>
+								</div>
+							    <div class="dm-message-content">
+							    	<p>\${v.dmContent}</p>
+							    </div>
+					        </div>
+			            </div>	
+						
+						`);
+					 if(/^http/.test(v.dmSenderProfileRenamedFilename)){
+						var target = ".dm-" + v.dmSender + "-profile"
+						$(target).append(`<img class="dm-user-profile-img" src="\${v.dmSenderProfileRenamedFilename}" alt="">`);
+					}else{
+						var target = ".dm-" + v.dmSender + "-profile"
+						$(target).append(`<img class="dm-user-profile-img" src="${pageContext.request.contextPath}/resources/upFile/profile/\${v.dmSenderProfileRenamedFilename}" alt="">`);
+						
+					} 
 				
 			});
 			$(".dmScript").append(script);

@@ -21,7 +21,7 @@ public class Reply implements Serializable{
 	private int replyRef;
 	private Date regDate;
 	private String deleteYn;
-	private int boardNo;
+	private int postNo;
 	private int queNo;
 	private int groupNo;
 	private String MemberName;

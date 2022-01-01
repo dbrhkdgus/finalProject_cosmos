@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.kh.cosmos.common.attachment.model.vo.Attachment;
 import com.kh.cosmos.groupware.board.model.vo.Board;
 import com.kh.cosmos.groupware.board.model.vo.Post;
+import com.kh.cosmos.main.model.vo.Reply;
 import com.kh.cosmos.member.model.vo.MemberWithGroup;
 
 @Repository
@@ -44,6 +45,12 @@ public class BoardDaoImpl implements BoardDao {
 	}
 
 	@Override
+	public int insertPostReply(Reply reply) {
+		// TODO Auto-generated method stub
+		return session.insert("board.insertPostReply", reply);
+	}
+
+	@Override
 	public int insertAttach(Attachment attach) {
 		// TODO Auto-generated method stub
 		return session.insert("board.insertAttach", attach);
@@ -71,6 +78,12 @@ public class BoardDaoImpl implements BoardDao {
 	public List<MemberWithGroup> memberWithGroupList(int groupNo) {
 		// TODO Auto-generated method stub
 		return session.selectList("board.memberWithGroupList", groupNo);
+	}
+
+	@Override
+	public List<Reply> selectReplyListByPostNo(int postNo) {
+		// TODO Auto-generated method stub
+		return session.selectList("board.selectReplyListByPostNo", postNo);
 	}
 
 	@Override

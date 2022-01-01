@@ -10,6 +10,7 @@ import com.kh.cosmos.common.attachment.model.vo.Attachment;
 import com.kh.cosmos.groupware.board.model.dao.BoardDao;
 import com.kh.cosmos.groupware.board.model.vo.Board;
 import com.kh.cosmos.groupware.board.model.vo.Post;
+import com.kh.cosmos.main.model.vo.Reply;
 import com.kh.cosmos.member.model.vo.MemberWithGroup;
 
 @Service
@@ -43,6 +44,12 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
+	public int insertPostReply(Reply reply) {
+		// TODO Auto-generated method stub
+		return boardDao.insertPostReply(reply);
+	}
+
+	@Override
 	public int insertAttach(Attachment attach) {
 		// TODO Auto-generated method stub
 		return boardDao.insertAttach(attach);
@@ -70,6 +77,12 @@ public class BoardServiceImpl implements BoardService {
 	public List<MemberWithGroup> memberWithGroupList(int groupNo) {
 		// TODO Auto-generated method stub
 		return boardDao.memberWithGroupList(groupNo);
+	}
+
+	@Override
+	public List<Reply> selectReplyListByPostNo(int postNo) {
+		// TODO Auto-generated method stub
+		return boardDao.selectReplyListByPostNo(postNo);
 	}
 
 	@Override

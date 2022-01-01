@@ -102,7 +102,17 @@
 		null
 	)
   </insert>
-    
+  <insert id="insertPostReply">
+	insert into 
+		reply
+	values
+		(SEQ_REPLY_NO_NO.nextval, #{memberId},#{content},1,null,default,null,#{postNo},null,null)
+  </insert>
+
+  <select id="selectReplyListByPostNo" resultType="reply">
+	select * from reply where post_no=#{postNo} order by reply_no
+  </select>
+
   <insert id="insertPostInAnonymous">
 	insert into 
 		post

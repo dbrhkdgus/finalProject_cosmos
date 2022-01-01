@@ -514,18 +514,12 @@ div.list-group1{
 .groupware-board-detail-title p span{
   margin-left: 25px;
 }
-.groupware-board-detail-title-btns{
-
-  top: 6%;
-  position: absolute;
-  right: 1%;
-}
 .groupware-board-detail-title-btns svg{
   margin: 10px;
   overflow: auto;
 }
 .groupware-board-detail-content{
-  overflow: auto;
+  /* overflow: auto; */
   padding: 10px;
   padding-bottom: 40px;
 }
@@ -820,4 +814,56 @@ div.list-group1{
     height: 100px;
     margin-bottom: 5px;
     justify-content: flex-end;
+}
+/* 투표 css */
+.groupware-vote-outter{
+	width: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+.present-vote-box{
+	margin-top: 2%;
+	background: red;
+    width: 90%;
+    height: 43%;
+    margin-left: 5%;
+    margin-right: 5%;
+    display: flex;
+}
+.old-vote-box{
+	width: 100%;
+	height: 53%;
+	margin-top: 2%;
+	display: flex;
+}
+.vote-in-progress, .vote-closed-box{
+	width: 40%;
+	height: 90%;
+	margin-left: 5%;
+	margin-right: 5%;
+}
+.present-vote{
+	width: 55%;
+    margin-left: 3%;
+    margin-top: 2%;
+    margin-right: 2%;
+    height: 90%;
+    margin-bottom: 2%;
+}
+.present-vote-control-box{
+	width: 40%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    justify-content: space-around;
+}
+.vote-controll-btn{
+	margin-bottom: 5%;
+}
+.vote-question-box{
+	height: 75%;
+    display: flex;
+    align-items: center;
 }

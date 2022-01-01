@@ -38,6 +38,18 @@ public class GwAdminDaoImpl implements GwAdminDao {
 	public int updategroupAcceptByList(Map<String, Object> param) {
 		return session.update("gwAdmin.updategroupAcceptByList",param);
 	}
+
+	@Override
+	public int selectGwGroupPool(String groupNo) {
+		// TODO Auto-generated method stub
+		return session.selectOne("gwAdmin.selectGwGroupPool",groupNo);
+	}
+
+	@Override
+	public int selectGwGroupCount(String groupNo) {
+		// TODO Auto-generated method stub
+		return session.selectOne("gwAdmin.selectGwGroupCount",groupNo);
+	}
 	
 	
 	
