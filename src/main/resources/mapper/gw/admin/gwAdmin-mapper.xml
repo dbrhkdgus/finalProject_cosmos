@@ -37,5 +37,14 @@
       </foreach>
       )
 </update>
-ㅁ
+
+	<select id="selectGwGroupPool" resultType="_int">
+	select
+	group_pool
+		from
+	tb_group 
+	where group_no = #{groupNo}
+	
+	
+	</select>
 </mapper>

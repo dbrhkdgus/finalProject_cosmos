@@ -15,4 +15,6 @@ public interface GwAdminDao {
 
 	int updategroupAcceptByList(Map<String, Object> param);
 
+	int selectGwGroupPool(String groupNo);
+
 }
