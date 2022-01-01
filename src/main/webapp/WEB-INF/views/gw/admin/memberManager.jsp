@@ -113,10 +113,10 @@
    
     for(i=0; i<rowNum; i++) {
         let id= $("input[name='checkValid']:checked").eq(i).val()
-           idList.push(id); 
+           idList.push("'"+ id +"'"); 
     };
     
-            console.log(idList)
+//            console.log(idList)
 		var idString = idList.toString();
 		 
 		console.log(idString);    
@@ -131,6 +131,7 @@
 				traditional : true,
 				data:  {
 		            "idList": idString
+		           
 		        },
 				contentType: "application/json; charset=utf-8", //주는타입
 				success(data){

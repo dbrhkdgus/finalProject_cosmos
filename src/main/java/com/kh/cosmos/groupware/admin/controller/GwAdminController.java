@@ -87,14 +87,18 @@ public class GwAdminController {
 	@ResponseBody
 	@GetMapping("/groupAccept.do")
 	public ResponseEntity<?> groupAccept(HttpServletRequest request, Model model,Authentication authentication,
-			@RequestParam Map<String,List<idList>> idList) {
+			@RequestParam Map<String, String>  idList) {
 		//groupwareHeaderSet(groupNo, model, authentication);
 		String checkValid = request.getParameter("checkValid");
 		String checkYN = request.getParameter("checkYN");		 
 		log.debug("check = {}" , checkValid);
 		log.debug("checkYN = {}" , checkYN);
 		
-		log.debug("data={}",idList);
+		int result = gwAdminService.updategroupAccept(idList);
+		
+		log.debug("result = {}" , result);
+		
+		
 		/* JSONArray jsonArray = JSONArray.fromObject(data); */
 		
 	
