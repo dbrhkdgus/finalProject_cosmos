@@ -130,7 +130,7 @@ public class GwAdminController {
 			return ResponseEntity.ok(map);
 		}else {
 			
-			msg="수정실패" + (groupCount+"/"+groupPool);
+			msg="정원" + (groupCount+"/"+groupPool);
 			map.put("msg", msg);
 			return ResponseEntity.ok(map);
 		}
