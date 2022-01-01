@@ -40,7 +40,7 @@
 				              <p>${message.chatMessageContent}</p>
 				              <div class="chatFile">
 				              		<c:if test="${message.attachNo != '' }">
-					              		<img src="${pageContext.request.contextPath }/resources/upFile/chatRoom/${message.chatFileRenamedFilename}" alt="" style="width:30%; height:30%; margin-left:25%"/>
+					              		<img src="${pageContext.request.contextPath }/resources/upFile/chatRoom/${message.chatFileRenamedFilename}" alt="" style="width:30%; height:30%; margin-left:25%; cursor: pointer;" onclick="imgZooom('${message.chatFileRenamedFilename}')"/>
 				              		</c:if>
 				              </div>
 				            </div>
@@ -52,9 +52,13 @@
 		        </c:forEach>
 	        </c:if>
         </div>
-        
+        	
 		    <div class="chat-input-box">
-		      <div class="chat-txt border-top">
+		    <div class="drop-img-preview">
+		    	<img id="preview" style="height: 100%" src="" alt="" />
+		    	<span id="preview-btn-x"style="position: absolute; margin-right: 5px; cursor: pointer;" onclick="deletePreview()">X</span>
+		    </div>
+		      <div class="chat-txt border-top" contentEditable='true'>
 		        <input id="chatMessageContent" type="text" class="form-control" name="chatMessageContent">
 		      </div>
 		      <div class="btn-group">
@@ -109,8 +113,19 @@
         </div>
 
       </div>
-    </div> 
+    </div>
+<style>
 
+</style>    
+<!-- 이미지 확대 모달창 -->
+<div class="modal fade" id="img-zoom-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <img src="" alt="" id="img-zoom" />
+    </div>
+  </div>
+</div>
   </section>
 </main>
 <div class="subscribe">
@@ -119,6 +134,7 @@
 <!-- jquery.form.js  -->
 <!-- <script src="http://malsup.github.com/jquery.form.js"></script> -->
 <script>
+$("#preview-btn-x").hide();
 // drag & drop
          (function() {
             
@@ -182,8 +198,7 @@
                 //toggleClass("drop")
 
                 var files = e.dataTransfer && e.dataTransfer.files
-
-
+                
                 if (files != null) {
                     if (files.length < 1) {
                         alert("폴더 업로드 불가")
@@ -194,10 +209,40 @@
                     alert("ERROR")
                 }
 
-            })
+				// drop file img preview
+                if (document.getElementById('file').files && document.getElementById('file').files[0]) {
+                	console.log("test");
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        $("#preview").attr('src', e.target.result);
+                    };
+                    reader.readAsDataURL(document.getElementById('file').files[0]);
+                };
+                $("#preview-btn-x").show();
+            });
 
+            
         })();
-        
+
+//drop img preview 지우기
+function deletePreview(){
+	$("#preview").attr('src', "");
+	$("#preview-btn-x").hide();
+	$('#file-form')[0].reset();
+};
+
+// 이미지 확대 모달 제어
+function imgZooom(chatFileRenamedFilename){	
+	$("#img-zoom-modal").modal('show').css({
+	    'margin-top': function (e) { //vertical centering
+	        return -($(e.target).height() / 2);
+	    },
+	    'margin-left': function (e) { //Horizontal centering
+	        return -($(e.target).width() / 2);
+	    }
+	});
+	$("#img-zoom").attr('src',`${pageContext.request.contextPath }/resources/upFile/chatRoom/\${chatFileRenamedFilename}`);
+}
 
 
 // 스크롤 최하단 유지
@@ -261,7 +306,7 @@ if($(".chat-content").children().length == 0){
 		if(chatFile != null){
 			var target2 = "." + target
 			console.log(target);
-			$(target2).append(`<img src="${pageContext.request.contextPath}/resources/upFile/chatRoom/\${chatFile}" alt="" style="width:30%; height:30%; margin-left:25%"/>`);
+			$(target2).append(`<img src="${pageContext.request.contextPath}/resources/upFile/chatRoom/\${chatFile}" alt="" style="width:30%; height:30%; margin-left:25%; cursor:pointer;"/>`);
 		}
 		$(".subscribe").append(script);
 	});

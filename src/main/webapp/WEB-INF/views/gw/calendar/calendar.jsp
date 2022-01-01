@@ -28,12 +28,7 @@
 
 
 <style>
-body {
-	margin: 40px 10px;
-	padding: 0;
-	font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
-	font-size: 14px;
-}
+
 
 
 #calendar {
@@ -411,7 +406,18 @@ console.log("개인 색상: "+input_privateColor);
 
 
 $("#changeColorBtn").click((e)=>{
-	$(colorForm).submit();
+	console.log('입력된 모임 색상: ' +$("input[name='groupColor']:checked").val());
+	console.log('입력된 모임 색상 타입: ' +typeof($("input[name='groupColor']:checked").val()));
+	console.log('입력된 개인 색상: ' +$("input[name='privateColor']:checked").val());
+	
+	if(typeof($("input[name='groupColor']:checked").val())=='undefined'){
+		alert('모임일정에 지정된 색상이 없습니다.');
+	}else if(typeof($("input[name='privateColor']:checked").val())=='undefined'){
+		alert('개인일정에 지정된 색상이 없습니다.');
+	}else{
+		$(colorForm).submit();
+	}
+	
 })
 
 var loginMember = `${loginMember.id}`;
