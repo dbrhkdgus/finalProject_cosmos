@@ -54,8 +54,9 @@
         </div>
         	
 		    <div class="chat-input-box">
-		    <div class="drop-img-preview" style="width: 70%; height: 100px; text-align: right; margin-bottom: 5px;">
+		    <div class="drop-img-preview">
 		    	<img id="preview" style="height: 100%" src="" alt="" />
+		    	<span id="preview-btn-x"style="position: absolute; margin-right: 5px; cursor: pointer;" onclick="deletePreview()">X</span>
 		    </div>
 		      <div class="chat-txt border-top" contentEditable='true'>
 		        <input id="chatMessageContent" type="text" class="form-control" name="chatMessageContent">
@@ -122,6 +123,7 @@
 <!-- jquery.form.js  -->
 <!-- <script src="http://malsup.github.com/jquery.form.js"></script> -->
 <script>
+$("#preview-btn-x").hide();
 // drag & drop
          (function() {
             
@@ -186,8 +188,6 @@
 
                 var files = e.dataTransfer && e.dataTransfer.files
                 
-/*                 setImageFromFile(document.getElementById('file'), '#profile'); */
-
                 if (files != null) {
                     if (files.length < 1) {
                         alert("폴더 업로드 불가")
@@ -198,6 +198,7 @@
                     alert("ERROR")
                 }
 
+				// drop file img preview
                 if (document.getElementById('file').files && document.getElementById('file').files[0]) {
                 	console.log("test");
                     var reader = new FileReader();
@@ -206,24 +207,20 @@
                     };
                     reader.readAsDataURL(document.getElementById('file').files[0]);
                 };
-                
+                $("#preview-btn-x").show();
             });
 
             
         })();
-        
-// drop file img preview
 
-function setImageFromFile(input, expression) {
-    if (input.files && input.files[0]) {
-    	console.log("test");
-        var reader = new FileReader();
-        reader.onload = function (e) {
-            $(expression).attr('src', e.target.result);
-        };
-        reader.readAsDataURL(input.files[0]);
-    };
+//drop img preview 지우기
+function deletePreview(){
+	$("#preview").attr('src', "");
+	$("#preview-btn-x").hide();
+	$('#file-form')[0].reset();
 };
+
+
 
 // 스크롤 최하단 유지
  $(".workspace-box").scrollTop($(".workspace-box")[0].scrollHeight); 
