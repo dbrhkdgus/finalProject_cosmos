@@ -70,6 +70,12 @@
   	set post_title = #{postTitle}, post_content=#{postContent}, post_update=sysdate 
   	where post_no = #{postNo}
   </update>
+  <update id="updatePostInAnonymous">
+  	update post 
+  	set post_title = #{postTitle}, post_content=#{postContent}, post_update=sysdate 
+  	where post_no = #{postNo}
+  </update>
+  
   <delete id="deletePostInBoard">
   		delete from post where post_no =#{postNo}
   </delete>
