@@ -811,3 +811,11 @@ div.list-group1{
     flex-direction: column;
     justify-content: space-between;
 }
+/* 그룹웨어 채팅방 드롭 이미지 프리뷰 */
+.drop-img-preview{
+	display: flex;
+    width: 70%;
+    height: 100px;
+    margin-bottom: 5px;
+    justify-content: flex-end;
+}
