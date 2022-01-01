@@ -54,7 +54,7 @@
         </div>
         
 		    <div class="chat-input-box">
-		      <div class="chat-txt border-top">
+		      <div class="chat-txt border-top" contentEditable='true'>
 		        <input id="chatMessageContent" type="text" class="form-control" name="chatMessageContent">
 		      </div>
 		      <div class="btn-group">
