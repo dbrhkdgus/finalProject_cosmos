@@ -137,7 +137,10 @@ main {
 .chat-input-box {
     position: fixed;
     bottom: 0;
-    width: 93%;
+    width: 80%;
+}
+.chat-input-box-sizing{
+	width: 93%;
 }
 
 /* 그룹웨어 header */
@@ -341,7 +344,6 @@ div.list-group1{
 
 /* 그룹원 리스트(축소) css */
 .test-member-list-small{
-  padding-top: 1rem;
   width: 6%;
   text-align: center;
 }
