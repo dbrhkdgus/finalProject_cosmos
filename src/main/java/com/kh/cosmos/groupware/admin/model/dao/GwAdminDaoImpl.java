@@ -33,6 +33,13 @@ public class GwAdminDaoImpl implements GwAdminDao {
 	public int updategroupAccept(Map<String, String> idList) {
 		return session.update("gwAdmin.updategroupAccept",idList);
 	}
+
+	@Override
+	public int updategroupAcceptByList(Map<String, Object> param) {
+		return session.update("gwAdmin.updategroupAcceptByList",param);
+	}
+	
+	
 	
 	
 	
