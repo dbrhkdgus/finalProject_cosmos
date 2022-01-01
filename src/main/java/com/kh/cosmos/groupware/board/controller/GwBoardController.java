@@ -33,6 +33,7 @@ import com.kh.cosmos.groupware.board.model.vo.Post;
 import com.kh.cosmos.groupware.chat.model.vo.ChatRoom;
 import com.kh.cosmos.groupware.service.GroupwareService;
 import com.kh.cosmos.main.model.service.MainService;
+import com.kh.cosmos.main.model.vo.Reply;
 import com.kh.cosmos.member.model.service.MemberService;
 import com.kh.cosmos.member.model.vo.Member;
 import com.kh.cosmos.member.model.vo.MemberWithGroup;
@@ -121,7 +122,6 @@ public class GwBoardController {
 
 		return "gw/board/notice";
 	}
-	
 
 	@GetMapping("/noticeEnroll.do")
 	public void noticeEnroll(@RequestParam int boardNo, @RequestParam int groupNo, Model model, Authentication auth) {
@@ -364,20 +364,39 @@ public class GwBoardController {
 		
 		// MemberWithGroupList 불러오기
 		List<MemberWithGroup> memberWithGroupList = boardService.memberWithGroupList(groupNo);
-
+		
 		// memberId, nickname map에 담기
 		Map<String, String> memberWithGroupMap = new HashMap<>();
 		for (MemberWithGroup memberWithGroup : memberWithGroupList) {
 			memberWithGroupMap.put(memberWithGroup.getId(), memberWithGroup.getNickname());
 		}
-		model.addAttribute("memberWithGroupMap", memberWithGroupMap);
 		
-		log.debug("post = {}", post);
+		List<Reply> replyList = boardService.selectReplyListByPostNo(postNo);
+		
 		model.addAttribute("post", post);
 		model.addAttribute("attach", attach);
 		model.addAttribute("title", "# " + board.getBoardName());
+		model.addAttribute("memberWithGroupMap", memberWithGroupMap);
+		model.addAttribute("replyList", replyList);
 
 		return "gw/board/boardDetail";
+	}
+	
+	@PostMapping("postReplyEnroll.do")
+	public String postReplyEnroll(@RequestParam int postNo, Reply reply ,RedirectAttributes redirectAttr, Authentication authentication, HttpServletRequest request) {
+		Member member = (Member)authentication.getPrincipal();
+		reply.setMemberId(member.getId());
+		reply.setPostNo(postNo);
+		try {
+			int result = boardService.insertPostReply(reply);
+
+			String msg = result > 0 ? "댓글 등록 성공!" : "댓글 등록 실패!";
+			redirectAttr.addFlashAttribute("msg", msg);
+		} catch (Exception e) {
+			log.error(e.getMessage(), e); // 
+		 	redirectAttr.addFlashAttribute("msg", "댓글 등록 실패");
+		}
+		return "redirect:/gw/board/boardDetail.do?postNo=" + postNo;
 	}
 	
 	@GetMapping("/noticeDetail.do")
