@@ -32,5 +32,12 @@ public class GwAdminServiceImpl implements GwAdminService {
 	public int updategroupAccept(Map<String, String> idList) {
 		return gwAdminDao.updategroupAccept(idList);
 	}
+
+	@Override
+	public int updategroupAcceptByList(Map<String, Object> param) {
+		return gwAdminDao.updategroupAcceptByList(param);
+	}
+	
+	
 	
 }

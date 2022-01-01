@@ -113,7 +113,7 @@
    
     for(i=0; i<rowNum; i++) {
         let id= $("input[name='checkValid']:checked").eq(i).val()
-           idList.push("'"+ id +"'"); 
+           idList.push(id); 
     };
     
 //            console.log(idList)

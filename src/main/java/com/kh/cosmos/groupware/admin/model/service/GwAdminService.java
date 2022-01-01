@@ -13,4 +13,6 @@ public interface GwAdminService {
 
 	int updategroupAccept(Map<String, String> idList);
 
+	int updategroupAcceptByList(Map<String, Object> param);
+
 }
