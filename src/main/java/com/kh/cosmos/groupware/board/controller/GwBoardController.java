@@ -372,12 +372,14 @@ public class GwBoardController {
 		}
 		
 		List<Reply> replyList = boardService.selectReplyListByPostNo(postNo);
+		List<Attachment> attachmentList = boardService.selectProfileAttachmentList();
 		
 		model.addAttribute("post", post);
 		model.addAttribute("attach", attach);
 		model.addAttribute("title", "# " + board.getBoardName());
 		model.addAttribute("memberWithGroupMap", memberWithGroupMap);
 		model.addAttribute("replyList", replyList);
+		model.addAttribute("attachmentList", attachmentList);
 
 		return "gw/board/boardDetail";
 	}

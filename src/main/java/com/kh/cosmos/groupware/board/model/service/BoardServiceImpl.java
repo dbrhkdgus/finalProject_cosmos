@@ -86,6 +86,12 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
+	public List<Attachment> selectProfileAttachmentList() {
+		// TODO Auto-generated method stub
+		return boardDao.selectProfileAttachmentList();
+	}
+
+	@Override
 	public int updateBoardRoom(Board board) {
 		// TODO Auto-generated method stub
 		return boardDao.updateBoardRoom(board);
