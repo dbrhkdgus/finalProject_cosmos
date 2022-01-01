@@ -135,7 +135,7 @@
 		        },
 				contentType: "application/json; charset=utf-8", //주는타입
 				success(data){
-					console.log(data);
+                    alert(data.msg);
 			},
 			error: console.log
 	 	 }) 
