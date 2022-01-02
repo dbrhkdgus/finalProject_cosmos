@@ -59,12 +59,6 @@ public interface BoardService {
 
 	int deletePostInAnonymous(int postNo);
 
-	
-
-	
-
-
-
-
+	int updatePostInAnonymous(Post post);
 
 }
