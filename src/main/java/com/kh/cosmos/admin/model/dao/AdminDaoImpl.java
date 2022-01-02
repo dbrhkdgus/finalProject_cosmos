@@ -15,6 +15,7 @@ import com.kh.cosmos.group.model.vo.ApplocationGroup;
 import com.kh.cosmos.group.model.vo.Group;
 import com.kh.cosmos.group.model.vo.NotApprovedGroup;
 import com.kh.cosmos.main.model.vo.Question;
+import com.kh.cosmos.main.model.vo.QuestionWithMemberNameAndNickName;
 import com.kh.cosmos.member.model.vo.Member;
 import com.kh.cosmos.member.model.vo.MemberWithGroup;
 
@@ -88,7 +89,7 @@ public class AdminDaoImpl implements AdminDao {
 	}
 
 	@Override
-	public List<Question> searchQuestion(int limit, int offset, Map<String, Object> param) {
+	public List<QuestionWithMemberNameAndNickName> searchQuestion(int limit, int offset, Map<String, Object> param) {
 		RowBounds rowBounds = new RowBounds(offset, limit);
 		return session.selectList("admin.searchQuestion", param, rowBounds);
 	}
@@ -96,6 +97,11 @@ public class AdminDaoImpl implements AdminDao {
 	@Override
 	public GenderData genderData() {
 		return session.selectOne("admin.genderData");
+	}
+
+	@Override
+	public List<com.kh.cosmos.admin.model.vo.EnrollMemberByMonth> EnrollMemberByMonth(Map<String, Object> param) {
+		return session.selectList("admin.EnrollMemberByMonth", param);
 	}
 
 }
