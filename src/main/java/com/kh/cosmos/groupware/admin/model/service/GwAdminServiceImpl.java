@@ -55,6 +55,12 @@ public class GwAdminServiceImpl implements GwAdminService {
 		// TODO Auto-generated method stub
 		return gwAdminDao.deletegroupRefuseByList(param);
 	}
+
+	@Override
+	public int deleteGwMember(int groupNo) {
+		// TODO Auto-generated method stub
+		return gwAdminDao.deleteGwMember(groupNo);
+	}
 	
 	
 	

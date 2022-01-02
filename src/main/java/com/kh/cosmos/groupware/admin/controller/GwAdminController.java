@@ -1,5 +1,6 @@
 package com.kh.cosmos.groupware.admin.controller;
 
+import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.cosmos.common.attachment.model.vo.Attachment;
 import com.kh.cosmos.group.model.service.GroupService;
@@ -49,8 +51,6 @@ public class GwAdminController {
 	@Autowired
 	private MemberService memberService;
 	
-	@Autowired
-	private GroupService groupService;
 
 	@GetMapping("/memberManager.do")
 	public String memberManager(Model model, int groupNo,Authentication authentication) {
@@ -183,9 +183,39 @@ public class GwAdminController {
 			map.put("msg", msg);
 			return ResponseEntity.ok(map);
 		}
+//		그룹웨어 멤버 추방
+			@PostMapping("/memberDelete.do")
+		    public String memberDelete(@RequestParam int groupNo, @RequestParam String gwDeleteMember,RedirectAttributes redirectAttr,HttpServletRequest request, Model model,Authentication authentication) {
+				log.debug("gwDeleteMember = {}" , gwDeleteMember);
+				try {
+					int result = gwAdminService.deleteGwMember(groupNo);
+					redirectAttr.addFlashAttribute("msg", "멤버를 추방하였습니다!");
+					
+		    	} catch (InvalidParameterException e) {
+		    		log.error(e.getMessage(), e);
+		    		redirectAttr.addFlashAttribute("msg", e.getMessage());
+		    		
+				} catch (Exception e) {
+					log.error("그룹삭 오류!", e);
+					throw e;
+				}
+				return "redirect:/gw/admin/memberManager.do?groupNo="+groupNo;
+		    }
+		    
+
 	
-//		풀리퀘커밋용
+		
+			
+			
+			
+			@PostMapping("/memberUpdate.do")
+		    public String memberUpdate(HttpServletRequest request, Model model,Authentication authentication) {
 		 
+		
+				return "";
+		    }
+
+
 	public void groupwareHeaderSet(int groupNo, Model model, Authentication auth) {
     Member loginMember = (Member) auth.getPrincipal();
     Group myGroup = gwService.selectMyGroup(groupNo);
