@@ -5,7 +5,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kh.cosmos.common.attachment.model.vo.Attachment;
 import com.kh.cosmos.group.model.vo.Group;
@@ -25,6 +28,7 @@ import com.kh.cosmos.groupware.chat.model.vo.ChatRoom;
 import com.kh.cosmos.groupware.service.GroupwareService;
 import com.kh.cosmos.groupware.vote.model.service.VoteService;
 import com.kh.cosmos.groupware.vote.model.vo.Vote;
+import com.kh.cosmos.groupware.vote.model.vo.VoteAnswer;
 import com.kh.cosmos.groupware.vote.model.vo.VoteInfo;
 import com.kh.cosmos.groupware.vote.model.vo.VoteOption;
 import com.kh.cosmos.groupware.vote.model.vo.VoteQuestion;
@@ -59,8 +63,23 @@ public class GwVoteController {
 		List<VoteInfo> presentVoteInfo = voteService.selectVoteInfoByVoteNo(voteNo);
 		List<VoteOption> presentVoteOption = voteService.selectVoteOptionByVoteNo(voteNo);
 		
-		List<VoteInfo> groupVoteInfoList = voteService.selectVoteInfoByGroupNo(groupNo);
-		
+		Map<String, Object> param = new HashMap<>();
+		param.put("groupNo", groupNo);
+		param.put("voteNo", voteNo);
+		List<VoteInfo> groupVoteInfoList = voteService.selectVoteInfoByGroupNo(param);
+		// 이미 제출된 투표가 있는지 확인
+		VoteAnswer voteAnswer = new VoteAnswer();
+		for(VoteInfo vi : presentVoteInfo) {
+			voteAnswer.setMemberId(((Member)auth.getPrincipal()).getId());
+			voteAnswer.setVoteNo(voteNo);
+			voteAnswer.setVoteQuestionNo(vi.getVoteQuestionNo());
+		}
+		int result = voteService.selectVoteAnswer(voteAnswer);
+		if(result > 0) {
+			model.addAttribute("voteAnswer","Y");
+		}else {
+			model.addAttribute("voteAnswer","N");
+		}
 		model.addAttribute("presentVoteInfo",presentVoteInfo);
 		model.addAttribute("presentVoteOption",presentVoteOption);
 		model.addAttribute("groupVoteInfoList",groupVoteInfoList);
@@ -97,6 +116,26 @@ public class GwVoteController {
 		
 		
 		return "redirect:/gw/vote/vote.do?groupNo="+groupNo;
+	}
+	
+	@PostMapping("/answerVote.do")
+	@ResponseBody
+	public int answerVote(VoteAnswer voteAnswer, Authentication auth) {
+		voteAnswer.setMemberId(((Member)auth.getPrincipal()).getId());
+		log.debug("voteAnswer = {}", voteAnswer );
+		
+		if(voteAnswer.getVoteAnswer() == null) {
+			return -1;
+		}
+		
+		// 이미 제출된 투표가 있는지 확인
+		int result = voteService.selectVoteAnswer(voteAnswer);
+		if(result > 0) {
+			return 0;
+		}else {
+			result = voteService.insertVoteAnswer(voteAnswer);			
+		}
+		return result;
 	}
 	
 	public void groupwareHeaderSet(int groupNo, Model model, Authentication auth) {

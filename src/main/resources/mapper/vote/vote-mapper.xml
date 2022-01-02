@@ -55,7 +55,15 @@ where vote_no = #{voteNo}
   from vote v join vote_question q 
     using(vote_no) 
     join tb_member m on v.member_id =m.id 
-where group_no = #{groupNo}
+where group_no = #{groupNo} and vote_no != #{voteNo}
 	order by v.vote_enroll_date desc
+  </select>
+  
+  <insert id="insertVoteAnswer">
+  insert into vote_answer values(#{voteNo}, #{memberId}, #{voteQuestionNo}, #{voteAnswer})
+  </insert>
+  
+  <select id="selectVoteAnswer" resultType="_int">
+  select count(*) from vote_answer where vote_no = #{voteNo} and vote_question_no = #{voteQuestionNo} and member_id = #{memberId}
   </select>
 </mapper>
