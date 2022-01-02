@@ -11,6 +11,7 @@ import com.kh.cosmos.groupware.board.model.vo.Post;
 import com.kh.cosmos.groupware.board.model.vo.PostWithCategory;
 import com.kh.cosmos.groupware.fileBoard.model.dao.FileBoardDao;
 import com.kh.cosmos.groupware.fileBoard.vo.FileEnroll;
+import com.kh.cosmos.groupware.fileBoard.vo.IdNickName;
 
 @Service
 public class FileBoardServiceImpl implements FileBoardService {
@@ -63,5 +64,12 @@ public class FileBoardServiceImpl implements FileBoardService {
 		return fileBoardDao.selectAllFileBoardListByParam(param, limit, offset);
 	}
 
+	@Override
+	public List<IdNickName> selectIdNickName() {
+		// TODO Auto-generated method stub
+		return fileBoardDao.selectIdNickName();
+	}
+	
+	
 		
 }

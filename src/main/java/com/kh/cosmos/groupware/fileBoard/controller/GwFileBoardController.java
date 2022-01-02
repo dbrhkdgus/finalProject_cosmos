@@ -39,6 +39,7 @@ import com.kh.cosmos.groupware.board.model.vo.PostWithCategory;
 import com.kh.cosmos.groupware.chat.model.vo.ChatRoom;
 import com.kh.cosmos.groupware.fileBoard.model.service.FileBoardService;
 import com.kh.cosmos.groupware.fileBoard.vo.FileEnroll;
+import com.kh.cosmos.groupware.fileBoard.vo.IdNickName;
 import com.kh.cosmos.groupware.service.GroupwareService;
 import com.kh.cosmos.member.model.vo.Member;
 
@@ -75,6 +76,14 @@ public class GwFileBoardController {
 //		log.debug("boardNo = {}", boardNo);
 		int limit = 10;
 		int offset = (cPage - 1) * limit;
+		
+
+		List<IdNickName> idnicknameList = new ArrayList<IdNickName>();
+		idnicknameList = fileBoardService.selectIdNickName();
+		log.debug("idnicknameList = {}",idnicknameList);
+		model.addAttribute("idnicknameList",idnicknameList);
+		
+		
 		Map<String, Object> param = new HashMap<String, Object>();
 		
 		List<PostWithCategory> fileBoardList = new ArrayList<PostWithCategory>();

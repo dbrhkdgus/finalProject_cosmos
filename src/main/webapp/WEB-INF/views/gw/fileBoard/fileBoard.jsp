@@ -14,7 +14,7 @@
 <sec:authorize access="isAuthenticated()">
 	<sec:authentication property="principal" var="loginMember"/>
 </sec:authorize>
-
+${idnicknameList}
  <div class="test-notice-outter">
   <div class="test-board-title-container">
     <div class="test-board-title">
@@ -66,7 +66,12 @@
 					    </c:if>
 	                  </c:forEach>
                 </a></td>
-                <td>${post.memberId}</td>
+               
+                <c:forEach items="${idnicknameList}">
+                	<c:if test="${idnicknameList.id eq post.memberId}">
+                		<td>${idnicknameList.nickName}</td>
+                	</c:if>
+                </c:forEach>
                 <td ><fmt:formatDate value="${post.postRegDate}" pattern="yy-MM-dd"/>
 	                <c:if test="${loginMember.id eq post.memberId}">
 		                <form  action="${pageContext.request.contextPath}/gw/fileBoard/deletefilePost.do?postNo=${post.postNo}" method="GET">
