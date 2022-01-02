@@ -43,9 +43,9 @@ public class VoteDaoImpl implements VoteDao {
 	}
 
 	@Override
-	public List<VoteInfo> selectVoteInfoByVoteNo(int voteNo) {
+	public List<VoteInfo> selectVoteInfoListByVoteNo(int voteNo) {
 		// TODO Auto-generated method stub
-		return session.selectList("vote.selectVoteInfoByVoteNo",voteNo);
+		return session.selectList("vote.selectVoteInfoListByVoteNo",voteNo);
 	}
 
 	@Override
@@ -55,9 +55,9 @@ public class VoteDaoImpl implements VoteDao {
 	}
 
 	@Override
-	public List<VoteInfo> selectVoteInfoByGroupNo(Map<String, Object> param) {
+	public List<VoteInfo> selectVoteInfoByParam(Map<String, Object> param) {
 		// TODO Auto-generated method stub
-		return session.selectList("vote.selectVoteInfoByGroupNo",param);
+		return session.selectList("vote.selectVoteInfoByParam",param);
 	}
 
 	@Override
@@ -70,6 +70,12 @@ public class VoteDaoImpl implements VoteDao {
 	public int selectVoteAnswer(VoteAnswer voteAnswer) {
 		// TODO Auto-generated method stub
 		return session.selectOne("vote.selectVoteAnswer", voteAnswer);
+	}
+
+	@Override
+	public VoteInfo selectVoteInfoByVoteNo(int voteNo) {
+		// TODO Auto-generated method stub
+		return session.selectOne("vote.selectVoteInfoByVoteNo", voteNo);
 	}
 	
 	

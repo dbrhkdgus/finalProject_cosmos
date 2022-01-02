@@ -838,10 +838,10 @@ div.list-group1{
 	display: flex;
 }
 .vote-in-progress, .vote-closed-box{
-	width: 40%;
+	overflow-y: auto;
+	width: 45%;
 	height: 90%;
-	margin-left: 5%;
-	margin-right: 5%;
+	margin-left: 3%;
 }
 .present-vote{
 	width: 55%;

@@ -43,9 +43,9 @@ public class VoteServiceImpl implements VoteService {
 	}
 
 	@Override
-	public List<VoteInfo> selectVoteInfoByVoteNo(int voteNo) {
+	public List<VoteInfo> selectVoteInfoListByVoteNo(int voteNo) {
 		// TODO Auto-generated method stub
-		return voteDao.selectVoteInfoByVoteNo(voteNo);
+		return voteDao.selectVoteInfoListByVoteNo(voteNo);
 	}
 
 	@Override
@@ -55,9 +55,16 @@ public class VoteServiceImpl implements VoteService {
 	}
 
 	@Override
-	public List<VoteInfo> selectVoteInfoByGroupNo(Map<String, Object> param) {
+	public List<VoteInfo> selectVoteInfoByParam(Map<String, Object> param) {
 		// TODO Auto-generated method stub
-		return voteDao.selectVoteInfoByGroupNo(param);
+		return voteDao.selectVoteInfoByParam(param);
+	}
+	
+
+	@Override
+	public VoteInfo selectVoteInfoByVoteNo(int voteNo) {
+		// TODO Auto-generated method stub
+		return voteDao.selectVoteInfoByVoteNo(voteNo);
 	}
 
 	@Override

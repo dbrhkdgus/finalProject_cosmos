@@ -19,14 +19,16 @@ public interface VoteService {
 
 	int selectGroupNewVoteNOByGroupNo(int groupNo);
 
-	List<VoteInfo> selectVoteInfoByVoteNo(int voteNo);
+	List<VoteInfo> selectVoteInfoListByVoteNo(int voteNo);
 
 	List<VoteOption> selectVoteOptionByVoteNo(int voteNo);
 
-	List<VoteInfo> selectVoteInfoByGroupNo(Map<String, Object> param);
+	List<VoteInfo> selectVoteInfoByParam(Map<String, Object> param);
 
 	int insertVoteAnswer(VoteAnswer voteAnswer);
 
 	int selectVoteAnswer(VoteAnswer voteAnswer);
+
+	VoteInfo selectVoteInfoByVoteNo(int voteNo);
 
 }
