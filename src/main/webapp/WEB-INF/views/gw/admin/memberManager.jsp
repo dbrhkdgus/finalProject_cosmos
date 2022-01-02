@@ -30,6 +30,7 @@
 				</thead>
 				<tbody>
 
+			<form:form name="createBoardRoomFrm" method="post" action="${pageContext.request.contextPath }/gw/admin/memberUpdate.do">
 					<c:forEach var="memberList" items="${memberList }">
 						<c:forEach var="acceptList" items="${acceptApplocationGroupList }"
 							varStatus="vs">
@@ -38,36 +39,29 @@
 								<tr>
 									<td>${j}</td>
 									<td>${memberList.nickname}</td>
-									<c:if test="${fn:contains(acceptList.role, 'G')}">
-										<td>그룹장</td>
-									</c:if>
-									<c:if test="${fn:contains(acceptList.role, 'P')}">
-										<td>일반멤버</td>
-									</c:if>
-									<c:if test="${fn:contains(acceptList.role, 'M')}">
-										<td>그룹장</td>
-									</c:if>
+									<td class="col-md-2"><select
+											class="boardType form-select" name="memberRole" required>
+												<option value="P"
+													<c:if test="${fn:contains(acceptList.role , 'P' )}"> selected</c:if>>일반회원</option>
+												<option value="M"
+													<c:if test="${fn:contains(acceptList.role , 'M' )}"> selected</c:if>>매니저</option>
+												<option value="M"
+													<c:if test="${fn:contains(acceptList.role , 'G' )}"> selected</c:if>>그룹장</option>
+										</select></td> 
 									<td><fmt:formatDate value="${acceptList.joinRegDate}"
 											pattern="yy-MM-dd" /></td>
 									<!--    <td>2020-12-16</td> -->
-									<td><form:form name="createBoardRoomFrm" method="post"
-											action="${pageContext.request.contextPath }/gw/admin/memberUpdate.do">
-											<div class="">
-												<!--      <label for="boardType">권한 부여하기</label> -->
-												<select class="boardType form-select" name="boardType"
-													required>
-													<option value="P">일반회원</option>
-													<option value="M">매니저</option>
-												</select>
-											</div>
+									
+									<td>
 											<input type="hidden" name="groupNo" value="${groupNo}" /></td>
 									<td><button type="submit" class="btn btn-danger" name="gwDeleteMember" value="${acceptList.memberId}" onclick='return submit2(this.form);'>멤버추방</button>  
 								<%-- 	<input type='button' class="btn btn-danger" value="멤버추방" name="${acceptList.memberId}" onclick='return submit2(this.form);'> --%> 		
-										<button type="submit" class="btn btn-secondary">수정</button> </form:form></td>
+										<button type="submit" class="btn btn-secondary">수정</button></td>
 								</tr>
 							</c:if>
 						</c:forEach>
 					</c:forEach>
+				 </form:form>
 				</tbody>
 			</table>
 		</div>
