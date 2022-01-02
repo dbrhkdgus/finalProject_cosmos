@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="vote">
+  <insert id="insertVote">
+  insert into vote values(#{groupNo}, seq_vote_no.nextval, #{voteTitle}, #{voteDeadline}, default, #{memberId} )
+  	  <selectKey keyProperty="voteNo" resultType="_int" order="AFTER">
+					select
+						seq_vote_no.currval
+					from
+						dual
+	  </selectKey>
+  </insert>
+  
+  <insert id="insertVoteQuestion">
+  insert into vote_question values(#{voteNo}, 1, #{voteQuestionTitle}, #{voteQuestionType} )
+  </insert>
+  
+  <insert id="insertVoteOption">
+  insert into vote_option values(#{voteQuestionNo}, #{voteOption}, #{voteNo})
+  </insert>
+  
+  <select id="selectGroupNewVoteNOByGroupNo" resultType="_int">
+  select
+    vote_no
+from (
+    select
+        rownum old,
+        v.*
+    from
+        vote v
+    where group_no = #{groupNo}
+    order by
+        vote_enroll_date desc
+)
+where 
+    rownum = 1
+  </select>
+  
+  <select id="selectVoteInfoByVoteNo" resultType="voteInfo">
+  select *
+  from vote v join vote_question q 
+    using(vote_no) 
+    join tb_member m on v.member_id =m.id 
+where vote_no = #{voteNo}
+  </select>
+  
+  <select id="selectVoteOptionByVoteNo" resultType="voteOption">
+  select * from vote_option where vote_no = #{vote_no}
+  </select>
+</mapper>

@@ -8,22 +8,41 @@
 <jsp:include page="/WEB-INF/views/common/gw_header.jsp">
 	<jsp:param value="투표" name="title"/>
 </jsp:include>
+<c:set var="now" value="<%=new java.util.Date()%>" />
 
  <div class="groupware-vote-outter">
   	<div class="present-vote-box" style="background: Beige;">
   		<div class="present-vote" style="background: FloralWhite">
-  			<div class="present-vote-title mb-4">
-  				<h3 class="vote-title">멤버 추방 투표</h3>
-  				<h6 class="vote-sub-title"></h6>
-  			</div>
-  			<div class="vote-question-box">
-  				<div class="vote-question">
-	  				<p class="vote-question-title text-secondary">그룹의 민폐 김동현님을 추방합시다!</p>
-	  				<input type="radio" name="question1-radio"/> 찬성
-	  				<input type="radio" name="question1-radio"/> 반대
-  				</div>
-  				
-  			</div>
+  			<c:if test="${not empty presentVoteInfo }">
+
+  				<c:forEach var="presentVote" items="${presentVoteInfo }">
+					<fmt:formatDate value="${now}" pattern="yyyyMMdd" var="nowDate" /> 
+					<fmt:formatDate value="${presentVote.voteDeadline}" pattern="yyyyMMdd" var="deadline" /> 
+  					<c:choose>
+		  				<c:when test="${nowDate <= deadline }">
+				  			<div class="present-vote-title mb-2">
+				  				<h3 class="vote-title">${presentVote.voteTitle }</h3>
+				  				<h6 class="vote-sub-title"><span>${presentVote.memberName}</span>님의 투표제안입니다.</h6>
+				  				<h6 class="vote-sub-title">투표 마감일 : <span><fmt:formatDate value="${presentVote.voteDeadline}" pattern="MM-dd"/></span>까지</h6>
+				  			</div>
+				  			<div class="vote-question-box">
+				  				<div class="vote-question">
+					  				<p class="vote-question-title text-secondary">${presentVote.voteQuestionTitle }</p>
+					  				<c:forEach var="presentOption" items="${presentVoteOption }">
+						  				<input type="${presentVote.voteQuestionType}" name="question1-radio"/> ${presentOption.voteOption }
+					  				</c:forEach>
+				  				</div>
+				  				
+				  			</div>
+		  				</c:when>
+		  				<c:otherwise>
+		  					<div class="present-vote-title mb-2">
+				  				<h3 class="vote-title">현재 진행중인 투표가 없습니다.</h3>
+				  			</div>
+		  				</c:otherwise>
+  					</c:choose>
+  				</c:forEach>
+  			</c:if>
   		</div>
   		<div class="present-vote-control-box">
   		<button id="btn-create-vote" class="vote-controll-btn">투표 생성하기</button>
@@ -91,19 +110,20 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form:form name="createVoteFrm" method="post" action="${pageContext.request.contextPath }/gw/vote/createVote.do">
+      <form:form name="createVoteFrm" method="post" action="${pageContext.request.contextPath }/gw/vote/createVote.do?${_csrf.parameterName}=${_csrf.token}">
+      
           <div class="modal-body mx-3">
             <div class="md-form mb-3">
               <label  for="voteTitle">투표 제목</label>
               <input type="text" name="voteTitle" class="form-control validate mb-3" placeholder="새로운 주제의 투표 생성">
               <label  for="voteTitle">투표 마감일</label>
-              <input type="date" id='currentDate' name="voteTitle" class="form-control validate">
+              <input type="date" id='currentDate' name="voteDeadline" class="form-control validate">
               <hr style="margin-top: 5px;margin-bottom: 0px;"/>
             </div>
             <div class="md-form mb-3">
               <label  for="voteQuestioniTitle">질문을 입력하세요.</label>
               <div class="vote_modal_question_box">
-	              <input type="text" name="voteQuestioniTitle" class="form-control validate" style="width: 80%;" placeholder="(예) 정모 날짜를 선택하세요."/>
+	              <input type="text" name="voteQuestionTitle" class="form-control validate" style="width: 80%;" placeholder="(예) 정모 날짜를 선택하세요."/>
 	              <input id="voteQuestionType" type="checkbox" name="voteQuestionType" value="checkBox"/>
 	              <label  for="voteQuestioniTitle">복수응답</label>
 		          <hr />
@@ -112,12 +132,12 @@
             <div class="md-form mb-5 vote_modal_question_option_outter">
               <div class="vote_modal_question_option_box mb-2">
 	              <div class="vote_modal_question_option">
-		              <input type="radio" name="voteQuestionOption" class="mr-2"/>
-		              <input type="text" class="form-control validate" style="width: 50%;" placeholder="옵션 1"/>
+			        <input type="checkbox" name="voteQuestionOptionCheck" class="mr-2"/>
+		            <input type="text" name="voteQuestionOption" class="form-control validate" style="width: 50%;" placeholder="옵션 1"/>
 	              </div>
               </div>
               <div class="vote_modal_question_add_option_box">
-              	  <input type="radio" name="voteQuestionOption" class="mr-2"/>
+              	  <input type="radio" name="voteQuestionOptionCheckFoo" class="mr-2"/>
 	              <input id="add-option-input" type="text" class="form-control validate" style="width: 50%;" placeholder="옵션 추가하기"/>
 		          <input type="hidden" class="optionCnt" value="1" />
               </div>
@@ -126,7 +146,7 @@
           <input type="hidden" name="groupNo" value="${currGroupNo }" />
       </form:form>
       <div class="modal-footer d-flex justify-content-center">
-        <button class="btn btn-createChatRoom">생성</button>
+        <button class="btn btn-createVote">생성</button>
         <button class="btn close-vote-modal">취소</button>
       </div>
     </div>
@@ -141,8 +161,8 @@ $("#btn-create-vote").click((e)=>{
 	/* 투표마감일 기본값 세팅 */
 	document.getElementById('currentDate').value = new Date().toISOString().substring(0, 10);;
 	$(".vote_modal_question_option_box").html(`<div class="vote_modal_question_option">
-            <input type="radio" name="voteQuestionOption" class="mr-2"/>
-            <input type="text" class="form-control validate" style="width: 50%;" placeholder="옵션 1"/>
+            <input type="radio" name="voteQuestionOptionCheck" class="mr-2"/>
+	        <input type="text" name="voteQuestionOption" class="form-control validate" style="width: 50%;" placeholder="옵션 1"/>
   	</div>`);
 	$("#createVoteModal").modal('show');
 });
@@ -152,33 +172,23 @@ $(".close-vote-modal").click((e)=>{
 		this.reset();
 	});
 
-
-출처: https://aljjabaegi.tistory.com/68 [알짜배기 프로그래머]
 	$("#createVoteModal").modal('hide');
 });
 
 
   
-/* 옵션 추가 */
+/* 라디오/체크박스 선택 */
 	$('#voteQuestionType').change((e)=>{
 		if($(voteQuestionType).prop("checked")){
-			$(".vote_modal_question_option_box").html(`<div class="vote_modal_question_option">
-		              <input type="checkbox" name="voteQuestionOption" class="mr-2"/>
-		              <input type="text" class="form-control validate" style="width: 50%;" placeholder="옵션 1"/>
-	        </div>`);
+	        $("input[name=voteQuestionOptionCheck]").attr('type', 'checkbox');
 
 		}else{
-			$(".vote_modal_question_option_box").html(`<div class="vote_modal_question_option">
-		              <input type="radio" name="voteQuestionOption" class="mr-2"/>
-		              <input type="text" class="form-control validate" style="width: 50%;" placeholder="옵션 1"/>
-	        </div>`);
+			$("input[name=voteQuestionOptionCheck]").attr('type', 'radio');
 			
 		}
 	});
 
-
-
-  
+	/* 옵션 추가 */
   $("#add-option-input").click((e)=>{
 	  var optionCnt = $(".vote_modal_question_option").length;
 	  optionCnt *= 1;
@@ -186,14 +196,14 @@ $(".close-vote-modal").click((e)=>{
 	  console.log($(voteQuestionType).prop("checked"));
 	if($(voteQuestionType).prop("checked")){
 		$(".vote_modal_question_option_box").append(`<div class="vote_modal_question_option option-\${optionCnt+1}">
-	            <input type="checkbox" name="voteQuestionOption" class="mr-2"/>
-	            <input type="text" class="form-control validate" style="width: 50%;" placeholder="옵션 \${optionCnt+1}"/>
+	            <input type="checkbox" name="voteQuestionOptionCheck" class="mr-2"/>
+	            <input type="text" name="voteQuestionOption" class="form-control validate" style="width: 50%;" placeholder="옵션 \${optionCnt+1}"/>
 	            <span class="btn-delete-option delete-option-\${optionCnt+1}" style="margin-left: 5px; margin-bottom: 15px; cursor: pointer;">x</span>
 	        </div>`);
 	}else{		
 		$(".vote_modal_question_option_box").append(`<div class="vote_modal_question_option option-\${optionCnt+1}">
-	            <input type="radio" name="voteQuestionOption" class="mr-2"/>
-	            <input type="text" class="form-control validate" style="width: 50%;" placeholder="옵션 \${optionCnt+1}"/>
+	            <input type="radio" name="voteQuestionOptionCheck" class="mr-2"/>
+	            <input type="text" name="voteQuestionOption" class="form-control validate" style="width: 50%;" placeholder="옵션 \${optionCnt+1}"/>
 	            <span class="btn-delete-option delete-option-\${optionCnt+1}" style="margin-left: 5px; margin-bottom: 15px; cursor: pointer;">x</span>
 	        </div>`);
 	}
@@ -215,7 +225,10 @@ $(".close-vote-modal").click((e)=>{
 	
 	$(e.target).next().val(optionCnt + 1);
   });
-
+/* 투표 생성 */
+$(".btn-createVote").click((e)=>{
+	$(document.createVoteFrm).submit();
+});
 </script>
 <jsp:include page="/WEB-INF/views/common/gw_footer.jsp"></jsp:include>
 
