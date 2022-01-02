@@ -37,7 +37,7 @@
     <tbody>
     <c:forEach var="post" items="${anonymousPostList}" varStatus="vs">
       <tr>
-        <td>${vs.count}</td>
+        <td>${fn:length(anonymousPostList)- vs.count+1}</td>
         <td colspan="2" class="text-left" onclick="location.href='${pageContext.request.contextPath}/gw/board/anonymousDetail.do?postNo=${post.postNo}'">${post.postTitle}</td>
         <td><fmt:formatDate value="${post.postRegDate}" pattern="yy-MM-dd"/></td>
         <td class="text-left">
