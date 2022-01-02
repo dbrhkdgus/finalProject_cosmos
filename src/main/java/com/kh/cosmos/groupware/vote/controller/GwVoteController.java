@@ -11,6 +11,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.http.codec.json.Jackson2JsonEncoder;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,8 +20,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kh.cosmos.common.attachment.model.vo.Attachment;
 import com.kh.cosmos.group.model.vo.Group;
 import com.kh.cosmos.groupware.board.model.vo.Board;
@@ -35,6 +39,7 @@ import com.kh.cosmos.groupware.vote.model.vo.VoteQuestion;
 import com.kh.cosmos.member.model.vo.Member;
 
 import lombok.extern.slf4j.Slf4j;
+import net.sf.json.JSON;
 
 @Controller
 @Slf4j
@@ -56,17 +61,23 @@ public class GwVoteController {
 	
 	
 	@GetMapping("/vote.do")
-	public void vote(int groupNo, Model model, Authentication auth) {
+	public void vote(int groupNo, Model model, Authentication auth, @RequestParam(value = "voteNo", defaultValue = "0") int voteNo) {
+		log.debug("voteNo = {}", voteNo);
 		groupwareHeaderSet(groupNo, model, auth);
+		//log.debug("voteNo is null? = {}", voteNo==null);
 		model.addAttribute("title", "투표");
-		int voteNo = voteService.selectGroupNewVoteNOByGroupNo(groupNo);
-		List<VoteInfo> presentVoteInfo = voteService.selectVoteInfoByVoteNo(voteNo);
-		List<VoteOption> presentVoteOption = voteService.selectVoteOptionByVoteNo(voteNo);
+		if(voteNo == 0) {
+			voteNo = voteService.selectGroupNewVoteNOByGroupNo(groupNo);
+			
+		}
 		
 		Map<String, Object> param = new HashMap<>();
 		param.put("groupNo", groupNo);
 		param.put("voteNo", voteNo);
-		List<VoteInfo> groupVoteInfoList = voteService.selectVoteInfoByGroupNo(param);
+		List<VoteInfo> groupVoteInfoList = voteService.selectVoteInfoByParam(param);
+		List<VoteInfo> presentVoteInfo = voteService.selectVoteInfoListByVoteNo(voteNo);
+		List<VoteOption> presentVoteOption = voteService.selectVoteOptionByVoteNo(voteNo);
+		
 		// 이미 제출된 투표가 있는지 확인
 		VoteAnswer voteAnswer = new VoteAnswer();
 		for(VoteInfo vi : presentVoteInfo) {
@@ -136,6 +147,23 @@ public class GwVoteController {
 			result = voteService.insertVoteAnswer(voteAnswer);			
 		}
 		return result;
+	}
+	@ResponseBody
+	@PostMapping(value="/changeVoteView.do", produces = "application/text; charset=utf8")
+	public String changeVoteView(int voteNo) {
+		
+		log.debug("voteNo = {}", voteNo);
+		VoteInfo voteInfo = (VoteInfo) voteService.selectVoteInfoByVoteNo(voteNo);
+		log.debug("voteInfo = {}", voteInfo);
+		ObjectMapper objMapper = new ObjectMapper();
+		String jsonStr="";
+		try {
+			jsonStr = objMapper.writeValueAsString(voteInfo);
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return jsonStr;
 	}
 	
 	public void groupwareHeaderSet(int groupNo, Model model, Authentication auth) {

@@ -66,7 +66,7 @@
   			</div>
   			
   			<div class="vote-in-progress-table">
-<%--   			<table class="table">
+  			<table class="table table-hover">
 				  <thead>
 				    <tr>
 				      <th scope="col">투표 주제</th>
@@ -75,45 +75,18 @@
 				    </tr>
 				  </thead>
 				  <tbody>
-				    <tr>
-				      <th scope="row">${otherVotes.voteTitle }</th>
-				      <td>Mark</td>
-				      <td>Otto</td>
-				      <td>@mdo</td>
-				    </tr>
-				    <tr>
-				      <th scope="row">2</th>
-				      <td>Jacob</td>
-				      <td>Thornton</td>
-				      <td>@fat</td>
-				    </tr>
-				    <tr>
-				      <th scope="row">3</th>
-				      <td colspan="2">Larry the Bird</td>
-				      <td>@twitter</td>
-				    </tr>
-				  </tbody>
-			 </table>
-  				<table>
-  					<thead>
-  						<tr>
-  							<th>제목</th>
-  							<th colspan="3">마감일</th>
-  							<th>투표율</th>
-  						</tr>
-  					</thead>
-  					<tbody> --%>
-  			<c:forEach var="otherVotes" items="${groupVoteInfoList }">
-  				<fmt:formatDate value="${now}" pattern="yyyyMMdd" var="nowDate" /> 
-				<fmt:formatDate value="${otherVotes.voteDeadline}" pattern="yyyyMMdd" var="otherDeadline" />
-  				<c:if test="${nowDate <= otherDeadline  }">
-  						<tr>
-  							<td>${otherVotes.voteTitle }</td>
-  							<td><span><fmt:formatDate value="${otherVotes.voteDeadline}" pattern="MM-dd"/></span> 까지</td>
-  							<td>67%</td>
-  						</tr>
-  				</c:if>
-  			</c:forEach>
+		  			<c:forEach var="otherVotes" items="${groupVoteInfoList }">
+		  				<fmt:formatDate value="${now}" pattern="yyyyMMdd" var="nowDate" /> 
+						<fmt:formatDate value="${otherVotes.voteDeadline}" pattern="yyyyMMdd" var="otherDeadline" />
+		  				<c:if test="${nowDate <= otherDeadline  }">
+		  					<tr class="tr">
+						      <th scope="row">${otherVotes.voteTitle }</th>
+						      <td><span><fmt:formatDate value="${otherVotes.voteDeadline}" pattern="MM-dd"/></span> 까지</td>
+						      <td>67%</td>
+						    </tr>
+						      <input type="hidden" name="voteNo" value="${otherVotes.voteNo }" />
+		  				</c:if>
+		  			</c:forEach>
   					</tbody>
   				</table>
   			</div>
@@ -123,12 +96,12 @@
   				<p class="ml-3 mt-2">마감된 투표</p>
   			</div>
   			<div class="vote closed-table">
-  			<table>
+  			<table class="table table-hover">
   					<thead>
   						<tr>
-  							<th>제목</th>
-  							<th colspan="3">종료일</th>
-  							<th>투표율</th>
+					      <th scope="col">투표 주제</th>
+					      <th scope="col">종료일</th>
+					      <th scope="col">투표율</th>
   						</tr>
   					</thead>
   					<tbody>
@@ -137,7 +110,7 @@
 						<fmt:formatDate value="${otherVotes.voteDeadline}" pattern="yyyyMMdd" var="otherDeadline" />
 		  				<c:if test="${nowDate > otherDeadline  }">
 		  						<tr>
-		  							<td>${otherVotes.voteTitle }</td>
+		  							<th scope="row">${otherVotes.voteTitle }</th>
 		  							<td><span><fmt:formatDate value="${otherVotes.voteDeadline}" pattern="MM-dd"/></span> 까지</td>
 		  							<td>67%</td>
 		  						</tr>
@@ -304,6 +277,12 @@ $("#btn-send-vote").click((e)=>{
 	 	},
 	 	error : console.log
     });  
+
+});
+/* 다른 투표 table tr 클릭시 */
+$(".tr").click((e)=>{
+	var voteNo = $(e.target).parent().next().val();
+	location.href="${pageContext.request.contextPath}/gw/vote/vote.do?groupNo=${currGroupNo}&voteNo="+voteNo;
 
 });
 </script>
