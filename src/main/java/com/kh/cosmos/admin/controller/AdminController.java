@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.cosmos.admin.model.service.AdminService;
+import com.kh.cosmos.admin.model.vo.EnrollMemberByMonth;
 import com.kh.cosmos.admin.model.vo.GenderData;
 import com.kh.cosmos.admin.model.vo.SevenDaysData;
 import com.kh.cosmos.common.CosmosUtils;
@@ -31,6 +32,7 @@ import com.kh.cosmos.group.model.vo.Group;
 import com.kh.cosmos.group.model.vo.NotApprovedGroup;
 import com.kh.cosmos.main.model.service.MainService;
 import com.kh.cosmos.main.model.vo.Question;
+import com.kh.cosmos.main.model.vo.QuestionWithMemberNameAndNickName;
 import com.kh.cosmos.member.model.vo.Member;
 import com.kh.cosmos.member.model.vo.MemberWithGroup;
 
@@ -342,47 +344,23 @@ public class AdminController {
 		return map;
 	}
 
-	@GetMapping("/searchQuestion.do")
-	public String searchQuestion(@RequestParam(defaultValue = "1") int cPage, Model model, HttpServletRequest request) {
-		// 페이징처리
-		int limit = 10;
-		int offset = (cPage - 1) * limit;
-		int totalContent = mainService.selectQuestionTotalCount();
-		String url = request.getRequestURI();
-		String pagebar = CosmosUtils.getPagebar(cPage, limit, totalContent, url);
-		model.addAttribute("totalContent", totalContent);
-
-		String searchType = request.getParameter("searchType");
-		String searchKeyword = request.getParameter("searchKeyword");
-		String searchRegDateStart = request.getParameter("searchRegDateStart");
-		String searchRegDateEnd = request.getParameter("searchRegDateEnd");
-		String answerComplete = request.getParameter("answerComplete");
-
-		Map<String, Object> param = new HashMap<>();
-		param.put("searchType", searchType);
-		param.put("searchKeyword", searchKeyword);
-		param.put("searchRegDateStart", searchRegDateStart);
-		param.put("searchRegDateEnd", searchRegDateEnd);
-		param.put("answerComplete", answerComplete);
-
-		log.debug("param = {}", param);
-
-		List<Question> list = adminService.searchQuestion(limit, offset, param);
-		log.debug("questionList = {}", list);
-
-		model.addAttribute("list", list);
-		model.addAttribute("searchKeyword", searchKeyword);
-		model.addAttribute("searchKeyword", searchKeyword);
-		model.addAttribute("searchRegDateStart", searchRegDateStart);
-		model.addAttribute("searchRegDateEnd", searchRegDateEnd);
-		model.addAttribute("answerComplete", answerComplete);
-
-		return "admin/QnA";
-	}
-
 	@GetMapping("/StatisticsOfMember.do")
 	public String StatisticsOfMember() {
 		return "admin/StatisticsOfMember";
+	}
+	
+	@GetMapping("/EnrollMemberByMonth")
+	@ResponseBody
+	public Map<String,Object> EnrollMemberByMonth(@RequestParam Map<String, Object> param) {
+		
+		log.debug("EnrollMemberByMonth param = {}", param);
+		List<EnrollMemberByMonth> EnrollMemberByDateList = adminService.EnrollMemberByMonth(param);
+		log.debug("EnrollMemberByMonthList = {}", EnrollMemberByDateList);
+		Map<String, Object> EnrollMemberByMonthMap = new HashMap<String, Object>();
+		
+		EnrollMemberByMonthMap.put("EnrollMemberByDateList",EnrollMemberByDateList);
+		
+		return EnrollMemberByMonthMap;
 	}
 
 	@GetMapping("/thisWeekEnrollMember")
@@ -408,6 +386,44 @@ public class AdminController {
 	@GetMapping("/StatisticsOfGroup.do")
 	public String StatisticsOfGroup() {
 		return "admin/StatisticsOfGroup";
+	}
+	
+	@GetMapping("/searchQuestion.do")
+	public String searchQuestion(@RequestParam(defaultValue = "1") int cPage, Model model, HttpServletRequest request) {
+		// 페이징처리
+		int limit = 10;
+		int offset = (cPage - 1) * limit;
+		int totalContent = mainService.selectQuestionTotalCount();
+		String url = request.getRequestURI();
+		String pagebar = CosmosUtils.getPagebar(cPage, limit, totalContent, url);
+		model.addAttribute("totalContent", totalContent);
+
+		String searchType = request.getParameter("searchType");
+		String searchKeyword = request.getParameter("searchKeyword");
+		String searchRegDateStart = request.getParameter("searchRegDateStart");
+		String searchRegDateEnd = request.getParameter("searchRegDateEnd");
+		String answerComplete = request.getParameter("answerComplete");
+
+		Map<String, Object> param = new HashMap<>();
+		param.put("searchType", searchType);
+		param.put("searchKeyword", searchKeyword);
+		param.put("searchRegDateStart", searchRegDateStart);
+		param.put("searchRegDateEnd", searchRegDateEnd);
+		param.put("answerComplete", answerComplete);
+
+		log.debug("param = {}", param);
+
+		List<QuestionWithMemberNameAndNickName> list = adminService.searchQuestion(limit, offset, param);
+		log.debug("questionList = {}", list);
+
+		model.addAttribute("list", list);
+		model.addAttribute("searchType", searchType);
+		model.addAttribute("searchKeyword", searchKeyword);
+		model.addAttribute("searchRegDateStart", searchRegDateStart);
+		model.addAttribute("searchRegDateEnd", searchRegDateEnd);
+		model.addAttribute("answerComplete", answerComplete);
+
+		return "admin/QnA";
 	}
 
 }

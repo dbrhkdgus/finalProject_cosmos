@@ -21,4 +21,9 @@ public interface GwAdminDao {
 
 	int deletegroupRefuseByList(Map<String, Object> param);
 
+	int deleteGwMember(Map<String, Object> param);
+
+	int updateMemberRole(Map<String, Object> param);
+
+
 }

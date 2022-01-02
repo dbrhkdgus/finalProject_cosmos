@@ -38,13 +38,21 @@
               				<th class="col-3">검색어</th>
               				<td class="d-flex">
               					<select name="searchType" id="" class="mr-2">
-					                <option value="que_no">문의 번호</option>
-					                <option value="que_title">문의사항명</option>
-					                <option value="member_id">아이디</option>
+					                <option value="que_no"
+					                <c:if test="${searchType eq 'que_no'}">selected</c:if>
+					                >문의 번호</option>
+					                <option value="que_title"
+					                <c:if test="${searchType eq 'que_title'}">selected</c:if>
+					                >문의사항명</option>
+					                <option value="member_id"
+					                <c:if test="${searchType eq 'member_id'}">selected</c:if>
+					                >아이디</option>
 					                <option value="memberName"
 					                	<c:if test="${searchType eq 'memberName'}">selected</c:if>>이름
 					                </option>     
-					                <option value="nickname">닉네임</option>
+					                <option value="nickname"
+					                <c:if test="${searchType eq 'nickname'}">selected</c:if>
+					                >닉네임</option>
 					            </select>
 					        <input name="searchKeyword" id="searchKeyword" type="text"
 					        	<c:if test="${not empty searchKeyword}">value="${searchKeyword}"</c:if>

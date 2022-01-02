@@ -1,27 +1,27 @@
-package com.kh.cosmos.groupware.vote.model.vo;
+package com.kh.cosmos.admin.model.vo;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.util.Date;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import oracle.sql.TIMESTAMP;
+
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @ToString
-public class Vote implements Serializable {
+public class EnrollMemberByMonth implements Serializable{
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private int groupNo;
-	private int voteNo;
-	private String voteTitle;
-	private Date voteDeadline;
-	private Date voteEnrollDate;
-	private String memberId;
+	
+	private String MemberEnrollDate;
+	private int cnt;
 	
 }
