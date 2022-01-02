@@ -30,38 +30,40 @@
 				</thead>
 				<tbody>
 
-			<form:form name="createBoardRoomFrm" method="post" action="${pageContext.request.contextPath }/gw/admin/memberUpdate.do">
 					<c:forEach var="memberList" items="${memberList }">
 						<c:forEach var="acceptList" items="${acceptApplocationGroupList }"
 							varStatus="vs">
 							<c:if test="${memberList.id eq acceptList.memberId}">
 								<c:set var="j" value="${j+1}" />
+								<form name="createBoardRoomFrm"  method="post" action="${pageContext.request.contextPath }/gw/admin/memberUpdate.do?${_csrf.parameterName}=${_csrf.token}">
 								<tr>
 									<td>${j}</td>
 									<td>${memberList.nickname}</td>
-									<td class="col-md-2"><select
-											class="boardType form-select" name="memberRole" required>
+									<td class="col-md-2">
+									<select	class="boardType form-select" name="memberRole" required>
 												<option value="P"
 													<c:if test="${fn:contains(acceptList.role , 'P' )}"> selected</c:if>>일반회원</option>
 												<option value="M"
 													<c:if test="${fn:contains(acceptList.role , 'M' )}"> selected</c:if>>매니저</option>
-												<option value="M"
+												<option value="G"
 													<c:if test="${fn:contains(acceptList.role , 'G' )}"> selected</c:if>>그룹장</option>
 										</select></td> 
 									<td><fmt:formatDate value="${acceptList.joinRegDate}"
 											pattern="yy-MM-dd" /></td>
 									<!--    <td>2020-12-16</td> -->
 									
+											<input type="hidden" name="groupNo" value="${groupNo}" />
+											<input type="hidden" name="memberId" value="${acceptList.memberId}" />
 									<td>
-											<input type="hidden" name="groupNo" value="${groupNo}" /></td>
+									</td>
 									<td><button type="submit" class="btn btn-danger" name="gwDeleteMember" value="${acceptList.memberId}" onclick='return submit2(this.form);'>멤버추방</button>  
 								<%-- 	<input type='button' class="btn btn-danger" value="멤버추방" name="${acceptList.memberId}" onclick='return submit2(this.form);'> --%> 		
 										<button type="submit" class="btn btn-secondary">수정</button></td>
 								</tr>
+				 				</form>
 							</c:if>
 						</c:forEach>
 					</c:forEach>
-				 </form:form>
 				</tbody>
 			</table>
 		</div>

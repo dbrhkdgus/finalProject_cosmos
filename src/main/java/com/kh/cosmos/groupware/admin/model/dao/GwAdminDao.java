@@ -23,5 +23,7 @@ public interface GwAdminDao {
 
 	int deleteGwMember(Map<String, Object> param);
 
+	int updateMemberRole(Map<String, Object> param);
+
 
 }

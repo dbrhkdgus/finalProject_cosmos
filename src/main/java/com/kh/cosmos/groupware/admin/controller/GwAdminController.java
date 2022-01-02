@@ -186,17 +186,38 @@ public class GwAdminController {
 		    		redirectAttr.addFlashAttribute("msg", e.getMessage());
 		    		
 				} catch (Exception e) {
-					log.error("그룹삭 오류!", e);
+					log.error("멤버삭제 오류!", e);
 					throw e;
 				}
 				return "redirect:/gw/admin/memberManager.do?groupNo="+groupNo;
 		    }
 		    
 	@PostMapping("/memberUpdate.do")
-	public String memberUpdate(@RequestParam String memberRole, int groupNo,HttpServletRequest request, Model model,Authentication authentication) {
+	public String memberUpdate(@RequestParam String memberId,@RequestParam String memberRole,int groupNo,HttpServletRequest request, Model model,Authentication authentication,RedirectAttributes redirectAttr) {
+		//String selectRole = request.getParameter("memberRole");
+		//String memberId = request.getParameter("memberId");
+		
+		
 		
 		log.debug("groupNo ={}" ,groupNo);
-		log.debug("memberRole ={}" ,memberRole);
+		log.debug("memberId ={}" ,memberId);
+		
+		log.debug("selectRole ={}" ,memberRole);
+		
+		Map<String,Object> param = new HashMap<>();
+		param.put("memberRole", memberRole);
+		param.put("memberId", memberId);
+		param.put("groupNo", groupNo);
+		
+		try {
+			int result = gwAdminService.updateMemberRole(param);
+			redirectAttr.addFlashAttribute("msg", "권한을 수정하였습니다!");
+		} catch (Exception e) {
+			log.error("권한수정 오류!", e);
+			redirectAttr.addFlashAttribute("msg", e.getMessage());
+			throw e;
+		}
+		
 		return "redirect:/gw/admin/memberManager.do?groupNo=" + groupNo;
 	}
 

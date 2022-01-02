@@ -41,29 +41,30 @@ public class GwAdminDaoImpl implements GwAdminDao {
 
 	@Override
 	public int selectGwGroupPool(String groupNo) {
-		// TODO Auto-generated method stub
 		return session.selectOne("gwAdmin.selectGwGroupPool",groupNo);
 	}
 
 	@Override
 	public int selectGwGroupCount(String groupNo) {
-		// TODO Auto-generated method stub
 		return session.selectOne("gwAdmin.selectGwGroupCount",groupNo);
 	}
 
 	@Override
 	public int deletegroupRefuseByList(Map<String, Object> param) {
-		// TODO Auto-generated method stub
 		return session.delete("gwAdmin.deletegroupRefuseByList",param);
 	}
 
 	@Override
 	public int deleteGwMember(Map<String, Object> param) {
-		// TODO Auto-generated method stub
 		return session.delete("gwAdmin.deleteGwMember",param);
 	}
 
+	@Override
+	public int updateMemberRole(Map<String, Object> param) {
+		return session.update("gwAdmin.updateMemberRole",param);
+	}
 
+	
 	
 	
 	
