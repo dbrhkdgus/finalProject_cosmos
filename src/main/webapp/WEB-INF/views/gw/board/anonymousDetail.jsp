@@ -37,7 +37,6 @@
 
   <div class="groupware-board-detail-content ml-3 mt-3">
   		${post.postContent }
-  		${replyList }
   </div>
 
   <div class="card mb-2">
