@@ -38,14 +38,20 @@ where
     rownum = 1
   </select>
   
-  <select id="selectVoteInfoByVoteNo" resultType="voteInfo">
-  select *
+  <select id="selectVoteInfoListByVoteNo" resultType="voteInfo">
+select *
   from vote v join vote_question q 
     using(vote_no) 
     join tb_member m on v.member_id =m.id 
 where vote_no = #{voteNo}
   </select>
-  
+  <select id="selectVoteInfoByVoteNo" resultType="voteInfo">
+ select *
+  from vote v join vote_question q 
+    using(vote_no) 
+    join tb_member m on v.member_id =m.id 
+where vote_no = #{voteNo} 
+  </select>
   <select id="selectVoteOptionByVoteNo" resultType="voteOption">
   select * from vote_option where vote_no = #{vote_no}
   </select>
