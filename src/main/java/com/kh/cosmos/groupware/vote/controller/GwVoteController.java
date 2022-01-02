@@ -74,8 +74,9 @@ public class GwVoteController {
 		Map<String, Object> param = new HashMap<>();
 		param.put("groupNo", groupNo);
 		param.put("voteNo", voteNo);
-		List<VoteInfo> groupVoteInfoList = voteService.selectVoteInfoByParam(param);
+		List<VoteInfo> _groupVoteInfoList = voteService.selectVoteInfoByParam(param);
 		List<VoteInfo> presentVoteInfo = voteService.selectVoteInfoListByVoteNo(voteNo);
+		List<VoteInfo> groupVoteInfoList = new ArrayList<VoteInfo>();
 		List<VoteOption> presentVoteOption = voteService.selectVoteOptionByVoteNo(voteNo);
 		
 		// 이미 제출된 투표가 있는지 확인
@@ -84,13 +85,25 @@ public class GwVoteController {
 			voteAnswer.setMemberId(((Member)auth.getPrincipal()).getId());
 			voteAnswer.setVoteNo(voteNo);
 			voteAnswer.setVoteQuestionNo(vi.getVoteQuestionNo());
+			
+			
 		}
+		// 투표한 인원 업데이트
+		for(VoteInfo vi : _groupVoteInfoList) {
+			vi.setAnsweredMemberCnt(voteService.selectAnswerdMemberCnt(vi.getVoteNo()));
+			groupVoteInfoList.add(vi);
+		}
+		
 		int result = voteService.selectVoteAnswer(voteAnswer);
 		if(result > 0) {
 			model.addAttribute("voteAnswer","Y");
 		}else {
 			model.addAttribute("voteAnswer","N");
 		}
+		
+		// 투표한 멤버 수
+		
+		
 		model.addAttribute("presentVoteInfo",presentVoteInfo);
 		model.addAttribute("presentVoteOption",presentVoteOption);
 		model.addAttribute("groupVoteInfoList",groupVoteInfoList);
@@ -123,7 +136,7 @@ public class GwVoteController {
 			  result = voteService.insertVoteOption(voteOption);
 		  
 		  }
-		 
+		
 		
 		
 		return "redirect:/gw/vote/vote.do?groupNo="+groupNo;
