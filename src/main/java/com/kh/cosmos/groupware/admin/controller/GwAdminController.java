@@ -184,8 +184,8 @@ public class GwAdminController {
 			return ResponseEntity.ok(map);
 		}
 	
-		
-		
+//		풀리퀘커밋용
+		 
 	public void groupwareHeaderSet(int groupNo, Model model, Authentication auth) {
     Member loginMember = (Member) auth.getPrincipal();
     Group myGroup = gwService.selectMyGroup(groupNo);
