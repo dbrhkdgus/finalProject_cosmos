@@ -65,11 +65,10 @@
 	</delete>
 	
 	<delete id="deleteGwMember">
-<!-- 		delete
-  		* 
+		delete
   	from 
   		applocation_group
 	where 
-		group_no = #{groupNo} and group_accept='Y' -->
+		group_no = #{groupNo} and group_accept='Y' and member_id = #{gwDeleteMember}
 	</delete>
 </mapper>

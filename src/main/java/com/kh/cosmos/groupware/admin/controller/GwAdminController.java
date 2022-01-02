@@ -186,9 +186,13 @@ public class GwAdminController {
 //		그룹웨어 멤버 추방
 			@PostMapping("/memberDelete.do")
 		    public String memberDelete(@RequestParam int groupNo, @RequestParam String gwDeleteMember,RedirectAttributes redirectAttr,HttpServletRequest request, Model model,Authentication authentication) {
-				log.debug("gwDeleteMember = {}" , gwDeleteMember);
+				
+				
+				Map<String, Object> param = new HashMap<>();
+				param.put("groupNo", groupNo);
+				param.put("gwDeleteMember", gwDeleteMember);
 				try {
-					int result = gwAdminService.deleteGwMember(groupNo);
+					int result = gwAdminService.deleteGwMember(param);
 					redirectAttr.addFlashAttribute("msg", "멤버를 추방하였습니다!");
 					
 		    	} catch (InvalidParameterException e) {

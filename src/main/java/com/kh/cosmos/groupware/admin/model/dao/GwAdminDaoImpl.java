@@ -58,11 +58,12 @@ public class GwAdminDaoImpl implements GwAdminDao {
 	}
 
 	@Override
-	public int deleteGwMember(int groupNo) {
+	public int deleteGwMember(Map<String, Object> param) {
 		// TODO Auto-generated method stub
-		return session.delete("gwAdmin.deleteGwMember" ,groupNo);
+		return session.delete("gwAdmin.deleteGwMember",param);
 	}
-	
+
+
 	
 	
 	

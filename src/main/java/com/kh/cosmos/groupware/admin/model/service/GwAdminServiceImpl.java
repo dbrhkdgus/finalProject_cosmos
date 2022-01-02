@@ -57,11 +57,12 @@ public class GwAdminServiceImpl implements GwAdminService {
 	}
 
 	@Override
-	public int deleteGwMember(int groupNo) {
+	public int deleteGwMember(Map<String, Object> param) {
 		// TODO Auto-generated method stub
-		return gwAdminDao.deleteGwMember(groupNo);
+		return gwAdminDao.deleteGwMember(param);
 	}
-	
+
+
 	
 	
 }
