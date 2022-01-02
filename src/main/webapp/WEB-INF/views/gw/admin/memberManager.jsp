@@ -91,7 +91,7 @@ button:focus {
 										
 									<td><fmt:formatDate value="${acceptList.joinRegDate}"
 											pattern="yy-MM-dd" /></td>
-									<!--    <td>2020-12-16</td> -->
+									
 				
 									
 									<td><button type="submit" class="button-delete-member" name="gwDeleteMember" value="${acceptList.memberId}" onclick='return submit2(this.form);'><i class="far fa-trash-alt"></i>멤버추방</button>  
