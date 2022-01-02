@@ -106,4 +106,13 @@
 	</where>
 		order by post_reg_date desc
 	</select>
+	
+	
+	<select id="selectIdNickName" resultType="IdNickName">
+		select
+		id,
+		nickname
+		from
+		tb_member
+	</select>
 </mapper>
