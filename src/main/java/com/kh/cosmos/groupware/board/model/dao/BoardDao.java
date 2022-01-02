@@ -32,6 +32,8 @@ public interface BoardDao {
 	List<MemberWithGroup> memberWithGroupList(int groupNo);
 	
 	List<Reply> selectReplyListByPostNo(int postNo);
+	
+	List<Attachment> selectProfileAttachmentList();
 
 	int updateBoardRoom(Board board);
 

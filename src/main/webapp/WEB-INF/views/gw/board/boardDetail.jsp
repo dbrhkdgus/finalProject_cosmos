@@ -49,36 +49,79 @@
 	<form:form action="${pageContext.request.contextPath }/gw/board/postReplyEnroll.do" method="post" >
 		<div class="d-flex mt-3 ml-2 mr-2">
 			<input type="hidden" value="${post.postNo}" name ="postNo">
-			<input type="text" class="form-control" placeholder="댓글을 입력하세요" name="content">
-			<button type="submit" class="btn btn-dark ml-1   board-post-rep-btn-enroll">등록</button>
+			<input type="text" class="form-control" placeholder="댓글을 입력하세요." name="content">
+			<button type="submit" class="btn btn-dark ml-1 board-post-rep-btn-enroll">등록</button>
 		</div>
 	</form:form>
-	<hr class="ml-2 mr-2 border-0">
-	<div class="post-rep-box">
-			<c:forEach items="${replyList}" var="reply">
-				<form:form action="${pageContext.request.contextPath }/main/deleteQueReply.do" method="post">
-				<div class="rep-profile-box">
-				<%-- <img class="member-profile-img" src="${pageContext.request.contextPath }/resources/upFile/fileboard/${attach.renamedFilename}" alt=""> --%>
-				</div>
-					<div class="d-flex bd-highlight" style="text-align-last: start;">
-						<div class="p-2 bd-highlight">${memberWithGroupMap[reply.memberId]}:</div>
-						<div class="p-2 flex-grow-1 bd-highlight">${reply.content}</div>
-						<div class="p-2 bd-highlight" style="font-size: 10px;">
-							<fmt:formatDate value="${reply.regDate}" pattern="yy-MM-dd" />
-							<c:if test="${reply.memberId eq loginMember.id}">
-							 <button class="btn" type="submit" id="button-addon2" style="margin-bottom: 0px; font-size:12px">댓글삭제</button>
-								<input type="hidden" name = "replyNo" value="${reply.replyNo}"> 
-								<input type="hidden" name = "queNo" value="${que.queNo}"> 
+	<div class="post-rep-box ml-2 mr-2 mb-2">
+		<c:forEach items="${replyList}" var="reply">
+		  <c:choose>
+			<c:when test="${reply.replyLevel == 1}">
+			<hr class="border-0">
+			<form:form action="${pageContext.request.contextPath }/main/deleteQueReply.do" method="post">
+			<div class="d-flex justify-content-between align-items-end">
+			
+				<div class="d-flex align-items-center">
+					  <div class="chat-user-profile m-0 mr-2 d-flex">
+						<c:forEach items="${attachmentList}" var="attach">
+							<c:if test="${reply.memberId eq attach.memberId}">
+							  <c:choose>
+								<c:when test="${fn:startsWith(attach.renamedFilename,'http')}">
+									<img class="btn-profile chat-user-profile-img" src="${attach.renamedFilename}" alt=""/>
+								</c:when>
+								<c:otherwise>
+					            	<img class="btn-profile chat-user-profile-img" src="${pageContext.request.contextPath }/resources/upFile/profile/${attach.renamedFilename}" alt="">
+					            </c:otherwise>
+							  </c:choose>
 							</c:if>
+						</c:forEach>
+					  </div>
+					  <div class="rep-profile">
+						<div class="p-0 bd-highlight">
+							<span><strong>${memberWithGroupMap[reply.memberId]}</strong></span>
+							<span style="font-size: 10px;"><fmt:formatDate value="${reply.regDate}" pattern="yyyy.MM.dd" /></span>
 						</div>
+						<div class="p-0 flex-grow-1 bd-highlight">${reply.content}</div>
+					  </div>
+				  </div>
+				  <div class="rep-btn-box">
+						<c:if test="${reply.memberId eq loginMember.id}">
+						 <button class="btn p-1" type="button" id="button-addon2" style="margin-bottom: 0px; font-size:12px">수정</button>
+						 <button class="btn p-1" type="button" id="button-addon2" style="margin-bottom: 0px; font-size:12px">삭제</button>
+							<input type="hidden" name = "replyNo" value="${reply.replyNo}"> 
+							<input type="hidden" name = "queNo" value="${que.queNo}"> 
+						</c:if>
+						 <button class="btn p-1 re-rep-btn" type="button" style="margin-bottom: 0px; font-size:12px">댓글쓰기</button>
+				  </div>
+			  </div>
 					
-				</div>
 				</form:form>
+				<form:form name ="postReRepEnrollFrm" action="${pageContext.request.contextPath }/gw/board/postReplyEnroll.do" method="post" >	
+		            <div class="d-flex align-items-center">
+		            	<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi mr-1 bi-arrow-return-right" viewBox="0 0 16 16">
+						  <path fill-rule="evenodd" d="M1.5 1.5A.5.5 0 0 0 1 2v4.8a2.5 2.5 0 0 0 2.5 2.5h9.793l-3.347 3.346a.5.5 0 0 0 .708.708l4.2-4.2a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 8.3H3.5A1.5 1.5 0 0 1 2 6.8V2a.5.5 0 0 0-.5-.5z"/>
+						</svg>
+						<input type="text" class="form-control" name="rep-content" placeholder="댓글을 입력하세요." />
+						
+						<input type="submit" class="btn btn-dark ml-2" value="등록" />
+		            </div>
+	            </form:form>
+	            </c:when>
+				<c:otherwise>
+	            </c:otherwise>
+			  </c:choose>
 			</c:forEach>
 	</div>
 	  
   	</div>
   </div>
 </div>
+<script>
+	$(document.postReRepEnrollFrm).hide();
+
+	$('.re-rep-btn').on('click', (e)=> {
+		$(e.target).parent().parent().parent().next().slideToggle(500);
+	});
+</script>
 <jsp:include page="/WEB-INF/views/common/gw_footer.jsp"></jsp:include>
 
