@@ -73,7 +73,7 @@
 				          </div>
 				          <div class="chat-message-box">
 				            <div class="chat-message-sender">
-				              <span><strong>${message.dmSenderName }</strong></span>
+				              <span><strong>${message.dmSenderNickname }</strong></span>
 				              <span><fmt:formatDate value="${message.dmMessageAt}" pattern="HH:mm"/></span>
 				            </div>
 				            <div class="chat-message-content">

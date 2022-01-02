@@ -38,7 +38,7 @@
 	          
 
 		    </div>
-              <span>${member.memberName }</span>
+              <span>${member.nickname }</span>
               </div>
 		    </c:forEach>
             <!-- 테스트 -->
@@ -211,7 +211,7 @@ function loadDM(obj){
 				          <div class="dm-message-box">
 				          
 				            <div class="dm-message-sender">
-				              <span><strong>\${v.dmSenderName}</strong></span>
+				              <span><strong>\${v.dmSenderNickname}</strong></span>
 				              <span>\${v.dmMessageAt}</span>
 				            </div>
 				            
