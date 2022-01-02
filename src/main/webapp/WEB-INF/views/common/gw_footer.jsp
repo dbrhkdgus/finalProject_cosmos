@@ -41,7 +41,7 @@
               <span>${member.memberName }</span>
               </div>
 		    </c:forEach>
-            
+            <!-- 테스트 -->
     
           </div>
     
