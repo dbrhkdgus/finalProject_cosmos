@@ -106,7 +106,7 @@
 	insert into 
 		reply
 	values
-		(SEQ_REPLY_NO_NO.nextval, #{memberId},#{content},1,null,default,null,#{postNo},null,null)
+		(SEQ_REPLY_NO_NO.nextval, #{memberId},#{content},#{replyLevel},#{replyRef},default,'N',#{postNo},null,null)
   </insert>
 
   <select id="selectReplyListByPostNo" resultType="reply">

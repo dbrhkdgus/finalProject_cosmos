@@ -99,12 +99,12 @@ public class GwAdminController {
 		String groupNo = idList.get("groupNo");
 		String str = idList.get("idList");
 		
-		int groupPool =0;
-		groupPool= gwAdminService.selectGwGroupPool(groupNo);
+	
+		int groupPool= gwAdminService.selectGwGroupPool(groupNo);
 		log.debug("groupPool ={}" , groupPool);
 		
-		int groupCount = 0;
-		groupCount = gwAdminService.selectGwGroupCount(groupNo);
+
+		int groupCount = gwAdminService.selectGwGroupCount(groupNo);
 		log.debug("groupCount ={}" , groupCount);
 
 		
@@ -142,8 +142,50 @@ public class GwAdminController {
 	
 	}
 	
+	//가입거절
+	@ResponseBody
+	@GetMapping("/groupRefuse.do")
+	public ResponseEntity<?> groupRefuse(HttpServletRequest request, Model model,Authentication authentication,
+			@RequestParam Map<String, String>  idList) {
+		//groupwareHeaderSet(groupNo, model, authentication);
+		
+		
 	
+		String groupNo = idList.get("groupNo");
+		String str = idList.get("idList");
+		
 	
+		int groupPool= gwAdminService.selectGwGroupPool(groupNo);
+		log.debug("groupPool ={}" , groupPool);
+		
+
+		int groupCount = gwAdminService.selectGwGroupCount(groupNo);
+		log.debug("groupCount ={}" , groupCount);
+
+		
+		
+		List<String> idlist = Arrays.asList(str.split(","));		
+		
+
+		Map<String, Object> param = new HashMap<String,Object>();
+		param.put("groupNo",idList.get("groupNo"));
+		param.put("idList",idlist);
+		log.debug("idListLength = {}",idlist.size());
+	
+		String msg ="";
+        Map<String, Object> map = new HashMap<>();
+	
+		  //
+		
+			int result = gwAdminService.deletegroupRefuseByList(param);
+			log.debug("result = {}" , result);
+			msg="가입거절 성공!";
+			map.put("msg", msg);
+			return ResponseEntity.ok(map);
+		}
+	
+//		풀리퀘커밋용
+		 
 	public void groupwareHeaderSet(int groupNo, Model model, Authentication auth) {
     Member loginMember = (Member) auth.getPrincipal();
     Group myGroup = gwService.selectMyGroup(groupNo);

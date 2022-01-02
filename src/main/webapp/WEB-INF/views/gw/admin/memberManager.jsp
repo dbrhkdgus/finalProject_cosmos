@@ -47,11 +47,54 @@
 			              <td><fmt:formatDate value="${acceptList.joinRegDate}" pattern="yy-MM-dd"/></td>
 			           <!--    <td>2020-12-16</td> -->
 			              <td>
-			             
-			                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gear" viewBox="0 0 16 16">
+			             <button type="button" class="gwMemberUpdate-Btn"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gear" viewBox="0 0 16 16">
 			                  <path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492zM5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0z"/>
 			                  <path d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52l-.094-.319zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115l.094-.319z"/>
-			                </svg>
+			                </svg></button>
+			               <!-- 게시판 개설하기 위한 모달창 --> 
+						<div class="modal fade" id="gwMeberUpdateModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+						  aria-hidden="true">
+						  <div class="modal-dialog" role="document">
+						    <div class="modal-content">
+						      <div class="modal-header text-center">
+						        <h4 class="modal-title w-100 font-weight-bold">멤버 수정하기</h4>
+						        <button type="button" class="close close-modal" data-dismiss="modal" aria-label="Close">
+						          <span aria-hidden="true">&times;</span>
+						        </button>
+						      </div>
+						      <form:form name="createBoardRoomFrm" method="post" action="${pageContext.request.contextPath }/gw/board/createBoardRoom.do">
+						          <div class="modal-body mx-3">
+						            <div class="md-form mb-5">
+						              <!-- <label  for="defaultForm-email">게시판 이름</label> -->
+						              <!-- <input type="text" name="boardName" class="form-control validate" placeholder="게시판 이름 작성"> -->
+						              <div class="d-flex justify-content-between">
+						              	<div class="">
+							              	<span>킹갓제너럴</span>
+								             <button type="button" class="btn btn-danger">탈퇴시켜버리깃</button>
+						              	</div>
+							              
+							              <span>[일반회원]</span>
+						              </div>
+						              <div class="mt-5">  
+							              <label for="boardType">권한 부여하기</label>
+							              <select class="boardType form-select" name="boardType" required>
+							                  <option value="P">일반회원</option>
+							                  <option value="M">매니저</option>
+							              </select>
+						              </div>
+						            
+						            </div>
+						          </div>
+						          <input type="hidden" name="groupNo" value="${currGroupNo }" />
+						      </form:form>
+						      <div class="modal-footer d-flex justify-content-center">
+						        <button class="btn btn-createBoardRoom">수정</button>
+						        <button class="btn close-modal">취소</button>
+						      </div>
+						    </div>
+						  </div>
+						</div>
+						<!-- 모달 끝! -->
 			              </td>
 			            </tr>
 			          </c:if>
@@ -96,8 +139,9 @@
             </table>
       </div>
       <div class="study-join-buttons text-center">
-        <button type="button" class="btn btn-primary" value="Y" name="checkYN" id="checkYN">가입 승인</button>
-        <button type="button" class="btn btn-secondary" value="N" name="checkYN">가입 거절</button>
+      
+        <button type="button" class="btn btn-primary" value="Y" name="checkYN" id="checkY">가입 승인</button>
+        <button type="button" class="btn btn-secondary" value="N" name="checkYN" id="checkN">가입 거절</button>
       </div>
       <input type="hidden" name = "groupNo" value="${groupNo}">
      </form:form>
@@ -105,11 +149,54 @@
     
   </div>
 <script>
+//멤버수정 모달창
+ $(".gwMemberUpdate-Btn").click((e)=>{
+     $("#gwMeberUpdateModal").modal('show');
+ });
+ $(".close-modal").click((e)=>{
+     $("#gwMeberUpdateModal").modal('hide');
+ }); 
+
+//가입승인
+function refreshMemList(){
+    location.reload();
+}
+$("[id='checkY']").click((e) => {
+    e.preventDefault();
+    
+let rowNum = $("input[name='checkValid']:checked").length;
+var idList = [];
+
+for(i=0; i<rowNum; i++) {
+    let id= $("input[name='checkValid']:checked").eq(i).val()
+       idList.push(id); 
+};    
+    var idString = idList.toString();        
+    console.log(idString);    
+ 
+        $.ajax({
+            url: `${pageContext.request.contextPath}/gw/admin/groupAccept.do?groupNo=${groupNo}`,
+            dataType: "json", //돌려받는거
+            traditional : true,
+            data:  {
+                "idList": idString                
+            },
+            contentType: "application/json; charset=utf-8", //주는타입
+            success(data){
+                alert(data.msg);
+                refreshMemList();
+        },
+        error: console.log
+      }) 
+});    
+        
+  
+//가입거절
   
   function refreshMemList(){
         location.reload();
     }
-  $("[id='checkYN']").click((e) => {
+  $("[id='checkN']").click((e) => {
         e.preventDefault();
         
     let rowNum = $("input[name='checkValid']:checked").length;
@@ -118,24 +205,16 @@
     for(i=0; i<rowNum; i++) {
         let id= $("input[name='checkValid']:checked").eq(i).val()
            idList.push(id); 
-    };
-    
-//            console.log(idList)
-        var idString = idList.toString();
-         
+    };    
+        var idString = idList.toString();        
         console.log(idString);    
-            
-//                  var data2 = {"ressId":idList};
-//            var jsonData = JSON.stringify(idList);
-            
+     
             $.ajax({
-                url: `${pageContext.request.contextPath}/gw/admin/groupAccept.do?groupNo=${groupNo}`,
-//                method:"POST",
+                url: `${pageContext.request.contextPath}/gw/admin/groupRefuse.do?groupNo=${groupNo}`,
                 dataType: "json", //돌려받는거
                 traditional : true,
                 data:  {
-                    "idList": idString
-                   
+                    "idList": idString                
                 },
                 contentType: "application/json; charset=utf-8", //주는타입
                 success(data){
@@ -145,7 +224,6 @@
             error: console.log
           }) 
   });    
-        
 </script>
 
 

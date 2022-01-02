@@ -55,4 +55,12 @@
 	
 	
 	</select>
+
+<delete id="deletegroupRefuseByList" >
+	 delete from applocation_group where group_no =#{groupNo} and member_id in(	
+	  <foreach collection="idList" item="item" open="" separator="," close="">
+              	#{item}
+      </foreach>
+      )
+</delete>
 </mapper>
