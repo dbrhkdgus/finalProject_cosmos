@@ -23,7 +23,7 @@ public interface VoteService {
 
 	List<VoteOption> selectVoteOptionByVoteNo(int voteNo);
 
-	List<VoteInfo> selectVoteInfoByGroupNo(Map<String, Object> param);
+	List<VoteInfo> selectVoteInfoByParam(Map<String, Object> param);
 
 	int insertVoteAnswer(VoteAnswer voteAnswer);
 

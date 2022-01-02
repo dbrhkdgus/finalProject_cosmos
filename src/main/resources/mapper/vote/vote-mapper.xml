@@ -56,7 +56,7 @@ where vote_no = #{voteNo}
   select * from vote_option where vote_no = #{vote_no}
   </select>
   
-  <select id="selectVoteInfoByGroupNo" resultType="voteInfo">
+  <select id="selectVoteInfoByParam" resultType="voteInfo">
     select *
   from vote v join vote_question q 
     using(vote_no) 

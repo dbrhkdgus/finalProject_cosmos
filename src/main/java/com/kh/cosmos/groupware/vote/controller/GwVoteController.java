@@ -68,15 +68,16 @@ public class GwVoteController {
 		model.addAttribute("title", "투표");
 		if(voteNo == 0) {
 			voteNo = voteService.selectGroupNewVoteNOByGroupNo(groupNo);
+			
 		}
-		
-		List<VoteInfo> presentVoteInfo = voteService.selectVoteInfoListByVoteNo(voteNo);
-		List<VoteOption> presentVoteOption = voteService.selectVoteOptionByVoteNo(voteNo);
 		
 		Map<String, Object> param = new HashMap<>();
 		param.put("groupNo", groupNo);
 		param.put("voteNo", voteNo);
-		List<VoteInfo> groupVoteInfoList = voteService.selectVoteInfoByGroupNo(param);
+		List<VoteInfo> groupVoteInfoList = voteService.selectVoteInfoByParam(param);
+		List<VoteInfo> presentVoteInfo = voteService.selectVoteInfoListByVoteNo(voteNo);
+		List<VoteOption> presentVoteOption = voteService.selectVoteOptionByVoteNo(voteNo);
+		
 		// 이미 제출된 투표가 있는지 확인
 		VoteAnswer voteAnswer = new VoteAnswer();
 		for(VoteInfo vi : presentVoteInfo) {
