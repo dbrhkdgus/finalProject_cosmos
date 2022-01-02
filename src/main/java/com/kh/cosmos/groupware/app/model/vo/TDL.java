@@ -22,7 +22,7 @@ public class TDL implements Serializable{
 	private String tdlContent;
 	private char tdlChecked;
 	private Date tdlCreateDate;
-	private Date tdlEndDate;
+	private Date tdlUpdateDate;
 	private String memberId;
 	private int groupNo;
 }

@@ -31,6 +31,12 @@ public class AppDaoImpl implements AppDao {
 		// TODO Auto-generated method stub
 		return session.update("app.updateTDL",param);
 	}
+
+	@Override
+	public List<TDL> selectTDLBysort(Map<String, Object> param) {
+		// TODO Auto-generated method stub
+		return session.selectList("app.selectTDLBysort",param);
+	}
 	
 	
 }

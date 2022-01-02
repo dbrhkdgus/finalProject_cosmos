@@ -10,6 +10,34 @@
   	insert into todolist values(seq_tdl_no_no.nextval, #{tdlContent}, default, default, null, #{memberId}, #{groupNo})
   </insert>
   <update id="updateTDL">
-  	update todolist set tdl_checked = #{check} where tdl_no = #{tdlNo}
+  	<if test="check eq 'Y'">
+  		update todolist set tdl_checked = #{check}, tdl_UPDATE_date = current_date where tdl_no = #{tdlNo}
+  	</if>
+  	<if test="check eq 'N'">
+  		update todolist set tdl_checked = #{check}, tdl_UPDATE_date = current_date where tdl_no = #{tdlNo}
+  	</if>
+  	
   </update>
+  <select id="selectTDLBysort" resultType="TDL">
+  	select * from todolist
+  	<where>
+  		<if test="check eq 'ALL'">
+  			group_no = #{groupNo} and member_id = #{memberId}
+  		</if>
+  		<if test="check eq 'not'">
+  			group_no = #{groupNo} and member_id = #{memberId} and tdl_checked = 'N'
+  		</if>
+  		<if test="check eq 'complete'">
+  			group_no = #{groupNo} and member_id = #{memberId} and tdl_checked = 'Y'
+  		</if>
+  	</where>
+  	 order by
+  	 <if test="check eq 'complete'">
+  	 	tdl_create_date desc
+  	 </if>
+  	 <if test="check neq 'complete'">
+  	 	tdl_create_date desc
+  	 </if>
+  	 
+  </select>
 </mapper>
