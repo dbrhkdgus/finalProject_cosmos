@@ -8,7 +8,16 @@
 <jsp:include page="/WEB-INF/views/common/gw_header.jsp">
 	<jsp:param value="게시글 작성" name="title"/>
 </jsp:include>
+<script>
+$("#btn-send").click((e)=>{
 
+	   if(pw.length < 1 || pw.length > 4){
+
+	    alert("비밀번호는 4자리만 입력가능합니다");
+	    return false;
+	   }
+}
+</script>
 <sec:authorize access="isAuthenticated()">
 	<sec:authentication property="principal" var="member"/>
 </sec:authorize>
@@ -26,7 +35,7 @@
 		name="boardFrm"   
 		enctype="multipart/form-data" 
 		action="${pageContext.request.contextPath }/gw/board/anonymousEnroll.do?${_csrf.parameterName}=${_csrf.token}" method="post"
-		method="POST" 
+		method="POST"
 		>
 		<div class="input-group mb-3 mx-auto">
 			<span class="input-group-text" id="inputGroup-sizing-default">제목</span>
@@ -38,7 +47,7 @@
 		</div>
 		<div class="input-group input-group-sm mb-3">
   			<span class="input-group-text" id="inputGroup-sizing-sm">비밀번호</span>
-  			<input id="pw" name="postPassword" type="text" class="form-control"  onChange="checkNumber()" maxlength="4" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="숫자 4자리를 입력해 주세요.">
+  			<input id="pw" name="postPassword" type="text" class="form-control" pattern="\d{4}" onChange="checkNumber()" maxlength="4" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="숫자 4자리를 입력해 주세요.">
 			
 			
 		</div>		
@@ -60,11 +69,50 @@
 		objEv.value = "";
 		objEv.focus();
 		return false;
+		}
+		
 	}
+ 
+  /*  function lengthLimit4(e){
+      if(e.value.length > 4){
+          e.value = e.value.slice(0, 4)
+      }
+  }
+   function fn_submit() {
+      var text = document.getElementById('text').value;
 
-}
+      var reg = /^([0-9]{4})$/;
+      if (reg.test(text) === true) {
+          alert('4자리.');
+      }
+  } */
+/* 
+  function checkFourDigits(text){
+	if(text.value.length> 4){
+		alert("4글자만 인ㅂ력 가능");
+		text.value=text.value.substring(0,4);
+		text.focus();
+	}  
+  }
 
+  function chkPW(){
+
+   var pw = $("#pw").val();
+
+   if(pw.length < 1 || pw.length > 4){
+
+    alert("비밀번호는 4자리만 입력가능합니다");
+    return false;
+   }
+
+  } */
   
+/*  function checkPassword(){
+	  if(!/^{0,4}$/.test(pw)){
+	    alert('숫자와 영문자 조합으로 8~16자리를 사용해야 합니다.');
+	    return false;
+	  }*/
+	
 $(document).ready(function() {
     //여기 아래 부분
     $('#summernote').summernote({
@@ -128,9 +176,14 @@ $(document).ready(function() {
 			alert("제목을 입력해주세요.");
 			return;
 		}
-	 	if($(pw).val() != null && $(pw).val() != ''){
+	 	if($(pw).val() != null && $(pw).val() != '' ){
 		}else{
 			alert("비밀번호를 입력해주세요.");
+			return;
+		}
+		if($(pw).val() != pw.length < 1 || pw.length > 4 && $(pw).val() != '' ){
+		}else{
+			alert("비밀번호는 4자리만 입력가능합니다.");
 			return;
 		}
 		if($(summernote).val() != null && $(summernote).val() != ''){	
@@ -142,7 +195,7 @@ $(document).ready(function() {
 		$(document.boardFrm).submit();
 	});
 	
-	
+
 	$(()=>{
 		$("[name=upFile]").change((e)=>{
 			const file = $(e.target).prop("files")[0];
