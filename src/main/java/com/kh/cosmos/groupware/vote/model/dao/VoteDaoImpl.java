@@ -55,9 +55,9 @@ public class VoteDaoImpl implements VoteDao {
 	}
 
 	@Override
-	public List<VoteInfo> selectVoteInfoByGroupNo(Map<String, Object> param) {
+	public List<VoteInfo> selectVoteInfoByParam(Map<String, Object> param) {
 		// TODO Auto-generated method stub
-		return session.selectList("vote.selectVoteInfoByGroupNo",param);
+		return session.selectList("vote.selectVoteInfoByParam",param);
 	}
 
 	@Override
