@@ -3,7 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>	
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%-- <fmt:requestEncoding value="utf-8"/>  --%>
 <jsp:include page="/WEB-INF/views/common/gw_header.jsp">
 	<jsp:param value="" name="title"/>
@@ -11,7 +11,6 @@
 <sec:authorize access="isAuthenticated()">
 	<sec:authentication property="principal" var="loginMember"/>
 </sec:authorize>
-
   <div class="workspace-box drop-zone" >
     <div class="chat-content">
 	        <c:if test="${not empty messageList }">
@@ -37,7 +36,17 @@
 				              <span><fmt:formatDate value="${message.chatMessageAt}" pattern="HH:mm"/></span>
 				            </div>
 				            <div class="chat-message-content">
+				            <c:if test="${message.chatMessageTypeNo == 2}">
+				              <a href="${message.chatMessageContent}">${message.chatMessageContent}</a>
+				            </c:if>
+				            <c:if test="${message.chatMessageTypeNo != 2 && !message.chatMessageContent.startsWith('```')}">
 				              <p>${message.chatMessageContent}</p>
+				            </c:if>
+				            <c:if test="${message.chatMessageContent.startsWith('```') && message.chatMessageContent.endsWith('```')}">
+				              <div>
+  								<textarea class="form-control" id="exampleFormControlTextarea1" rows="3" readonly>${message.chatMessageContent}</textarea>
+				              </div>
+				            </c:if>
 				              <div class="chatFile">
 				              		<c:if test="${message.attachNo != '' }">
 					              		<img src="${pageContext.request.contextPath }/resources/upFile/chatRoom/${message.chatFileRenamedFilename}" alt="" style="width:30%; height:30%; margin-left:25%; cursor: pointer;" onclick="imgZooom('${message.chatFileRenamedFilename}')"/>
@@ -331,17 +340,35 @@ if($(".chat-content").children().length == 0){
 		script.innerHTML = `$(".workspace-box").scrollTop($(".workspace-box")[0].scrollHeight); `;
 		/* console.log("chatMessageContent : ", chatMessageContent); */
 		const obj = JSON.parse(chatMessageContent.body);
-		 console.log(obj); 
-		 const {memberName, msg, profileRenamedFilename, messageAt, logTime, chatFile} = obj;
+		 console.log(obj);
+		 const {memberName, msg, profileRenamedFilename, messageAt, logTime, chatFile, msgTypeNo} = obj;
 		 
 		 if(chatFile != null){
 			 var target = chatFile.split(".")[0];			 
 		 }else{
 			 var target = "foo";
 		 }
+		if(msgTypeNo == 2){
 		$(".chat-content").append(`<div class="chat-profile-container">
 		      <div class="chat-user-profile">
-		
+	          </div>
+	          <div class="chat-message-box">
+	            <div class="chat-message-sender">
+	              <span><strong>\${memberName}</strong></span>
+	              <span>\${logTime}</span>
+	            </div>
+	            <div class="chat-message-content">
+	              <a>\${msg}</a>
+	              <div class="\${target}">
+	              </div>
+	            </div>
+	          </div>
+	        </div>`);
+		}
+		else if(msgTypeNo != 2){
+			if(!msg.startsWith("```")){
+		$(".chat-content").append(`<div class="chat-profile-container">
+		      <div class="chat-user-profile">
 	          </div>
 	          <div class="chat-message-box">
 	            <div class="chat-message-sender">
@@ -351,14 +378,34 @@ if($(".chat-content").children().length == 0){
 	            <div class="chat-message-content">
 	              <p>\${msg}</p>
 	              <div class="\${target}">
-	              	
 	              </div>
 	            </div>
 	          </div>
 	        </div>`); 
-	
+			}else if(msg.startsWith("```") && msg.endsWith("```")){
+				let $msg = msg.replaceAll("```","");
+				$(".chat-content").append(`<div class="chat-profile-container">
+					      <div class="chat-user-profile">
+				          </div>
+				          <div class="chat-message-box">
+				            <div class="chat-message-sender">
+				              <span><strong>\${memberName}</strong></span>
+				              <span>\${logTime}</span>
+				            </div>
+				            <div class="chat-message-content">
+						        <div>
+									<textarea class="form-control" id="exampleFormControlTextarea1" rows="3" readonly>\${$msg}</textarea>
+						        </div>
+				              <div class="\${target}">
+				              </div>
+				            </div>
+				          </div>
+				        </div>`); 
+			}
+		}
+		
 		if(profileRenamedFilename.startsWith('http')){
-			$(".chat-user-profile").append(`<img class="chat-user-profile-img" src="\${profileRenamedFilename}" alt="" style="height : 40px; width : 40px;"/> `);
+			$(".chat-user-profile").append(`<img class="chat-user-profile-img" src="\${profileRenamedFilename}" alt="" style="height : 40px; width : 40px;"/>`);
 			
 		}else{
 			$(".chat-user-profile").append(`<img class="chat-user-profile-img" src="${pageContext.request.contextPath}/resources/upFile/profile/\${profileRenamedFilename}" alt="">`);
@@ -455,15 +502,25 @@ $("#btn-message-send").click((e) =>{
 	var hours = today.getHours(); // 시
 	var minutes = today.getMinutes();  // 분
 	var obj = {};
-	
-	console.log();
+	var type = $("#chatMessageContent").val().indexOf('http') == '0' ? '2' : '1';
+	console.log(type);
 	
  	if($(file).prop('files').length == 0){
+ 		var $first = $(chatMessageContent).val().replaceAll("&","&amp;");
+ 		var $second = $first.replaceAll("<","&lt;");
+ 		var $third = $second.replaceAll(">","&gt;");
+ 		var $fourth = $third.replaceAll("(","&#40;");
+ 		var $fifth = $fourth.replaceAll(")","&quot;");
+ 		var $sixth = $fifth.replaceAll("\"","&#x27;");
+ 		var $seventh = $sixth.replaceAll("\'","&#x2F;");
+ 		var $eighth = $seventh.replaceAll("/","&#41;");
+ 		console.log($eighth);
 	 	obj = {
 			chatRoomNo : "${chatRoomNo}",
 			memberId : "${loginMember.id}",
-			msg : $(chatMessageContent).val(),
+			msg : $eighth,
 			logTime : hours + ":" + minutes,
+			msgTypeNo : type
 		};
 	 	
 	}else{
