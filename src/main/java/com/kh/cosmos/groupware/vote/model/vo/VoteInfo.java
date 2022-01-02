@@ -18,7 +18,7 @@ public class VoteInfo implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private String voteNo;
+	private int voteNo;
 	private int voteQuestionNo;
 	private String voteTitle;
 	private Date voteDeadline;
@@ -26,4 +26,5 @@ public class VoteInfo implements Serializable{
 	private String voteQuestionTitle;
 	private String voteQuestionType;
 	private String memberId;
+	private int answeredMemberCnt;
 }

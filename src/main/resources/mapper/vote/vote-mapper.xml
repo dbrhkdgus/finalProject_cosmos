@@ -72,4 +72,8 @@ where group_no = #{groupNo} and vote_no != #{voteNo}
   <select id="selectVoteAnswer" resultType="_int">
   select count(*) from vote_answer where vote_no = #{voteNo} and vote_question_no = #{voteQuestionNo} and member_id = #{memberId}
   </select>
+  
+  <select id="selectAnswerdMemberCnt" resultType="_int">
+  select count(*) from vote_answer where vote_no = #{voteNo}
+  </select>
 </mapper>

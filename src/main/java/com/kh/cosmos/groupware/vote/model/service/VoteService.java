@@ -31,4 +31,6 @@ public interface VoteService {
 
 	VoteInfo selectVoteInfoByVoteNo(int voteNo);
 
+	int selectAnswerdMemberCnt(int voteNo);
+
 }
