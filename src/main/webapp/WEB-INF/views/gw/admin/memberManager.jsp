@@ -11,6 +11,32 @@
 <jsp:include page="/WEB-INF/views/common/gw_header.jsp">
 	<jsp:param value="" name="title" />
 </jsp:include>
+<style>
+button {
+  padding: 0;
+  border: none;
+  font: inherit;
+  color: inherit;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+button:focus {
+  outline: 0;
+}
+.fas,
+.far {
+  padding-right: 5px;
+}
+
+.button-delete-member:hover {
+  color: red;
+}
+
+.button-one:active {
+  text-shadow: 2px 2px 8px #FF0000;
+}
+</style>
 <div class="workspace-box">
 
 	<div class="study-join-admin-box">
@@ -24,7 +50,7 @@
 						<th>이름</th>
 						<th>역할</th>
 						<th>가입일</th>
-						<th colspan="2" style="width: 27.5%;">관리</th>
+						<th colspan="2" style="width: 27px;">관리</th>
 
 					</tr>
 				</thead>
@@ -54,9 +80,9 @@
 									
 									<td>
 											<input type="hidden" name="groupNo" value="${groupNo}" /></td>
-									<td><button type="submit" class="btn btn-danger" name="gwDeleteMember" value="${acceptList.memberId}" onclick='return submit2(this.form);'>멤버추방</button>  
+									<td><button type="submit" class="button-delete-member" name="gwDeleteMember" value="${acceptList.memberId}" onclick='return submit2(this.form);'><i class="fas fa-user-times">멤버추방</i></button>  
 								<%-- 	<input type='button' class="btn btn-danger" value="멤버추방" name="${acceptList.memberId}" onclick='return submit2(this.form);'> --%> 		
-										<button type="submit" class="btn btn-secondary">수정</button></td>
+										<button type="submit" class="button-update-member">수정</button></td>
 								</tr>
 							</c:if>
 						</c:forEach>
