@@ -96,8 +96,9 @@
             </table>
       </div>
       <div class="study-join-buttons text-center">
-        <button type="button" class="btn btn-primary" value="Y" name="checkYN" id="checkYN">가입 승인</button>
-        <button type="button" class="btn btn-secondary" value="N" name="checkYN">가입 거절</button>
+      
+        <button type="button" class="btn btn-primary" value="Y" name="checkYN" id="checkY">가입 승인</button>
+        <button type="button" class="btn btn-secondary" value="N" name="checkYN" id="checkN">가입 거절</button>
       </div>
       <input type="hidden" name = "groupNo" value="${groupNo}">
      </form:form>
@@ -105,11 +106,46 @@
     
   </div>
 <script>
+//가입승인
+function refreshMemList(){
+    location.reload();
+}
+$("[id='checkY']").click((e) => {
+    e.preventDefault();
+    
+let rowNum = $("input[name='checkValid']:checked").length;
+var idList = [];
+
+for(i=0; i<rowNum; i++) {
+    let id= $("input[name='checkValid']:checked").eq(i).val()
+       idList.push(id); 
+};    
+    var idString = idList.toString();        
+    console.log(idString);    
+ 
+        $.ajax({
+            url: `${pageContext.request.contextPath}/gw/admin/groupAccept.do?groupNo=${groupNo}`,
+            dataType: "json", //돌려받는거
+            traditional : true,
+            data:  {
+                "idList": idString                
+            },
+            contentType: "application/json; charset=utf-8", //주는타입
+            success(data){
+                alert(data.msg);
+                refreshMemList();
+        },
+        error: console.log
+      }) 
+});    
+        
+  
+//가입거절
   
   function refreshMemList(){
         location.reload();
     }
-  $("[id='checkYN']").click((e) => {
+  $("[id='checkN']").click((e) => {
         e.preventDefault();
         
     let rowNum = $("input[name='checkValid']:checked").length;
@@ -118,24 +154,16 @@
     for(i=0; i<rowNum; i++) {
         let id= $("input[name='checkValid']:checked").eq(i).val()
            idList.push(id); 
-    };
-    
-//            console.log(idList)
-        var idString = idList.toString();
-         
+    };    
+        var idString = idList.toString();        
         console.log(idString);    
-            
-//                  var data2 = {"ressId":idList};
-//            var jsonData = JSON.stringify(idList);
-            
+     
             $.ajax({
-                url: `${pageContext.request.contextPath}/gw/admin/groupAccept.do?groupNo=${groupNo}`,
-//                method:"POST",
+                url: `${pageContext.request.contextPath}/gw/admin/groupRefuse.do?groupNo=${groupNo}`,
                 dataType: "json", //돌려받는거
                 traditional : true,
                 data:  {
-                    "idList": idString
-                   
+                    "idList": idString                
                 },
                 contentType: "application/json; charset=utf-8", //주는타입
                 success(data){
@@ -145,7 +173,6 @@
             error: console.log
           }) 
   });    
-        
 </script>
 
 
