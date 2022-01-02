@@ -61,9 +61,15 @@ public class GwBoardController {
 	public String board(@RequestParam(defaultValue = "1") int cPage, int boardNo, int groupNo, Model model,
 			HttpServletRequest request, Authentication auth) {
 		groupwareHeaderSet(groupNo, model, auth);
-
+		log.debug("*************boardNo = {}", boardNo);
 		int limit = 10;
 		int offset = (cPage - 1) * limit;
+		int totalContent = boardService.selectPostInBoardTotalCount(boardNo);
+		model.addAttribute("totalContent", totalContent);
+		String url = request.getRequestURI();
+		url += "?boardNo=" + boardNo + "&groupNo=" + groupNo;
+		String pagebar = CosmosUtils.getPagebar(cPage, limit, totalContent, url);
+		model.addAttribute("pagebar", pagebar);
 
 		List<Post> boardPostList = boardService.selectAllPostInBoard(boardNo, limit, offset);
 		Board board = boardService.selectBoardByBoardNo(boardNo);
@@ -73,9 +79,6 @@ public class GwBoardController {
 		model.addAttribute("groupNo", groupNo);
 		model.addAttribute("title", "# " + board.getBoardName());
 
-		int totalContent = boardService.selectPostInBoardTotalCount(boardNo);
-		log.debug("totalContent = {}", totalContent);
-		model.addAttribute("totalContent", totalContent);
 
 		// MemberWithGroupList 불러오기
 		List<MemberWithGroup> memberWithGroupList = boardService.memberWithGroupList(groupNo);
@@ -86,11 +89,6 @@ public class GwBoardController {
 			memberWithGroupMap.put(memberWithGroup.getId(), memberWithGroup.getNickname());
 		}
 		model.addAttribute("memberWithGroupMap", memberWithGroupMap);
-
-		String url = request.getRequestURI();
-		String pagebar = CosmosUtils.getPagebar(cPage, limit, totalContent, url);
-
-		model.addAttribute("pagebar", pagebar);
 
 		return "gw/board/board";
 	}
@@ -308,7 +306,7 @@ public class GwBoardController {
 		
 		}			
 			
-		}
+	}
 	
 	@GetMapping("/anonymousPostModify.do")
 	public void anonymousPostModify(@RequestParam int postNo, Model model, Authentication auth) {
@@ -451,7 +449,13 @@ public class GwBoardController {
 			log.error(e.getMessage(), e); // 
 		 	redirectAttr.addFlashAttribute("msg", "댓글 등록 실패");
 		}
-		return "redirect:/gw/board/boardDetail.do?postNo=" + postNo;
+		Post post = boardService.selectOnePostInBoard(postNo);
+		Board board = boardService.selectBoardByBoardNo(post.getBoardNo());
+		if(board.getBoardType() == 'A') {
+			return "redirect:/gw/board/anonymousDetail.do?postNo=" + postNo;
+		} else {
+			return "redirect:/gw/board/boardDetail.do?postNo=" + postNo;
+		}
 	}
 	
 	@PostMapping("deleteUpdateReply.do")
@@ -472,8 +476,13 @@ public class GwBoardController {
 			log.error(e.getMessage(), e); // 
 		 	redirectAttr.addFlashAttribute("msg", "실패");
 		}
-		
-		return "redirect:/gw/board/boardDetail.do?postNo=" + postNo;
+		Post post = boardService.selectOnePostInBoard(postNo);
+		Board board = boardService.selectBoardByBoardNo(post.getBoardNo());
+		if(board.getBoardType() == 'A') {
+			return "redirect:/gw/board/anonymousDetail.do?postNo=" + postNo;
+		} else {
+			return "redirect:/gw/board/boardDetail.do?postNo=" + postNo;
+		}
 	}
 	
 	@GetMapping("/noticeDetail.do")
@@ -510,8 +519,11 @@ public class GwBoardController {
 		int groupNo = board.getGroupNo();
 		groupwareHeaderSet(groupNo, model, auth);
 
-		log.debug("post = {}", post);
+		List<Reply> replyList = boardService.selectReplyListByPostNo(postNo);
+		
 		model.addAttribute("post", post);
+		model.addAttribute("title", "# " + board.getBoardName());
+		model.addAttribute("replyList", replyList);
 		
 		return "gw/board/anonymousDetail";
 	
