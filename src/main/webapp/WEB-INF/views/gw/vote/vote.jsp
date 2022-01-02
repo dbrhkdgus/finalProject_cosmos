@@ -25,7 +25,7 @@
   			</div>
   		</div>
   		<div class="present-vote-control-box">
-  		<button class="vote-controll-btn">투표 생성하기</button>
+  		<button id="btn-create-vote" class="vote-controll-btn">투표 생성하기</button>
   		<button class="vote-controll-btn">투표 제출하기</button>
   		<button class="vote-controll-btn">투표 수정하기</button>
   		</div>
@@ -79,5 +79,103 @@
   		</div>
   	</div>
 </div>
+<!-- 투표 생성 모달창 -->
+<div class="modal fade" id="createVoteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">투표 생성하기</h4>
+        <button type="button" class="close close-vote-modal" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form:form name="createVoteFrm" method="post" action="${pageContext.request.contextPath }/gw/vote/createVote.do">
+          <div class="modal-body mx-3">
+            <div class="md-form mb-3">
+              <label  for="voteTitle">투표 제목</label>
+              <input type="text" name="voteTitle" class="form-control validate mb-3" placeholder="새로운 주제의 투표 생성">
+              <label  for="voteTitle">투표 마감일</label>
+              <input type="date" id='currentDate' name="voteTitle" class="form-control validate">
+              <hr style="margin-top: 5px;margin-bottom: 0px;"/>
+            </div>
+            <div class="md-form mb-3">
+              <label  for="voteQuestioniTitle">질문을 입력하세요.</label>
+              <div class="vote_modal_question_box">
+	              <input type="text" name="voteQuestioniTitle" class="form-control validate" style="width: 80%;" placeholder="(예) 정모 날짜를 선택하세요."/>
+	              <input type="checkbox" name="voteQuestionType" value="checkBox"/>
+	              <label  for="voteQuestioniTitle">복수응답</label>
+		          <hr />
+              </div>
+            </div>
+            <div class="md-form mb-5 vote_modal_question_option_outter">
+              <div class="vote_modal_question_option_box mb-2">
+	              <div class="vote_modal_question_option">
+		              <input type="radio" name="voteQuestionOption" class="mr-2"/>
+		              <input type="text" class="form-control validate" style="width: 50%;" placeholder="옵션 1"/>
+	              </div>
+              </div>
+              <div class="vote_modal_question_add_option_box">
+              	  <input type="radio" name="voteQuestionOption" class="mr-2"/>
+	              <input id="add-option-input" type="text" class="form-control validate" style="width: 50%;" placeholder="옵션 추가하기"/>
+		          <input type="hidden" class="optionCnt" value="1" />
+              </div>
+            </div>
+          </div>
+          <input type="hidden" name="groupNo" value="${currGroupNo }" />
+      </form:form>
+      <div class="modal-footer d-flex justify-content-center">
+        <button class="btn btn-createChatRoom">개설</button>
+        <button class="btn close-vote-modal">취소</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="script">
+
+</div>
+<script>
+/* 투표생성 모달창 제어 */
+$("#btn-create-vote").click((e)=>{
+	$("#createVoteModal").modal('show');
+});
+
+$(".close-vote-modal").click((e)=>{
+	$("#createVoteModal").modal('hide');
+});
+/* 투표마감일 기본값 세팅 */
+  document.getElementById('currentDate').value = new Date().toISOString().substring(0, 10);;
+  
+/* 옵션 추가 */
+  $("#add-option-input").click((e)=>{
+	  var optionCnt = $(".vote_modal_question_option").length;
+	  optionCnt *= 1;
+	  console.log(optionCnt);
+	  
+	$(".vote_modal_question_option_box").append(`<div class="vote_modal_question_option option-\${optionCnt+1}">
+            <input type="radio" name="voteQuestionOption" class="mr-2"/>
+            <input type="text" class="form-control validate" style="width: 50%;" placeholder="옵션 \${optionCnt+1}"/>
+            <span class="btn-delete-option delete-option-\${optionCnt+1}" style="margin-left: 5px; margin-bottom: 15px; cursor: pointer;">x</span>
+        </div>`);
+	
+	var script = document.createElement("script");
+	script.innerHTML = `/* 옵션 제거 */
+			$(".btn-delete-option").click((e)=>{
+				$(e.target).parent().remove();
+				 var optionCnt = $(".vote_modal_question_option").length;
+				  optionCnt *= 1;
+				 var showTarget = ".delete-option-" + optionCnt;
+				 $(showTarget).show(); 
+			
+		});`;
+	 $(".script").append(script);
+	 var hideTarget = ".delete-option-" + optionCnt;
+	 $(hideTarget).hide(); 
+	
+	
+	$(e.target).next().val(optionCnt + 1);
+  });
+
+</script>
 <jsp:include page="/WEB-INF/views/common/gw_footer.jsp"></jsp:include>
 

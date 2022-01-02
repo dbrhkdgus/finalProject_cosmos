@@ -283,7 +283,7 @@
           <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
             <li><a href="${pageContext.request.contextPath }/gw/app/ladder.do?groupNo=${currGroupNo}" class="link-dark rounded">사다리타기</a></li>
             <li><a href="${pageContext.request.contextPath }/gw/app/TDL.do?groupNo=${currGroupNo}" class="link-dark rounded">ToDoList</a></li>
-            
+            <li><a href="${pageContext.request.contextPath }/gw/vote/vote.do?groupNo=${currGroupNo}" class="link-dark rounded">투표</a></li>
           </ul>
         </div>
       </li>
