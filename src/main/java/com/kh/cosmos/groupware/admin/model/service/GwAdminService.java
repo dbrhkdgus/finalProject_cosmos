@@ -21,4 +21,6 @@ public interface GwAdminService {
 
 	int deletegroupRefuseByList(Map<String, Object> param);
 
+	int deleteGwMember(Map<String, Object> param);
+
 }
