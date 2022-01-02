@@ -383,6 +383,7 @@ if($(".chat-content").children().length == 0){
 	          </div>
 	        </div>`); 
 			}else if(msg.startsWith("```") && msg.endsWith("```")){
+				let $msg = msg.replaceAll("```","");
 				$(".chat-content").append(`<div class="chat-profile-container">
 					      <div class="chat-user-profile">
 				          </div>
@@ -393,7 +394,7 @@ if($(".chat-content").children().length == 0){
 				            </div>
 				            <div class="chat-message-content">
 						        <div>
-									<textarea class="form-control" id="exampleFormControlTextarea1" rows="3" readonly>\${msg}</textarea>
+									<textarea class="form-control" id="exampleFormControlTextarea1" rows="3" readonly>\${$msg}</textarea>
 						        </div>
 				              <div class="\${target}">
 				              </div>
