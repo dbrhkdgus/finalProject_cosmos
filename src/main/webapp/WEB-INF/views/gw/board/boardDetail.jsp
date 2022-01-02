@@ -60,9 +60,9 @@
   
 	<div class="post-rep-box ml-2 mr-2 mb-2">
 		<c:forEach items="${replyList}" var="reply">
-		  <c:if test="${reply.replyLevel == 1}">
+		  <c:if test="${reply.replyLevel == 1 && reply.deleteYn eq 'N'}">
 			<hr class="border-0">
-			<form:form action="${pageContext.request.contextPath }/main/deleteQueReply.do" method="post">
+			<form:form name="postRepUpdateFrm" action="${pageContext.request.contextPath }/gw/board/deleteUpdateReply.do" method="post">
 			<div class="d-flex justify-content-between align-items-end">
 			
 				<div class="d-flex align-items-center">
@@ -85,23 +85,25 @@
 							<span><strong>${memberWithGroupMap[reply.memberId]}</strong></span>
 							<span style="font-size: 10px;"><fmt:formatDate value="${reply.regDate}" pattern="yyyy.MM.dd" /></span>
 						</div>
-						<div class="p-0 flex-grow-1 bd-highlight">${reply.content}</div>
+						<div class="p-0 flex-grow-1 bd-highlight"><span>${reply.content}</span></div>
 					  </div>
 				  </div>
 				  <div class="rep-btn-box">
 						<c:if test="${reply.memberId eq loginMember.id}">
-						 <button class="btn p-1" type="button" id="button-addon2" style="margin-bottom: 0px; font-size:12px">수정</button>
-						 <button class="btn p-1" type="button" id="button-addon2" style="margin-bottom: 0px; font-size:12px">삭제</button>
-							<input type="hidden" name = "replyNo" value="${reply.replyNo}"> 
-							<input type="hidden" name = "queNo" value="${que.queNo}"> 
+							<input type="button" value="수정" class="btn-transform btn p-1" style="margin-bottom: 0px; font-size:12px" />
+							<input type="button" value="등록" class="btn-enroll btn p-1" style="margin-bottom: 0px; font-size:12px" />
+							<input type="button" value="삭제" class="btn-delete btn p-1" style="margin-bottom: 0px; font-size:12px" />
+							<input type="hidden" name="type" value=""/>
+							<input type="hidden" name="replyNo" value="${reply.replyNo}"> 
+							<input type="hidden" name="postNo" value="${post.postNo}"> 
 						</c:if>
-						 <button class="btn p-1 re-rep-btn" type="button" style="margin-bottom: 0px; font-size:12px">댓글쓰기</button>
+						<button class="btn p-1 re-rep-btn" type="button" style="margin-bottom: 0px; font-size:12px">댓글쓰기</button>
 				  </div>
 			  </div>
 					
 				</form:form>
 				<form:form name ="postReRepEnrollFrm" action="${pageContext.request.contextPath }/gw/board/postReplyEnroll.do" method="post" >	
-		            <div class="d-flex align-items-center">
+		            <div class="d-flex align-items-center mt-2">
 		            	<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi mr-1 bi-arrow-return-right" viewBox="0 0 16 16">
 						  <path fill-rule="evenodd" d="M1.5 1.5A.5.5 0 0 0 1 2v4.8a2.5 2.5 0 0 0 2.5 2.5h9.793l-3.347 3.346a.5.5 0 0 0 .708.708l4.2-4.2a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 8.3H3.5A1.5 1.5 0 0 1 2 6.8V2a.5.5 0 0 0-.5-.5z"/>
 						</svg>
@@ -115,10 +117,10 @@
 	            
 	            
 	            <c:forEach items="${replyList}" var="reRep">
-					<c:if test="${reply.replyNo == reRep.replyRef}">
+					<c:if test="${reply.replyNo == reRep.replyRef && reRep.deleteYn eq 'N'}">
 					
 						<hr class="border-0">
-							<form:form action="${pageContext.request.contextPath }/main/deleteQueReply.do" method="post">
+							<form:form name="postReRepUpdateFrm" action="${pageContext.request.contextPath }/gw/board/deleteUpdateReply.do" method="post">
 							<div class="d-flex justify-content-between align-items-end">
 							
 								<div class="d-flex align-items-center">
@@ -144,20 +146,94 @@
 											<span><strong>${memberWithGroupMap[reRep.memberId]}</strong></span>
 											<span style="font-size: 10px;"><fmt:formatDate value="${reRep.regDate}" pattern="yyyy.MM.dd" /></span>
 										</div>
-										<div class="p-0 flex-grow-1 bd-highlight">${reRep.content}</div>
+										<div class="p-0 flex-grow-1 bd-highlight">
+											<span>${reRep.content}</span>
+										</div>
 									  </div>
 								  </div>
 								  <div class="rep-btn-box">
 										<c:if test="${reRep.memberId eq loginMember.id}">
-										 <button class="btn p-1" type="button" id="button-addon2" style="margin-bottom: 0px; font-size:12px">수정</button>
-										 <button class="btn p-1" type="button" id="button-addon2" style="margin-bottom: 0px; font-size:12px">삭제</button>
-											<input type="hidden" name = "replyNo" value="${reRep.replyNo}"> 
-											<input type="hidden" name = "queNo" value="${que.queNo}"> 
+											<input type="button" value="수정" class="btn-transform btn p-1" style="margin-bottom: 0px; font-size:12px" />
+											<input type="button" value="등록" class="btn-enroll btn p-1" style="margin-bottom: 0px; font-size:12px" />
+											<input type="button" value="삭제" class="btn-delete btn p-1" style="margin-bottom: 0px; font-size:12px" />
+											<input type="hidden" name="type" value=""/>
+											<input type="hidden" name="replyNo" value="${reRep.replyNo}"> 
+											<input type="hidden" name="postNo" value="${post.postNo}">  
 										</c:if>
 								  </div>
 							  </div>
 								
 							</form:form>
+	            	</c:if>
+	            	<c:if test="${reply.replyNo == reRep.replyRef && reRep.deleteYn eq 'Y'}">
+	            		<hr class="border-0">
+	            		<div class="d-flex">
+		            		<svg class="ml-3 mt-2 mb-2" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-return-right" viewBox="0 0 16 16">
+							  <path fill-rule="evenodd" d="M1.5 1.5A.5.5 0 0 0 1 2v4.8a2.5 2.5 0 0 0 2.5 2.5h9.793l-3.347 3.346a.5.5 0 0 0 .708.708l4.2-4.2a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 8.3H3.5A1.5 1.5 0 0 1 2 6.8V2a.5.5 0 0 0-.5-.5z"/>
+							</svg>
+		            		<p class="mt-2 mb-2 ml-2">삭제된 댓글입니다.</p>
+	            		</div>
+	            	</c:if>
+	            </c:forEach>
+	            </c:if>
+	            <c:if test="${reply.replyLevel == 1 && reply.deleteYn eq 'Y'}">
+	            	<hr class="border-0">
+	            	<p class="mt-4 mb-4 ml-2">삭제된 댓글입니다.</p>
+	            	<c:forEach items="${replyList}" var="reRep">
+					<c:if test="${reply.replyNo == reRep.replyRef && reRep.deleteYn eq 'N'}">
+					
+						<hr class="border-0">
+							<form:form action="${pageContext.request.contextPath }/gw/board/deleteUpdateReply.do" method="post">
+							<div class="d-flex justify-content-between align-items-end">
+							
+								<div class="d-flex align-items-center">
+									  	<svg class="ml-3 mr-2 mb-3" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-return-right" viewBox="0 0 16 16">
+										  <path fill-rule="evenodd" d="M1.5 1.5A.5.5 0 0 0 1 2v4.8a2.5 2.5 0 0 0 2.5 2.5h9.793l-3.347 3.346a.5.5 0 0 0 .708.708l4.2-4.2a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 8.3H3.5A1.5 1.5 0 0 1 2 6.8V2a.5.5 0 0 0-.5-.5z"/>
+										</svg>
+									  <div class="chat-user-profile m-0 mr-2 d-flex">
+										<c:forEach items="${attachmentList}" var="attach">
+											<c:if test="${reRep.memberId eq attach.memberId}">
+											  <c:choose>
+												<c:when test="${fn:startsWith(attach.renamedFilename,'http')}">
+													<img class="btn-profile chat-user-profile-img" src="${attach.renamedFilename}" alt=""/>
+												</c:when>
+												<c:otherwise>
+									            	<img class="btn-profile chat-user-profile-img" src="${pageContext.request.contextPath }/resources/upFile/profile/${attach.renamedFilename}" alt="">
+									            </c:otherwise>
+											  </c:choose>
+											</c:if>
+										</c:forEach>
+									  </div>
+									  <div class="rep-profile">
+										<div class="p-0 bd-highlight">
+											<span><strong>${memberWithGroupMap[reRep.memberId]}</strong></span>
+											<span style="font-size: 10px;"><fmt:formatDate value="${reRep.regDate}" pattern="yyyy.MM.dd" /></span>
+										</div>
+										<div class="p-0 flex-grow-1 bd-highlight"><span>${reRep.content}</span></div>
+									  </div>
+								  </div>
+								  <div class="rep-btn-box">
+										<c:if test="${reRep.memberId eq loginMember.id}">
+											<input type="button" value="수정" class="btn-transform btn p-1" style="margin-bottom: 0px; font-size:12px" />
+											<input type="button" value="등록" class="btn-enroll btn p-1" style="margin-bottom: 0px; font-size:12px" />
+											<input type="button" value="삭제" class="btn-delete btn p-1" style="margin-bottom: 0px; font-size:12px" />
+											<input type="hidden" name="type" value=""/>
+											<input type="hidden" name="replyNo" value="${reRep.replyNo}"> 
+											<input type="hidden" name="postNo" value="${post.postNo}"> 
+										</c:if>
+								  </div>
+							  </div>
+								
+							</form:form>
+	            	</c:if>
+	            	<c:if test="${reply.replyNo == reRep.replyRef && reRep.deleteYn eq 'Y'}">
+	            		<hr class="border-0">
+	            		<div class="d-flex">
+		            		<svg class="ml-3 mt-2 mb-2" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-return-right" viewBox="0 0 16 16">
+							  <path fill-rule="evenodd" d="M1.5 1.5A.5.5 0 0 0 1 2v4.8a2.5 2.5 0 0 0 2.5 2.5h9.793l-3.347 3.346a.5.5 0 0 0 .708.708l4.2-4.2a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 8.3H3.5A1.5 1.5 0 0 1 2 6.8V2a.5.5 0 0 0-.5-.5z"/>
+							</svg>
+		            		<p class="mt-2 mb-2 ml-2">삭제된 댓글입니다.</p>
+	            		</div>
 	            	</c:if>
 	            </c:forEach>
 	            </c:if>
@@ -168,11 +244,52 @@
   </div>
 </div>
 <script>
-	$(document.postReRepEnrollFrm).hide();
+/* 댓글 스크립트 */
+$(".btn-enroll").hide();
 
-	$('.re-rep-btn').on('click', (e)=> {
-		$(e.target).parent().parent().parent().next().slideToggle(500);
-	});
+$(".btn-enroll").click((e)=> {
+	$("input[name=type]").val("update");
+	
+	$(e.target).parent().parent().parent().eq(0).submit();
+})
+
+$(".btn-transform").on('click', (e)=> {
+	$(e.target).hide();
+	$(e.target).next().show();
+	var oldContent = $(e.target).parent().parent("div").find("span").eq(2).text();
+	$(e.target).parent().parent("div").find("span").eq(2).html('');
+	$(e.target).parent().parent("div").find("span").eq(2).html(`<input type="text" name="content" class="form-control" value = "\${oldContent}" />`);
+});
+
+$(".btn-delete").click((e) => {
+	if(confirm("정말 삭제하시겠습니까?")) {
+		$("input[name=type]").val("delete");
+		$(e.target).parent().parent().parent().eq(0).submit();
+	}
+});
+
+/* 대댓글 스크립트 */
+$(document.postReRepEnrollFrm).hide();
+
+$('.re-rep-btn').on('click', (e)=> {
+	$(e.target).parent().parent().parent().next().slideToggle(500);
+});
+
+$(".btn-re-enroll").hide();
+
+$(".btn-re-enroll").click((e) => {
+	$("input[name=type]").val("update");
+	$(e.target).parent().parent().parent().eq(0).submit();
+});
+
+/* $(".btn-re-transform").on('click', (e) => {
+	$(e.target).hide();
+	$(e.target).next().show();
+	var oldContent = $(e.target).parent().parent("div").find("span").eq(2).text();
+	$(e.target).parent().parent("div").find("span").eq(2).html('');
+	$(e.target).parent().parent("div").find("span").eq(2).html(`<input type="text" name="content" value = "\${oldContent}" />`);
+}); */
+	
 </script>
 <jsp:include page="/WEB-INF/views/common/gw_footer.jsp"></jsp:include>
 
