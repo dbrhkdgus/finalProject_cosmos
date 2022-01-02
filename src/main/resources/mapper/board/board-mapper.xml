@@ -113,6 +113,10 @@
 	select * from reply where post_no=#{postNo} order by reply_no
   </select>
 
+  <select id="selectProfileAttachmentList" resultType="attachment">
+	select * from attachment where img_flag = 'P'
+  </select>
+
   <insert id="insertPostInAnonymous">
 	insert into 
 		post

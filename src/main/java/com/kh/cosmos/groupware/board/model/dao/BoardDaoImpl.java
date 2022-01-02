@@ -87,6 +87,12 @@ public class BoardDaoImpl implements BoardDao {
 	}
 
 	@Override
+	public List<Attachment> selectProfileAttachmentList() {
+		// TODO Auto-generated method stub
+		return session.selectList("board.selectProfileAttachmentList");
+	}
+
+	@Override
 	public int updateBoardRoom(Board board) {
 		// TODO Auto-generated method stub
 		return session.update("board.updateBoardRoom", board);
