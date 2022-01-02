@@ -15,7 +15,7 @@
   	<div class="present-vote-box" style="background: Beige;">
   		<div class="present-vote" style="background: FloralWhite">
   			<c:if test="${not empty presentVoteInfo }">
-			
+
   				<c:forEach var="presentVote" items="${presentVoteInfo }">
 					<fmt:formatDate value="${now}" pattern="yyyyMMdd" var="nowDate" /> 
 					<fmt:formatDate value="${presentVote.voteDeadline}" pattern="yyyyMMdd" var="deadline" /> 
@@ -85,7 +85,7 @@
 						      <td><span><fmt:formatDate value="${otherVotes.voteDeadline}" pattern="MM-dd"/></span> 까지</td>
 						      
 							      <c:if test="${otherVotes.answeredMemberCnt != 0 }">
-								      <td><fmt:formatNumber type="percent" value="${answerdMemberCnt/groupMemberCnt}"  pattern="0.0%"/></td>
+								      <td><fmt:formatNumber type="percent" value="${otherVotes.answeredMemberCnt/groupMemberCnt}"  pattern="0.0%"/></td>
 							      </c:if>
 							      <c:if test="${otherVotes.answeredMemberCnt==0 }">
 								      <td>0%</td>
@@ -121,7 +121,12 @@
 		  						<tr>
 		  							<th scope="row">${otherVotes.voteTitle }</th>
 		  							<td><span><fmt:formatDate value="${otherVotes.voteDeadline}" pattern="MM-dd"/></span> 까지</td>
-		  							<td>67%</td>
+			  						  <c:if test="${otherVotes.answeredMemberCnt != 0 }">
+									      <td><fmt:formatNumber type="percent" value="${otherVotes.answeredMemberCnt/groupMemberCnt}"  pattern="0.0%"/></td>
+								      </c:if>
+								      <c:if test="${otherVotes.answeredMemberCnt==0 }">
+									      <td>0%</td>
+								      </c:if>
 		  						</tr>
 		  				</c:if>
 		  			</c:forEach>
