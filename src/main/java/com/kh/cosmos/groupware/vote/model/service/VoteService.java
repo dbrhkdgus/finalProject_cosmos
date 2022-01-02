@@ -21,4 +21,6 @@ public interface VoteService {
 
 	List<VoteOption> selectVoteOptionByVoteNo(int voteNo);
 
+	List<VoteInfo> selectVoteInfoByGroupNo(int groupNo);
+
 }

@@ -21,4 +21,6 @@ public interface VoteDao {
 
 	List<VoteOption> selectVoteOptionByVoteNo(int voteNo);
 
+	List<VoteInfo> selectVoteInfoByGroupNo(int groupNo);
+
 }

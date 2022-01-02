@@ -59,8 +59,11 @@ public class GwVoteController {
 		List<VoteInfo> presentVoteInfo = voteService.selectVoteInfoByVoteNo(voteNo);
 		List<VoteOption> presentVoteOption = voteService.selectVoteOptionByVoteNo(voteNo);
 		
+		List<VoteInfo> groupVoteInfoList = voteService.selectVoteInfoByGroupNo(groupNo);
+		
 		model.addAttribute("presentVoteInfo",presentVoteInfo);
 		model.addAttribute("presentVoteOption",presentVoteOption);
+		model.addAttribute("groupVoteInfoList",groupVoteInfoList);
 	}
 	
 	

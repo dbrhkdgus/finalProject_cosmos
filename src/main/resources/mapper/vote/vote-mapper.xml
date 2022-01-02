@@ -49,4 +49,13 @@ where vote_no = #{voteNo}
   <select id="selectVoteOptionByVoteNo" resultType="voteOption">
   select * from vote_option where vote_no = #{vote_no}
   </select>
+  
+  <select id="selectVoteInfoByGroupNo" resultType="voteInfo">
+    select *
+  from vote v join vote_question q 
+    using(vote_no) 
+    join tb_member m on v.member_id =m.id 
+where group_no = #{groupNo}
+	order by v.vote_enroll_date desc
+  </select>
 </mapper>

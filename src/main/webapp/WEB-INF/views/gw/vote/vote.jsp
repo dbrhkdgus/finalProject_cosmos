@@ -55,6 +55,7 @@
   			<div class="vote-in-progress-title">
   				<p class="ml-3 mt-2">진행중인 다른 투표</p>
   			</div>
+  			
   			<div class="vote-in-progress-table">
   				<table>
   					<thead>
@@ -65,11 +66,17 @@
   						</tr>
   					</thead>
   					<tbody>
+  			<c:forEach var="otherVotes" items="${groupVoteInfoList }">
+  				<fmt:formatDate value="${now}" pattern="yyyyMMdd" var="nowDate" /> 
+				<fmt:formatDate value="${otherVotes.voteDeadline}" pattern="yyyyMMdd" var="otherDeadline" />
+  				<c:if test="${nowDate <= otherDeadline  }">
   						<tr>
-  							<td>정모장소 투표</td>
-  							<td>2022-01-03 까지</td>
+  							<td>${otherVotes.voteTitle }</td>
+  							<td><span><fmt:formatDate value="${otherVotes.voteDeadline}" pattern="MM-dd"/></span> 까지</td>
   							<td>67%</td>
   						</tr>
+  				</c:if>
+  			</c:forEach>
   					</tbody>
   				</table>
   			</div>
@@ -88,11 +95,17 @@
   						</tr>
   					</thead>
   					<tbody>
-  						<tr>
-  							<td>반장 투표</td>
-  							<td>2022-01-01</td>
-  							<td>95%</td>
-  						</tr>
+		  			<c:forEach var="otherVotes" items="${groupVoteInfoList }">
+		  				<fmt:formatDate value="${now}" pattern="yyyyMMdd" var="nowDate" /> 
+						<fmt:formatDate value="${otherVotes.voteDeadline}" pattern="yyyyMMdd" var="otherDeadline" />
+		  				<c:if test="${nowDate > otherDeadline  }">
+		  						<tr>
+		  							<td>${otherVotes.voteTitle }</td>
+		  							<td><span><fmt:formatDate value="${otherVotes.voteDeadline}" pattern="MM-dd"/></span> 까지</td>
+		  							<td>67%</td>
+		  						</tr>
+		  				</c:if>
+		  			</c:forEach>
   					</tbody>
   				</table>
   			</div>

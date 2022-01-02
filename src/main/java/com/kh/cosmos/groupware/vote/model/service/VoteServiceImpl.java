@@ -51,5 +51,11 @@ public class VoteServiceImpl implements VoteService {
 		// TODO Auto-generated method stub
 		return voteDao.selectVoteOptionByVoteNo(voteNo);
 	}
+
+	@Override
+	public List<VoteInfo> selectVoteInfoByGroupNo(int groupNo) {
+		// TODO Auto-generated method stub
+		return voteDao.selectVoteInfoByGroupNo(groupNo);
+	}
 	
 }
