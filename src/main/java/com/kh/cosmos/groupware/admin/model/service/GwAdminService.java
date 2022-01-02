@@ -19,4 +19,6 @@ public interface GwAdminService {
 
 	int selectGwGroupCount(String groupNo);
 
+	int deletegroupRefuseByList(Map<String, Object> param);
+
 }
