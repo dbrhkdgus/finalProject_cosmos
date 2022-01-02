@@ -32,7 +32,7 @@
 				          </div>
 				          <div class="chat-message-box">
 				            <div class="chat-message-sender">
-				              <span><strong>${user.memberName }</strong></span>
+				              <span><strong>${user.nickname }</strong></span>
 				              <span><fmt:formatDate value="${message.chatMessageAt}" pattern="HH:mm"/></span>
 				            </div>
 				            <div class="chat-message-content">
@@ -113,7 +113,7 @@
 		            </c:otherwise>
 	          </c:choose>
 		    </div>
-              <span>${user.memberName }</span>
+              <span>${user.nickname }</span>
               </div>
 		    </c:forEach>
             
@@ -341,7 +341,7 @@ if($(".chat-content").children().length == 0){
 		/* console.log("chatMessageContent : ", chatMessageContent); */
 		const obj = JSON.parse(chatMessageContent.body);
 		 console.log(obj);
-		 const {memberName, msg, profileRenamedFilename, messageAt, logTime, chatFile, msgTypeNo} = obj;
+		 const {nickname, msg, profileRenamedFilename, messageAt, logTime, chatFile, msgTypeNo} = obj;
 		 
 		 if(chatFile != null){
 			 var target = chatFile.split(".")[0];			 
@@ -354,7 +354,7 @@ if($(".chat-content").children().length == 0){
 	          </div>
 	          <div class="chat-message-box">
 	            <div class="chat-message-sender">
-	              <span><strong>\${memberName}</strong></span>
+	              <span><strong>\${nickname}</strong></span>
 	              <span>\${logTime}</span>
 	            </div>
 	            <div class="chat-message-content">
@@ -372,7 +372,7 @@ if($(".chat-content").children().length == 0){
 	          </div>
 	          <div class="chat-message-box">
 	            <div class="chat-message-sender">
-	              <span><strong>\${memberName}</strong></span>
+	              <span><strong>\${nickname}</strong></span>
 	              <span>\${logTime}</span>
 	            </div>
 	            <div class="chat-message-content">
@@ -389,7 +389,7 @@ if($(".chat-content").children().length == 0){
 				          </div>
 				          <div class="chat-message-box">
 				            <div class="chat-message-sender">
-				              <span><strong>\${memberName}</strong></span>
+				              <span><strong>\${nickname}</strong></span>
 				              <span>\${logTime}</span>
 				            </div>
 				            <div class="chat-message-content">
@@ -562,7 +562,7 @@ $("#btn-message-send").click((e) =>{
 /* DM DB 조회 ajax */
 function loadDM(obj){
 	$(".dm-profile-container").text('');
-	const {receiver, sender, senderName, msg, profileRenamedFilename, messageAt, logTime} = obj;
+	const {receiver, sender, senderNickname, msg, profileRenamedFilename, messageAt, logTime} = obj;
 	$.ajax({
 		url: `${pageContext.request.contextPath}/gw/chat/loadDM.do`,
 		data: {
@@ -582,7 +582,7 @@ function loadDM(obj){
 				          <div class="dm-message-box">
 				          
 				            <div class="dm-message-sender">
-				              <span><strong>\${v.dmSenderName}</strong></span>
+				              <span><strong>\${v.dmSenderNickname}</strong></span>
 				              <span>\${v.dmMessageAt}</span>
 				            </div>
 				            

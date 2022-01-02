@@ -41,7 +41,7 @@
   <select id="selectChatUserList" resultType="chatUser">
   select 
     u.*, 
-    m.member_name,
+    m.nickname,
     a.renamed_filename
   from 
     chat_user u join tb_member m on u.member_id = m.id 
@@ -81,7 +81,7 @@
   </insert>
   
   <select id="selectMemberNameByMemberId" resultType="string">
-  select member_name from tb_member where id = #{id}
+  select nickname from tb_member where id = #{id}
   </select>
   
   <insert id="insertDm">
@@ -90,7 +90,7 @@
   <select id="selectDMListByParam" resultType="DM">
 select 
 d.*,
-    m.member_name dm_sender_name,
+    m.nickname dm_sender_nickname,
     a.renamed_filename dm_sender_profile_renamed_filename
 from 
     dm d join tb_member m on d.dm_sender = m.id 
@@ -107,7 +107,7 @@ order by d."DM_MESSAGE_At"
 from (
 select 
 d.*,
-    m.member_name dm_sender_name,
+    m.nickname dm_sender_nickname,
     a.renamed_filename dm_sender_profile_renamed_filename
 from 
     dm d join tb_member m on d.dm_sender = m.id 
@@ -123,7 +123,7 @@ select count(dm_sender) from (select
 from (
 select 
 d.*,
-    m.member_name dm_sender_name,
+    m.nickname dm_sender_nickname,
     a.renamed_filename dm_sender_profile_renamed_filename
 from 
     dm d join tb_member m on d.dm_sender = m.id 
