@@ -159,9 +159,9 @@
 		            <input type="text" name="voteQuestionOption" class="form-control validate" style="width: 50%;" placeholder="옵션 1"/>
 	              </div>
               </div>
-              <div class="vote_modal_question_add_option_box">
+              <div class="vote_modal_question_add_option_box" id="add-option-input">
               	  <input type="radio" name="voteQuestionOptionCheckFoo" class="mr-2"/>
-	              <input id="add-option-input" type="text" class="form-control validate" style="width: 50%;" placeholder="옵션 추가하기"/>
+	              <input type="text" class="form-control validate" style="width: 50%;" disabled placeholder="옵션 추가하기"/>
 		          <input type="hidden" class="optionCnt" value="1" />
               </div>
             </div>
@@ -215,30 +215,33 @@ $(".close-vote-modal").click((e)=>{
   $("#add-option-input").click((e)=>{
 	  var optionCnt = $(".vote_modal_question_option").length;
 	  optionCnt *= 1;
-	  
-	  console.log($(voteQuestionType).prop("checked"));
+	  	  
 	if($(voteQuestionType).prop("checked")){
 		$(".vote_modal_question_option_box").append(`<div class="vote_modal_question_option option-\${optionCnt+1}">
 	            <input type="checkbox" name="voteQuestionOptionCheck" class="mr-2"/>
-	            <input type="text" name="voteQuestionOption" class="form-control validate" style="width: 50%;" placeholder="옵션 \${optionCnt+1}"/>
+	            <input id="input-\${optionCnt+1}" type="text" name="voteQuestionOption" class="form-control validate" style="width: 50%;" placeholder="옵션 \${optionCnt+1}"/>
 	            <span class="btn-delete-option delete-option-\${optionCnt+1}" style="margin-left: 5px; margin-bottom: 15px; cursor: pointer;">x</span>
 	        </div>`);
 	}else{		
 		$(".vote_modal_question_option_box").append(`<div class="vote_modal_question_option option-\${optionCnt+1}">
 	            <input type="radio" name="voteQuestionOptionCheck" class="mr-2"/>
-	            <input type="text" name="voteQuestionOption" class="form-control validate" style="width: 50%;" placeholder="옵션 \${optionCnt+1}"/>
+	            <input id="input-\${optionCnt+1}" type="text" name="voteQuestionOption" class="form-control validate" style="width: 50%;" placeholder="옵션 \${optionCnt+1}"/>
 	            <span class="btn-delete-option delete-option-\${optionCnt+1}" style="margin-left: 5px; margin-bottom: 15px; cursor: pointer;">x</span>
 	        </div>`);
 	}
 	
 	var script = document.createElement("script");
-	script.innerHTML = `/* 옵션 제거 */
-			$(".btn-delete-option").click((e)=>{
-				$(e.target).parent().remove();
+	script.innerHTML = `
+			/* 포커스 이동 */
 				 var optionCnt = $(".vote_modal_question_option").length;
 				  optionCnt *= 1;
-				 var showTarget = ".delete-option-" + optionCnt;
-				 $(showTarget).show(); 
+				 var showTarget = ".delete-option-" + (optionCnt-1);
+				 var focusTarget = "#input-" + optionCnt;
+				 $(focusTarget).focus();
+			/* 옵션 제거 */
+			$(".btn-delete-option").click((e)=>{
+				$(e.target).parent().remove();
+				$(showTarget).show(); 
 			
 		});`;
 	 $(".script").append(script);
