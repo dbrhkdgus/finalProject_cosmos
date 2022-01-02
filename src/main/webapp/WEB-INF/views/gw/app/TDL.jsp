@@ -21,6 +21,7 @@
 				  <option value="1">해야할일</option>
 				  <option value="2">완료한일</option>
 				</select>
+				<input type="hidden" class="groupNo" value="${currGroupNo } "/>
 			</div>
 			<table class="table">
 				<thead>
@@ -37,7 +38,7 @@
 						<tr>
 							<th class="w-10 text-center" scope="row">${vs.index+1 }</th>
 							<td class="w-40 text-center" colspan="2">${tdl.tdlContent }</td>
-							<td class="w-10 text-center"><fmt:formatDate value="${tdl.tdlCreateDate }" pattern="yy-MM-dd"/></td>
+							<td class="w-10 text-center"><fmt:formatDate value="${tdl.tdlCreateDate }" pattern="yyyy-MM-dd"/></td>
 							<td class="w-10 text-center">
 								<div>
 									<c:if test="${fn:contains(tdl.tdlChecked, 'N')}">
@@ -51,10 +52,10 @@
 							<td class="w-10 text-center">
 								<div>
 									<c:if test="${fn:contains(tdl.tdlChecked, 'N')}">
-											<button type="button" class="btn btn-outline-primary btn-TDLComplete">완료하기</button>
+											<button type="button" class="btn btn-outline-primary btn-TDLComplete" onclick="TDLComplete(${tdl.tdlNo },${tdl.groupNo })">완료하기</button>
 									</c:if>
 									<c:if test="${fn:contains(tdl.tdlChecked, 'Y')}">
-											<button type="button" class="btn btn-outline-primary btn-TDLCancel">취소</button>
+											<button type="button" class="btn btn-outline-primary btn-TDLCancel" onclick="TDLCancel(${tdl.tdlNo },${tdl.groupNo })">취소</button>
 									</c:if>
 									<input type="hidden" class="hiddenTDLNo" value="${tdl.tdlNo }"/>
 									<input type="hidden" class="hiddenGroupNo" value="${tdl.groupNo }"/>
@@ -111,16 +112,92 @@ $(".btn-createTDL-submit").click((e)=>{
 	 $("#createTDLModal").modal('hide');
  });
  $("#sort-select").change((e)=>{
-	 console.log($("#sort-select option:selected").val());
+	 const $groupNo = $(e.target).next().val();
 	 tbody.innerHTML = "";
+	 $.ajax({
+			url: `${pageContext.request.contextPath}/gw/app/reCalculate.do`,
+			data: {
+				'groupNo' : $groupNo,
+				'check' : $("#sort-select option:selected").val()
+				},
+			type: "GET",
+			dataType: "json",
+			headers: {
+				"${_csrf.headerName}" : "${_csrf.token}"
+		 	},
+			success(data){
+		 		console.log(data);
+		 		$.each(data, (k,v)=>{
+		 			const $trTag = $(`<tr></tr>`);
+		 			console.log(v.tdlCreateDate);
+		 			console.log(new Date(v.tdlCreateDate));
+		 			var date = new Date(v.tdlCreateDate);
+		 			const formatDate = (date)=>{
+		 				let formatted_date = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate()
+		 				 return formatted_date;
+		 				}
+		 			console.log(formatDate(date));
+		 			let html2 = '';
+		 			let html3 = '';
+		 			let html1 = `<th class="w-10 text-center" scope="row">${k+1}</th>
+		 						<td class="w-40 text-center" colspan="2">\${v.tdlContent }</td>
+		 						<td class="w-10 text-center">\${formatDate(date)}</td>`
+		 				if(v.tdlChecked == 'N'){
+		 					html2 = `<td class="w-10 text-center"><div><p>미완료</p></div></td>`
+		 				}else{
+		 					html2 = `<td class="w-10 text-center"><div><p>완료</p></div></td>`
+		 				}
+		 				if(v.tdlChecked == 'N'){
+		 					html3 = `<td class="w-10 text-center">
+		 						<div>
+		 							<button type="button" class="btn btn-outline-primary btn-TDLComplete" onclick="TDLComplete(\${v.tdlNo },\${v.groupNo })">완료하기</button>
+		 							<input type="hidden" class="hiddenTDLNo" value="\${v.tdlNo }"/>
+									<input type="hidden" class="hiddenGroupNo" value="\${v.groupNo }"/>
+								</div>
+							</td>`
+		 				}else{
+		 					html3 = `<td class="w-10 text-center">
+		 						<div>
+		 							<button type="button" class="btn btn-outline-primary btn-TDLCancel" onclick="TDLCancel(\${v.tdlNo },\${v.groupNo })">취소</button>
+		 							<input type="hidden" class="hiddenTDLNo" value="\${v.tdlNo }"/>
+									<input type="hidden" class="hiddenGroupNo" value="\${v.groupNo }"/>
+								</div>
+							</td>`
+		 				}
+		 			$trTag.append(html1);
+		 			$trTag.append(html2);
+		 			$trTag.append(html3);
+		 			$(".tbody-form").append($trTag);
+		 		});
+			},
+			error(xhr,textStatus,err){
+				alert("잠시후 다시 시도해 주세요.");
+			}
+		});
  });
- $(".btn-TDLComplete").click((e)=>{
+ function TDLComplete(a,b) {
+	 $.ajax({
+			url: `${pageContext.request.contextPath}/gw/app/updateTDL.do`,
+			data: {
+				'tdlNo' : a,
+				'groupNo' : b,
+				'check' : 'Y'
+				},
+			type: "GET",
+			dataType: "text",
+			success(data){
+				location.reload();
+			},
+			error(xhr,textStatus,err){
+				alert("수정 실패 잠시후 다시 시도해 주세요.");
+			}
+		});
+ };
+/*  $(".btn-TDLComplete").click((e)=>{
 	 const $hiddenTDLNo = $(e.target).next();
 	 const $hiddenGroupNo = $hiddenTDLNo.next();
 	 const $tdlNo = $hiddenTDLNo.val();
 	 const $groupNo = $hiddenGroupNo.val();
-	 console.log($tdlNo);
-	 console.log($groupNo);
 	 $.ajax({
 			url: `${pageContext.request.contextPath}/gw/app/updateTDL.do`,
 			data: {
@@ -137,14 +214,30 @@ $(".btn-createTDL-submit").click((e)=>{
 				alert("수정 실패 잠시후 다시 시도해 주세요.");
 			}
 		});
- });
- $(".btn-TDLCancel").click((e)=>{
+ }); */
+ function TDLCancel(a,b){
+	 $.ajax({
+			url: `${pageContext.request.contextPath}/gw/app/updateTDL.do`,
+			data: {
+				'tdlNo' : a,
+				'groupNo' : b,
+				'check' : 'N'
+				},
+			type: "GET",
+			dataType: "text",
+			success(data){
+				location.reload();
+			},
+			error(xhr,textStatus,err){
+				alert("수정 실패 잠시후 다시 시도해 주세요.");
+			}
+		});
+ };
+/*  $(".btn-TDLCancel").click((e)=>{
 	 const $hiddenTDLNo = $(e.target).next();
 	 const $hiddenGroupNo = $hiddenTDLNo.next();
 	 const $tdlNo = $hiddenTDLNo.val();
 	 const $groupNo = $hiddenGroupNo.val();
-	 console.log($tdlNo);
-	 console.log($groupNo);
 	 $.ajax({
 			url: `${pageContext.request.contextPath}/gw/app/updateTDL.do`,
 			data: {
@@ -161,7 +254,7 @@ $(".btn-createTDL-submit").click((e)=>{
 				alert("수정 실패 잠시후 다시 시도해 주세요.");
 			}
 		});
- });
+ }); */
 </script>
 
 <jsp:include page="/WEB-INF/views/common/gw_footer.jsp"></jsp:include>

@@ -15,6 +15,7 @@ import com.kh.cosmos.group.model.vo.ApplocationGroup;
 import com.kh.cosmos.group.model.vo.Group;
 import com.kh.cosmos.group.model.vo.NotApprovedGroup;
 import com.kh.cosmos.main.model.vo.Question;
+import com.kh.cosmos.main.model.vo.QuestionWithMemberNameAndNickName;
 import com.kh.cosmos.member.model.vo.Member;
 import com.kh.cosmos.member.model.vo.MemberWithGroup;
 
@@ -85,13 +86,18 @@ public class AdminServiceImpl implements AdminService{
 	}
 
 	@Override
-	public List<Question> searchQuestion(int limit, int offset,Map<String, Object> param) {
+	public List<QuestionWithMemberNameAndNickName> searchQuestion(int limit, int offset,Map<String, Object> param) {
 		return adminDao.searchQuestion(limit, offset, param);
 	}
 
 	@Override
 	public GenderData genderData() {
 		return adminDao.genderData();
+	}
+
+	@Override
+	public List<com.kh.cosmos.admin.model.vo.EnrollMemberByMonth> EnrollMemberByMonth(Map<String, Object> param) {
+		return adminDao.EnrollMemberByMonth(param);
 	}
 
 	
