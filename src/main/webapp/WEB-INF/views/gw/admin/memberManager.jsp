@@ -104,11 +104,15 @@
     </div>
     
   </div>
-  <script>
+<script>
+  
+  function refreshMemList(){
+        location.reload();
+    }
   $("[id='checkYN']").click((e) => {
-		e.preventDefault();
-		
-	let rowNum = $("input[name='checkValid']:checked").length;
+        e.preventDefault();
+        
+    let rowNum = $("input[name='checkValid']:checked").length;
     var idList = [];
    
     for(i=0; i<rowNum; i++) {
@@ -117,30 +121,31 @@
     };
     
 //            console.log(idList)
-		var idString = idList.toString();
-		 
-		console.log(idString);    
+        var idString = idList.toString();
+         
+        console.log(idString);    
             
-//	   	 	  var data2 = {"ressId":idList};
+//                  var data2 = {"ressId":idList};
 //            var jsonData = JSON.stringify(idList);
-			
-			$.ajax({
-				url: `${pageContext.request.contextPath}/gw/admin/groupAccept.do?groupNo=${groupNo}`,
-//				method:"POST",
-				dataType: "json", //돌려받는거
-				traditional : true,
-				data:  {
-		            "idList": idString
-		           
-		        },
-				contentType: "application/json; charset=utf-8", //주는타입
-				success(data){
+            
+            $.ajax({
+                url: `${pageContext.request.contextPath}/gw/admin/groupAccept.do?groupNo=${groupNo}`,
+//                method:"POST",
+                dataType: "json", //돌려받는거
+                traditional : true,
+                data:  {
+                    "idList": idString
+                   
+                },
+                contentType: "application/json; charset=utf-8", //주는타입
+                success(data){
                     alert(data.msg);
-			},
-			error: console.log
-	 	 }) 
+                    refreshMemList();
+            },
+            error: console.log
+          }) 
   });    
-		
+        
 </script>
 
 
