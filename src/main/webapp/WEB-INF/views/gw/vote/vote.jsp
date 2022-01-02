@@ -14,13 +14,21 @@
   	<div class="present-vote-box" style="background: Beige;">
   		<div class="present-vote" style="background: FloralWhite">
   			<c:if test="${not empty presentVoteInfo }">
-
+			
   				<c:forEach var="presentVote" items="${presentVoteInfo }">
 					<fmt:formatDate value="${now}" pattern="yyyyMMdd" var="nowDate" /> 
 					<fmt:formatDate value="${presentVote.voteDeadline}" pattern="yyyyMMdd" var="deadline" /> 
   					<c:choose>
 		  				<c:when test="${nowDate <= deadline }">
+		  				<form id="sendVoteFrm" name="sendVoteFrm" action="">
+		  				<input type="hidden" name="voteNo" value="${presentVote.voteNo }" />
+		  				<input type="hidden" name="voteQuestionNo" value="${presentVote.voteQuestionNo }" />
 				  			<div class="present-vote-title mb-2">
+				  				<div class="isAnsweredVote">
+				  					<c:if test="${voteAnswer == 'Y' }">
+					  					<span id="isSendedVote" style="float: right;">[제출완료]</span>
+				  					</c:if>
+				  				</div>
 				  				<h3 class="vote-title">${presentVote.voteTitle }</h3>
 				  				<h6 class="vote-sub-title"><span>${presentVote.memberName}</span>님의 투표제안입니다.</h6>
 				  				<h6 class="vote-sub-title">투표 마감일 : <span><fmt:formatDate value="${presentVote.voteDeadline}" pattern="MM-dd"/></span>까지</h6>
@@ -29,11 +37,12 @@
 				  				<div class="vote-question">
 					  				<p class="vote-question-title text-secondary">${presentVote.voteQuestionTitle }</p>
 					  				<c:forEach var="presentOption" items="${presentVoteOption }">
-						  				<input type="${presentVote.voteQuestionType}" name="question1-radio"/> ${presentOption.voteOption }
+						  				<input type="${presentVote.voteQuestionType}" name="voteAnswer" value="${presentOption.voteOption }" required="required"/> ${presentOption.voteOption }
 					  				</c:forEach>
 				  				</div>
 				  				
 				  			</div>
+		  				</form>
 		  				</c:when>
 		  				<c:otherwise>
 		  					<div class="present-vote-title mb-2">
@@ -46,8 +55,8 @@
   		</div>
   		<div class="present-vote-control-box">
   		<button id="btn-create-vote" class="vote-controll-btn">투표 생성하기</button>
-  		<button class="vote-controll-btn">투표 제출하기</button>
-  		<button class="vote-controll-btn">투표 수정하기</button>
+  		<button id="btn-send-vote" class="vote-controll-btn">투표 제출하기</button>
+  		<button id="btn-update-vote" class="vote-controll-btn">투표 수정하기</button>
   		</div>
   	</div>
   	<div class="old-vote-box">
@@ -57,6 +66,34 @@
   			</div>
   			
   			<div class="vote-in-progress-table">
+<%--   			<table class="table">
+				  <thead>
+				    <tr>
+				      <th scope="col">투표 주제</th>
+				      <th scope="col">마감일</th>
+				      <th scope="col">투표율</th>
+				    </tr>
+				  </thead>
+				  <tbody>
+				    <tr>
+				      <th scope="row">${otherVotes.voteTitle }</th>
+				      <td>Mark</td>
+				      <td>Otto</td>
+				      <td>@mdo</td>
+				    </tr>
+				    <tr>
+				      <th scope="row">2</th>
+				      <td>Jacob</td>
+				      <td>Thornton</td>
+				      <td>@fat</td>
+				    </tr>
+				    <tr>
+				      <th scope="row">3</th>
+				      <td colspan="2">Larry the Bird</td>
+				      <td>@twitter</td>
+				    </tr>
+				  </tbody>
+			 </table>
   				<table>
   					<thead>
   						<tr>
@@ -65,7 +102,7 @@
   							<th>투표율</th>
   						</tr>
   					</thead>
-  					<tbody>
+  					<tbody> --%>
   			<c:forEach var="otherVotes" items="${groupVoteInfoList }">
   				<fmt:formatDate value="${now}" pattern="yyyyMMdd" var="nowDate" /> 
 				<fmt:formatDate value="${otherVotes.voteDeadline}" pattern="yyyyMMdd" var="otherDeadline" />
@@ -241,6 +278,33 @@ $(".close-vote-modal").click((e)=>{
 /* 투표 생성 */
 $(".btn-createVote").click((e)=>{
 	$(document.createVoteFrm).submit();
+});
+
+/* 투표 제출 */
+$("#btn-send-vote").click((e)=>{
+	var form = $('#sendVoteFrm')[0];
+    var formData = new FormData(form);
+     $.ajax({
+        url : "${pageContext.request.contextPath}/gw/vote/answerVote.do",
+        type : 'POST',
+        data : formData,
+        contentType : false,
+        processData : false,
+        headers: {
+			"${_csrf.headerName}" : "${_csrf.token}"
+	 	},
+	 	success(data){
+	 		if(data > 0){
+	 			alert("투표가 제출되었습니다.");
+	 		}else if(data == 0){
+	 			alert("이미 투표가 제출되었습니다.")
+	 		}else{
+	 			alert("선택한 답변이 없습니다.");
+	 		}
+	 	},
+	 	error : console.log
+    });  
+
 });
 </script>
 <jsp:include page="/WEB-INF/views/common/gw_footer.jsp"></jsp:include>
