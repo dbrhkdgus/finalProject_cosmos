@@ -454,6 +454,28 @@ public class GwBoardController {
 		return "redirect:/gw/board/boardDetail.do?postNo=" + postNo;
 	}
 	
+	@PostMapping("deleteUpdateReply.do")
+	public String deleteUpdateReply(Reply reply, String type, int postNo, RedirectAttributes redirectAttr) {
+		try {
+			log.debug(type);
+			if(type.equals("update")) {
+				int result = boardService.updatePostReply(reply);
+				String msg = result > 0 ? "댓글 수정 성공!" : "댓글 수정 실패!";
+				redirectAttr.addFlashAttribute("msg", msg);
+			} else {
+				int result = boardService.deletePostReply(reply);
+				String msg = result > 0 ? "댓글 삭제 성공!" : "댓글 삭제 실패!";
+				redirectAttr.addFlashAttribute("msg", msg);
+			}
+			
+		} catch(Exception e) {
+			log.error(e.getMessage(), e); // 
+		 	redirectAttr.addFlashAttribute("msg", "실패");
+		}
+		
+		return "redirect:/gw/board/boardDetail.do?postNo=" + postNo;
+	}
+	
 	@GetMapping("/noticeDetail.do")
 	public String noticeDetail(@RequestParam int postNo, Model model, HttpServletRequest request, HttpServletResponse response, Authentication auth) {
 		Post post = boardService.selectOnePostInNotice(postNo);

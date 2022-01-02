@@ -75,6 +75,16 @@
   	set post_title = #{postTitle}, post_content=#{postContent}, post_update=sysdate 
   	where post_no = #{postNo}
   </update>
+  <update id="updatePostReply">
+  	update reply
+  		set content = #{content} 
+  	where reply_no = #{replyNo}
+  </update>
+  <update id="deletePostReply">
+  	update reply
+  		set delete_yn = 'Y' 
+  	where reply_no = #{replyNo}
+  </update>
   
   <delete id="deletePostInBoard">
   		delete from post where post_no =#{postNo}
