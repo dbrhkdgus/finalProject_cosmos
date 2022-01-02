@@ -1,12 +1,14 @@
 package com.kh.cosmos.groupware.vote.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.cosmos.groupware.vote.model.dao.VoteDao;
 import com.kh.cosmos.groupware.vote.model.vo.Vote;
+import com.kh.cosmos.groupware.vote.model.vo.VoteAnswer;
 import com.kh.cosmos.groupware.vote.model.vo.VoteInfo;
 import com.kh.cosmos.groupware.vote.model.vo.VoteOption;
 import com.kh.cosmos.groupware.vote.model.vo.VoteQuestion;
@@ -53,9 +55,22 @@ public class VoteServiceImpl implements VoteService {
 	}
 
 	@Override
-	public List<VoteInfo> selectVoteInfoByGroupNo(int groupNo) {
+	public List<VoteInfo> selectVoteInfoByGroupNo(Map<String, Object> param) {
 		// TODO Auto-generated method stub
-		return voteDao.selectVoteInfoByGroupNo(groupNo);
+		return voteDao.selectVoteInfoByGroupNo(param);
 	}
+
+	@Override
+	public int insertVoteAnswer(VoteAnswer voteAnswer) {
+		// TODO Auto-generated method stub
+		return voteDao.insertVoteAnswer(voteAnswer);
+	}
+
+	@Override
+	public int selectVoteAnswer(VoteAnswer voteAnswer) {
+		// TODO Auto-generated method stub
+		return voteDao.selectVoteAnswer(voteAnswer);
+	}
+	
 	
 }

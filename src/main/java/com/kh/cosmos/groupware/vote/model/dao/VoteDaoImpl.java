@@ -1,12 +1,14 @@
 package com.kh.cosmos.groupware.vote.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.cosmos.groupware.vote.model.vo.Vote;
+import com.kh.cosmos.groupware.vote.model.vo.VoteAnswer;
 import com.kh.cosmos.groupware.vote.model.vo.VoteInfo;
 import com.kh.cosmos.groupware.vote.model.vo.VoteOption;
 import com.kh.cosmos.groupware.vote.model.vo.VoteQuestion;
@@ -53,9 +55,21 @@ public class VoteDaoImpl implements VoteDao {
 	}
 
 	@Override
-	public List<VoteInfo> selectVoteInfoByGroupNo(int groupNo) {
+	public List<VoteInfo> selectVoteInfoByGroupNo(Map<String, Object> param) {
 		// TODO Auto-generated method stub
-		return session.selectList("vote.selectVoteInfoByGroupNo",groupNo);
+		return session.selectList("vote.selectVoteInfoByGroupNo",param);
+	}
+
+	@Override
+	public int insertVoteAnswer(VoteAnswer voteAnswer) {
+		// TODO Auto-generated method stub
+		return session.insert("vote.insertVoteAnswer", voteAnswer);
+	}
+
+	@Override
+	public int selectVoteAnswer(VoteAnswer voteAnswer) {
+		// TODO Auto-generated method stub
+		return session.selectOne("vote.selectVoteAnswer", voteAnswer);
 	}
 	
 	
