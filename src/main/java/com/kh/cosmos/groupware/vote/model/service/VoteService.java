@@ -19,7 +19,7 @@ public interface VoteService {
 
 	int selectGroupNewVoteNOByGroupNo(int groupNo);
 
-	List<VoteInfo> selectVoteInfoByVoteNo(int voteNo);
+	List<VoteInfo> selectVoteInfoListByVoteNo(int voteNo);
 
 	List<VoteOption> selectVoteOptionByVoteNo(int voteNo);
 
@@ -28,5 +28,7 @@ public interface VoteService {
 	int insertVoteAnswer(VoteAnswer voteAnswer);
 
 	int selectVoteAnswer(VoteAnswer voteAnswer);
+
+	VoteInfo selectVoteInfoByVoteNo(int voteNo);
 
 }
