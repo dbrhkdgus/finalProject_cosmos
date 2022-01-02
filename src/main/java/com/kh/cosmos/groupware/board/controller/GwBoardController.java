@@ -92,6 +92,7 @@ public class GwBoardController {
 
 		return "gw/board/board";
 	}
+	
 
 	@GetMapping("/notice.do")
 	public String notice(@RequestParam(defaultValue = "1") int cPage, int boardNo, int groupNo, Model model,
@@ -100,7 +101,7 @@ public class GwBoardController {
 
 		int limit = 10;
 		int offset = (cPage - 1) * limit;
-
+		
 		List<Post> noticePostList = boardService.selectAllPostInNotice(boardNo, limit, offset);
 		Board board = boardService.selectBoardByBoardNo(boardNo);
 		log.debug("noticePostList = {}", noticePostList);
