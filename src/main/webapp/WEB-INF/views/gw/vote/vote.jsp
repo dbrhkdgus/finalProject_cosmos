@@ -9,12 +9,13 @@
 	<jsp:param value="투표" name="title"/>
 </jsp:include>
 <c:set var="now" value="<%=new java.util.Date()%>" />
+<c:set var="groupMemberCnt" value="${fn:length(myGroupMemberList)}" />
 
  <div class="groupware-vote-outter">
   	<div class="present-vote-box" style="background: Beige;">
   		<div class="present-vote" style="background: FloralWhite">
   			<c:if test="${not empty presentVoteInfo }">
-			
+
   				<c:forEach var="presentVote" items="${presentVoteInfo }">
 					<fmt:formatDate value="${now}" pattern="yyyyMMdd" var="nowDate" /> 
 					<fmt:formatDate value="${presentVote.voteDeadline}" pattern="yyyyMMdd" var="deadline" /> 
@@ -75,14 +76,22 @@
 				    </tr>
 				  </thead>
 				  <tbody>
-		  			<c:forEach var="otherVotes" items="${groupVoteInfoList }">
+		  			<c:forEach var="otherVotes" items="${groupVoteInfoList}">
 		  				<fmt:formatDate value="${now}" pattern="yyyyMMdd" var="nowDate" /> 
 						<fmt:formatDate value="${otherVotes.voteDeadline}" pattern="yyyyMMdd" var="otherDeadline" />
 		  				<c:if test="${nowDate <= otherDeadline  }">
 		  					<tr class="tr">
 						      <th scope="row">${otherVotes.voteTitle }</th>
 						      <td><span><fmt:formatDate value="${otherVotes.voteDeadline}" pattern="MM-dd"/></span> 까지</td>
-						      <td>67%</td>
+						      
+							      <c:if test="${otherVotes.answeredMemberCnt != 0 }">
+								      <td><fmt:formatNumber type="percent" value="${otherVotes.answeredMemberCnt/groupMemberCnt}"  pattern="0.0%"/></td>
+							      </c:if>
+							      <c:if test="${otherVotes.answeredMemberCnt==0 }">
+								      <td>0%</td>
+							      </c:if>
+						      
+						      
 						    </tr>
 						      <input type="hidden" name="voteNo" value="${otherVotes.voteNo }" />
 		  				</c:if>
@@ -112,7 +121,12 @@
 		  						<tr>
 		  							<th scope="row">${otherVotes.voteTitle }</th>
 		  							<td><span><fmt:formatDate value="${otherVotes.voteDeadline}" pattern="MM-dd"/></span> 까지</td>
-		  							<td>67%</td>
+			  						  <c:if test="${otherVotes.answeredMemberCnt != 0 }">
+									      <td><fmt:formatNumber type="percent" value="${otherVotes.answeredMemberCnt/groupMemberCnt}"  pattern="0.0%"/></td>
+								      </c:if>
+								      <c:if test="${otherVotes.answeredMemberCnt==0 }">
+									      <td>0%</td>
+								      </c:if>
 		  						</tr>
 		  				</c:if>
 		  			</c:forEach>

@@ -31,4 +31,6 @@ public interface VoteDao {
 
 	VoteInfo selectVoteInfoByVoteNo(int voteNo);
 
+	int selectAnswerdMemberCnt(int voteNo);
+
 }
