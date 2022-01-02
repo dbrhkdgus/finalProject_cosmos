@@ -42,11 +42,16 @@
   <div class="card mb-2">
 	<div class="card-header bg-light">
   	</div>
-  <form:form action="${pageContext.request.contextPath }/gw/board/postReplyEnroll.do" method="post" >
-	<div class="d-flex mt-3 ml-2 mr-2">
+  <form:form action="${pageContext.request.contextPath }/gw/board/anonymousReplyEnroll.do" method="post" >
+  	<div class="input-group mt-3 pl-2 pr-2 mx-auto">
+		<span class="input-group-text" id="inputGroup-sizing-default">비밀번호</span>
+		<input id="pw" name="replyPw" type="text" class="form-control" pattern="\d{4}" onChange="checkNumber()" maxlength="4" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="숫자 4자리를 입력해 주세요.">
+	</div>
+	<div class="d-flex mt-2 ml-2 mr-2">
 		<input type="hidden" value="${post.postNo}" name ="postNo">
 		<input type="hidden" value="1" name ="replyLevel">
 		<input type="hidden" name="replyRef" value="0" />
+		
 		<input type="text" class="form-control" placeholder="댓글을 입력하세요." name="content">
 		<button type="submit" class="btn btn-dark ml-1 board-post-rep-btn-enroll">등록</button>
 	</div>

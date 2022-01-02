@@ -17,38 +17,37 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/summernote-lite.css">
 
 <div class="workspace-box">
-<div class="groupware-board-enroll-outter">
+	<div class="p-4 mt-4">
   <!-- form 안에 에디터를 사용하는 경우 (보통 이경우를 많이 사용하는듯)-->
 
-<div class="container">
   
-  <form
-		name="anonymousFrm"   
-		enctype="multipart/form-data" 
-		action="${pageContext.request.contextPath }/gw/board/anonymousEnroll.do?${_csrf.parameterName}=${_csrf.token}" method="post"
-		method="POST"
-		>
-		<div class="input-group mb-3 mx-auto">
-			<span class="input-group-text" id="inputGroup-sizing-default">제목</span>
-			<input id="title" name="postTitle" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="제목을 입력해 주세요.">
-			<input type="hidden" name="memberId" value="${member.id }" />
-			<input type="hidden" name="memberName" value="${member.memberName }" />
-			<input type="hidden" name="boardNo" value="${boardNo}" />
-			<input type="hidden" name="groupNo" value="${groupNo}"/>
-		</div>
-		<div class="input-group input-group-sm mb-3">
-  			<span class="input-group-text" id="inputGroup-sizing-sm">비밀번호</span>
-  			<input id="pw" name="postPassword" type="text" class="form-control" pattern="\d{4}" onChange="checkNumber()" maxlength="4" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="숫자 4자리를 입력해 주세요.">
+  		<form
+			name="anonymousFrm"   
+			enctype="multipart/form-data" 
+			action="${pageContext.request.contextPath }/gw/board/anonymousEnroll.do?${_csrf.parameterName}=${_csrf.token}" method="post"
+			method="POST"
+			>
+			<div class="input-group mb-3 mx-auto">
+				<span class="input-group-text" id="inputGroup-sizing-default">제목</span>
+				<input id="title" name="postTitle" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="제목을 입력해 주세요.">
+				<input type="hidden" name="memberId" value="${member.id }" />
+				<input type="hidden" name="memberName" value="${member.memberName }" />
+				<input type="hidden" name="boardNo" value="${boardNo}" />
+				<input type="hidden" name="groupNo" value="${groupNo}"/>
+			</div>
 			
+			<div class="input-group mb-3 mx-auto">
+	  			<span class="input-group-text" id="inputGroup-sizing-default">비밀번호</span>
+	  			<input id="pw" name="postPassword" type="text" class="form-control" pattern="\d{4}" onChange="checkNumber()" maxlength="4" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="숫자 4자리를 입력해 주세요.">
+			</div>	
+				
+				<textarea id="summernote" name="postContent"></textarea>
 			
-		</div>		
-			<textarea id="summernote" name="postContent"></textarea>
-		<div class="input-group mb-3" style="padding:0px; padding-top: 5px;"></div>
 		</form>
-	<div class="d-grid gap-2 col-6 mx-auto">
-		<button id="btn-send" class="btn btn-primary" type="button" >작성 완료</button>
+		<div class="d-grid gap-2 col-6 mx-auto mt-4">
+			<button id="btn-send" class="btn btn-primary" type="button" >작성 완료</button>
+		</div>
 	</div>
-</div>
 </div>
   <script>
   function checkNumber() {
