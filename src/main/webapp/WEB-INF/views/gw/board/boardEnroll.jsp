@@ -41,7 +41,7 @@
 			    <span class="input-group-text">첨부파일1</span>
 			  </div>
 			  <div class="custom-file">
-			    <input type="file" class="custom-file-input" name="upFile"  >
+			    <input type="file" class="custom-file-input" name="upFile"  accept=".jpg,.jpeg,.png,.gif,.bmp">
 			    <label class="custom-file-label" for="upFile1">파일을 선택하세요</label>
 			</div>
 		</div>

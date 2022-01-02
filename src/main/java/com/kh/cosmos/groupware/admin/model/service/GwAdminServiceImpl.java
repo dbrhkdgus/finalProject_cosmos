@@ -40,22 +40,30 @@ public class GwAdminServiceImpl implements GwAdminService {
 
 	@Override
 	public int selectGwGroupPool(String groupNo) {
-		// TODO Auto-generated method stub
 		return gwAdminDao.selectGwGroupPool(groupNo);
 	}
 
 	@Override
 	public int selectGwGroupCount(String groupNo) {
-		// TODO Auto-generated method stub
 		return gwAdminDao.selectGwGroupCount(groupNo);
 	}
 
 	@Override
 	public int deletegroupRefuseByList(Map<String, Object> param) {
-		// TODO Auto-generated method stub
 		return gwAdminDao.deletegroupRefuseByList(param);
 	}
-	
+
+	@Override
+	public int deleteGwMember(Map<String, Object> param) {
+		return gwAdminDao.deleteGwMember(param);
+	}
+
+	@Override
+	public int updateMemberRole(Map<String, Object> param) {
+		return gwAdminDao.updateMemberRole(param);
+	}
+
+
 	
 	
 }

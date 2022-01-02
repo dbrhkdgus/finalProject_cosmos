@@ -15,6 +15,9 @@ import com.kh.cosmos.groupware.chat.model.vo.ChatRoom;
 import com.kh.cosmos.groupware.service.GroupwareService;
 import com.kh.cosmos.member.model.vo.Member;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class CosmosUtils {
 	/**
 	 * 
@@ -36,7 +39,6 @@ public class CosmosUtils {
 		// 페이지번호를 클릭했을때 링크
 		String delimeter = url.contains("?") ? "&" : "?";
 		url = url + delimeter + "cPage="; // /spring/board/boardList.do?cPage=
-		
 		// 페이지바크기 
 		int pagebarSize = 5;
 		

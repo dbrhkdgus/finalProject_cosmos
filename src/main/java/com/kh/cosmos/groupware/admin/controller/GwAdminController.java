@@ -1,5 +1,6 @@
 package com.kh.cosmos.groupware.admin.controller;
 
+import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.cosmos.common.attachment.model.vo.Attachment;
 import com.kh.cosmos.group.model.service.GroupService;
@@ -49,8 +51,6 @@ public class GwAdminController {
 	@Autowired
 	private MemberService memberService;
 	
-	@Autowired
-	private GroupService groupService;
 
 	@GetMapping("/memberManager.do")
 	public String memberManager(Model model, int groupNo,Authentication authentication) {
@@ -60,18 +60,18 @@ public class GwAdminController {
 
 		List<ApplocationGroup> acceptApplocationGroupList = new ArrayList<ApplocationGroup>();
 		acceptApplocationGroupList = gwAdminService.selectAllAcceptGroupMemberList(groupNo);
-		log.debug("applocationGroup = {}" ,acceptApplocationGroupList);
+//		log.debug("applocationGroup = {}" ,acceptApplocationGroupList);
 		model.addAttribute("acceptApplocationGroupList",acceptApplocationGroupList);
 		
 		//그룹장 승인 대기하는 애들
 		List<ApplocationGroup> waitingApplocationGroupList = new ArrayList<ApplocationGroup>();
 		waitingApplocationGroupList = gwAdminService.selectAllWaitingGroupMemberList(groupNo);
-		log.debug("applocationGroup = {}" ,waitingApplocationGroupList);
+//		log.debug("applocationGroup = {}" ,waitingApplocationGroupList);
 		model.addAttribute("waitingApplocationGroupList",waitingApplocationGroupList);
 		
 		List<Member> memberList = new ArrayList<Member>();
 		memberList = memberService.selectAllMemberList();
-		log.debug("memberList = {}" ,memberList);
+//		log.debug("memberList = {}" ,memberList);
 		model.addAttribute("memberList",memberList);
 		
 
@@ -101,11 +101,11 @@ public class GwAdminController {
 		
 	
 		int groupPool= gwAdminService.selectGwGroupPool(groupNo);
-		log.debug("groupPool ={}" , groupPool);
+//		log.debug("groupPool ={}" , groupPool);
 		
 
 		int groupCount = gwAdminService.selectGwGroupCount(groupNo);
-		log.debug("groupCount ={}" , groupCount);
+//		log.debug("groupCount ={}" , groupCount);
 
 		
 		
@@ -115,7 +115,7 @@ public class GwAdminController {
 		Map<String, Object> param = new HashMap<String,Object>();
 		param.put("groupNo",idList.get("groupNo"));
 		param.put("idList",idlist);
-		log.debug("idListLength = {}",idlist.size());
+//		log.debug("idListLength = {}",idlist.size());
 	
 		String msg ="";
         Map<String, Object> map = new HashMap<>();
@@ -124,9 +124,9 @@ public class GwAdminController {
 		if(groupPool - groupCount >= idlist.size()) {
 			msg="수정 성공!";
 			map.put("msg", msg);
-			log.debug("count = {}" ,groupPool - groupCount <= idlist.size());
+//			log.debug("count = {}" ,groupPool - groupCount <= idlist.size());
 			int result = gwAdminService.updategroupAcceptByList(param);
-			log.debug("result = {}" , result);
+//			log.debug("result = {}" , result);
 			return ResponseEntity.ok(map);
 		}else {
 			
@@ -134,12 +134,6 @@ public class GwAdminController {
 			map.put("msg", msg);
 			return ResponseEntity.ok(map);
 		}
-	
-		
-		
-		
-
-	
 	}
 	
 	//가입거절
@@ -148,44 +142,85 @@ public class GwAdminController {
 	public ResponseEntity<?> groupRefuse(HttpServletRequest request, Model model,Authentication authentication,
 			@RequestParam Map<String, String>  idList) {
 		//groupwareHeaderSet(groupNo, model, authentication);
-		
-		
 	
 		String groupNo = idList.get("groupNo");
 		String str = idList.get("idList");
-		
 	
 		int groupPool= gwAdminService.selectGwGroupPool(groupNo);
-		log.debug("groupPool ={}" , groupPool);
+//		log.debug("groupPool ={}" , groupPool);
 		
 
 		int groupCount = gwAdminService.selectGwGroupCount(groupNo);
-		log.debug("groupCount ={}" , groupCount);
+//		log.debug("groupCount ={}" , groupCount);
 
-		
-		
 		List<String> idlist = Arrays.asList(str.split(","));		
 		
-
 		Map<String, Object> param = new HashMap<String,Object>();
 		param.put("groupNo",idList.get("groupNo"));
 		param.put("idList",idlist);
-		log.debug("idListLength = {}",idlist.size());
+//		log.debug("idListLength = {}",idlist.size());
 	
 		String msg ="";
         Map<String, Object> map = new HashMap<>();
-	
-		  //
-		
-			int result = gwAdminService.deletegroupRefuseByList(param);
-			log.debug("result = {}" , result);
+
+        int result = gwAdminService.deletegroupRefuseByList(param);
+//			log.debug("result = {}" , result);
 			msg="가입거절 성공!";
 			map.put("msg", msg);
 			return ResponseEntity.ok(map);
 		}
-	
-//		풀리퀘커밋용
-		 
+//		그룹웨어 멤버 추방
+			@PostMapping("/memberDelete.do")
+		    public String memberDelete(@RequestParam int groupNo, @RequestParam String gwDeleteMember,RedirectAttributes redirectAttr,HttpServletRequest request, Model model,Authentication authentication) {
+				
+				
+				Map<String, Object> param = new HashMap<>();
+				param.put("groupNo", groupNo);
+				param.put("gwDeleteMember", gwDeleteMember);
+				try {
+					int result = gwAdminService.deleteGwMember(param);
+					redirectAttr.addFlashAttribute("msg", "멤버를 추방하였습니다!");
+					
+		    	} catch (InvalidParameterException e) {
+		    		log.error(e.getMessage(), e);
+		    		redirectAttr.addFlashAttribute("msg", e.getMessage());
+		    		
+				} catch (Exception e) {
+					log.error("멤버삭제 오류!", e);
+					throw e;
+				}
+				return "redirect:/gw/admin/memberManager.do?groupNo="+groupNo;
+		    }
+		    
+	@PostMapping("/memberUpdate.do")
+	public String memberUpdate(@RequestParam String memberId,@RequestParam String memberRole,int groupNo,HttpServletRequest request, Model model,Authentication authentication,RedirectAttributes redirectAttr) {
+		//String selectRole = request.getParameter("memberRole");
+		//String memberId = request.getParameter("memberId");
+		
+		
+		
+		log.debug("groupNo ={}" ,groupNo);
+		log.debug("memberId ={}" ,memberId);
+		
+		log.debug("selectRole ={}" ,memberRole);
+		
+		Map<String,Object> param = new HashMap<>();
+		param.put("memberRole", memberRole);
+		param.put("memberId", memberId);
+		param.put("groupNo", groupNo);
+		
+		try {
+			int result = gwAdminService.updateMemberRole(param);
+			redirectAttr.addFlashAttribute("msg", "권한을 수정하였습니다!");
+		} catch (Exception e) {
+			log.error("권한수정 오류!", e);
+			redirectAttr.addFlashAttribute("msg", e.getMessage());
+			throw e;
+		}
+		
+		return "redirect:/gw/admin/memberManager.do?groupNo=" + groupNo;
+	}
+
 	public void groupwareHeaderSet(int groupNo, Model model, Authentication auth) {
     Member loginMember = (Member) auth.getPrincipal();
     Group myGroup = gwService.selectMyGroup(groupNo);

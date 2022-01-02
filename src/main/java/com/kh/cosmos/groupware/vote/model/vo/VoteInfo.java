@@ -7,21 +7,23 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class Vote implements Serializable {
+public class VoteInfo implements Serializable{
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private int groupNo;
-	private int voteNo;
+	private String voteNo;
+	private int voteQuestionNo;
 	private String voteTitle;
 	private Date voteDeadline;
-	private Date voteEnrollDate;
+	private String memberName;
+	private String voteQuestionTitle;
+	private String voteQuestionType;
 	private String memberId;
-	
 }

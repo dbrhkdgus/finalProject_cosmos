@@ -56,11 +56,23 @@
 	
 	</select>
 
-<delete id="deletegroupRefuseByList" >
-	 delete from applocation_group where group_no =#{groupNo} and member_id in(	
-	  <foreach collection="idList" item="item" open="" separator="," close="">
-              	#{item}
-      </foreach>
-      )
-</delete>
+	<delete id="deletegroupRefuseByList" >
+		 delete from applocation_group where group_no =#{groupNo} and member_id in(	
+		  <foreach collection="idList" item="item" open="" separator="," close="">
+	              	#{item}
+	      </foreach>
+	      )
+	</delete>
+	
+	<delete id="deleteGwMember">
+		delete
+  	from 
+  		applocation_group
+	where 
+		group_no = #{groupNo} and group_accept='Y' and member_id = #{gwDeleteMember}
+	</delete>
+	
+	<update id="updateMemberRole" parameterType="hashmap">
+	update applocation_group set role = #{memberRole} where group_no=#{groupNo} and member_id=#{memberId}
+	</update>
 </mapper>

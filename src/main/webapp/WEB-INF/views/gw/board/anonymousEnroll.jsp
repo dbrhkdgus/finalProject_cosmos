@@ -8,16 +8,7 @@
 <jsp:include page="/WEB-INF/views/common/gw_header.jsp">
 	<jsp:param value="게시글 작성" name="title"/>
 </jsp:include>
-<script>
-$("#btn-send").click((e)=>{
 
-	   if(pw.length < 1 || pw.length > 4){
-
-	    alert("비밀번호는 4자리만 입력가능합니다");
-	    return false;
-	   }
-}
-</script>
 <sec:authorize access="isAuthenticated()">
 	<sec:authentication property="principal" var="member"/>
 </sec:authorize>
@@ -32,7 +23,7 @@ $("#btn-send").click((e)=>{
 <div class="container">
   
   <form
-		name="boardFrm"   
+		name="anonymousFrm"   
 		enctype="multipart/form-data" 
 		action="${pageContext.request.contextPath }/gw/board/anonymousEnroll.do?${_csrf.parameterName}=${_csrf.token}" method="post"
 		method="POST"
@@ -72,46 +63,7 @@ $("#btn-send").click((e)=>{
 		}
 		
 	}
- 
-  /*  function lengthLimit4(e){
-      if(e.value.length > 4){
-          e.value = e.value.slice(0, 4)
-      }
-  }
-   function fn_submit() {
-      var text = document.getElementById('text').value;
-
-      var reg = /^([0-9]{4})$/;
-      if (reg.test(text) === true) {
-          alert('4자리.');
-      }
-  } */
-/* 
-  function checkFourDigits(text){
-	if(text.value.length> 4){
-		alert("4글자만 인ㅂ력 가능");
-		text.value=text.value.substring(0,4);
-		text.focus();
-	}  
-  }
-
-  function chkPW(){
-
-   var pw = $("#pw").val();
-
-   if(pw.length < 1 || pw.length > 4){
-
-    alert("비밀번호는 4자리만 입력가능합니다");
-    return false;
-   }
-
-  } */
   
-/*  function checkPassword(){
-	  if(!/^{0,4}$/.test(pw)){
-	    alert('숫자와 영문자 조합으로 8~16자리를 사용해야 합니다.');
-	    return false;
-	  }*/
 	
 $(document).ready(function() {
     //여기 아래 부분
@@ -181,18 +133,13 @@ $(document).ready(function() {
 			alert("비밀번호를 입력해주세요.");
 			return;
 		}
-		if($(pw).val() != pw.length < 1 || pw.length > 4 && $(pw).val() != '' ){
-		}else{
-			alert("비밀번호는 4자리만 입력가능합니다.");
-			return;
-		}
 		if($(summernote).val() != null && $(summernote).val() != ''){	
 		}else{
 			alert("내용을 입력해주세요.");
 			return;
 		}
 
-		$(document.boardFrm).submit();
+		$(document.anonymousFrm).submit();
 	});
 	
 
@@ -211,7 +158,16 @@ $(document).ready(function() {
 	});
 });
 
+  	$("[name=anonymousFrm]").submit(function(){
 
+		var $pw = $("#pw");
+		if(/^\w{4}$/.test($pw.val()) == false) {
+			alert("비밀번호는 4자리로 입력해주세요.");
+			$pw.focus();
+			return false;
+		}
+			return true;
+});
 	
 
   </script>

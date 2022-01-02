@@ -29,7 +29,10 @@
 	      </div>
       </div>
    	  <div class="d-flex justify-content-between align-items-center">
-        <p class="m-0">${memberWithGroupMap[post.memberId]}<span><fmt:formatDate value="${post.postRegDate}" pattern="yy-MM-dd"/></span></p>
+   	  	<div class="post-info">
+	        <span>작성자 : ${memberWithGroupMap[post.memberId]}</span>
+	        <span>[<fmt:formatDate value="${post.postRegDate}" pattern="yy-MM-dd"/>]</span>
+   	  	</div>
         <div class="post-button-set">
 			<button class="btn btn-primary" type="button" onclick="location.href='${pageContext.request.contextPath}/gw/board/postModify.do?postNo=${post.postNo}'">수정</button>&nbsp;
 			<button class="btn btn-primary" type="button" onclick="location.href='${pageContext.request.contextPath}/gw/board/deletePostBoard.do?postNo=${post.postNo}'">삭제</button>
@@ -275,20 +278,6 @@ $('.re-rep-btn').on('click', (e)=> {
 	$(e.target).parent().parent().parent().next().slideToggle(500);
 });
 
-$(".btn-re-enroll").hide();
-
-$(".btn-re-enroll").click((e) => {
-	$("input[name=type]").val("update");
-	$(e.target).parent().parent().parent().eq(0).submit();
-});
-
-/* $(".btn-re-transform").on('click', (e) => {
-	$(e.target).hide();
-	$(e.target).next().show();
-	var oldContent = $(e.target).parent().parent("div").find("span").eq(2).text();
-	$(e.target).parent().parent("div").find("span").eq(2).html('');
-	$(e.target).parent().parent("div").find("span").eq(2).html(`<input type="text" name="content" value = "\${oldContent}" />`);
-}); */
 	
 </script>
 <jsp:include page="/WEB-INF/views/common/gw_footer.jsp"></jsp:include>
