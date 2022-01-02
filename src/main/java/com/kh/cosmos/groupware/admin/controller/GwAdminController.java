@@ -120,7 +120,7 @@ public class GwAdminController {
 		String msg ="";
         Map<String, Object> map = new HashMap<>();
 	
-		  
+		  //
 		if(groupPool - groupCount >= idlist.size()) {
 			msg="수정 성공!";
 			map.put("msg", msg);
