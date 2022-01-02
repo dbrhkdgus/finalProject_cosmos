@@ -11,12 +11,9 @@
 <style>
  tr{cursor:pointer;}
 </style>
+ <div class="workspace-box">
 
- <div class="test-notice-outter">
-  <div class="test-board-title-container">
-    <div class="test-my-title">
-      <h1>익명 게시판</h1>
-    </div>
+  <div class="p-4">
     <div class="test-board-search">
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
         <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
@@ -24,7 +21,7 @@
       <input type="text">
       <input type="button" value="검색">
     </div>
-  </div>
+  
   <table class="table file-board-table">
     <thead>
       <tr>
@@ -36,11 +33,11 @@
     </thead>
     <tbody>
     <c:forEach var="post" items="${anonymousPostList}" varStatus="vs">
-      <tr>
+      <tr onclick="location.href='${pageContext.request.contextPath}/gw/board/anonymousDetail.do?postNo=${post.postNo}'">
         <td>${fn:length(anonymousPostList)- vs.count+1}</td>
-        <td colspan="2" class="text-left" onclick="location.href='${pageContext.request.contextPath}/gw/board/anonymousDetail.do?postNo=${post.postNo}'">${post.postTitle}</td>
+        <td colspan="2" class="text-left">${post.postTitle}</td>
         <td><fmt:formatDate value="${post.postRegDate}" pattern="yy-MM-dd"/></td>
-        <td class="text-left">
+        <td>
         <div class="deleteAnonymousList">
           <svg xmlns="http://www.w3.org/2000/svg" id="post-delete-btn" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
           <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
@@ -91,6 +88,7 @@
       </div>
     </div>
   </div>
+</div>
 </div>
 
 <script>
