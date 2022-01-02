@@ -1,4 +1,4 @@
-package com.kh.cosmos.groupware.app.model.vo;
+package com.kh.cosmos.groupware.vote.model.vo;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -12,17 +12,16 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class TDL implements Serializable{
+public class VoteInfo implements Serializable{
+
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
-	private int tdlNo;
-	private String tdlContent;
-	private char tdlChecked;
-	private Date tdlCreateDate;
-	private Date tdlUpdateDate;
+	private String voteTitle;
+	private Date voteDeadline;
+	private String memberName;
+	private String voteQuestionTitle;
+	private String voteQuestionType;
 	private String memberId;
-	private int groupNo;
 }

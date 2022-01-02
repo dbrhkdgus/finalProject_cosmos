@@ -29,58 +29,42 @@
 					</tr>
 				</thead>
 				<tbody>
-					<form:form name="createBoardRoomFrm" method="post"
-						action="${pageContext.request.contextPath }/gw/admin/memberUpdate.do">
-						<c:forEach var="memberList" items="${memberList }">
-							<c:forEach var="acceptList"
-								items="${acceptApplocationGroupList }" varStatus="vs">
-								<c:if test="${memberList.id eq acceptList.memberId}">
-									<c:set var="j" value="${j+1}" />
-									<tr>
-										<td>${j}</td>
-										<td>${memberList.nickname}</td>
-										<td class="col-md-2"><select
+
+			<form:form name="createBoardRoomFrm" method="post" action="${pageContext.request.contextPath }/gw/admin/memberUpdate.do">
+					<c:forEach var="memberList" items="${memberList }">
+						<c:forEach var="acceptList" items="${acceptApplocationGroupList }"
+							varStatus="vs">
+							<c:if test="${memberList.id eq acceptList.memberId}">
+								<c:set var="j" value="${j+1}" />
+								<tr>
+									<td>${j}</td>
+									<td>${memberList.nickname}</td>
+									<td class="col-md-2"><select
 											class="boardType form-select" name="memberRole" required>
 												<option value="P"
 													<c:if test="${fn:contains(acceptList.role , 'P' )}"> selected</c:if>>일반회원</option>
 												<option value="M"
 													<c:if test="${fn:contains(acceptList.role , 'M' )}"> selected</c:if>>매니저</option>
 												<option value="M"
-													<c:if test="${fn:contains(acceptList.role , 'G' )}"> selected</c:if> />그룹장
-												</option>
-										</select></td>
-										<%-- <c:if test="${fn:contains(acceptList.role, 'G')}">
-			             	 <td>그룹장</td>
-			              </c:if>
-			              <c:if test="${fn:contains(acceptList.role, 'P')}">
-			              	<td>일반멤버</td>
-			              </c:if>
-			              <c:if test="${fn:contains(acceptList.role, 'M')}">
-			             	 <td>그룹장</td>
-			              </c:if> --%>
-										<td><fmt:formatDate value="${acceptList.joinRegDate}"
-												pattern="yy-MM-dd" /></td>
-										<!--    <td>2020-12-16</td> -->
-										<td>
-											<div class="">
-												<!--      <label for="boardType">권한 부여하기</label> -->
-
-											</div> <input type="hidden" name="groupNo" value="${groupNo}" />
-										</td>
-										<td><input type='button' class="btn btn-danger"
-											name="gwDeleteMember" value="멤버추방"
-											name="${acceptList.memberId}"
-											onclick='return submit2(this.form);'>
-											<button type="submit" class="btn btn-secondary">수정</button></td>
-									</tr>
-									<input type="hidden" name="memberRole"value="${acceptList.role}">
-								</c:if>
-							</c:forEach>
+													<c:if test="${fn:contains(acceptList.role , 'G' )}"> selected</c:if>>그룹장</option>
+										</select></td> 
+									<td><fmt:formatDate value="${acceptList.joinRegDate}"
+											pattern="yy-MM-dd" /></td>
+									<!--    <td>2020-12-16</td> -->
+									
+									<td>
+											<input type="hidden" name="groupNo" value="${groupNo}" /></td>
+									<td><button type="submit" class="btn btn-danger" name="gwDeleteMember" value="${acceptList.memberId}" onclick='return submit2(this.form);'>멤버추방</button>  
+								<%-- 	<input type='button' class="btn btn-danger" value="멤버추방" name="${acceptList.memberId}" onclick='return submit2(this.form);'> --%> 		
+										<button type="submit" class="btn btn-secondary">수정</button></td>
+								</tr>
+							</c:if>
 						</c:forEach>
-					</tbody>
-				</table>
-				</form:form>
-			</div>
+					</c:forEach>
+				 </form:form>
+				</tbody>
+			</table>
+		</div>
 		<div class="study-join-table">
 			<h4>그룹 가입 요청</h4>
 			<form:form id="checkValidList"
@@ -133,18 +117,20 @@
 </div>
 <script>
 
+//그룹웨어 멤버 추방
+  function submit2(frm) { 
+	  if (confirm("정말 추방하시겠습니까??") == true){    //확인
 
+		  frm.action='${pageContext.request.contextPath }/gw/admin/memberDelete.do'; 
+		    frm.submit(); 
+		    return true; 
 
-//멤버수정 모달창
- $(".gwMemberUpdate-Btn").click((e)=>{
-     $("#gwMeberUpdateModal").modal('show');
- });
- 
- 
- $(".close-modal").click((e)=>{
-     $("#gwMeberUpdateModal").modal('hide');
- }); 
+		 }else{   //취소
 
+		     return false;
+
+		 }  
+  } 
 //가입승인
 function refreshMemList(){
     location.reload();

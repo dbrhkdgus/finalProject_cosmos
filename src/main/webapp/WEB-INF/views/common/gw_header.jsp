@@ -283,7 +283,7 @@
           <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
             <li><a href="${pageContext.request.contextPath }/gw/app/ladder.do?groupNo=${currGroupNo}" class="link-dark rounded">사다리타기</a></li>
             <li><a href="${pageContext.request.contextPath }/gw/app/TDL.do?groupNo=${currGroupNo}" class="link-dark rounded">ToDoList</a></li>
-            
+            <li><a href="${pageContext.request.contextPath }/gw/vote/vote.do?groupNo=${currGroupNo}" class="link-dark rounded">투표</a></li>
           </ul>
         </div>
       </li>
@@ -533,15 +533,26 @@ $(".btn-createChatRoom").click((e)=>{
 			contentType: "application/json; charset=utf-8",
 		 	success(res){
 		 		$.each(res,(k,v)=>{
-		 			console.log(v);
-		 			$(".modal-member-box").append(`
+		 			console.log(v.profileRenamedFilename.indexOf('http'));
+		    	    	if(v.profileRenamedFilename.indexOf('http') == 0){
+		 					$(".modal-member-box").append(`
 		 					<div class="modal-member-profile">
 		              		<input class="ml-2 mr-2"type="checkbox" name="memberId" value="\${v.memberId}"/>
 		              		<div class="modal-member-profile-box">
-			              		<img src="${pageContext.request.contextPath }/resources/upFile/profile/\${v.profileRenamedFilename}" alt="" class="modal-member-profile-img" />
-		              		</div>
+		    	          	<img src="\${v.profileRenamedFilename}" alt="" class="modal-member-profile-img" style="width: 1px; zoom : 30;"/>
+		    	          	</div>
 		              		<span class="modal-member-name">\${v.memberName}</span>
-		              	</div>`);		 				
+		              	</div>`);
+		    	          	}else{
+		 					$(".modal-member-box").append(`
+		 					<div class="modal-member-profile">
+		              		<input class="ml-2 mr-2"type="checkbox" name="memberId" value="\${v.memberId}"/>
+		              		<div class="modal-member-profile-box">
+		    	          	<img src="${pageContext.request.contextPath }/resources/upFile/profile/\${v.profileRenamedFilename}" alt="" class="modal-member-profile-img" style="width: 1px; zoom : 30;"/>
+		    	          	</div>
+		              		<span class="modal-member-name">\${v.memberName}</span>
+		              	</div>`);
+		    	          	}
 
 		 		});
 		 		$(".modal-member-box").append(`<input type="hidden" name="selectedMemberId" value="" />`);
