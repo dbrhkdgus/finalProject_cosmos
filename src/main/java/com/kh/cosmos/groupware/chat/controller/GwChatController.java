@@ -87,6 +87,9 @@ public class GwChatController {
 		groupwareHeaderSet(groupNo, model, auth);
 		
 		List<ChatMessage> messageList = chatService.selectAllMessageFromChatRoomNo(chatRoomNo);
+//		for(ChatMessage chat : messageList) {
+//			log.debug("type = {}",chat.getChatMessageTypeNo());
+//		}
 		model.addAttribute("chatUserList",chatUserList);
 		model.addAttribute("messageList",messageList);
 		model.addAttribute("title", "#"+chatRoom.getChatRoomName());
