@@ -435,10 +435,13 @@ public class GwBoardController {
 	}
 	
 	@PostMapping("postReplyEnroll.do")
-	public String postReplyEnroll(@RequestParam int postNo, Reply reply ,RedirectAttributes redirectAttr, Authentication authentication, HttpServletRequest request) {
+	public String postReplyEnroll(Reply reply, int postNo, int replyLevel, int replyRef, RedirectAttributes redirectAttr, Authentication authentication, HttpServletRequest request) {
 		Member member = (Member)authentication.getPrincipal();
 		reply.setMemberId(member.getId());
 		reply.setPostNo(postNo);
+		reply.setReplyLevel(replyLevel);
+		reply.setReplyRef(replyRef);
+		
 		try {
 			int result = boardService.insertPostReply(reply);
 
