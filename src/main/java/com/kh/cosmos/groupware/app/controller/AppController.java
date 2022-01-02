@@ -78,7 +78,7 @@ public class AppController {
 	
 	@ResponseBody
 	@GetMapping("/updateTDL.do")
-	public void updateTDL(int tdlNo, int groupNo, Model model, String check, Authentication auth, RedirectAttributes redirectAttr) {
+	public void updateTDL(int tdlNo, int groupNo, Model model, char check, Authentication auth, RedirectAttributes redirectAttr) {
 		groupwareHeaderSet(groupNo, model, auth);
 		Map<String, Object> param = new HashMap<String, Object>();
 		log.debug("check = {}",check);
@@ -90,6 +90,31 @@ public class AppController {
 		
 		int result = appService.updateTDL(param);
 		
+	}
+	@ResponseBody
+	@GetMapping("/reCalculate.do")
+	public Map<String, Object> reCalculate(int groupNo, Authentication auth, int check) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		Map<String, Object> map = new HashMap<String, Object>();
+		log.debug("check = {}",check);
+		log.debug("groupNo = {}",groupNo);
+		param.put("groupNo", groupNo);
+		Member loginMember = (Member) auth.getPrincipal();
+		String memberId = loginMember.getId();
+		param.put("memberId", memberId);
+		switch(check) {
+		case 0:param.put("check", "ALL");break;
+		case 1:param.put("check", "not");break;
+		case 2:param.put("check", "complete");break;
+		}
+		log.debug("param = {}",param);
+		List<TDL> tdlReList = appService.selectTDLBysort(param);
+		int num = 0;
+		for(TDL tdlList : tdlReList) {
+			map.put(Integer.toString(num), tdlList);
+			num++;
+		}
+		return map;
 	}
 	
 	

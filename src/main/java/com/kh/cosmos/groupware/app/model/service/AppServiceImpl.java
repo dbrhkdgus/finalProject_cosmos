@@ -31,5 +31,11 @@ public class AppServiceImpl implements AppService {
 		// TODO Auto-generated method stub
 		return appDao.updateTDL(param);
 	}
+
+	@Override
+	public List<TDL> selectTDLBysort(Map<String, Object> param) {
+		// TODO Auto-generated method stub
+		return appDao.selectTDLBysort(param);
+	}
 	
 }

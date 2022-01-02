@@ -13,4 +13,6 @@ public interface AppDao {
 
 	int updateTDL(Map<String, Object> param);
 
+	List<TDL> selectTDLBysort(Map<String, Object> param);
+
 }
