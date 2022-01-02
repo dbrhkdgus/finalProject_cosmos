@@ -29,12 +29,23 @@ button:focus {
   padding-right: 5px;
 }
 
+.button-delete-member >i{
+ color:red;
+}
+.button-update-member>i{
+ color:#0E7FA6;
+}
 .button-delete-member:hover {
   color: red;
 }
-
-.button-one:active {
+.button-delete-member:active {
   text-shadow: 2px 2px 8px #FF0000;
+}
+.button-update-member:hover {
+  color: #0E7FA6;
+}
+.button-update-member:active {
+  text-shadow: 2px 2px 8px #0E7FA6;
 }
 </style>
 <div class="workspace-box">
@@ -47,21 +58,21 @@ button:focus {
 				<thead>
 					<tr>
 						<th>번호</th>
-						<th>이름</th>
+						<th>닉네임</th>
 						<th>역할</th>
 						<th>가입일</th>
-						<th colspan="2" style="width: 27px;">관리</th>
+						<th colspan="1" width="20%">관리</th>
 
 					</tr>
 				</thead>
 				<tbody>
 
-			<form:form name="createBoardRoomFrm" method="post" action="${pageContext.request.contextPath }/gw/admin/memberUpdate.do">
 					<c:forEach var="memberList" items="${memberList }">
 						<c:forEach var="acceptList" items="${acceptApplocationGroupList }"
 							varStatus="vs">
 							<c:if test="${memberList.id eq acceptList.memberId}">
 								<c:set var="j" value="${j+1}" />
+								<form name="createBoardRoomFrm" method="post" action="${pageContext.request.contextPath }/gw/admin/memberUpdate.do?${_csrf.parameterName}=${_csrf.token}">
 								<tr>
 									<td>${j}</td>
 									<td>${memberList.nickname}</td>
@@ -71,23 +82,29 @@ button:focus {
 													<c:if test="${fn:contains(acceptList.role , 'P' )}"> selected</c:if>>일반회원</option>
 												<option value="M"
 													<c:if test="${fn:contains(acceptList.role , 'M' )}"> selected</c:if>>매니저</option>
-												<option value="M"
+												<option value="G"
 													<c:if test="${fn:contains(acceptList.role , 'G' )}"> selected</c:if>>그룹장</option>
-										</select></td> 
+												
+										</select>
+										
+										</td> 
+										
 									<td><fmt:formatDate value="${acceptList.joinRegDate}"
 											pattern="yy-MM-dd" /></td>
 									<!--    <td>2020-12-16</td> -->
+				
 									
-									<td>
-											<input type="hidden" name="groupNo" value="${groupNo}" /></td>
-									<td><button type="submit" class="button-delete-member" name="gwDeleteMember" value="${acceptList.memberId}" onclick='return submit2(this.form);'><i class="fas fa-user-times">멤버추방</i></button>  
-								<%-- 	<input type='button' class="btn btn-danger" value="멤버추방" name="${acceptList.memberId}" onclick='return submit2(this.form);'> --%> 		
-										<button type="submit" class="button-update-member">수정</button></td>
+									<td><button type="submit" class="button-delete-member" name="gwDeleteMember" value="${acceptList.memberId}" onclick='return submit2(this.form);'><i class="far fa-trash-alt"></i>멤버추방</button>  
+										<span style="font-weight:bold;">|</span>
+										<button type="submit" class="button-update-member"><i class="fas fa-user-edit"></i>권한수정</button>
+										</td>
+									<input type="hidden" name="memberId" value="${acceptList.memberId}" />
+									<input type="hidden" name="groupNo" value="${groupNo}" />
 								</tr>
+							 </form>
 							</c:if>
 						</c:forEach>
 					</c:forEach>
-				 </form:form>
 				</tbody>
 			</table>
 		</div>
@@ -100,7 +117,7 @@ button:focus {
 					<thead>
 						<tr>
 							<th>번호</th>
-							<th>이름</th>
+							<th>닉네임</th>
 							<th>질문답변</th>
 							<th>가입신청일</th>
 							<th>선택</th>
@@ -147,7 +164,7 @@ button:focus {
   function submit2(frm) { 
 	  if (confirm("정말 추방하시겠습니까??") == true){    //확인
 
-		  frm.action='${pageContext.request.contextPath }/gw/admin/memberDelete.do'; 
+		    frm.action='${pageContext.request.contextPath }/gw/admin/memberDelete.do?${_csrf.parameterName}=${_csrf.token}'; 
 		    frm.submit(); 
 		    return true; 
 
