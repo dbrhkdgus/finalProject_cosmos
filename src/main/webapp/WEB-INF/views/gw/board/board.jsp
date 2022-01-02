@@ -10,10 +10,9 @@
 <style>
  tr{cursor:pointer;}
 </style>
- <div class="test-notice-outter">
-  <div class="test-board-title-container">
-    <div class="test-my-title">
-    </div>
+<div class="workspace-box">
+
+ <div class="p-4">
     <div class="test-board-search">
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
         <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
@@ -21,7 +20,6 @@
       <input type="text">
       <input type="button" value="검색">
     </div>
-  </div>
   <table class="table file-board-table">
     <thead>
       <tr>
@@ -45,12 +43,14 @@
     </tbody>
   </table>
   <div class="d-grid gap-2 d-md-flex justify-content-md-end mr-2 ">
-  <a href="${pageContext.request.contextPath}/gw/board/boardEnroll.do?boardNo=${boardNo}&groupNo=${groupNo} ">
-    <button class="btn btn-primary me-md-2" type="button">글쓰기</button>
+	  <a href="${pageContext.request.contextPath}/gw/board/boardEnroll.do?boardNo=${boardNo}&groupNo=${groupNo} ">
+	    <button class="btn btn-primary me-md-2" type="button">글쓰기</button>
+      </a>
   </div>
   <div class="test-board-pagebar">
      ${pagebar} 
   </div>
+</div>
 </div>
 <jsp:include page="/WEB-INF/views/common/gw_footer.jsp"></jsp:include>
 
