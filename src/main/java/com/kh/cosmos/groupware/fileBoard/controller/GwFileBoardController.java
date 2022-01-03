@@ -76,8 +76,15 @@ public class GwFileBoardController {
 //		log.debug("boardNo = {}", boardNo);
 		int limit = 10;
 		int offset = (cPage - 1) * limit;
+		int totalContent = fileBoardService.selectPostInFileBoardTotalCount(boardNo);
+		model.addAttribute("totalContent", totalContent);
+		String url = request.getRequestURI();
+		url += "?boardNo=" + boardNo + "&groupNo=" + groupNo;
+		String pagebar = CosmosUtils.getPagebar(cPage, limit, totalContent, url);
+		model.addAttribute("pagebar", pagebar);
 		
-
+		
+		
 		List<IdNickName> idnicknameList = new ArrayList<IdNickName>();
 		idnicknameList = fileBoardService.selectIdNickName();
 		log.debug("idnicknameList = {}",idnicknameList);

@@ -69,6 +69,12 @@ public class FileBoardServiceImpl implements FileBoardService {
 		// TODO Auto-generated method stub
 		return fileBoardDao.selectIdNickName();
 	}
+
+	@Override
+	public int selectPostInFileBoardTotalCount(int boardNo) {
+		// TODO Auto-generated method stub
+		return fileBoardDao.selectPostInFileBoardTotalCount(boardNo);
+	}
 	
 	
 		

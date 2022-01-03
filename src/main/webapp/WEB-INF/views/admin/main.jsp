@@ -159,17 +159,17 @@
 
 /* 페이지 랜딩시 기본으로 불러올 최근 7일간 가입자수 */
 /* 7일 데이터 담을 변수 선언 */
-var today;
-var today1;
-var today2;
-var today3;
-var today4;
-var today5;
-var today6;
-var today7;
-var now = new Date();
-var month = now.getMonth()+1;
-var date = now.getDate();
+let today;
+let today1;
+let today2;
+let today3;
+let today4;
+let today5;
+let today6;
+let today7;
+let now = new Date();
+let month = now.getMonth()+1;
+let date = now.getDate();
 
 (()=>{
 	
@@ -188,14 +188,37 @@ var date = now.getDate();
 			today6 = data.sevenDaysData['today6'];
 		},
 		error: console.log,
-		complete: function(){
+		complete: 
+			
+			function(){
 			/* 데이터를 불러왔다면 그래프에 데이터 담기 */
-			  var context = document.getElementById('activityChart');
-			  
-			  var chart1 = new Chart(context, {
+			var context = document.getElementById('activityChart');
+			
+			//날짜 변환 함수 (ex: 12/31)
+			const formatDate = (date)=>{
+			  let formatted_date = (date.getMonth() + 1) + "/" + date.getDate()
+			   return formatted_date;
+			}
+			
+			let _sevenDaysToday = new Date();
+			let _sevenDaysToday_1 = new Date(_sevenDaysToday);
+			let _sevenDaysToday_2 = new Date(_sevenDaysToday);
+			let _sevenDaysToday_3 = new Date(_sevenDaysToday);
+			let _sevenDaysToday_4 = new Date(_sevenDaysToday);
+			let _sevenDaysToday_5 = new Date(_sevenDaysToday);
+			let _sevenDaysToday_6 = new Date(_sevenDaysToday);
+			
+			_sevenDaysToday_1.setDate(_sevenDaysToday.getDate()-1);
+			_sevenDaysToday_2.setDate(_sevenDaysToday.getDate()-2);
+			_sevenDaysToday_3.setDate(_sevenDaysToday.getDate()-3);
+			_sevenDaysToday_4.setDate(_sevenDaysToday.getDate()-4);
+			_sevenDaysToday_5.setDate(_sevenDaysToday.getDate()-5);
+			_sevenDaysToday_6.setDate(_sevenDaysToday.getDate()-6);
+			
+			var chart1 = new Chart(context, {
 			    type: 'line',
 			    data: {
-			      labels: [month+'/'+(date-6), month+'/'+(date-5), month+'/'+(date-4), month+'/'+(date-3), month+'/'+(date-2), month+'/'+(date-1), month+'/'+date],
+			      labels: [formatDate(_sevenDaysToday_6),formatDate(_sevenDaysToday_5),formatDate(_sevenDaysToday_4),formatDate(_sevenDaysToday_3),formatDate(_sevenDaysToday_2),formatDate(_sevenDaysToday_1),formatDate(_sevenDaysToday)],
 			      datasets: [{ 
 			          data: [today6, today5, today4, today3, today2, today1, today],
 			          label: "가입자 수",

@@ -27,9 +27,8 @@ public class BoardDaoImpl implements BoardDao {
 	}
 
 	@Override
-	public List<Post> selectAllPostInBoard(int boardNo, int limit, int offset) {
-		RowBounds rowBounds = new RowBounds(offset, limit);
-		return session.selectList("board.selectAllPostInBoard", boardNo, rowBounds);
+	public List<Post> selectAllPostInBoard(int boardNo) {
+		return session.selectList("board.selectAllPostInBoard", boardNo);
 	}
 
 	@Override

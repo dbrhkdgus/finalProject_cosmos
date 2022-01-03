@@ -70,6 +70,12 @@ public class FileBoardDaoImpl implements FileBoardDao {
 		return session.selectList("fileBoard.selectIdNickName");
 	}
 
+	@Override
+	public int selectPostInFileBoardTotalCount(int boardNo) {
+		// TODO Auto-generated method stub
+		return session.selectOne("fileBoard.selectPostInFileBoardTotalCount" ,boardNo);
+	}
+
 
 	
 		
