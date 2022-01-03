@@ -14,7 +14,6 @@
 <sec:authorize access="isAuthenticated()">
 	<sec:authentication property="principal" var="loginMember"/>
 </sec:authorize>
-${idnicknameList}
  <div class="test-notice-outter">
   <div class="test-board-title-container">
     <div class="test-board-title">
@@ -66,10 +65,10 @@ ${idnicknameList}
 					    </c:if>
 	                  </c:forEach>
                 </a></td>
-               
-                <c:forEach items="${idnicknameList}">
-                	<c:if test="${idnicknameList.id eq post.memberId}">
-                		<td>${idnicknameList.nickName}</td>
+               	
+                 <c:forEach items="${idnicknameList}" var="list" varStatus="status">
+                	<c:if test="${list.id eq post.memberId}">
+                		<td>${list.nickName}</td>
                 	</c:if>
                 </c:forEach>
                 <td ><fmt:formatDate value="${post.postRegDate}" pattern="yy-MM-dd"/>
