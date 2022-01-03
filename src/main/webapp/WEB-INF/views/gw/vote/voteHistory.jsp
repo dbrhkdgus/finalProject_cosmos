@@ -15,7 +15,7 @@
 <c:set var="groupMemberCnt" value="${fn:length(myGroupMemberList)}" />
 
  <div class="groupware-vote-outter">
-  	<div class="present-vote-box" style="background: Beige;">
+  	<div class="present-vote-box" style="background: Beige;align-items: center; justify-content: center;">
   		<div class="present-vote" style="background: FloralWhite">
 	  		
 	  		<c:if test="${not empty presentVoteInfo }">
@@ -23,8 +23,6 @@
 	  				<c:forEach var="presentVote" items="${presentVoteInfo }" >
 						<fmt:formatDate value="${now}" pattern="yyyyMMdd" var="nowDate" /> 
 						<fmt:formatDate value="${presentVote.voteDeadline}" pattern="yyyyMMdd" var="deadline" /> 
-	  					<c:choose>
-			  				<c:when test="${nowDate <= deadline }">
 		  						<div class="vote-view">
 					  				<form id="sendVoteFrm" name="sendVoteFrm" action="">
 					  				<input type="hidden" name="voteNo" value="${presentVote.voteNo }" />
@@ -154,13 +152,7 @@
 							  		</script>
   								
   								</c:if>
-			  				</c:when>
-			  				<c:otherwise>
-			  					<div class="present-vote-title mb-2">
-						  				<h3 class="vote-title">현재 진행중인 투표가 없습니다.</h3>
-						  		</div>
-			  				</c:otherwise>
-	  					</c:choose>
+
 	  				</c:forEach>
 		  			
 	  			</c:if>
@@ -172,12 +164,7 @@
 	  			</c:if>
 
   		</div>
-  		<div class="present-vote-control-box">
-  		<button id="btn-create-vote" class="vote-controll-btn">투표 생성하기</button>
-  		<button id="btn-send-vote" class="vote-controll-btn">투표 제출하기</button>
-  		<button id="btn-analytics-view" class="vote-controll-btn">투표 통계보기</button>
-  		<button id="btn-vote-view" class="vote-controll-btn">투표 보기</button>
-  		</div>
+
   	
   	</div>
   	<div class="old-vote-box">
@@ -316,7 +303,7 @@
 <script>
 /* view 전환 */
 $("#btn-vote-view").hide();
-$(".analytics-view").hide();
+$(".vote-view").hide();
 $("#btn-analytics-view").click((e)=>{
 	$("#btn-analytics-view").hide();
 	$("#btn-vote-view").show();

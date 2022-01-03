@@ -84,4 +84,8 @@ where group_no = #{groupNo} and vote_no != #{voteNo}
   <select id="selectVoteOptionStringList" resultType="string">
   select vote_option from vote_option where vote_no = #{voteNo} order by vote_option
   </select>
+  
+  <select id="selectPresentVoteOptionByVoteNo" resultType="voteOption">
+  select * from vote_option where vote_no = #{voteNo}
+  </select>
 </mapper>
