@@ -83,6 +83,18 @@ public class VoteDaoImpl implements VoteDao {
 		// TODO Auto-generated method stub
 		return session.selectOne("vote.selectAnswerdMemberCnt", voteNo);
 	}
+
+	@Override
+	public List<VoteAnswer> selectVoteAnswerByVoteNo(int voteNo) {
+		// TODO Auto-generated method stub
+		return session.selectList("vote.selectVoteAnswerByVoteNo", voteNo);
+	}
+
+	@Override
+	public List<String> selectVoteOptionStringList(int voteNo) {
+		// TODO Auto-generated method stub
+		return session.selectList("vote.selectVoteOptionStringList", voteNo);
+	}
 	
 	
 }

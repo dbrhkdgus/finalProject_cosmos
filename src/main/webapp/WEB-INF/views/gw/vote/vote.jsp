@@ -4,6 +4,9 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<!-- 차트 관련 js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+<script src="https://raw.githubusercontent.com/google/palette.js/master/palette.js"></script>
 <fmt:requestEncoding value="utf-8"/> 
 <jsp:include page="/WEB-INF/views/common/gw_header.jsp">
 	<jsp:param value="투표" name="title"/>
@@ -14,45 +17,151 @@
  <div class="groupware-vote-outter">
   	<div class="present-vote-box" style="background: Beige;">
   		<div class="present-vote" style="background: FloralWhite">
-  			<c:if test="${not empty presentVoteInfo }">
+	  		
+	  		<c:if test="${not empty presentVoteInfo }">
+	
+	  				<c:forEach var="presentVote" items="${presentVoteInfo }" >
+						<fmt:formatDate value="${now}" pattern="yyyyMMdd" var="nowDate" /> 
+						<fmt:formatDate value="${presentVote.voteDeadline}" pattern="yyyyMMdd" var="deadline" /> 
+	  					<c:choose>
+			  				<c:when test="${nowDate <= deadline }">
+		  						<div class="vote-view">
+					  				<form id="sendVoteFrm" name="sendVoteFrm" action="">
+					  				<input type="hidden" name="voteNo" value="${presentVote.voteNo }" />
+					  				<input type="hidden" name="voteQuestionNo" value="${presentVote.voteQuestionNo }" />
+							  			<div class="present-vote-title mb-2">
+							  				<div class="isAnsweredVote">
+							  					<c:if test="${voteAnswer == 'Y' }">
+								  					<span id="isSendedVote" style="float: right;">[제출완료]</span>
+							  					</c:if>
+							  				</div>
+							  				<h3 class="vote-title">${presentVote.voteTitle }</h3>
+							  				<h6 class="vote-sub-title"><span>${presentVote.memberName}</span>님의 투표제안입니다.</h6>
+							  				<h6 class="vote-sub-title">투표 마감일 : <span><fmt:formatDate value="${presentVote.voteDeadline}" pattern="MM-dd"/></span>까지</h6>
+							  			</div>
+							  			<div class="vote-question-box">
+							  				<div class="vote-question">
+								  				<p class="vote-question-title text-secondary">${presentVote.voteQuestionTitle }</p>
+								  				<c:forEach var="presentOption" items="${presentVoteOption }">
+									  				<input type="${presentVote.voteQuestionType}" name="voteAnswer" value="${presentOption.voteOption }" required="required"/> ${presentOption.voteOption }
+									  				<c:set var="optionArr" value="${optionArr += '\"' += presentOption.voteOption += '\", '  }"/>
+									  				<c:set var="answerCntArr" value="${answerCntArr += presentOption.answerCnt += ', '  }"/>
+									  				
+								  				</c:forEach>
+							  				</div>
+									  		<c:set var = "length1" value = "${fn:length(optionArr)}"/>
+    									    <c:set var = "optionArr" value = "${fn:substring(optionArr, 0, length1-2)}" />
+									  		<c:set var = "length2" value = "${fn:length(answerCntArr)}"/>
+    									    <c:set var = "answerCntArr" value = "${fn:substring(answerCntArr, 0, length2-2)}" />
+    									   
+							  			</div>
+					  				</form>
+				  				</div>
+				  				<div class="analytics-view" >
+  									 <canvas id="pie-chart" width="800" height="200"></canvas> 
+  									
+  								</div>
+  								<c:if test="${not empty optionArr && not empty answerCntArr}">
+							  		<script>
+								  		/* analytics-view */
+								  		new Chart(document.getElementById("pie-chart"), {
+								  		    type: 'pie',
+								  		    data: {
+								  		      labels: [
+								  		    	
+								  		    	${optionArr }
+								  		    	  
+								  		    	  ],
+								  		      datasets: [{
+								  		        label: "Population (millions)",
+								  		      backgroundColor: [ // 배경 색
+								                  'rgba(255, 99, 132, 0.5)', // red
+								                  'rgba(255, 159, 64, 0.5)', // orange
+								                  'rgba(255, 206, 86, 0.5)', // yellow
+								                  'rgba(75, 192, 192, 0.5)', // green
+								                  'rgba(54, 162, 235, 0.5)', //blue
+								                  'rgba(0, 0, 128, 0.5)' //navy
+								             		 ],
 
-  				<c:forEach var="presentVote" items="${presentVoteInfo }">
-					<fmt:formatDate value="${now}" pattern="yyyyMMdd" var="nowDate" /> 
-					<fmt:formatDate value="${presentVote.voteDeadline}" pattern="yyyyMMdd" var="deadline" /> 
-  					<c:choose>
-		  				<c:when test="${nowDate <= deadline }">
-		  				<form id="sendVoteFrm" name="sendVoteFrm" action="">
-		  				<input type="hidden" name="voteNo" value="${presentVote.voteNo }" />
-		  				<input type="hidden" name="voteQuestionNo" value="${presentVote.voteQuestionNo }" />
-				  			<div class="present-vote-title mb-2">
-				  				<div class="isAnsweredVote">
-				  					<c:if test="${voteAnswer == 'Y' }">
-					  					<span id="isSendedVote" style="float: right;">[제출완료]</span>
-				  					</c:if>
-				  				</div>
-				  				<h3 class="vote-title">${presentVote.voteTitle }</h3>
-				  				<h6 class="vote-sub-title"><span>${presentVote.memberName}</span>님의 투표제안입니다.</h6>
-				  				<h6 class="vote-sub-title">투표 마감일 : <span><fmt:formatDate value="${presentVote.voteDeadline}" pattern="MM-dd"/></span>까지</h6>
-				  			</div>
-				  			<div class="vote-question-box">
-				  				<div class="vote-question">
-					  				<p class="vote-question-title text-secondary">${presentVote.voteQuestionTitle }</p>
-					  				<c:forEach var="presentOption" items="${presentVoteOption }">
-						  				<input type="${presentVote.voteQuestionType}" name="voteAnswer" value="${presentOption.voteOption }" required="required"/> ${presentOption.voteOption }
-					  				</c:forEach>
-				  				</div>
-				  				
-				  			</div>
-		  				</form>
-		  				</c:when>
-		  				<c:otherwise>
-		  					<div class="present-vote-title mb-2">
-				  				<h3 class="vote-title">현재 진행중인 투표가 없습니다.</h3>
-				  			</div>
-		  				</c:otherwise>
-  					</c:choose>
-  				</c:forEach>
-  			</c:if>
+								  		        data: [
+								  		        	
+								  		        	${answerCntArr }
+								  		        	
+								  		        	]
+								  		      }]
+								  		    },
+								  		    options: {
+								  		    	maintainAspectRatio: false,
+								  		    	legend: { position: 'left', display: true },
+		
+								  		      title: {
+								  		        display: true,
+								  		        text: '${presentVote.voteTitle }'
+								  		      }
+								  		    }
+								  		});
+
+							  		</script>
+  								</c:if>
+  								<c:if test="${empty optionArr && empty answerCntArr}">
+  									<c:forEach var="option" items="${optionList }">
+  										<c:set var="optionArr" value="${optionArr += '\"' += option += '\", '  }"/>
+									  	<c:set var="answerCntArr" value="${answerCntArr += 0 += ', '  }"/>
+  									</c:forEach>
+  									<c:set var = "length1" value = "${fn:length(optionArr)}"/>
+    								<c:set var = "optionArr" value = "${fn:substring(optionArr, 0, length1-2)}" />
+									<c:set var = "length2" value = "${fn:length(answerCntArr)}"/>
+    								<c:set var = "answerCntArr" value = "${fn:substring(answerCntArr, 0, length2-2)}" />
+  									<script>
+								  		/* analytics-view */
+								  		new Chart(document.getElementById("pie-chart"), {
+								  		    type: 'pie',
+								  		    data: {
+								  		      labels: [
+								  		    	
+								  		    		${optionArr }
+								  		    	  
+								  		    	  ],
+								  		      datasets: [{
+								  		        label: "Population (millions)",
+								  		        backgroundColor: [ 'rgba(255, 99, 132, 0.5)', // red
+									                  'rgba(255, 159, 64, 0.5)', // orange
+									                  'rgba(255, 206, 86, 0.5)', // yellow
+									                  'rgba(75, 192, 192, 0.5)', // green
+									                  'rgba(54, 162, 235, 0.5)', //blue
+									                  'rgba(0, 0, 128, 0.5)' //navy
+									                  ],
+								  		        data: [
+								  		        	
+								  		        	${answerCntArr }
+								  		        	
+								  		        	]
+								  		      }]
+								  		    },
+								  		    options: {
+								  		    	maintainAspectRatio: false,
+								  		    	legend: { position: 'left', display: true },
+		
+								  		      title: {
+								  		        display: true,
+								  		        text: '${presentVote.voteTitle }'
+								  		      }
+								  		    }
+								  		});
+							  		</script>
+  								
+  								</c:if>
+			  				</c:when>
+			  				<c:otherwise>
+			  					<div class="present-vote-title mb-2">
+						  				<h3 class="vote-title">현재 진행중인 투표가 없습니다.</h3>
+						  		</div>
+			  				</c:otherwise>
+	  					</c:choose>
+	  				</c:forEach>
+		  			
+	  			</c:if>
+
   		</div>
   		<div class="present-vote-control-box">
   		<button id="btn-create-vote" class="vote-controll-btn">투표 생성하기</button>
@@ -60,6 +169,7 @@
   		<button id="btn-analytics-view" class="vote-controll-btn">투표 통계보기</button>
   		<button id="btn-vote-view" class="vote-controll-btn">투표 보기</button>
   		</div>
+  	
   	</div>
   	<div class="old-vote-box">
   		<div class="vote-in-progress" style="background: Beige">
@@ -196,60 +306,24 @@
 <script>
 /* view 전환 */
 $("#btn-vote-view").hide();
+$(".analytics-view").hide();
 $("#btn-analytics-view").click((e)=>{
 	$("#btn-analytics-view").hide();
 	$("#btn-vote-view").show();
-	$(".present-vote").text('
-			
-			');
+	$(".analytics-view").show();
+	$(".vote-view").hide();
+
 });
 $("#btn-vote-view").click((e)=>{
 	$("#btn-vote-view").hide();
 	$("#btn-analytics-view").show();
-	
-	$(".present-vote").text('').append(`
-			<c:if test="${not empty presentVoteInfo }">
-
-				<c:forEach var="presentVote" items="${presentVoteInfo }">
-				<fmt:formatDate value="${now}" pattern="yyyyMMdd" var="nowDate" /> 
-				<fmt:formatDate value="${presentVote.voteDeadline}" pattern="yyyyMMdd" var="deadline" /> 
-					<c:choose>
-	  				<c:when test="${nowDate <= deadline }">
-	  				<form id="sendVoteFrm" name="sendVoteFrm" action="">
-	  				<input type="hidden" name="voteNo" value="${presentVote.voteNo }" />
-	  				<input type="hidden" name="voteQuestionNo" value="${presentVote.voteQuestionNo }" />
-			  			<div class="present-vote-title mb-2">
-			  				<div class="isAnsweredVote">
-			  					<c:if test="${voteAnswer == 'Y' }">
-				  					<span id="isSendedVote" style="float: right;">[제출완료]</span>
-			  					</c:if>
-			  				</div>
-			  				<h3 class="vote-title">${presentVote.voteTitle }</h3>
-			  				<h6 class="vote-sub-title"><span>${presentVote.memberName}</span>님의 투표제안입니다.</h6>
-			  				<h6 class="vote-sub-title">투표 마감일 : <span><fmt:formatDate value="${presentVote.voteDeadline}" pattern="MM-dd"/></span>까지</h6>
-			  			</div>
-			  			<div class="vote-question-box">
-			  				<div class="vote-question">
-				  				<p class="vote-question-title text-secondary">${presentVote.voteQuestionTitle }</p>
-				  				<c:forEach var="presentOption" items="${presentVoteOption }">
-					  				<input type="${presentVote.voteQuestionType}" name="voteAnswer" value="${presentOption.voteOption }" required="required"/> ${presentOption.voteOption }
-				  				</c:forEach>
-			  				</div>
-			  				
-			  			</div>
-	  				</form>
-	  				</c:when>
-	  				<c:otherwise>
-	  					<div class="present-vote-title mb-2">
-			  				<h3 class="vote-title">현재 진행중인 투표가 없습니다.</h3>
-			  			</div>
-	  				</c:otherwise>
-					</c:choose>
-				</c:forEach>
-			</c:if>
-			`);
+	$(".analytics-view").hide();
+	$(".vote-view").show();
 	
 });
+
+
+
 /* 투표생성 모달창 제어 */
 $("#btn-create-vote").click((e)=>{
 	/* 투표마감일 기본값 세팅 */

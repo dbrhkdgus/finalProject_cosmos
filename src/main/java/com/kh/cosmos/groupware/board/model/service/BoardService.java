@@ -13,7 +13,7 @@ public interface BoardService {
 
 	int createBoardRoom(Board board);
 
-	List<Post> selectAllPostInBoard(int boardNo, int limit, int offset);
+	List<Post> selectAllPostInBoard(int boardNo);
 
 	List<Post> selectAllPostInNotice(int boardNo, int limit, int offset);
 
@@ -66,5 +66,10 @@ public interface BoardService {
 	int updatePostReply(Reply reply);
 
 	int deletePostReply(Reply reply);
+
+	List<Post> selectBoardListByParam(Map<String, Object> param, int limit, int offset);
+
+	int insertAnonymousReply(Reply reply);
+
 
 }
