@@ -33,4 +33,8 @@ public interface VoteDao {
 
 	int selectAnswerdMemberCnt(int voteNo);
 
+	List<VoteAnswer> selectVoteAnswerByVoteNo(int voteNo);
+
+	List<String> selectVoteOptionStringList(int voteNo);
+
 }
