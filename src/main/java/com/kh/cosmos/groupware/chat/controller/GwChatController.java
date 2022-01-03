@@ -205,7 +205,6 @@ public class GwChatController {
 			dmList.add(chatService.selectMynewDM(param));
 		}
 		
-		
 		return dmList;
 		
 	}
