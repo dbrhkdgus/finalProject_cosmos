@@ -27,9 +27,8 @@ public class BoardDaoImpl implements BoardDao {
 	}
 
 	@Override
-	public List<Post> selectAllPostInBoard(int boardNo, int limit, int offset) {
-		RowBounds rowBounds = new RowBounds(offset, limit);
-		return session.selectList("board.selectAllPostInBoard", boardNo, rowBounds);
+	public List<Post> selectAllPostInBoard(int boardNo) {
+		return session.selectList("board.selectAllPostInBoard", boardNo);
 	}
 
 	@Override
@@ -188,6 +187,12 @@ public class BoardDaoImpl implements BoardDao {
 		return session.update("board.deletePostReply", reply);
 	}
 
+	@Override
+	public List<Post> selectBoardListByParam(Map<String, Object> param, int limit, int offset) {
+		// TODO Auto-generated method stub
+		return session.selectList("board.selectBoardListByParam", param);
+	}
+	
 	@Override
 	public int insertAnonymousReply(Reply reply) {
 		// TODO Auto-generated method stub

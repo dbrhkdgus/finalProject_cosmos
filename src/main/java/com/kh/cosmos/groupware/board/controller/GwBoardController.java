@@ -30,6 +30,7 @@ import com.kh.cosmos.group.model.vo.Group;
 import com.kh.cosmos.groupware.board.model.service.BoardService;
 import com.kh.cosmos.groupware.board.model.vo.Board;
 import com.kh.cosmos.groupware.board.model.vo.Post;
+import com.kh.cosmos.groupware.board.model.vo.PostWithCategory;
 import com.kh.cosmos.groupware.chat.model.vo.ChatRoom;
 import com.kh.cosmos.groupware.service.GroupwareService;
 import com.kh.cosmos.main.model.service.MainService;
@@ -71,10 +72,26 @@ public class GwBoardController {
 		String pagebar = CosmosUtils.getPagebar(cPage, limit, totalContent, url);
 		model.addAttribute("pagebar", pagebar);
 
-		List<Post> boardPostList = boardService.selectAllPostInBoard(boardNo, limit, offset);
+		Map<String, Object> param = new HashMap<String, Object>();
+		List<Post> boardPostList = new ArrayList<Post>();
+		String searchType = request.getParameter("searchType");
+		String searchKeyword = request.getParameter("searchKeyword");
+		param.put("searchType", searchType);
+		param.put("searchKeyword", searchKeyword);
+				
+		boardPostList = boardService.selectBoardListByParam(param,limit,offset);		
+		model.addAttribute("boardPostList",boardPostList);
+		
+		boolean isListempty = false;
+		if(boardPostList.isEmpty()) {
+			isListempty = true;
+		}
+		
+		log.debug("isListempty ={}" ,isListempty );
+		model.addAttribute("isListempty",isListempty);
+
 		Board board = boardService.selectBoardByBoardNo(boardNo);
 		log.debug("boardPostList = {}", boardPostList);
-		model.addAttribute("boardPostList", boardPostList);
 		model.addAttribute("boardNo", boardNo);
 		model.addAttribute("groupNo", groupNo);
 		model.addAttribute("title", "# " + board.getBoardName());
