@@ -14,6 +14,8 @@
 </style>
  <div class="workspace-box">
 	<div class="p-4">
+	 <div class="test-board-title">
+	</div> 
 	<form action="${pageContext.request.contextPath}/gw/board/board.do?boardNo=${boardNo}&groupNo=${groupNo}" method="get">
 	    <div class="test-board-search">
 	    	 <select name="searchType" class="form-select search-select" aria-label="Default select example">
@@ -29,7 +31,6 @@
 		   </div>   
 		</div>       
     </form>
-    
 
   <table class="table file-board-table">
     <thead>
