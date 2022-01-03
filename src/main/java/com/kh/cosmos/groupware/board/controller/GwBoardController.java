@@ -72,12 +72,22 @@ public class GwBoardController {
 		String pagebar = CosmosUtils.getPagebar(cPage, limit, totalContent, url);
 		model.addAttribute("pagebar", pagebar);
 
+		// MemberWithGroupList 불러오기
+		List<MemberWithGroup> memberWithGroupList = boardService.memberWithGroupList(groupNo);
+		
+		// memberId, nickname map에 담기
+		Map<String, String> memberWithGroupMap = new HashMap<>();
+		for (MemberWithGroup memberWithGroup : memberWithGroupList) {
+			memberWithGroupMap.put(memberWithGroup.getId(), memberWithGroup.getNickname());
+		}
+		
 		List<Post> boardPostList = boardService.selectAllPostInNotice(boardNo, limit, offset);
 		Board board = boardService.selectBoardByBoardNo(boardNo);
 		log.debug("noticePostList = {}", boardPostList);
 		model.addAttribute("boardPostList", boardPostList);
 		model.addAttribute("boardNo", boardNo);
 		model.addAttribute("groupNo", groupNo);
+		model.addAttribute("memberWithGroupMap", memberWithGroupMap);
 		model.addAttribute("title", "# " + board.getBoardName());
 
 		return "gw/board/board";

@@ -67,8 +67,11 @@ public class GwVoteController {
 		//log.debug("voteNo is null? = {}", voteNo==null);
 		model.addAttribute("title", "투표");
 		if(voteNo == 0) {
-			voteNo = voteService.selectGroupNewVoteNOByGroupNo(groupNo);
-			
+			try {
+				voteNo = voteService.selectGroupNewVoteNOByGroupNo(groupNo);
+			} catch (Exception e) {
+				voteNo = 0;
+			}
 		}
 		
 		Map<String, Object> param = new HashMap<>();
@@ -77,7 +80,8 @@ public class GwVoteController {
 		List<VoteInfo> _groupVoteInfoList = voteService.selectVoteInfoByParam(param);
 		List<VoteInfo> presentVoteInfo = voteService.selectVoteInfoListByVoteNo(voteNo);
 		List<VoteInfo> groupVoteInfoList = new ArrayList<VoteInfo>();
-		List<VoteOption> presentVoteOption = voteService.selectVoteOptionByVoteNo(voteNo);
+		List<VoteOption> presentVoteOption = voteService.selectPresentVoteOptionByVoteNo(voteNo);
+		List<VoteOption> presentVoteOptionForChart = voteService.selectVoteOptionByVoteNo(voteNo);
 		List<String> optionList = voteService.selectVoteOptionStringList(voteNo);
 		// 이미 제출된 투표가 있는지 확인
 		VoteAnswer voteAnswer = new VoteAnswer();
@@ -101,11 +105,61 @@ public class GwVoteController {
 		}
 		
 		model.addAttribute("optionList",optionList);
+		model.addAttribute("presentVoteOptionForChart",presentVoteOptionForChart);
 		model.addAttribute("presentVoteInfo",presentVoteInfo);
 		model.addAttribute("presentVoteOption",presentVoteOption);
 		model.addAttribute("groupVoteInfoList",groupVoteInfoList);
 	}
-	
+	@GetMapping("/voteHistory.do")
+	public void voteHistory(int groupNo, Model model, Authentication auth, @RequestParam(value = "voteNo", defaultValue = "0") int voteNo) {
+		log.debug("voteNo = {}", voteNo);
+		groupwareHeaderSet(groupNo, model, auth);
+		//log.debug("voteNo is null? = {}", voteNo==null);
+		model.addAttribute("title", "투표");
+		if(voteNo == 0) {
+			try {
+				voteNo = voteService.selectGroupNewVoteNOByGroupNo(groupNo);
+			} catch (Exception e) {
+				voteNo = 0;
+			}
+		}
+		
+		Map<String, Object> param = new HashMap<>();
+		param.put("groupNo", groupNo);
+		param.put("voteNo", voteNo);
+		List<VoteInfo> _groupVoteInfoList = voteService.selectVoteInfoByParam(param);
+		List<VoteInfo> presentVoteInfo = voteService.selectVoteInfoListByVoteNo(voteNo);
+		List<VoteInfo> groupVoteInfoList = new ArrayList<VoteInfo>();
+		List<VoteOption> presentVoteOption = voteService.selectPresentVoteOptionByVoteNo(voteNo);
+		List<VoteOption> presentVoteOptionForChart = voteService.selectVoteOptionByVoteNo(voteNo);
+		List<String> optionList = voteService.selectVoteOptionStringList(voteNo);
+		// 이미 제출된 투표가 있는지 확인
+		VoteAnswer voteAnswer = new VoteAnswer();
+		for(VoteInfo vi : presentVoteInfo) {
+			voteAnswer.setMemberId(((Member)auth.getPrincipal()).getId());
+			voteAnswer.setVoteNo(voteNo);
+			voteAnswer.setVoteQuestionNo(vi.getVoteQuestionNo());	
+		}
+		
+		// 투표한 인원 업데이트
+		for(VoteInfo vi : _groupVoteInfoList) {
+			vi.setAnsweredMemberCnt(voteService.selectAnswerdMemberCnt(vi.getVoteNo()));
+			groupVoteInfoList.add(vi);
+		}
+		
+		int result = voteService.selectVoteAnswer(voteAnswer);
+		if(result > 0) {
+			model.addAttribute("voteAnswer","Y");
+		}else {
+			model.addAttribute("voteAnswer","N");
+		}
+		
+		model.addAttribute("optionList",optionList);
+		model.addAttribute("presentVoteOptionForChart",presentVoteOptionForChart);
+		model.addAttribute("presentVoteInfo",presentVoteInfo);
+		model.addAttribute("presentVoteOption",presentVoteOption);
+		model.addAttribute("groupVoteInfoList",groupVoteInfoList);
+	};
 	
 	@PostMapping("/createVote.do")
 	public String createVote(int groupNo, Vote vote, VoteQuestion voteQuestion, String voteQuestionOption, Authentication auth) {
@@ -123,13 +177,14 @@ public class GwVoteController {
 		result = voteService.insertVoteQuestion(voteQuestion);
 		
 		//voteOption 인서트
-		  String[] questionOptionArr = voteQuestionOption.split(","); List<String>
-		  questionOptionList = Arrays.asList(questionOptionArr); 
+		  String[] questionOptionArr = voteQuestionOption.split(","); 
+		  List<String> questionOptionList = Arrays.asList(questionOptionArr); 
 		  for(String option :questionOptionList) {
 			  VoteOption voteOption = new VoteOption();
 			  voteOption.setVoteNo(vote.getVoteNo());
 			  voteOption.setVoteQuestionNo(1);
 			  voteOption.setVoteOption(option);
+			  log.debug("voteOption = {}",voteOption);
 			  result = voteService.insertVoteOption(voteOption);
 		  
 		  }
@@ -154,8 +209,17 @@ public class GwVoteController {
 		if(result > 0) {
 			return 0;
 		}else {
-			result = voteService.insertVoteAnswer(voteAnswer);			
+			String[] answerArr = voteAnswer.getVoteAnswer().split(","); 
+			List<String> answerList = Arrays.asList(answerArr);
+			
+			for(String answer : answerList) {
+				voteAnswer.setVoteAnswer(answer);
+				result = voteService.insertVoteAnswer(voteAnswer);			
+			}
+			
 		}
+		
+		
 		return result;
 	}
 	@ResponseBody
