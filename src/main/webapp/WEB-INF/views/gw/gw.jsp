@@ -14,7 +14,7 @@
 			<c:forEach var="attach" items="${groupBannerAttachList }">
 				<c:if test="${myGroup.groupNo == attach.groupNo }">
 					<%-- <img src="${pageContext.request.contextPath }/resources/upFile/group/${attach.renamedFilename}" alt="" /> --%>
-					<img class="groupware-main-banner" src="${pageContext.request.contextPath }/resources/upFile/group/20211220_172447483_398.jpg" alt="" />
+					<img class="groupware-main-banner" src="${pageContext.request.contextPath }/resources/upFile/group/${attach.renamedFilename}" alt="" />
 				</c:if>
 			</c:forEach>
 		</div>
@@ -23,9 +23,9 @@
 			<div class="groupware-main-notice" >
 				<h3>공지사항</h3>
 				<ul>
-					<li>공지사항</li>
-					<li>공지사항</li>
-					<li>공지사항</li>
+					<c:forEach var="notice" items="${noticePostList}">
+						<li><a href="${pageContext.request.contextPath }/gw/board/boardDetail.do?postNo=${notice.postNo}">${notice.postTitle }</a></li>
+					</c:forEach>
 				</ul>
 			</div>
 			<!-- 메인페이지 달력-->
