@@ -67,4 +67,6 @@ public interface BoardService {
 
 	int deletePostReply(Reply reply);
 
+	int insertAnonymousReply(Reply reply);
+
 }

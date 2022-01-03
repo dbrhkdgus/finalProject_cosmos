@@ -101,7 +101,13 @@ public class GwBoardController {
 
 		int limit = 10;
 		int offset = (cPage - 1) * limit;
-		
+		int totalContent = boardService.selectPostInBoardTotalCount(boardNo);
+		model.addAttribute("totalContent", totalContent);
+		String url = request.getRequestURI();
+		url += "?boardNo=" + boardNo + "&groupNo=" + groupNo;
+		String pagebar = CosmosUtils.getPagebar(cPage, limit, totalContent, url);
+		model.addAttribute("pagebar", pagebar);
+
 		List<Post> noticePostList = boardService.selectAllPostInNotice(boardNo, limit, offset);
 		Board board = boardService.selectBoardByBoardNo(boardNo);
 		log.debug("noticePostList = {}", noticePostList);
@@ -109,15 +115,6 @@ public class GwBoardController {
 		model.addAttribute("boardNo", boardNo);
 		model.addAttribute("groupNo", groupNo);
 		model.addAttribute("title", "# " + board.getBoardName());
-
-		int totalContent = boardService.selectPostInBoardTotalCount(boardNo);
-		log.debug("totalContent = {}", totalContent);
-		model.addAttribute("totalContent", totalContent);
-
-		String url = request.getRequestURI();
-		String pagebar = CosmosUtils.getPagebar(cPage, limit, totalContent, url);
-
-		model.addAttribute("pagebar", pagebar);
 
 		return "gw/board/notice";
 	}
@@ -444,11 +441,33 @@ public class GwBoardController {
 		try {
 			int result = boardService.insertPostReply(reply);
 
-			String msg = result > 0 ? "댓글 등록 성공!" : "댓글 등록 실패!";
-			redirectAttr.addFlashAttribute("msg", msg);
 		} catch (Exception e) {
 			log.error(e.getMessage(), e); // 
 		 	redirectAttr.addFlashAttribute("msg", "댓글 등록 실패");
+		}
+		Post post = boardService.selectOnePostInBoard(postNo);
+		Board board = boardService.selectBoardByBoardNo(post.getBoardNo());
+		if(board.getBoardType() == 'A') {
+			return "redirect:/gw/board/anonymousDetail.do?postNo=" + postNo;
+		} else {
+			return "redirect:/gw/board/boardDetail.do?postNo=" + postNo;
+		}
+	}
+	
+	@PostMapping("anonymousReplyEnroll.do")
+	public String anonymousReplyEnroll(Reply reply, int postNo, int replyLevel, int replyRef, RedirectAttributes redirectAttr, Authentication authentication, HttpServletRequest request) {
+		Member member = (Member)authentication.getPrincipal();
+		reply.setMemberId(member.getId());
+		reply.setPostNo(postNo);
+		reply.setReplyLevel(replyLevel);
+		reply.setReplyRef(replyRef);
+		
+		try {
+			int result = boardService.insertAnonymousReply(reply);
+			
+		} catch (Exception e) {
+			log.error(e.getMessage(), e); // 
+			redirectAttr.addFlashAttribute("msg", "댓글 등록 실패");
 		}
 		Post post = boardService.selectOnePostInBoard(postNo);
 		Board board = boardService.selectBoardByBoardNo(post.getBoardNo());
@@ -594,6 +613,12 @@ public class GwBoardController {
 
 		int limit = 10;
 		int offset = (cPage - 1) * limit;
+		int totalContent = boardService.selectPostInBoardTotalCount(boardNo);
+		model.addAttribute("totalContent", totalContent);
+		String url = request.getRequestURI();
+		url += "?boardNo=" + boardNo + "&groupNo=" + groupNo;
+		String pagebar = CosmosUtils.getPagebar(cPage, limit, totalContent, url);
+		model.addAttribute("pagebar", pagebar);
 
 		List<Post> anonymousPostList = boardService.selectAllPostInAnonymous(boardNo, limit, offset);
 		Board board = boardService.selectBoardByBoardNo(boardNo);
@@ -602,15 +627,6 @@ public class GwBoardController {
 		model.addAttribute("boardNo", boardNo);
 		model.addAttribute("groupNo", groupNo);
 		model.addAttribute("title", "# " + board.getBoardName());
-
-		int totalContent = boardService.selectPostInBoardTotalCount(boardNo);
-		log.debug("totalContent = {}", totalContent);
-		model.addAttribute("totalContent", totalContent);
-
-		String url = request.getRequestURI();
-		String pagebar = CosmosUtils.getPagebar(cPage, limit, totalContent, url);
-
-		model.addAttribute("pagebar", pagebar);
 
 		return "gw/board/anonymous";
 	}

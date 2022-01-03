@@ -186,6 +186,12 @@ public class BoardServiceImpl implements BoardService {
 		return boardDao.deletePostReply(reply);
 	}
 
+	@Override
+	public int insertAnonymousReply(Reply reply) {
+		// TODO Auto-generated method stub
+		return boardDao.insertAnonymousReply(reply);
+	}
+
 
 	
 	

@@ -187,6 +187,12 @@ public class BoardDaoImpl implements BoardDao {
 		// TODO Auto-generated method stub
 		return session.update("board.deletePostReply", reply);
 	}
+
+	@Override
+	public int insertAnonymousReply(Reply reply) {
+		// TODO Auto-generated method stub
+		return session.insert("board.insertAnonymousReply", reply);
+	}
 	
 
 }
