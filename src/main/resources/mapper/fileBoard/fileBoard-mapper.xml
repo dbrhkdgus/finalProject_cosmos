@@ -36,7 +36,8 @@
   		current_date,
   		null,
   		#{attachNo},
-  		#{boardCategoryNo}
+  		#{boardCategoryNo},
+  		null
   		)
   	
   </insert>
