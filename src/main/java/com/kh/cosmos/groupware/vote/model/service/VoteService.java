@@ -37,4 +37,6 @@ public interface VoteService {
 
 	List<String> selectVoteOptionStringList(int voteNo);
 
+	List<VoteOption> selectPresentVoteOptionByVoteNo(int voteNo);
+
 }

@@ -105,7 +105,7 @@
             <div class="member-profile-img-box">
 	           <c:choose>
 		          	<c:when test="${fn:startsWith(user.renamedFilename,'http')}">
-						<img class="member-profile-img" src="${profile}" alt="" style="width: 30px"/>
+						<img class="member-profile-img" src="${user.renamedFilename}" alt="" style="width: 30px"/>
 						<input type="hidden" name="profile_owner" value="${user.memberId }"/>
 					</c:when>
 					<c:otherwise>
@@ -151,7 +151,7 @@
 	          <div class="member-profile-img-box btn-profile2">
 	            <c:choose>
 	          	<c:when test="${fn:startsWith(user.renamedFilename,'http')}">
-					<img class="member-profile-img" src="${profile}" alt="" style="width: 30px"/>
+					<img class="member-profile-img" src="${user.renamedFilename}" alt="" style="width: 30px"/>
 					<input type="hidden" name="profile_owner" value="${user.memberId }"/>
 				</c:when>
 				<c:otherwise>
