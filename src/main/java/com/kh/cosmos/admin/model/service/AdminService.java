@@ -3,8 +3,6 @@ package com.kh.cosmos.admin.model.service;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.ui.Model;
-
 import com.kh.cosmos.admin.model.vo.EnrollMemberByMonth;
 import com.kh.cosmos.admin.model.vo.GenderData;
 import com.kh.cosmos.admin.model.vo.SevenDaysData;
@@ -48,5 +46,7 @@ public interface AdminService {
 	GenderData genderData();
 
 	List<EnrollMemberByMonth> EnrollMemberByMonth(Map<String, Object> param);
+
+	int selectAllBoardTotalCount();
 
 }

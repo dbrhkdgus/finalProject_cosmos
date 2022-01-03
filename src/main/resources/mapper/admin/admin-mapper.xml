@@ -283,5 +283,10 @@
 	ORDER BY 
 	    b.dt   
   </select>
-
+	<select id="selectAllBoardTotalCount">
+		select 
+			count(*) 
+		from 
+			post
+	</select>
 </mapper>

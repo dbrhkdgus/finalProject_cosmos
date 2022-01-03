@@ -5,7 +5,8 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
+
+import com.kh.cosmos.admin.model.vo.EnrollMemberByMonth;
 
 import com.kh.cosmos.admin.model.dao.AdminDao;
 import com.kh.cosmos.admin.model.vo.GenderData;
@@ -96,8 +97,14 @@ public class AdminServiceImpl implements AdminService{
 	}
 
 	@Override
-	public List<com.kh.cosmos.admin.model.vo.EnrollMemberByMonth> EnrollMemberByMonth(Map<String, Object> param) {
+	public List<EnrollMemberByMonth> EnrollMemberByMonth(Map<String, Object> param) {
 		return adminDao.EnrollMemberByMonth(param);
+	}
+
+	@Override
+	public int selectAllBoardTotalCount() {
+		// TODO Auto-generated method stub
+		return adminDao.selectAllBoardTotalCount();
 	}
 
 	

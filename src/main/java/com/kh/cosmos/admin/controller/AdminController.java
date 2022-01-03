@@ -159,7 +159,17 @@ public class AdminController {
 	}
 
 	@GetMapping("/board.do")
-	public String board() {
+	public String board(@RequestParam(defaultValue = "1") int cPage, Model model, HttpServletRequest request) {
+		int limit = 10;
+		int offset = (cPage - 1) * limit;
+		int totalContent = adminService.selectAllBoardTotalCount();
+		String url = request.getRequestURI();
+		String pagebar = CosmosUtils.getPagebar(cPage, limit, totalContent, url);
+		
+		List<> list = mainService.selectAllBoardList(limit, offset);
+		model.addAttribute("list", list);
+		model.addAttribute("pagebar", pagebar);
+		
 		return "admin/board";
 	}
 

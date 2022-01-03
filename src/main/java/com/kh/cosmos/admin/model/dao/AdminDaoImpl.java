@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.kh.cosmos.admin.model.vo.EnrollMemberByMonth;
 import com.kh.cosmos.admin.model.vo.GenderData;
 import com.kh.cosmos.admin.model.vo.SevenDaysData;
 import com.kh.cosmos.common.attachment.model.vo.Attachment;
@@ -100,8 +101,14 @@ public class AdminDaoImpl implements AdminDao {
 	}
 
 	@Override
-	public List<com.kh.cosmos.admin.model.vo.EnrollMemberByMonth> EnrollMemberByMonth(Map<String, Object> param) {
+	public List<EnrollMemberByMonth> EnrollMemberByMonth(Map<String, Object> param) {
 		return session.selectList("admin.EnrollMemberByMonth", param);
+	}
+
+	@Override
+	public int selectAllBoardTotalCount() {
+		// TODO Auto-generated method stub
+		return session.selectOne("admin.selectAllBoardTotalCount");
 	}
 
 }
