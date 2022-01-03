@@ -464,8 +464,6 @@ public class GwBoardController {
 		try {
 			int result = boardService.insertAnonymousReply(reply);
 			
-			String msg = result > 0 ? "댓글 등록 성공!" : "댓글 등록 실패!";
-			redirectAttr.addFlashAttribute("msg", msg);
 		} catch (Exception e) {
 			log.error(e.getMessage(), e); // 
 			redirectAttr.addFlashAttribute("msg", "댓글 등록 실패");

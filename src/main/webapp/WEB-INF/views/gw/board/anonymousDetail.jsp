@@ -39,32 +39,34 @@
   		${post.postContent }
   </div>
 
+  <!-- 댓글 작성 폼 -->
   <div class="card mb-2">
 	<div class="card-header bg-light">
   	</div>
-  <form:form action="${pageContext.request.contextPath }/gw/board/anonymousReplyEnroll.do" method="post" >
+  <form:form name="anonymousRepEnrollFrm" action="${pageContext.request.contextPath }/gw/board/anonymousReplyEnroll.do" method="post" >
   	<div class="input-group mt-3 pl-2 pr-2 mx-auto">
 		<span class="input-group-text" id="inputGroup-sizing-default">비밀번호</span>
-		<input id="pw" name="replyPw" type="text" class="form-control" pattern="\d{4}" onChange="checkNumber()" maxlength="4" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="숫자 4자리를 입력해 주세요.">
+		<input id="pw" name="replyPw" type="text" class="form-control" onChange="checkNumber()" maxlength="4" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="숫자 4자리를 입력해 주세요.">
 	</div>
 	<div class="d-flex mt-2 ml-2 mr-2">
 		<input type="hidden" value="${post.postNo}" name ="postNo">
 		<input type="hidden" value="1" name ="replyLevel">
 		<input type="hidden" name="replyRef" value="0" />
 		
-		<input type="text" class="form-control" placeholder="댓글을 입력하세요." name="content">
-		<button type="submit" class="btn btn-dark ml-1 board-post-rep-btn-enroll">등록</button>
+		<input id="rep-con" type="text" class="form-control" placeholder="댓글을 입력하세요." name="content">
+		<input type="button" id="btn-send" class="btn btn-dark ml-1 board-post-rep-btn-enroll" value="등록">
 	</div>
   </form:form>
   
+    <!-- 댓글 수정/삭제 폼 -->
 	<div class="post-rep-box ml-2 mr-2 mb-2">
 		<c:forEach items="${replyList}" var="reply">
 		  <c:if test="${reply.replyLevel == 1 && reply.deleteYn eq 'N'}">
 			<hr class="border-0">
 			<form:form name="postRepUpdateFrm" action="${pageContext.request.contextPath }/gw/board/deleteUpdateReply.do" method="post">
-			<div class="d-flex justify-content-between align-items-end">
+			<div class="d-flex">
 			
-				<div class="d-flex align-items-center">
+				<div class="w-100 align-items-center">
 					  <div class="rep-profile">
 						<div class="p-0 bd-highlight">
 							<c:choose>
@@ -80,7 +82,7 @@
 						<div class="p-0 flex-grow-1 bd-highlight"><span>${reply.content}</span></div>
 					  </div>
 				  </div>
-				  <div class="rep-btn-box">
+				  <div class="mt-4 ml-2 rep-btn-box" style="width: 20%;">
 						<input type="button" value="수정" class="btn-transform btn p-1" style="margin-bottom: 0px; font-size:12px" />
 						<input type="button" value="등록" class="btn-enroll btn p-1" style="margin-bottom: 0px; font-size:12px" />
 						<input type="button" value="삭제" class="btn-delete btn p-1" style="margin-bottom: 0px; font-size:12px" />
@@ -90,22 +92,27 @@
 						<button class="btn p-1 re-rep-btn" type="button" style="margin-bottom: 0px; font-size:12px">댓글쓰기</button>
 				  </div>
 			  </div>
-					
+				
+				<!-- 대댓글 작성 폼 -->
 				</form:form>
-				<form:form name ="postReRepEnrollFrm" action="${pageContext.request.contextPath }/gw/board/postReplyEnroll.do" method="post" >	
-		            <div class="d-flex align-items-center mt-2">
+				<form:form name ="anonymousReRepEnrollFrm" action="${pageContext.request.contextPath }/gw/board/anonymousReplyEnroll.do" method="post" >	
+		            <div class="input-group mt-3 pl-2 pr-2 mx-auto">
 		            	<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi mr-1 bi-arrow-return-right" viewBox="0 0 16 16">
 						  <path fill-rule="evenodd" d="M1.5 1.5A.5.5 0 0 0 1 2v4.8a2.5 2.5 0 0 0 2.5 2.5h9.793l-3.347 3.346a.5.5 0 0 0 .708.708l4.2-4.2a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 8.3H3.5A1.5 1.5 0 0 1 2 6.8V2a.5.5 0 0 0-.5-.5z"/>
 						</svg>
-						<input type="text" class="form-control" name="content" placeholder="댓글을 입력하세요." />
+						<span class="input-group-text" id="inputGroup-sizing-default">비밀번호</span>
+						<input id="reRepPw" name="replyPw" type="text" class="form-control" onChange="checkNumber()" maxlength="4" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="숫자 4자리를 입력해 주세요.">
+					</div>
+		            <div class="d-flex align-items-center mt-2">
+						<input type="text" id="re-rep-con" class="form-control" name="content" placeholder="댓글을 입력하세요." />
 						<input type="hidden" value="${post.postNo}" name ="postNo">
 						<input type="hidden" value="2" name ="replyLevel">
 						<input type="hidden" name="replyRef" value="${reply.replyNo}" />
-						<input type="submit" class="btn btn-dark ml-2" value="등록" />
+						<input type="button" id="btn-re-rep-send" class="btn btn-dark ml-1 board-post-rep-btn-enroll" value="등록">
 		            </div>
 	            </form:form>
 	            
-	            
+	            <!-- 대댓글 수정/삭제 폼 -->
 	            <c:forEach items="${replyList}" var="reRep">
 					<c:if test="${reply.replyNo == reRep.replyRef && reRep.deleteYn eq 'N'}">
 					
@@ -158,6 +165,8 @@
 	            	</c:if>
 	            </c:forEach>
 	            </c:if>
+	            
+	            <!-- 삭제된 댓글 -->
 	            <c:if test="${reply.replyLevel == 1 && reply.deleteYn eq 'Y'}">
 	            	<hr class="border-0">
 	            	<p class="mt-4 mb-4 ml-2">삭제된 댓글입니다.</p>
@@ -277,6 +286,18 @@
 
 
 <script>
+function checkNumber() {
+	var objEv = event.srcElement;
+	var numPattern = /([^0-9])/;
+	var numPattern = objEv.value.match(numPattern);
+	if (numPattern != null) {
+		alert("숫자만 입력하세요");
+		objEv.value = "";
+		objEv.focus();
+		return false;
+	}
+}
+
 /* 댓글 스크립트 */
 $(".btn-enroll").hide();
 
@@ -291,7 +312,7 @@ $(".btn-transform").on('click', (e)=> {
 	$(e.target).next().show();
 	var oldContent = $(e.target).parent().parent("div").find("span").eq(2).text();
 	$(e.target).parent().parent("div").find("span").eq(2).html('');
-	$(e.target).parent().parent("div").find("span").eq(2).html(`<input type="text" name="content" class="form-control" value = "\${oldContent}" />`);
+	$(e.target).parent().parent("div").find("span").eq(2).html(`<input type="text" id="re-rep-modify-input" name="content" class="form-control" value = "\${oldContent}" />`);
 });
 
 $(".btn-delete").click((e) => {
@@ -302,24 +323,75 @@ $(".btn-delete").click((e) => {
 });
 
 /* 대댓글 스크립트 */
-$(document.postReRepEnrollFrm).hide();
+$(document.anonymousReRepEnrollFrm).hide();
 
 $('.re-rep-btn').on('click', (e)=> {
 	$(e.target).parent().parent().parent().next().slideToggle(500);
 });
 
+/* 비밀번호 유효성 */
 function checkNumber() {
 	var objEv = event.srcElement;
 	var numPattern = /([^0-9])/;
 	var numPattern = objEv.value.match(numPattern);
 	if (numPattern != null) {
-		alert("숫자만 입력하세요");
+		alert("비밀번호는 숫자 4자리로 입력해주세요.");
 		objEv.value = "";
 		objEv.focus();
 		return false;
 	}
-
 }
+
+$("[name=anonymousRepEnrollFrm]").submit(function(){
+	var $pw = $("#pw");
+	if(/^\w{4}$/.test($pw.val()) == false) {
+		alert("비밀번호는 숫자 4자리로 입력해주세요.");
+		$pw.focus();
+		return false;
+	}
+		return true;
+});
+
+
+/* 댓글 대댓글 제출 */
+$("#btn-send").click((e)=>{
+	if($('#rep-con').val() != null && $('#rep-con').val() != ''){
+	}else{
+		alert("내용을 입력해주세요.");
+		return;
+	}
+ 	if($(pw).val() != null && $(pw).val() != ''){
+	}else{
+		alert("비밀번호는 숫자 4자리로 입력해주세요.ㅇㅇ");
+		return;
+	}
+
+	$(document.anonymousRepEnrollFrm).submit();
+});
+
+$("[name=anonymousReRepEnrollFrm]").submit(function(){
+	var $reRepPw = $("#reRepPw");
+	if(/^\w{4}$/.test($reRepPw.val()) == false) {
+		alert("비밀번호는 숫자 4자리로 입력해주세요.");
+		$pw.focus();
+		return false;
+	}
+		return true;
+});
+$("#btn-re-rep-send").click((e)=>{
+	if($('#re-rep-con').val() != null && $('#re-rep-con').val() != ''){
+	}else{
+		alert("내용을 입력해주세요.");
+		return;
+	}
+ 	if($(reRepPw).val() != null && $(reRepPw).val() != ''){
+	}else{
+		alert("비밀번호는 숫자 4자리로 입력해주세요.ㅇㅇ");
+		return;
+	}
+
+	$(document.anonymousReRepEnrollFrm).submit();
+});
 
  $(".close-modal").click((e)=>{
 	 $("#deleteAnonymousModal").modal('hide');
