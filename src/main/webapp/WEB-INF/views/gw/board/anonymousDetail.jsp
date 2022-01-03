@@ -39,12 +39,12 @@
   		${post.postContent }
   </div>
 
-  <!-- 댓글 작성 폼 -->
+    <!-- 댓글 작성 폼 -->  
   <div class="card mb-2">
 	<div class="card-header bg-light">
-  	</div>
-  <form:form name="anonymousRepEnrollFrm" action="${pageContext.request.contextPath }/gw/board/anonymousReplyEnroll.do" method="post" >
-  	<div class="input-group mt-3 pl-2 pr-2 mx-auto">
+  </div>
+  <form:form name="anonymousReplyEnrollFrm" action="${pageContext.request.contextPath }/gw/board/anonymousReplyEnroll.do" method="post" >
+	<div class="input-group mt-3 pl-2 pr-2 mx-auto">
 		<span class="input-group-text" id="inputGroup-sizing-default">비밀번호</span>
 		<input id="pw" name="replyPw" type="text" class="form-control" onChange="checkNumber()" maxlength="4" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="숫자 4자리를 입력해 주세요.">
 	</div>
@@ -54,61 +54,68 @@
 		<input type="hidden" name="replyRef" value="0" />
 		
 		<input id="rep-con" type="text" class="form-control" placeholder="댓글을 입력하세요." name="content">
-		<input type="button" id="btn-send" class="btn btn-dark ml-1 board-post-rep-btn-enroll" value="등록">
+		<input type="button" id="btn-send" class="btn btn-dark ml-1" value="등록">
 	</div>
   </form:form>
   
-    <!-- 댓글 수정/삭제 폼 -->
+  	<!-- 댓글 수정/삭제 폼 -->
 	<div class="post-rep-box ml-2 mr-2 mb-2">
 		<c:forEach items="${replyList}" var="reply">
 		  <c:if test="${reply.replyLevel == 1 && reply.deleteYn eq 'N'}">
 			<hr class="border-0">
-			<form:form name="anonymousRepUpdateFrm" action="${pageContext.request.contextPath }/gw/board/deleteUpdateReply.do" method="post">
-			<div class="d-flex">
+			<form:form name="postRepUpdateFrm" action="${pageContext.request.contextPath }/gw/board/deleteUpdateReply.do" method="post">
+			<div class="d-flex justify-content-between align-items-end">
 			
-				<div class="w-100 align-items-center">
-					  <div class="rep-profile">
-						<div class="p-0 bd-highlight">
-							<c:choose>
-								<c:when test="${post.memberId eq reply.memberId }">
-									<span><strong>작성자</strong></span>
+				<div class="d-flex align-items-center">
+					  <div class="chat-user-profile m-0 mr-2 d-flex">
+						<c:forEach items="${attachmentList}" var="attach">
+							<c:if test="${reply.memberId eq attach.memberId}">
+							  <c:choose>
+								<c:when test="${fn:startsWith(attach.renamedFilename,'http')}">
+									<img class="btn-profile chat-user-profile-img" src="${attach.renamedFilename}" alt=""/>
 								</c:when>
 								<c:otherwise>
-									<span><strong>무명</strong></span>
-								</c:otherwise>
-							</c:choose>
+					            	<img class="btn-profile chat-user-profile-img" src="${pageContext.request.contextPath }/resources/upFile/profile/${attach.renamedFilename}" alt="">
+					            </c:otherwise>
+							  </c:choose>
+							</c:if>
+						</c:forEach>
+					  </div>
+					  <div class="rep-profile">
+						<div class="p-0 bd-highlight">
+							<span><strong>${memberWithGroupMap[reply.memberId]}</strong></span>
 							<span style="font-size: 10px;"><fmt:formatDate value="${reply.regDate}" pattern="yyyy.MM.dd" /></span>
 						</div>
 						<div class="p-0 flex-grow-1 bd-highlight"><span>${reply.content}</span></div>
 					  </div>
 				  </div>
-				  <div class="mt-4 ml-2 rep-btn-box" style="width: 20%;">
-						<input type="button" value="수정" class="btn-transform btn p-1" style="margin-bottom: 0px; font-size:12px" />
-						<input type="button" value="등록" class="btn-enroll btn p-1" style="margin-bottom: 0px; font-size:12px" />
-						<input type="button" value="삭제" class="btn-delete btn p-1" style="margin-bottom: 0px; font-size:12px" />
-						<input type="hidden" name="type" value=""/>
-						<input type="hidden" name="replyNo" value="${reply.replyNo}"> 
-						<input type="hidden" name="postNo" value="${post.postNo}"> 
+				  <div class="rep-btn-box">
+						<c:if test="${reply.memberId eq loginMember.id}">
+							<input type="button" value="수정" class="btn-transform btn p-1" style="margin-bottom: 0px; font-size:12px" />
+							<input type="button" value="등록" class="btn-enroll btn p-1" style="margin-bottom: 0px; font-size:12px" />
+							<input type="button" value="삭제" class="btn-delete btn p-1" style="margin-bottom: 0px; font-size:12px" />
+							<input type="hidden" name="type" value=""/>
+							<input type="hidden" name="replyNo" value="${reply.replyNo}"> 
+							<input type="hidden" name="postNo" value="${post.postNo}"> 
+						</c:if>
 						<button class="btn p-1 re-rep-btn" type="button" style="margin-bottom: 0px; font-size:12px">댓글쓰기</button>
 				  </div>
 			  </div>
-				</form:form>
 				
 				<!-- 대댓글 작성 폼 -->
+				</form:form>
 				<form:form name ="anonymousReRepEnrollFrm" action="${pageContext.request.contextPath }/gw/board/anonymousReplyEnroll.do" method="post" >	
-		            <div class="input-group mt-3 pl-2 pr-2 mx-auto">
+		            <div class="d-flex align-items-center mt-2">
 		            	<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi mr-1 bi-arrow-return-right" viewBox="0 0 16 16">
 						  <path fill-rule="evenodd" d="M1.5 1.5A.5.5 0 0 0 1 2v4.8a2.5 2.5 0 0 0 2.5 2.5h9.793l-3.347 3.346a.5.5 0 0 0 .708.708l4.2-4.2a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 8.3H3.5A1.5 1.5 0 0 1 2 6.8V2a.5.5 0 0 0-.5-.5z"/>
 						</svg>
-						<span class="input-group-text" id="inputGroup-sizing-default">비밀번호 : ${reply.replyNo}</span>
-						<input id="reRepPw" name="replyPw" type="text" class="form-control" onChange="checkNumber()" maxlength="4" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="숫자 4자리를 입력해 주세요.">
-					</div>
-		            <div class="d-flex align-items-center mt-2">
+						<span class="input-group-text re-rep-pw" id="inputGroup-sizing-default">비밀번호 : ${reply.replyNo}</span>
+						<input id="reRepPw" name="replyPw" type="text" class="form-control re-rep-pw" onChange="checkNumber()" maxlength="4" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="숫자 4자리를 입력해 주세요.">
+						<input type="text" class="form-control re-rep-con" name="content" placeholder="댓글을 입력하세요." />
 						<input type="hidden" value="${post.postNo}" name ="postNo">
 						<input type="hidden" value="2" name ="replyLevel">
 						<input type="hidden" name="replyRef" value="${reply.replyNo}" />
-						<input type="text" id="re-rep-con" class="form-control" name="content" placeholder="댓글을 입력하세요." />
-						<input type="button" id="btn-re-rep-send" class="btn btn-dark ml-1 board-post-rep-btn-enroll" value="등록">
+						<input type="submit" class="btn btn-dark ml-2" value="등록" />
 		            </div>
 	            </form:form>
 	            
@@ -124,17 +131,23 @@
 									  	<svg class="ml-3 mr-2 mb-3" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-return-right" viewBox="0 0 16 16">
 										  <path fill-rule="evenodd" d="M1.5 1.5A.5.5 0 0 0 1 2v4.8a2.5 2.5 0 0 0 2.5 2.5h9.793l-3.347 3.346a.5.5 0 0 0 .708.708l4.2-4.2a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 8.3H3.5A1.5 1.5 0 0 1 2 6.8V2a.5.5 0 0 0-.5-.5z"/>
 										</svg>
-									  
-									  <div class="rep-profile">
-										<div class="p-0 bd-highlight">
-											<c:choose>
-												<c:when test="${post.memberId eq reRep.memberId }">
-													<span><strong>작성자</strong></span>
+									  <div class="chat-user-profile m-0 mr-2 d-flex">
+										<c:forEach items="${attachmentList}" var="attach">
+											<c:if test="${reRep.memberId eq attach.memberId}">
+											  <c:choose>
+												<c:when test="${fn:startsWith(attach.renamedFilename,'http')}">
+													<img class="btn-profile chat-user-profile-img" src="${attach.renamedFilename}" alt=""/>
 												</c:when>
 												<c:otherwise>
-													<span><strong>무명</strong></span>
-												</c:otherwise>
-											</c:choose>
+									            	<img class="btn-profile chat-user-profile-img" src="${pageContext.request.contextPath }/resources/upFile/profile/${attach.renamedFilename}" alt="">
+									            </c:otherwise>
+											  </c:choose>
+											</c:if>
+										</c:forEach>
+									  </div>
+									  <div class="rep-profile">
+										<div class="p-0 bd-highlight">
+											<span><strong>${memberWithGroupMap[reRep.memberId]}</strong></span>
 											<span style="font-size: 10px;"><fmt:formatDate value="${reRep.regDate}" pattern="yyyy.MM.dd" /></span>
 										</div>
 										<div class="p-0 flex-grow-1 bd-highlight">
@@ -143,12 +156,14 @@
 									  </div>
 								  </div>
 								  <div class="rep-btn-box">
-										<input type="button" value="수정" class="btn-transform btn p-1" style="margin-bottom: 0px; font-size:12px" />
-										<input type="button" value="등록" class="btn-enroll btn p-1" style="margin-bottom: 0px; font-size:12px" />
-										<input type="button" value="삭제" class="btn-delete btn p-1" style="margin-bottom: 0px; font-size:12px" />
-										<input type="hidden" name="type" value=""/>
-										<input type="hidden" name="replyNo" value="${reRep.replyNo}"> 
-										<input type="hidden" name="postNo" value="${post.postNo}">  
+										<c:if test="${reRep.memberId eq loginMember.id}">
+											<input type="button" value="수정" class="btn-transform btn p-1" style="margin-bottom: 0px; font-size:12px" />
+											<input type="button" value="등록" class="btn-enroll btn p-1" style="margin-bottom: 0px; font-size:12px" />
+											<input type="button" value="삭제" class="btn-delete btn p-1" style="margin-bottom: 0px; font-size:12px" />
+											<input type="hidden" name="type" value=""/>
+											<input type="hidden" name="replyNo" value="${reRep.replyNo}"> 
+											<input type="hidden" name="postNo" value="${post.postNo}">  
+										</c:if>
 								  </div>
 							  </div>
 								
@@ -181,28 +196,37 @@
 									  	<svg class="ml-3 mr-2 mb-3" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-return-right" viewBox="0 0 16 16">
 										  <path fill-rule="evenodd" d="M1.5 1.5A.5.5 0 0 0 1 2v4.8a2.5 2.5 0 0 0 2.5 2.5h9.793l-3.347 3.346a.5.5 0 0 0 .708.708l4.2-4.2a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 8.3H3.5A1.5 1.5 0 0 1 2 6.8V2a.5.5 0 0 0-.5-.5z"/>
 										</svg>
-									  <div class="rep-profile">
-										<div class="p-0 bd-highlight">
-											<c:choose>
-												<c:when test="${post.memberId eq reRep.memberId }">
-													<span><strong>작성자</strong></span>
+									  <div class="chat-user-profile m-0 mr-2 d-flex">
+										<c:forEach items="${attachmentList}" var="attach">
+											<c:if test="${reRep.memberId eq attach.memberId}">
+											  <c:choose>
+												<c:when test="${fn:startsWith(attach.renamedFilename,'http')}">
+													<img class="btn-profile chat-user-profile-img" src="${attach.renamedFilename}" alt=""/>
 												</c:when>
 												<c:otherwise>
-													<span><strong>무명</strong></span>
-												</c:otherwise>
-											</c:choose>
+									            	<img class="btn-profile chat-user-profile-img" src="${pageContext.request.contextPath }/resources/upFile/profile/${attach.renamedFilename}" alt="">
+									            </c:otherwise>
+											  </c:choose>
+											</c:if>
+										</c:forEach>
+									  </div>
+									  <div class="rep-profile">
+										<div class="p-0 bd-highlight">
+											<span><strong>${memberWithGroupMap[reRep.memberId]}</strong></span>
 											<span style="font-size: 10px;"><fmt:formatDate value="${reRep.regDate}" pattern="yyyy.MM.dd" /></span>
 										</div>
 										<div class="p-0 flex-grow-1 bd-highlight"><span>${reRep.content}</span></div>
 									  </div>
 								  </div>
 								  <div class="rep-btn-box">
-										<input type="button" value="수정" class="btn-transform btn p-1" style="margin-bottom: 0px; font-size:12px" />
-										<input type="button" value="등록" class="btn-enroll btn p-1" style="margin-bottom: 0px; font-size:12px" />
-										<input type="button" value="삭제" class="btn-delete btn p-1" style="margin-bottom: 0px; font-size:12px" />
-										<input type="hidden" name="type" value=""/>
-										<input type="hidden" name="replyNo" value="${reRep.replyNo}"> 
-										<input type="hidden" name="postNo" value="${post.postNo}"> 
+										<c:if test="${reRep.memberId eq loginMember.id}">
+											<input type="button" value="수정" class="btn-transform btn p-1" style="margin-bottom: 0px; font-size:12px" />
+											<input type="button" value="등록" class="btn-enroll btn p-1" style="margin-bottom: 0px; font-size:12px" />
+											<input type="button" value="삭제" class="btn-delete btn p-1" style="margin-bottom: 0px; font-size:12px" />
+											<input type="hidden" name="type" value=""/>
+											<input type="hidden" name="replyNo" value="${reRep.replyNo}"> 
+											<input type="hidden" name="postNo" value="${post.postNo}"> 
+										</c:if>
 								  </div>
 							  </div>
 								
@@ -345,7 +369,7 @@ function checkNumber() {
 
 
 /* 댓글 대댓글 제출 */
-$("[name=anonymousRepEnrollFrm]").submit(function(){
+$("[name=anonymousReplyEnrollFrm]").submit(function(){
 	var $pw = $("#pw");
 	if(/^\w{4}$/.test($pw.val()) == false) {
 		alert("비밀번호는 숫자 4자리로 입력해주세요.");
@@ -362,31 +386,31 @@ $("#btn-send").click((e)=>{
 	}
  	if($(pw).val() != null && $(pw).val() != ''){
 	}else{
-		alert("비밀번호는 숫자 4자리로 입력해주세요.ㅇㅇ");
+		alert("비밀번호는 숫자 4자리로 입력해주세요.");
 		return;
 	}
 
-	$(document.anonymousRepEnrollFrm).submit();
+	$(document.anonymousReplyEnrollFrm).submit();
 });
 
 $("[name=anonymousReRepEnrollFrm]").submit(function(){
-	var $reRepPw = $("#reRepPw");
-	if(/^\w{4}$/.test($reRepPw.val()) == false) {
-		alert("비밀번호는 숫자 4자리로 입력해주세요.");
-		$pw.focus();
+	var pw = $('.re-rep-pw');
+	if(/^\w{4}$/.test(pw.val()) == false) {
+		alert("비밀번호는 숫자 4자리로 입력해주세요.ㅇㅇ");
+		pw.focus();
 		return false;
 	}
 		return true;
-});
-$("#btn-re-rep-send").click((e)=>{
-	if($('#re-rep-con').val() != null && $('#re-rep-con').val() != ''){
+}); 
+$('.board-post-rep-btn-enroll').click((e)=>{
+	if($('.re-rep-con').val() != null && $('.re-rep-con').val() != ''){
 	}else{
 		alert("내용을 입력해주세요.");
 		return;
 	}
- 	if($(reRepPw).val() != null && $(reRepPw).val() != ''){
+ 	if($(".re-rep-pw").val() != null && $(".re-rep-pw").val() != ''){
 	}else{
-		alert("비밀번호는 숫자 4자리로 입력해주세요.ㅇㅇ");
+		alert("비밀번호는 숫자 4자리로 입력해주세요.");
 		return;
 	}
 

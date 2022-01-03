@@ -120,7 +120,7 @@
 		            </div>
 	            </form:form>
 	            
-	            
+	            <!-- 대댓글 수정/삭제 폼 -->
 	            <c:forEach items="${replyList}" var="reRep">
 					<c:if test="${reply.replyNo == reRep.replyRef && reRep.deleteYn eq 'N'}">
 					
@@ -181,6 +181,8 @@
 	            	</c:if>
 	            </c:forEach>
 	            </c:if>
+	            
+	            <!-- 삭제된 댓글 -->
 	            <c:if test="${reply.replyLevel == 1 && reply.deleteYn eq 'Y'}">
 	            	<hr class="border-0">
 	            	<p class="mt-4 mb-4 ml-2">삭제된 댓글입니다.</p>
