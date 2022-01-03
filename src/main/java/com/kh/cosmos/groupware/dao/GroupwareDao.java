@@ -34,6 +34,8 @@ public interface GroupwareDao {
 
 	int deleteVoiceChatRoom(int roomNo);
 
+	List<Board> selectAllBoardRoomByGroupNotice(int groupNo);
+
 
 
 	

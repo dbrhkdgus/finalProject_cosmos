@@ -3,6 +3,8 @@ package com.kh.cosmos.groupware.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -11,9 +13,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.kh.cosmos.common.CosmosUtils;
 import com.kh.cosmos.common.attachment.model.vo.Attachment;
 import com.kh.cosmos.group.model.vo.Group;
+import com.kh.cosmos.groupware.board.model.service.BoardService;
 import com.kh.cosmos.groupware.board.model.vo.Board;
+import com.kh.cosmos.groupware.board.model.vo.Post;
 import com.kh.cosmos.groupware.chat.model.vo.ChatRoom;
 import com.kh.cosmos.groupware.service.GroupwareService;
 import com.kh.cosmos.member.model.vo.Member;
@@ -27,6 +32,8 @@ public class GwController {
 	
 	@Autowired
 	private GroupwareService gwService;
+	@Autowired
+	private BoardService boardService;
 	
 	@GetMapping("/gw.do")
 	public String gw(@RequestParam int groupNo, @RequestParam(required=false) String msg, Model model, Authentication auth) {
@@ -46,6 +53,14 @@ public class GwController {
 
 		List<ChatRoom> chattingChannelList = gwService.selectAllChatRoomByGroupNo(groupNo);
 		List<Board> boardList = gwService.selectAllBoardRoomByGroupNo(groupNo);
+		
+		List<Board> groupNoticeBoardList = gwService.selectAllBoardRoomByGroupNotice(groupNo);
+		int num = 0;
+		for(Board noticeNo : groupNoticeBoardList) {
+			num = noticeNo.getBoardNo();
+		}
+		List<Post> noticePostList = boardService.selectAllPostInNotice(num, 5, 1);
+		model.addAttribute("noticePostList",noticePostList);
 		
 		model.addAttribute("currGroupNo", groupNo);
 		model.addAttribute("myGroup", myGroup);

@@ -85,6 +85,12 @@ public class GroupwareServiceImpl implements GroupwareService {
 		return gwDao.deleteVoiceChatRoom(roomNo);
 	}
 
+	@Override
+	public List<Board> selectAllBoardRoomByGroupNotice(int groupNo) {
+		// TODO Auto-generated method stub
+		return gwDao.selectAllBoardRoomByGroupNotice(groupNo);
+	}
+
 
 
 
