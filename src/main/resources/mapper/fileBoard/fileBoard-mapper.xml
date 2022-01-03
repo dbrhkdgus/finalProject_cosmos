@@ -36,7 +36,8 @@
   		current_date,
   		null,
   		#{attachNo},
-  		#{boardCategoryNo}
+  		#{boardCategoryNo},
+  		null
   		)
   	
   </insert>
@@ -115,4 +116,14 @@
 		from
 		tb_member
 	</select>
+	
+	 <select id="selectPostInFileBoardTotalCount" resultType="_int">
+		select 
+			count(*) 
+		from 
+			post
+		where
+			board_no = #{boardNo}
+	</select>
+	
 </mapper>

@@ -408,10 +408,10 @@ div.list-group1{
 
 /* 공지 게시판 css */
 .test-notice-outter{
-  width: 100%;
-  display: flex ; 
-  flex-direction: column;
-  overflow: hidden;
+  	width: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow:hidden;
 }
 .test-notice-outter table{
   margin: 15px;

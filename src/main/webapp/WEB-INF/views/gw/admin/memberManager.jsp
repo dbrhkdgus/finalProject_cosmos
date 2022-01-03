@@ -4,13 +4,16 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@ taglib prefix="sec"
-	uri="http://www.springframework.org/security/tags"%>
-
+<%@ taglib prefix="sec"	uri="http://www.springframework.org/security/tags"%>
 <fmt:requestEncoding value="utf-8" />
 <jsp:include page="/WEB-INF/views/common/gw_header.jsp">
 	<jsp:param value="" name="title" />
 </jsp:include>
+
+<sec:authorize access="isAuthenticated()">
+	<sec:authentication property="principal" var="loginMember"/>
+</sec:authorize>
+
 <style>
 button {
   padding: 0;
@@ -76,16 +79,31 @@ button:focus {
 								<tr>
 									<td>${j}</td>
 									<td>${memberList.nickname}</td>
-									<td class="col-md-2"><select
-											class="boardType form-select" name="memberRole" required>
-												<option value="P"
-													<c:if test="${fn:contains(acceptList.role , 'P' )}"> selected</c:if>>일반회원</option>
-												<option value="M"
-													<c:if test="${fn:contains(acceptList.role , 'M' )}"> selected</c:if>>매니저</option>
-												<option value="G"
-													<c:if test="${fn:contains(acceptList.role , 'G' )}"> selected</c:if>>그룹장</option>
-												
-										</select>
+									<td class="col-md-2">
+									<c:choose>
+										<c:when test="${fn:contains(acceptList.role , 'G' )}">
+										<select
+												class="boardType form-select" name="memberRole" required>
+													<option value="P"
+														<c:if test="${fn:contains(acceptList.role , 'P' )}"> selected</c:if>>일반회원</option>
+													<option value="M"
+														<c:if test="${fn:contains(acceptList.role , 'M' )}"> selected</c:if>>매니저</option>
+													<option value="G" 
+														<c:if test="${fn:contains(acceptList.role , 'G' )}"> selected</c:if>>그룹장</option>
+											</select>
+										</c:when>
+									 <c:otherwise test="${fn:contains(acceptList.role , 'M' ) or ${fn:contains(acceptList.role , 'P' )}">
+										<select
+												class="boardType form-select" name="memberRole" required>
+													<option value="P"
+														<c:if test="${fn:contains(acceptList.role , 'P' )}"> selected</c:if>>일반회원</option>
+													<option value="M"
+														<c:if test="${fn:contains(acceptList.role , 'M' )}"> selected</c:if>>매니저</option>
+													<option value="G" 
+														<c:if test="${fn:contains(acceptList.role , 'G' )}"> selected</c:if>>그룹장</option>
+											</select>
+									</c:otherwise>
+									</c:choose>	
 										
 										</td> 
 										
@@ -95,7 +113,7 @@ button:focus {
 				
 									
 									<td><button type="submit" class="button-delete-member" name="gwDeleteMember" value="${acceptList.memberId}" onclick='return submit2(this.form);'><i class="far fa-trash-alt"></i>멤버추방</button>  
-										<span style="font-weight:bold;">|</span>
+										<!-- <span style="font-weight:bold;">|</span> -->
 										<button type="submit" class="button-update-member"><i class="fas fa-user-edit"></i>권한수정</button>
 										</td>
 									<input type="hidden" name="memberId" value="${acceptList.memberId}" />
