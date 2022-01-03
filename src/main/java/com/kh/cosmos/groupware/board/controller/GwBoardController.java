@@ -81,7 +81,7 @@ public class GwBoardController {
 			memberWithGroupMap.put(memberWithGroup.getId(), memberWithGroup.getNickname());
 		}
 		
-		List<Post> boardPostList = boardService.selectAllPostInNotice(boardNo, limit, offset);
+		List<Post> boardPostList = boardService.selectAllPostInBoard(boardNo, limit, offset);
 		Board board = boardService.selectBoardByBoardNo(boardNo);
 		log.debug("noticePostList = {}", boardPostList);
 		model.addAttribute("boardPostList", boardPostList);
@@ -286,7 +286,6 @@ public class GwBoardController {
 			return "redirect:/gw/board/boardDetail.do?postNo=" + post.getPostNo();
 		}
 	}
-
 	
 	
 	@PostMapping("/checkPassword.do")

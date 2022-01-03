@@ -86,6 +86,12 @@ public class GroupwareDaoImpl implements GroupwareDao {
 		return session.delete("gw.deleteVoiceChatRoom",roomNo);
 	}
 
+	@Override
+	public List<Board> selectAllBoardRoomByGroupNotice(int groupNo) {
+		// TODO Auto-generated method stub
+		return session.selectList("gw.selectAllBoardRoomByGroupNotice",groupNo);
+	}
+
 
 
 
