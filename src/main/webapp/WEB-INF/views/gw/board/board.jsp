@@ -12,8 +12,8 @@
 <style>
  tr{cursor:pointer;}
 </style>
- <div class="test-notice-outter">
-	<div class="test-board-title-container">
+ <div class="workspace-box">
+	<div class="p-4">
 	 <div class="test-board-title">
 	</div> 
 	<form action="${pageContext.request.contextPath}/gw/board/board.do?boardNo=${boardNo}&groupNo=${groupNo}" method="get">
@@ -31,7 +31,6 @@
 		   </div>   
 		</div>       
     </form>
-    </div>
 
   <table class="table file-board-table">
     <thead>
@@ -63,6 +62,7 @@
   <div class="test-board-pagebar">
      ${pagebar} 
   </div>
+</div>
 </div>
 
 <script>
