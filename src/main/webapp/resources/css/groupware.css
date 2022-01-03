@@ -98,6 +98,14 @@ main {
   overflow: auto;
 }
 
+/* gw 메인 작업환경 */
+.gw_main_workspace-box{
+  flex-direction: column;
+  justify-content: space-between;
+  width: 98%;
+  overflow: auto;
+}
+
 /* 채팅 css */
 .chat-content {
   padding: 1rem;
@@ -412,8 +420,8 @@ div.list-group1{
 /* 공지 게시판 css */
 .test-notice-outter{
   	width: 100%;
-    display: flex;
-    flex-direction: column;
+    /* display: flex; */
+    /* flex-direction: column; */
     overflow:hidden;
 }
 .test-notice-outter table{
