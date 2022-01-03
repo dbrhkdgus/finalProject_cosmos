@@ -28,6 +28,9 @@
   <select id="selectAllBoardRoomByGroupNo" resultType="board">
   select * from board where group_no = #{groupNo} order by board_no
   </select>
+  <select id="selectAllBoardRoomByGroupNotice" resultType="board">
+  	select * from board where group_no = #{groupNo} and board_type = 'N' order by board_no
+  </select>
 
 <select id="selectAllZoomRoomList" resultType="Room">
 select * from zoom_room where group_no = #{groupNo}

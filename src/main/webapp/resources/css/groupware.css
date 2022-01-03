@@ -371,6 +371,9 @@ div.list-group1{
   margin-bottom: 1rem;
 }
 /* 그룹웨어 게시판 css */
+/* #re-rep-modify-input {
+	width: 370%;
+} */
 .test-board-outter{
   width: 100%;
   display: flex ; 

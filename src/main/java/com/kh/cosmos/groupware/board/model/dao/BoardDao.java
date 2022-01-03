@@ -67,4 +67,8 @@ public interface BoardDao {
 
 	int deletePostReply(Reply reply);
 
+	List<Post> selectBoardListByParam(Map<String, Object> param, int limit, int offset);
+
+	int insertAnonymousReply(Reply reply);
+
 }
