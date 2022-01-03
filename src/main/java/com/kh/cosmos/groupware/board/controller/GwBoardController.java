@@ -450,12 +450,12 @@ public class GwBoardController {
 	}
 	
 	@PostMapping("anonymousReplyEnroll.do")
-	public String anonymousReplyEnroll(Reply reply, int postNo, int replyLevel, int replyRef, RedirectAttributes redirectAttr, Authentication authentication, HttpServletRequest request) {
+	public String anonymousReplyEnroll(Reply reply, int postNo, RedirectAttributes redirectAttr, Authentication authentication, HttpServletRequest request) {
+		
 		Member member = (Member)authentication.getPrincipal();
+		log.debug("********************** reply = {}", reply);
 		reply.setMemberId(member.getId());
-		reply.setPostNo(postNo);
-		reply.setReplyLevel(replyLevel);
-		reply.setReplyRef(replyRef);
+		log.debug("********************** reply = {}", reply);
 		
 		try {
 			int result = boardService.insertAnonymousReply(reply);

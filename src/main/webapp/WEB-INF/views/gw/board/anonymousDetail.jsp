@@ -100,14 +100,14 @@
 		            	<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi mr-1 bi-arrow-return-right" viewBox="0 0 16 16">
 						  <path fill-rule="evenodd" d="M1.5 1.5A.5.5 0 0 0 1 2v4.8a2.5 2.5 0 0 0 2.5 2.5h9.793l-3.347 3.346a.5.5 0 0 0 .708.708l4.2-4.2a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 8.3H3.5A1.5 1.5 0 0 1 2 6.8V2a.5.5 0 0 0-.5-.5z"/>
 						</svg>
-						<span class="input-group-text" id="inputGroup-sizing-default">비밀번호</span>
+						<span class="input-group-text" id="inputGroup-sizing-default">비밀번호 : ${reply.replyNo}</span>
 						<input id="reRepPw" name="replyPw" type="text" class="form-control" onChange="checkNumber()" maxlength="4" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="숫자 4자리를 입력해 주세요.">
 					</div>
 		            <div class="d-flex align-items-center mt-2">
-						<input type="text" id="re-rep-con" class="form-control" name="content" placeholder="댓글을 입력하세요." />
 						<input type="hidden" value="${post.postNo}" name ="postNo">
 						<input type="hidden" value="2" name ="replyLevel">
 						<input type="hidden" name="replyRef" value="${reply.replyNo}" />
+						<input type="text" id="re-rep-con" class="form-control" name="content" placeholder="댓글을 입력하세요." />
 						<input type="button" id="btn-re-rep-send" class="btn btn-dark ml-1 board-post-rep-btn-enroll" value="등록">
 		            </div>
 	            </form:form>
