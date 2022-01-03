@@ -80,39 +80,30 @@ button:focus {
 									<td>${j}</td>
 									<td>${memberList.nickname}</td>
 									<td class="col-md-2">
-									<c:choose>
-										<c:when test="${fn:contains(acceptList.role , 'G' )}">
-										<select
-												class="boardType form-select" name="memberRole" required>
-													<option value="P"
-														<c:if test="${fn:contains(acceptList.role , 'P' )}"> selected</c:if>>일반회원</option>
-													<option value="M"
-														<c:if test="${fn:contains(acceptList.role , 'M' )}"> selected</c:if>>매니저</option>
-													<option value="G" 
-														<c:if test="${fn:contains(acceptList.role , 'G' )}"> selected</c:if>>그룹장</option>
-											</select>
-										</c:when>
-									 <c:otherwise test="${fn:contains(acceptList.role , 'M' ) or ${fn:contains(acceptList.role , 'P' )}">
-										<select
-												class="boardType form-select" name="memberRole" required>
-													<option value="P"
-														<c:if test="${fn:contains(acceptList.role , 'P' )}"> selected</c:if>>일반회원</option>
-													<option value="M"
-														<c:if test="${fn:contains(acceptList.role , 'M' )}"> selected</c:if>>매니저</option>
-													<option value="G" 
-														<c:if test="${fn:contains(acceptList.role , 'G' )}"> selected</c:if>>그룹장</option>
-											</select>
-									</c:otherwise>
-									</c:choose>	
-										
+
+									
+									<select
+											class="boardType form-select" name="memberRole" required>
+												<option value="P"
+													<c:if test="${fn:contains(acceptList.role , 'P' )}"> selected</c:if>>일반회원</option>
+												<option value="M"
+													<c:if test="${fn:contains(acceptList.role , 'M' )}"> selected</c:if>>매니저</option>
+												<option value="G"
+													<c:if test="${fn:contains(acceptList.role , 'G' )}"> selected</c:if>
+													 <c:if test="${apploginRole ne 'G'}"> disabled="disabled"</c:if>
+													>그룹장</option>
+										</select>
 										</td> 
+										
+										
 										
 									<td><fmt:formatDate value="${acceptList.joinRegDate}"
 											pattern="yy-MM-dd" /></td>
-									
-				
-									
-									<td><button type="submit" class="button-delete-member" name="gwDeleteMember" value="${acceptList.memberId}" onclick='return submit2(this.form);'><i class="far fa-trash-alt"></i>멤버추방</button>  
+									<td>
+									<c:if test="${not (fn:contains(acceptList.role , 'G' ))}">
+									<button type="submit" class="button-delete-member" name="gwDeleteMember" value="${acceptList.memberId}" onclick='return submit2(this.form);'>
+									<i class="far fa-trash-alt"></i>멤버추방</button>  
+									</c:if>
 										<!-- <span style="font-weight:bold;">|</span> -->
 										<button type="submit" class="button-update-member"><i class="fas fa-user-edit"></i>권한수정</button>
 										</td>
