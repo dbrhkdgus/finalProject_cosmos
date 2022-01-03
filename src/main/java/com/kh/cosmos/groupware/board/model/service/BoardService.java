@@ -69,4 +69,7 @@ public interface BoardService {
 
 	List<Post> selectBoardListByParam(Map<String, Object> param, int limit, int offset);
 
+	int insertAnonymousReply(Reply reply);
+
+
 }

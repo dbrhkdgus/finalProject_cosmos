@@ -191,12 +191,11 @@ public class BoardServiceImpl implements BoardService {
 		// TODO Auto-generated method stub
 		return boardDao.selectBoardListByParam(param, limit, offset);
 	}
-
-
 	
-	
-	
-
-	
+	@Override
+	public int insertAnonymousReply(Reply reply) {
+		// TODO Auto-generated method stub
+		return boardDao.insertAnonymousReply(reply);
+	}
 	
 }

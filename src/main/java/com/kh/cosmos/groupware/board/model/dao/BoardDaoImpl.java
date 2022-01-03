@@ -193,6 +193,12 @@ public class BoardDaoImpl implements BoardDao {
 		return session.selectList("board.selectBoardListByParam", param);
 	}
 	
+	@Override
+	public int insertAnonymousReply(Reply reply) {
+		// TODO Auto-generated method stub
+		return session.insert("board.insertAnonymousReply", reply);
+	}
+	
 
 }
 	
