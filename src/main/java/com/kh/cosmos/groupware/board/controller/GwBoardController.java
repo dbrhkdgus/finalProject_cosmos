@@ -72,23 +72,23 @@ public class GwBoardController {
 		String pagebar = CosmosUtils.getPagebar(cPage, limit, totalContent, url);
 		model.addAttribute("pagebar", pagebar);
 
-		Map<String, Object> param = new HashMap<String, Object>();
-		
-		List<Post> boardList = new ArrayList<Post>();
-		String searchType = request.getParameter("searchType");
-		String searchKeyword = request.getParameter("searchKeyword");
-		param.put("searchType", searchType);
-		param.put("searchKeyword", searchKeyword);
-		boardList = boardService.selectBoardListByParam(param,limit,offset);		
-		model.addAttribute("boardList",boardList);
-
-		boolean isListempty = false;
-		if(boardList.isEmpty()) {
-			isListempty = true;
-		}
-		
-		log.debug("isListempty ={}" ,isListempty );
-		model.addAttribute("isListempty",isListempty);
+//		Map<String, Object> param = new HashMap<String, Object>();
+//		
+//		List<Post> boardList = new ArrayList<Post>();
+//		String searchType = request.getParameter("searchType");
+//		String searchKeyword = request.getParameter("searchKeyword");
+//		param.put("searchType", searchType);
+//		param.put("searchKeyword", searchKeyword);
+//		boardList = boardService.selectBoardListByParam(param,limit,offset);		
+//		model.addAttribute("boardList",boardList);
+//
+//		boolean isListempty = false;
+//		if(boardList.isEmpty()) {
+//			isListempty = true;
+//		}
+//		
+//		log.debug("isListempty ={}" ,isListempty );
+//		model.addAttribute("isListempty",isListempty);
 
 		List<Post> boardPostList = boardService.selectAllPostInBoard(boardNo);
 		Board board = boardService.selectBoardByBoardNo(boardNo);
