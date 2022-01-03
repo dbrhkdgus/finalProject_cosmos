@@ -431,7 +431,7 @@ public class GwBoardController {
 	}
 	
 	@PostMapping("postReplyEnroll.do")
-	public String postReplyEnroll(Reply reply, int postNo, int replyLevel, int replyRef, RedirectAttributes redirectAttr, Authentication authentication, HttpServletRequest request) {
+	public String postReplyEnroll(Reply reply, int postNo, int replyLevel, int replyRef, String content, String replyPw, RedirectAttributes redirectAttr, Authentication authentication, HttpServletRequest request) {
 		Member member = (Member)authentication.getPrincipal();
 		reply.setMemberId(member.getId());
 		reply.setPostNo(postNo);
@@ -445,13 +445,8 @@ public class GwBoardController {
 			log.error(e.getMessage(), e); // 
 		 	redirectAttr.addFlashAttribute("msg", "댓글 등록 실패");
 		}
-		Post post = boardService.selectOnePostInBoard(postNo);
-		Board board = boardService.selectBoardByBoardNo(post.getBoardNo());
-		if(board.getBoardType() == 'A') {
-			return "redirect:/gw/board/anonymousDetail.do?postNo=" + postNo;
-		} else {
-			return "redirect:/gw/board/boardDetail.do?postNo=" + postNo;
-		}
+
+		return "redirect:/gw/board/boardDetail.do?postNo=" + postNo;
 	}
 	
 	@PostMapping("anonymousReplyEnroll.do")
@@ -464,18 +459,15 @@ public class GwBoardController {
 		
 		try {
 			int result = boardService.insertAnonymousReply(reply);
+			String msg = result > 0 ? "댓글 등록 성공!" : "댓글 등록 실패!";
+			redirectAttr.addFlashAttribute("msg", msg);
 			
 		} catch (Exception e) {
 			log.error(e.getMessage(), e); // 
 			redirectAttr.addFlashAttribute("msg", "댓글 등록 실패");
 		}
-		Post post = boardService.selectOnePostInBoard(postNo);
-		Board board = boardService.selectBoardByBoardNo(post.getBoardNo());
-		if(board.getBoardType() == 'A') {
-			return "redirect:/gw/board/anonymousDetail.do?postNo=" + postNo;
-		} else {
-			return "redirect:/gw/board/boardDetail.do?postNo=" + postNo;
-		}
+
+		return "redirect:/gw/board/anonymousDetail.do?postNo=" + postNo;
 	}
 	
 	@PostMapping("deleteUpdateReply.do")
