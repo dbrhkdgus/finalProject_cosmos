@@ -67,4 +67,6 @@ public interface BoardDao {
 
 	int deletePostReply(Reply reply);
 
+	int insertAnonymousReply(Reply reply);
+
 }
