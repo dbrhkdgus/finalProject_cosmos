@@ -113,6 +113,7 @@
 					</div>
 					<div class="index-member">
 						<button id="btn-DM-modal" type="button" class="btn btn-outline-primary">DM</button>
+						<input type="hidden" class="loginMemberId" value="${loginMember.id }"/>
 					</div>
 				</div>
 				<div class="index-member-group d-flex justify-content-around">
@@ -313,6 +314,8 @@ window.addEventListener("load", function(){
 /* dm modal 제어 */
 $("#btn-DM-modal").click((e)=>{
 	$("input[name=dm-memberId]").val($(e.target).siblings().val());
+	var $memberId = $(e.target).next().val();
+	console.log($memberId);
 	$(".dm-profile-container").text('');
 	var script = document.createElement("script");
 	script.innerHTML = `
@@ -335,6 +338,9 @@ $("#btn-DM-modal").click((e)=>{
 		success(data){
 			console.log(data); 
 			$.each(data, (k,v)=>{
+				if(v.dmSender == $memberId){
+				$(".dm-profile-container").append(``);
+				}else{
 				console.log(v.dmSender);
 				$(".dm-profile-container").append(`
 						<div class="dm-message-content-box-lv1" onclick="DMPopup('\${v.dmSender}')" style="cursor : pointer;">
@@ -361,8 +367,8 @@ $("#btn-DM-modal").click((e)=>{
 						var target = ".dm-" + v.dmSender + "-profile"
 						$(target).append(`<img class="dm-user-profile-img" src="${pageContext.request.contextPath}/resources/upFile/profile/\${v.dmSenderProfileRenamedFilename}" alt="">`);
 						
-					} 
-				
+					}
+				}
 			});
 			$(".dmScript").append(script);
 		},
