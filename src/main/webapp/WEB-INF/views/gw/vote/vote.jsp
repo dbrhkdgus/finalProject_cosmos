@@ -329,6 +329,7 @@ $(".btn-createVote").click((e)=>{
 
 /* 투표 제출 */
 $("#btn-send-vote").click((e)=>{
+	console.log("클릭됨")
 	var form = $('#sendVoteFrm')[0];
     var formData = new FormData(form);
      $.ajax({

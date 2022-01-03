@@ -56,7 +56,7 @@ public class GwAdminController {
 	public String memberManager(Model model, int groupNo,Authentication authentication) {
 		groupwareHeaderSet(groupNo, model, authentication);
 		model.addAttribute("groupNo", groupNo);
-	
+		
 
 		List<ApplocationGroup> acceptApplocationGroupList = new ArrayList<ApplocationGroup>();
 		acceptApplocationGroupList = gwAdminService.selectAllAcceptGroupMemberList(groupNo);
@@ -74,6 +74,29 @@ public class GwAdminController {
 //		log.debug("memberList = {}" ,memberList);
 		model.addAttribute("memberList",memberList);
 		
+		Member member = (Member)authentication.getPrincipal();
+		
+		String apploginId ="";
+		String apploginRole ="";
+		
+		for(ApplocationGroup app: acceptApplocationGroupList) {
+			
+			if(member.getId().equals(app.getMemberId())){
+				log.debug("테스트");
+				apploginId = app.getMemberId();
+				apploginRole = String.valueOf(app.getRole());
+				break;
+			}
+				
+		}
+		
+		log.debug("member.getId() = {}" ,member.getId());
+		log.debug("apploginId = {}" ,apploginId);
+		log.debug("apploginRole = {}" ,apploginRole);
+		
+		model.addAttribute("apploginRole",apploginRole);
+
+//		log.debug("authentication.getPrincipal() = {}" ,member.getId());
 
 		return "gw/admin/memberManager";
 		
