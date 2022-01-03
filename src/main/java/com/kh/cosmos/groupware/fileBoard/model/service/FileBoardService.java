@@ -29,6 +29,8 @@ public interface FileBoardService {
 
 	List<IdNickName> selectIdNickName();
 
+	int selectPostInFileBoardTotalCount(int boardNo);
+
 
 
 }

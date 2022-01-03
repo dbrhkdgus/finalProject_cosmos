@@ -14,11 +14,9 @@
 <sec:authorize access="isAuthenticated()">
 	<sec:authentication property="principal" var="loginMember"/>
 </sec:authorize>
- <div class="test-notice-outter">
-  <div class="test-board-title-container">
-    <div class="test-board-title">
-      <!-- <h1>파일 게시판</h1> -->
-    </div>
+ <div class="workspace-box">
+  <div class="p-4">
+
     <!-- 정렬 및 검색 -->
     <form action="${pageContext.request.contextPath}/gw/fileBoard/fileBoard.do?boardNo=${boardNo}&groupNo=${groupNo}" method="get">
 	    <div class="test-board-search">
@@ -32,12 +30,12 @@
 		     </select>
 		     
 		   <div class="input-group mb-3 search-input">
-		      <input type="text" class="form-control" name="searchKeyword" value="${searchKeyword }" placeholder="작성자 또는 제목으로 검색"  aria-describedby="button-addon2">
+		      <input type="text" class="form-control" name="searchKeyword" value="${searchKeyword }" placeholder="작성자 또는 제목검색"  aria-describedby="button-addon2">
 		   		<button class="btn btn-outline-secondary" type="button" id="button-addon2" >검색</button>
 		   </div>   
 		</div>       
     </form>
-  </div>
+  
   <table class="table file-board-table">
     <thead>
       <tr>
@@ -53,9 +51,10 @@
 <!--  -->
   <c:if test="${not empty fileBoardList}">
   <c:forEach var="post" items="${fileBoardList}" varStatus="status">
-            <tr>
-                <td>${fn:length(fileboardPostList)- status.count+1}</td>
-                
+ <%--  <c:set var="count" value="${count + 1}" /> --%>
+		
+            <tr>      
+           		<td>${fn:length(fileBoardList)- status.count+1}</td>	
                 <td>${post.boardCategory}</td>
                 <td colspan="2">${post.postTitle}</td>
                 <td><a href="${pageContext.request.contextPath}/gw/fileBoard/fileDown.do?attachNo=${post.attachNo}" >
@@ -94,8 +93,8 @@
 	<c:if test="${empty fileBoardList and !isListempty}">
 	  <c:forEach var="post" items="${fileboardPostList}" varStatus="status">
 	            <tr>
+	             
 	                <td>${fn:length(fileboardPostList)- status.count+1}</td>
-	                
 	                <td>${post.boardCategory}</td>
 	                <td colspan="2">${post.postTitle}</td>
 	                <td><a href="${pageContext.request.contextPath}/gw/fileBoard/fileDown.do?attachNo=${post.attachNo}" >
@@ -130,19 +129,10 @@
    <a href="${pageContext.request.contextPath}/gw/fileBoard/fileEnroll.do?boardNo=${boardNo}&groupNo=${groupNo} "> <button class="btn btn-primary me-md-2" type="button">글쓰기</button></a>
   </div>
   <div class="test-board-pagebar">
-    
-    <nav aria-label="Page navigation example test-board-pagebar">
-      <ul class="pagination">
-        <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-        <li class="page-item"><a class="page-link" href="#">1</a></li>
-        <li class="page-item"><a class="page-link" href="#">2</a></li>
-        <li class="page-item"><a class="page-link" href="#">3</a></li>
-        <li class="page-item"><a class="page-link" href="#">Next</a></li>
-      </ul>
-    </nav> 
+     ${pagebar} 
   </div>
+ </div>
 </div>
-
 <script>
 $("#button-addon2").click((e)=>{
     const searchType = $("select[name=searchType]").val();

@@ -30,6 +30,10 @@ public interface FileBoardDao {
 
 	List<IdNickName> selectIdNickName();
 
+	int selectPostInFileBoardTotalCount(int boardNo);
+
+
+
 	
 
 }

@@ -80,6 +80,7 @@ button:focus {
 									<td>${j}</td>
 									<td>${memberList.nickname}</td>
 									<td class="col-md-2">
+
 									
 									<select
 											class="boardType form-select" name="memberRole" required>
@@ -98,9 +99,6 @@ button:focus {
 										
 									<td><fmt:formatDate value="${acceptList.joinRegDate}"
 											pattern="yy-MM-dd" /></td>
-									
-				
-									
 									<td>
 									<c:if test="${not (fn:contains(acceptList.role , 'G' ))}">
 									<button type="submit" class="button-delete-member" name="gwDeleteMember" value="${acceptList.memberId}" onclick='return submit2(this.form);'>
