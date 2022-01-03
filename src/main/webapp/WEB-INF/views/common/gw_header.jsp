@@ -85,7 +85,7 @@
         
         <div class="" style="width: 4.5rem;">
           <a href="#" class="d-block p-3 link-dark text-decoration-none" title="Icon-only" data-bs-toggle="tooltip" data-bs-placement="right">
-            <img src="https://cdn.discordapp.com/attachments/912943660943962178/919420883179806740/cosmoslogo_black.png" width="40" alt="" onclick="location.href='${pageContext.request.contextPath}/'">
+            <img src="${pageContext.request.contextPath }/resources/images/cosmoslogo_white.png" width="40" alt="" onclick="location.href='${pageContext.request.contextPath}/'">
             <!-- <svg class="bi" width="40" height="32"><use xlink:href="#bootstrap"/></svg> -->
             <span class="visually-hidden">Icon-only</span>
           </a>
@@ -93,12 +93,12 @@
         
         <div class="groupwear-study-title" style="width: 260px;">
           <a href="${pageContext.request.contextPath }/gw/gw.do?groupNo=${myGroup.groupNo}" class="d-flex align-items-center pb-3 mb-3 link-dark text-decoration-none border-bottom">
-            <span class="fs-5 fw-semibold">${myGroup.groupName }</span>
+            <span class="fs-5 fw-semibold" style="color: white;">${myGroup.groupName }</span>
           </a>
         </div>
         <div class="groupwear-channel-title">
 
-          <h5> ${title }</h5>
+          <h5 style="color: white;"> ${title }</h5>
 
         </div>
           
