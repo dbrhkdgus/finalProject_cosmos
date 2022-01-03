@@ -135,7 +135,7 @@ public class StompApplicationDestinationController {
 		
 		
 		// 구독자에게 JsonStr전송하기
-		map.put("memberName", chatService.selectMemberNameByMemberId(map.get("memberId")));
+		map.put("nickname", chatService.selectMemberNameByMemberId(map.get("memberId")));
 		map.put("profileRenamedFilename", gwService.selectMemberProfileRenamedFilename(map.get("memberId")));
 		
 		try {

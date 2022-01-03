@@ -11,23 +11,33 @@
 <style>
  tr{cursor:pointer;}
 </style>
- <div class="workspace-box">
-
-  <div class="p-4">
-    <div class="test-board-search">
-      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
-      </svg>
-      <input type="text">
-      <input type="button" value="검색">
+ <div class="test-notice-outter">
+  <div class="test-board-title-container">
+    <div class="test-board-title">
     </div>
+    <!-- 정렬 및 검색 -->
+    <form action="${pageContext.request.contextPath}/gw/board/anonymous.do?boardNo=${boardNo}&groupNo=${groupNo}" method="get">
+	    <div class="test-board-search">
+	    	 <select name="searchType" class="form-select search-select" aria-label="Default select example">
+		        <option value="all" ${searchType == 'all' ? "selected":'' }> 전체보기 </option>
+		        <option value="title" ${searchType == 'title' ? "selected":'' }>제목</option>
+		        <option value="date" ${searchType == 'date' ? "selected":'' }>날짜</option>
+		     </select>
+		     
+		   <div class="input-group mb-3 search-input">
+		      <input type="text" class="form-control" name="searchKeyword" value="${searchKeyword }" placeholder="검색어를 입력하세요"  aria-describedby="button-addon2">
+		   		<button class="btn btn-outline-secondary" type="button" id="button-addon2" >검색</button>
+		   </div>   
+		</div>       
+    </form>
+  </div>
   
   <table class="table file-board-table">
     <thead>
       <tr>
         <th>No</th>
         <th colspan="2">제목</th>
-        <th>작성일</th>
+        <th>날짜</th>
         <th></th>
       </tr>
     </thead>

@@ -12,6 +12,7 @@ import com.kh.cosmos.common.attachment.model.vo.Attachment;
 import com.kh.cosmos.groupware.board.model.vo.Post;
 import com.kh.cosmos.groupware.board.model.vo.PostWithCategory;
 import com.kh.cosmos.groupware.fileBoard.vo.FileEnroll;
+import com.kh.cosmos.groupware.fileBoard.vo.IdNickName;
 
 @Repository
 public class FileBoardDaoImpl implements FileBoardDao {
@@ -61,6 +62,12 @@ public class FileBoardDaoImpl implements FileBoardDao {
 	public List<PostWithCategory> selectAllFileBoardListByParam(Map<String, Object> param, int limit, int offset) {
 		RowBounds rowBounds = new RowBounds(offset, limit);
 		return session.selectList("fileBoard.selectAllFileBoardListByParam", param, rowBounds);
+	}
+
+	@Override
+	public List<IdNickName> selectIdNickName() {
+		// TODO Auto-generated method stub
+		return session.selectList("fileBoard.selectIdNickName");
 	}
 
 

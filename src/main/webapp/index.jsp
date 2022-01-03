@@ -344,7 +344,7 @@ $("#btn-DM-modal").click((e)=>{
 					        </div>
 					        <div class="dm-message-box">
 							    <div class="dm-message-sender">
-									<span><strong>\${v.dmSenderName}</strong></span>
+									<span><strong>\${v.dmSenderNickname}</strong></span>
 									<span>\${v.dmMessageAt}</span>
 								</div>
 							    <div class="dm-message-content">

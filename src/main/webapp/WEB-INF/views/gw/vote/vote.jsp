@@ -9,12 +9,13 @@
 	<jsp:param value="투표" name="title"/>
 </jsp:include>
 <c:set var="now" value="<%=new java.util.Date()%>" />
+<c:set var="groupMemberCnt" value="${fn:length(myGroupMemberList)}" />
 
  <div class="groupware-vote-outter">
   	<div class="present-vote-box" style="background: Beige;">
   		<div class="present-vote" style="background: FloralWhite">
   			<c:if test="${not empty presentVoteInfo }">
-			
+
   				<c:forEach var="presentVote" items="${presentVoteInfo }">
 					<fmt:formatDate value="${now}" pattern="yyyyMMdd" var="nowDate" /> 
 					<fmt:formatDate value="${presentVote.voteDeadline}" pattern="yyyyMMdd" var="deadline" /> 
@@ -56,7 +57,8 @@
   		<div class="present-vote-control-box">
   		<button id="btn-create-vote" class="vote-controll-btn">투표 생성하기</button>
   		<button id="btn-send-vote" class="vote-controll-btn">투표 제출하기</button>
-  		<button id="btn-update-vote" class="vote-controll-btn">투표 수정하기</button>
+  		<button id="btn-analytics-view" class="vote-controll-btn">투표 통계보기</button>
+  		<button id="btn-vote-view" class="vote-controll-btn">투표 보기</button>
   		</div>
   	</div>
   	<div class="old-vote-box">
@@ -75,14 +77,22 @@
 				    </tr>
 				  </thead>
 				  <tbody>
-		  			<c:forEach var="otherVotes" items="${groupVoteInfoList }">
+		  			<c:forEach var="otherVotes" items="${groupVoteInfoList}">
 		  				<fmt:formatDate value="${now}" pattern="yyyyMMdd" var="nowDate" /> 
 						<fmt:formatDate value="${otherVotes.voteDeadline}" pattern="yyyyMMdd" var="otherDeadline" />
 		  				<c:if test="${nowDate <= otherDeadline  }">
 		  					<tr class="tr">
 						      <th scope="row">${otherVotes.voteTitle }</th>
 						      <td><span><fmt:formatDate value="${otherVotes.voteDeadline}" pattern="MM-dd"/></span> 까지</td>
-						      <td>67%</td>
+						      
+							      <c:if test="${otherVotes.answeredMemberCnt != 0 }">
+								      <td><fmt:formatNumber type="percent" value="${otherVotes.answeredMemberCnt/groupMemberCnt}"  pattern="0.0%"/></td>
+							      </c:if>
+							      <c:if test="${otherVotes.answeredMemberCnt==0 }">
+								      <td>0%</td>
+							      </c:if>
+						      
+						      
 						    </tr>
 						      <input type="hidden" name="voteNo" value="${otherVotes.voteNo }" />
 		  				</c:if>
@@ -112,7 +122,12 @@
 		  						<tr>
 		  							<th scope="row">${otherVotes.voteTitle }</th>
 		  							<td><span><fmt:formatDate value="${otherVotes.voteDeadline}" pattern="MM-dd"/></span> 까지</td>
-		  							<td>67%</td>
+			  						  <c:if test="${otherVotes.answeredMemberCnt != 0 }">
+									      <td><fmt:formatNumber type="percent" value="${otherVotes.answeredMemberCnt/groupMemberCnt}"  pattern="0.0%"/></td>
+								      </c:if>
+								      <c:if test="${otherVotes.answeredMemberCnt==0 }">
+									      <td>0%</td>
+								      </c:if>
 		  						</tr>
 		  				</c:if>
 		  			</c:forEach>
@@ -159,9 +174,9 @@
 		            <input type="text" name="voteQuestionOption" class="form-control validate" style="width: 50%;" placeholder="옵션 1"/>
 	              </div>
               </div>
-              <div class="vote_modal_question_add_option_box">
+              <div class="vote_modal_question_add_option_box" id="add-option-input">
               	  <input type="radio" name="voteQuestionOptionCheckFoo" class="mr-2"/>
-	              <input id="add-option-input" type="text" class="form-control validate" style="width: 50%;" placeholder="옵션 추가하기"/>
+	              <input type="text" class="form-control validate" style="width: 50%;" disabled placeholder="옵션 추가하기"/>
 		          <input type="hidden" class="optionCnt" value="1" />
               </div>
             </div>
@@ -179,6 +194,62 @@
 
 </div>
 <script>
+/* view 전환 */
+$("#btn-vote-view").hide();
+$("#btn-analytics-view").click((e)=>{
+	$("#btn-analytics-view").hide();
+	$("#btn-vote-view").show();
+	$(".present-vote").text('
+			
+			');
+});
+$("#btn-vote-view").click((e)=>{
+	$("#btn-vote-view").hide();
+	$("#btn-analytics-view").show();
+	
+	$(".present-vote").text('').append(`
+			<c:if test="${not empty presentVoteInfo }">
+
+				<c:forEach var="presentVote" items="${presentVoteInfo }">
+				<fmt:formatDate value="${now}" pattern="yyyyMMdd" var="nowDate" /> 
+				<fmt:formatDate value="${presentVote.voteDeadline}" pattern="yyyyMMdd" var="deadline" /> 
+					<c:choose>
+	  				<c:when test="${nowDate <= deadline }">
+	  				<form id="sendVoteFrm" name="sendVoteFrm" action="">
+	  				<input type="hidden" name="voteNo" value="${presentVote.voteNo }" />
+	  				<input type="hidden" name="voteQuestionNo" value="${presentVote.voteQuestionNo }" />
+			  			<div class="present-vote-title mb-2">
+			  				<div class="isAnsweredVote">
+			  					<c:if test="${voteAnswer == 'Y' }">
+				  					<span id="isSendedVote" style="float: right;">[제출완료]</span>
+			  					</c:if>
+			  				</div>
+			  				<h3 class="vote-title">${presentVote.voteTitle }</h3>
+			  				<h6 class="vote-sub-title"><span>${presentVote.memberName}</span>님의 투표제안입니다.</h6>
+			  				<h6 class="vote-sub-title">투표 마감일 : <span><fmt:formatDate value="${presentVote.voteDeadline}" pattern="MM-dd"/></span>까지</h6>
+			  			</div>
+			  			<div class="vote-question-box">
+			  				<div class="vote-question">
+				  				<p class="vote-question-title text-secondary">${presentVote.voteQuestionTitle }</p>
+				  				<c:forEach var="presentOption" items="${presentVoteOption }">
+					  				<input type="${presentVote.voteQuestionType}" name="voteAnswer" value="${presentOption.voteOption }" required="required"/> ${presentOption.voteOption }
+				  				</c:forEach>
+			  				</div>
+			  				
+			  			</div>
+	  				</form>
+	  				</c:when>
+	  				<c:otherwise>
+	  					<div class="present-vote-title mb-2">
+			  				<h3 class="vote-title">현재 진행중인 투표가 없습니다.</h3>
+			  			</div>
+	  				</c:otherwise>
+					</c:choose>
+				</c:forEach>
+			</c:if>
+			`);
+	
+});
 /* 투표생성 모달창 제어 */
 $("#btn-create-vote").click((e)=>{
 	/* 투표마감일 기본값 세팅 */
@@ -215,30 +286,33 @@ $(".close-vote-modal").click((e)=>{
   $("#add-option-input").click((e)=>{
 	  var optionCnt = $(".vote_modal_question_option").length;
 	  optionCnt *= 1;
-	  
-	  console.log($(voteQuestionType).prop("checked"));
+	  	  
 	if($(voteQuestionType).prop("checked")){
 		$(".vote_modal_question_option_box").append(`<div class="vote_modal_question_option option-\${optionCnt+1}">
 	            <input type="checkbox" name="voteQuestionOptionCheck" class="mr-2"/>
-	            <input type="text" name="voteQuestionOption" class="form-control validate" style="width: 50%;" placeholder="옵션 \${optionCnt+1}"/>
+	            <input id="input-\${optionCnt+1}" type="text" name="voteQuestionOption" class="form-control validate" style="width: 50%;" placeholder="옵션 \${optionCnt+1}"/>
 	            <span class="btn-delete-option delete-option-\${optionCnt+1}" style="margin-left: 5px; margin-bottom: 15px; cursor: pointer;">x</span>
 	        </div>`);
 	}else{		
 		$(".vote_modal_question_option_box").append(`<div class="vote_modal_question_option option-\${optionCnt+1}">
 	            <input type="radio" name="voteQuestionOptionCheck" class="mr-2"/>
-	            <input type="text" name="voteQuestionOption" class="form-control validate" style="width: 50%;" placeholder="옵션 \${optionCnt+1}"/>
+	            <input id="input-\${optionCnt+1}" type="text" name="voteQuestionOption" class="form-control validate" style="width: 50%;" placeholder="옵션 \${optionCnt+1}"/>
 	            <span class="btn-delete-option delete-option-\${optionCnt+1}" style="margin-left: 5px; margin-bottom: 15px; cursor: pointer;">x</span>
 	        </div>`);
 	}
 	
 	var script = document.createElement("script");
-	script.innerHTML = `/* 옵션 제거 */
-			$(".btn-delete-option").click((e)=>{
-				$(e.target).parent().remove();
+	script.innerHTML = `
+			/* 포커스 이동 */
 				 var optionCnt = $(".vote_modal_question_option").length;
 				  optionCnt *= 1;
-				 var showTarget = ".delete-option-" + optionCnt;
-				 $(showTarget).show(); 
+				 var showTarget = ".delete-option-" + (optionCnt-1);
+				 var focusTarget = "#input-" + optionCnt;
+				 $(focusTarget).focus();
+			/* 옵션 제거 */
+			$(".btn-delete-option").click((e)=>{
+				$(e.target).parent().remove();
+				$(showTarget).show(); 
 			
 		});`;
 	 $(".script").append(script);

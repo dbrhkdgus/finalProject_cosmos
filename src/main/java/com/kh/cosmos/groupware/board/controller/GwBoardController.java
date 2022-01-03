@@ -92,6 +92,7 @@ public class GwBoardController {
 
 		return "gw/board/board";
 	}
+	
 
 	@GetMapping("/notice.do")
 	public String notice(@RequestParam(defaultValue = "1") int cPage, int boardNo, int groupNo, Model model,

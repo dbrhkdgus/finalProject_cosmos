@@ -167,7 +167,7 @@ public class GwChatController {
 			Map<String, String> map = new HashMap<>();
 			String profileRenamedFilename = gwService.selectMemberProfileRenamedFilename(m.getId());
 			map.put("profileRenamedFilename", profileRenamedFilename);
-			map.put("memberName", m.getMemberName());
+			map.put("nickname", m.getNickname());
 			map.put("memberId", m.getId());
 			resultList.add(map);
 		}
