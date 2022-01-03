@@ -76,11 +76,11 @@
 </script>
 </c:if>
   </head>
-  <body>
+  <body >
 <main>
   <header class="bg-light">
 
-    <div id="cosmos-groupwear-header">
+    <div id="cosmos-groupwear-header"  style="background-color: #5288F2;">
       <div class="groupwear-header-box">
         
         <div class="" style="width: 4.5rem;">
@@ -107,7 +107,7 @@
   </header>
   <section id="cosmos-groupwear-workspace">
 
-  <div class="d-flex flex-column flex-shrink-0 bg-light" style="width: 4.5rem;">
+  <div class="d-flex flex-column flex-shrink-0 bg-light" style="width: 4.5rem;background-color: #5288F2 !important;">
     <ul class="nav nav-pills nav-flush flex-column mb-auto text-center">
 
      <c:forEach var="group" items="${myGroupList}">
@@ -126,7 +126,7 @@
     </c:forEach>
     </ul>
     <div class="dropdown border-top">
-      <a href="#" class="d-flex align-items-center justify-content-center p-3 link-dark text-decoration-none dropdown-toggle" id="dropdownUser3" data-bs-toggle="dropdown" aria-expanded="false">
+      <a href="#" class="d-flex align-items-center justify-content-center p-3 link-dark text-decoration-none dropdown-toggle" id="dropdownUser3" data-bs-toggle="dropdown" aria-expanded="false" >
         <c:choose>
 	        <c:when test="${fn:startsWith(profile, 'http')}">
 		        <img src="${profile}" alt="mdo" width="24" height="24" class="rounded-circle">
@@ -145,7 +145,7 @@
     </div>
   </div>
 <form:form method="POST" action="${pageContext.request.contextPath}/member/memberLogout.do" id="memberLogoutFrm" class="d-inline"></form:form>
-  <div class="flex-shrink-0 p-3 bg-light" style="width: 260px;">
+  <div class="flex-shrink-0 p-3 bg-light" style="width: 260px;background-color: #EBF0F3 !important;">
     <ul class="list-unstyled ps-0">
       <li class="mb-1">
       	<div class="d-flex justify-content-between align-items-center">

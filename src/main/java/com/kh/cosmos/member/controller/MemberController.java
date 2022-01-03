@@ -90,7 +90,6 @@ public class MemberController {
 	public String memberLogout(SessionStatus sessionStatus) {
 		if (!sessionStatus.isComplete())
 			sessionStatus.setComplete();
-
 		return "redirect:/";
 	}
 

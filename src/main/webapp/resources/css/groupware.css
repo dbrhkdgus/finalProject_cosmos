@@ -826,13 +826,14 @@ div.list-group1{
     overflow: hidden;
 }
 .present-vote-box{
-	margin-top: 2%;
-	background: red;
-    width: 90%;
+	background-color: rgb(162, 190, 228, 0.1);
+    margin-top: 2%;
+    width: 93%;
     height: 43%;
-    margin-left: 5%;
-    margin-right: 5%;
+    margin-left: 3%;
+    /* margin-right: 5%; */
     display: flex;
+    align-items: center;
 }
 .old-vote-box{
 	width: 100%;
@@ -841,18 +842,19 @@ div.list-group1{
 	display: flex;
 }
 .vote-in-progress, .vote-closed-box{
+	background-color: rgb(162, 190, 228, 0.1);
 	overflow-y: auto;
 	width: 45%;
 	height: 90%;
 	margin-left: 3%;
 }
 .present-vote{
-	width: 55%;
-    margin-left: 3%;
-    margin-top: 2%;
-    margin-right: 2%;
+    background-color: rgb(162, 190, 228, 0.1);
+    width: 95%;
     height: 90%;
-    margin-bottom: 2%;
+    margin-left: 1%;
+    padding-top: 15px;
+    padding-left: 15px;
 }
 .present-vote-control-box{
 	width: 40%;
