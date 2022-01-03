@@ -15,8 +15,8 @@
 <c:set var="groupMemberCnt" value="${fn:length(myGroupMemberList)}" />
 
  <div class="groupware-vote-outter">
-  	<div class="present-vote-box" style="background: Beige;">
-  		<div class="present-vote" style="background: FloralWhite">
+  	<div class="present-vote-box">
+  		<div class="present-vote">
 	  		
 	  		<c:if test="${not empty presentVoteInfo }">
 	
@@ -181,7 +181,7 @@
   	
   	</div>
   	<div class="old-vote-box">
-  		<div class="vote-in-progress" style="background: Beige">
+  		<div class="vote-in-progress">
   			<div class="vote-in-progress-title">
   				<p class="ml-3 mt-2">진행중인 다른 투표</p>
   			</div>
@@ -220,7 +220,7 @@
   				</table>
   			</div>
   		</div>
-  		<div class="vote-closed-box" style="background: Beige">
+  		<div class="vote-closed-box" >
   			<div class="vote-closed-title">
   				<p class="ml-3 mt-2">마감된 투표</p>
   			</div>
