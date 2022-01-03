@@ -92,9 +92,9 @@
 						<button class="btn p-1 re-rep-btn" type="button" style="margin-bottom: 0px; font-size:12px">댓글쓰기</button>
 				  </div>
 			  </div>
+				</form:form>
 				
 				<!-- 대댓글 작성 폼 -->
-				</form:form>
 				<form:form name ="anonymousReRepEnrollFrm" action="${pageContext.request.contextPath }/gw/board/anonymousReplyEnroll.do" method="post" >	
 		            <div class="input-group mt-3 pl-2 pr-2 mx-auto">
 		            	<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi mr-1 bi-arrow-return-right" viewBox="0 0 16 16">
