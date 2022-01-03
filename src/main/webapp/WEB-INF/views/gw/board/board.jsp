@@ -10,10 +10,8 @@
 <style>
  tr{cursor:pointer;}
 </style>
- <div class="test-notice-outter">
-	<div class="test-board-title-container">
-	 <div class="test-board-title">
-	</div> 
+ <div class="workspace-box">
+	<div class="p-4">
 	<form action="${pageContext.request.contextPath}/gw/board/board.do?boardNo=${boardNo}&groupNo=${groupNo}" method="get">
 	    <div class="test-board-search">
 	    	 <select name="searchType" class="form-select search-select" aria-label="Default select example">
@@ -29,7 +27,7 @@
 		   </div>   
 		</div>       
     </form>
-    </div>
+    
 
   <table class="table file-board-table">
     <thead>
@@ -61,6 +59,7 @@
   <div class="test-board-pagebar">
      ${pagebar} 
   </div>
+</div>
 </div>
 <jsp:include page="/WEB-INF/views/common/gw_footer.jsp"></jsp:include>
 
