@@ -34,4 +34,6 @@ public interface GroupwareService {
 
 	int deleteVoiceChatRoom(int roomNo);
 
+	List<Board> selectAllBoardRoomByGroupNotice(int groupNo);
+
 }

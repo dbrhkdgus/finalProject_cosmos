@@ -49,6 +49,7 @@ public class AppController {
 	@GetMapping("/ladder.do")
 	public String ladder(int groupNo, Model model, Authentication auth) {
 		groupwareHeaderSet(groupNo, model, auth);
+		model.addAttribute("title", "사다리타기");
 		return "gw/app/ladder";
 	}
 	@GetMapping("/TDL.do")
@@ -61,6 +62,7 @@ public class AppController {
 		List<TDL> tdlList = appService.selectAlltdlListByParam(param);
 		model.addAttribute("tdlList",tdlList);
 		model.addAttribute("loginMember",loginMember);
+		model.addAttribute("title", loginMember.getNickname()+"의 ToDoList");
 		return "gw/app/TDL";
 	}
 	

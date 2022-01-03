@@ -187,6 +187,18 @@ public class BoardDaoImpl implements BoardDao {
 		// TODO Auto-generated method stub
 		return session.update("board.deletePostReply", reply);
 	}
+
+	@Override
+	public List<Post> selectBoardListByParam(Map<String, Object> param, int limit, int offset) {
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		return session.selectList("board.selectBoardListByParam", param, rowBounds);
+	}
+	
+	@Override
+	public int insertAnonymousReply(Reply reply) {
+		// TODO Auto-generated method stub
+		return session.insert("board.insertAnonymousReply", reply);
+	}
 	
 
 }

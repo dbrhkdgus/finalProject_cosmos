@@ -30,6 +30,7 @@ import com.kh.cosmos.group.model.vo.Group;
 import com.kh.cosmos.groupware.board.model.service.BoardService;
 import com.kh.cosmos.groupware.board.model.vo.Board;
 import com.kh.cosmos.groupware.board.model.vo.Post;
+import com.kh.cosmos.groupware.board.model.vo.PostWithCategory;
 import com.kh.cosmos.groupware.chat.model.vo.ChatRoom;
 import com.kh.cosmos.groupware.service.GroupwareService;
 import com.kh.cosmos.main.model.service.MainService;
@@ -61,7 +62,7 @@ public class GwBoardController {
 	public String board(@RequestParam(defaultValue = "1") int cPage, int boardNo, int groupNo, Model model,
 			HttpServletRequest request, Authentication auth) {
 		groupwareHeaderSet(groupNo, model, auth);
-		log.debug("*************boardNo = {}", boardNo);
+
 		int limit = 10;
 		int offset = (cPage - 1) * limit;
 		int totalContent = boardService.selectPostInBoardTotalCount(boardNo);
@@ -71,24 +72,23 @@ public class GwBoardController {
 		String pagebar = CosmosUtils.getPagebar(cPage, limit, totalContent, url);
 		model.addAttribute("pagebar", pagebar);
 
-		List<Post> boardPostList = boardService.selectAllPostInBoard(boardNo, limit, offset);
-		Board board = boardService.selectBoardByBoardNo(boardNo);
-		log.debug("boardPostList = {}", boardPostList);
-		model.addAttribute("boardPostList", boardPostList);
-		model.addAttribute("boardNo", boardNo);
-		model.addAttribute("groupNo", groupNo);
-		model.addAttribute("title", "# " + board.getBoardName());
-
-
 		// MemberWithGroupList 불러오기
 		List<MemberWithGroup> memberWithGroupList = boardService.memberWithGroupList(groupNo);
-
+		
 		// memberId, nickname map에 담기
 		Map<String, String> memberWithGroupMap = new HashMap<>();
 		for (MemberWithGroup memberWithGroup : memberWithGroupList) {
 			memberWithGroupMap.put(memberWithGroup.getId(), memberWithGroup.getNickname());
 		}
+		
+		List<Post> boardPostList = boardService.selectAllPostInBoard(boardNo, limit, offset);
+		Board board = boardService.selectBoardByBoardNo(boardNo);
+		log.debug("noticePostList = {}", boardPostList);
+		model.addAttribute("boardPostList", boardPostList);
+		model.addAttribute("boardNo", boardNo);
+		model.addAttribute("groupNo", groupNo);
 		model.addAttribute("memberWithGroupMap", memberWithGroupMap);
+		model.addAttribute("title", "# " + board.getBoardName());
 
 		return "gw/board/board";
 	}
@@ -101,7 +101,13 @@ public class GwBoardController {
 
 		int limit = 10;
 		int offset = (cPage - 1) * limit;
-		
+		int totalContent = boardService.selectPostInBoardTotalCount(boardNo);
+		model.addAttribute("totalContent", totalContent);
+		String url = request.getRequestURI();
+		url += "?boardNo=" + boardNo + "&groupNo=" + groupNo;
+		String pagebar = CosmosUtils.getPagebar(cPage, limit, totalContent, url);
+		model.addAttribute("pagebar", pagebar);
+
 		List<Post> noticePostList = boardService.selectAllPostInNotice(boardNo, limit, offset);
 		Board board = boardService.selectBoardByBoardNo(boardNo);
 		log.debug("noticePostList = {}", noticePostList);
@@ -109,15 +115,6 @@ public class GwBoardController {
 		model.addAttribute("boardNo", boardNo);
 		model.addAttribute("groupNo", groupNo);
 		model.addAttribute("title", "# " + board.getBoardName());
-
-		int totalContent = boardService.selectPostInBoardTotalCount(boardNo);
-		log.debug("totalContent = {}", totalContent);
-		model.addAttribute("totalContent", totalContent);
-
-		String url = request.getRequestURI();
-		String pagebar = CosmosUtils.getPagebar(cPage, limit, totalContent, url);
-
-		model.addAttribute("pagebar", pagebar);
 
 		return "gw/board/notice";
 	}
@@ -289,7 +286,6 @@ public class GwBoardController {
 			return "redirect:/gw/board/boardDetail.do?postNo=" + post.getPostNo();
 		}
 	}
-
 	
 	
 	@PostMapping("/checkPassword.do")
@@ -434,7 +430,7 @@ public class GwBoardController {
 	}
 	
 	@PostMapping("postReplyEnroll.do")
-	public String postReplyEnroll(Reply reply, int postNo, int replyLevel, int replyRef, RedirectAttributes redirectAttr, Authentication authentication, HttpServletRequest request) {
+	public String postReplyEnroll(Reply reply, int postNo, int replyLevel, int replyRef, String content, String replyPw, RedirectAttributes redirectAttr, Authentication authentication, HttpServletRequest request) {
 		Member member = (Member)authentication.getPrincipal();
 		reply.setMemberId(member.getId());
 		reply.setPostNo(postNo);
@@ -444,19 +440,33 @@ public class GwBoardController {
 		try {
 			int result = boardService.insertPostReply(reply);
 
-			String msg = result > 0 ? "댓글 등록 성공!" : "댓글 등록 실패!";
-			redirectAttr.addFlashAttribute("msg", msg);
 		} catch (Exception e) {
 			log.error(e.getMessage(), e); // 
 		 	redirectAttr.addFlashAttribute("msg", "댓글 등록 실패");
 		}
-		Post post = boardService.selectOnePostInBoard(postNo);
-		Board board = boardService.selectBoardByBoardNo(post.getBoardNo());
-		if(board.getBoardType() == 'A') {
-			return "redirect:/gw/board/anonymousDetail.do?postNo=" + postNo;
-		} else {
-			return "redirect:/gw/board/boardDetail.do?postNo=" + postNo;
+
+		return "redirect:/gw/board/boardDetail.do?postNo=" + postNo;
+	}
+	
+	@PostMapping("anonymousReplyEnroll.do")
+	public String anonymousReplyEnroll(Reply reply, int postNo, int replyLevel, int replyRef, RedirectAttributes redirectAttr, Authentication authentication, HttpServletRequest request) {
+		Member member = (Member)authentication.getPrincipal();
+		reply.setMemberId(member.getId());
+		reply.setPostNo(postNo);
+		reply.setReplyLevel(replyLevel);
+		reply.setReplyRef(replyRef);
+		
+		try {
+			int result = boardService.insertAnonymousReply(reply);
+			String msg = result > 0 ? "댓글 등록 성공!" : "댓글 등록 실패!";
+			redirectAttr.addFlashAttribute("msg", msg);
+			
+		} catch (Exception e) {
+			log.error(e.getMessage(), e); // 
+			redirectAttr.addFlashAttribute("msg", "댓글 등록 실패");
 		}
+
+		return "redirect:/gw/board/anonymousDetail.do?postNo=" + postNo;
 	}
 	
 	@PostMapping("deleteUpdateReply.do")
@@ -594,6 +604,12 @@ public class GwBoardController {
 
 		int limit = 10;
 		int offset = (cPage - 1) * limit;
+		int totalContent = boardService.selectPostInBoardTotalCount(boardNo);
+		model.addAttribute("totalContent", totalContent);
+		String url = request.getRequestURI();
+		url += "?boardNo=" + boardNo + "&groupNo=" + groupNo;
+		String pagebar = CosmosUtils.getPagebar(cPage, limit, totalContent, url);
+		model.addAttribute("pagebar", pagebar);
 
 		List<Post> anonymousPostList = boardService.selectAllPostInAnonymous(boardNo, limit, offset);
 		Board board = boardService.selectBoardByBoardNo(boardNo);
@@ -602,15 +618,6 @@ public class GwBoardController {
 		model.addAttribute("boardNo", boardNo);
 		model.addAttribute("groupNo", groupNo);
 		model.addAttribute("title", "# " + board.getBoardName());
-
-		int totalContent = boardService.selectPostInBoardTotalCount(boardNo);
-		log.debug("totalContent = {}", totalContent);
-		model.addAttribute("totalContent", totalContent);
-
-		String url = request.getRequestURI();
-		String pagebar = CosmosUtils.getPagebar(cPage, limit, totalContent, url);
-
-		model.addAttribute("pagebar", pagebar);
 
 		return "gw/board/anonymous";
 	}

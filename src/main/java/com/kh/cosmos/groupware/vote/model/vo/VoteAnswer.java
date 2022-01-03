@@ -21,5 +21,5 @@ public class VoteAnswer implements Serializable {
 	private String memberId;
 	private int voteQuestionNo;
 	private String voteAnswer;
-
+    private int answerCnt;
 }

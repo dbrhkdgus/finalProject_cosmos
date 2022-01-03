@@ -116,7 +116,13 @@
 	insert into 
 		reply
 	values
-		(SEQ_REPLY_NO_NO.nextval, #{memberId},#{content},#{replyLevel},#{replyRef},default,'N',#{postNo},null,null)
+		(SEQ_REPLY_NO_NO.nextval, #{memberId},#{content},#{replyLevel},#{replyRef},default,'N',#{postNo},null,null,null)
+  </insert>
+  <insert id="insertAnonymousReply">
+	insert into 
+		reply
+	values
+		(SEQ_REPLY_NO_NO.nextval, #{memberId},#{content},#{replyLevel},#{replyRef},default,'N',#{postNo},null,null,#{replyPw})
   </insert>
 
   <select id="selectReplyListByPostNo" resultType="reply">
@@ -183,5 +189,28 @@
     where
 	    group_no=#{groupNo}
   </select>
-	
+	<select id="selectBoardListByParam" resultType="Post">
+	select
+	    p.*,
+	    bc.board_category
+	from
+	    post p left join board_category bc
+	     on p.board_category_no = bc.board_category_no 
+	<where>		
+		
+		<if test="searchType == 'all'">
+			 and  member_id like '%'||#{searchKeyword}||'%' or post_title like '%'||#{searchKeyword}||'%' or reg_date like '%'||#{searchKeyword}||'%'
+		</if>
+		<if test="searchType == 'title'">
+			 and  post_title like '%'||#{searchKeyword}||'%'
+		</if>	
+		<if test="searchType == 'writer'">
+			 and  member_id like '%'||#{searchKeyword}||'%' 
+		</if>			
+		<if test="searchType == 'date'">
+			 and  post_reg_date like '%'||#{searchKeyword}||'%'
+		</if>
+	</where>
+		order by post_reg_date desc
+	</select>
 </mapper>

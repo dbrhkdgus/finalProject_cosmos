@@ -2,7 +2,9 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>	
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+
 <fmt:requestEncoding value="utf-8"/> 
 <jsp:include page="/WEB-INF/views/common/gw_header.jsp">
 	<jsp:param value="" name="title"/>
@@ -10,10 +12,8 @@
 <style>
  tr{cursor:pointer;}
 </style>
- <div class="test-notice-outter">
-	<div class="test-board-title-container">
-	 <div class="test-board-title">
-	</div> 
+ <div class="workspace-box">
+	<div class="p-4">
 	<form action="${pageContext.request.contextPath}/gw/board/board.do?boardNo=${boardNo}&groupNo=${groupNo}" method="get">
 	    <div class="test-board-search">
 	    	 <select name="searchType" class="form-select search-select" aria-label="Default select example">
@@ -24,13 +24,11 @@
 		     </select>
 		     
 		   <div class="input-group mb-3 search-input">
-		      <input type="text" class="form-control" name="searchKeyword" value="${searchKeyword }" placeholder="검색어를 입력하세요"  aria-describedby="button-addon2">
+		      <input type="text" class="form-control" name="searchKeyword" value="${searchKeyword}" placeholder="검색어를 입력하세요"  aria-describedby="button-addon2">
 		   		<button class="btn btn-outline-secondary" type="button" id="button-addon2" >검색</button>
 		   </div>   
 		</div>       
     </form>
-    </div>
-
   <table class="table file-board-table">
     <thead>
       <tr>
@@ -62,5 +60,16 @@
      ${pagebar} 
   </div>
 </div>
+</div>
+
+<script>
+$("#button-addon2").click((e)=>{
+    const searchType = $("select[name=searchType]").val();
+    const searchKeyword = $("input[name=searchKeyword]").val();
+    location.href=`${pageContext.request.contextPath}/gw/board/board.do?boardNo=${boardNo}&groupNo=${groupNo}&searchType=\${searchType}&searchKeyword=\${searchKeyword}`; 
+   
+});
+</script>
+
 <jsp:include page="/WEB-INF/views/common/gw_footer.jsp"></jsp:include>
 

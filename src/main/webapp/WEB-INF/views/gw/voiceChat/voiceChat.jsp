@@ -156,6 +156,7 @@ window.addEventListener('DOMContentLoaded', function(event) {
 	          window.open(joinUrl, "_blank");
 	        },
 	      });
+	      window.close();
 	    });
 
 	  function copyToClipboard(elementId) {
