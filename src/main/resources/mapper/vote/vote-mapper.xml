@@ -53,7 +53,7 @@ where vote_no = #{voteNo}
 where vote_no = #{voteNo} 
   </select>
   <select id="selectVoteOptionByVoteNo" resultType="voteOption">
-  select * from vote_option where vote_no = #{vote_no}
+  select * from vote_option o left join (select vote_no, vote_answer, count(1) answer_cnt from vote_option o left join vote_answer using(vote_no) group by vote_no, vote_answer, vote_option having vote_option = vote_answer) a using(vote_no) where vote_option = vote_answer and vote_no = #{voteNo}
   </select>
   
   <select id="selectVoteInfoByParam" resultType="voteInfo">
@@ -75,5 +75,13 @@ where group_no = #{groupNo} and vote_no != #{voteNo}
   
   <select id="selectAnswerdMemberCnt" resultType="_int">
   select count(*) from vote_answer where vote_no = #{voteNo}
+  </select>
+  
+  <select id="selectVoteAnswerByVoteNo" resultType="voteAnswer">
+  select vote_no,vote_answer,count(vote_answer) answer_cnt from vote_answer group by vote_answer, vote_no having vote_no = '16';
+  </select>
+  
+  <select id="selectVoteOptionStringList" resultType="string">
+  select vote_option from vote_option where vote_no = #{voteNo} order by vote_option
   </select>
 </mapper>

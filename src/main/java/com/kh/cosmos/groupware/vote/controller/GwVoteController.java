@@ -78,16 +78,15 @@ public class GwVoteController {
 		List<VoteInfo> presentVoteInfo = voteService.selectVoteInfoListByVoteNo(voteNo);
 		List<VoteInfo> groupVoteInfoList = new ArrayList<VoteInfo>();
 		List<VoteOption> presentVoteOption = voteService.selectVoteOptionByVoteNo(voteNo);
-		
+		List<String> optionList = voteService.selectVoteOptionStringList(voteNo);
 		// 이미 제출된 투표가 있는지 확인
 		VoteAnswer voteAnswer = new VoteAnswer();
 		for(VoteInfo vi : presentVoteInfo) {
 			voteAnswer.setMemberId(((Member)auth.getPrincipal()).getId());
 			voteAnswer.setVoteNo(voteNo);
-			voteAnswer.setVoteQuestionNo(vi.getVoteQuestionNo());
-			
-			
+			voteAnswer.setVoteQuestionNo(vi.getVoteQuestionNo());	
 		}
+		
 		// 투표한 인원 업데이트
 		for(VoteInfo vi : _groupVoteInfoList) {
 			vi.setAnsweredMemberCnt(voteService.selectAnswerdMemberCnt(vi.getVoteNo()));
@@ -101,9 +100,7 @@ public class GwVoteController {
 			model.addAttribute("voteAnswer","N");
 		}
 		
-		// 투표한 멤버 수
-		
-		
+		model.addAttribute("optionList",optionList);
 		model.addAttribute("presentVoteInfo",presentVoteInfo);
 		model.addAttribute("presentVoteOption",presentVoteOption);
 		model.addAttribute("groupVoteInfoList",groupVoteInfoList);
