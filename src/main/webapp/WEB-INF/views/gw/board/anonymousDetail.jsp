@@ -63,7 +63,7 @@
 		<c:forEach items="${replyList}" var="reply">
 		  <c:if test="${reply.replyLevel == 1 && reply.deleteYn eq 'N'}">
 			<hr class="border-0">
-			<form:form name="postRepUpdateFrm" action="${pageContext.request.contextPath }/gw/board/deleteUpdateReply.do" method="post">
+			<form:form name="anonymousRepUpdateFrm" action="${pageContext.request.contextPath }/gw/board/deleteUpdateReply.do" method="post">
 			<div class="d-flex">
 			
 				<div class="w-100 align-items-center">
@@ -342,6 +342,9 @@ function checkNumber() {
 	}
 }
 
+
+
+/* 댓글 대댓글 제출 */
 $("[name=anonymousRepEnrollFrm]").submit(function(){
 	var $pw = $("#pw");
 	if(/^\w{4}$/.test($pw.val()) == false) {
@@ -351,9 +354,6 @@ $("[name=anonymousRepEnrollFrm]").submit(function(){
 	}
 		return true;
 });
-
-
-/* 댓글 대댓글 제출 */
 $("#btn-send").click((e)=>{
 	if($('#rep-con').val() != null && $('#rep-con').val() != ''){
 	}else{

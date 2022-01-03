@@ -62,7 +62,7 @@ public class GwBoardController {
 	public String board(@RequestParam(defaultValue = "1") int cPage, int boardNo, int groupNo, Model model,
 			HttpServletRequest request, Authentication auth) {
 		groupwareHeaderSet(groupNo, model, auth);
-		log.debug("*************boardNo = {}", boardNo);
+
 		int limit = 10;
 		int offset = (cPage - 1) * limit;
 		int totalContent = boardService.selectPostInBoardTotalCount(boardNo);
@@ -72,40 +72,13 @@ public class GwBoardController {
 		String pagebar = CosmosUtils.getPagebar(cPage, limit, totalContent, url);
 		model.addAttribute("pagebar", pagebar);
 
-		Map<String, Object> param = new HashMap<String, Object>();
-		List<Post> boardPostList = new ArrayList<Post>();
-		String searchType = request.getParameter("searchType");
-		String searchKeyword = request.getParameter("searchKeyword");
-		param.put("searchType", searchType);
-		param.put("searchKeyword", searchKeyword);
-				
-		boardPostList = boardService.selectBoardListByParam(param,limit,offset);		
-		model.addAttribute("boardPostList",boardPostList);
-		
-		boolean isListempty = false;
-		if(boardPostList.isEmpty()) {
-			isListempty = true;
-		}
-		
-		log.debug("isListempty ={}" ,isListempty );
-		model.addAttribute("isListempty",isListempty);
-
+		List<Post> boardPostList = boardService.selectAllPostInNotice(boardNo, limit, offset);
 		Board board = boardService.selectBoardByBoardNo(boardNo);
-		log.debug("boardPostList = {}", boardPostList);
+		log.debug("noticePostList = {}", boardPostList);
+		model.addAttribute("boardPostList", boardPostList);
 		model.addAttribute("boardNo", boardNo);
 		model.addAttribute("groupNo", groupNo);
 		model.addAttribute("title", "# " + board.getBoardName());
-
-
-		// MemberWithGroupList 불러오기
-		List<MemberWithGroup> memberWithGroupList = boardService.memberWithGroupList(groupNo);
-
-		// memberId, nickname map에 담기
-		Map<String, String> memberWithGroupMap = new HashMap<>();
-		for (MemberWithGroup memberWithGroup : memberWithGroupList) {
-			memberWithGroupMap.put(memberWithGroup.getId(), memberWithGroup.getNickname());
-		}
-		model.addAttribute("memberWithGroupMap", memberWithGroupMap);
 
 		return "gw/board/board";
 	}
@@ -448,7 +421,7 @@ public class GwBoardController {
 	}
 	
 	@PostMapping("postReplyEnroll.do")
-	public String postReplyEnroll(Reply reply, int postNo, int replyLevel, int replyRef, RedirectAttributes redirectAttr, Authentication authentication, HttpServletRequest request) {
+	public String postReplyEnroll(Reply reply, int postNo, int replyLevel, int replyRef, String content, String replyPw, RedirectAttributes redirectAttr, Authentication authentication, HttpServletRequest request) {
 		Member member = (Member)authentication.getPrincipal();
 		reply.setMemberId(member.getId());
 		reply.setPostNo(postNo);
@@ -462,13 +435,8 @@ public class GwBoardController {
 			log.error(e.getMessage(), e); // 
 		 	redirectAttr.addFlashAttribute("msg", "댓글 등록 실패");
 		}
-		Post post = boardService.selectOnePostInBoard(postNo);
-		Board board = boardService.selectBoardByBoardNo(post.getBoardNo());
-		if(board.getBoardType() == 'A') {
-			return "redirect:/gw/board/anonymousDetail.do?postNo=" + postNo;
-		} else {
-			return "redirect:/gw/board/boardDetail.do?postNo=" + postNo;
-		}
+
+		return "redirect:/gw/board/boardDetail.do?postNo=" + postNo;
 	}
 	
 	@PostMapping("anonymousReplyEnroll.do")
@@ -481,18 +449,15 @@ public class GwBoardController {
 		
 		try {
 			int result = boardService.insertAnonymousReply(reply);
+			String msg = result > 0 ? "댓글 등록 성공!" : "댓글 등록 실패!";
+			redirectAttr.addFlashAttribute("msg", msg);
 			
 		} catch (Exception e) {
 			log.error(e.getMessage(), e); // 
 			redirectAttr.addFlashAttribute("msg", "댓글 등록 실패");
 		}
-		Post post = boardService.selectOnePostInBoard(postNo);
-		Board board = boardService.selectBoardByBoardNo(post.getBoardNo());
-		if(board.getBoardType() == 'A') {
-			return "redirect:/gw/board/anonymousDetail.do?postNo=" + postNo;
-		} else {
-			return "redirect:/gw/board/boardDetail.do?postNo=" + postNo;
-		}
+
+		return "redirect:/gw/board/anonymousDetail.do?postNo=" + postNo;
 	}
 	
 	@PostMapping("deleteUpdateReply.do")
