@@ -38,7 +38,7 @@
 		</div>
 		<div class="input-group input-group-sm mb-3">
   			<span class="input-group-text" id="inputGroup-sizing-sm">비밀번호</span>
-  			<input id="pw" name="postPassword" type="text" class="form-control" pattern="\d{4}" onChange="checkNumber()" maxlength="4" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="숫자 4자리를 입력해 주세요.">
+  			<input id="pw" name="postPassword" type="text" class="form-control"  onChange="checkNumber()" maxlength="4" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="숫자 4자리를 입력해 주세요.">
 			
 			
 		</div>		

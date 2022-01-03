@@ -183,5 +183,28 @@
     where
 	    group_no=#{groupNo}
   </select>
-	
+	<select id="selectBoardListByParam" resultType="Post">
+	select
+	    p.*,
+	    bc.board_category
+	from
+	    post p left join board_category bc
+	     on p.board_category_no = bc.board_category_no 
+	<where>		
+		
+		<if test="searchType == 'all'">
+			 and  member_id like '%'||#{searchKeyword}||'%' or post_title like '%'||#{searchKeyword}||'%'
+		</if>
+		<if test="searchType == 'title'">
+			 and  post_title like '%'||#{searchKeyword}||'%'
+		</if>	
+		<if test="searchType == 'writer'">
+			 and  member_id like '%'||#{searchKeyword}||'%' 
+		</if>			
+		<if test="searchType == 'date'">
+			 and  post_reg_date like '%'||#{searchKeyword}||'%'
+		</if>
+	</where>
+		order by post_reg_date desc
+	</select>
 </mapper>

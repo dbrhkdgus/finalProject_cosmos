@@ -26,9 +26,9 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public List<Post> selectAllPostInBoard(int boardNo, int limit, int offset) {
+	public List<Post> selectAllPostInBoard(int boardNo) {
 		// TODO Auto-generated method stub
-		return boardDao.selectAllPostInBoard(boardNo, limit, offset);
+		return boardDao.selectAllPostInBoard(boardNo);
 	}
 
 	@Override
@@ -184,6 +184,12 @@ public class BoardServiceImpl implements BoardService {
 	public int deletePostReply(Reply reply) {
 		// TODO Auto-generated method stub
 		return boardDao.deletePostReply(reply);
+	}
+
+	@Override
+	public List<Post> selectBoardListByParam(Map<String, Object> param, int limit, int offset) {
+		// TODO Auto-generated method stub
+		return boardDao.selectBoardListByParam(param, limit, offset);
 	}
 
 
