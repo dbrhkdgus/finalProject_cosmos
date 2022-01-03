@@ -20,5 +20,6 @@ public class VoteOption implements Serializable {
 	private int voteNo;
 	private int voteQuestionNo;
 	private String voteOption;
+	private int answerCnt;
 
 }
