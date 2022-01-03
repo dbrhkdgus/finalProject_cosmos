@@ -271,10 +271,10 @@
 	        ) a
 	      , ( 
 	        SELECT 
-	            TO_DATE('2021-12-01', 'YYYY-MM-DD') + (LEVEL-1) AS DT 
+	            TO_DATE(#{firstDate}, 'YYYY-MM-DD') + (LEVEL-1) AS DT 
 	        FROM 
 	            DUAL 
-	        CONNECT BY LEVEL <![CDATA[ < ]]>= (TO_DATE('2021-12-31', 'YYYY-MM-DD') - TO_DATE('2021-12-01', 'YYYY-MM-DD')) + 1
+	        CONNECT BY LEVEL <![CDATA[ < ]]>= (TO_DATE(#{lastDate}, 'YYYY-MM-DD') - TO_DATE(#{firstDate}, 'YYYY-MM-DD')) + 1
 	        ) b
 	WHERE 
 	    b.dt = a.member_enroll_date(+)
