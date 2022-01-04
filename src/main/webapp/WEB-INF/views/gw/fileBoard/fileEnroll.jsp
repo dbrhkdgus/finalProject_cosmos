@@ -6,6 +6,8 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>    
 <sec:authorize access="hasAnyRole('ROLE_GW${currGroupNo}MEMBER','ROLE_GW${currGroupNo}MASTER', 'ROLE_ADMIN')">
+
+
 <fmt:requestEncoding value="utf-8"/> 
 <jsp:include page="/WEB-INF/views/common/gw_header.jsp">
 	<jsp:param value="" name="title"/>
@@ -19,16 +21,12 @@
   <div class="groupware-board-detail-outter">
     <h4>파일 업로드</h4>
    
-		<form
-		class="file-board-form"   
-		enctype="multipart/form-data" 
-		action="${pageContext.request.contextPath}/gw/fileBoard/fileEnroll.do?${_csrf.parameterName}=${_csrf.token}"
+		<form class="file-board-form"   enctype="multipart/form-data" 	action="${pageContext.request.contextPath}/gw/fileBoard/fileEnroll.do?${_csrf.parameterName}=${_csrf.token}"
 		method="POST" 
 		>
+      
       <div class="form-group row">
-		
-		
-        <label for="file-category" class="col-sm-2 col-form-label">카테고리</label>
+		<label for="file-category" class="col-sm-2 col-form-label">카테고리</label>
         <div class="col-sm-10">
 
        
@@ -41,7 +39,8 @@
             
           </select>
         </div>
-      </div>
+        </div>
+      
 
       <div class="form-group row">
         <label for="file-board-writer" class="col-sm-2 col-form-label">제목</label>
@@ -91,9 +90,10 @@
         <button type="submit" class="btn btn-secondary">취소하기</button>
 
       </div>
-  </div>
+
     </form>
 
+</div>
 </div>
 <script>
   $(document).ready(function(){

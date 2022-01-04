@@ -15,6 +15,8 @@
 <sec:authorize access="isAuthenticated()">
 	<sec:authentication property="principal" var="loginMember"/>
 </sec:authorize>
+
+
  <div class="workspace-box">
   <div class="p-4">
 
