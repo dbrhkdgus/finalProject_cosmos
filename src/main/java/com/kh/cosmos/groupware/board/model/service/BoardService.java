@@ -6,6 +6,7 @@ import java.util.Map;
 import com.kh.cosmos.common.attachment.model.vo.Attachment;
 import com.kh.cosmos.groupware.board.model.vo.Board;
 import com.kh.cosmos.groupware.board.model.vo.Post;
+import com.kh.cosmos.groupware.board.model.vo.PostWithNickname;
 import com.kh.cosmos.main.model.vo.Reply;
 import com.kh.cosmos.member.model.vo.MemberWithGroup;
 
@@ -67,11 +68,15 @@ public interface BoardService {
 
 	int deletePostReply(Reply reply);
 
-	List<Post> searchBoardList(Map<String, Object> param, int limit, int offset);
+	List<PostWithNickname> searchBoardList(Map<String, Object> param, int limit, int offset);
 
 	int insertAnonymousReply(Reply reply);
 
 	Reply selectOneReply(int replyNo);
+
+	int selectSearchBoardTotalCnt(Map<String, Object> param);
+
+	int selectReplyCount(int postNo);
 
 
 }

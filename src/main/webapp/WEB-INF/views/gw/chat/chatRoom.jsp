@@ -3,13 +3,17 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-<%-- <fmt:requestEncoding value="utf-8"/>  --%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>	
+<sec:authorize access="hasAnyRole('ROLE_GW${currGroupNo}MEMBER','ROLE_GW${currGroupNo}MASTER', 'ROLE_ADMIN')">
+
 <jsp:include page="/WEB-INF/views/common/gw_header.jsp">
 	<jsp:param value="" name="title"/>
 </jsp:include>
+
+
 <sec:authorize access="isAuthenticated()">
 	<sec:authentication property="principal" var="loginMember"/>
+	
 </sec:authorize>
   <div class="workspace-box drop-zone" >
     <div class="chat-content">
@@ -603,12 +607,15 @@ function loadDM(obj){
 		},
 		error: console.log
 	});
+
 }
 </script>
+
+
   </body>
 
 </html>
-
+</sec:authorize>
       
 
 

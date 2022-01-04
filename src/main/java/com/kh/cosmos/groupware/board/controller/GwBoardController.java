@@ -30,13 +30,11 @@ import com.kh.cosmos.group.model.vo.Group;
 import com.kh.cosmos.groupware.board.model.service.BoardService;
 import com.kh.cosmos.groupware.board.model.vo.Board;
 import com.kh.cosmos.groupware.board.model.vo.Post;
-import com.kh.cosmos.groupware.board.model.vo.PostWithCategory;
+import com.kh.cosmos.groupware.board.model.vo.PostWithNickname;
 import com.kh.cosmos.groupware.chat.model.vo.ChatRoom;
 import com.kh.cosmos.groupware.service.GroupwareService;
 import com.kh.cosmos.main.model.service.MainService;
-import com.kh.cosmos.main.model.vo.QuestionWithMemberNameAndNickName;
 import com.kh.cosmos.main.model.vo.Reply;
-import com.kh.cosmos.member.model.service.MemberService;
 import com.kh.cosmos.member.model.vo.Member;
 import com.kh.cosmos.member.model.vo.MemberWithGroup;
 
@@ -63,13 +61,13 @@ public class GwBoardController {
 	public String board(@RequestParam(defaultValue = "1") int cPage, int boardNo, int groupNo, Model model,
 			HttpServletRequest request, Authentication auth) {
 		groupwareHeaderSet(groupNo, model, auth);
-			int limit = 10;
+		int limit = 10;
 		int offset = (cPage - 1) * limit;
 		int totalContent = boardService.selectPostInBoardTotalCount(boardNo);
-		model.addAttribute("totalContent", totalContent);
 		String url = request.getRequestURI();
 		url += "?boardNo=" + boardNo + "&groupNo=" + groupNo;
 		String pagebar = CosmosUtils.getPagebar(cPage, limit, totalContent, url);
+		model.addAttribute("totalContent", totalContent);
 		model.addAttribute("pagebar", pagebar);
 	
 		// MemberWithGroupList 불러오기
@@ -99,39 +97,50 @@ public class GwBoardController {
 	public String boardSearch(@RequestParam(defaultValue = "1") int cPage, int boardNo, int groupNo, Model model,
 			HttpServletRequest request, Authentication auth) {
 		groupwareHeaderSet(groupNo, model, auth);
-		int limit = 10;
-		int offset = (cPage - 1) * limit;
-		int totalContent = boardService.selectPostInBoardTotalCount(boardNo);
-		model.addAttribute("totalContent", totalContent);
-		String url = request.getRequestURI();
-		String pagebar = CosmosUtils.getPagebar(cPage, limit, totalContent, url);
-		model.addAttribute("pagebar", pagebar);
-
+		
 		String searchType = request.getParameter("searchType");
 		String searchKeyword = request.getParameter("searchKeyword");
-
-		url += "?searchType=" + searchType + "&boardNo=" + boardNo + "&groupNo=" +groupNo + "&searchKeyword=" + searchKeyword;
 		Map<String, Object> param = new HashMap<>();
 		param.put("searchType", searchType);
 		param.put("searchKeyword", searchKeyword);
 		param.put("boardNo", boardNo);
+		int limit = 10;
+		int offset = (cPage - 1) * limit;
+		int totalContent = boardService.selectSearchBoardTotalCnt(param);
+		log.debug("totalContent = {}",totalContent);
+		String url = request.getRequestURI();
+//		url += "?boardNo=" + boardNo + "&groupNo=" + groupNo;
+		url += "?boardNo=" + boardNo + "&groupNo=" +groupNo + "&searchType=" + searchType + "&searchKeyword=" + searchKeyword;
+		String pagebar = CosmosUtils.getPagebar(cPage, limit, totalContent, url);
+		model.addAttribute("totalContent", totalContent);
 
-		log.debug("param = {}", param);
-
-		List<Post> boardPostList = boardService.searchBoardList(param, limit, offset);
+		List<PostWithNickname> boardPostList = boardService.searchBoardList(param, limit, offset);
 		log.debug("boardPostList = {}", boardPostList);
 		model.addAttribute("boardPostList", boardPostList);
+		
+		// MemberWithGroupList 불러오기
+		List<MemberWithGroup> memberWithGroupList = boardService.memberWithGroupList(groupNo);
+		
+		// memberId, nickname map에 담기
+		Map<String, String> memberWithGroupMap = new HashMap<>();
+		for (MemberWithGroup memberWithGroup : memberWithGroupList) {
+			memberWithGroupMap.put(memberWithGroup.getId(), memberWithGroup.getNickname());
+		}
+		Board board = boardService.selectBoardByBoardNo(boardNo);
+		
 		model.addAttribute("searchType", searchType);
 		model.addAttribute("searchKeyword", searchKeyword);
 		model.addAttribute("boardNo", boardNo);
 		model.addAttribute("groupNo", groupNo);
-
+		model.addAttribute("memberWithGroupMap", memberWithGroupMap);
+		model.addAttribute("pagebar", pagebar);
+		model.addAttribute("title", "# " + board.getBoardName());
 
 		return "gw/board/board";
 	}
 
 	@GetMapping("/notice.do")
-	public String notice(@RequestParam(defaultValue = "1") int cPage, int boardNo, int groupNo, Model model,
+	public String notice(@RequestParam(defaultValue = "1") int cPage, int boardNo, int groupNo, int postNo, Model model,
 			HttpServletRequest request, Authentication auth) {
 		groupwareHeaderSet(groupNo, model, auth);
 
@@ -143,6 +152,10 @@ public class GwBoardController {
 		url += "?boardNo=" + boardNo + "&groupNo=" + groupNo;
 		String pagebar = CosmosUtils.getPagebar(cPage, limit, totalContent, url);
 		model.addAttribute("pagebar", pagebar);
+
+		int replyCount = boardService.selectReplyCount(postNo);
+		model.addAttribute("replyCount", replyCount);
+		log.debug("replyCount = {}", replyCount);
 
 		List<Post> noticePostList = boardService.selectAllPostInNotice(boardNo, limit, offset);
 		Board board = boardService.selectBoardByBoardNo(boardNo);

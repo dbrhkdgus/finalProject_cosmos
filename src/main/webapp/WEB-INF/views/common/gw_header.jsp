@@ -78,6 +78,13 @@
   </head>
   <body >
 <main>
+
+<sec:authorize access="hasAnyRole('ROLE_GW${currGroupNo}MEMBER','ROLE_GW${currGroupNo}MASTER', 'ROLE_ADMIN')">
+
+<sec:authorize access="isAuthenticated()">
+	<sec:authentication property="principal" var="loginMember"/>
+	
+</sec:authorize>
   <header class="bg-light">
 
     <div id="cosmos-groupwear-header"  style="background-color: #5288F2;">
@@ -620,5 +627,7 @@ $(".btn-createChatRoom").click((e)=>{
 				console.log(xhr,textStatus,err);
 			}
 		});
-	}); 
+	});
+ 
  </script>
+ </sec:authorize>
