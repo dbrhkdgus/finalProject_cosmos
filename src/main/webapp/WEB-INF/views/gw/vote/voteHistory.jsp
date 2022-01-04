@@ -15,8 +15,8 @@
 <c:set var="groupMemberCnt" value="${fn:length(myGroupMemberList)}" />
 
  <div class="groupware-vote-outter">
-  	<div class="present-vote-box" style="background: Beige;align-items: center; justify-content: center;">
-  		<div class="present-vote" style="background: FloralWhite">
+  	<div class="present-vote-box">
+  		<div class="present-vote">
 	  		
 	  		<c:if test="${not empty presentVoteInfo }">
 	
@@ -30,7 +30,7 @@
 							  			<div class="present-vote-title mb-2">
 							  				<div class="isAnsweredVote">
 							  					<c:if test="${voteAnswer == 'Y' }">
-								  					<span id="isSendedVote" style="float: right;">[제출완료]</span>
+								  					<span id="isSendedVote">[제출완료]</span>
 							  					</c:if>
 							  				</div>
 							  				<h3 class="vote-title">${presentVote.voteTitle }</h3>
@@ -168,16 +168,16 @@
   	
   	</div>
   	<div class="old-vote-box">
-  		<div class="vote-in-progress" style="background: Beige">
-  			<div class="vote-in-progress-title">
+  		<div class="vote-in-progress">
+<!--   			<div class="vote-in-progress-title">
   				<p class="ml-3 mt-2">진행중인 다른 투표</p>
-  			</div>
+  			</div> -->
   			
   			<div class="vote-in-progress-table">
   			<table class="table table-hover">
 				  <thead>
-				    <tr>
-				      <th scope="col">투표 주제</th>
+				    <tr class="table-primary">
+				      <th scope="col">진행중인 다른 투표</th>
 				      <th scope="col">마감일</th>
 				      <th scope="col">투표율</th>
 				    </tr>
@@ -207,15 +207,15 @@
   				</table>
   			</div>
   		</div>
-  		<div class="vote-closed-box" style="background: Beige">
-  			<div class="vote-closed-title">
+  		<div class="vote-closed-box" >
+<!--   			<div class="vote-closed-title">
   				<p class="ml-3 mt-2">마감된 투표</p>
-  			</div>
+  			</div> -->
   			<div class="vote closed-table">
   			<table class="table table-hover">
   					<thead>
-  						<tr>
-					      <th scope="col">투표 주제</th>
+  						<tr class="table-primary">
+					      <th scope="col">마감된 투표</th>
 					      <th scope="col">종료일</th>
 					      <th scope="col">투표율</th>
   						</tr>
