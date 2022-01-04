@@ -71,4 +71,6 @@ public interface BoardDao {
 
 	int insertAnonymousReply(Reply reply);
 
+	Reply selectOneReply(int replyNo);
+
 }

@@ -50,6 +50,9 @@
   <select id="selectOnePostInAnonymous" resultType="post">
 		select * from post where post_no = #{postNo}
   </select>
+  <select id="selectOneReply" resultType="reply">
+		select * from reply where reply_no = #{replyNo}
+  </select>
   
   <select id="selectOneAttach" resultType="attachment">
 		select * from attachment where attach_no = #{attachNo}

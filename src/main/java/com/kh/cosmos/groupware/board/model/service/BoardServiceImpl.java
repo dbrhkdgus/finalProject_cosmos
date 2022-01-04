@@ -197,5 +197,11 @@ public class BoardServiceImpl implements BoardService {
 		// TODO Auto-generated method stub
 		return boardDao.insertAnonymousReply(reply);
 	}
+
+	@Override
+	public Reply selectOneReply(int replyNo) {
+		// TODO Auto-generated method stub
+		return boardDao.selectOneReply(replyNo);
+	}
 	
 }

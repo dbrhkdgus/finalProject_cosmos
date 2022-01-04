@@ -71,5 +71,7 @@ public interface BoardService {
 
 	int insertAnonymousReply(Reply reply);
 
+	Reply selectOneReply(int replyNo);
+
 
 }
