@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.cosmos.group.model.vo.ApplocationGroup;
+import com.kh.cosmos.groupware.app.model.vo.TDL;
 import com.kh.cosmos.groupware.fileBoard.vo.IdNickName;
 
 @Repository
@@ -69,6 +70,12 @@ public class GwAdminDaoImpl implements GwAdminDao {
 	public List<IdNickName> selectChartIdNickNameList() {
 		// TODO Auto-generated method stub
 		return session.selectList("gwAdmin.selectChartIdNickNameList");
+	}
+
+	@Override
+	public List<TDL> selectcheckedToDoList(int groupNo) {
+		// TODO Auto-generated method stub
+		return session.selectList("gwAdmin.selectcheckedToDoList" , groupNo);
 	}
 
 	

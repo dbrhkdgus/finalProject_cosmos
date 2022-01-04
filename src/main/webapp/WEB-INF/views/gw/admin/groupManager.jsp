@@ -36,7 +36,12 @@
 		<c:forEach items="${acceptApplocationGroupList}" var="item1">
 			<c:forEach items="${chartIdNickNameList}" var="item2">
 				<c:if test="${item1.memberId eq item2.id}">	
-					list.push("${item2.nickName}");
+					<c:forEach items="${checkedToDoList}" var="tdl">
+						<c:if test="${tdl.memberId eq item2.id}"> 
+							list.push("${item2.nickName}");
+						console.log("${tdl.memberId }");
+					 	</c:if> 
+					</c:forEach>
 				</c:if>			
 			</c:forEach>
 		</c:forEach>
