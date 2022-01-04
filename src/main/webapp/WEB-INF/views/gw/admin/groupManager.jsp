@@ -5,6 +5,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>	
+<sec:authorize access="hasAnyRole('ROLE_GW${currGroupNo}MEMBER','ROLE_GW${currGroupNo}MASTER', 'ROLE_ADMIN')">
 
 <fmt:requestEncoding value="utf-8"/> 
 <jsp:include page="/WEB-INF/views/common/gw_header.jsp">
@@ -28,7 +29,7 @@
       </div>
     </div>
     
- <!-- 통계 script -->
+ <!-- 통계 script !!-->
 <script>  
 	    var memberId ="";   		
 		var memberIdList = new Array();
@@ -115,7 +116,7 @@
           data: [10, 20, 30, 40, 50, 60, 70 ,80,70,60],
           fill: false,
           backgroundColor:bgColors,
-<<<<<<< HEAD
+
           borderColor: [
             'rgba(255, 99, 132, 1)',
             'rgba(255, 159, 64, 1)',
@@ -125,9 +126,7 @@
             'rgba(153, 102, 255, 1)',
             'rgba(201, 203, 207, 1)'
           ],
-=======
-          borderColor: bdColor,
->>>>>>> branch 'master' of https://github.com/dbrhkdgus/finalProject_cosmos.git
+
           borderWidth: 1
         }]
       },
@@ -146,3 +145,4 @@
   </script>
 
 <jsp:include page="/WEB-INF/views/common/gw_footer.jsp"></jsp:include>
+</sec:authorize>

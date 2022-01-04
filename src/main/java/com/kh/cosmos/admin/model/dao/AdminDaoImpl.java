@@ -136,6 +136,12 @@ public class AdminDaoImpl implements AdminDao {
 		// TODO Auto-generated method stub
 		return session.selectOne("admin.selectSearchBoardTotalCount", param1);
 	}
+
+	@Override
+	public int insertAuthoritiesValueForGroupMaster(Map<String, Object> param) {
+		// TODO Auto-generated method stub
+		return session.insert("admin.insertAuthoritiesValueForGroupMaster", param);
+	}
 	
 	
 }

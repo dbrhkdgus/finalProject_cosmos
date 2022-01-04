@@ -58,4 +58,6 @@ public interface AdminDao {
 	List<BoardData> selectSearchBoardList(int limit, int offset, Map<String, Object> param1);
 
 	int selectSearchBoardTotalCount(Map<String, Object> param1);
+
+	int insertAuthoritiesValueForGroupMaster(Map<String, Object> param);
 }

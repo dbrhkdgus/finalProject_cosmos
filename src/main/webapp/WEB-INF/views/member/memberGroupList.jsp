@@ -51,18 +51,18 @@ a {
 	position: relative;
 }
 
-input, section {
+.tab-input, section {
   clear: both;
   padding-top: 10px;
   display: none;
 }
 
-label {
+.tab-label {
   font-weight: 700;
-  font-size: 18px;
+  font-size: 15px;
   display: block;
   float: left;
-  width: 20%;
+  width: 33.3%;
   padding: 1.5em;
   color: #757575;
   cursor: pointer;
@@ -93,14 +93,14 @@ label {
 
 .tab_container [id^="tab"]:checked + label {
   background: #fff;
-  box-shadow: inset 0 3px #0CE;
+  box-shadow: inset 0 3px #5288F2;
 }
 
 .tab_container [id^="tab"]:checked + label .fa {
-  color: #0CE;
+  color: #5288F2;
 }
 
-label .fa {
+.tab-label .fa {
   font-size: 1.3em;
   margin: 0 0.4em 0 0;
 }
@@ -131,7 +131,7 @@ label .fa {
 
 .no_wrap {
   text-align:center;
-  color: #0ce;
+  color: #5288F2;
 }
 .link {
   text-align:center;
@@ -139,14 +139,14 @@ label .fa {
 </style>
         	<div class="tab_container">
         	
-				<input id="tab1" type="radio" name="tabs" ${type=='application-group'? 'checked' : ''}>
-				<label for="tab1"><i class="fa fa-code"></i><span>신청 그룹</span></label>
+				<input class="tab-input" id="tab1" type="radio" name="tabs" ${type=='application-group'? 'checked' : ''}>
+				<label class="tab-label" for="tab1"><i class="fa fa-code"></i><span>신청 그룹</span></label>
 	
-				<input id="tab2" type="radio" name="tabs" ${type=='join-group'? 'checked' : ''}>
-				<label for="tab2"><i class="fa fa-pencil-square-o"></i><span>가입 그룹</span></label>
+				<input class="tab-input" id="tab2" type="radio" name="tabs" ${type=='join-group'? 'checked' : ''}>
+				<label class="tab-label" for="tab2"><i class="fa fa-pencil-square-o"></i><span>가입 그룹</span></label>
 	
-				<input id="tab3" type="radio" name="tabs" ${type=='liked-group'? 'checked' : ''}>
-				<label for="tab3"><i class="fa fa-bar-chart-o"></i><span>관심 그룹</span></label>
+				<input class="tab-input" id="tab3" type="radio" name="tabs" ${type=='liked-group'? 'checked' : ''}>
+				<label class="tab-label" for="tab3"><i class="fa fa-bar-chart-o"></i><span>관심 그룹</span></label>
 
 
 
@@ -274,10 +274,15 @@ label .fa {
 		                 
 			        </div>
 			        <div class="membergroup-list d-flex flex-column align-items-center">
-	        		<br><br>
+	        		<c:if test="${empty myGroupList}">
+		                	<div class="membergroup-list d-flex flex-column align-items-center">
+			                	<p style="margin-top: 20%">가입된 그룹이 없습니다.</p>
+			                </div>
+		            </c:if>
 	        		
-	        		<p>관리자 심사 대기중인 그룹입니다.</p>
 			        	<c:forEach var="myNAG" items="${myNotAllowedGroupList}">
+			        	<hr style="width: 100%;" />
+			        		<p>관리자 심사 대기중인 그룹입니다.</p>
 			               	  <div class="card mb-3" style="max-width:500px;">
 			                    <div class="row g-0">
 			                      <div class="col-md-4">
@@ -326,6 +331,8 @@ label .fa {
 			                    </div>
 			                  </div>
 		                </c:forEach>
+
+		                
 			                  
 			        </div>
                 </div>       
@@ -383,6 +390,11 @@ label .fa {
 			                  </div>
 		                    </c:forEach>
 		                </div>
+		                <c:if test="${empty myInterestedGroupList}">
+			                <div class="membergroup-list d-flex flex-column align-items-center">
+			                	<p style="margin-top: 2%">관심 그룹이 없습니다.</p>
+			                </div>
+		                </c:if>
 	                </div>   
 			</section>
 <script>
