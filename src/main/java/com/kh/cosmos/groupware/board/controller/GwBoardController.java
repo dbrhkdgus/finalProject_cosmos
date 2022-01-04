@@ -34,6 +34,7 @@ import com.kh.cosmos.groupware.board.model.vo.PostWithCategory;
 import com.kh.cosmos.groupware.chat.model.vo.ChatRoom;
 import com.kh.cosmos.groupware.service.GroupwareService;
 import com.kh.cosmos.main.model.service.MainService;
+import com.kh.cosmos.main.model.vo.QuestionWithMemberNameAndNickName;
 import com.kh.cosmos.main.model.vo.Reply;
 import com.kh.cosmos.member.model.service.MemberService;
 import com.kh.cosmos.member.model.vo.Member;
@@ -62,8 +63,7 @@ public class GwBoardController {
 	public String board(@RequestParam(defaultValue = "1") int cPage, int boardNo, int groupNo, Model model,
 			HttpServletRequest request, Authentication auth) {
 		groupwareHeaderSet(groupNo, model, auth);
-
-		int limit = 10;
+			int limit = 10;
 		int offset = (cPage - 1) * limit;
 		int totalContent = boardService.selectPostInBoardTotalCount(boardNo);
 		model.addAttribute("totalContent", totalContent);
@@ -71,34 +71,7 @@ public class GwBoardController {
 		url += "?boardNo=" + boardNo + "&groupNo=" + groupNo;
 		String pagebar = CosmosUtils.getPagebar(cPage, limit, totalContent, url);
 		model.addAttribute("pagebar", pagebar);
-
-		Map<String, Object> param = new HashMap<String, Object>();
-		
-		List<Post> boardList = new ArrayList<Post>();
-		String searchType = request.getParameter("searchType");
-		String searchKeyword = request.getParameter("searchKeyword");
-		param.put("searchType", searchType);
-		param.put("searchKeyword", searchKeyword);
-		boardList = boardService.selectBoardListByParam(param,limit,offset);		
-		model.addAttribute("boardList",boardList);
-
-		boolean isListempty = false;
-		if(boardList.isEmpty()) {
-			isListempty = true;
-		}
-		
-		log.debug("isListempty ={}" ,isListempty );
-		model.addAttribute("isListempty",isListempty);
-
-		List<Post> boardPostList = boardService.selectAllPostInBoard(boardNo);
-		Board board = boardService.selectBoardByBoardNo(boardNo);
-		log.debug("boardPostList = {}", boardPostList);
-		model.addAttribute("boardPostList", boardPostList);
-		model.addAttribute("boardNo", boardNo);
-		model.addAttribute("groupNo", groupNo);
-		model.addAttribute("title", "# " + board.getBoardName());
-		
-		
+	
 		// MemberWithGroupList 불러오기
 		List<MemberWithGroup> memberWithGroupList = boardService.memberWithGroupList(groupNo);
 		
@@ -107,11 +80,55 @@ public class GwBoardController {
 		for (MemberWithGroup memberWithGroup : memberWithGroupList) {
 			memberWithGroupMap.put(memberWithGroup.getId(), memberWithGroup.getNickname());
 		}
-		model.addAttribute("memberWithGroupMap", memberWithGroupMap);
 		
+		List<Post> boardPostList = boardService.selectAllPostInBoard(boardNo, limit, offset);
+		Board board = boardService.selectBoardByBoardNo(boardNo);
+		log.debug("boardPostList = {}", boardPostList);
+		model.addAttribute("boardPostList", boardPostList);
+		model.addAttribute("boardNo", boardNo);
+		model.addAttribute("groupNo", groupNo);
+		model.addAttribute("memberWithGroupMap", memberWithGroupMap);
+		model.addAttribute("title", "# " + board.getBoardName());
+	
+	
 		return "gw/board/board";
 	}
 	
+	
+	@GetMapping("/boardSearch.do")
+	public String boardSearch(@RequestParam(defaultValue = "1") int cPage, int boardNo, int groupNo, Model model,
+			HttpServletRequest request, Authentication auth) {
+		groupwareHeaderSet(groupNo, model, auth);
+		int limit = 10;
+		int offset = (cPage - 1) * limit;
+		int totalContent = boardService.selectPostInBoardTotalCount(boardNo);
+		model.addAttribute("totalContent", totalContent);
+		String url = request.getRequestURI();
+		String pagebar = CosmosUtils.getPagebar(cPage, limit, totalContent, url);
+		model.addAttribute("pagebar", pagebar);
+
+		String searchType = request.getParameter("searchType");
+		String searchKeyword = request.getParameter("searchKeyword");
+
+		url += "?searchType=" + searchType + "&boardNo=" + boardNo + "&groupNo=" +groupNo + "&searchKeyword=" + searchKeyword;
+		Map<String, Object> param = new HashMap<>();
+		param.put("searchType", searchType);
+		param.put("searchKeyword", searchKeyword);
+		param.put("boardNo", boardNo);
+
+		log.debug("param = {}", param);
+
+		List<Post> boardPostList = boardService.searchBoardList(param, limit, offset);
+		log.debug("boardPostList = {}", boardPostList);
+		model.addAttribute("boardPostList", boardPostList);
+		model.addAttribute("searchType", searchType);
+		model.addAttribute("searchKeyword", searchKeyword);
+		model.addAttribute("boardNo", boardNo);
+		model.addAttribute("groupNo", groupNo);
+
+
+		return "gw/board/board";
+	}
 
 	@GetMapping("/notice.do")
 	public String notice(@RequestParam(defaultValue = "1") int cPage, int boardNo, int groupNo, Model model,
@@ -468,12 +485,12 @@ public class GwBoardController {
 	}
 	
 	@PostMapping("anonymousReplyEnroll.do")
-	public String anonymousReplyEnroll(Reply reply, int postNo, int replyLevel, int replyRef, RedirectAttributes redirectAttr, Authentication authentication, HttpServletRequest request) {
+	public String anonymousReplyEnroll(Reply reply, int postNo, RedirectAttributes redirectAttr, Authentication authentication, HttpServletRequest request) {
+		
 		Member member = (Member)authentication.getPrincipal();
+		log.debug("********************** reply = {}", reply);
 		reply.setMemberId(member.getId());
-		reply.setPostNo(postNo);
-		reply.setReplyLevel(replyLevel);
-		reply.setReplyRef(replyRef);
+		log.debug("********************** reply = {}", reply);
 		
 		try {
 			int result = boardService.insertAnonymousReply(reply);
@@ -513,6 +530,39 @@ public class GwBoardController {
 		} else {
 			return "redirect:/gw/board/boardDetail.do?postNo=" + postNo;
 		}
+	}
+	
+	@PostMapping("deleteUpdateAnonymousReply.do")
+	public String deleteUpdateAnonymousReply(Reply reply, String type, String replyPw, int replyNo, int postNo, RedirectAttributes redirectAttr) {
+		try {
+			log.debug("*************reply = {}", reply);
+			log.debug("*************replyPw = {}", replyPw);
+			
+			Reply selectedReply = boardService.selectOneReply(replyNo);
+			log.debug("*************selectedReply = {}", selectedReply);
+			
+			if(!selectedReply.getReplyPw().equals(replyPw)){
+				redirectAttr.addFlashAttribute("msg","비밀번호가 일치하지 않습니다.");
+				return "redirect:/gw/board/anonymousDetail.do?postNo="+ postNo;
+			}else{
+				log.debug(type);
+				if(type.equals("update")) {
+					int result = boardService.updatePostReply(reply);
+					String msg = result > 0 ? "댓글 수정 성공!" : "댓글 수정 실패!";
+					redirectAttr.addFlashAttribute("msg", msg);
+				} else {
+					int result = boardService.deletePostReply(reply);
+					String msg = result > 0 ? "댓글 삭제 성공!" : "댓글 삭제 실패!";
+					redirectAttr.addFlashAttribute("msg", msg);
+				}
+			}
+			
+		} catch(Exception e) {
+			log.error(e.getMessage(), e); // 
+			redirectAttr.addFlashAttribute("msg", "실패");
+		}
+
+		return "redirect:/gw/board/anonymousDetail.do?postNo=" + postNo;
 	}
 	
 	@GetMapping("/noticeDetail.do")

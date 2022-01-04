@@ -5,7 +5,10 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
+
+import com.kh.cosmos.admin.model.vo.BoardData;
+import com.kh.cosmos.admin.model.vo.BoardType;
+import com.kh.cosmos.admin.model.vo.EnrollMemberByMonth;
 
 import com.kh.cosmos.admin.model.dao.AdminDao;
 import com.kh.cosmos.admin.model.vo.GenderData;
@@ -96,9 +99,39 @@ public class AdminServiceImpl implements AdminService{
 	}
 
 	@Override
-	public List<com.kh.cosmos.admin.model.vo.EnrollMemberByMonth> EnrollMemberByMonth(Map<String, Object> param) {
+	public List<EnrollMemberByMonth> EnrollMemberByMonth(Map<String, Object> param) {
 		return adminDao.EnrollMemberByMonth(param);
 	}
 
+	@Override
+	public int selectAllBoardTotalCount() {
+		// TODO Auto-generated method stub
+		return adminDao.selectAllBoardTotalCount();
+	}
+
+	@Override
+	public List<BoardData> selectAllBoardList(int limit, int offset) {
+		// TODO Auto-generated method stub
+		return adminDao.selectAllBoardList(limit,offset);
+	}
+
+	@Override
+	public List<BoardType> selectAllBoardTypeList() {
+		// TODO Auto-generated method stub
+		return adminDao.selectAllBoardTypeList();
+	}
+
+	@Override
+	public List<BoardData> selectSearchBoardList(Map<String, Object> param1, int limit, int offset) {
+		// TODO Auto-generated method stub
+		return adminDao.selectSearchBoardList(limit, offset, param1);
+	}
+
+	@Override
+	public int selectSearchBoardTotalCount(Map<String, Object> param1) {
+		// TODO Auto-generated method stub
+		return adminDao.selectSearchBoardTotalCount(param1);
+	}
+	
 	
 }
