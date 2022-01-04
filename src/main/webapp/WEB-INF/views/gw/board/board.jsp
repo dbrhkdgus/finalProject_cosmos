@@ -14,20 +14,36 @@
 </style>
  <div class="workspace-box">
 	<div class="p-4">
-	<form action="${pageContext.request.contextPath}/gw/board/boardSearch.do?boardNo=${boardNo}&groupNo=${groupNo}" method="get">
+	<form 
+		enctype="multipart/form-data"
+		action="${pageContext.request.contextPath}/gw/board/boardSearch.do?" 
+		method="get">
 	    <div class="test-board-search">
 	    	 <select name="searchType" class="form-select search-select" aria-label="Default select example">
-		        <option value="post_title" ${searchType == 'post_title' ? "selected":'' }>제목</option>
-		        <option value="member_id" ${searchType == 'member_id' ? "selected":'' }>작성자</option>
-		        <option value="post_reg_date" ${searchType == 'post_reg_date' ? "selected":'' }>날짜</option>
+		        <option value="post_title" 
+	        	<c:if test="${searcyType eq 'post_title'}">selected </c:if> 
+		        >제목</option>
+		        <option value="member_id" 
+	        	<c:if test="${searcyType eq 'member_id'}">selected </c:if> 
+		        >작성자</option>
+		        <option value="post_reg_date" 
+	        	<c:if test="${searcyType eq 'post_reg_date'}">selected </c:if> 
+		        >날짜</option>
+		        <%-- <option value="member_id" ${searchType == 'member_id' ? "selected":'' }>작성자</option>
+		        <option value="post_reg_date" ${searchType == 'post_reg_date' ? "selected":'' }>날짜</option> --%>
 		     </select>
 		     
 		   <div class="input-group mb-3 search-input">
-		      <input type="text" class="form-control" name="searchKeyword" value="${searchKeyword}" placeholder="검색어를 입력하세요"  aria-describedby="button-addon2">
-		   		<button class="btn btn-outline-secondary" type="button" id="button-addon2" >검색</button>
+		   		<input type="hidden" name="boardNo" value="${boardNo}"/>
+		   		<input type="hidden" name="groupNo" value="${groupNo}"/>
+		      <input type="text" class="form-control" name="searchKeyword" placeholder="검색어를 입력하세요"  aria-describedby="button-addon2"
+		      	<c:if test="${not empty searchKeyword}">value="${searchKeyword}"</c:if>
+		      	>
+		   	  <input class="btn btn-outline-secondary" type="submit" id="button-addon2" value="검색"></input>
 		   </div>   
 		</div>       
     </form>
+    ${boardPostList }
   <table class="table file-board-table">
     <thead>
       <tr>
@@ -62,12 +78,12 @@
 </div>
 
 <script>
-$("#button-addon2").click((e)=>{
+/* $("#button-addon2").click((e)=>{
     const searchType = $("select[name=searchType]").val();
     const searchKeyword = $("input[name=searchKeyword]").val();
     location.href=`${pageContext.request.contextPath}/gw/board/boardSearch.do?boardNo=${boardNo}&groupNo=${groupNo}&searchType=\${searchType}&searchKeyword=\${searchKeyword}`; 
    
-});
+}); */
 </script>
 
 <jsp:include page="/WEB-INF/views/common/gw_footer.jsp"></jsp:include>

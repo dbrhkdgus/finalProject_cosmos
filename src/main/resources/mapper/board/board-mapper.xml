@@ -13,13 +13,11 @@
   <delete id="deleteBoardRoom">
 	delete from board where board_no = #{boardNo}
   </delete>
-  <select id="selectAllPostInBoard" resultType="PostWithCategory">
+  <select id="selectAllPostInBoard" resultType="post">
 	select
-	    p.*,
-	    bc.board_category
+	    *
 	from
-	    post p left join board_category bc
-	        on p.board_category_no = bc.board_category_no 
+	    post
 	where board_no = #{boardNo}
 	order by post_no desc
   </select>
@@ -192,15 +190,13 @@
     where
 	    group_no=#{groupNo}
   </select>
-	<select id="searchBoardList" resultType="PostWithCategory">
+	<select id="searchBoardList" resultType="post">
 	select
-	    p.*,
-	    bc.board_category
+	    *
 	from
-	    post p left join board_category bc
-	        on p.board_category_no = bc.board_category_no 
-	<where>		
-		
+	    post 
+	<where>
+		board_no = #{boardNo}
 		<if test="searchType == 'post_title' and searchKeyword != ''">
 			and  post_title like '%'||#{searchKeyword}||'%'
 		</if>	
