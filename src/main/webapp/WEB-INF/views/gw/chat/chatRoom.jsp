@@ -45,7 +45,7 @@
 				            <c:if test="${message.chatMessageContent.startsWith('```') && message.chatMessageContent.endsWith('```')}">
 				            <c:set var="msg" value="${fn:replace(message.chatMessageContent, '```', '')}"/>
 				              <div>
-  								<textarea class="form-control" id="exampleFormControlTextarea1" rows="3" readonly>${msg}</textarea>
+  								<textarea class="form-control" id="exampleFormControlTextarea1" rows="3" readonly style="resize: none;">${msg}</textarea>
 				              </div>
 				            </c:if>
 				              <div class="chatFile">

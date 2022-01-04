@@ -31,6 +31,7 @@ import com.kh.cosmos.groupware.admin.model.service.GwAdminService;
 import com.kh.cosmos.groupware.admin.model.vo.idList;
 import com.kh.cosmos.groupware.board.model.vo.Board;
 import com.kh.cosmos.groupware.chat.model.vo.ChatRoom;
+import com.kh.cosmos.groupware.fileBoard.vo.IdNickName;
 import com.kh.cosmos.groupware.service.GroupwareService;
 import com.kh.cosmos.member.model.service.MemberService;
 import com.kh.cosmos.member.model.vo.Member;
@@ -106,6 +107,19 @@ public class GwAdminController {
 	public String groupManager(int groupNo,Model model,Authentication authentication) {
 		groupwareHeaderSet(groupNo, model, authentication);
 		model.addAttribute("groupNo", groupNo);
+		
+		List<ApplocationGroup> acceptApplocationGroupList = new ArrayList<ApplocationGroup>();
+		acceptApplocationGroupList = gwAdminService.selectAllAcceptGroupMemberList(groupNo);
+		log.debug("acceptApplocationGroupList = {} ",acceptApplocationGroupList);
+		model.addAttribute("acceptApplocationGroupList",acceptApplocationGroupList);
+		
+		
+		List<IdNickName> chartIdNickNameList = new ArrayList<IdNickName>();
+		chartIdNickNameList = gwAdminService.selectChartIdNickNameList();
+		log.debug("chartIdNickNameList = {}" ,chartIdNickNameList);
+		 model.addAttribute("chartIdNickNameList",chartIdNickNameList);
+		 
+		
 		return "gw/admin/groupManager";
 		
 	}
