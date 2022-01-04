@@ -66,7 +66,15 @@
 	                    <td>${list.boardName }</td>
 	                    <td>${list.boardTypeName }</td>
 	                    <td>${list.nickname }</td>
-	                    <td>${list.postTitle }</td>
+	                    <c:if test="${list.boardType eq 'A'}">
+	                    <td><a href="${pageContext.request.contextPath}/gw/board/anonymousDetail.do?postNo=${list.postNo}" style="color:white;">${list.postTitle }</a></td>
+	                    </c:if>
+	                    <c:if test="${list.boardType eq 'F'}">
+	                    <td><a href="${pageContext.request.contextPath}/gw/fileBoard/fileBoard.do?boardNo=${list.postNo}&groupNo=${list.groupNo}" style="color:white;">${list.postTitle }</a></td>
+	                    </c:if>
+	                    <c:if test="${list.boardType eq 'N' || list.boardType eq 'B'}">
+	                    <td><a href="${pageContext.request.contextPath}/gw/board/boardDetail.do?postNo=${list.postNo}" style="color:white;">${list.postTitle }</a></td>
+	                    </c:if>
 	                    <td><fmt:formatDate value="${list.postRegDate }" pattern="yyyy-MM-dd"/></td>
 	                  </tr>
                   </c:forEach>

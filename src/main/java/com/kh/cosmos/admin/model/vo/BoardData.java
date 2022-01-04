@@ -23,6 +23,7 @@ public class BoardData implements Serializable{/**
 	private Date postRegDate;
 	private String nickname;
 	private int groupNo;
+	private int boardNo;
 	private String boardType;
 	private String boardName;
 	private String boardTypeName;
