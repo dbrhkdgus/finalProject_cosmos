@@ -49,7 +49,7 @@
 <body>
     <div>
         <header>
-            <nav class="navbar navbar-expand-xl">
+            <nav class="navbar navbar-expand-xl" >
                 <div class="container h-100">
                     <a class="navbar-brand" href="${pageContext.request.contextPath}/admin/main.do">
                         <img style="height: 50px;" src="${pageContext.request.contextPath}/resources/images/cosmoslogo_white.png" alt="">
