@@ -152,7 +152,7 @@
     </div>
   </div>
 <form:form method="POST" action="${pageContext.request.contextPath}/member/memberLogout.do" id="memberLogoutFrm" class="d-inline"></form:form>
-  <div class="flex-shrink-0 p-3 bg-light" style="width: 260px;background-color: #EBF0F3 !important;">
+  <div class="flex-shrink-0 p-3 bg-light" style="overflow-y: auto; width: 260px;background-color: #EBF0F3 !important;">
     <ul class="list-unstyled ps-0">
       <li class="mb-1">
       	<div class="d-flex justify-content-between align-items-center">
