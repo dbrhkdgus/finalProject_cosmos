@@ -117,7 +117,10 @@ public class GwAdminController {
 		 
 		 
 		 List<TDL> checkedToDoList = new ArrayList<TDL>() ;
-		 checkedToDoList = gwAdminService.selectcheckedToDoList(groupNo);
+		checkedToDoList = gwAdminService.selectcheckedToDoList(groupNo);
+
+		 
+		 checkedToDoList = gwAdminService.selectcheckedToDoList(groupNo );
 		 log.debug("checkedToDoList = {}" , checkedToDoList);
 		 model.addAttribute("checkedToDoList",checkedToDoList);
 		 
