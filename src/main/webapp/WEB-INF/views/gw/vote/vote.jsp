@@ -4,6 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+
 <!-- 차트 관련 js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 <script src="https://raw.githubusercontent.com/google/palette.js/master/palette.js"></script>
@@ -30,21 +31,35 @@
 					  				<input type="hidden" name="voteNo" value="${presentVote.voteNo }" />
 					  				<input type="hidden" name="voteQuestionNo" value="${presentVote.voteQuestionNo }" />
 							  			<div class="present-vote-title mb-2">
+							  				<div class="vote-sub-info" style="float: right;">
+								  				<h6 class="vote-proposer"><span>${presentVote.memberName}</span>님의 투표제안.  [<span class="text-secondary"><fmt:formatDate value="${presentVote.voteDeadline}" pattern="MM-dd"/>까지</span>]</h6>
+							  				</div>
 							  				<div class="isAnsweredVote">
 							  					<c:if test="${voteAnswer == 'Y' }">
-								  					<span id="isSendedVote" style="float: right;">[제출완료]</span>
+								  					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="vote-svg bi bi-file-earmark-check text-danger" viewBox="0 0 16 16">
+													  <path d="M10.854 7.854a.5.5 0 0 0-.708-.708L7.5 9.793 6.354 8.646a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0l3-3z"/>
+													  <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"/>
+													</svg>
+								  					<span id="isSendedVote" class="text-danger">[제출완료]</span>
 							  					</c:if>
+							  					<c:if test="${voteAnswer == 'N' }">
+								  					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="vote-svg bi bi-bookmarks text-info" viewBox="0 0 16 16">
+													  <path d="M2 4a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v11.5a.5.5 0 0 1-.777.416L7 13.101l-4.223 2.815A.5.5 0 0 1 2 15.5V4zm2-1a1 1 0 0 0-1 1v10.566l3.723-2.482a.5.5 0 0 1 .554 0L11 14.566V4a1 1 0 0 0-1-1H4z"/>
+													  <path d="M4.268 1H12a1 1 0 0 1 1 1v11.768l.223.148A.5.5 0 0 0 14 13.5V2a2 2 0 0 0-2-2H6a2 2 0 0 0-1.732 1z"/>
+													</svg>
+													<span id="isSendedVote" class="text-info">[신규 투표]</span>
+							  					</c:if>							  					
 							  				</div>
-							  				<h3 class="vote-title">${presentVote.voteTitle }</h3>
-							  				<h6 class="vote-sub-title"><span>${presentVote.memberName}</span>님의 투표제안입니다.</h6>
-							  				<h6 class="vote-sub-title">투표 마감일 : <span><fmt:formatDate value="${presentVote.voteDeadline}" pattern="MM-dd"/></span>까지</h6>
+							  				<h3 class="vote-title" style="margin-top: 25px">${presentVote.voteTitle }</h3>
 							  			</div>
 							  			<div class="vote-question-box">
 							  				<div class="vote-question">
 								  				<p class="vote-question-title text-secondary">${presentVote.voteQuestionTitle }</p>
 								  				<c:forEach var="presentOption" items="${presentVoteOption }">
 								  					<%-- ${presentOption } --%>
-									  				<input type="${presentVote.voteQuestionType}" name="voteAnswer" value="${presentOption.voteOption }" required="required"/> ${presentOption.voteOption }
+								  					<div class="option-maker">
+										  				<input type="${presentVote.voteQuestionType}" name="voteAnswer" value="${presentOption.voteOption }" required="required"/> ${presentOption.voteOption }
+								  					</div>
 									  				
 								  				</c:forEach>
 							  				</div>
@@ -61,7 +76,7 @@
 					  				</form>
 				  				</div>
 				  				<div class="analytics-view" >
-  									 <canvas id="pie-chart" width="800" height="200"></canvas> 
+  									 <canvas id="pie-chart" width="500" height="200"></canvas> 
   									
   								</div>
   								<c:if test="${not empty optionArr && not empty answerCntArr}">
@@ -94,6 +109,7 @@
 								  		      }]
 								  		    },
 								  		    options: {
+								  		    	responsive: false,
 								  		    	maintainAspectRatio: false,
 								  		    	legend: { position: 'left', display: true },
 		
@@ -142,6 +158,7 @@
 								  		      }]
 								  		    },
 								  		    options: {
+								  		    	 responsive: false,
 								  		    	maintainAspectRatio: false,
 								  		    	legend: { position: 'left', display: true },
 		
@@ -173,24 +190,38 @@
 
   		</div>
   		<div class="present-vote-control-box">
-  		<button id="btn-create-vote" class="vote-controll-btn">투표 생성하기</button>
-  		<button id="btn-send-vote" class="vote-controll-btn">투표 제출하기</button>
-  		<button id="btn-analytics-view" class="vote-controll-btn">투표 통계보기</button>
-  		<button id="btn-vote-view" class="vote-controll-btn">투표 보기</button>
+  		<button id="btn-create-vote" class="vote-button vote-controll-btn">
+  			<p id="btn-create-vote-text">투표 생성</p>
+            <div class="vote-check-box">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50">
+                    <path fill="transparent" d="M14.1 27.2l7.1 7.2 16.7-16.8" />
+                </svg>
+            </div>
+        </button>
+  		<button id="btn-send-vote" class="vote-button vote-controll-btn">
+  			<p id="btn-send-vote-text">투표 제출하기</p>
+            <div class="vote-check-box">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50">
+                    <path fill="transparent" d="M14.1 27.2l7.1 7.2 16.7-16.8" />
+                </svg>
+            </div>
+  		</button>
+  		<button id="btn-analytics-view" class="vote-button vote-controll-btn">투표 통계보기</button>
+  		<button id="btn-vote-view" class="vote-button vote-controll-btn">투표 보기</button>
   		</div>
   	
   	</div>
   	<div class="old-vote-box">
   		<div class="vote-in-progress">
-  			<div class="vote-in-progress-title">
+<!--   			<div class="vote-in-progress-title">
   				<p class="ml-3 mt-2">진행중인 다른 투표</p>
-  			</div>
+  			</div> -->
   			
   			<div class="vote-in-progress-table">
   			<table class="table table-hover">
 				  <thead>
-				    <tr>
-				      <th scope="col">투표 주제</th>
+				    <tr class="table-primary">
+				      <th scope="col">진행중인 다른 투표</th>
 				      <th scope="col">마감일</th>
 				      <th scope="col">투표율</th>
 				    </tr>
@@ -221,14 +252,14 @@
   			</div>
   		</div>
   		<div class="vote-closed-box" >
-  			<div class="vote-closed-title">
+<!--   			<div class="vote-closed-title">
   				<p class="ml-3 mt-2">마감된 투표</p>
-  			</div>
+  			</div> -->
   			<div class="vote closed-table">
   			<table class="table table-hover">
   					<thead>
-  						<tr>
-					      <th scope="col">투표 주제</th>
+  						<tr class="table-primary">
+					      <th scope="col">마감된 투표</th>
 					      <th scope="col">종료일</th>
 					      <th scope="col">투표율</th>
   						</tr>
@@ -313,6 +344,26 @@
 <div class="script">
 
 </div>
+<!-- 버튼 CSS -->
+<c:if test="${voteAnswer == 'Y' }">
+<script>
+const btn1 = document.querySelector("#btn-send-vote");
+const btnText1 = document.querySelector("#btn-send-vote-text");
+
+btnText1.innerHTML = "제출완료";
+btn1.classList.add("vote-active");
+$(btn1).attr('disabled','disabled');
+</script>
+</c:if>
+<script type="text/javascript">
+        const btn = document.querySelector("#btn-create-vote");
+        const btnText = document.querySelector("#btn-create-vote-text");
+
+        btn.onclick = () => {
+            btnText.innerHTML = "생성중";
+            btn.classList.add("vote-active");
+        };
+    </script>
 <script>
 /* view 전환 */
 $("#btn-vote-view").hide();
@@ -349,8 +400,13 @@ $(".close-vote-modal").click((e)=>{
 	$(document.createVoteFrm).each( function () {
 		this.reset();
 	});
-
+	
 	$("#createVoteModal").modal('hide');
+	 const btn = document.querySelector("#btn-create-vote");
+     const btnText = document.querySelector("#btn-create-vote-text");
+     btnText.innerHTML = "투표 생성";
+     btn.classList.remove("vote-active");
+     
 });
 
 
@@ -409,6 +465,7 @@ $(".close-vote-modal").click((e)=>{
 /* 투표 생성 */
 $(".btn-createVote").click((e)=>{
 	$(document.createVoteFrm).submit();
+
 });
 
 /* 투표 제출 */
@@ -427,13 +484,13 @@ $("#btn-send-vote").click((e)=>{
 	 	},
 	 	success(data){
 	 		if(data > 0){
-	 			alert("투표가 제출되었습니다.");
 	 			location.reload();
 	 		}else if(data == 0){
 	 			alert("이미 투표가 제출되었습니다.")
 	 		}else{
 	 			alert("선택한 답변이 없습니다.");
 	 		}
+	 		
 	 	},
 	 	error : console.log
     });  
