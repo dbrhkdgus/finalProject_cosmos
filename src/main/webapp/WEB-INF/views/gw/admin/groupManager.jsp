@@ -108,4 +108,3 @@
 
   </script>
 <jsp:include page="/WEB-INF/views/common/gw_footer.jsp"></jsp:include>
-

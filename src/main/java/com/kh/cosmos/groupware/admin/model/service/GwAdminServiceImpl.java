@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.cosmos.group.model.vo.ApplocationGroup;
 import com.kh.cosmos.groupware.admin.model.dao.GwAdminDao;
+import com.kh.cosmos.groupware.fileBoard.vo.IdNickName;
 
 
 @Service
@@ -61,6 +62,12 @@ public class GwAdminServiceImpl implements GwAdminService {
 	@Override
 	public int updateMemberRole(Map<String, Object> param) {
 		return gwAdminDao.updateMemberRole(param);
+	}
+
+	@Override
+	public List<IdNickName> selectChartIdNickNameList() {
+		// TODO Auto-generated method stub
+		return gwAdminDao.selectChartIdNickNameList();
 	}
 
 

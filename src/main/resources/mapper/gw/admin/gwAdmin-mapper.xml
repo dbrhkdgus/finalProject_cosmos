@@ -75,4 +75,14 @@
 	<update id="updateMemberRole" parameterType="hashmap">
 	update applocation_group set role = #{memberRole} where group_no=#{groupNo} and member_id=#{memberId}
 	</update>
+	
+	
+	<select id="selectChartIdNickNameList" resultType="IdNickName">
+		select
+		id,
+		nickname
+		from
+		tb_member
+	
+	</select>
 </mapper>
