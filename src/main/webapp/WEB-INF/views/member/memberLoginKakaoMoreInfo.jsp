@@ -52,7 +52,7 @@
 							action="${pageContext.request.contextPath}/member/memberEnroll.do?${_csrf.parameterName}=${_csrf.token}" 
 							method="post"
 							>	
-							<input type="hidden" name="id" value ="${kakaoMember.id }" />
+							<input type="hidden" name="id" value ="a${kakaoMember.id }" />
 							<input type="hidden" name="password" value ="${kakaoMember.password }" />
 								<div class="form-group row">
 								<label for="permanent_address"

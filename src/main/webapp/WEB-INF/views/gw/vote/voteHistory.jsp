@@ -4,6 +4,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>	
+<sec:authorize access="hasAnyRole('ROLE_GW${currGroupNo}MEMBER')">
 <!-- 차트 관련 js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 <script src="https://raw.githubusercontent.com/google/palette.js/master/palette.js"></script>
@@ -439,3 +441,4 @@ $(".old-tr").click((e)=>{
 </script>
 <jsp:include page="/WEB-INF/views/common/gw_footer.jsp"></jsp:include>
 
+</sec:authorize>

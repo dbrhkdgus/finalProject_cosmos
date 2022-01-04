@@ -6,6 +6,9 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>	
 <!-- Footer-->
+<c:set var="authorityFlag" value="N"/>
+<sec:authorize access="hasAnyRole('ROLE_GW${currGroupNo}MEMBER')">
+<c:set var="authorityFlag" value="Y"/>
 <sec:authorize access="isAuthenticated()">
 	<sec:authentication property="principal" var="loginMember"/>
 </sec:authorize>
@@ -233,6 +236,14 @@ function loadDM(obj){
 	});
 }
 </script>
-  </body>
 
+  </body>
 </html>
+</sec:authorize>
+<script>
+if("${authorityFlag}" == 'N'){
+	alert("접근권한이 없습니다");
+	location.href = "${pageContext.request.contextPath}/";
+	
+}
+</script>

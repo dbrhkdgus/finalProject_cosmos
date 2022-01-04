@@ -3,11 +3,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>	
+<sec:authorize access="hasAnyRole('ROLE_GW${currGroupNo}MEMBER')">
 <fmt:requestEncoding value="utf-8"/> 
 <jsp:include page="/WEB-INF/views/common/gw_header.jsp">
 	<jsp:param value="" name="title"/>
 </jsp:include>
-
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/full_calendar/main.css" />
 <script
@@ -47,7 +48,7 @@
 </div>
 <script>
 //캘린더 관련 시작
-let groupNo = ${myGroup.groupNo};
+/* let groupNo = ${myGroup.groupNo};
 document.addEventListener('DOMContentLoaded', function() {
 	
 	
@@ -56,12 +57,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
   
   var calendar = new FullCalendar.Calendar(calendarEl, {
-	height: '240%',
+	height: '240%', */
 
 
 
     /* initialDate: '2021-12-12', */
-    navLinks: true, // can click day/week names to navigate views
+   /*  navLinks: true, // can click day/week names to navigate views
     editable: true,
     locale: 'ko',
     dayMaxEvents: true // allow "more" link when too many events
@@ -87,9 +88,9 @@ document.addEventListener('DOMContentLoaded', function() {
 						console.log("result[i]['endDate'] = ", result[i]['endDate']);
 						console.log(new Date(result[i]['endDate']));
 						let date = new Date(result[i]['endDate']);
-						
+						 */
 						/* fullcalendar는 종일 일정 기간에서 마지막 기간은 포함하지 않는다. 따라서 종일일정일 경우, +1일을 한다. */
-						if(result[i]['allDay']== 'T'){
+						/* if(result[i]['allDay']== 'T'){
 							date.setDate(date.getDate()+1);
 						}
 						
@@ -143,10 +144,10 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   calendar.render();
-});
+}); */
 </script>
 
-
+</sec:authorize>
 
 
 <jsp:include page="/WEB-INF/views/common/gw_footer.jsp"></jsp:include>
