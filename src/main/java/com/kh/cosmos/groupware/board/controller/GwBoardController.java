@@ -123,6 +123,8 @@ public class GwBoardController {
 		model.addAttribute("boardPostList", boardPostList);
 		model.addAttribute("searchType", searchType);
 		model.addAttribute("searchKeyword", searchKeyword);
+		model.addAttribute("boardNo", boardNo);
+		model.addAttribute("groupNo", groupNo);
 
 
 		return "gw/board/board";

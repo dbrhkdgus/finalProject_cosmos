@@ -43,7 +43,6 @@
 		   </div>   
 		</div>       
     </form>
-    ${boardPostList }
   <table class="table file-board-table">
     <thead>
       <tr>
