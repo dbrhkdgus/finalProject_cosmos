@@ -34,6 +34,7 @@ import com.kh.cosmos.groupware.board.model.vo.PostWithCategory;
 import com.kh.cosmos.groupware.chat.model.vo.ChatRoom;
 import com.kh.cosmos.groupware.service.GroupwareService;
 import com.kh.cosmos.main.model.service.MainService;
+import com.kh.cosmos.main.model.vo.QuestionWithMemberNameAndNickName;
 import com.kh.cosmos.main.model.vo.Reply;
 import com.kh.cosmos.member.model.service.MemberService;
 import com.kh.cosmos.member.model.vo.Member;
@@ -62,7 +63,42 @@ public class GwBoardController {
 	public String board(@RequestParam(defaultValue = "1") int cPage, int boardNo, int groupNo, Model model,
 			HttpServletRequest request, Authentication auth) {
 		groupwareHeaderSet(groupNo, model, auth);
-
+			int limit = 10;
+		int offset = (cPage - 1) * limit;
+		int totalContent = boardService.selectPostInBoardTotalCount(boardNo);
+		model.addAttribute("totalContent", totalContent);
+		String url = request.getRequestURI();
+		url += "?boardNo=" + boardNo + "&groupNo=" + groupNo;
+		String pagebar = CosmosUtils.getPagebar(cPage, limit, totalContent, url);
+		model.addAttribute("pagebar", pagebar);
+	
+		// MemberWithGroupList 불러오기
+		List<MemberWithGroup> memberWithGroupList = boardService.memberWithGroupList(groupNo);
+		
+		// memberId, nickname map에 담기
+		Map<String, String> memberWithGroupMap = new HashMap<>();
+		for (MemberWithGroup memberWithGroup : memberWithGroupList) {
+			memberWithGroupMap.put(memberWithGroup.getId(), memberWithGroup.getNickname());
+		}
+		
+		List<Post> boardPostList = boardService.selectAllPostInBoard(boardNo, limit, offset);
+		Board board = boardService.selectBoardByBoardNo(boardNo);
+		log.debug("boardPostList = {}", boardPostList);
+		model.addAttribute("boardPostList", boardPostList);
+		model.addAttribute("boardNo", boardNo);
+		model.addAttribute("groupNo", groupNo);
+		model.addAttribute("memberWithGroupMap", memberWithGroupMap);
+		model.addAttribute("title", "# " + board.getBoardName());
+	
+	
+		return "gw/board/board";
+	}
+	
+	
+	@GetMapping("/boardSearch.do")
+	public String boardSearch(@RequestParam(defaultValue = "1") int cPage, int boardNo, int groupNo, Model model,
+			HttpServletRequest request, Authentication auth) {
+		groupwareHeaderSet(groupNo, model, auth);
 		int limit = 10;
 		int offset = (cPage - 1) * limit;
 		int totalContent = boardService.selectPostInBoardTotalCount(boardNo);
@@ -72,46 +108,26 @@ public class GwBoardController {
 		String pagebar = CosmosUtils.getPagebar(cPage, limit, totalContent, url);
 		model.addAttribute("pagebar", pagebar);
 
-//		Map<String, Object> param = new HashMap<String, Object>();
-//		
-//		List<Post> boardList = new ArrayList<Post>();
-//		String searchType = request.getParameter("searchType");
-//		String searchKeyword = request.getParameter("searchKeyword");
-//		param.put("searchType", searchType);
-//		param.put("searchKeyword", searchKeyword);
-//		boardList = boardService.selectBoardListByParam(param,limit,offset);		
-//		model.addAttribute("boardList",boardList);
-//
-//		boolean isListempty = false;
-//		if(boardList.isEmpty()) {
-//			isListempty = true;
-//		}
-//		
-//		log.debug("isListempty ={}" ,isListempty );
-//		model.addAttribute("isListempty",isListempty);
+		String searchType = request.getParameter("searchType");
+		String searchKeyword = request.getParameter("searchKeyword");
 
-		List<Post> boardPostList = boardService.selectAllPostInBoard(boardNo);
-		Board board = boardService.selectBoardByBoardNo(boardNo);
+
+		Map<String, Object> param = new HashMap<>();
+		param.put("searchType", searchType);
+		param.put("searchKeyword", searchKeyword);
+
+
+		log.debug("param = {}", param);
+
+		List<Post> boardPostList = boardService.searchBoardList(param, limit, offset);
 		log.debug("boardPostList = {}", boardPostList);
-		model.addAttribute("boardPostList", boardPostList);
-		model.addAttribute("boardNo", boardNo);
-		model.addAttribute("groupNo", groupNo);
-		model.addAttribute("title", "# " + board.getBoardName());
-		
-		
-		// MemberWithGroupList 불러오기
-		List<MemberWithGroup> memberWithGroupList = boardService.memberWithGroupList(groupNo);
-		
-		// memberId, nickname map에 담기
-		Map<String, String> memberWithGroupMap = new HashMap<>();
-		for (MemberWithGroup memberWithGroup : memberWithGroupList) {
-			memberWithGroupMap.put(memberWithGroup.getId(), memberWithGroup.getNickname());
-		}
-		model.addAttribute("memberWithGroupMap", memberWithGroupMap);
-		
+		model.addAttribute("boardPostList ", boardPostList);
+		model.addAttribute("searchType", searchType);
+		model.addAttribute("searchKeyword", searchKeyword);
+
+
 		return "gw/board/board";
 	}
-	
 
 	@GetMapping("/notice.do")
 	public String notice(@RequestParam(defaultValue = "1") int cPage, int boardNo, int groupNo, Model model,
