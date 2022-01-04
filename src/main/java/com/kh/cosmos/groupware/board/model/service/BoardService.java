@@ -73,5 +73,7 @@ public interface BoardService {
 
 	Reply selectOneReply(int replyNo);
 
+	int selectReplyCount(int postNo);
+
 
 }

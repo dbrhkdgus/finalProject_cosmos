@@ -203,5 +203,11 @@ public class BoardServiceImpl implements BoardService {
 		// TODO Auto-generated method stub
 		return boardDao.selectOneReply(replyNo);
 	}
+
+	@Override
+	public int selectReplyCount(int postNo) {
+		// TODO Auto-generated method stub
+		return boardDao.selectReplyCount(postNo);
+	}
 	
 }
