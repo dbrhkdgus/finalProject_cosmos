@@ -86,7 +86,6 @@
 	
 </sec:authorize>
   <header class="bg-light">
-
     <div id="cosmos-groupwear-header"  style="background-color: #5288F2;">
       <div class="groupwear-header-box">
         
@@ -235,6 +234,14 @@
           	<c:choose>
 	          	<c:when test="${not empty chattingChannelList}">
 	          		<c:forEach var="chatRoom" items="${chattingChannelList }">
+	          			<sec:authorize access="hasAnyRole('ROLE_GW${currGroupNo}MASTER', 'ROLE_ADMIN')">
+		          			<span id="btn-delete-chatroom" style="float: right;">x</span>
+		          			<script>
+		          				$("#btn-delete-chatroom").click((e)=>{
+		          					console.log("test");
+		          				});
+		          			</script>
+	          			</sec:authorize>
 			            <li><a href="${pageContext.request.contextPath }/gw/chat/chatRoom.do?chatRoomNo=${chatRoom.chatRoomNo}&groupNo=${currGroupNo }" class="link-dark rounded">${chatRoom.chatRoomName }</a></li>
 	          		</c:forEach>
 	          	</c:when>
