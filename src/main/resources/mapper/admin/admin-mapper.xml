@@ -283,5 +283,92 @@
 	ORDER BY 
 	    b.dt   
   </select>
-
+	<select id="selectAllBoardTotalCount" resultType="_int">
+		select 
+			count(*) 
+		from 
+			post
+	</select>
+	
+	<select id="selectAllBoardList" resultType="BoardData">
+		select
+		    p.post_no,
+		    p.member_id,
+		    p.post_title,
+		    p.post_reg_date,
+		    m.nickname,
+		    b.group_no,
+		    b.board_type,
+		    b.board_name,
+		    c.board_type_name,
+		    g.group_name
+		from
+		    post p left join tb_member m on p.member_id = m.id
+		              left join board b on p.board_no = b.board_no
+		              left join board_boardtype c on b.board_type = c.board_type
+		              left join tb_group g on b.group_no = g.group_no
+		order by p.post_reg_date desc
+	</select>
+	<select id="selectAllBoardTypeList" resultType="BoardType">
+		select * from board_boardtype
+	</select>
+	<select id="selectSearchBoardTotalCount" resultType="_int">
+		select
+		    COUNT(*)
+		from
+		    post p left join tb_member m on p.member_id = m.id
+		              left join board b on p.board_no = b.board_no
+		              left join board_boardtype c on b.board_type = c.board_type
+		              left join tb_group g on b.group_no = g.group_no
+		<where>
+			<if test="groupNo != 'All'">
+				b.group_no = #{groupNo}
+		  	</if>
+			<if test="boardType != 'All'">
+				and b.board_type = #{boardType}
+		  	</if>
+		  	<if test="searchType == 'ById'">
+		  		and p.member_id like '%'||#{searchKeyword}||'%'
+		  	</if>
+			<if test="searchType == 'ByTitle'">
+				and p.post_title like '%'||#{searchKeyword}||'%'
+		  	</if>
+		</where>
+		order by
+			p.post_reg_date desc
+	</select>
+	<select id="selectSearchBoardList" resultType="BoardData">
+		select
+		    p.post_no,
+		    p.member_id,
+		    p.post_title,
+		    p.post_reg_date,
+		    m.nickname,
+		    b.group_no,
+		    b.board_type,
+		    b.board_name,
+		    c.board_type_name,
+		    g.group_name
+		from
+		    post p left join tb_member m on p.member_id = m.id
+		              left join board b on p.board_no = b.board_no
+		              left join board_boardtype c on b.board_type = c.board_type
+		              left join tb_group g on b.group_no = g.group_no
+		<where>
+			<if test="groupNo != 'All'">
+				b.group_no = #{groupNo}
+		  	</if>
+			<if test="boardType != 'All'">
+				and b.board_type = #{boardType}
+		  	</if>
+		  	<if test="searchType == 'ById'">
+		  		and p.member_id like '%'||#{searchKeyword}||'%'
+		  	</if>
+			<if test="searchType == 'ByTitle'">
+				and p.post_title like '%'||#{searchKeyword}||'%'
+		  	</if>
+		</where>
+		order by
+			p.post_reg_date desc
+	</select>
 </mapper>

@@ -46,11 +46,11 @@
   		${post.postContent }
 		<img class="post-content-img" src="${pageContext.request.contextPath }/resources/upFile/fileboard/${attach.renamedFilename}" alt="">
   </div>
-  
+
+  <!-- 댓글 작성 폼 -->  
   <div class="card mb-2">
 	<div class="card-header bg-light">
   </div>
-  
   <form:form action="${pageContext.request.contextPath }/gw/board/postReplyEnroll.do" method="post" >
 	<div class="d-flex mt-3 ml-2 mr-2">
 		<input type="hidden" value="${post.postNo}" name ="postNo">
@@ -61,6 +61,7 @@
 	</div>
   </form:form>
   
+  	<!-- 댓글 수정/삭제 폼 -->
 	<div class="post-rep-box ml-2 mr-2 mb-2">
 		<c:forEach items="${replyList}" var="reply">
 		  <c:if test="${reply.replyLevel == 1 && reply.deleteYn eq 'N'}">
@@ -103,7 +104,8 @@
 						<button class="btn p-1 re-rep-btn" type="button" style="margin-bottom: 0px; font-size:12px">댓글쓰기</button>
 				  </div>
 			  </div>
-					
+				
+				<!-- 대댓글 작성 폼 -->
 				</form:form>
 				<form:form name ="postReRepEnrollFrm" action="${pageContext.request.contextPath }/gw/board/postReplyEnroll.do" method="post" >	
 		            <div class="d-flex align-items-center mt-2">
@@ -118,7 +120,7 @@
 		            </div>
 	            </form:form>
 	            
-	            
+	            <!-- 대댓글 수정/삭제 폼 -->
 	            <c:forEach items="${replyList}" var="reRep">
 					<c:if test="${reply.replyNo == reRep.replyRef && reRep.deleteYn eq 'N'}">
 					
@@ -179,6 +181,8 @@
 	            	</c:if>
 	            </c:forEach>
 	            </c:if>
+	            
+	            <!-- 삭제된 댓글 -->
 	            <c:if test="${reply.replyLevel == 1 && reply.deleteYn eq 'Y'}">
 	            	<hr class="border-0">
 	            	<p class="mt-4 mb-4 ml-2">삭제된 댓글입니다.</p>

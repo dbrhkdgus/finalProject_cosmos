@@ -13,13 +13,11 @@
   <delete id="deleteBoardRoom">
 	delete from board where board_no = #{boardNo}
   </delete>
-  <select id="selectAllPostInBoard" resultType="PostWithCategory">
+  <select id="selectAllPostInBoard" resultType="post">
 	select
-	    p.*,
-	    bc.board_category
+	    *
 	from
-	    post p left join board_category bc
-	        on p.board_category_no = bc.board_category_no 
+	    post
 	where board_no = #{boardNo}
 	order by post_no desc
   </select>
@@ -49,6 +47,9 @@
   </select>
   <select id="selectOnePostInAnonymous" resultType="post">
 		select * from post where post_no = #{postNo}
+  </select>
+  <select id="selectOneReply" resultType="reply">
+		select * from reply where reply_no = #{replyNo}
   </select>
   
   <select id="selectOneAttach" resultType="attachment">
@@ -189,25 +190,20 @@
     where
 	    group_no=#{groupNo}
   </select>
-	<select id="selectBoardListByParam" resultType="Post">
+	<select id="searchBoardList" resultType="post">
 	select
-	    p.*,
-	    bc.board_category
+	    *
 	from
-	    post p left join board_category bc
-	     on p.board_category_no = bc.board_category_no 
-	<where>		
-		
-		<if test="searchType == 'all'">
-			 and  member_id like '%'||#{searchKeyword}||'%' or post_title like '%'||#{searchKeyword}||'%' or reg_date like '%'||#{searchKeyword}||'%'
-		</if>
-		<if test="searchType == 'title'">
-			 and  post_title like '%'||#{searchKeyword}||'%'
+	    post 
+	<where>
+		board_no = #{boardNo}
+		<if test="searchType == 'post_title' and searchKeyword != ''">
+			and  post_title like '%'||#{searchKeyword}||'%'
 		</if>	
-		<if test="searchType == 'writer'">
+		<if test="searchType == 'member_id' and searchKeyword != ''">
 			 and  member_id like '%'||#{searchKeyword}||'%' 
 		</if>			
-		<if test="searchType == 'date'">
+		<if test="searchType == 'post_reg_date'  and searchKeyword != ''">
 			 and  post_reg_date like '%'||#{searchKeyword}||'%'
 		</if>
 	</where>
