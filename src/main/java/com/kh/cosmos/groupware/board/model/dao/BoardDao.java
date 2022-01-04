@@ -75,5 +75,7 @@ public interface BoardDao {
 	Reply selectOneReply(int replyNo);
 
 	int selectSearchBoardTotalCnt(Map<String, Object> param);
+	
+	int selectReplyCount(int postNo);
 
 }

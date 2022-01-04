@@ -140,7 +140,7 @@ public class GwBoardController {
 	}
 
 	@GetMapping("/notice.do")
-	public String notice(@RequestParam(defaultValue = "1") int cPage, int boardNo, int groupNo, Model model,
+	public String notice(@RequestParam(defaultValue = "1") int cPage, int boardNo, int groupNo, int postNo, Model model,
 			HttpServletRequest request, Authentication auth) {
 		groupwareHeaderSet(groupNo, model, auth);
 
@@ -152,6 +152,10 @@ public class GwBoardController {
 		url += "?boardNo=" + boardNo + "&groupNo=" + groupNo;
 		String pagebar = CosmosUtils.getPagebar(cPage, limit, totalContent, url);
 		model.addAttribute("pagebar", pagebar);
+
+		int replyCount = boardService.selectReplyCount(postNo);
+		model.addAttribute("replyCount", replyCount);
+		log.debug("replyCount = {}", replyCount);
 
 		List<Post> noticePostList = boardService.selectAllPostInNotice(boardNo, limit, offset);
 		Board board = boardService.selectBoardByBoardNo(boardNo);

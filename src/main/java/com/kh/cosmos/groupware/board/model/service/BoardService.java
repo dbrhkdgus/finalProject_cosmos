@@ -76,5 +76,7 @@ public interface BoardService {
 
 	int selectSearchBoardTotalCnt(Map<String, Object> param);
 
+	int selectReplyCount(int postNo);
+
 
 }

@@ -69,7 +69,7 @@
 	        	  
 	        	  $(document.loginForm).attr('action',"${pageContext.request.contextPath}/member/memberLoginKakaoMoreInfo.do");
 	        	  console.log(document.loginForm.action);
-	        	  
+	        	  kakaoLogout();
 	        	  $(document.loginForm).submit();
 	          },
 	          fail: function (error) {

@@ -85,4 +85,7 @@
 		from tb_member 	
 		
 	</select>
+	<select id="selectMemberAuthority" resultType="string">
+	select authority from authorities where member_id = #{id}
+	</select>
 </mapper>
