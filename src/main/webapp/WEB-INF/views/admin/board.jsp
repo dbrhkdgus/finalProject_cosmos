@@ -84,7 +84,7 @@
 $(() => {
 	$("select[id=selectTagInputSearchType]").change((e)=>{
 		const $value = $("#selectTagInputSearchType option:selected").val();
-		if($value == 0){
+		if($value == 'All'){
 			$('#searchKeyword').attr('type', 'hidden');
 			$('#searchKeyword').val('');
 		}else{
