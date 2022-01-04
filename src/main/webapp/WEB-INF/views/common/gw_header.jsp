@@ -78,6 +78,15 @@
   </head>
   <body >
 <main>
+
+<sec:authorize access="hasAnyRole('ROLE_GW${currGroupNo}MEMBER')">
+	<script>
+		alert("접근권한이 없습니다.");
+		location.href="${pageContext.request.contextPath}/";
+
+	</script>
+</sec:authorize>
+
   <header class="bg-light">
 
     <div id="cosmos-groupwear-header"  style="background-color: #5288F2;">

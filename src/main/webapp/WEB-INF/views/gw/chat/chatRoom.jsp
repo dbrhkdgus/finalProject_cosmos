@@ -8,8 +8,11 @@
 <jsp:include page="/WEB-INF/views/common/gw_header.jsp">
 	<jsp:param value="" name="title"/>
 </jsp:include>
+
+
 <sec:authorize access="isAuthenticated()">
 	<sec:authentication property="principal" var="loginMember"/>
+	<
 </sec:authorize>
   <div class="workspace-box drop-zone" >
     <div class="chat-content">
@@ -603,8 +606,11 @@ function loadDM(obj){
 		},
 		error: console.log
 	});
+
 }
 </script>
+
+
   </body>
 
 </html>
