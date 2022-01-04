@@ -264,8 +264,8 @@ sup {
 }
 
 a {
-  color: #0d6efd;
-  text-decoration: underline;
+  color: black;
+  text-decoration:none;
 }
 a:hover {
   color: #0a58ca;
@@ -2769,7 +2769,7 @@ textarea.form-control-lg {
   display: flex;
   flex-wrap: wrap;
   align-items: stretch;
-  width: 100%;
+  width: 190%;
 }
 .input-group > .form-control,
 .input-group > .form-select {
