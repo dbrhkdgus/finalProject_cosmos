@@ -114,7 +114,7 @@ public class GwAdminController {
 		chartIdNickNameList = gwAdminService.selectChartIdNickNameList();
 		log.debug("chartIdNickNameList = {}" ,chartIdNickNameList);
 		 model.addAttribute("chartIdNickNameList",chartIdNickNameList);
-		 
+
 		 
 		 List<TDL> checkedToDoList = new ArrayList<TDL>() ;
 		checkedToDoList = gwAdminService.selectcheckedToDoList(groupNo);

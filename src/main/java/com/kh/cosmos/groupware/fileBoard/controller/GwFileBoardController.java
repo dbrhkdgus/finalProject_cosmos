@@ -131,6 +131,7 @@ public class GwFileBoardController {
     public void fileEnroll(@RequestParam int groupNo,@RequestParam int boardNo, Model model ) {
     	model.addAttribute("boardNo", boardNo);
     	model.addAttribute("groupNo", groupNo);
+    	model.addAttribute("currGroupNo", groupNo);
     	
         
     }
