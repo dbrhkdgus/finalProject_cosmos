@@ -59,4 +59,6 @@ public interface AdminService {
 
 	int selectSearchBoardTotalCount(Map<String, Object> param1);
 
+	int insertAuthoritiesValueForGroupMaster(Map<String, Object> param);
+
 }
