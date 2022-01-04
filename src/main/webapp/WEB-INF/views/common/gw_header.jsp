@@ -235,12 +235,7 @@
 	          	<c:when test="${not empty chattingChannelList}">
 	          		<c:forEach var="chatRoom" items="${chattingChannelList }">
 	          			<sec:authorize access="hasAnyRole('ROLE_GW${currGroupNo}MASTER', 'ROLE_ADMIN')">
-		          			<span id="btn-delete-chatroom" style="float: right;">x</span>
-		          			<script>
-		          				$("#btn-delete-chatroom").click((e)=>{
-		          					console.log("test");
-		          				});
-		          			</script>
+		          			<span class="btn-delete-chatroom" style="float: right; cursor: pointer;" data-chatRoomNo ="${chatRoom.chatRoomNo}">x</span>
 	          			</sec:authorize>
 			            <li><a href="${pageContext.request.contextPath }/gw/chat/chatRoom.do?chatRoomNo=${chatRoom.chatRoomNo}&groupNo=${currGroupNo }" class="link-dark rounded">${chatRoom.chatRoomName }</a></li>
 	          		</c:forEach>
@@ -504,6 +499,16 @@
     </div>
   </div>
 </div>
+
+<!-- 채팅방 삭제를 위한 스크립트. 그룹장 or admin일때만 아래의 스크립트 작성 -->
+<sec:authorize access="hasAnyRole('ROLE_GW${currGroupNo}MASTER', 'ROLE_ADMIN')">
+<script>
+$(".btn-delete-chatroom").click((e)=>{
+	console.log($(e.target).data("chatroomno"));
+	
+});
+</script>
+</sec:authorize>
 
  <script>
 
