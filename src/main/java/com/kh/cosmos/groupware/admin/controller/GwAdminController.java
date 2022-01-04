@@ -142,11 +142,9 @@ public class GwAdminController {
 		
 	
 		int groupPool= gwAdminService.selectGwGroupPool(groupNo);
-//		log.debug("groupPool ={}" , groupPool);
 		
 
 		int groupCount = gwAdminService.selectGwGroupCount(groupNo);
-//		log.debug("groupCount ={}" , groupCount);
 
 		
 		
@@ -156,17 +154,31 @@ public class GwAdminController {
 		Map<String, Object> param = new HashMap<String,Object>();
 		param.put("groupNo",idList.get("groupNo"));
 		param.put("idList",idlist);
-//		log.debug("idListLength = {}",idlist.size());
 	
 		String msg ="";
         Map<String, Object> map = new HashMap<>();
 	
-		  //
 		if(groupPool - groupCount >= idlist.size()) {
-			msg="수정 성공!";
-			map.put("msg", msg);
+			try {
+				int result = gwAdminService.updategroupAcceptByList(param);
+				
+				msg="수정 성공!";
+				map.put("msg", msg);
+				for(String id : idlist) {
+					Map<String, Object> param2 = new HashMap<String, Object>();
+					param2.put("id", id);
+					param2.put("groupNo", groupNo);
+					
+					result = gwAdminService.insertMemberAuthority(param2);
+				}
+				
+			} catch (Exception e) {
+				msg="수정 실패";
+				map.put("msg", msg);
+			}
+			
+			
 //			log.debug("count = {}" ,groupPool - groupCount <= idlist.size());
-			int result = gwAdminService.updategroupAcceptByList(param);
 //			log.debug("result = {}" , result);
 			return ResponseEntity.ok(map);
 		}else {
