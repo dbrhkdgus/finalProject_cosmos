@@ -49,7 +49,7 @@
           </div>
     
     
-          <div class="offline-member-list">
+<!--           <div class="offline-member-list">
             <div class="on-off-text">
               <p class="off-text">오프라인 - 1</p>
             </div>
@@ -61,7 +61,7 @@
                 <span>홍길동</span> 
             </div>
     
-          </div>
+          </div> -->
         </div>
 	
     <!-- 그룹원 리스트(축약버전) (오른쪽) -->
@@ -89,13 +89,10 @@
 	          </div>
 	        </div>
 		</c:forEach>
-        
-        
-
       </div>
 
 
-      <div class="offline-member-list">
+<!--       <div class="offline-member-list">
   
         <div class="test-member-profile">
           <div class="member-profile-img-box">
@@ -103,8 +100,8 @@
           </div>
         </div>
 
-      </div>
-    </div> 
+      </div>-->
+    </div>  
 <div class="subscribe">
 
 </div>
