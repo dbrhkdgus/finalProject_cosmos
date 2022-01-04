@@ -23,7 +23,7 @@
 		     </select>
 		     
 		   <div class="input-group mb-3 search-input">
-		      <input type="text" class="form-control" name="searchKeyword" value="${searchKeyword }" placeholder="검색어를 입력하세요"  aria-describedby="button-addon2">
+		      <input type="text" class="form-control" name="searchKeyword" value="${searchKeyword}" placeholder="검색어를 입력하세요"  aria-describedby="button-addon2">
 		   		<button class="btn btn-outline-secondary" type="button" id="button-addon2" >검색</button>
 		   </div>   
 		</div>       
@@ -36,7 +36,7 @@
         <td colspan="3">•${post.postTitle}
         	<c:forEach var="cnt" items="${replyCount}" >
         		<c:if test="${post.postNo == cnt.postNo}">
-        			${cnt.replyCnt}
+        			(${cnt.replyCnt})
         		</c:if>
         	</c:forEach>
         </td>
