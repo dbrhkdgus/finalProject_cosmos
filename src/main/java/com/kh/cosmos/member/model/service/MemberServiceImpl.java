@@ -103,6 +103,12 @@ public class MemberServiceImpl implements MemberService {
 		// TODO Auto-generated method stub
 		return memberDao.selectAllMemberList();
 	}
+
+	@Override
+	public List<String> selectMemberAuthority(String id) {
+		// TODO Auto-generated method stub
+		return memberDao.selectMemberAuthority(id);
+	}
 	
 	
 	

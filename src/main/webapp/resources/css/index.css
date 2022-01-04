@@ -716,7 +716,7 @@ footer{display: flex;}
 
 
 /*멤버 신청한가입그룹 css*/
-ul.tabs{
+/* ul.tabs{
 	margin: 0px;
 	padding: 0px;
 	list-style: none;
@@ -743,7 +743,7 @@ ul.tabs li.current{
 
 .tab-content.current{
 	display: inherit;
-}
+} */
 
 /* 회원정보 수정 css */
 .deleteProfile{

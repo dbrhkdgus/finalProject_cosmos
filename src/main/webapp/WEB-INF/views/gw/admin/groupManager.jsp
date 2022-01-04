@@ -33,7 +33,6 @@
 	    var memberId ="";   		
 		var memberIdList = new Array();
 		var list = new Array();
-		
 		var list2= new Array();
 		<c:forEach items="${acceptApplocationGroupList}" var="item1">
 			<c:forEach items="${chartIdNickNameList}" var="item2">
@@ -68,6 +67,7 @@
 		for (var i = 0; i < list.length; i++) {
 		  bgColors.push(colors[i % colors.length]);  
 		}
+
 		
 </script> 
   <script>
@@ -115,6 +115,7 @@
           data: [10, 20, 30, 40, 50, 60, 70 ,80,70,60],
           fill: false,
           backgroundColor:bgColors,
+<<<<<<< HEAD
           borderColor: [
             'rgba(255, 99, 132, 1)',
             'rgba(255, 159, 64, 1)',
@@ -124,6 +125,9 @@
             'rgba(153, 102, 255, 1)',
             'rgba(201, 203, 207, 1)'
           ],
+=======
+          borderColor: bdColor,
+>>>>>>> branch 'master' of https://github.com/dbrhkdgus/finalProject_cosmos.git
           borderWidth: 1
         }]
       },

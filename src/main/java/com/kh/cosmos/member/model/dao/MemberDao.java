@@ -37,6 +37,8 @@ public interface MemberDao {
 	int delete(int groupNo);
 
 	List<Member> selectAllMemberList();
+
+	List<String> selectMemberAuthority(String id);
 	
 	
 
