@@ -104,26 +104,27 @@ public class GwBoardController {
 		int totalContent = boardService.selectPostInBoardTotalCount(boardNo);
 		model.addAttribute("totalContent", totalContent);
 		String url = request.getRequestURI();
-		url += "?boardNo=" + boardNo + "&groupNo=" + groupNo;
 		String pagebar = CosmosUtils.getPagebar(cPage, limit, totalContent, url);
 		model.addAttribute("pagebar", pagebar);
 
 		String searchType = request.getParameter("searchType");
 		String searchKeyword = request.getParameter("searchKeyword");
 
-
+		url += "?searchType=" + searchType + "&boardNo=" + boardNo + "&groupNo=" +groupNo + "&searchKeyword=" + searchKeyword;
 		Map<String, Object> param = new HashMap<>();
 		param.put("searchType", searchType);
 		param.put("searchKeyword", searchKeyword);
-
+		param.put("boardNo", boardNo);
 
 		log.debug("param = {}", param);
 
 		List<Post> boardPostList = boardService.searchBoardList(param, limit, offset);
 		log.debug("boardPostList = {}", boardPostList);
-		model.addAttribute("boardPostList ", boardPostList);
+		model.addAttribute("boardPostList", boardPostList);
 		model.addAttribute("searchType", searchType);
 		model.addAttribute("searchKeyword", searchKeyword);
+		model.addAttribute("boardNo", boardNo);
+		model.addAttribute("groupNo", groupNo);
 
 
 		return "gw/board/board";

@@ -464,6 +464,7 @@ public class AdminController {
 		int totalContent = adminService.selectSearchBoardTotalCount(param1);
 		log.debug("totalContent = {}",totalContent);
 		String url = request.getRequestURI();
+		url += "?groupNo=" + groupNo + "&boardType=" + boardType + "&searchType=" + searchType + "&searchKeyword=" + searchKeyword;
 		String pagebar = CosmosUtils.getPagebar(cPage, limit, totalContent, url);
 		model.addAttribute("totalContent", totalContent);
 		
