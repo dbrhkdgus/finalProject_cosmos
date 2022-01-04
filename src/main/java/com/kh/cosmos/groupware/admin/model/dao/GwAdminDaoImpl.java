@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.cosmos.group.model.vo.ApplocationGroup;
+import com.kh.cosmos.groupware.fileBoard.vo.IdNickName;
 
 @Repository
 public class GwAdminDaoImpl implements GwAdminDao {
@@ -62,6 +63,12 @@ public class GwAdminDaoImpl implements GwAdminDao {
 	@Override
 	public int updateMemberRole(Map<String, Object> param) {
 		return session.update("gwAdmin.updateMemberRole",param);
+	}
+
+	@Override
+	public List<IdNickName> selectChartIdNickNameList() {
+		// TODO Auto-generated method stub
+		return session.selectList("gwAdmin.selectChartIdNickNameList");
 	}
 
 	
