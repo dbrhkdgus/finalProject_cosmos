@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.cosmos.admin.model.service.AdminService;
+import com.kh.cosmos.admin.model.vo.BoardData;
+import com.kh.cosmos.admin.model.vo.BoardType;
 import com.kh.cosmos.admin.model.vo.EnrollMemberByMonth;
 import com.kh.cosmos.admin.model.vo.GenderData;
 import com.kh.cosmos.admin.model.vo.SevenDaysData;
@@ -159,7 +161,27 @@ public class AdminController {
 	}
 
 	@GetMapping("/board.do")
-	public String board() {
+	public String board(@RequestParam(defaultValue = "1") int cPage, Model model, HttpServletRequest request) {
+		int limit = 10;
+		int offset = (cPage - 1) * limit;
+		int totalContent = adminService.selectAllBoardTotalCount();
+		String url = request.getRequestURI();
+		String pagebar = CosmosUtils.getPagebar(cPage, limit, totalContent, url);
+		model.addAttribute("totalContent", totalContent);
+		
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("ca1No", 0);
+		param.put("ca2No", 0);		
+		List<Group> groupList = groupService.selectAllGroupListByParam(param, 1000, 0);
+		model.addAttribute("groupList", groupList);
+		
+		List<BoardType> adminBoardTypeList = adminService.selectAllBoardTypeList();
+		model.addAttribute("adminBoardTypeList", adminBoardTypeList);
+		
+		List<BoardData> adminBoardList = adminService.selectAllBoardList(limit, offset);
+		model.addAttribute("adminBoardList", adminBoardList);
+		model.addAttribute("pagebar", pagebar);
+		
 		return "admin/board";
 	}
 
@@ -425,5 +447,52 @@ public class AdminController {
 
 		return "admin/QnA";
 	}
-
+	
+	@GetMapping("/searchBoard.do")
+	public String searchBoard(@RequestParam(defaultValue = "1") int cPage, Model model, HttpServletRequest request) {
+		String groupNo = request.getParameter("groupNo");
+		String boardType = request.getParameter("boardType");
+		String searchType = request.getParameter("searchType");
+		String searchKeyword = request.getParameter("searchKeyword");
+		Map<String, Object> param1 = new HashMap<>();
+		param1.put("groupNo", groupNo);
+		param1.put("boardType", boardType);
+		param1.put("searchType", searchType);
+		param1.put("searchKeyword", searchKeyword);
+		int limit = 10;
+		int offset = (cPage - 1) * limit;
+		int totalContent = adminService.selectSearchBoardTotalCount(param1);
+		log.debug("totalContent = {}",totalContent);
+		String url = request.getRequestURI();
+		String pagebar = CosmosUtils.getPagebar(cPage, limit, totalContent, url);
+		model.addAttribute("totalContent", totalContent);
+		
+		log.debug("groupNo = {}",groupNo);
+		log.debug("boardType = {}",boardType);
+		log.debug("searchType = {}",searchType);
+		log.debug("searchKeyword = {}",searchKeyword);
+		
+		
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("ca1No", 0);
+		param.put("ca2No", 0);
+		List<Group> groupList = groupService.selectAllGroupListByParam(param, 1000, 0);
+		model.addAttribute("groupList", groupList);
+		
+		List<BoardType> adminBoardTypeList = adminService.selectAllBoardTypeList();
+		model.addAttribute("adminBoardTypeList", adminBoardTypeList);
+		
+		List<BoardData> adminBoardList = adminService.selectSearchBoardList(param1, limit, offset);
+		model.addAttribute("adminBoardList", adminBoardList);
+		model.addAttribute("pagebar", pagebar);
+		
+		
+		model.addAttribute("groupNo",groupNo);
+		model.addAttribute("boardType",boardType);
+		model.addAttribute("searchType",searchType);
+		model.addAttribute("searchKeyword",searchKeyword);
+		
+		return "admin/board";
+		
+	}
 }
