@@ -10,8 +10,9 @@
 <jsp:include page="/WEB-INF/views/common/gw_header.jsp">
 	<jsp:param value="" name="title"/>
 </jsp:include>
-   <div class="workspace-box">
 
+ <div class="workspace-box">
+  
       <div class="study-admin-box">
         <div class="amount-of-study-activity">
           <h4>To do List 6 Month</h4>
@@ -26,7 +27,40 @@
       
       </div>
     </div>
+    
  <!-- 통계 script -->
+<script>  
+	    var memberId ="";   		
+		var memberIdList = new Array();
+		var list = new Array();
+		<c:forEach items="${acceptApplocationGroupList}" var="item1">
+			<c:forEach items="${chartIdNickNameList}" var="item2">
+				<c:if test="${item1.memberId eq item2.id}">	
+					list.push("${item2.nickName}");
+				</c:if>			
+			</c:forEach>
+		</c:forEach>
+		for(var i=0; i < list.length; i++){
+				list[i]
+		}
+		list.push("엑스트라1");
+		list.push("엑스트라2");
+		
+		
+		var colors = [ 'rgba(255, 99, 132, 0.2)',
+            'rgba(255, 159, 64, 0.2)',
+            'rgba(255, 205, 86, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+            'rgba(201, 203, 207, 0.2)'];
+		
+		var bgColors = [];
+		for (var i = 0; i < list.length; i++) {
+		  bgColors.push(colors[i % colors.length]);  
+		}
+		
+</script> 
   <script>
     var context = document.getElementById('activityChart');
     var chart1 = new Chart(context, {
@@ -59,27 +93,19 @@
         }
       }
     });
-
+    
     var ctx = document.getElementById('goalChart');
     var chart2 = new Chart(ctx, {
       type: 'horizontalBar',
       data: {
         indexAxis: 'y',
-        labels: ['강구진', '김은희', '백지영', '유광현', '유지우', '이윤희', '이진표'],
+        labels: list,
         datasets: [{
           axis: 'y',
           label: '12월 목표달성률',
-          data: [10, 20, 30, 40, 50, 60, 70 ],
+          data: [10, 20, 30, 40, 50, 60, 70 ,80,70,60],
           fill: false,
-          backgroundColor: [
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(255, 159, 64, 0.2)',
-            'rgba(255, 205, 86, 0.2)',
-            'rgba(75, 192, 192, 0.2)',
-            'rgba(54, 162, 235, 0.2)',
-            'rgba(153, 102, 255, 0.2)',
-            'rgba(201, 203, 207, 0.2)'
-          ],
+          backgroundColor:bgColors,
           borderColor: [
             'rgba(255, 99, 132, 1)',
             'rgba(255, 159, 64, 1)',
@@ -104,7 +130,6 @@
         },
       }
     });
-
-
   </script>
+
 <jsp:include page="/WEB-INF/views/common/gw_footer.jsp"></jsp:include>

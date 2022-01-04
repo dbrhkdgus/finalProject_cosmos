@@ -120,6 +120,7 @@ public class GwAdminController {
 		 model.addAttribute("chartIdNickNameList",chartIdNickNameList);
 		 
 		
+		 
 		return "gw/admin/groupManager";
 		
 	}
