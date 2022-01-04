@@ -205,6 +205,12 @@ public class BoardDaoImpl implements BoardDao {
 		// TODO Auto-generated method stub
 		return session.selectOne("board.selectOneReply", replyNo);
 	}
+
+	@Override
+	public int selectReplyCount(int postNo) {
+		// TODO Auto-generated method stub
+		return session.selectOne("board.selectReplyCount", postNo);
+	}
 	
 
 }

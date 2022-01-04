@@ -73,4 +73,6 @@ public interface BoardDao {
 
 	Reply selectOneReply(int replyNo);
 
+	int selectReplyCount(int postNo);
+
 }
