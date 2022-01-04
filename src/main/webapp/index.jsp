@@ -9,6 +9,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css">
+
 <fmt:requestEncoding value="utf-8"/>
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	<jsp:param value="COSMOS" name="title"/>
@@ -58,7 +59,7 @@
 		<div class="category" style="margin-bottom:5px;">
 			
 			<div class="category2">
-				<button type="button" class="btn-category">카테고리</button>
+				<button type="button" class="btn-category" style="margin-bottom: 5%;">카테고리</button>
 				<ul class="cate-list" style="padding-left: 0;  height: 270px;">
 					<li class="popular"><a href="${pageContext.request.contextPath}/group/groupSearch.do?ca1No=2">웹개발</a></li>
 					<li class="popular"><a href="${pageContext.request.contextPath}/group/groupSearch.do?ca1No=3">프론트</a></li>
@@ -85,7 +86,7 @@
 		<div class="login-index category" style="margin-bottom:5px;">
 			
 			<div class="category2">
-				<button type="button" class="btn-category">카테고리</button>
+				<button type="button" class="btn-category" style="margin-bottom:5%;">카테고리</button>
 				<ul class="cate-list" style="padding-left: 0;">
 					<li class="login-popular"><a href="${pageContext.request.contextPath}/group/groupSearch.do?ca1No=2">웹개발</a></li>
 					<li class="login-popular"><a href="${pageContext.request.contextPath}/group/groupSearch.do?ca1No=3">프론트</a></li>
@@ -101,7 +102,7 @@
 			</div>
 		</div>
 		<div class="login-index category " style="margin-bottom:5px;">
-				<div class="index-member-box d-flex">
+				<div class="index-member-box">
 					<img id="index-profile" src="${pageContext.request.contextPath }/resources/images/facebook.png" alt="" />					
 					<div class="index-member-info">
 					<a href="${pageContext.request.contextPath }/member/memberUpdate.do" ><p style="font-size: 20px;">&nbsp;<sec:authentication property="principal.memberName"/>님 </p></a>
@@ -112,7 +113,10 @@
 					
 					</div>
 					<div class="index-member">
-						<button id="btn-DM-modal" type="button" class="btn btn-outline-primary">DM</button>
+						<svg id="btn-DM-modal" xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-chat-dots-fill" viewBox="0 0 16 16" style="cursor: pointer; color: #5288F2;">
+						  <path d="M16 8c0 3.866-3.582 7-8 7a9.06 9.06 0 0 1-2.347-.306c-.584.296-1.925.864-4.181 1.234-.2.032-.352-.176-.273-.362.354-.836.674-1.95.77-2.966C.744 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7zM5 8a1 1 0 1 0-2 0 1 1 0 0 0 2 0zm4 0a1 1 0 1 0-2 0 1 1 0 0 0 2 0zm3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+						</svg>
+						
 						<input type="hidden" class="loginMemberId" value="${loginMember.id }"/>
 					</div>
 				</div>
@@ -274,13 +278,17 @@ window.addEventListener("load", function(){
 		url : "${pageContext.request.contextPath }/gw/chat/newDMCheck.do",
 		success(data){
 			if(data > 0){
-				alert("새로 도착한 DM이 있습니다.");
+				$(".index-member").append(`<div class="notification-dot notification-pulse"></div>`);
 			}
 		},
 		error : console.log
 	
 	
 	});
+	var mail = document.getElementById("mail-num");
+
+
+
 });
 </script>
 </sec:authorize>
@@ -310,7 +318,6 @@ window.addEventListener("load", function(){
 
 
 <script>
-
 /* dm modal 제어 */
 $("#btn-DM-modal").click((e)=>{
 	$("input[name=dm-memberId]").val($(e.target).siblings().val());
@@ -379,6 +386,7 @@ $("#btn-DM-modal").click((e)=>{
 $(".close-dm-modal").click((e)=>{
 	$(".dm-profile-container").text('');
 	$("#gwDMModal").modal('hide');
+	$(".notification-dot").remove();
 
 });
 
@@ -400,7 +408,7 @@ $(".close-dm-modal").click((e)=>{
 		const obj = JSON.parse(message.body);
 		console.log(obj);
 		const {memberId, msg} = obj;
-		alert("새로운 DM이 도착했습니다.");
+		$(".index-member").append(`<div class="notification-dot notification-pulse"></div>`);
 	});
 	
 });
