@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.kh.cosmos.common.attachment.model.vo.Attachment;
 import com.kh.cosmos.groupware.board.model.vo.Board;
 import com.kh.cosmos.groupware.board.model.vo.Post;
+import com.kh.cosmos.groupware.board.model.vo.PostWithNickname;
 import com.kh.cosmos.main.model.vo.Reply;
 import com.kh.cosmos.member.model.vo.MemberWithGroup;
 
@@ -189,11 +190,17 @@ public class BoardDaoImpl implements BoardDao {
 	}
 
 	@Override
-	public List<Post> searchBoardList(Map<String, Object> param, int limit, int offset) {
+	public List<PostWithNickname> searchBoardList(Map<String, Object> param, int limit, int offset) {
 		RowBounds rowBounds = new RowBounds(offset, limit);
 		return session.selectList("board.searchBoardList", param, rowBounds);
 	}
 	
+	@Override
+	public int selectSearchBoardTotalCnt(Map<String, Object> param) {
+		// TODO Auto-generated method stub
+		return session.selectOne("board.selectSearchBoardTotalCnt", param);
+	}
+
 	@Override
 	public int insertAnonymousReply(Reply reply) {
 		// TODO Auto-generated method stub
