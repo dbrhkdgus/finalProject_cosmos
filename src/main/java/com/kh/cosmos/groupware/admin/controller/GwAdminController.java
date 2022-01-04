@@ -10,25 +10,22 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.cosmos.common.attachment.model.vo.Attachment;
-import com.kh.cosmos.group.model.service.GroupService;
 import com.kh.cosmos.group.model.vo.ApplocationGroup;
 import com.kh.cosmos.group.model.vo.Group;
 import com.kh.cosmos.groupware.admin.model.service.GwAdminService;
-import com.kh.cosmos.groupware.admin.model.vo.idList;
+import com.kh.cosmos.groupware.app.model.vo.TDL;
 import com.kh.cosmos.groupware.board.model.vo.Board;
 import com.kh.cosmos.groupware.chat.model.vo.ChatRoom;
 import com.kh.cosmos.groupware.fileBoard.vo.IdNickName;
@@ -37,7 +34,6 @@ import com.kh.cosmos.member.model.service.MemberService;
 import com.kh.cosmos.member.model.vo.Member;
 
 import lombok.extern.slf4j.Slf4j;
-import net.sf.json.JSONArray;
 @Controller
 @Slf4j
 @RequestMapping("/gw/admin")
@@ -119,7 +115,15 @@ public class GwAdminController {
 		log.debug("chartIdNickNameList = {}" ,chartIdNickNameList);
 		 model.addAttribute("chartIdNickNameList",chartIdNickNameList);
 		 
-		
+		 
+		 List<TDL> checkedToDoList = new ArrayList<TDL>() ;
+		checkedToDoList = gwAdminService.selectcheckedToDoList(groupNo);
+
+		 
+		 checkedToDoList = gwAdminService.selectcheckedToDoList(groupNo );
+		 log.debug("checkedToDoList = {}" , checkedToDoList);
+		 model.addAttribute("checkedToDoList",checkedToDoList);
+		 
 		return "gw/admin/groupManager";
 		
 	}

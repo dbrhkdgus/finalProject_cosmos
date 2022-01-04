@@ -33,17 +33,27 @@
 	    var memberId ="";   		
 		var memberIdList = new Array();
 		var list = new Array();
+		var list2= new Array();
 		<c:forEach items="${acceptApplocationGroupList}" var="item1">
 			<c:forEach items="${chartIdNickNameList}" var="item2">
 				<c:if test="${item1.memberId eq item2.id}">	
-					list.push("${item2.nickName}");
+					<c:forEach items="${checkedToDoList}" var="tdl">
+						<c:if test="${tdl.memberId eq item2.id}"> 
+							list.push("${item2.nickName}");			
+							console.log("${tdl.memberId }");
+						
+					 	</c:if> 
+					</c:forEach>
 				</c:if>			
 			</c:forEach>
 		</c:forEach>
+	
 		for(var i=0; i < list.length; i++){
 				list[i]
 		}
-
+		list.push("엑스트라1");
+		list.push("엑스트라2");
+		
 		
 		var colors = [ 'rgba(255, 99, 132, 0.2)',
             'rgba(255, 159, 64, 0.2)',
@@ -57,25 +67,7 @@
 		for (var i = 0; i < list.length; i++) {
 		  bgColors.push(colors[i % colors.length]);  
 		}
-		
-		var bdcolors = [
-            'rgba(255, 99, 132, 1)',
-            'rgba(255, 159, 64, 1)',
-            'rgba(255, 205, 86, 1)',
-            'rgba(75, 192, 192, 1)',
-            'rgba(54, 162, 235, 1)',
-            'rgba(153, 102, 255, 1)',
-            'rgba(201, 203, 207, 1)'
-          ];
-		
-		var bdColor = [];
-		for (var i = 0; i < list.length; i++) {
-			bdColor.push(bdcolors[i % bdcolors.length]);  
-		}
-		
-		
-		
-		
+
 		
 </script> 
   <script>
@@ -123,7 +115,19 @@
           data: [10, 20, 30, 40, 50, 60, 70 ,80,70,60],
           fill: false,
           backgroundColor:bgColors,
+<<<<<<< HEAD
+          borderColor: [
+            'rgba(255, 99, 132, 1)',
+            'rgba(255, 159, 64, 1)',
+            'rgba(255, 205, 86, 1)',
+            'rgba(75, 192, 192, 1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(153, 102, 255, 1)',
+            'rgba(201, 203, 207, 1)'
+          ],
+=======
           borderColor: bdColor,
+>>>>>>> branch 'master' of https://github.com/dbrhkdgus/finalProject_cosmos.git
           borderWidth: 1
         }]
       },
