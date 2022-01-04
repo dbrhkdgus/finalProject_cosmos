@@ -118,7 +118,7 @@ public class GwAdminController {
 		chartIdNickNameList = gwAdminService.selectChartIdNickNameList();
 		log.debug("chartIdNickNameList = {}" ,chartIdNickNameList);
 		 model.addAttribute("chartIdNickNameList",chartIdNickNameList);
-		 
+	
 		
 		return "gw/admin/groupManager";
 		
