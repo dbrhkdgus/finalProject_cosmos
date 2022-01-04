@@ -1,7 +1,11 @@
 package com.kh.cosmos.groupware.board.controller;
 
+import java.beans.PropertyEditor;
 import java.io.File;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,10 +16,13 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -54,6 +61,14 @@ public class GwBoardController {
 	private AttachmentService attachmentService;
 	@Autowired
 	private MainService mainService;
+	
+	@InitBinder
+	public void initBinder(WebDataBinder binder) {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		// 형식객체, 빈값허용여부("" -> null)
+		PropertyEditor editor = new CustomDateEditor(sdf, true);
+		binder.registerCustomEditor(Date.class, editor);
+	}
 
 	@Autowired
 	ServletContext application;
@@ -96,11 +111,12 @@ public class GwBoardController {
 	
 	@GetMapping("/boardSearch.do")
 	public String boardSearch(@RequestParam(defaultValue = "1") int cPage, int boardNo, int groupNo, Model model,
-			HttpServletRequest request, Authentication auth) {
+			HttpServletRequest request, Authentication auth) throws ParseException {
 		groupwareHeaderSet(groupNo, model, auth);
 		
 		String searchType = request.getParameter("searchType");
 		String searchKeyword = request.getParameter("searchKeyword");
+		
 		Map<String, Object> param = new HashMap<>();
 		param.put("searchType", searchType);
 		param.put("searchKeyword", searchKeyword);

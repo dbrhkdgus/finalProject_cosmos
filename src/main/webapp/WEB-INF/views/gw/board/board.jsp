@@ -31,20 +31,14 @@
 		        <option value="post_content" 
 	        	<c:if test="${searcyType eq 'post_content'}">selected </c:if> 
 		        >내용</option>
-		        <option value="post_reg_date" 
-	        	<c:if test="${searcyType eq 'post_reg_date'}">selected </c:if> 
-		        >날짜</option>
-		        <%-- <option value="member_id" ${searchType == 'member_id' ? "selected":'' }>작성자</option>
-		        <option value="post_reg_date" ${searchType == 'post_reg_date' ? "selected":'' }>날짜</option> --%>
+		        
 		     </select>
 		     
 		   <div class="input-group mb-3 search-input">
 		   		<input type="hidden" name="boardNo" value="${boardNo}"/>
 		   		<input type="hidden" name="groupNo" value="${groupNo}"/>
-		      <input type="text" class="form-control" name="searchKeyword" placeholder="검색어를 입력하세요"  aria-describedby="button-addon2"
-		      	<c:if test="${not empty searchKeyword}">value="${searchKeyword}"</c:if>
-		      	>
-		      <input type='date' name='searchKeyword'/>
+      			<input type="text" class="form-control" name="searchKeyword" placeholder="검색어를 입력하세요." >
+		      		
 		   	  <input class="btn btn-outline-secondary" type="submit" id="button-addon2" value="검색"></input>
 		   </div>   
 		</div>       
