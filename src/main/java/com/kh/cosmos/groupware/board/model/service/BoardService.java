@@ -6,6 +6,7 @@ import java.util.Map;
 import com.kh.cosmos.common.attachment.model.vo.Attachment;
 import com.kh.cosmos.groupware.board.model.vo.Board;
 import com.kh.cosmos.groupware.board.model.vo.Post;
+import com.kh.cosmos.groupware.board.model.vo.PostReplyCount;
 import com.kh.cosmos.groupware.board.model.vo.PostWithNickname;
 import com.kh.cosmos.main.model.vo.Reply;
 import com.kh.cosmos.member.model.vo.MemberWithGroup;
@@ -76,7 +77,7 @@ public interface BoardService {
 
 	int selectSearchBoardTotalCnt(Map<String, Object> param);
 
-	int selectReplyCount(int postNo);
+	List<PostReplyCount> selectReplyCount();
 
 
 }
