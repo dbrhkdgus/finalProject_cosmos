@@ -4,6 +4,7 @@ import java.beans.PropertyEditor;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -20,6 +21,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -196,10 +198,19 @@ public class MemberController {
 			if ("http://localhost:9090/cosmos/member/memberAPIEnroll.do".equals(request.getHeader("referer"))) {
 				redirectAttr.addFlashAttribute("msg", "이미 가입된 카카오 아이디입니다.");
 			}
+			List<SimpleGrantedAuthority> authority = new ArrayList<SimpleGrantedAuthority>();
+			List<String> memberAuthorityList = memberService.selectMemberAuthority(kakaoMember.getId());
+			for(String auth2 : memberAuthorityList) {
+				SimpleGrantedAuthority auth3 = new SimpleGrantedAuthority(auth2);
+				authority.add(auth3);
+			}
+			
+			kakaoMember.setAuthorities(authority);
 			kakaoMember.setPassword(passwordEncoder.encode(kakaoMember.getPassword()));
 			Authentication kakaoAuthentication = new UsernamePasswordAuthenticationToken(kakaoMember,
 					kakaoMember.getPassword(), kakaoMember.getAuthorities());
 			SecurityContextHolder.getContext().setAuthentication(kakaoAuthentication);
+			
 			return "redirect:/";
 		}
 	}
