@@ -85,11 +85,8 @@
 				  </div>
 				  <div class="rep-btn-box">
 						<input type="button" value="수정" class="btn-transform btn p-1" style="margin-bottom: 0px; font-size:12px" />
-						<input type="button" value="등록" class="btn-enroll btn p-1" style="margin-bottom: 0px; font-size:12px" />
-						<input type="button" value="삭제" class="btn-delete btn p-1" style="margin-bottom: 0px; font-size:12px" />
-						<input type="hidden" name="type" value=""/>
-						<input type="hidden" name="replyNo" value="${reply.replyNo}"> 
-						<input type="hidden" name="postNo" value="${post.postNo}"> 
+						<input type="button" value="등록" onclick="checkPasswordForUpdate(${reply.replyNo})" class="btn-enroll btn p-1" style="margin-bottom: 0px; font-size:12px" />
+						<input type="button" value="삭제" onclick="checkPassword(${reply.replyNo})" class="btn-delete btn p-1" style="margin-bottom: 0px; font-size:12px" />
 						<button class="btn p-1 re-rep-btn" type="button" style="margin-bottom: 0px; font-size:12px">댓글쓰기</button>
 				  </div>
 			  </div>
@@ -128,7 +125,7 @@
 									  <div class="rep-profile">
 										<div class="p-0 bd-highlight">
 											<c:choose>
-												<c:when test="${post.memberId eq reply.memberId }">
+												<c:when test="${post.memberId eq reRep.memberId }">
 													<span><strong>작성자</strong></span>
 												</c:when>
 												<c:otherwise>
@@ -144,11 +141,11 @@
 								  </div>
 								  <div class="rep-btn-box">
 										<input type="button" value="수정" class="btn-transform btn p-1" style="margin-bottom: 0px; font-size:12px" />
-										<input type="button" value="등록" class="btn-enroll btn p-1" style="margin-bottom: 0px; font-size:12px" />
-										<input type="button" value="삭제" class="btn-delete btn p-1" style="margin-bottom: 0px; font-size:12px" />
+										<input type="button" value="등록" onclick="checkPasswordForUpdate(${reRep.replyNo})" class="btn-enroll btn p-1" style="margin-bottom: 0px; font-size:12px" />
+										<input type="button" value="삭제" onclick="checkPassword(${reRep.replyNo})" class="btn-delete btn p-1" style="margin-bottom: 0px; font-size:12px" />
 										<input type="hidden" name="type" value=""/>
 										<input type="hidden" name="replyNo" value="${reRep.replyNo}"> 
-										<input type="hidden" name="postNo" value="${post.postNo}">  
+										<input type="hidden" name="postNo" value="${post.postNo}">   
 								  </div>
 							  </div>
 								
@@ -198,8 +195,8 @@
 								  </div>
 								  <div class="rep-btn-box">
 										<input type="button" value="수정" class="btn-transform btn p-1" style="margin-bottom: 0px; font-size:12px" />
-										<input type="button" value="등록" class="btn-enroll btn p-1" style="margin-bottom: 0px; font-size:12px" />
-										<input type="button" value="삭제" class="btn-delete btn p-1" style="margin-bottom: 0px; font-size:12px" />
+										<input type="button" value="등록" onclick="checkPasswordForUpdate(${reRep.replyNo})" class="btn-enroll btn p-1" style="margin-bottom: 0px; font-size:12px" />
+										<input type="button" value="삭제" onclick="checkPassword(${reRep.replyNo})" class="btn-delete btn p-1" style="margin-bottom: 0px; font-size:12px" />
 										<input type="hidden" name="type" value=""/>
 										<input type="hidden" name="replyNo" value="${reRep.replyNo}"> 
 										<input type="hidden" name="postNo" value="${post.postNo}"> 
@@ -295,17 +292,19 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form:form name="deleteAnonymousFrm" method="post" action="${pageContext.request.contextPath}/gw/board/checkReplyPassword.do">
+      <form:form name="deleteAnonymousReplyFrm" method="post" action="${pageContext.request.contextPath}/gw/board/deleteUpdateAnonymousReply.do">
 	      <div class="modal-body mx-3">
 	        <div class="md-form mb-5">
 	          <label  for="defaultForm-email">비밀번호</label>
-	          <input type="text" name="postPassword" class="form-control validate"  maxlength="4" onChange="checkNumber()" id="deleteanonymous">
+	          <input type="text" name="replyPw" class="form-control validate"  maxlength="4" onChange="checkNumber()" id="deleteanonymous">
 	        </div>
 	      </div>
-	      <input type="hidden" name="replyNo" />
+	      <input type="hidden" class="deleteReplyNo" name="replyNo" />
+	      <input type="hidden" name="type" value="delete" />
+	      <input type="hidden" name="postNo" value="${post.postNo }" />
       </form:form>
       <div class="modal-footer d-flex justify-content-center">
-        <button class="btn btn-deleteAnonymousPost">삭제</button>
+        <button class="btn btn-delete-anonymous-reply">삭제</button>
         <button class="btn close-modal">취소</button>
       </div>
     </div>
@@ -323,17 +322,20 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form:form name="updateAnonymousFrm" method="post" action="${pageContext.request.contextPath}/gw/board/checkPassword.do?postNo=${post.postNo}">
+      <form:form name="updateAnonymousReplyFrm" method="post" action="${pageContext.request.contextPath}/gw/board/deleteUpdateAnonymousReply.do">
 	      <div class="modal-body mx-3">
 	        <div class="md-form mb-5">
 	          <label  for="defaultForm-email">비밀번호</label>
-	          <input type="text" name="postPassword" class="form-control validate"  maxlength="4" onChange="checkNumber()" id="deleteanonymous">
+	          <input type="text" name="replyPw" class="form-control validate"  maxlength="4" onChange="checkNumber()" id="deleteanonymous">
 	        </div>
 	      </div>
-	      <input type="hidden" name="groupNo" value="${currGroupNo}" />
+	      <input type="text" class="updateReplyNo" name="replyNo" />
+	      <input type="text" class="updateReplyContent" name="content" />
+	      <input type="text" name="type" value="update" />
+	      <input type="text" name="postNo" value="${post.postNo }" />
       </form:form>
       <div class="modal-footer d-flex justify-content-center">
-        <button class="btn btn-updateAnonymousPost">수정</button>
+        <button class="btn btn-update-anonymous-reply">수정</button>
         <button class="btn close-modal">취소</button>
       </div>
     </div>
@@ -357,26 +359,15 @@ function checkNumber() {
 /* 댓글 스크립트 */
 $(".btn-enroll").hide();
 
-$(".btn-enroll").click((e)=> {
-	$("input[name=type]").val("update");
-	
-	$(e.target).parent().parent().parent().eq(0).submit();
-})
-
 $(".btn-transform").on('click', (e)=> {
 	$(e.target).hide();
 	$(e.target).next().show();
 	var oldContent = $(e.target).parent().parent("div").find("span").eq(2).text();
 	$(e.target).parent().parent("div").find("span").eq(2).html('');
-	$(e.target).parent().parent("div").find("span").eq(2).html(`<input type="text" id="re-rep-modify-input" name="content" class="form-control" value = "\${oldContent}" />`);
+	$(e.target).parent().parent("div").find("span").eq(2).html(`<input type="text" id="re-rep-modify-input" name="content" class="re-rep-modify-con form-control" value = "\${oldContent}" />`);
 });
 
-$(".btn-delete").click((e) => {
-	if(confirm("정말 삭제하시겠습니까?")) {
-		$("input[name=type]").val("delete");
-		$(e.target).parent().parent().parent().eq(0).submit();
-	}
-});
+
 
 /* 대댓글 스크립트 */
 $(document.anonymousReRepEnrollFrm).hide();
@@ -456,7 +447,29 @@ $('.board-post-rep-btn-enroll').click((e)=>{
 	 $("#updateAnonymousReplyModal").modal('hide');
  });
 
- 
+/* 댓글 삭제 */
+function checkPassword(i) {
+	$("#deleteAnonymousReplyModal").modal('show');
+	$('.deleteReplyNo').attr("value", i);
+} 
+$(".btn-delete-anonymous-reply").click((e)=> {
+	$(document.deleteAnonymousReplyFrm).submit();
+});
+
+/* 댓글 수정 */
+function checkPasswordForUpdate(i) {
+	var updateContent = document.getElementById('re-rep-modify-input').value;
+	console.log(updateContent);
+	$("#updateAnonymousReplyModal").modal('show');
+	$('.updateReplyNo').attr("value", i);
+	$('.updateReplyContent').attr("value", updateContent);
+}
+
+$(".btn-update-anonymous-reply").click((e)=> {
+	$(document.updateAnonymousReplyFrm).submit();
+});
+
+/* 게시글 수정삭제 */
  $(".btn-deleteAnonymousPost").click((e)=>{
 	 $(document.deleteAnonymousFrm).submit();
  });
