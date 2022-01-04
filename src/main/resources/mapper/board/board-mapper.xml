@@ -150,13 +150,14 @@
   <select id="selectReplyListByPostNo" resultType="reply">
 	select * from reply where post_no=#{postNo} order by reply_no
   </select>
-  <select id="selectReplyCount" resultType="_int">
-	select  
-    	count(*)
-	from
-    	reply
-	where
-    	post_no=#{postNo}
+  <select id="selectReplyCount" resultType="PostReplyCount">
+	select 
+		post_no, 
+		count(reply_no) "REPLY_CNT" 
+	from 
+		reply 
+	where 
+		post_no is not null group by post_no
   </select>
   <select id="selectProfileAttachmentList" resultType="attachment">
 	select * from attachment where img_flag = 'P'

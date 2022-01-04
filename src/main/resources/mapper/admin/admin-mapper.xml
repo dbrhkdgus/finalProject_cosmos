@@ -371,4 +371,7 @@
 		order by
 			p.post_reg_date desc
 	</select>
+	<insert id="insertAuthoritiesValueForGroupMaster">
+		insert into authorities values(#{memberId}, #{authority})
+	</insert>
 </mapper>

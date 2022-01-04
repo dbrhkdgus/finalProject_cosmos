@@ -37,6 +37,7 @@ import com.kh.cosmos.group.model.vo.Group;
 import com.kh.cosmos.groupware.board.model.service.BoardService;
 import com.kh.cosmos.groupware.board.model.vo.Board;
 import com.kh.cosmos.groupware.board.model.vo.Post;
+import com.kh.cosmos.groupware.board.model.vo.PostReplyCount;
 import com.kh.cosmos.groupware.board.model.vo.PostWithNickname;
 import com.kh.cosmos.groupware.chat.model.vo.ChatRoom;
 import com.kh.cosmos.groupware.service.GroupwareService;
@@ -156,7 +157,7 @@ public class GwBoardController {
 	}
 
 	@GetMapping("/notice.do")
-	public String notice(@RequestParam(defaultValue = "1") int cPage, int boardNo, int groupNo, int postNo, Model model,
+	public String notice(@RequestParam(defaultValue = "1") int cPage, int boardNo, int groupNo, Model model,
 			HttpServletRequest request, Authentication auth) {
 		groupwareHeaderSet(groupNo, model, auth);
 
@@ -168,8 +169,8 @@ public class GwBoardController {
 		url += "?boardNo=" + boardNo + "&groupNo=" + groupNo;
 		String pagebar = CosmosUtils.getPagebar(cPage, limit, totalContent, url);
 		model.addAttribute("pagebar", pagebar);
-
-		int replyCount = boardService.selectReplyCount(postNo);
+		
+		List<PostReplyCount> replyCount = boardService.selectReplyCount();
 		model.addAttribute("replyCount", replyCount);
 		log.debug("replyCount = {}", replyCount);
 

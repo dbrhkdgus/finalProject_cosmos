@@ -31,5 +31,7 @@ public interface GwAdminDao {
 
 	List<TDL> selectcheckedToDoList(int groupNo);
 
+	int insertMemberAuthority(Map<String, Object> param);
+
 
 }

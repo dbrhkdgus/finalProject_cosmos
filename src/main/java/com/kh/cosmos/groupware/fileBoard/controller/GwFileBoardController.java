@@ -69,8 +69,8 @@ public class GwFileBoardController {
 	
     @GetMapping("/fileBoard.do")
     public String fileBoard(@RequestParam(defaultValue = "1") int cPage,Model model,
-    		@RequestParam int groupNo,HttpServletRequest request,
-    		@RequestParam int boardNo,Authentication authentication) {
+    		@RequestParam int groupNo, HttpServletRequest request,
+    		@RequestParam int boardNo, Authentication authentication) {
     	groupwareHeaderSet(groupNo, model, authentication);
 //    	log.debug("cPage = {}", cPage);
 //		log.debug("boardNo = {}", boardNo);
@@ -131,6 +131,7 @@ public class GwFileBoardController {
     public void fileEnroll(@RequestParam int groupNo,@RequestParam int boardNo, Model model ) {
     	model.addAttribute("boardNo", boardNo);
     	model.addAttribute("groupNo", groupNo);
+    	model.addAttribute("currGroupNo", groupNo);
     	
         
     }

@@ -78,6 +78,12 @@ public class GwAdminDaoImpl implements GwAdminDao {
 		return session.selectList("gwAdmin.selectcheckedToDoList" , groupNo);
 	}
 
+	@Override
+	public int insertMemberAuthority(Map<String, Object> param) {
+		// TODO Auto-generated method stub
+		return session.insert("gwAdmin.insertMemberAuthority", param);
+	}
+
 	
 	
 	

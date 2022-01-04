@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.kh.cosmos.common.attachment.model.vo.Attachment;
 import com.kh.cosmos.groupware.board.model.vo.Board;
 import com.kh.cosmos.groupware.board.model.vo.Post;
+import com.kh.cosmos.groupware.board.model.vo.PostReplyCount;
 import com.kh.cosmos.groupware.board.model.vo.PostWithNickname;
 import com.kh.cosmos.main.model.vo.Reply;
 import com.kh.cosmos.member.model.vo.MemberWithGroup;
@@ -214,10 +215,12 @@ public class BoardDaoImpl implements BoardDao {
 	}
 
 	@Override
-	public int selectReplyCount(int postNo) {
+	public List<PostReplyCount> selectReplyCount() {
 		// TODO Auto-generated method stub
-		return session.selectOne("board.selectReplyCount", postNo);
+		return session.selectList("board.selectReplyCount");
 	}
+
+	
 	
 
 }
