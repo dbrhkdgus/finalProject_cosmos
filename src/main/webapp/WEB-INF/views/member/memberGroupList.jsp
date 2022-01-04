@@ -288,6 +288,7 @@ $(".btn-close").click((e)=>{
 	
 });
 
+
 /*  $(document).on("click", "btn-close", function(){
 	 
 	 

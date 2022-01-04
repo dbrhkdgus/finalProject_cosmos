@@ -14,13 +14,13 @@
 
       <div class="study-admin-box">
         <div class="amount-of-study-activity">
-          <h4>스터디 활동량</h4>
+          <h4>To do List 6 Month</h4>
           <canvas class="chart-size" id="activityChart" width="900" height="500"></canvas>
         </div>
         
 
         <div class="goal-fulfillment-rate">
-          <h4>목표 달성률</h4>
+          <h4>To do List 1 Month</h4>
           <canvas id="goalChart" width="900" height="500"></canvas>
         </div>
       
@@ -32,17 +32,17 @@
     var chart1 = new Chart(context, {
       type: 'line',
       data: {
-        labels: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월', '12월'],
+        labels: ['1월','2월','3월','4월','5월','6월'],
         datasets: [{ 
-            data: [4000,3000,1000,1500,2000,2500,3000,3500,4000,4500,5000,5200],
-            label: "신규글",
+            data: [0,10,20,30,40,50],
+            label: "전체 TDL",
             borderColor: 'rgb(255, 99, 132)',
             backgroundColor: 'rgba(255, 99, 132, 0.2)',
             borderWidth:1,
             fill: false
           }, { 
-            data: [500,1000,1500,1000,1500,2000,947,1402,3700,5267,8000,6000],
-            label: "채팅량",
+            data: [50,40,30,20,10,0],
+            label: "달성 TDL",
             borderColor: 'rgb(54, 162, 235)',
             backgroundColor: 'rgba(54, 162, 235, 0.2)',
             borderWidth:1,
@@ -69,7 +69,7 @@
         datasets: [{
           axis: 'y',
           label: '12월 목표달성률',
-          data: [10, 20, 30, 40, 50, 60, 70],
+          data: [10, 20, 30, 40, 50, 60, 70 ],
           fill: false,
           backgroundColor: [
             'rgba(255, 99, 132, 0.2)',
