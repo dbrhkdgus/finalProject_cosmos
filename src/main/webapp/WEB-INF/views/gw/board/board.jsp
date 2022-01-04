@@ -14,13 +14,12 @@
 </style>
  <div class="workspace-box">
 	<div class="p-4">
-	<form action="${pageContext.request.contextPath}/gw/board/board.do?boardNo=${boardNo}&groupNo=${groupNo}" method="get">
+	<form action="${pageContext.request.contextPath}/gw/board/boardSearch.do?boardNo=${boardNo}&groupNo=${groupNo}" method="get">
 	    <div class="test-board-search">
 	    	 <select name="searchType" class="form-select search-select" aria-label="Default select example">
-		        <option value="all" ${searchType == 'all' ? "selected":'' }> 전체보기 </option>
-		        <option value="title" ${searchType == 'title' ? "selected":'' }>제목</option>
-		        <option value="writer" ${searchType == 'writer' ? "selected":'' }>작성자</option>
-		        <option value="date" ${searchType == 'date' ? "selected":'' }>날짜</option>
+		        <option value="post_title" ${searchType == 'post_title' ? "selected":'' }>제목</option>
+		        <option value="member_id" ${searchType == 'member_id' ? "selected":'' }>작성자</option>
+		        <option value="post_reg_date" ${searchType == 'post_reg_date' ? "selected":'' }>날짜</option>
 		     </select>
 		     
 		   <div class="input-group mb-3 search-input">
@@ -66,7 +65,7 @@
 $("#button-addon2").click((e)=>{
     const searchType = $("select[name=searchType]").val();
     const searchKeyword = $("input[name=searchKeyword]").val();
-    location.href=`${pageContext.request.contextPath}/gw/board/board.do?boardNo=${boardNo}&groupNo=${groupNo}&searchType=\${searchType}&searchKeyword=\${searchKeyword}`; 
+    location.href=`${pageContext.request.contextPath}/gw/board/boardSearch.do?boardNo=${boardNo}&groupNo=${groupNo}&searchType=\${searchType}&searchKeyword=\${searchKeyword}`; 
    
 });
 </script>
