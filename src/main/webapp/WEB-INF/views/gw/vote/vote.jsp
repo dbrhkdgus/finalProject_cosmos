@@ -31,26 +31,11 @@
 					  				<input type="hidden" name="voteNo" value="${presentVote.voteNo }" />
 					  				<input type="hidden" name="voteQuestionNo" value="${presentVote.voteQuestionNo }" />
 							  			<div class="present-vote-title mb-2">
-							  				<div class="vote-sub-info" style="float: right;">
-								  				<h6 class="vote-proposer"><span>${presentVote.memberName}</span>님의 투표제안.  [<span class="text-secondary"><fmt:formatDate value="${presentVote.voteDeadline}" pattern="MM-dd"/>까지</span>]</h6>
+							  				<div class="vote-sub-info">
+								  				<h6 class="vote-proposer"><span class="text-secondary">[<fmt:formatDate value="${presentVote.voteDeadline}" pattern="MM-dd"/>까지]</span></h6>
 							  				</div>
-							  				<div class="isAnsweredVote">
-							  					<c:if test="${voteAnswer == 'Y' }">
-								  					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="vote-svg bi bi-file-earmark-check text-danger" viewBox="0 0 16 16">
-													  <path d="M10.854 7.854a.5.5 0 0 0-.708-.708L7.5 9.793 6.354 8.646a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0l3-3z"/>
-													  <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"/>
-													</svg>
-								  					<span id="isSendedVote" class="text-danger">[제출완료]</span>
-							  					</c:if>
-							  					<c:if test="${voteAnswer == 'N' }">
-								  					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="vote-svg bi bi-bookmarks text-info" viewBox="0 0 16 16">
-													  <path d="M2 4a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v11.5a.5.5 0 0 1-.777.416L7 13.101l-4.223 2.815A.5.5 0 0 1 2 15.5V4zm2-1a1 1 0 0 0-1 1v10.566l3.723-2.482a.5.5 0 0 1 .554 0L11 14.566V4a1 1 0 0 0-1-1H4z"/>
-													  <path d="M4.268 1H12a1 1 0 0 1 1 1v11.768l.223.148A.5.5 0 0 0 14 13.5V2a2 2 0 0 0-2-2H6a2 2 0 0 0-1.732 1z"/>
-													</svg>
-													<span id="isSendedVote" class="text-info">[신규 투표]</span>
-							  					</c:if>							  					
-							  				</div>
-							  				<h3 class="vote-title" style="margin-top: 25px">${presentVote.voteTitle }</h3>
+							  				
+							  				<h3 class="vote-title">${presentVote.voteTitle }</h3>
 							  			</div>
 							  			<div class="vote-question-box">
 							  				<div class="vote-question">

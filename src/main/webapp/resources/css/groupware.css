@@ -915,6 +915,7 @@ div.list-group1{
 .vote-title{
 	font-weight: bold;
     text-align: center;
+    margin-top: 10px;
 }
 .option-maker{
 	display: inline-block;
@@ -923,6 +924,10 @@ div.list-group1{
 .vote-view{
 	height: 100%;
 	
+}
+.vote-sub-info{
+	text-align: right;
+    margin-right: 5px;
 }
 /* 투표 버튼 css */
 .vote-button{
