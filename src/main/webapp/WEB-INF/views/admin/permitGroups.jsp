@@ -163,7 +163,7 @@
                     name="hostId"
                     type="text"
                     class="form-control validate"
-                    disabled
+                    readonly style="background-color:  #4E657A;"
                   />
                 </div>
                 

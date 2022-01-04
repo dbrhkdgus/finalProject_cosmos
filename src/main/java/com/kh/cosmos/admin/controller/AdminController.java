@@ -328,9 +328,17 @@ public class AdminController {
 	}
 
 	@PostMapping("/approveGroup.do")
-	public String approveGroup(@RequestParam("groupNo") int groupNo, RedirectAttributes redirectAttributes) {
-
+	public String approveGroup(@RequestParam("groupNo") int groupNo, @RequestParam("hostId") String memberId, RedirectAttributes redirectAttributes) {
+		log.debug("memberId = {}",memberId);
 		int result = adminService.updateGroupApprove(groupNo);
+		if(result>0) {
+			String authority = "ROLE_GW"+groupNo+"MASTER";
+			log.debug("authorityBuild = {}",authority);
+			Map<String, Object> param = new HashMap<>();
+			param.put("memberId", memberId);
+			param.put("authority", authority);
+			result = adminService.insertAuthoritiesValueForGroupMaster(param);
+		}
 
 		return "redirect:/admin/permitGroups.do";
 	}
