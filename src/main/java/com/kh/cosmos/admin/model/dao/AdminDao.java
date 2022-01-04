@@ -3,6 +3,8 @@ package com.kh.cosmos.admin.model.dao;
 import java.util.List;
 import java.util.Map;
 
+import com.kh.cosmos.admin.model.vo.BoardData;
+import com.kh.cosmos.admin.model.vo.BoardType;
 import com.kh.cosmos.admin.model.vo.EnrollMemberByMonth;
 import com.kh.cosmos.admin.model.vo.GenderData;
 import com.kh.cosmos.admin.model.vo.SevenDaysData;
@@ -48,4 +50,12 @@ public interface AdminDao {
 	List<EnrollMemberByMonth> EnrollMemberByMonth(Map<String, Object> param);
 
 	int selectAllBoardTotalCount();
+
+	List<BoardData> selectAllBoardList(int limit, int offset);
+
+	List<BoardType> selectAllBoardTypeList();
+
+	List<BoardData> selectSearchBoardList(int limit, int offset, Map<String, Object> param1);
+
+	int selectSearchBoardTotalCount(Map<String, Object> param1);
 }

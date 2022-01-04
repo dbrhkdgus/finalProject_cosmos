@@ -3,6 +3,8 @@ package com.kh.cosmos.admin.model.service;
 import java.util.List;
 import java.util.Map;
 
+import com.kh.cosmos.admin.model.vo.BoardData;
+import com.kh.cosmos.admin.model.vo.BoardType;
 import com.kh.cosmos.admin.model.vo.EnrollMemberByMonth;
 import com.kh.cosmos.admin.model.vo.GenderData;
 import com.kh.cosmos.admin.model.vo.SevenDaysData;
@@ -48,5 +50,13 @@ public interface AdminService {
 	List<EnrollMemberByMonth> EnrollMemberByMonth(Map<String, Object> param);
 
 	int selectAllBoardTotalCount();
+
+	List<BoardData> selectAllBoardList(int limit, int offset);
+
+	List<BoardType> selectAllBoardTypeList();
+
+	List<BoardData> selectSearchBoardList(Map<String, Object> param1, int limit, int offset);
+
+	int selectSearchBoardTotalCount(Map<String, Object> param1);
 
 }

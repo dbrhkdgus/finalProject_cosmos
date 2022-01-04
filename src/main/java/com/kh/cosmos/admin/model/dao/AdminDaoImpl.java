@@ -8,6 +8,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.kh.cosmos.admin.model.vo.BoardData;
+import com.kh.cosmos.admin.model.vo.BoardType;
 import com.kh.cosmos.admin.model.vo.EnrollMemberByMonth;
 import com.kh.cosmos.admin.model.vo.GenderData;
 import com.kh.cosmos.admin.model.vo.SevenDaysData;
@@ -111,4 +113,29 @@ public class AdminDaoImpl implements AdminDao {
 		return session.selectOne("admin.selectAllBoardTotalCount");
 	}
 
+	@Override
+	public List<BoardData> selectAllBoardList(int limit, int offset) {
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		return session.selectList("admin.selectAllBoardList", null , rowBounds);
+	}
+
+	@Override
+	public List<BoardType> selectAllBoardTypeList() {
+		// TODO Auto-generated method stub
+		return session.selectList("admin.selectAllBoardTypeList");
+	}
+
+	@Override
+	public List<BoardData> selectSearchBoardList(int limit, int offset, Map<String, Object> param1) {
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		return session.selectList("admin.selectSearchBoardList", param1, rowBounds);
+	}
+
+	@Override
+	public int selectSearchBoardTotalCount(Map<String, Object> param1) {
+		// TODO Auto-generated method stub
+		return session.selectOne("admin.selectSearchBoardTotalCount", param1);
+	}
+	
+	
 }
