@@ -2,9 +2,9 @@
 	pageEncoding="UTF-8"%>
 
 <!-- Footer-->
-<hr style="margin-top:50px;">
-<footer class="py-3" style="margin-top: 0; padding-top: 0;">
-	<div class="footer-container">
+<hr style="margin-top:50px;margin-bottom: 0;">
+<footer class="py-3" style="background-color: #eee !important; padding-top: 20px;">
+	<div class="footer-container" >
 		<div class="footer-up-box" style="display: flex;">
 			<div>
 				<img id="footer_logo" src="${pageContext.request.contextPath }/resources/images/cosmoslogo_black.png" alt="" style="margin-left: 70px;">
