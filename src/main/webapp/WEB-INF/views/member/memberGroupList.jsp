@@ -7,16 +7,150 @@
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	<jsp:param value="" name="title" />
 </jsp:include>
+<style>
+@import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css');
 
-        <div class="container" >
-        	<ul class="tabs my-group-list">
-				<li class="tab-link ${type=='application-group'? 'current' : ''}" data-tab="tab-1">신청그룹</li>
-				<li class="tab-link ${type=='join-group'? 'current' : ''}" data-tab="tab-2">나의스터디그룹</li>
-				<li class="tab-link ${type=='liked-group'? 'current' : ''}" data-tab="tab-3">관심그룹</li>
-			</ul>
-			
-<!--신청그룹 tab  -->
+*,
+*:after,
+*:before {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
 
+.clearfix:before,
+.clearfix:after {
+	content: " ";
+	display: table;
+}
+
+.clearfix:after {
+	clear: both;
+}
+
+body {
+	font-family: sans-serif;
+	background: #f6f9fa;
+}
+
+h1 {
+	color: #ccc;
+	text-align: center;
+}
+
+a {
+  color: #ccc;
+  text-decoration: none;
+  outline: none;
+}
+
+/*Fun begins*/
+.tab_container {
+	width: 90%;
+	margin: 0 auto;
+	position: relative;
+}
+
+input, section {
+  clear: both;
+  padding-top: 10px;
+  display: none;
+}
+
+label {
+  font-weight: 700;
+  font-size: 18px;
+  display: block;
+  float: left;
+  width: 20%;
+  padding: 1.5em;
+  color: #757575;
+  cursor: pointer;
+  text-decoration: none;
+  text-align: center;
+  background: #f0f0f0;
+}
+
+#tab1:checked ~ #content1,
+#tab2:checked ~ #content2,
+#tab3:checked ~ #content3 {
+  display: block;
+  padding: 20px;
+  background: #fff;
+  color: #999;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+.tab_container .tab-content p,
+.tab_container .tab-content h3 {
+  -webkit-animation: fadeInScale 0.7s ease-in-out;
+  -moz-animation: fadeInScale 0.7s ease-in-out;
+  animation: fadeInScale 0.7s ease-in-out;
+}
+.tab_container .tab-content h3  {
+  text-align: center;
+}
+
+.tab_container [id^="tab"]:checked + label {
+  background: #fff;
+  box-shadow: inset 0 3px #0CE;
+}
+
+.tab_container [id^="tab"]:checked + label .fa {
+  color: #0CE;
+}
+
+label .fa {
+  font-size: 1.3em;
+  margin: 0 0.4em 0 0;
+}
+
+/*Media query*/
+@media only screen and (max-width: 900px) {
+  label span {
+    display: none;
+  }
+  
+  .tab_container {
+    width: 98%;
+  }
+}
+
+/*Content Animation*/
+@keyframes fadeInScale {
+  0% {
+  	transform: scale(0.9);
+  	opacity: 0;
+  }
+  
+  100% {
+  	transform: scale(1);
+  	opacity: 1;
+  }
+}
+
+.no_wrap {
+  text-align:center;
+  color: #0ce;
+}
+.link {
+  text-align:center;
+}
+</style>
+        	<div class="tab_container">
+        	
+				<input id="tab1" type="radio" name="tabs" ${type=='application-group'? 'checked' : ''}>
+				<label for="tab1"><i class="fa fa-code"></i><span>신청 그룹</span></label>
+	
+				<input id="tab2" type="radio" name="tabs" ${type=='join-group'? 'checked' : ''}>
+				<label for="tab2"><i class="fa fa-pencil-square-o"></i><span>가입 그룹</span></label>
+	
+				<input id="tab3" type="radio" name="tabs" ${type=='liked-group'? 'checked' : ''}>
+				<label for="tab3"><i class="fa fa-bar-chart-o"></i><span>관심 그룹</span></label>
+
+
+
+			<section id="content1" class="tab-content">
                 <div class="member-group-list-outer tab-content ${type=='application-group'? 'current' : ''}" id="tab-1">
                 	<div class="membergroup-list d-flex flex-column align-items-center">
 		        		<c:choose> 
@@ -80,9 +214,10 @@
 		                </c:forEach>
 	                </div>   
                 </div>
-<!--나의스터디그룹-->
+			</section>
 
-                <div class="member-group-list-outer tab-content ${type=='join-group'? 'current' : ''}" id="tab-2">
+			<section id="content2" class="tab-content">
+				<div class="member-group-list-outer tab-content ${type=='join-group'? 'current' : ''}" id="tab-2">
                 	<div class="membergroup-list d-flex flex-column align-items-center">
 		             	<c:forEach var="myGroup" items="${myGroupList}">
 			               	  <div class="card mb-3" style="max-width: 500px;" >
@@ -194,9 +329,10 @@
 			                  
 			        </div>
                 </div>       
-<!--관심그룹 tab  -->
+			</section>
 
-            <div class="member-group-list-outer tab-content ${type=='liked-group'? 'current' : ''}" id="tab-3">
+			<section id="content3" class="tab-content">
+			<div class="member-group-list-outter tab-content" id="tab-3">
                 	<div class="membergroup-list d-flex flex-column align-items-center">
 		                <c:forEach var="myIntergroup" items="${myInterestedGroupList}">
 			               	  <div class="card mb-3" style="width: 500px;">
@@ -245,10 +381,10 @@
 			                      </div>
 			                    </div>
 			                  </div>
-		                			</c:forEach>
+		                    </c:forEach>
 		                </div>
 	                </div>   
-                </div>
+			</section>
 <script>
 $(document).ready(function(){
 	
@@ -287,12 +423,7 @@ $(".btn-close").click((e)=>{
 	
 	
 });
-
-/*  $(document).on("click", "btn-close", function(){
-	 
-	 
- } */
-	
-
 </script>
+			
+
 <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>         
