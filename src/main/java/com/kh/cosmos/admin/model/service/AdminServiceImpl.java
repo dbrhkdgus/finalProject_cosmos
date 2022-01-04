@@ -132,6 +132,12 @@ public class AdminServiceImpl implements AdminService{
 		// TODO Auto-generated method stub
 		return adminDao.selectSearchBoardTotalCount(param1);
 	}
+
+	@Override
+	public int insertAuthoritiesValueForGroupMaster(Map<String, Object> param) {
+		// TODO Auto-generated method stub
+		return adminDao.insertAuthoritiesValueForGroupMaster(param);
+	}
 	
 	
 }
