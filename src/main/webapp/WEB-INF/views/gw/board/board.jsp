@@ -19,13 +19,16 @@
 		action="${pageContext.request.contextPath}/gw/board/boardSearch.do?" 
 		method="get">
 	    <div class="test-board-search">
-	    	 <select name="searchType" class="form-select search-select" aria-label="Default select example">
+	    	 <select name="searchType" class="form-select search-select">
 		        <option value="post_title" 
 	        	<c:if test="${searcyType eq 'post_title'}">selected </c:if> 
 		        >제목</option>
-		        <option value="member_id" 
-	        	<c:if test="${searcyType eq 'member_id'}">selected </c:if> 
+		        <option value="nickname" 
+	        	<c:if test="${searcyType eq 'nickname'}">selected </c:if> 
 		        >작성자</option>
+		        <option value="post_content" 
+	        	<c:if test="${searcyType eq 'post_content'}">selected </c:if> 
+		        >내용</option>
 		        <option value="post_reg_date" 
 	        	<c:if test="${searcyType eq 'post_reg_date'}">selected </c:if> 
 		        >날짜</option>
@@ -39,6 +42,7 @@
 		      <input type="text" class="form-control" name="searchKeyword" placeholder="검색어를 입력하세요"  aria-describedby="button-addon2"
 		      	<c:if test="${not empty searchKeyword}">value="${searchKeyword}"</c:if>
 		      	>
+		      <input type='date' name='searchKeyword'/>
 		   	  <input class="btn btn-outline-secondary" type="submit" id="button-addon2" value="검색"></input>
 		   </div>   
 		</div>       

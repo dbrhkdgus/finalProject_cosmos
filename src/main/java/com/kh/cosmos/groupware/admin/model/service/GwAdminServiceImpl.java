@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.cosmos.group.model.vo.ApplocationGroup;
 import com.kh.cosmos.groupware.admin.model.dao.GwAdminDao;
+import com.kh.cosmos.groupware.app.model.vo.TDL;
 import com.kh.cosmos.groupware.fileBoard.vo.IdNickName;
 
 
@@ -68,6 +69,12 @@ public class GwAdminServiceImpl implements GwAdminService {
 	public List<IdNickName> selectChartIdNickNameList() {
 		// TODO Auto-generated method stub
 		return gwAdminDao.selectChartIdNickNameList();
+	}
+
+	@Override
+	public List<TDL> selectcheckedToDoList(int groupNo) {
+		// TODO Auto-generated method stub
+		return gwAdminDao.selectcheckedToDoList(groupNo);
 	}
 
 

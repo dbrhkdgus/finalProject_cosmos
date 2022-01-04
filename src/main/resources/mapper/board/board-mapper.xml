@@ -31,6 +31,30 @@
 			post
 		where
 			board_no = #{boardNo}
+ </select>
+ <select id="selectSearchBoardTotalCount" resultType="_int">
+		select
+		    COUNT(*)
+		from
+		    post p left join tb_member m
+	        	on p.member_id = m.id
+		<where>
+			board_no = #{boardNo}
+		  	<if test="searchType == 'post_title'">
+		  		and p.post_title like '%'||#{searchKeyword}||'%'
+		  	</if>
+			<if test="searchType == 'nickname'">
+				and m.nickname like '%'||#{searchKeyword}||'%'
+		  	</if>
+		  	<if test="searchType == 'post_content'">
+		  		and p.post_content like '%'||#{searchKeyword}||'%'
+		  	</if>
+			<if test="searchType == 'post_reg_date'">
+				and p.post_reg_date like '%'||#{searchKeyword}||'%'
+		  	</if>
+		</where>
+		order by
+			p.post_reg_date desc
 	</select>
  <select id="selectAllPostInNotice" resultType="Post">
   	select * from post where board_no = #{boardNo} order by post_no desc
@@ -197,21 +221,27 @@
     where
 	    group_no=#{groupNo}
   </select>
-  <select id="searchBoardList" resultType="post">
+
+	<select id="searchBoardList" resultType="PostWithNickname">
 	select
-	    *
+	    p.*,
+    	m.nickname
 	from
-	    post 
-  <where>
+	    post p left join tb_member m
+        	on p.member_id = m.id
+	<where>
 		board_no = #{boardNo}
 		<if test="searchType == 'post_title' and searchKeyword != ''">
-			and  post_title like '%'||#{searchKeyword}||'%'
-		</if>	
-		<if test="searchType == 'member_id' and searchKeyword != ''">
-			 and  member_id like '%'||#{searchKeyword}||'%' 
-		</if>			
+			and  p.post_title like '%'||#{searchKeyword}||'%'
+		</if>
+		<if test="searchType == 'nickname' and searchKeyword != ''">
+			 and  m.nickname like '%'||#{searchKeyword}||'%' 
+		</if>
+		<if test="searchType == 'post_content' and searchKeyword != ''">
+			 and  p.post_content like '%'||#{searchKeyword}||'%' 
+		</if>
 		<if test="searchType == 'post_reg_date'  and searchKeyword != ''">
-			 and  post_reg_date like '%'||#{searchKeyword}||'%'
+			 and  p.post_reg_date like '%'||#{searchKeyword}||'%'
 		</if>
    </where>
 		order by post_reg_date desc
