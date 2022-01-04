@@ -29,7 +29,7 @@
       </div>
     </div>
     
- <!-- 통계 script -->
+ <!-- 통계 script !!-->
 <script>  
 	    var memberId ="";   		
 		var memberIdList = new Array();
