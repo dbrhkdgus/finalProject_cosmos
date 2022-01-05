@@ -1,7 +1,9 @@
 package com.kh.cosmos.groupware.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kh.cosmos.common.CosmosUtils;
 import com.kh.cosmos.common.attachment.model.vo.Attachment;
+import com.kh.cosmos.group.model.vo.ApplocationGroup;
 import com.kh.cosmos.group.model.vo.Group;
 import com.kh.cosmos.groupware.board.model.service.BoardService;
 import com.kh.cosmos.groupware.board.model.vo.Board;
@@ -61,6 +64,14 @@ public class GwController {
 		}
 		List<Post> noticePostList = boardService.selectAllPostInNotice(num, 5, 1);
 		model.addAttribute("noticePostList",noticePostList);
+		
+	    Map<String,Object> param = new HashMap<>();
+		param.put("memberId", loginMember.getId());
+		param.put("groupNo", groupNo);
+	    ApplocationGroup applocationGroup = gwService.selectApplocationGroup(param);
+	    
+	    
+	    model.addAttribute("role", applocationGroup.getRole());
 		
 		model.addAttribute("currGroupNo", groupNo);
 		model.addAttribute("myGroup", myGroup);
