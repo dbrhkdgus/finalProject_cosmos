@@ -18,8 +18,8 @@
 		enctype="multipart/form-data"
 		action="${pageContext.request.contextPath}/gw/board/noticeSearch.do?" 
 		method="get">
-	    <div class="test-board-search">
-	    	 <select name="searchType" class="form-select search-select">
+	    <div class="test-board-search d-flex float-right">
+	    	 <select name="searchType" class="form-select search-select" id="form-select-search" style="width: 27%;">
 		        <option value="post_title" 
 	        	<c:if test="${searcyType eq 'post_title'}">selected </c:if> 
 		        >제목</option>
@@ -39,7 +39,7 @@
 		</div>       
     </form>
   
-  <table class="table">
+  <table class="table table-sm">
     <tbody>
     <c:forEach var="post" items="${noticePostList}" varStatus="vs">
       <tr onclick="location.href='${pageContext.request.contextPath}/gw/board/boardDetail.do?postNo=${post.postNo}'">

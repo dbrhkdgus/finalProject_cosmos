@@ -106,6 +106,22 @@ main {
   overflow: auto;
 }
 
+/* gw 채널 관리 */
+.updateBoardRoom{
+   	display:none;
+}
+
+#board-channel-list:hover>#board-channel-admin-btn{
+   	display:inline;
+}
+.updateChatRoom{
+	display:none;
+}
+#chat-channel-list:hover>#chat-channel-admin-btn{
+   	display:inline;
+}
+
+
 /* 채팅 css */
 .chat-content {
   padding: 1rem;
