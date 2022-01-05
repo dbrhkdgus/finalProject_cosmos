@@ -180,6 +180,17 @@ public class AdminServiceImpl implements AdminService{
 	public int totalCountOfMembers() {
 		return adminDao.totalCountOfMembers();
 	}
+
+	@Override
+	public List<Group> allGroupList(int limit, int offset) {
+		return adminDao.allGroupList(limit, offset);
+	}
+
+	@Override
+	public int allGroupCount() {
+		return adminDao.allGroupCount();
+	}
+	
 	
 	
 }

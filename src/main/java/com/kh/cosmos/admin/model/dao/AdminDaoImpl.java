@@ -184,6 +184,17 @@ public class AdminDaoImpl implements AdminDao {
 	public int totalCountOfMembers() {
 		return session.selectOne("admin.totalCountOfMembers");
 	}
+
+	@Override
+	public List<Group> allGroupList(int limit, int offset) {
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		return session.selectList("admin.allGroupList",null, rowBounds);
+	}
+
+	@Override
+	public int allGroupCount() {
+		return session.selectOne("admin.allGroupCount");
+	}
 	
 	
 }
