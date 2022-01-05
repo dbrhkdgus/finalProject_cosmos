@@ -132,6 +132,12 @@ public class ChatServiceImpl implements ChatService {
 		// TODO Auto-generated method stub
 		return chatDao.insertChatMessageWithFile(chatMessage);
 	}
+
+	@Override
+	public int deleteChatRoom(int chatRoomNo) {
+		// TODO Auto-generated method stub
+		return chatDao.deleteChatRoom(chatRoomNo);
+	}
 	
 	
 	

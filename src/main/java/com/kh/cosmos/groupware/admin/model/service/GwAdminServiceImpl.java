@@ -78,6 +78,12 @@ public class GwAdminServiceImpl implements GwAdminService {
 		return gwAdminDao.selectcheckedToDoList(groupNo);
 	}
 
+	@Override
+	public int insertMemberAuthority(Map<String, Object> param) {
+		// TODO Auto-generated method stub
+		return gwAdminDao.insertMemberAuthority(param);
+	}
+
 
 	
 	

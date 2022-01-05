@@ -5,6 +5,8 @@ import java.util.Map;
 
 import com.kh.cosmos.admin.model.vo.BoardData;
 import com.kh.cosmos.admin.model.vo.BoardType;
+import com.kh.cosmos.admin.model.vo.ColumnAndCount;
+import com.kh.cosmos.admin.model.vo.Count;
 import com.kh.cosmos.admin.model.vo.EnrollMemberByMonth;
 import com.kh.cosmos.admin.model.vo.GenderData;
 import com.kh.cosmos.admin.model.vo.SevenDaysData;
@@ -58,5 +60,23 @@ public interface AdminService {
 	List<BoardData> selectSearchBoardList(Map<String, Object> param1, int limit, int offset);
 
 	int selectSearchBoardTotalCount(Map<String, Object> param1);
+
+	int insertAuthoritiesValueForGroupMaster(Map<String, Object> param);
+	
+	Count totalCountOfGroup();
+
+	Count countOfPremiumGroup();
+
+	Count countOfPost();
+
+	Count countOfNewGroupInThisMonth();
+
+	List<ColumnAndCount> countOfnewPostInThisWeekList();
+
+	List<ColumnAndCount> countOfGroupLikeList();
+
+	List<ColumnAndCount> totalCountOfPost();
+
+	int totalCountOfMembers();
 
 }

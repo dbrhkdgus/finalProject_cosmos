@@ -1,7 +1,11 @@
 package com.kh.cosmos.groupware.board.controller;
 
+import java.beans.PropertyEditor;
 import java.io.File;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,10 +16,13 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,6 +37,7 @@ import com.kh.cosmos.group.model.vo.Group;
 import com.kh.cosmos.groupware.board.model.service.BoardService;
 import com.kh.cosmos.groupware.board.model.vo.Board;
 import com.kh.cosmos.groupware.board.model.vo.Post;
+import com.kh.cosmos.groupware.board.model.vo.PostReplyCount;
 import com.kh.cosmos.groupware.board.model.vo.PostWithNickname;
 import com.kh.cosmos.groupware.chat.model.vo.ChatRoom;
 import com.kh.cosmos.groupware.service.GroupwareService;
@@ -53,6 +61,14 @@ public class GwBoardController {
 	private AttachmentService attachmentService;
 	@Autowired
 	private MainService mainService;
+	
+	@InitBinder
+	public void initBinder(WebDataBinder binder) {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		// 형식객체, 빈값허용여부("" -> null)
+		PropertyEditor editor = new CustomDateEditor(sdf, true);
+		binder.registerCustomEditor(Date.class, editor);
+	}
 
 	@Autowired
 	ServletContext application;
@@ -82,6 +98,11 @@ public class GwBoardController {
 		List<Post> boardPostList = boardService.selectAllPostInBoard(boardNo, limit, offset);
 		Board board = boardService.selectBoardByBoardNo(boardNo);
 		log.debug("boardPostList = {}", boardPostList);
+		
+		List<PostReplyCount> replyCount = boardService.selectReplyCount();
+		model.addAttribute("replyCount", replyCount);
+		log.debug("replyCount = {}", replyCount);
+		
 		model.addAttribute("boardPostList", boardPostList);
 		model.addAttribute("boardNo", boardNo);
 		model.addAttribute("groupNo", groupNo);
@@ -95,11 +116,12 @@ public class GwBoardController {
 	
 	@GetMapping("/boardSearch.do")
 	public String boardSearch(@RequestParam(defaultValue = "1") int cPage, int boardNo, int groupNo, Model model,
-			HttpServletRequest request, Authentication auth) {
+			HttpServletRequest request, Authentication auth) throws ParseException {
 		groupwareHeaderSet(groupNo, model, auth);
 		
 		String searchType = request.getParameter("searchType");
 		String searchKeyword = request.getParameter("searchKeyword");
+		
 		Map<String, Object> param = new HashMap<>();
 		param.put("searchType", searchType);
 		param.put("searchKeyword", searchKeyword);
@@ -128,6 +150,10 @@ public class GwBoardController {
 		}
 		Board board = boardService.selectBoardByBoardNo(boardNo);
 		
+		List<PostReplyCount> replyCount = boardService.selectReplyCount();
+		model.addAttribute("replyCount", replyCount);
+		log.debug("replyCount = {}", replyCount);
+		
 		model.addAttribute("searchType", searchType);
 		model.addAttribute("searchKeyword", searchKeyword);
 		model.addAttribute("boardNo", boardNo);
@@ -140,7 +166,7 @@ public class GwBoardController {
 	}
 
 	@GetMapping("/notice.do")
-	public String notice(@RequestParam(defaultValue = "1") int cPage, int boardNo, int groupNo, int postNo, Model model,
+	public String notice(@RequestParam(defaultValue = "1") int cPage, int boardNo, int groupNo, Model model,
 			HttpServletRequest request, Authentication auth) {
 		groupwareHeaderSet(groupNo, model, auth);
 
@@ -152,8 +178,8 @@ public class GwBoardController {
 		url += "?boardNo=" + boardNo + "&groupNo=" + groupNo;
 		String pagebar = CosmosUtils.getPagebar(cPage, limit, totalContent, url);
 		model.addAttribute("pagebar", pagebar);
-
-		int replyCount = boardService.selectReplyCount(postNo);
+		
+		List<PostReplyCount> replyCount = boardService.selectReplyCount();
 		model.addAttribute("replyCount", replyCount);
 		log.debug("replyCount = {}", replyCount);
 
@@ -167,6 +193,49 @@ public class GwBoardController {
 
 		return "gw/board/notice";
 	}
+	
+	@GetMapping("/noticeSearch.do")
+	public String noticeSearch(@RequestParam(defaultValue = "1") int cPage, int boardNo, int groupNo, Model model,
+			HttpServletRequest request, Authentication auth) throws ParseException {
+		groupwareHeaderSet(groupNo, model, auth);
+		
+		String searchType = request.getParameter("searchType");
+		String searchKeyword = request.getParameter("searchKeyword");
+		
+		Map<String, Object> param = new HashMap<>();
+		param.put("searchType", searchType);
+		param.put("searchKeyword", searchKeyword);
+		param.put("boardNo", boardNo);
+		int limit = 10;
+		int offset = (cPage - 1) * limit;
+		int totalContent = boardService.selectSearchBoardTotalCnt(param);
+		log.debug("totalContent = {}",totalContent);
+		String url = request.getRequestURI();
+//		url += "?boardNo=" + boardNo + "&groupNo=" + groupNo;
+		url += "?boardNo=" + boardNo + "&groupNo=" +groupNo + "&searchType=" + searchType + "&searchKeyword=" + searchKeyword;
+		String pagebar = CosmosUtils.getPagebar(cPage, limit, totalContent, url);
+		model.addAttribute("totalContent", totalContent);
+		
+		List<PostWithNickname> noticePostList = boardService.searchBoardList(param, limit, offset);
+		log.debug("noticePostList = {}", noticePostList);
+		model.addAttribute("noticePostList", noticePostList);
+		
+		List<PostReplyCount> replyCount = boardService.selectReplyCount();
+		model.addAttribute("replyCount", replyCount);
+		log.debug("replyCount = {}", replyCount);
+		
+		Board board = boardService.selectBoardByBoardNo(boardNo);
+		
+		model.addAttribute("searchType", searchType);
+		model.addAttribute("searchKeyword", searchKeyword);
+		model.addAttribute("boardNo", boardNo);
+		model.addAttribute("groupNo", groupNo);
+		model.addAttribute("pagebar", pagebar);
+		model.addAttribute("title", "# " + board.getBoardName());
+		
+		return "gw/board/notice";
+	}
+
 
 	@GetMapping("/noticeEnroll.do")
 	public void noticeEnroll(@RequestParam int boardNo, @RequestParam int groupNo, Model model, Authentication auth) {
@@ -329,11 +398,7 @@ public class GwBoardController {
 			
 		}
 		
-		if (board.getBoardType() == 'N') {
-			return "redirect:/gw/board/noticeDetail.do?postNo=" + post.getPostNo();
-		} else {
 			return "redirect:/gw/board/boardDetail.do?postNo=" + post.getPostNo();
-		}
 	}
 	
 	
@@ -696,11 +761,58 @@ public class GwBoardController {
 		List<Post> anonymousPostList = boardService.selectAllPostInAnonymous(boardNo, limit, offset);
 		Board board = boardService.selectBoardByBoardNo(boardNo);
 		log.debug("anonymousPostList = {}", anonymousPostList);
+		
+		List<PostReplyCount> replyCount = boardService.selectReplyCount();
+		model.addAttribute("replyCount", replyCount);
+		log.debug("replyCount = {}", replyCount);
+		
 		model.addAttribute("anonymousPostList", anonymousPostList);
 		model.addAttribute("boardNo", boardNo);
 		model.addAttribute("groupNo", groupNo);
 		model.addAttribute("title", "# " + board.getBoardName());
 
+		return "gw/board/anonymous";
+	}
+	
+	@GetMapping("/anonymousSearch.do")
+	public String anonymousSearch(@RequestParam(defaultValue = "1") int cPage, int boardNo, int groupNo, Model model,
+			HttpServletRequest request, Authentication auth) throws ParseException {
+		groupwareHeaderSet(groupNo, model, auth);
+		
+		String searchType = request.getParameter("searchType");
+		String searchKeyword = request.getParameter("searchKeyword");
+		
+		Map<String, Object> param = new HashMap<>();
+		param.put("searchType", searchType);
+		param.put("searchKeyword", searchKeyword);
+		param.put("boardNo", boardNo);
+		int limit = 10;
+		int offset = (cPage - 1) * limit;
+		int totalContent = boardService.selectSearchBoardTotalCnt(param);
+		log.debug("totalContent = {}",totalContent);
+		String url = request.getRequestURI();
+//		url += "?boardNo=" + boardNo + "&groupNo=" + groupNo;
+		url += "?boardNo=" + boardNo + "&groupNo=" +groupNo + "&searchType=" + searchType + "&searchKeyword=" + searchKeyword;
+		String pagebar = CosmosUtils.getPagebar(cPage, limit, totalContent, url);
+		model.addAttribute("totalContent", totalContent);
+		
+		List<PostWithNickname> anonymousPostList = boardService.searchBoardList(param, limit, offset);
+		log.debug("anonymousPostList = {}", anonymousPostList);
+		model.addAttribute("anonymousPostList", anonymousPostList);
+		
+		Board board = boardService.selectBoardByBoardNo(boardNo);
+		
+		List<PostReplyCount> replyCount = boardService.selectReplyCount();
+		model.addAttribute("replyCount", replyCount);
+		log.debug("replyCount = {}", replyCount);
+		
+		model.addAttribute("searchType", searchType);
+		model.addAttribute("searchKeyword", searchKeyword);
+		model.addAttribute("boardNo", boardNo);
+		model.addAttribute("groupNo", groupNo);
+		model.addAttribute("pagebar", pagebar);
+		model.addAttribute("title", "# " + board.getBoardName());
+		
 		return "gw/board/anonymous";
 	}
 

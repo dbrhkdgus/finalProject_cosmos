@@ -10,6 +10,8 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.cosmos.admin.model.vo.BoardData;
 import com.kh.cosmos.admin.model.vo.BoardType;
+import com.kh.cosmos.admin.model.vo.ColumnAndCount;
+import com.kh.cosmos.admin.model.vo.Count;
 import com.kh.cosmos.admin.model.vo.EnrollMemberByMonth;
 import com.kh.cosmos.admin.model.vo.GenderData;
 import com.kh.cosmos.admin.model.vo.SevenDaysData;
@@ -135,6 +137,52 @@ public class AdminDaoImpl implements AdminDao {
 	public int selectSearchBoardTotalCount(Map<String, Object> param1) {
 		// TODO Auto-generated method stub
 		return session.selectOne("admin.selectSearchBoardTotalCount", param1);
+	}
+
+	@Override
+	public int insertAuthoritiesValueForGroupMaster(Map<String, Object> param) {
+		// TODO Auto-generated method stub
+		return session.insert("admin.insertAuthoritiesValueForGroupMaster", param);
+	}
+	
+	@Override
+	public Count totalCountOfGroup() {
+		return session.selectOne("admin.totalCountOfGroup");
+	}
+
+	@Override
+	public Count countOfPremiumGroup() {
+		return session.selectOne("admin.countOfPremiumGroup");
+	}
+
+	@Override
+	public Count countOfPost() {
+		return session.selectOne("admin.countOfPost");
+	}
+
+	@Override
+	public Count countOfNewGroupInThisMonth() {
+		return session.selectOne("admin.countOfNewGroupInThisMonth");
+	}
+
+	@Override
+	public List<ColumnAndCount> countOfnewPostInThisWeekList() {
+		return session.selectList("admin.countOfnewPostInThisWeekList");
+	}
+
+	@Override
+	public List<ColumnAndCount> countOfGroupLikeList() {
+		return session.selectList("admin.countOfGroupLikeList");
+	}
+
+	@Override
+	public List<ColumnAndCount> totalCountOfPost() {
+		return session.selectList("admin.totalCountOfPost");
+	}
+
+	@Override
+	public int totalCountOfMembers() {
+		return session.selectOne("admin.totalCountOfMembers");
 	}
 	
 	

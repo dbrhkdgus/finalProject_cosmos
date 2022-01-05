@@ -18,7 +18,7 @@ window.addEventListener("load", function(){
 		dataType: "json",
 		success(data){
 			const $CATEdiv = $(`<select class="form-select" id="selectCateOne" name="categoryNo" aria-label="Default select example" onchange="getItem()"></select>`);
-			const htmlfix = `<option value=0 disabled>상위 카테고리</option>`;
+			const htmlfix = `<option value=0 selected>상위 카테고리</option>`;
 			$CATEdiv.append(htmlfix);
 			$.each(data, (k, v) => { 
 				let html = `<option value=\${k}>\${v}</option>`;
@@ -32,12 +32,12 @@ window.addEventListener("load", function(){
 	});
 });  
 function getItem(){
-	$("select[id=selectCateOne]").change(function(){
+	$((e)=>{
 		  $.ajax({
 				url:"<%= request.getContextPath() %>/group/groupCategoryTwo.do?${_csrf.parameterName}=${_csrf.token}",
 				method: "GET",
 				dataType: "json",
-				data: {categoryOneNo : $(this).val()},
+				data: {categoryOneNo : $("#selectCateOne option:selected").val()},
 				success(data){
 					const $CATETWOdiv = $(`<div class="group-text-input">`);
 					$.each(data, (k, v) => {
@@ -67,156 +67,99 @@ window.addEventListener("load", function(){
 					<div class="card">
 						<div class="card-header">스터디 그룹 생성</div>
 						<div class="card-body">
-							<form:form name="my-form"
-								action="${pageContext.request.contextPath}/group/insertGroup.do?${_csrf.parameterName}=${_csrf.token}" method="POST" enctype="multipart/form-data" onsubmit ="EnrollFormSubmit();">
+							<form:form id="groupEnrollFrm" name="my-form" action="${pageContext.request.contextPath}/group/insertGroup.do" method="POST" enctype="multipart/form-data">
 								<input type="hidden" name="memberId" value="<sec:authentication property="principal.id"/>"/>
 								<div class="form-group row">
-									<label for="full_name"
-										class="col-md-4 col-form-label text-md-right">그룹명</label>
+									<label for="full_name" class="col-md-4 col-form-label text-md-right">그룹명</label>
 									<div class="col-md-6 group-text-input">
-										<input type="text" id="group-name" class="form-control"
-											name="groupName">
+										<input type="text" id="group-name" class="form-control" name="groupName">
 									</div>
 								</div>
-
-
 								<div class="form-group row">
 									<label for="full_name"
 										class="col-md-4 col-form-label text-md-right">상위 카테고리</label>
 									<div class="col-md-6 group-text-input" id="fCate">
-									
 									</div>
-									<!-- <button type="button" onclick="getItem()">선택</button> -->
 								</div>
-	
 								<div class="form-group row">
-									<label for="full_name"
-										class="col-md-4 col-form-label text-md-right">하위 카테고리</label>
+									<label for="full_name" class="col-md-4 col-form-label text-md-right">하위 카테고리</label>
 									<div class="col-md-6 group-text-input" id="sCate">
-										
 									</div>
 								</div>
-								
 								<div class="form-group row">
-									<label for="present_address"
-										class="col-md-4 col-form-label text-md-right">모집글 제목</label>
+									<label for="present_address" class="col-md-4 col-form-label text-md-right">모집글 제목</label>
 									<div class="col-md-6 group-text-input">
 										<input type="text" id="study-title" class="form-control" name="giTitle">
 									</div>
 								</div>
-
 								<div class="form-group row">
-									<label for="phone_number"
-										class="col-md-4 col-form-label text-md-right">배너 이미지</label>
+									<label for="phone_number" class="col-md-4 col-form-label text-md-right">배너 이미지</label>
 									<div class="col-md-6 group-text-input">
 										<input class="form-control" type="file" id="upFile" name="upFile">
 									</div>
 								</div>
-
 								<div class="form-group row">
-									<label for="present_address"
-										class="col-md-4 col-form-label text-md-right">모집정원</label>
+									<label for="present_address" class="col-md-4 col-form-label text-md-right">모집정원</label>
 									<div class="col-md-6 group-text-input">
 										<input type="text" id="member-number" name="groupPool" class="form-control">
 									</div>
 								</div>
-
 								<div class="form-group row">
-								<label for="permanent_address"
-									class="col-md-4 col-form-label text-md-right"></label>
+								<label for="permanent_address" class="col-md-4 col-form-label text-md-right"></label>
 								<div class="col-md-6 group-text-input gender-radio">
 									<div class="form-check">
-										<input class="form-check-input" type="checkbox"
-											id="flexRadioDefault1" onclick="pay()"> <label
-											class="form-check-label" for="flexRadioDefault1">프리미엄 그룹 결제
-										</label>
+										<input class="form-check-input" type="checkbox" id="flexRadioDefault1" onclick="pay()">
+										<label class="form-check-label" for="flexRadioDefault1">프리미엄 그룹 결제</label>
 									</div>
 									<div class="form-check">
 										<input type="hidden" name="groupCharge" id="pInput" value="F" readonly>
 									</div>
 								</div>
 							</div>
-
-
 								<div class="form-group row">
-									<label for="permanent_address"
-										class="col-md-4 col-form-label text-md-right">위치</label>
+									<label for="permanent_address" class="col-md-4 col-form-label text-md-right">위치</label>
 									<div class="col-md-6 group-text-input">
-										<input type="text" id="location" class="form-control"
-											name="groupLocation">
+										<input type="text" id="location" class="form-control" name="groupLocation">
 									</div>
 									<div id="map"  style="width: 500px; height: 300px; margin-left: 28%; margin-top: 20px;">
-									
 									</div>
 								</div>
-								
 								<div class="form-check text-center">
 									<input class="form-check-input" type="checkbox" id="groupPrivate" name="groupPrivate" value="L">
 									<label for="groupPrivate"> &nbsp;조회에서 제외되는 비밀그룹으로 생성하기 </label>
-								</div>
-								
+								</div>							
 								<div class="form-group row">
-									<label for="permanent_address"
-										class="col-md-4 col-form-label text-md-right">스터디를
-										소개해주세요!</label>
+									<label for="permanent_address" class="col-md-4 col-form-label text-md-right">스터디를 소개해주세요!</label>
 									<div class="col-md-6 group-text-input">
 										<div class="group-text-input form-floating col-md-6">
-
-											<textarea class="form-control"
-												placeholder="Leave a comment here" id="giContent1" name="giContent"
-												style="height: 100px; width: 200%; resize: none;"></textarea>
-
+											<textarea class="form-control" placeholder="Leave a comment here" id="giContent1" name="giContent" style="height: 100px; width: 200%; resize: none;"></textarea>
 										</div>
 									</div>
 								</div>
-
 								<div class="form-group row">
-									<label for="permanent_address"
-										class="col-md-4 col-form-label text-md-right">이런 분들이
-										들으면 좋아요!</label>
+									<label for="permanent_address" class="col-md-4 col-form-label text-md-right">이런 분들이 들으면 좋아요!</label>
 									<div class="col-md-6 group-text-input">
 										<div class="group-text-input form-floating col-md-6">
-
-											<textarea class="form-control"
-												placeholder="Leave a comment here" id="giContent2" name="giContent"
-												style="height: 100px; width: 200%; resize: none;"></textarea>
-
+											<textarea class="form-control" placeholder="Leave a comment here" id="giContent2" name="giContent" style="height: 100px; width: 200%; resize: none;"></textarea>
 										</div>
 									</div>
 								</div>
-
 								<div class="form-group row">
-									<label for="permanent_address"
-										class="col-md-4 col-form-label text-md-right">스터디는 이렇게 진행됩니다!</label>
+									<label for="permanent_address" class="col-md-4 col-form-label text-md-right">스터디는 이렇게 진행됩니다!</label>
 									<div class="col-md-6 group-text-input">
 										<div class="group-text-input form-floating col-md-6">
-
-											<textarea class="form-control"
-												placeholder="Leave a comment here" id="giContent3" name="giContent"
-												style="height: 100px; width: 200%; resize: none;"></textarea>
-
+											<textarea class="form-control" placeholder="Leave a comment here" id="giContent3" name="giContent" style="height: 100px; width: 200%; resize: none;"></textarea>
 										</div>
 									</div>
 								</div>
-								
-								
 								<div class="form-group row">
-									<label for="permanent_address"
-										class="col-md-4 col-form-label text-md-right">꼭! 지켜주세요.</label>
+									<label for="permanent_address" class="col-md-4 col-form-label text-md-right">꼭! 지켜주세요.</label>
 									<div class="col-md-6 group-text-input">
 										<div class="group-text-input form-floating col-md-6">
-
-											<textarea class="form-control"
-												placeholder="Leave a comment here" id="giContent4" name="giContent"
-												style="height: 100px; width: 200%; resize: none;"></textarea>
-
+											<textarea class="form-control" placeholder="Leave a comment here" id="giContent4" name="giContent" style="height: 100px; width: 200%; resize: none;"></textarea>
 										</div>
 									</div>
 								</div>
-								
-								
-								
-
 								<div class="col-md-6 offset-md-4 group-create-button">
 									<button type="submit" class="btn btn-primary">그룹생성</button>
 								</div>
@@ -238,9 +181,7 @@ window.addEventListener("load", function(){
         // window.open("open할 window", "자식창 이름", "팝업창 옵션");
         window.open("${pageContext.request.contextPath}/kakao/kakaoPay.do",
         		"childForm", "width=350, height=500, resizable = yes, scrollbars = yes"); 
-    }
-
-
+    };
 	// 없습니다. 반드시 파일을 선택해야 합니다
 /* 	function EnrollFormSubmit() {		
 		const filename = $("[name=upFile]").prop("files")[0].name
@@ -248,15 +189,12 @@ window.addEventListener("load", function(){
 			filename = ("https://cdn.dribbble.com/users/3398149/screenshots/9873711/media/81018d8c3595c458138d49bde716d2f9.jpg?compress=1&resize=800x600")
 		}
 	} */
-	
 /* 	document.my-form.onsubmit = e => {
 		const filename = $("[name=upFile]").prop("files")[0].name
 		if(filename =undefined || filename == null){
 			filename = ("https://cdn.dribbble.com/users/3398149/screenshots/9873711/media/81018d8c3595c458138d49bde716d2f9.jpg?compress=1&resize=800x600")
 		}
-		
 	} */
-
 		/* function YnCheck(obj) {
 			var checked = obj.checked;
 			if(checked) {
@@ -265,7 +203,6 @@ window.addEventListener("load", function(){
 				obj.value="U";
 			}
 		}
-		
 		var checkYn="${data.groupPrivate}";
 		if(checkYn=="L") {
 			$("#groupPrivate").prop("checked", true);
@@ -277,7 +214,78 @@ window.addEventListener("load", function(){
 		} else {
 			data.set("groupPrivate", "U");
 		} */
-
+		
+		/* form 유효성 검사 */
+		$("[id='groupEnrollFrm']").submit(function(){
+			const $cateOne = $("#selectCateOne");
+			const $cateTwo = $('input:checkbox[name="cateCheckBox"]');
+			const $groupName = $("#group-name");
+			const $studyTitle = $("#study-title");
+			const $upFile = $("#upFile");
+			const $memberNumber = $("#member-number");
+			const $location = $("#location");
+			const $giContent1 = $("#giContent1");
+			const $giContent2 = $("#giContent2");
+			const $giContent3 = $("#giContent3");
+			const $giContent4 = $("#giContent4");
+			console.log($cateOne.val());
+			console.log($('input[type="checkbox"]:checked').val());
+			console.log($groupName.val());
+			console.log($studyTitle.val());
+			console.log($upFile.val());
+			console.log($memberNumber.val());
+			console.log($location.val());
+			console.log($giContent1.val());
+			console.log($giContent2.val());
+			console.log($giContent3.val());
+			console.log($giContent4.val());
+			
+			if($("#group-name").val() == null || $("#group-name").val() == 'undefined' || $("#group-name").val() == ''){
+				$groupName.focus();
+				return false;
+			}
+			if($("#selectCateOne option:selected").val() == 0){
+				$cateOne.focus();
+				return false;
+			}
+			if($('input:checkbox[name="cateCheckBox"]:checked').val() == null || $('input:checkbox[name="cateCheckBox"]:checked').val() == 'undefined' || $('input:checkbox[name="cateCheckBox"]:checked').val() == ''){
+				$cateOne.focus();
+				return false;
+			}
+			if($("#study-title").val() == null || $("#study-title").val() == 'undefined' || $("#study-title").val() == ''){
+				$studyTitle.focus();
+				return false;
+			}
+			if($("#upFile").val() == null || $("#upFile").val() == 'undefined' || $("#upFile").val() == ''){
+				$upFile.focus();
+				return false;
+			}
+			if($("#member-number").val() == null || $("#member-number").val() == 'undefined' || $("#member-number").val() == 0){
+				$memberNumber.focus();
+				return false;
+			}
+			if($("#location").val() == null || $("#location").val() == 'undefined' || $("#location").val() == ''){
+				$location.focus();
+				return false;
+			}
+			if($("#giContent1").val() == null || $("#giContent1").val() == 'undefined' || $("#giContent1").val() == ''){
+				$giContent1.focus();
+				return false;
+			}
+			if($("#giContent2").val() == null || $("#giContent2").val() == 'undefined' || $("#giContent2").val() == ''){
+				$giContent2.focus();
+				return false;
+			}
+			if($("#giContent3").val() == null || $("#giContent3").val() == 'undefined' || $("#giContent3").val() == ''){
+				$giContent3.focus();
+				return false;
+			}
+			if($("#giContent4").val() == null || $("#giContent4").val() == 'undefined' || $("#giContent4").val() == ''){
+				$giContent4.focus();
+				return false;
+			}
+			return true;
+		});
 		
 		var charged = document.getElementsByName('groupCharge');
 		var isCharged;
@@ -285,7 +293,7 @@ window.addEventListener("load", function(){
 			if(charged[i].checked) {
 				isCharged = charged[i].value;
 			}
-		}
+		};
 		
 		
 		$(() => {
@@ -418,7 +426,7 @@ window.addEventListener("load", function(){
 		            }
 		        }
 		    }    
-		}
+		};
 
 		
 		

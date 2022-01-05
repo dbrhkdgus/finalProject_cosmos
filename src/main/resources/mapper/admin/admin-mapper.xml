@@ -3,6 +3,9 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="admin">
+	<select id="totalCountOfMembers" resultType="_int">
+		select count(*) from tb_member
+	</select>
   <select id="selectAllMembers" resultType="Member">
   	select
   		*
@@ -371,4 +374,95 @@
 		order by
 			p.post_reg_date desc
 	</select>
+	<insert id="insertAuthoritiesValueForGroupMaster">
+		insert into authorities values(#{memberId}, #{authority})
+	</insert>
+	
+	<!-- 모임 통계 페이지 -->
+	
+	<select id="totalCountOfGroup" resultType="Count">
+		select count(*) count from tb_group
+	</select>
+	
+	<select id="countOfPremiumGroup" resultType="Count">
+		select count(*) count from tb_group where group_charge = 'P'
+	</select>
+	
+	<select id="countOfPost" resultType="Count">
+		select count(*) count from post 
+	</select>
+	
+	<select id="countOfNewGroupInThisMonth" resultType="Count">
+		select count(*) count from tb_group where group_enroll_date between TRUNC(sysdate,'MM') AND (LAST_DAY(SYSDATE))
+	</select>
+	
+	<select id="countOfnewPostInThisWeekList" resultType="ColumnAndCount">
+		select
+		    group_name "column",
+		    count
+		from(
+		    select
+		        a.*,rownum
+		    from
+		        (
+		        select 
+		            distinct b1.group_no,
+		            group_name,
+		            (select count(*) from post p left join board b on p.board_no = b.board_no where post_reg_date between (sysdate-1) and sysdate and group_no = b1.group_no) count
+		        from 
+		            post p 
+		                left join board b1 on p.board_no = b1.board_no
+		                left join tb_group tg on b1.group_no = tg.group_no
+		        where 
+		            post_reg_date between (sysdate-6) and sysdate
+		        order by
+		            count desc
+		        ) a
+		    where 
+		        rownum between 1 and 5
+		    )		
+	</select>
+	
+	<select id="countOfGroupLikeList" resultType="ColumnAndCount">
+		select
+		    group_name "column", group_like_count "count"
+		from
+		    (
+		    select
+		        a.*, rownum
+		    from
+		        (select * from tb_group tg order by group_like_count desc, group_no desc) a
+		    where
+		        rownum between 1 and 5
+		    )	
+	</select>
+	
+	<!-- 모임 관리 페이지 비동기로 클릭한 정보 가져오기 -->
+	<select id="totalCountOfPost" resultType = "ColumnAndCount">
+		select
+		group_name "column",
+		count
+		from
+		    (
+		    select
+		    tg1.group_name,
+		    a.COUNT,
+		    rownum
+		    from(
+		        select  
+		            b.group_no,
+		            count(*) "COUNT"
+		        from post p 
+		            left join board b on p.board_no = b.board_no
+		            left join tb_group tg on tg.group_no = b.group_no
+		        group by
+		            b.group_no
+		        order by
+		            COUNT desc, b.group_no desc
+		        ) a 
+		    left join tb_group tg1 on a.group_no = tg1.group_no
+		    )
+		where
+		    rownum between 1 and 5		
+	</select>	
 </mapper>

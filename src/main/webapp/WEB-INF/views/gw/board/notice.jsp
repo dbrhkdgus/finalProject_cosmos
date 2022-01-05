@@ -14,17 +14,27 @@
 </style>
  <div class="workspace-box">
   <div class="p-4">
-    <form action="${pageContext.request.contextPath}/gw/board/notice.do?boardNo=${boardNo}&groupNo=${groupNo}" method="get">
+    <form 
+		enctype="multipart/form-data"
+		action="${pageContext.request.contextPath}/gw/board/noticeSearch.do?" 
+		method="get">
 	    <div class="test-board-search">
-	    	 <select name="searchType" class="form-select search-select" aria-label="Default select example">
-		        <option value="all" ${searchType == 'all' ? "selected":'' }> 전체보기 </option>
-		          <option value="title" ${searchType == 'title' ? "selected":'' }>제목</option>
-		          <option value="date" ${searchType == 'date' ? "selected":'' }>날짜</option>
+	    	 <select name="searchType" class="form-select search-select">
+		        <option value="post_title" 
+	        	<c:if test="${searcyType eq 'post_title'}">selected </c:if> 
+		        >제목</option>
+		        <option value="post_content" 
+	        	<c:if test="${searcyType eq 'post_content'}">selected </c:if> 
+		        >내용</option>
+		        
 		     </select>
 		     
 		   <div class="input-group mb-3 search-input">
-		      <input type="text" class="form-control" name="searchKeyword" value="${searchKeyword }" placeholder="검색어를 입력하세요"  aria-describedby="button-addon2">
-		   		<button class="btn btn-outline-secondary" type="button" id="button-addon2" >검색</button>
+		   		<input type="hidden" name="boardNo" value="${boardNo}"/>
+		   		<input type="hidden" name="groupNo" value="${groupNo}"/>
+      			<input type="text" class="form-control" name="searchKeyword" placeholder="검색어를 입력하세요." >
+		      		
+		   	  <input class="btn btn-outline-secondary" type="submit" id="button-addon2" value="검색"></input>
 		   </div>   
 		</div>       
     </form>
@@ -33,7 +43,13 @@
     <tbody>
     <c:forEach var="post" items="${noticePostList}" varStatus="vs">
       <tr onclick="location.href='${pageContext.request.contextPath}/gw/board/boardDetail.do?postNo=${post.postNo}'">
-        <td colspan="3">•${post.postTitle}</td>
+        <td colspan="3">•${post.postTitle}
+        	<c:forEach var="cnt" items="${replyCount}" >
+        		<c:if test="${post.postNo == cnt.postNo}">
+        			(${cnt.replyCnt})
+        		</c:if>
+        	</c:forEach>
+        </td>
         <td><span class="text-secondary"><fmt:formatDate value="${post.postRegDate}" pattern="yy-MM-dd"/></span></td>
       </tr>
       </c:forEach>

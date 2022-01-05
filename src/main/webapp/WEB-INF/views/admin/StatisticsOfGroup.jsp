@@ -9,6 +9,11 @@
 	<jsp:param value="COSMOS" name="title"/>
 </jsp:include>
 
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<!-- chart.js CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+
+
 <style>
   #searchKeyword{
     width: 75%; display: inline;
@@ -19,26 +24,107 @@
   .statisticsOf{
     color: white;
   }
+  #chartList{
+  	display: flex;
+  	list-style-type: none;
+  	justify-content: flex-end
+
+  	
+  }
+  li{
+  	margin-right: 0.3vw;
+  	color: white;
+  }
+  a{
+  	color: white;
+  }
+
 </style>
 
       <div class="container mt-5">
         <div class="col-12 tm-block-col">
           <div class="tm-bg-primary-dark tm-block tm-block-h-auto">
-            <h2 class="tm-block-title">그룹 통계</h2>
+            <h2 class="tm-block-title">모임 통계</h2>
 
             <div class="form-check mb-3">
-              <input class="form-check-input" type="radio" name="flexRadioDefault" id="GroupCount" onclick="viewDateForm()" checked>
-              <label class="form-check-label mr-5 statisticsOf" for="flexRadioDefault1">모임 수</label>
-            
-              <input class="form-check-input" type="radio" name="flexRadioDefault" id="premiumGroupCount" onclick="viewDateForm()">
-              <label class="form-check-label mr-5 statisticsOf" for="flexRadioDefault1">프리미엄 모임 수</label>
-              
-              <input class="form-check-input" type="radio" name="flexRadioDefault" id="boardCount" onclick="viewDateForm()" checked>
-              <label class="form-check-label mr-5 statisticsOf" for="flexRadioDefault1">게시글 수</label>
-              
+             <table class="table text-center mb-4 ">
+             	<thead class="">
+             	<tr>
+	             	<th style="border-right: solid #4E6175 1px">총 모임 수</th>
+	             	<th>프리미엄 모임 수</th>
+	             	<th>총 게시글 수</th>
+	             	<th>이번 달 신규 모임 수</th>
+             	</tr>
+             	</thead>
+             	<tbody>
+             	<tr>
+             		<td style="border-right: solid #4E6175 1px">${totalCountOfGroup.count }</td>
+             		<td style="border-right: solid #4E6175 1px">${countOfPremiumGroup.count }</td>
+             		<td style="border-right: solid #4E6175 1px">${countOfPost.count }</td>
+             		<td>${countOfNewGroupInThisMonth.count }</td>
+             	</tr>
+             	</tbody>
+             </table>
+             
+             <div class="row tm-content-row">
+             	<div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">
+					<table class="table text-center">
+		             	<thead>
+		             	<tr>
+			             	<th colspan="3">새 게시글 많은 모임(주간)</th>
+		             	</tr>
+		             	</thead>
+		             	<tbody>
+		             	<c:forEach items="${countOfnewPostInThisWeekList }" var="postGroup" varStatus="status">
+		             		<tr>
+		             			<td style="border-right: solid #4E6175 1px">${status.count }</td>
+		             			<td style="border-right: solid #4E6175 1px">${postGroup.column}</td>
+		             			<td style="border-right: solid #4E6175 1px">${postGroup.count }개</td>
+		             		</tr>
+		             	</c:forEach>
+		             	<c:if test="${fn:length(countOfnewPostInThisWeekList) < 5}">
+		             		<c:forEach var="i" begin="1" end="${5-fn:length(countOfnewPostInThisWeekList)}">
+		             			<tr>
+			             			<td style="border-right: solid #4E6175 1px">-</td>
+			             			<td style="border-right: solid #4E6175 1px">-</td>
+			             			<td style="border-right: solid #4E6175 1px">-</td>
+		             			</tr>
+		             		</c:forEach>
+		             	</c:if>						
+		             	</tbody>
+		             </table>
+             	</div>
+             	<div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">
+					<table class="table text-center">
+		             	<thead>
+		             	<tr>
+			             	<th colspan=3>좋아요 수 많은 모임</th>
+		             	</tr>
+		             	</thead>
+		             	<tbody>
+		             	<c:forEach items="${countOfGroupLikeList }" var="likeGroup" varStatus="status">
+		             	<tr>
+		             		<td style="border-right: solid #4E6175 1px">${status.count }</td>
+		             		<td style="border-right: solid #4E6175 1px">${likeGroup.column}</td>
+		             		<td style="border-right: solid #4E6175 1px">${likeGroup.count}</td>
+		             	</tr>
+		             	</c:forEach>
+		             	<c:if test="${fn:length(countOfGroupLikeList) < 5}">
+		             		<c:forEach var="i" begin="1" end="${5-fn:length(countOfGroupLikeList)}">
+		             			<tr>
+			             			<td>-</td>
+			             			<td>-</td>
+			             			<td>-</td>
+		             			</tr>
+		             		</c:forEach>
+		             	</c:if>				             	
+		             	</tbody>
+		             </table>             	
+             	</div>
+             </div>
+             
 
-              <input class="form-check-input" type="radio" name="flexRadioDefault" id="reviewCount" onclick="viewDateForm()">
-              <label class="form-check-label mr-5 statisticsOf" for="flexRadioDefault1">리뷰 수</label>
+<!--               <label class="form-check-label mr-5 statisticsOf" for="flexRadioDefault1">리뷰 수</label>
               <br><br>
               <form action="#" name="dateSet" id="dateForm">
                 <p class="text-white mt-3">- 기간 설정</p>
@@ -59,37 +145,18 @@
               />
               <button class="btn btn-secondary" type="submit">검색</button>
             </div>
-          </form>
+          </form> -->
             </div>
             
             <!-- 차트가 바뀌어야 함. include로 상황에 맞춰서  -->
-            <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-            <script type="text/javascript">
-              google.charts.load('current', {'packages':['corechart']});
-              google.charts.setOnLoadCallback(drawChart);
-        
-              function drawChart() {
-        
-                var data = google.visualization.arrayToDataTable([
-                  ['Task', 'Hours per Day'],
-                  ['개성공단',     11],
-                  ['KHIS',      2],
-                  ['ITFF',  2],
-                  ['코드네임200', 2],
-                  ['펫다온',    7]
-                ]);
-        
-                var options = {
-                  title: '주간 게시글 수'
-                };
-        
-                var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-        
-                chart.draw(data, options);
-              }
-            </script>
-          
-          <div id="piechart" style="width: 100%; height: 500px;"></div>
+          <div>
+          	<ul id="chartList">
+          		<li id="firstTap">총 게시글&nbsp&nbsp|</li>
+          		<li id="secondTap">채팅 수&nbsp&nbsp|</li>
+          		<li id="thirdTap">일정 수</li>
+          	</ul>
+	      <canvas id="pie-chart" class="col-12"></canvas>
+          </div>
           <!--  -->
           </div>
           
@@ -98,20 +165,62 @@
       </div>
 
 <script>
-  $(blackListBtn).click((e)=>{
-    alert('블랙리스트 등록시, \n\n- 해당 해당 사용자는 사이트 로그인 불가 상태가 됩니다. \n\n그래도 등록하시겠습니까?')
-  })
-  //게시글 수 선택시 기간 설정
-  function viewDateForm(){
-    if($(boardCount).prop("checked"))
-      document.getElementById("dateForm").setAttribute("style", "display: block");
-    else if($(premiumGroupCount).prop("checked"))
-      document.getElementById("dateForm").setAttribute("style", "display: none");
-    else
-      document.getElementById("dateForm").setAttribute("style", "display: none");
-  }
 
+(()=>{
+	let config;
+	let totalCountOfPost_arr = [];
+	let labels_arr = [];
+	/* 남녀 성별 기본 데이터 불러오기 */
+	$.ajax({
+		url: `${pageContext.request.contextPath}/admin/totalCountOfPost`,
+		dataType: "json",
+		success: function(data){
+			for(i=0; i<data.length; i++){
+				totalCountOfPost_arr.push(data[i].column);
+				labels_arr.push(data[i].count);
+			}
+			console.log('totalCountOfPost_array: '+totalCountOfPost_arr);
 
+			
+		config = {
+			    type: 'pie',
+			    data: {
+			      labels: ["남", "여"],
+			      datasets: [{
+			        label: "Population (millions)",
+			        backgroundColor: ["#EFC7D6","#BDE4D7", "#CCE2EE","#FACDCA","#F3E3AE"],
+			        data: [1,2]
+			      }]
+			    },
+			    options: {
+			      title: {
+			        display: true,
+			        text: '총 게시글 수',
+			        fontColor: 'white',
+			        fontSize: 13
+			      }, 
+			      legend: {
+			    	  labels: {
+			    		  fontColor: "white",
+			    		  fontSize: 12
+			    	  }
+			      },
+			    }
+			};
+			config.data.labels = totalCountOfPost_arr;
+			config.data.datasets[0].data = labels_arr;
+			
+			new Chart(document.getElementById("pie-chart"),config);
+			
+		},
+		error: console.log
+	});
+})()
+
+//총 게시글 Tab 클릭시
+$("#firstTap").click((e)=>{
+	alert('첫번째 클릭');
+})
 </script>
 
 <jsp:include page="/WEB-INF/views/common/ad_footer.jsp">

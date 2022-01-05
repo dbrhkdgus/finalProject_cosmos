@@ -734,13 +734,11 @@ ul.tabs li.current{
 	background: #6D8EF2;
 	color: #222;
 }
-
+*/
 .tab-content{
-	border: 2px solid #eee;
- 	display: none;
-	padding: 12px;
+	min-height: 65vh;
 }
-
+/*
 .tab-content.current{
 	display: inherit;
 } */

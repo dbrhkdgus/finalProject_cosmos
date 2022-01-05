@@ -96,7 +96,9 @@
 		    GROUP BY member_id
 
 	</select>
-	
-	
+
+	<insert id="insertMemberAuthority">
+		insert into authorities values(#{id}, 'ROLE_GW${groupNo}MEMBER')
+	</insert>
 
 </mapper>

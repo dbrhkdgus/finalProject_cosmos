@@ -86,7 +86,6 @@
 	
 </sec:authorize>
   <header class="bg-light">
-
     <div id="cosmos-groupwear-header"  style="background-color: #5288F2;">
       <div class="groupwear-header-box">
         
@@ -152,7 +151,7 @@
     </div>
   </div>
 <form:form method="POST" action="${pageContext.request.contextPath}/member/memberLogout.do" id="memberLogoutFrm" class="d-inline"></form:form>
-  <div class="flex-shrink-0 p-3 bg-light" style="width: 260px;background-color: #EBF0F3 !important;">
+  <div class="flex-shrink-0 p-3 bg-light" style="overflow-y: auto; width: 260px;background-color: #EBF0F3 !important;">
     <ul class="list-unstyled ps-0">
       <li class="mb-1">
       	<div class="d-flex justify-content-between align-items-center">
@@ -235,6 +234,9 @@
           	<c:choose>
 	          	<c:when test="${not empty chattingChannelList}">
 	          		<c:forEach var="chatRoom" items="${chattingChannelList }">
+	          			<sec:authorize access="hasAnyRole('ROLE_GW${currGroupNo}MASTER', 'ROLE_ADMIN')">
+		          			<span class="btn-delete-chatroom" style="float: right; cursor: pointer;" data-chatRoomNo ="${chatRoom.chatRoomNo}">x</span>
+	          			</sec:authorize>
 			            <li><a href="${pageContext.request.contextPath }/gw/chat/chatRoom.do?chatRoomNo=${chatRoom.chatRoomNo}&groupNo=${currGroupNo }" class="link-dark rounded">${chatRoom.chatRoomName }</a></li>
 	          		</c:forEach>
 	          	</c:when>
@@ -497,6 +499,32 @@
     </div>
   </div>
 </div>
+
+<!-- 채팅방 삭제를 위한 스크립트. 그룹장 or admin일때만 아래의 스크립트 작성 -->
+<sec:authorize access="hasAnyRole('ROLE_GW${currGroupNo}MASTER', 'ROLE_ADMIN')">
+<script>
+$(".btn-delete-chatroom").click((e)=>{
+	if(confirm("모든 채팅 내역이 사라집니다. 삭제하시겠습니까?")){
+		var chatRoomNo = $(e.target).data("chatroomno");
+		$.ajax({
+			url : "${pageContext.request.contextPath}/gw/chat/deleteChatRoom.do",
+			data : {
+				chatRoomNo : chatRoomNo
+			},
+			success(res){
+				if(res > 0){
+					alert("채팅방이 삭제되었습니다.");
+					location.reload();
+				}
+			},
+			error : console.log
+		});
+		
+	}
+	
+});
+</script>
+</sec:authorize>
 
  <script>
 

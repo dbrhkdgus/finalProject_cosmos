@@ -21,6 +21,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.kh.cosmos.admin.model.service.AdminService;
 import com.kh.cosmos.admin.model.vo.BoardData;
 import com.kh.cosmos.admin.model.vo.BoardType;
+import com.kh.cosmos.admin.model.vo.ColumnAndCount;
+import com.kh.cosmos.admin.model.vo.Count;
 import com.kh.cosmos.admin.model.vo.EnrollMemberByMonth;
 import com.kh.cosmos.admin.model.vo.GenderData;
 import com.kh.cosmos.admin.model.vo.SevenDaysData;
@@ -191,7 +193,7 @@ public class AdminController {
 		// 페이징처리
 		int limit = 10;
 		int offset = (cPage - 1) * limit;
-		int totalContent = mainService.selectQuestionTotalCount();
+		int totalContent = adminService.totalCountOfMembers();
 		String url = request.getRequestURI();
 		String pagebar = CosmosUtils.getPagebar(cPage, limit, totalContent, url);
 		model.addAttribute("totalContent", totalContent);
@@ -328,9 +330,17 @@ public class AdminController {
 	}
 
 	@PostMapping("/approveGroup.do")
-	public String approveGroup(@RequestParam("groupNo") int groupNo, RedirectAttributes redirectAttributes) {
-
+	public String approveGroup(@RequestParam("groupNo") int groupNo, @RequestParam("hostId") String memberId, RedirectAttributes redirectAttributes) {
+		log.debug("memberId = {}",memberId);
 		int result = adminService.updateGroupApprove(groupNo);
+		if(result>0) {
+			String authority = "ROLE_GW"+groupNo+"MASTER";
+			log.debug("authorityBuild = {}",authority);
+			Map<String, Object> param = new HashMap<>();
+			param.put("memberId", memberId);
+			param.put("authority", authority);
+			result = adminService.insertAuthoritiesValueForGroupMaster(param);
+		}
 
 		return "redirect:/admin/permitGroups.do";
 	}
@@ -406,7 +416,34 @@ public class AdminController {
 	}
 
 	@GetMapping("/StatisticsOfGroup.do")
-	public String StatisticsOfGroup() {
+	public String StatisticsOfGroup(Model model) {
+		
+		Count totalCountOfGroup = adminService.totalCountOfGroup();
+		log.debug("totalCountOfGroup = {}", totalCountOfGroup);
+		
+		Count countOfPremiumGroup = adminService.countOfPremiumGroup();
+		log.debug("countOfPremiumGroup = {}", countOfPremiumGroup);
+		
+		Count countOfPost = adminService.countOfPost();
+		log.debug("countOfPost = {}", countOfPost);
+		
+		Count countOfNewGroupInThisMonth = adminService.countOfNewGroupInThisMonth();
+		log.debug("countOfNewGroupInThisMonth = {}", countOfNewGroupInThisMonth);
+		
+		List<ColumnAndCount> countOfnewPostInThisWeekList = adminService.countOfnewPostInThisWeekList();
+		log.debug("countOfnewPostInThisWeekList= {}", countOfnewPostInThisWeekList);
+		
+		List<ColumnAndCount> countOfGroupLikeList = adminService.countOfGroupLikeList();
+		log.debug("countOfGroupLikeList = {}", countOfGroupLikeList);
+		
+		
+		model.addAttribute("totalCountOfGroup", totalCountOfGroup);
+		model.addAttribute("countOfPremiumGroup",countOfPremiumGroup);
+		model.addAttribute("countOfPost",countOfPost);
+		model.addAttribute("countOfNewGroupInThisMonth",countOfNewGroupInThisMonth);
+		model.addAttribute("countOfnewPostInThisWeekList", countOfnewPostInThisWeekList);
+		model.addAttribute("countOfGroupLikeList", countOfGroupLikeList);
+		
 		return "admin/StatisticsOfGroup";
 	}
 	
@@ -495,5 +532,18 @@ public class AdminController {
 		
 		return "admin/board";
 		
+	}
+	
+	@GetMapping("/totalCountOfPost")
+	@ResponseBody
+	public List<ColumnAndCount> totalCountOfPost(){
+		
+		List<ColumnAndCount> totalCountOfPost_list= adminService.totalCountOfPost();
+		log.debug("totalCountOfPost", totalCountOfPost_list);
+		
+		Map<String,Object> map = new HashMap<>();
+		map.put("totalCountOfPost", totalCountOfPost_list);
+		
+		return totalCountOfPost_list;
 	}
 }

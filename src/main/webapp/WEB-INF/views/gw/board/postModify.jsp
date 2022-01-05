@@ -17,7 +17,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/summernote-lite.css">
 
 <div class="workspace-box">
-<div class="groupware-board-enroll-outter">
+<div class="p-5">
   <!-- form 안에 에디터를 사용하는 경우 (보통 이경우를 많이 사용하는듯)-->
 
 <div class="container">
@@ -57,6 +57,16 @@
 			    </label>
 			</div>
 		</div>
+		
+		<div class="upload-display">
+	        <div class="upload-thumb-wrap">
+	          <img src="#" class="upload-thumb">
+	        </div>
+	    </div>
+			
+	    <div class="upload-except-img">
+	        
+	    </div>
 		
 	</form>
 	<div class="d-grid gap-2 col-6 mx-auto">
@@ -152,6 +162,49 @@ $(document).ready(function() {
 				$label.html("파일을 선택하세요.");
 		});
 	});
+	
+	$(".upload-display").hide();
+    $(".upload-except-img").hide();
+    var fileTarget = $('.custom-file-input .custom-file-label');
+    
+    fileTarget.on('change', function(){
+        if(window.FileReader){
+            // 파일명 추출
+            var filename = $(this)[0].files[0].name;
+		  	console.log(filename);
+        } 
+
+        else {
+            // Old IE 파일명 추출
+            var filename = $(this).val().split('/').pop().split('\\').pop();
+		  	console.log(filename);
+        };
+
+        $(this).siblings('.upload-name').val(filename);
+    });
+    
+    var imgTarget = $('.custom-file .custom-file-input');
+    
+    imgTarget.on('change', function() {
+	    var parent = $(this).parent();
+	    console.log(parent);
+	    parent.children('.upload-display').remove();
+	    console.log(parent.children());
+	    
+	    if(window.FileReader){
+	        //image 파일만
+	        if ($(this)[0].files[0].type.match(/image\//)){
+	          var reader = new FileReader();
+	          reader.onload = function(e){
+	            var src = e.target.result;
+	            $(".upload-display").show();
+	            $(".upload-except-img").hide();
+	            $(".upload-thumb").attr('src', src);
+	          }
+	          reader.readAsDataURL($(this)[0].files[0]);
+	        }
+	    };
+    });
 });
 
 
