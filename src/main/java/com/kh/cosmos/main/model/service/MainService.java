@@ -59,5 +59,9 @@ public interface MainService {
 
 	List<GroupWithCategoryTwo> selectCateTwoNameList();
 
+	List<Notice> selectSearchNoticeList(int offset, int limit, String searchKeyword);
+
+	int selectSearchNoticeTotalCount(String searchKeyword);
+
 
 }

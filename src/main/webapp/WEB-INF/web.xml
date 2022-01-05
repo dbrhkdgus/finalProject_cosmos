@@ -98,7 +98,7 @@
 	</filter> 
 	<filter-mapping> 
 		<filter-name>xssEscapeServletFilter</filter-name> 
-		<url-pattern>/*</url-pattern> 
+		<url-pattern>/gw/*</url-pattern> 
 	</filter-mapping>
 
 
