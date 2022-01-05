@@ -13,13 +13,13 @@
  tr{cursor:pointer;}
 </style>
  <div class="workspace-box">
-  <div class="p-4">
+  <div class="p-5">
     <form 
 		enctype="multipart/form-data"
 		action="${pageContext.request.contextPath}/gw/board/noticeSearch.do?" 
 		method="get">
-	    <div class="test-board-search">
-	    	 <select name="searchType" class="form-select search-select">
+	    <div class="test-board-search d-flex float-right">
+	    	 <select name="searchType" class="form-select search-select" id="form-select-search" style="width: 27%;">
 		        <option value="post_title" 
 	        	<c:if test="${searcyType eq 'post_title'}">selected </c:if> 
 		        >제목</option>
@@ -39,11 +39,15 @@
 		</div>       
     </form>
   
-  <table class="table table-borderless">
+  <table class="table table-sm">
     <tbody>
     <c:forEach var="post" items="${noticePostList}" varStatus="vs">
       <tr onclick="location.href='${pageContext.request.contextPath}/gw/board/boardDetail.do?postNo=${post.postNo}'">
-        <td colspan="3">•${post.postTitle}
+        <td colspan="3">
+	        <svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" fill="currentColor" class="bi bi-circle-fill" viewBox="0 0 16 16">
+			  <circle cx="8" cy="8" r="8"/>
+			</svg>
+			 ${post.postTitle}
         	<c:forEach var="cnt" items="${replyCount}" >
         		<c:if test="${post.postNo == cnt.postNo}">
         			(${cnt.replyCnt})
@@ -58,9 +62,11 @@
     </tbody>
   </table>
   <div class="d-grid gap-2 d-md-flex justify-content-md-end mr-2 ">
-  	<a href="${pageContext.request.contextPath}/gw/board/boardEnroll.do?boardNo=${boardNo}&groupNo=${groupNo} ">
-	    <button class="btn btn-primary me-md-2" type="button">글쓰기</button>
-  	</a>
+	  <sec:authorize access="hasAnyRole('ROLE_GW${currGroupNo}MASTER', 'ROLE_ADMIN')">
+	  	<a href="${pageContext.request.contextPath}/gw/board/boardEnroll.do?boardNo=${boardNo}&groupNo=${groupNo} ">
+		    <button class="btn btn-primary me-md-2" type="button">글쓰기</button>
+	  	</a>
+	  </sec:authorize>
   </div>
 
 

@@ -49,9 +49,12 @@
 			<div class="form-inline mb-3 groupware-board-detail-rep-profile">
 				<img class="member-profile-img" src="${pageContext.request.contextPath }/resources/upFile/fileboard/${attach.renamedFilename}" alt="">
 			</div>
+			
 			<div class="d-grid gap-2 d-md-block" style="text-align: right;">
+			<sec:authorize access="hasAnyRole('ROLE_GW${currGroupNo}MASTER', 'ROLE_ADMIN')">
 				<button class="btn btn-primary" type="button" style="margin:10px;" onclick="location.href='${pageContext.request.contextPath}/gw/board/postModify.do?postNo=${post.postNo}'">수정</button>&nbsp;
 				<button class="btn btn-primary" type="button" onclick="location.href='${pageContext.request.contextPath}/gw/board/deletePostBoard.do?postNo=${post.postNo}'">삭제</button>
+			</sec:authorize>
 			</div>
 				
 			<textarea class="form-control" id="exampleFormControlTextarea1" rows="1"></textarea>

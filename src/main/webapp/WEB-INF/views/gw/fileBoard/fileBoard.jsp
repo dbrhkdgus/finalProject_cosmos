@@ -22,8 +22,8 @@
 
     <!-- 정렬 및 검색 -->
     <form action="${pageContext.request.contextPath}/gw/fileBoard/fileBoard.do?boardNo=${boardNo}&groupNo=${groupNo}" method="get">
-	    <div class="test-board-search">
-	    	 <select name="searchType" class="form-select search-select" aria-label="Default select example">
+	    <div class="test-board-search d-flex float-right">
+	    	 <select name="searchType" class="form-select search-select" id="form-select-search" style="width: 38%;" aria-label="Default select example">
 		        <option value="all" ${searchType == 'all' ? "selected":'' }> 전체보기 </option>
 		        <option value="img" ${searchType == 'img' ? "selected":'' }>이미지</option>
 		        <option value="document" ${searchType == 'document' ? "selected":'' }>문서</option>
