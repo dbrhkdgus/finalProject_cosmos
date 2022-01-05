@@ -254,6 +254,11 @@ for(i=0; i<rowNum; i++) {
   });    
 </script>
 
-
+<script>
+window.addEventListener("load", function(){
+	$("#dropdownAdmin").removeClass("collapsed");
+	$("#account-collapse").addClass("show");
+	});
+</script>
 <jsp:include page="/WEB-INF/views/common/gw_footer.jsp"></jsp:include>
 </sec:authorize>
