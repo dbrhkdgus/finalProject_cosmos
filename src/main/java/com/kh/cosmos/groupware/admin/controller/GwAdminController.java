@@ -26,7 +26,7 @@ import com.kh.cosmos.group.model.vo.ApplocationGroup;
 import com.kh.cosmos.group.model.vo.Group;
 import com.kh.cosmos.groupware.admin.model.service.GwAdminService;
 import com.kh.cosmos.groupware.admin.model.vo.TdlMemberCount;
-import com.kh.cosmos.groupware.app.model.vo.TDL;
+import com.kh.cosmos.groupware.admin.model.vo.TdlMonthlyData;
 import com.kh.cosmos.groupware.board.model.vo.Board;
 import com.kh.cosmos.groupware.chat.model.vo.ChatRoom;
 import com.kh.cosmos.groupware.fileBoard.vo.IdNickName;
@@ -122,7 +122,12 @@ public class GwAdminController {
 		log.debug("checkedToDoList = {}" ,checkedToDoList);
 		model.addAttribute("checkedToDoList",checkedToDoList);
 
-		 
+		List<TdlMonthlyData> tdlMonthlyDataList = new ArrayList<TdlMonthlyData>();
+		tdlMonthlyDataList = gwAdminService.selectTdlMonthlyDataList(groupNo);
+		log.debug("tdlMonthlyDataList = {}" ,tdlMonthlyDataList);
+		
+		
+		
 		return "gw/admin/groupManager";
 		
 	}

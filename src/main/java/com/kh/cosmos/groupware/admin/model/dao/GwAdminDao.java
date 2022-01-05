@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.kh.cosmos.group.model.vo.ApplocationGroup;
 import com.kh.cosmos.groupware.admin.model.vo.TdlMemberCount;
+import com.kh.cosmos.groupware.admin.model.vo.TdlMonthlyData;
 import com.kh.cosmos.groupware.app.model.vo.TDL;
 import com.kh.cosmos.groupware.fileBoard.vo.IdNickName;
 
@@ -33,6 +34,8 @@ public interface GwAdminDao {
 	List<TdlMemberCount> selectcheckedToDoList(int groupNo);
 
 	int insertMemberAuthority(Map<String, Object> param);
+
+	List<TdlMonthlyData> selectTdlMonthlyDataList(int groupNo);
 
 
 }
