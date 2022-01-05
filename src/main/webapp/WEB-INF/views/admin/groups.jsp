@@ -30,18 +30,78 @@
             <h2 class="tm-block-title">모임 목록</h2>
             <p class="text-white">검색 카테고리</p>
             <div>
-              <select class="custom-select selectBar mr-3">
-                <option value="0">전체</option>
-                <option value="1">모임명</option>
-                <option value="2">생성일</option>
-                <option value="3">유/무료</option>
-                <option value="4">비밀 여부</option>
-              </select>
-              <input id="searchKeyword"  type="text" class="form-control mb-5" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+              <form name="searchForm" action="${pageContext.request.contextPath}/admin/searchMembers.do">
+              	<table class="table mb-3 table-striped ">
+              		<thread>
+              			<tr>
+              				<th style="border-right: solid 1px #3e464f" class="col-2 text-center">검색어</th>
+              				<td class="d-flex">
+              					<select name="searchType" id="" class="mr-2">
+					                <option value="groupName">모임명</option>
+					                <option value="groupNo">모임 번호</option>  
+					            </select>
+					        <input name="searchKeyword" id="searchKeyword" type="text"
+					        	<c:if test="${not empty searchKeyword}">value="${searchKeyword}"</c:if>
+					        >
+					        </td>
+					        
+              			</tr>
+              			<tr>
+              				<th style="border-right: solid 1px #465b70"  class="text-center">등록 기간</th>
+              				<td class="d-flex">
+              					<input class="dateSize" type="date" name="searchRegDateStart" id="searchRegDateStart" 
+              						<c:if test="${not empty searchRegDateStart}">value="${searchRegDateStart}"</c:if>
+              					/>&nbsp~&nbsp
+              					
+	         					<input class="dateSize" type="date" name="searchRegDateEnd" id="searchRegDateEnd" 
+              						<c:if test="${not empty searchRegDateEnd}">value="${searchRegDateEnd}"</c:if>	         					
+	         					/>
+              				</td>
+              			</tr>
+ 
+              			<tr>
+	              			<th style="border-right: solid 1px #3e464f" class="text-center">카테고리</th>
+	              				<td>
+	              					<select name="categoryNo" id="categoryNo">
+		              					<option value="">전체</option>
+		              					<c:forEach items="${CategoryOneList }" var="category">
+		              					<option value="${category.category1No}">${category.category1Name}</option>
+		              					</c:forEach>
+
+	              					</select>              				
+	              				</td>
+	              			</tr>
+              			<tr>
+              			<tr>
+              				<th style="border-right: solid 1px #465b70" class="text-center" >모집 	여부</th>
+              				<td>
+					         	 <label for="allGroup"><span class="text-white genderText">전체</span></label>
+					        	 <input type="radio" name="groupClose" id="allGroup" value="" class="mr-5"
+					         	 	<c:if test="${empty groupClose or groupClose==''}">checked</c:if>					        	 
+					        	 />
+					         	 <label for="openGroup"><span class="text-white genderText">모집 중</span></label>
+					        	 <input type="radio" name="groupClose" id="openGroup" value="N" class="mr-5"
+					         	 	<c:if test="${groupClose eq 'N'}">checked</c:if>
+					        	 />
+					         	 <label for="closeGroup"><span class="text-white genderText">모집 마감</span></label>
+					        	 <input type="radio" name="groupClose" id="closeGroup" value="Y"
+					         	 	<c:if test="${groupClose eq 'Y'}">checked</c:if>					        	 
+					        	 />              					
+              				</td>
+              			</tr>
+
+              			
+              		</thread>
+              	</table>
+              
+
+	         
+	             <button id="searchBtn" class="btn btn-primary col rounded mt-3 mb-5" type="button"><span class="font-weight-bold">검 색</span></button>
+              </form>
             </div>
             <!-- 회원목록 테이블 -->
             <div class="row tm-content-row">
-              <table class="table mb-3">
+              <table class="table mb-3 text-center">
                 <thead>
                   <tr>
                     <th scope="col">번호</th>
@@ -55,80 +115,25 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>1</td>
-                    <td>개성공단</td>
-                    <td>2021/11/11</td>
-                    <td>무료</td>
-                    <td>모집 중</td>
-                    <td>10/10</td>
-                    <td>공개</td>
-                    <td>90</td>
-                  </tr>
-                  <tr>
-                    <td>1</td>
-                    <td>개성공단</td>
-                    <td>2021/11/11</td>
-                    <td>무료</td>
-                    <td>모집 중</td>
-                    <td>10/10</td>
-                    <td>공개</td>
-                    <td>90</td>
-                  </tr>              <tr>
-                    <td>1</td>
-                    <td>개성공단</td>
-                    <td>2021/11/11</td>
-                    <td>무료</td>
-                    <td>모집 중</td>
-                    <td>10/10</td>
-                    <td>공개</td>
-                    <td>90</td>
-                  </tr>              <tr>
-                    <td>1</td>
-                    <td>개성공단</td>
-                    <td>2021/11/11</td>
-                    <td>무료</td>
-                    <td>모집 중</td>
-                    <td>10/10</td>
-                    <td>공개</td>
-                    <td>90</td>
-                  </tr>              <tr>
-                    <td>1</td>
-                    <td>개성공단</td>
-                    <td>2021/11/11</td>
-                    <td>무료</td>
-                    <td>모집 중</td>
-                    <td>10/10</td>
-                    <td>공개</td>
-                    <td>90</td>
-                  </tr>              <tr>
-                    <td>1</td>
-                    <td>개성공단</td>
-                    <td>2021/11/11</td>
-                    <td>무료</td>
-                    <td>모집 중</td>
-                    <td>10/10</td>
-                    <td>공개</td>
-                    <td>90</td>
+                <c:forEach items="${allGroupList}" var="group">
+                <tr>
+                	<td>${group.groupNo}</td>
+                	<td>${group.groupName }</td>
+                	<td><fmt:formatDate value="${group.groupEnrollDate }" pattern="yy-MM-dd"/> </td>
+                	<td>${group.groupCharge }</td>
+                	<td>${group.groupClose }</td>
+                	<td>${group.groupPool }</td>
+                	<td>${group.groupPrivate }</td>
+                	<td>${group.groupLikeCount }</td>
+                </tr>
+                
+                </c:forEach>
+                 
                 </tbody>
               </table>
-              <nav aria-label="Page navigation example" style="margin: auto;">
-                <ul class="pagination">
-                  <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Previous">
-                      <span aria-hidden="true">&laquo;</span>
-                    </a>
-                  </li>
-                  <li class="page-item"><a class="page-link" href="#">1</a></li>
-                  <li class="page-item"><a class="page-link" href="#">2</a></li>
-                  <li class="page-item"><a class="page-link" href="#">3</a></li>
-                  <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Next">
-                      <span aria-hidden="true">&raquo;</span>
-                    </a>
-                  </li>
-                </ul>
-              </nav>
+              <div style="margin: auto">
+			${pagebar }
+              </div>
             </div>
           </div>
           
@@ -138,7 +143,7 @@
         <div class="row tm-content-row">
           <div class="tm-block-col tm-col-avatar">
             <div class="tm-bg-primary-dark tm-block tm-block-avatar">
-              <h2 class="tm-block-title">그룹 프로필 사진</h2>
+              <h2 class="tm-block-title">그룹 대표 사진</h2>
               <div class="tm-avatar-container">
                 <img
                   src="${pageContext.request.contextPath}/resources/images/avatar.png"
