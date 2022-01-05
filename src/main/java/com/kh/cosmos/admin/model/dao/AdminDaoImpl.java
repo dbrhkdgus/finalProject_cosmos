@@ -179,6 +179,11 @@ public class AdminDaoImpl implements AdminDao {
 	public List<ColumnAndCount> totalCountOfPost() {
 		return session.selectList("admin.totalCountOfPost");
 	}
+
+	@Override
+	public int totalCountOfMembers() {
+		return session.selectOne("admin.totalCountOfMembers");
+	}
 	
 	
 }

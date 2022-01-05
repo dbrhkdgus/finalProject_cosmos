@@ -76,6 +76,8 @@ public interface AdminDao {
 	List<ColumnAndCount> countOfGroupLikeList();
 
 	List<ColumnAndCount> totalCountOfPost();
+
+	int totalCountOfMembers();
 	
 	
 }
