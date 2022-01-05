@@ -102,8 +102,6 @@
 	</insert>
 
 	<select id="selectTdlMonthlyDataList" resultType="TdlMonthlyData">
-
-
 				 <![CDATA[
 				select
 				TO_CHAR(tdl_create_date, 'MM') as monthlyData, 
@@ -114,7 +112,21 @@
 				GROUP BY to_char(tdl_create_date, 'MM')
 				order by monthlyData asc
 				]]>
-					
-
 	</select>
+	
+	<select id="tdlMonthlyMemberCountList" resultType="TdlMonthlyData">
+		 <![CDATA[
+	            select
+                TO_CHAR(tdl_update_date, 'MM') as monthlyData,
+                count(*) as count ,
+                COUNT(distinct member_id ) as memberCount
+                from todolist
+                where tdl_update_date >=TO_DATE('2021/06/01','YYYY-MM-DD') and tdl_update_date < TO_DATE('2022/01/01','YYYY-MM-DD') 
+                and group_no =#{groupNo}
+                GROUP BY TO_CHAR(tdl_update_date, 'MM')               
+                order by monthlyData asc
+         ]]>
+	
+	</select>
+	
 </mapper>
