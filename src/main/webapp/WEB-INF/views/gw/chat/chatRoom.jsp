@@ -111,7 +111,7 @@
             </div> -->
     		<c:forEach var="user" items="${chatUserList }">
     		 <div class="test-member-profile">
-            <div class="member-profile-img-box">
+            <div class="member-profile-img-box btn-profile2">
 	           <c:choose>
 		          	<c:when test="${fn:startsWith(user.renamedFilename,'http')}">
 						<img class="member-profile-img" src="${user.renamedFilename}" alt="" style="width: 30px"/>
@@ -131,10 +131,10 @@
           </div>
     
     
-          <div class="offline-member-list">
-<!--             <div class="on-off-text">
+<!--           <div class="offline-member-list">
+             <div class="on-off-text">
               <p class="off-text">오프라인 - 1</p>
-            </div> -->
+            </div>
             <div class="test-member-profile">
               <div class="member-profile-img-box">
                 <img class="offline member-profile-img" src="https://i.pinimg.com/564x/9e/60/60/9e6060db90687be57c52ca5c5566c487.jpg" alt="">
@@ -142,7 +142,7 @@
                 <span>홍길동</span> 
             </div>
     
-          </div>
+          </div> -->
         </div>
 
 

@@ -49,7 +49,9 @@ public class StompApplicationDestinationController {
 		} catch (IOException e) {
 			
 		}  
-		
+		if(map.get("msgTypeNo").equals("99")) {
+			return chatMessageContent;
+		}
 		// 메시지 객체화
 		DM dm = new DM();
 		dm.setDmSender(map.get("sender"));
