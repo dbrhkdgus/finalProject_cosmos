@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.http.HttpRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -153,7 +154,7 @@ public class AdminController {
 		String url = request.getRequestURI();
 		String pagebar = CosmosUtils.getPagebar(cPage, limit, totalContent, url);
 		model.addAttribute("totalContent", totalContent);
-
+		model.addAttribute("pagebar", pagebar);
 		// 업무로직
 		List<Question> list = mainService.selectQuestionList(limit, offset);
 		model.addAttribute("list", list);
@@ -283,8 +284,30 @@ public class AdminController {
 	}
 
 	@GetMapping("/groups.do")
-	public String groups() {
+	public String groups(@RequestParam(defaultValue = "1") int cPage, Model model, HttpServletRequest request) {
+		//카테고리 번호,이름 불러오기
+		List<CategoryOne> CategoryOneList = groupService.CategoryOneList();
+		model.addAttribute("CategoryOneList", CategoryOneList);
+		Map<Integer, String> categoryMap = new HashMap<>();
+		for(CategoryOne categoryOne: CategoryOneList) {
+			categoryMap.put(categoryOne.getCategory1No(), categoryOne.getCategory1Name());
+		}
+		model.addAttribute("categoryMap", categoryMap);
+		
+		// 페이징처리
+		int limit = 10;
+		int offset = (cPage - 1) * limit;
+		int totalContent = adminService.allGroupCount();
+		String url = request.getRequestURI();
+		String pagebar = CosmosUtils.getPagebar(cPage, limit, totalContent, url);
+		model.addAttribute("totalContent", totalContent);
+		model.addAttribute("pagebar", pagebar);
 
+		
+		//모임 리스트 불러오기
+		List<Group> allGroupList = adminService.allGroupList(limit, offset);
+		model.addAttribute("allGroupList", allGroupList);
+		
 		return "admin/groups";
 	}
 

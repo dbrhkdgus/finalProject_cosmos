@@ -78,6 +78,10 @@ public interface AdminDao {
 	List<ColumnAndCount> totalCountOfPost();
 
 	int totalCountOfMembers();
+
+	List<Group> allGroupList(int limit, int offset);
+
+	int allGroupCount();
 	
 	
 }
