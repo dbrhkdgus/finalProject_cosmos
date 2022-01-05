@@ -170,5 +170,10 @@ window.addEventListener('DOMContentLoaded', function(event) {
 	}
 
 </script>
+<style>
+#zmmtg-root{
+background-color: white !important;
+}
+</style>
 </body>
 </html>

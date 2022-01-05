@@ -35,26 +35,34 @@
 		var memberIdList = new Array();
 		var list = new Array();
 		var list2= new Array();
-		<c:forEach items="${acceptApplocationGroupList}" var="item1">
+		var nameCount = 0;
+
+		/* <c:forEach items="${acceptApplocationGroupList}" var="item1">
 			<c:forEach items="${chartIdNickNameList}" var="item2">
 				<c:if test="${item1.memberId eq item2.id}">	
 					<c:forEach items="${checkedToDoList}" var="tdl">
 						<c:if test="${tdl.memberId eq item2.id}"> 
-							list.push("${item2.nickName}");			
-							console.log("${tdl.memberId }");
+							list.push("${item2.nickName}");
+							
+							console.log();
 						
 					 	</c:if> 
 					</c:forEach>
 				</c:if>			
 			</c:forEach>
-		</c:forEach>
-	
-		for(var i=0; i < list.length; i++){
-				list[i]
-		}
-		list.push("엑스트라1");
-		list.push("엑스트라2");
+		</c:forEach> */
 		
+		<c:forEach items="${checkedToDoList}" var="checkedToDoList">
+			<c:forEach items="${chartIdNickNameList}" var="chartIdNickNameList">
+				<c:if test="${checkedToDoList.memberId eq chartIdNickNameList.id}">	
+					list.push("${chartIdNickNameList.nickName}");
+					list2.push("${checkedToDoList.count}");
+				</c:if>
+			</c:forEach>
+		</c:forEach>
+		console.log(list);
+		console.log(list2);
+
 		
 		var colors = [ 'rgba(255, 99, 132, 0.2)',
             'rgba(255, 159, 64, 0.2)',
@@ -113,7 +121,7 @@
         datasets: [{
           axis: 'y',
           label: '12월 목표달성률',
-          data: [10, 20, 30, 40, 50, 60, 70 ,80,70,60],
+          data: list2,
           fill: false,
           backgroundColor:bgColors,
 
@@ -135,7 +143,7 @@
         scales: {
           xAxes: [{
             ticks: {
-              max: 100,
+              max: 30,
               beginAtZero: true
             }
           }]

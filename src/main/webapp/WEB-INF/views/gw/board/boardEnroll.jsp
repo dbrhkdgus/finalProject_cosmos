@@ -17,7 +17,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/summernote-lite.css">
 
 <div class="workspace-box">
-<div class="groupware-board-enroll-outter">
+<div class="p-5">
   <!-- form 안에 에디터를 사용하는 경우 (보통 이경우를 많이 사용하는듯)-->
 
 <div class="container">
