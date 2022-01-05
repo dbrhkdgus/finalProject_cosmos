@@ -489,7 +489,7 @@
               <input type="text" id="zoom-password" class="form-control" name="zoomPassword" required/>
             </div>
           </div>
-          <input type="hidden" name="roomAdmin" value="<sec:authentication property="principal.id"/>" readonly/>
+          <input type="hidden" name="roomAdmin" value="<sec:authentication property="principal.nickname"/>" readonly/>
           <input type="hidden" name="groupNo" value="${currGroupNo }" />
       </form:form>
       <div class="modal-footer d-flex justify-content-center">

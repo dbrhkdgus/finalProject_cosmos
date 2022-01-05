@@ -31,10 +31,10 @@
 				      <tr>
 				        <td colspan="2">${room.roomName}</td>
 				        <td>${room.roomAdmin}</td>
-				        <c:if test="${loginMember.id eq room.roomAdmin}">
+				        <c:if test="${loginMember.nickname eq room.roomAdmin}">
 				        	<td><button class="btn btn-deleteVoiceChatRoom" onclick="deleteRoom(${room.roomNo});">삭제</button></td>
 				        </c:if>
-				        <c:if test="${loginMember.id ne room.roomAdmin}">
+				        <c:if test="${loginMember.nickname ne room.roomAdmin}">
 				        	<td></td>
 				        </c:if>
 				        
