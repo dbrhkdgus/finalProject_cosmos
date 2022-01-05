@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.kh.cosmos.common.attachment.model.vo.Attachment;
 import com.kh.cosmos.groupware.board.model.vo.Post;
 import com.kh.cosmos.groupware.board.model.vo.PostWithCategory;
-import com.kh.cosmos.groupware.fileBoard.vo.FileEnroll;
+import com.kh.cosmos.groupware.board.model.vo.PostWithNickname;
 import com.kh.cosmos.groupware.fileBoard.vo.IdNickName;
 
 @Repository
@@ -22,9 +22,9 @@ public class FileBoardDaoImpl implements FileBoardDao {
 	private SqlSession session;
 	
 	@Override
-	public List<PostWithCategory> selectAllPostInfileBoard(int boardNo) {
-		// TODO Auto-generated method stub
-		return session.selectList("fileBoard.selectAllPostInfileBoard",boardNo);
+	public List<PostWithCategory> selectAllPostInfileBoard(int boardNo, int limit, int offset) {
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		return session.selectList("fileBoard.selectAllPostInfileBoard", boardNo, rowBounds);
 	}
 	
 	@Override
@@ -44,6 +44,12 @@ public class FileBoardDaoImpl implements FileBoardDao {
 
 
 	@Override
+	public int selectSearchFileBoardTotalCnt(Map<String, Object> param) {
+		// TODO Auto-generated method stub
+		return session.selectOne("fileBoard.selectSearchFileBoardTotalCnt", param);
+	}
+
+	@Override
 	public Attachment selectOneAttachment(int attachNo) {
 		return  session.selectOne("fileBoard.selectOneAttachment", attachNo);
 	}
@@ -59,7 +65,7 @@ public class FileBoardDaoImpl implements FileBoardDao {
 	}
 	
 	@Override
-	public List<PostWithCategory> selectAllFileBoardListByParam(Map<String, Object> param, int limit, int offset) {
+	public List<PostWithNickname> selectAllFileBoardListByParam(Map<String, Object> param, int limit, int offset) {
 		RowBounds rowBounds = new RowBounds(offset, limit);
 		return session.selectList("fileBoard.selectAllFileBoardListByParam", param, rowBounds);
 	}
@@ -73,7 +79,7 @@ public class FileBoardDaoImpl implements FileBoardDao {
 	@Override
 	public int selectPostInFileBoardTotalCount(int boardNo) {
 		// TODO Auto-generated method stub
-		return session.selectOne("fileBoard.selectPostInFileBoardTotalCount" ,boardNo);
+		return session.selectOne("fileBoard.selectPostInFileBoardTotalCount", boardNo);
 	}
 
 
