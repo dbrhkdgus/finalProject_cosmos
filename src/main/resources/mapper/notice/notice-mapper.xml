@@ -60,4 +60,11 @@
 	<update id="viewCountUp">
 		update notice set read_count = read_count+1 where notice_no = #{no}
 	</update>
+	
+	<select id="selectSearchNoticeList" resultType="notice">
+		select * from notice where notice_title like '%'||#{searchLeyword}||'%'
+	</select>
+	<select id="selectSearchNoticeTotalCount" resultType="_int">
+		select count(*) from notice where notice_title like '%'||#{searchLeyword}||'%'
+	</select>
 </mapper>
