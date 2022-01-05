@@ -142,4 +142,12 @@ where
   <delete id="deleteDmMessage">
    delete dm where dm_no = #{dmMessageNo}
   </delete>
+  
+  <select id="selectAllChatUsers" resultType="member">
+   select m.*, a.renamed_filename from tb_member m join chat_user u on m.id = u.member_id join attachment a on m.id = a.member_id where img_flag = 'P' and chat_room_no = #{chatRoomNo}
+  </select>
+  
+  <select id="selectChatRoomNoByChatRoomNo" resultType="string">
+   select chat_room_open_type from chat_room where chat_room_no = #{chatRoomNo}
+  </select>
 </mapper>
