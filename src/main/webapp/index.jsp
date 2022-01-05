@@ -27,15 +27,15 @@
 				<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
 					<div class="carousel-inner ">
 						<div class="carousel-item active">
-							<a href="#!"> <img src="https://img1.daumcdn.net/thumb/R1280x0.fjpg/?fname=http://t1.daumcdn.net/brunch/service/user/zZX/image/PoUmWOJMQg8DHzrn9PIuCIuwCwk" class="d-block  main-slide" alt="...">
+							<a href="#!"> <img class="index-banner-img" src="https://cdn.discordapp.com/attachments/912943660943962178/927572109486612510/thumbnail_FE.png" alt="...">
 							</a>
 						</div>
 						<div class="carousel-item ">
-							<a href="#!"> <img src="https://img1.daumcdn.net/thumb/R1280x0.fjpg/?fname=http://t1.daumcdn.net/brunch/service/user/zZX/image/PoUmWOJMQg8DHzrn9PIuCIuwCwk" class="d-block  main-slide" alt="...">
+							<a href="#!"> <img class="index-banner-img" src="https://cdn.discordapp.com/attachments/912943660943962178/927571782452510800/thumb_course10521.jpg" class="d-block  main-slide" alt="...">
 							</a>
 						</div>
 						<div class="carousel-item ">
-							<a href="#!"> <img src="https://img1.daumcdn.net/thumb/R1280x0.fjpg/?fname=http://t1.daumcdn.net/brunch/service/user/zZX/image/PoUmWOJMQg8DHzrn9PIuCIuwCwk" class="d-block  main-slide" alt="...">
+							<a href="#!"> <img class="index-banner-img" src="https://cdn.discordapp.com/attachments/912943660943962178/927572109285269564/thumbnail_BE.png" class="d-block  main-slide" alt="...">
 							</a>
 						</div>
 					</div>
