@@ -121,10 +121,7 @@ public class GwAdminController {
 		checkedToDoList = gwAdminService.selectcheckedToDoList(groupNo);
 		log.debug("checkedToDoList = {}" ,checkedToDoList);
 		model.addAttribute("checkedToDoList",checkedToDoList);
-		 
-		 checkedToDoList = gwAdminService.selectcheckedToDoList(groupNo );
-		 log.debug("checkedToDoList = {}" , checkedToDoList);
-		 model.addAttribute("checkedToDoList",checkedToDoList);
+
 		 
 		return "gw/admin/groupManager";
 		

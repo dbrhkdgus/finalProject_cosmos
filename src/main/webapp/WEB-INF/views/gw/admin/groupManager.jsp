@@ -11,7 +11,7 @@
 <jsp:include page="/WEB-INF/views/common/gw_header.jsp">
 	<jsp:param value="" name="title"/>
 </jsp:include>
-${checkedToDoList }
+
  <div class="workspace-box">
   
       <div class="study-admin-box">
@@ -37,7 +37,7 @@ ${checkedToDoList }
 		var list2= new Array();
 		var nameCount = 0;
 
-		<c:forEach items="${acceptApplocationGroupList}" var="item1">
+		/* <c:forEach items="${acceptApplocationGroupList}" var="item1">
 			<c:forEach items="${chartIdNickNameList}" var="item2">
 				<c:if test="${item1.memberId eq item2.id}">	
 					<c:forEach items="${checkedToDoList}" var="tdl">
@@ -50,8 +50,18 @@ ${checkedToDoList }
 					</c:forEach>
 				</c:if>			
 			</c:forEach>
-		</c:forEach>
+		</c:forEach> */
 		
+		<c:forEach items="${checkedToDoList}" var="checkedToDoList">
+			<c:forEach items="${chartIdNickNameList}" var="chartIdNickNameList">
+				<c:if test="${checkedToDoList.memberId eq chartIdNickNameList.id}">	
+					list.push("${chartIdNickNameList.nickName}");
+					list2.push("${checkedToDoList.count}");
+				</c:if>
+			</c:forEach>
+		</c:forEach>
+		console.log(list);
+		console.log(list2);
 
 		
 		var colors = [ 'rgba(255, 99, 132, 0.2)',
@@ -111,7 +121,7 @@ ${checkedToDoList }
         datasets: [{
           axis: 'y',
           label: '12월 목표달성률',
-          data: [10, 20, 30, 40, 50, 60, 70 ,80,70,60],
+          data: list2,
           fill: false,
           backgroundColor:bgColors,
 
@@ -133,7 +143,7 @@ ${checkedToDoList }
         scales: {
           xAxes: [{
             ticks: {
-              max: 100,
+              max: 30,
               beginAtZero: true
             }
           }]
