@@ -188,12 +188,15 @@
 						
                         
                     </c:forEach>
-
+ 					${pagebar }
                             
                         </div>
 					</c:when>
 					<c:otherwise>
-						아무고토 없음
+						<div style="height: 35vh;">
+							<p style="text-align: center;">등록된 스터디 그룹이 없어요!</p>
+							
+						</div>
 					</c:otherwise>
 
                 </c:choose>
@@ -202,7 +205,7 @@
                             
                         </div>
                     </div>
-                    ${pagebar }
+                   
                 </div>
             </div>
         </div>
