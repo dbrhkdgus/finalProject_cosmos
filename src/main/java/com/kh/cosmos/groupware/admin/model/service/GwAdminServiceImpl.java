@@ -91,6 +91,13 @@ public class GwAdminServiceImpl implements GwAdminService {
 		return gwAdminDao.selectTdlMonthlyDataList(groupNo);
 	}
 
+	@Override
+	public List<TdlMonthlyData> selectTdlMonthlyMemberCountList(int groupNo) {
+		return gwAdminDao.selectTdlMonthlyMemberCountList(groupNo);
+	}
+	
+	
+	
 
 	
 	

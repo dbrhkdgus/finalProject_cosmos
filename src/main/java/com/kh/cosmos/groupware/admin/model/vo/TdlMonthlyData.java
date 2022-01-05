@@ -17,4 +17,5 @@ public class TdlMonthlyData implements Serializable {
 	
 	private String monthlyData;
 	private int count;
+	private int memberCount;
 }

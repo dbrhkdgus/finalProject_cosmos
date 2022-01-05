@@ -19,9 +19,9 @@
 			</div>
 			<div style="width: 20%;float: right;margin-bottom: 5px;">
 				<select class="form-select" id="sort-select" aria-label="Default select example">
-				  <option value="0" selected>전체</option>
-				  <option value="1">해야할일</option>
-				  <option value="2">완료한일</option>
+				  <option value="0" <c:if test="${check == '0'}">selected</c:if>>전체</option>
+				  <option value="1" <c:if test="${check == '1'}">selected</c:if>>해야할일</option>
+				  <option value="2" <c:if test="${check == '2'}">selected</c:if>>완료한일</option>
 				</select>
 				<input type="hidden" class="groupNo" value="${currGroupNo } "/>
 			</div>
@@ -54,10 +54,10 @@
 							<td class="w-10 text-center">
 								<div>
 									<c:if test="${fn:contains(tdl.tdlChecked, 'N')}">
-											<button type="button" class="btn btn-outline-primary btn-TDLComplete" onclick="TDLComplete(${tdl.tdlNo },${tdl.groupNo })">완료하기</button>
+											<button type="button" class="btn btn-outline-primary btn-sm btn-TDLComplete" onclick="TDLComplete(${tdl.tdlNo },${tdl.groupNo })">완료하기</button>
 									</c:if>
 									<c:if test="${fn:contains(tdl.tdlChecked, 'Y')}">
-											<button type="button" class="btn btn-outline-primary btn-TDLCancel" onclick="TDLCancel(${tdl.tdlNo },${tdl.groupNo })">취소</button>
+											<button type="button" class="btn btn-outline-primary btn-sm btn-TDLCancel" onclick="TDLCancel(${tdl.tdlNo },${tdl.groupNo })">취소</button>
 									</c:if>
 									<input type="hidden" class="hiddenTDLNo" value="${tdl.tdlNo }"/>
 									<input type="hidden" class="hiddenGroupNo" value="${tdl.groupNo }"/>
@@ -67,6 +67,7 @@
 					</c:forEach>
 				</tbody>
 			</table>
+			<div class="pagebar" style="margin: auto">${pagebar}</div>
 			<div style="float: right;margin-bottom: 5px;">
 				<button type="button" class="btn btn-outline-primary btn-createTDL">할일 추가</button>
 			</div>
@@ -102,6 +103,7 @@
 </div>
 <script>
 var tbody = document.querySelector(".tbody-form")
+var pagebar = document.querySelector(".pagebar")
 $(".modal-member-box").hide();
 
 $(".btn-createTDL-submit").click((e)=>{
@@ -114,68 +116,11 @@ $(".btn-createTDL-submit").click((e)=>{
 	 $("#createTDLModal").modal('hide');
  });
  $("#sort-select").change((e)=>{
-	 const $groupNo = $(e.target).next().val();
-	 tbody.innerHTML = "";
-	 $.ajax({
-			url: `${pageContext.request.contextPath}/gw/app/reCalculate.do`,
-			data: {
-				'groupNo' : $groupNo,
-				'check' : $("#sort-select option:selected").val()
-				},
-			type: "GET",
-			dataType: "json",
-			headers: {
-				"${_csrf.headerName}" : "${_csrf.token}"
-		 	},
-			success(data){
-		 		console.log(data);
-		 		$.each(data, (k,v)=>{
-		 			const $trTag = $(`<tr></tr>`);
-		 			console.log(v.tdlCreateDate);
-		 			console.log(new Date(v.tdlCreateDate));
-		 			var date = new Date(v.tdlCreateDate);
-		 			const formatDate = (date)=>{
-		 				let formatted_date = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate()
-		 				 return formatted_date;
-		 				}
-		 			console.log(formatDate(date));
-		 			let html2 = '';
-		 			let html3 = '';
-		 			let html1 = `<th class="w-10 text-center" scope="row">${k+1}</th>
-		 						<td class="w-40 text-center" colspan="2">\${v.tdlContent }</td>
-		 						<td class="w-10 text-center">\${formatDate(date)}</td>`
-		 				if(v.tdlChecked == 'N'){
-		 					html2 = `<td class="w-10 text-center"><div><p>미완료</p></div></td>`
-		 				}else{
-		 					html2 = `<td class="w-10 text-center"><div><p>완료</p></div></td>`
-		 				}
-		 				if(v.tdlChecked == 'N'){
-		 					html3 = `<td class="w-10 text-center">
-		 						<div>
-		 							<button type="button" class="btn btn-outline-primary btn-TDLComplete" onclick="TDLComplete(\${v.tdlNo },\${v.groupNo })">완료하기</button>
-		 							<input type="hidden" class="hiddenTDLNo" value="\${v.tdlNo }"/>
-									<input type="hidden" class="hiddenGroupNo" value="\${v.groupNo }"/>
-								</div>
-							</td>`
-		 				}else{
-		 					html3 = `<td class="w-10 text-center">
-		 						<div>
-		 							<button type="button" class="btn btn-outline-primary btn-TDLCancel" onclick="TDLCancel(\${v.tdlNo },\${v.groupNo })">취소</button>
-		 							<input type="hidden" class="hiddenTDLNo" value="\${v.tdlNo }"/>
-									<input type="hidden" class="hiddenGroupNo" value="\${v.groupNo }"/>
-								</div>
-							</td>`
-		 				}
-		 			$trTag.append(html1);
-		 			$trTag.append(html2);
-		 			$trTag.append(html3);
-		 			$(".tbody-form").append($trTag);
-		 		});
-			},
-			error(xhr,textStatus,err){
-				alert("잠시후 다시 시도해 주세요.");
-			}
-		});
+	 const groupNo = $(e.target).next().val();
+	 const check = $("#sort-select option:selected").val();
+	 location.href = `${pageContext.request.contextPath}/gw/app/reCalculate.do?groupNo=` + groupNo + `&check=` + check;
+			
+			
  });
  function TDLComplete(a,b) {
 	 $.ajax({

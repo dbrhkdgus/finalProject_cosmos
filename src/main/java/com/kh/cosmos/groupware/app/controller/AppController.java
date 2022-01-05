@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ResourceLoader;
@@ -15,9 +16,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.kh.cosmos.common.CosmosUtils;
 import com.kh.cosmos.common.attachment.model.vo.Attachment;
 import com.kh.cosmos.group.model.vo.Group;
 import com.kh.cosmos.groupware.app.model.service.AppService;
@@ -53,13 +56,21 @@ public class AppController {
 		return "gw/app/ladder";
 	}
 	@GetMapping("/TDL.do")
-	public String toDoList(int groupNo, Model model, Authentication auth) {
-		groupwareHeaderSet(groupNo, model, auth);
+	public String toDoList(@RequestParam(defaultValue = "1") int cPage, @RequestParam("groupNo") int groupNo, Model model, Authentication auth, HttpServletRequest request) {
 		Map<String, Object> param = new HashMap<String, Object>();
 		Member loginMember = (Member) auth.getPrincipal();
 		param.put("groupNo", groupNo);
 		param.put("id", loginMember.getId());
-		List<TDL> tdlList = appService.selectAlltdlListByParam(param);
+		int limit = 10;
+		int offset = (cPage - 1) * limit;
+		int totalContent = appService.selectTDLTotalCount(param);
+		String url = request.getRequestURI();
+		url += "?groupNo=" + groupNo;
+		String pagebar = CosmosUtils.getPagebar(cPage, limit, totalContent, url);
+		model.addAttribute("totalContent", totalContent);
+		model.addAttribute("pagebar", pagebar);
+		groupwareHeaderSet(groupNo, model, auth);
+		List<TDL> tdlList = appService.selectAlltdlListByParam(param, limit, offset);
 		model.addAttribute("tdlList",tdlList);
 		model.addAttribute("loginMember",loginMember);
 		model.addAttribute("title", loginMember.getNickname()+"의 ToDoList");
@@ -93,11 +104,13 @@ public class AppController {
 		int result = appService.updateTDL(param);
 		
 	}
-	@ResponseBody
+	
 	@GetMapping("/reCalculate.do")
-	public Map<String, Object> reCalculate(int groupNo, Authentication auth, int check) {
+	public String reCalculate(@RequestParam(defaultValue = "1") int cPage, int groupNo, Model model, Authentication auth, int check, HttpServletRequest request) {
 		Map<String, Object> param = new HashMap<String, Object>();
 		Map<String, Object> map = new HashMap<String, Object>();
+		int limit = 10;
+		int offset = (cPage - 1) * limit;
 		log.debug("check = {}",check);
 		log.debug("groupNo = {}",groupNo);
 		param.put("groupNo", groupNo);
@@ -110,13 +123,24 @@ public class AppController {
 		case 2:param.put("check", "complete");break;
 		}
 		log.debug("param = {}",param);
-		List<TDL> tdlReList = appService.selectTDLBysort(param);
+		int totalContent = appService.selectTDLBysortTotalCount(param);
+		List<TDL> tdlList = appService.selectTDLBysort(param, limit, offset);
 		int num = 0;
-		for(TDL tdlList : tdlReList) {
-			map.put(Integer.toString(num), tdlList);
+		for(TDL list : tdlList) {
+			map.put(Integer.toString(num), list);
 			num++;
 		}
-		return map;
+		String url = request.getRequestURI();
+		url += "?groupNo=" + groupNo + "&check=" + check;
+		String pagebar = CosmosUtils.getPagebar(cPage, limit, totalContent, url);
+		model.addAttribute("totalContent", totalContent);
+		model.addAttribute("pagebar", pagebar);
+		model.addAttribute("check", check);
+		groupwareHeaderSet(groupNo, model, auth);
+		model.addAttribute("tdlList",tdlList);
+		model.addAttribute("loginMember",loginMember);
+		model.addAttribute("title", loginMember.getNickname()+"의 ToDoList");
+		return "gw/app/TDL";
 	}
 	
 	
