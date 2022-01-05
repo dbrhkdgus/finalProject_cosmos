@@ -48,4 +48,8 @@ insert into zoom_room values(seq_zoom_room_no.nextval, #{groupNo}, #{zoomId}, #{
 <delete id="deleteVoiceChatRoom">
 delete from zoom_room where room_no = #{roomNo}
 </delete>
+
+<select id="selectApplocationGroup" resultType="applocationGroup" parameterType="hashmap"> 
+select role from applocation_group where member_id =#{memberId} and group_no =#{groupNo}
+</select>
 </mapper>

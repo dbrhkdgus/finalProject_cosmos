@@ -281,7 +281,8 @@
           </ul>
         </div>
       </li>
-      <li class="border-top my-3"></li>
+      <li class="border-top my-3"></li>	
+     <c:if test="${fn:contains(role , 'G') || fn:contains(role , 'M') }">
       <li class="mb-1">
         <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#account-collapse" aria-expanded="false">
           관리자 전용
@@ -293,6 +294,7 @@
           </ul>
         </div>
       </li>
+      </c:if>
     </ul>
   </div>
  <!-- 게시판 개설하기 위한 모달창 --> 
