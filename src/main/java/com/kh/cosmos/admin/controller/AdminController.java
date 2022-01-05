@@ -21,6 +21,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.kh.cosmos.admin.model.service.AdminService;
 import com.kh.cosmos.admin.model.vo.BoardData;
 import com.kh.cosmos.admin.model.vo.BoardType;
+import com.kh.cosmos.admin.model.vo.ColumnAndCount;
+import com.kh.cosmos.admin.model.vo.Count;
 import com.kh.cosmos.admin.model.vo.EnrollMemberByMonth;
 import com.kh.cosmos.admin.model.vo.GenderData;
 import com.kh.cosmos.admin.model.vo.SevenDaysData;
@@ -414,7 +416,34 @@ public class AdminController {
 	}
 
 	@GetMapping("/StatisticsOfGroup.do")
-	public String StatisticsOfGroup() {
+	public String StatisticsOfGroup(Model model) {
+		
+		Count totalCountOfGroup = adminService.totalCountOfGroup();
+		log.debug("totalCountOfGroup = {}", totalCountOfGroup);
+		
+		Count countOfPremiumGroup = adminService.countOfPremiumGroup();
+		log.debug("countOfPremiumGroup = {}", countOfPremiumGroup);
+		
+		Count countOfPost = adminService.countOfPost();
+		log.debug("countOfPost = {}", countOfPost);
+		
+		Count countOfNewGroupInThisMonth = adminService.countOfNewGroupInThisMonth();
+		log.debug("countOfNewGroupInThisMonth = {}", countOfNewGroupInThisMonth);
+		
+		List<ColumnAndCount> countOfnewPostInThisWeekList = adminService.countOfnewPostInThisWeekList();
+		log.debug("countOfnewPostInThisWeekList= {}", countOfnewPostInThisWeekList);
+		
+		List<ColumnAndCount> countOfGroupLikeList = adminService.countOfGroupLikeList();
+		log.debug("countOfGroupLikeList = {}", countOfGroupLikeList);
+		
+		
+		model.addAttribute("totalCountOfGroup", totalCountOfGroup);
+		model.addAttribute("countOfPremiumGroup",countOfPremiumGroup);
+		model.addAttribute("countOfPost",countOfPost);
+		model.addAttribute("countOfNewGroupInThisMonth",countOfNewGroupInThisMonth);
+		model.addAttribute("countOfnewPostInThisWeekList", countOfnewPostInThisWeekList);
+		model.addAttribute("countOfGroupLikeList", countOfGroupLikeList);
+		
 		return "admin/StatisticsOfGroup";
 	}
 	
@@ -503,5 +532,18 @@ public class AdminController {
 		
 		return "admin/board";
 		
+	}
+	
+	@GetMapping("/totalCountOfPost")
+	@ResponseBody
+	public List<ColumnAndCount> totalCountOfPost(){
+		
+		List<ColumnAndCount> totalCountOfPost_list= adminService.totalCountOfPost();
+		log.debug("totalCountOfPost", totalCountOfPost_list);
+		
+		Map<String,Object> map = new HashMap<>();
+		map.put("totalCountOfPost", totalCountOfPost_list);
+		
+		return totalCountOfPost_list;
 	}
 }

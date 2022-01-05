@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 
 import com.kh.cosmos.admin.model.vo.BoardData;
 import com.kh.cosmos.admin.model.vo.BoardType;
+import com.kh.cosmos.admin.model.vo.ColumnAndCount;
+import com.kh.cosmos.admin.model.vo.Count;
 import com.kh.cosmos.admin.model.vo.EnrollMemberByMonth;
 
 import com.kh.cosmos.admin.model.dao.AdminDao;
@@ -137,6 +139,41 @@ public class AdminServiceImpl implements AdminService{
 	public int insertAuthoritiesValueForGroupMaster(Map<String, Object> param) {
 		// TODO Auto-generated method stub
 		return adminDao.insertAuthoritiesValueForGroupMaster(param);
+	}
+	
+	@Override
+	public Count totalCountOfGroup() {
+		return adminDao.totalCountOfGroup();
+	}
+
+	@Override
+	public Count countOfPremiumGroup() {
+		return adminDao.countOfPremiumGroup();
+	}
+
+	@Override
+	public Count countOfPost() {
+		return adminDao.countOfPost();
+	}
+
+	@Override
+	public Count countOfNewGroupInThisMonth() {
+		return adminDao.countOfNewGroupInThisMonth();
+	}
+
+	@Override
+	public List<ColumnAndCount> countOfnewPostInThisWeekList() {
+		return adminDao.countOfnewPostInThisWeekList();
+	}
+
+	@Override
+	public List<ColumnAndCount> countOfGroupLikeList() {
+		return adminDao.countOfGroupLikeList();
+	}
+
+	@Override
+	public List<ColumnAndCount> totalCountOfPost() {
+		return adminDao.totalCountOfPost();
 	}
 	
 	
