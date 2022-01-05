@@ -25,7 +25,7 @@
   <form
 		name="boardFrm"   
 		enctype="multipart/form-data" 
-		action="${pageContext.request.contextPath }/gw/board/boardEnroll.do?${_csrf.parameterName}=${_csrf.token}" method="post"
+		action="${pageContext.request.contextPath }/gw/board/boardEnroll.dto?${_csrf.parameterName}=${_csrf.token}" method="post"
 		method="POST" 
 		>
 		<div class="input-group mb-3 mx-auto">
