@@ -37,4 +37,6 @@ public interface GwAdminService {
 
 	List<TdlMonthlyData> selectTdlMonthlyDataList(int groupNo);
 
+	List<TdlMonthlyData> selectTdlMonthlyMemberCountList(int groupNo);
+
 }
