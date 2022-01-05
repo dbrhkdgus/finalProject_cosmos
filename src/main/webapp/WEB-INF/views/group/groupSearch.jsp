@@ -42,14 +42,17 @@
                     </c:if>
                 </ul> 
             </div>
-            <hr style="height: 0.5px; color: #8B6AD3; margin-bottom: 50px;">
-            <div class="search-outer">
+            <hr style="height: 0.5px; color: #8B6AD3; margin-bottom: 2%;">
+            <div class="search-outer"> 
                 <!-- 서치 메뉴 정렬및 검색기능  -->
                 <div class="search-outer-top">
 	                    <div class="search-outer-top left">
-		                    <p style="margin-bottom:20px;" id="class-amount">${totalContent }개의 클래스</p>
 		                    <sec:authorize access="isAuthenticated()">
-		                    	<button type="button" class="btn btn-outline-secondary" onclick="location.href='${pageContext.request.contextPath}/group/groupEnroll.do';">그룹 생성</button>
+		                        <a class="bt more-bt" href="${pageContext.request.contextPath}/group/groupEnroll.do">
+							        <span class="fl"></span><span class="sfl"></span><span class="cross"></span>
+							        <i></i>
+							        <p style="margin:0px;">그룹생성하기</p>
+							    </a>
 	                    	</sec:authorize>
 	                    </div>
 	                    
@@ -69,7 +72,8 @@
 		                    </div>
               		      </form>
 	                    </div>
-                      
+	                    
+                      <p style="margin-top:50px;" id="class-amount">${totalContent }개의 클래스</p>  
                 </div>
 		         
                 <c:choose>

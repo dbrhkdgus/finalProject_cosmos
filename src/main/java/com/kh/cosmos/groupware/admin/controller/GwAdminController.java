@@ -125,7 +125,7 @@ public class GwAdminController {
 		List<TdlMonthlyData> tdlMonthlyDataList = new ArrayList<TdlMonthlyData>();
 		tdlMonthlyDataList = gwAdminService.selectTdlMonthlyDataList(groupNo);
 		log.debug("tdlMonthlyDataList = {}" ,tdlMonthlyDataList);
-		
+		model.addAttribute("tdlMonthlyDataList",tdlMonthlyDataList);
 		
 		
 		return "gw/admin/groupManager";
