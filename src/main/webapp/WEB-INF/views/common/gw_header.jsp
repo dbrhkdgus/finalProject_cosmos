@@ -192,7 +192,7 @@
 										</svg>
 									</div>
 								</sec:authorize>
-           						<span>${boardRoom.boardNo}</span>
+           						<span class="d-none">${boardRoom.boardNo}</span>
            					</c:otherwise>
            				</c:choose>
 					</div>
@@ -339,15 +339,15 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form:form name="updateBoardRoomFrm" method="post" action="${pageContext.request.contextPath }/gw/board/updateBoardRoom.do">
+      <form:form id="updateDeleteBoardFrm" name="updateBoardRoomFrm" method="post" action="${pageContext.request.contextPath }/gw/board/updateBoardRoom.do">
 	      <div class="modal-body mx-3 my-2">
 	        <div class="md-form mb-3">
 	          <label  for="defaultForm-email">게시판 이름</label>
 	          <input type="text" name="boardName" class="form-control validate" placeholder="${boardName}" id="changingBoardName">
 	        </div>
 	      </div>
-	      <input type="text" name="groupNo" value="${currGroupNo}" />
-	      <input type="text" name="boardNo" id="board-no-for-update-delete" />
+	      <input type="hidden" name="groupNo" value="${currGroupNo}" />
+	      <input type="hidden" name="boardNo" id="board-no-for-update-delete" />
       </form:form>
       <div class="modal-footer d-flex justify-content-center">
         <button class="btn btn-updateBoardRoom">수정</button>
@@ -602,7 +602,10 @@ $(".btn-createChatRoom").click((e)=>{
 	 $("#board-no-for-update-delete").val(boardNo);
  });
  
- form.attr("action", delte)
+ $(".btn-deleteBoardRoom").click((e)=>{
+	 $("#updateDeleteBoardFrm").attr("action", `${pageContext.request.contextPath }/gw/board/deleteBoardRoom.do`);
+	 $(document.updateBoardRoomFrm).submit();
+ });
  
  $(".btn-createVoiceChatRoom").click((e)=>{
 	 $(document.createVoiceChatRoomFrm).submit();
