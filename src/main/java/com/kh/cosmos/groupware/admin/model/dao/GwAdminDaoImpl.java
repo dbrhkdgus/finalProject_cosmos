@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.cosmos.group.model.vo.ApplocationGroup;
+import com.kh.cosmos.groupware.admin.model.vo.TdlMemberCount;
 import com.kh.cosmos.groupware.app.model.vo.TDL;
 import com.kh.cosmos.groupware.fileBoard.vo.IdNickName;
 
@@ -73,7 +74,7 @@ public class GwAdminDaoImpl implements GwAdminDao {
 	}
 
 	@Override
-	public List<TDL> selectcheckedToDoList(int groupNo) {
+	public List<TdlMemberCount> selectcheckedToDoList(int groupNo) {
 		// TODO Auto-generated method stub
 		return session.selectList("gwAdmin.selectcheckedToDoList" , groupNo);
 	}

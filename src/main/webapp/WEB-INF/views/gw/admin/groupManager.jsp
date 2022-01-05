@@ -11,7 +11,7 @@
 <jsp:include page="/WEB-INF/views/common/gw_header.jsp">
 	<jsp:param value="" name="title"/>
 </jsp:include>
-
+${checkedToDoList }
  <div class="workspace-box">
   
       <div class="study-admin-box">
@@ -35,26 +35,24 @@
 		var memberIdList = new Array();
 		var list = new Array();
 		var list2= new Array();
+		var nameCount = 0;
+
 		<c:forEach items="${acceptApplocationGroupList}" var="item1">
 			<c:forEach items="${chartIdNickNameList}" var="item2">
 				<c:if test="${item1.memberId eq item2.id}">	
 					<c:forEach items="${checkedToDoList}" var="tdl">
 						<c:if test="${tdl.memberId eq item2.id}"> 
-							list.push("${item2.nickName}");			
-							console.log("${tdl.memberId }");
+							list.push("${item2.nickName}");
+							
+							console.log();
 						
 					 	</c:if> 
 					</c:forEach>
 				</c:if>			
 			</c:forEach>
 		</c:forEach>
-	
-		for(var i=0; i < list.length; i++){
-				list[i]
-		}
-		list.push("엑스트라1");
-		list.push("엑스트라2");
 		
+
 		
 		var colors = [ 'rgba(255, 99, 132, 0.2)',
             'rgba(255, 159, 64, 0.2)',
