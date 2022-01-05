@@ -15,9 +15,9 @@ public class AppServiceImpl implements AppService {
 	private AppDao appDao;
 
 	@Override
-	public List<TDL> selectAlltdlListByParam(Map<String, Object> param) {
+	public List<TDL> selectAlltdlListByParam(Map<String, Object> param, int limit, int offset) {
 		// TODO Auto-generated method stub
-		return appDao.selectAlltdlListByParam(param);
+		return appDao.selectAlltdlListByParam(param,limit,offset);
 	}
 
 	@Override
@@ -36,6 +36,18 @@ public class AppServiceImpl implements AppService {
 	public List<TDL> selectTDLBysort(Map<String, Object> param) {
 		// TODO Auto-generated method stub
 		return appDao.selectTDLBysort(param);
+	}
+
+	@Override
+	public int selectTDLTotalCount(Map<String, Object> param) {
+		// TODO Auto-generated method stub
+		return appDao.selectTDLTotalCount(param);
+	}
+
+	@Override
+	public int selectTDLBysortTotalCount(Map<String, Object> param) {
+		// TODO Auto-generated method stub
+		return appDao.selectTDLBysortTotalCount(param);
 	}
 	
 }
