@@ -504,7 +504,23 @@
 <sec:authorize access="hasAnyRole('ROLE_GW${currGroupNo}MASTER', 'ROLE_ADMIN')">
 <script>
 $(".btn-delete-chatroom").click((e)=>{
-	console.log($(e.target).data("chatroomno"));
+	if(confirm("모든 채팅 내역이 사라집니다. 삭제하시겠습니까?")){
+		var chatRoomNo = $(e.target).data("chatroomno");
+		$.ajax({
+			url : "${pageContext.request.contextPath}/gw/chat/deleteChatRoom.do",
+			data : {
+				chatRoomNo : chatRoomNo
+			},
+			success(res){
+				if(res > 0){
+					alert("채팅방이 삭제되었습니다.");
+					location.reload();
+				}
+			},
+			error : console.log
+		});
+		
+	}
 	
 });
 </script>
