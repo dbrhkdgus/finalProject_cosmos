@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.cosmos.common.attachment.model.vo.Attachment;
+import com.kh.cosmos.group.model.vo.ApplocationGroup;
 import com.kh.cosmos.group.model.vo.Group;
 import com.kh.cosmos.groupware.board.model.vo.Board;
 import com.kh.cosmos.groupware.chat.model.service.ChatService;
@@ -110,7 +111,13 @@ public class GwVoiceChatController {
         Group myGroup = gwService.selectMyGroup(groupNo);
         List<Member> myGroupMemberList = gwService.selectAllGroupMembers(groupNo);
         
+        Map<String,Object> param = new HashMap<>();
+        param.put("memberId", loginMember.getId());
+        param.put("groupNo", groupNo);
+        ApplocationGroup applocationGroup = gwService.selectApplocationGroup(param);
         
+        
+        model.addAttribute("role", applocationGroup.getRole());
         
         List<Group> myGroupList = gwService.selectAllMyGroup(loginMember.getId());
         List<Attachment> groupBannerAttachList = gwService.selectAllGroupBannerAttach();
