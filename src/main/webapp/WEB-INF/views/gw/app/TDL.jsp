@@ -54,10 +54,10 @@
 							<td class="w-10 text-center">
 								<div>
 									<c:if test="${fn:contains(tdl.tdlChecked, 'N')}">
-											<button type="button" class="btn btn-outline-primary btn-TDLComplete" onclick="TDLComplete(${tdl.tdlNo },${tdl.groupNo })">완료하기</button>
+											<button type="button" class="btn btn-outline-primary btn-sm btn-TDLComplete" onclick="TDLComplete(${tdl.tdlNo },${tdl.groupNo })">완료하기</button>
 									</c:if>
 									<c:if test="${fn:contains(tdl.tdlChecked, 'Y')}">
-											<button type="button" class="btn btn-outline-primary btn-TDLCancel" onclick="TDLCancel(${tdl.tdlNo },${tdl.groupNo })">취소</button>
+											<button type="button" class="btn btn-outline-primary btn-sm btn-TDLCancel" onclick="TDLCancel(${tdl.tdlNo },${tdl.groupNo })">취소</button>
 									</c:if>
 									<input type="hidden" class="hiddenTDLNo" value="${tdl.tdlNo }"/>
 									<input type="hidden" class="hiddenGroupNo" value="${tdl.groupNo }"/>
@@ -67,6 +67,7 @@
 					</c:forEach>
 				</tbody>
 			</table>
+			<div class="pagebar" style="margin: auto">${pagebar}</div>
 			<div style="float: right;margin-bottom: 5px;">
 				<button type="button" class="btn btn-outline-primary btn-createTDL">할일 추가</button>
 			</div>
@@ -102,6 +103,7 @@
 </div>
 <script>
 var tbody = document.querySelector(".tbody-form")
+var pagebar = document.querySelector(".pagebar")
 $(".modal-member-box").hide();
 
 $(".btn-createTDL-submit").click((e)=>{
@@ -116,6 +118,7 @@ $(".btn-createTDL-submit").click((e)=>{
  $("#sort-select").change((e)=>{
 	 const $groupNo = $(e.target).next().val();
 	 tbody.innerHTML = "";
+	 pagebar.innerHTML = "";
 	 $.ajax({
 			url: `${pageContext.request.contextPath}/gw/app/reCalculate.do`,
 			data: {
@@ -152,7 +155,7 @@ $(".btn-createTDL-submit").click((e)=>{
 		 				if(v.tdlChecked == 'N'){
 		 					html3 = `<td class="w-10 text-center">
 		 						<div>
-		 							<button type="button" class="btn btn-outline-primary btn-TDLComplete" onclick="TDLComplete(\${v.tdlNo },\${v.groupNo })">완료하기</button>
+		 							<button type="button" class="btn btn-outline-primary btn-sm btn-TDLComplete" onclick="TDLComplete(\${v.tdlNo },\${v.groupNo })">완료하기</button>
 		 							<input type="hidden" class="hiddenTDLNo" value="\${v.tdlNo }"/>
 									<input type="hidden" class="hiddenGroupNo" value="\${v.groupNo }"/>
 								</div>
@@ -160,7 +163,7 @@ $(".btn-createTDL-submit").click((e)=>{
 		 				}else{
 		 					html3 = `<td class="w-10 text-center">
 		 						<div>
-		 							<button type="button" class="btn btn-outline-primary btn-TDLCancel" onclick="TDLCancel(\${v.tdlNo },\${v.groupNo })">취소</button>
+		 							<button type="button" class="btn btn-outline-primary btn-sm btn-TDLCancel" onclick="TDLCancel(\${v.tdlNo },\${v.groupNo })">취소</button>
 		 							<input type="hidden" class="hiddenTDLNo" value="\${v.tdlNo }"/>
 									<input type="hidden" class="hiddenGroupNo" value="\${v.groupNo }"/>
 								</div>

@@ -40,5 +40,28 @@
   	 </if>
   	 
   </select>
-  
+  <select id="selectTDLTotalCount" resultType="_int">
+  	select count(*) from todolist where group_no = #{groupNo} and member_id = #{id} order by tdl_create_date desc
+  </select>
+  <select id="selectTDLBysortTotalCount" resultType="_int">
+  	select count(*) from todolist
+  	<where>
+  		<if test="check eq 'ALL'">
+  			group_no = #{groupNo} and member_id = #{memberId}
+  		</if>
+  		<if test="check eq 'not'">
+  			group_no = #{groupNo} and member_id = #{memberId} and tdl_checked = 'N'
+  		</if>
+  		<if test="check eq 'complete'">
+  			group_no = #{groupNo} and member_id = #{memberId} and tdl_checked = 'Y'
+  		</if>
+  	</where>
+  	 order by
+  	 <if test="check eq 'complete'">
+  	 	tdl_create_date desc
+  	 </if>
+  	 <if test="check neq 'complete'">
+  	 	tdl_create_date desc
+  	 </if>
+  </select>
 </mapper>
