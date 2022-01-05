@@ -107,26 +107,44 @@ public class GwAdminController {
 		
 		List<ApplocationGroup> acceptApplocationGroupList = new ArrayList<ApplocationGroup>();
 		acceptApplocationGroupList = gwAdminService.selectAllAcceptGroupMemberList(groupNo);
-		log.debug("acceptApplocationGroupList = {} ",acceptApplocationGroupList);
+//		log.debug("acceptApplocationGroupList = {} ",acceptApplocationGroupList);
 		model.addAttribute("acceptApplocationGroupList",acceptApplocationGroupList);
 		
 		
 		List<IdNickName> chartIdNickNameList = new ArrayList<IdNickName>();
 		chartIdNickNameList = gwAdminService.selectChartIdNickNameList();
-		log.debug("chartIdNickNameList = {}" ,chartIdNickNameList);
+//		log.debug("chartIdNickNameList = {}" ,chartIdNickNameList);
 		 model.addAttribute("chartIdNickNameList",chartIdNickNameList);
 
 		 
 		 List<TdlMemberCount> checkedToDoList = new ArrayList<TdlMemberCount>() ;
 		checkedToDoList = gwAdminService.selectcheckedToDoList(groupNo);
-		log.debug("checkedToDoList = {}" ,checkedToDoList);
+//		log.debug("checkedToDoList = {}" ,checkedToDoList);
 		model.addAttribute("checkedToDoList",checkedToDoList);
 
 		List<TdlMonthlyData> tdlMonthlyDataList = new ArrayList<TdlMonthlyData>();
 		tdlMonthlyDataList = gwAdminService.selectTdlMonthlyDataList(groupNo);
-		log.debug("tdlMonthlyDataList = {}" ,tdlMonthlyDataList);
+//		log.debug("tdlMonthlyDataList = {}" ,tdlMonthlyDataList);
 		model.addAttribute("tdlMonthlyDataList",tdlMonthlyDataList);
 		
+		List<TdlMonthlyData> tdlMonthlyMemberCountList = new ArrayList<TdlMonthlyData>();
+		tdlMonthlyMemberCountList =gwAdminService.selectTdlMonthlyMemberCountList(groupNo);
+//		log.debug("tdlMonthlyMemberCountList = {}" ,tdlMonthlyMemberCountList);
+
+		List<Map<String,Object>> totalTdlAvgltList = new ArrayList<>();
+			for(TdlMonthlyData tdl : tdlMonthlyMemberCountList ) {
+			Map<String,Object> tdlMonthlyMemberCountMap = new HashMap<String, Object>();
+			tdlMonthlyMemberCountMap.put("monthlyData",tdl.getMonthlyData());
+			tdlMonthlyMemberCountMap.put("avg",(tdl.getCount() / tdl.getMemberCount()));
+			totalTdlAvgltList.add(tdlMonthlyMemberCountMap);
+			}
+			
+		//	log.debug("totalTdlAvgltList = {}" ,totalTdlAvgltList);
+		
+			
+		
+			
+			model.addAttribute("totalTdlAvgltList",totalTdlAvgltList);
 		
 		return "gw/admin/groupManager";
 		

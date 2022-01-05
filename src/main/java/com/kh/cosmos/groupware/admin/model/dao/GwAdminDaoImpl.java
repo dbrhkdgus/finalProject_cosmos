@@ -92,6 +92,13 @@ public class GwAdminDaoImpl implements GwAdminDao {
 		return session.selectList("gwAdmin.selectTdlMonthlyDataList",groupNo);
 	}
 
+	@Override
+	public List<TdlMonthlyData> selectTdlMonthlyMemberCountList(int groupNo) {
+		return session.selectList("gwAdmin.tdlMonthlyMemberCountList",groupNo);
+	}
+
+	
+		
 	
 	
 	

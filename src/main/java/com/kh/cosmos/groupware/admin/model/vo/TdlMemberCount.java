@@ -19,6 +19,6 @@ public class TdlMemberCount implements Serializable {
 	
 	private String memberId;
 	private int count;
-	private int memberCount;
+
 	
 }

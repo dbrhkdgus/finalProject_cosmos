@@ -38,21 +38,8 @@
 		var nameCount = 0;
 		var monthList = new Array();  //달 수 
 		var monthCountList= new Array();// 달마다 count
-		
-		/* <c:forEach items="${acceptApplocationGroupList}" var="item1">
-			<c:forEach items="${chartIdNickNameList}" var="item2">
-				<c:if test="${item1.memberId eq item2.id}">	
-					<c:forEach items="${checkedToDoList}" var="tdl">
-						<c:if test="${tdl.memberId eq item2.id}"> 
-							list.push("${item2.nickName}");
-							
-							console.log();
-						
-					 	</c:if> 
-					</c:forEach>
-				</c:if>			
-			</c:forEach>
-		</c:forEach> */
+		var avgMonthCountList= new Array();// 달마다 count
+	
 		
 		<c:forEach items="${checkedToDoList}" var="checkedToDoList">
 			<c:forEach items="${chartIdNickNameList}" var="chartIdNickNameList">
@@ -62,16 +49,24 @@
 				</c:if>
 			</c:forEach>
 		</c:forEach>
-	
-		console.log(nickList.length);
-	
 		
 		<c:forEach items="${tdlMonthlyDataList}" var="tdlMonthlyDataList">
 			monthList.push("${tdlMonthlyDataList.monthlyData}");
 			monthCountList.push("${tdlMonthlyDataList.count}");
 		</c:forEach>
-
-
+		
+		
+		
+		
+		
+		<c:forEach items="${totalTdlAvgltList}" var="avgList">
+			<c:forEach items="${avgList}" var="map"  varStatus="status">
+					/* avgMonthCountList.push(${map.avg}); */
+						
+					console.log(${map.value});
+			</c:forEach>
+		</c:forEach>
+		
 		
 		var colors = [ 'rgba(255, 99, 132, 0.2)',
             'rgba(255, 159, 64, 0.2)',
