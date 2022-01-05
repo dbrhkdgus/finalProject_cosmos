@@ -439,6 +439,12 @@ $(".old-tr").click((e)=>{
 	location.href="${pageContext.request.contextPath}/gw/vote/voteHistory.do?groupNo=${currGroupNo}&voteNo="+voteNo;
 });
 </script>
+<script>
+window.addEventListener("load", function(){
+	$("#dropdownApp").removeClass("collapsed");
+	$("#app-collapse").addClass("show");
+	});
+</script>
 <jsp:include page="/WEB-INF/views/common/gw_footer.jsp"></jsp:include>
 
 </sec:authorize>

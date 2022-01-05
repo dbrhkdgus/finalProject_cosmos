@@ -144,6 +144,12 @@ $("#button-addon2").click((e)=>{
    
 });
 </script>
+<script>
+window.addEventListener("load", function(){
+	$("#dropdownBoard").removeClass("collapsed");
+	$("#board-collapse").addClass("show");
+	});
+</script>
 <jsp:include page="/WEB-INF/views/common/gw_footer.jsp"></jsp:include>
 
 </sec:authorize>

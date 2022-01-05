@@ -677,6 +677,11 @@ $("#detailDeleteBtn").click((e)=>{
 })
 
 </script>
-
+<script>
+window.addEventListener("load", function(){
+	$("#dropdownCalendar").removeClass("collapsed");
+	$("#schedule-collapse").addClass("show");
+	});
+</script>
 <jsp:include page="/WEB-INF/views/common/gw_footer.jsp"></jsp:include>
 </sec:authorize>
