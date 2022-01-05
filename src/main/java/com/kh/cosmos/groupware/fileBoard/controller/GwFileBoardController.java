@@ -1,10 +1,9 @@
 package com.kh.cosmos.groupware.fileBoard.controller;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -32,16 +31,21 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.kh.cosmos.common.CosmosUtils;
 import com.kh.cosmos.common.attachment.model.service.AttachmentService;
 import com.kh.cosmos.common.attachment.model.vo.Attachment;
+import com.kh.cosmos.group.model.vo.ApplocationGroup;
 import com.kh.cosmos.group.model.vo.Group;
+import com.kh.cosmos.groupware.board.model.service.BoardService;
 import com.kh.cosmos.groupware.board.model.vo.Board;
 import com.kh.cosmos.groupware.board.model.vo.Post;
+import com.kh.cosmos.groupware.board.model.vo.PostReplyCount;
 import com.kh.cosmos.groupware.board.model.vo.PostWithCategory;
+import com.kh.cosmos.groupware.board.model.vo.PostWithNickname;
 import com.kh.cosmos.groupware.chat.model.vo.ChatRoom;
 import com.kh.cosmos.groupware.fileBoard.model.service.FileBoardService;
 import com.kh.cosmos.groupware.fileBoard.vo.FileEnroll;
 import com.kh.cosmos.groupware.fileBoard.vo.IdNickName;
 import com.kh.cosmos.groupware.service.GroupwareService;
 import com.kh.cosmos.member.model.vo.Member;
+import com.kh.cosmos.member.model.vo.MemberWithGroup;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -63,69 +67,151 @@ public class GwFileBoardController {
 	private AttachmentService attachmentService;
 	
 	@Autowired
+	private BoardService boardService;
+	
+	@Autowired
 	ResourceLoader resourceLoader;
 	
-
+//	@GetMapping("/fileBoard.do")
+//    public String fileBoard(@RequestParam(defaultValue = "1") int cPage,Model model,
+//    		@RequestParam int groupNo, HttpServletRequest request,
+//    		@RequestParam int boardNo, Authentication authentication) {
+//    	groupwareHeaderSet(groupNo, model, authentication);
+////    	log.debug("cPage = {}", cPage);
+////		log.debug("boardNo = {}", boardNo);
+//		int limit = 10;
+//		int offset = (cPage - 1) * limit;
+//		int totalContent = fileBoardService.selectPostInFileBoardTotalCount(boardNo);
+//		model.addAttribute("totalContent", totalContent);
+//		String url = request.getRequestURI();
+//		url += "?boardNo=" + boardNo + "&groupNo=" + groupNo;
+//		String pagebar = CosmosUtils.getPagebar(cPage, limit, totalContent, url);
+//		model.addAttribute("pagebar", pagebar);
+//		
+//		
+//		
+//		List<IdNickName> idnicknameList = new ArrayList<IdNickName>();
+//		idnicknameList = fileBoardService.selectIdNickName();
+//		log.debug("idnicknameList = {}",idnicknameList);
+//		model.addAttribute("idnicknameList",idnicknameList);
+//		
+//		
+//		Map<String, Object> param = new HashMap<String, Object>();
+//		
+//		List<PostWithCategory> fileBoardList = new ArrayList<PostWithCategory>();
+//		String searchType = request.getParameter("searchType");
+//		String searchKeyword = request.getParameter("searchKeyword");
+//		param.put("searchType", searchType);
+//		param.put("searchKeyword", searchKeyword);
+//				
+//		fileBoardList = fileBoardService.selectAllFileBoardListByParam(param,limit,offset);		
+//		model.addAttribute("fileBoardList",fileBoardList);
+//		
+//		boolean isListempty = false;
+//		if(fileBoardList.isEmpty()) {
+//			isListempty = true;
+//		}
+//		
+//		log.debug("isListempty ={}" ,isListempty );
+//		model.addAttribute("isListempty",isListempty);
+//			
+//		
+//		model.addAttribute("groupNo", groupNo);
+//        model.addAttribute("boardNo", boardNo);
+//        model.addAttribute("title", "파일게시판");
+//        
+//        
+//        List<PostWithCategory> fileboardPostList = fileBoardService.selectAllPostInfileBoard(boardNo);
+////		log.debug("boardPostList = {}", fileboardPostList);
+//	        model.addAttribute("fileboardPostList", fileboardPostList);
+//	        
+//	        
+//	    List<Attachment> attach = fileBoardService.selectAttachmentList();
+////	    log.debug("attach = {}", attach);
+//	        model.addAttribute("attach",attach);
+//	    return "gw/fileBoard/fileBoard";
+//	}
 	
     @GetMapping("/fileBoard.do")
     public String fileBoard(@RequestParam(defaultValue = "1") int cPage,Model model,
     		@RequestParam int groupNo, HttpServletRequest request,
     		@RequestParam int boardNo, Authentication authentication) {
     	groupwareHeaderSet(groupNo, model, authentication);
-//    	log.debug("cPage = {}", cPage);
-//		log.debug("boardNo = {}", boardNo);
 		int limit = 10;
 		int offset = (cPage - 1) * limit;
 		int totalContent = fileBoardService.selectPostInFileBoardTotalCount(boardNo);
-		model.addAttribute("totalContent", totalContent);
 		String url = request.getRequestURI();
 		url += "?boardNo=" + boardNo + "&groupNo=" + groupNo;
 		String pagebar = CosmosUtils.getPagebar(cPage, limit, totalContent, url);
+		model.addAttribute("totalContent", totalContent);
 		model.addAttribute("pagebar", pagebar);
-		
-		
 		
 		List<IdNickName> idnicknameList = new ArrayList<IdNickName>();
 		idnicknameList = fileBoardService.selectIdNickName();
 		log.debug("idnicknameList = {}",idnicknameList);
 		model.addAttribute("idnicknameList",idnicknameList);
 		
-		
-		Map<String, Object> param = new HashMap<String, Object>();
-		
-		List<PostWithCategory> fileBoardList = new ArrayList<PostWithCategory>();
-		String searchType = request.getParameter("searchType");
-		String searchKeyword = request.getParameter("searchKeyword");
-		param.put("searchType", searchType);
-		param.put("searchKeyword", searchKeyword);
-				
-		fileBoardList = fileBoardService.selectAllFileBoardListByParam(param,limit,offset);		
+		List<PostWithCategory> fileBoardList = fileBoardService.selectAllPostInfileBoard(boardNo, limit, offset);
 		model.addAttribute("fileBoardList",fileBoardList);
-		
-		boolean isListempty = false;
-		if(fileBoardList.isEmpty()) {
-			isListempty = true;
-		}
-		
-		log.debug("isListempty ={}" ,isListempty );
-		model.addAttribute("isListempty",isListempty);
-			
+		Board board = boardService.selectBoardByBoardNo(boardNo);
 		
 		model.addAttribute("groupNo", groupNo);
         model.addAttribute("boardNo", boardNo);
-        model.addAttribute("title", "파일게시판");
-        
-        
-        List<PostWithCategory> fileboardPostList = fileBoardService.selectAllPostInfileBoard(boardNo);
-//		log.debug("boardPostList = {}", fileboardPostList);
-	        model.addAttribute("fileboardPostList", fileboardPostList);
-	        
+        model.addAttribute("title", "# " + board.getBoardName());
 	        
 	    List<Attachment> attach = fileBoardService.selectAttachmentList();
 //	    log.debug("attach = {}", attach);
-	        model.addAttribute("attach",attach);
-	        return "gw/fileBoard/fileBoard";
-	    }
+	    model.addAttribute("attach",attach);
+	    return "gw/fileBoard/fileBoard";
+	}
+    
+    @GetMapping("/fileBoardSearch.do")
+	public String boardSearch(@RequestParam(defaultValue = "1") int cPage, int boardNo, int groupNo, Model model,
+			HttpServletRequest request, Authentication auth) throws ParseException {
+		groupwareHeaderSet(groupNo, model, auth);
+		
+		String searchType = request.getParameter("searchType");
+		String searchKeyword = request.getParameter("searchKeyword");
+		
+		Map<String, Object> param = new HashMap<>();
+		param.put("searchType", searchType);
+		param.put("searchKeyword", searchKeyword);
+		param.put("boardNo", boardNo);
+		int limit = 10;
+		int offset = (cPage - 1) * limit;
+		int totalContent = fileBoardService.selectSearchFileBoardTotalCnt(param);
+		log.debug("totalContent = {}",totalContent);
+		String url = request.getRequestURI();
+//		url += "?boardNo=" + boardNo + "&groupNo=" + groupNo;
+		url += "?boardNo=" + boardNo + "&groupNo=" +groupNo + "&searchType=" + searchType + "&searchKeyword=" + searchKeyword;
+		String pagebar = CosmosUtils.getPagebar(cPage, limit, totalContent, url);
+		model.addAttribute("totalContent", totalContent);
+
+		List<PostWithNickname> fileBoardList = fileBoardService.selectAllFileBoardListByParam(param,limit,offset);
+		log.debug("fileBoardList = {}", fileBoardList);
+		model.addAttribute("fileBoardList", fileBoardList);
+		
+		List<IdNickName> idnicknameList = new ArrayList<IdNickName>();
+		idnicknameList = fileBoardService.selectIdNickName();
+		log.debug("idnicknameList = {}",idnicknameList);
+		model.addAttribute("idnicknameList",idnicknameList);
+		
+		Board board = boardService.selectBoardByBoardNo(boardNo);
+		
+		List<Attachment> attach = fileBoardService.selectAttachmentList();
+//	    log.debug("attach = {}", attach);
+	    model.addAttribute("attach",attach);
+		
+		model.addAttribute("searchType", searchType);
+		model.addAttribute("searchKeyword", searchKeyword);
+		model.addAttribute("boardNo", boardNo);
+		model.addAttribute("groupNo", groupNo);
+		model.addAttribute("idnicknameList", idnicknameList);
+		model.addAttribute("pagebar", pagebar);
+		model.addAttribute("title", "# " + board.getBoardName());
+
+		return "gw/fileBoard/fileBoard";
+	}
     
     @GetMapping("/fileEnroll.do")
     public void fileEnroll(@RequestParam int groupNo,@RequestParam int boardNo, Model model ) {
@@ -279,7 +365,13 @@ public class GwFileBoardController {
         List<Board> boardList = gwService.selectAllBoardRoomByGroupNo(groupNo);
         model.addAttribute("boardList", boardList);
         List<ChatRoom> chattingChannelList = gwService.selectAllChatRoomByGroupNo(groupNo);
+        Map<String,Object> param = new HashMap<>();
+    	param.put("memberId", loginMember.getId());
+    	param.put("groupNo", groupNo);
+        ApplocationGroup applocationGroup = gwService.selectApplocationGroup(param);
         
+        
+        model.addAttribute("role", applocationGroup.getRole());
         model.addAttribute("currGroupNo", groupNo);
         model.addAttribute("myGroup", myGroup);
         model.addAttribute("myGroupMemberList", myGroupMemberList);

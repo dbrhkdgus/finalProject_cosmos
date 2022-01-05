@@ -60,11 +60,7 @@
 		
 		
 		<c:forEach items="${totalTdlAvgltList}" var="avgList">
-			<c:forEach items="${avgList}" var="map"  varStatus="status">
-					/* avgMonthCountList.push(${map.avg}); */
-						
-					console.log(${map.value});
-			</c:forEach>
+			avgMonthCountList.push(${avgList.avg});
 		</c:forEach>
 		
 		
@@ -100,7 +96,7 @@
             borderWidth:1,
             fill: false
           }, { 
-            data: [10,20,30,20,10,0],
+            data:avgMonthCountList,
             label: "월별 달성한 평균 TDL",
             borderColor: 'rgb(54, 162, 235)',
             backgroundColor: 'rgba(54, 162, 235, 0.2)',

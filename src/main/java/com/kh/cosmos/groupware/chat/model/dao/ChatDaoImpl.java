@@ -150,6 +150,18 @@ public class ChatDaoImpl implements ChatDao {
 		// TODO Auto-generated method stub
 		return session.delete("chat.deleteDmMessage", dmMessageNo);
 	}
+
+	@Override
+	public List<Member> selectAllChatUsers(int chatRoomNo) {
+		// TODO Auto-generated method stub
+		return session.selectList("chat.selectAllChatUsers", chatRoomNo);
+	}
+
+	@Override
+	public String selectChatRoomNoByChatRoomNo(int chatRoomNo) {
+		// TODO Auto-generated method stub
+		return session.selectOne("chat.selectChatRoomNoByChatRoomNo", chatRoomNo);
+	}
 	
 	
 	

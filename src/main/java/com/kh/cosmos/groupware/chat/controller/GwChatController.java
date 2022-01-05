@@ -176,6 +176,28 @@ public class GwChatController {
 		return resultList;
 	}
 	@ResponseBody
+	@GetMapping("/selectChatUser.do")
+	public List<Map<String,String>> selectChatUser(int chatRoomNo){
+		log.debug("chatRoomNo = {}", chatRoomNo);
+		List<Map<String,String>> resultList = new ArrayList<>();
+		String chatRoomOpenType = chatService.selectChatRoomNoByChatRoomNo(chatRoomNo);
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("chatRoomOpenType", chatRoomOpenType);
+		resultList.add(map);
+		
+		List<Member> memberList = chatService.selectAllChatUsers(chatRoomNo);
+		for(Member m : memberList) {
+			Map<String, String> map2 = new HashMap<>();
+			String profileRenamedFilename = gwService.selectMemberProfileRenamedFilename(m.getId());
+			map2.put("profileRenamedFilename", profileRenamedFilename);
+			map2.put("nickname", m.getNickname());
+			map2.put("memberId", m.getId());
+			resultList.add(map2);
+		}
+		
+		return resultList;
+	}
+	@ResponseBody
 	@GetMapping("/loadDM.do")
 	public List<DM> loadDM(String sender, String receiver){
 		log.debug("sender = {}", sender);
@@ -278,7 +300,7 @@ public class GwChatController {
 				e.printStackTrace();
 			}
 			 
-			 // 2.DB에 attachment 레코드 등록
+			 // 2.DB에 attachment 레코드 등록 
 			 Attachment attach = new Attachment();
 			 attach.setRenamedFilename(renamedFilename);
 			 attach.setOriginalFilename(originalFilename);

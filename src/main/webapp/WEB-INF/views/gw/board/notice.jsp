@@ -33,13 +33,12 @@
 		   		<input type="hidden" name="boardNo" value="${boardNo}"/>
 		   		<input type="hidden" name="groupNo" value="${groupNo}"/>
       			<input type="text" class="form-control" name="searchKeyword" placeholder="검색어를 입력하세요." >
-		      		
-		   	  <input class="btn btn-outline-secondary" type="submit" id="button-addon2" value="검색"></input>
+		      	<button class="btn btn-primary"><i class="fas fa-search"></i></button>
 		   </div>   
 		</div>       
     </form>
   
-  <table class="table table-sm">
+  <table class="table">
     <tbody>
     <c:forEach var="post" items="${noticePostList}" varStatus="vs">
       <tr onclick="location.href='${pageContext.request.contextPath}/gw/board/boardDetail.do?postNo=${post.postNo}'">

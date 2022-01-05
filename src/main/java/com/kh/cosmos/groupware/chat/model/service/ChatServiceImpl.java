@@ -150,6 +150,18 @@ public class ChatServiceImpl implements ChatService {
 		// TODO Auto-generated method stub
 		return chatDao.deleteDmMessage(dmMessageNo);
 	}
+
+	@Override
+	public List<Member> selectAllChatUsers(int chatRoomNo) {
+		// TODO Auto-generated method stub
+		return chatDao.selectAllChatUsers(chatRoomNo);
+	}
+
+	@Override
+	public String selectChatRoomNoByChatRoomNo(int chatRoomNo) {
+		// TODO Auto-generated method stub
+		return chatDao.selectChatRoomNoByChatRoomNo(chatRoomNo);
+	}
 	
 	
 	
