@@ -56,7 +56,13 @@
     <c:forEach var="post" items="${boardPostList}" varStatus="vs">
       <tr onclick="location.href='${pageContext.request.contextPath}/gw/board/boardDetail.do?postNo=${post.postNo}'">
         <td>${fn:length(boardPostList)- vs.count+1}</td>
-        <td colspan="2" class="text-left">${post.postTitle}</td>
+        <td colspan="2" class="text-left">${post.postTitle}
+        	<c:forEach var="cnt" items="${replyCount}" >
+        		<c:if test="${post.postNo == cnt.postNo}">
+        			(${cnt.replyCnt})
+        		</c:if>
+        	</c:forEach>
+        </td>
         <td>${memberWithGroupMap[post.memberId]}</td>
         <td><fmt:formatDate value="${post.postRegDate}" pattern="yy-MM-dd"/></td>
       </tr>

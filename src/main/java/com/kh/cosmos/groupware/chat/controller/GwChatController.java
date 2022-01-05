@@ -292,6 +292,16 @@ public class GwChatController {
 		return attachmentRenameFilename;
 	}
 	
+	@ResponseBody
+	@GetMapping("/deleteChatRoom.do")
+	public int deleteChatRoom(int chatRoomNo) {
+		
+		int result = chatService.deleteChatRoom(chatRoomNo);
+		
+		
+		
+		return result;
+	}
 	
 	public void groupwareHeaderSet(int groupNo, Model model, Authentication auth) {
 		Member loginMember = (Member) auth.getPrincipal();
