@@ -322,7 +322,7 @@ public class GroupController {
 				
 			}
 			
-			log.debug("*********************noticeboardResult = {}", result);
+			//log.debug("*********************noticeboardResult = {}", result);
 			ApplocationGroup applocationGroup = new ApplocationGroup();
 			applocationGroup.setMemberId(groupEnroll.getMemberId());
 		
