@@ -20,8 +20,8 @@
 		enctype="multipart/form-data"
 		action="${pageContext.request.contextPath}/gw/board/boardSearch.do?" 
 		method="get">
-	    <div class="test-board-search">
-	    	 <select name="searchType" class="form-select search-select">
+	    <div class="test-board-search" style="display:flex; float:right; width:500px;">
+	    	 <select name="searchType" class="form-select search-select" id="form-select-search" >
 		        <option value="post_title" 
 	        	<c:if test="${searcyType eq 'post_title'}">selected </c:if> 
 		        >제목</option>
@@ -31,18 +31,28 @@
 		        <option value="post_content" 
 	        	<c:if test="${searcyType eq 'post_content'}">selected </c:if> 
 		        >내용</option>
-		        
+		      
 		     </select>
-		     
-		   <div class="input-group mb-3 search-input">
+        	<div class="input-group mb-3"> 
+        		<input type="hidden" name="boardNo" value="${boardNo}"/>
+				<input type="hidden" name="groupNo" value="${groupNo}"/>
+        		<input type="text"  class="form-control" name="searchKeyword" placeholder="검색어를 입력하세요.">
+        	<button class="btn btn-primary"><i class="fas fa-search"></i></button>
+    		</div>
+		</div>
+ 	</form>
+		 
+		 
+		 <!--<div class="input-group mb-3 search-input">
 		   		<input type="hidden" name="boardNo" value="${boardNo}"/>
 		   		<input type="hidden" name="groupNo" value="${groupNo}"/>
       			<input type="text" class="form-control" name="searchKeyword" placeholder="검색어를 입력하세요." >
 		      		
 		   	  <input class="btn btn-outline-secondary" type="submit" id="button-addon2" value="검색"></input>
-		   </div>   
-		</div>       
-    </form>
+		   	</div>   
+			</div>       
+    	</form> -->
+    <br>
   <table class="table file-board-table">
     <thead>
       <tr>
