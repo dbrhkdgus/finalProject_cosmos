@@ -62,7 +62,8 @@
 				</c:if>
 			</c:forEach>
 		</c:forEach>
-
+	
+		console.log(nickList.length);
 	
 		
 		<c:forEach items="${tdlMonthlyDataList}" var="tdlMonthlyDataList">
