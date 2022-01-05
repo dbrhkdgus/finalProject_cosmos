@@ -103,6 +103,7 @@
 
 	<select id="selectTdlMonthlyDataList" resultType="TdlMonthlyData">
 
+
 				 <![CDATA[
 				select
 				TO_CHAR(tdl_create_date, 'MM') as monthlyData, 

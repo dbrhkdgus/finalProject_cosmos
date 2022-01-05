@@ -33,10 +33,12 @@
 <script>  
 	    var memberId ="";   		
 		var memberIdList = new Array();
-		var list = new Array();
-		var list2= new Array();
+		var nickList = new Array(); //닉네임
+		var nickTdlList = new Array(); //닉네임당 체크한 tdl
 		var nameCount = 0;
-
+		var monthList = new Array();  //달 수 
+		var monthCountList= new Array();// 달마다 count
+		
 		/* <c:forEach items="${acceptApplocationGroupList}" var="item1">
 			<c:forEach items="${chartIdNickNameList}" var="item2">
 				<c:if test="${item1.memberId eq item2.id}">	
@@ -55,13 +57,20 @@
 		<c:forEach items="${checkedToDoList}" var="checkedToDoList">
 			<c:forEach items="${chartIdNickNameList}" var="chartIdNickNameList">
 				<c:if test="${checkedToDoList.memberId eq chartIdNickNameList.id}">	
-					list.push("${chartIdNickNameList.nickName}");
-					list2.push("${checkedToDoList.count}");
+					nickList.push("${chartIdNickNameList.nickName}");
+					nickTdlList.push("${checkedToDoList.count}");
 				</c:if>
 			</c:forEach>
 		</c:forEach>
-		console.log(list);
-		console.log(list2);
+	
+		console.log(nickList.length);
+	
+		
+		<c:forEach items="${tdlMonthlyDataList}" var="tdlMonthlyDataList">
+			monthList.push("${tdlMonthlyDataList.monthlyData}");
+			monthCountList.push("${tdlMonthlyDataList.count}");
+		</c:forEach>
+
 
 		
 		var colors = [ 'rgba(255, 99, 132, 0.2)',
@@ -72,11 +81,14 @@
             'rgba(153, 102, 255, 0.2)',
             'rgba(201, 203, 207, 0.2)'];
 		
+		
+		
+		
 		var bgColors = [];
-		for (var i = 0; i < list.length; i++) {
+		for (var i = 0; i < nickList.length; i++) {
 		  bgColors.push(colors[i % colors.length]);  
 		}
-
+	
 		
 </script> 
   <script>
@@ -84,9 +96,9 @@
     var chart1 = new Chart(context, {
       type: 'line',
       data: {
-        labels: ['1월','2월','3월','4월','5월','6월'],
+        labels: monthList,
         datasets: [{ 
-            data: [0,10,20,30,20,10],
+            data: monthCountList,
             label: "전체 TDL",
             borderColor: 'rgb(255, 99, 132)',
             backgroundColor: 'rgba(255, 99, 132, 0.2)',
@@ -94,7 +106,7 @@
             fill: false
           }, { 
             data: [10,20,30,20,10,0],
-            label: "달성 TDL",
+            label: "월별 달성한 평균 TDL",
             borderColor: 'rgb(54, 162, 235)',
             backgroundColor: 'rgba(54, 162, 235, 0.2)',
             borderWidth:1,
@@ -120,11 +132,11 @@
       type: 'horizontalBar',
       data: {
         indexAxis: 'y',
-        labels: list,
+        labels: nickList,
         datasets: [{
           axis: 'y',
           label: '12월 목표달성률',
-          data: list2,
+          data: nickTdlList,
           fill: false,
           backgroundColor:bgColors,
 

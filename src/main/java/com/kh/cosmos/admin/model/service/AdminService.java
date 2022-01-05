@@ -79,4 +79,8 @@ public interface AdminService {
 
 	int totalCountOfMembers();
 
+	List<Group> allGroupList(int limit, int offset);
+
+	int allGroupCount();
+
 }
