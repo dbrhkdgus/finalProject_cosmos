@@ -50,4 +50,6 @@ public interface ChatDao {
 
 	int insertChatMessageWithFile(ChatMessage chatMessage);
 
+	int deleteChatRoom(int chatRoomNo);
+
 }

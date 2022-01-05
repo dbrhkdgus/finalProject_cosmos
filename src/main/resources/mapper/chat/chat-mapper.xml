@@ -133,4 +133,7 @@ where (dm_receiver = #{id} and img_flag = 'P')or (dm_sender = #{id} and img_flag
 where 
     rownum = 1) group by dm_sender having dm_sender != #{id}
   </select>
+  <delete id="deleteChatRoom">
+  delete chat_room where chat_room_no = #{chatRoomNo}
+  </delete>
 </mapper>
