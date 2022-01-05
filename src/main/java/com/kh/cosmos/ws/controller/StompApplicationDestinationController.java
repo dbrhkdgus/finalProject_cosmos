@@ -102,6 +102,10 @@ public class StompApplicationDestinationController {
 			
 		}  
 		
+		if(map.get("msgTypeNo").equals("99")) {
+			return chatMessageContent;
+		}
+		
 		// 메시지 객체화
 		ChatMessage chatMessage = new ChatMessage();
 		chatMessage.setChatMessageContent(map.get("msg"));

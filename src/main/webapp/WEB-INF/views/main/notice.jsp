@@ -31,8 +31,8 @@ $(()=>{
 <div>
 	<h2 class="text-center">공지사항</h2>
 	<div class="input-group mb-3 w-25 float-right">
-	  <input type="text" class="form-control" placeholder="검색어를 입력해주세요." aria-label="Recipient's username" aria-describedby="button-addon2">
-	  <button class="btn btn-outline-secondary" type="button" id="button-addon2">검색</button>
+	  <input type="text" id="searchKeyword" class="form-control" placeholder="검색어를 입력해주세요." aria-label="Recipient's username" aria-describedby="button-addon2">
+	  <button class="btn btn-outline-secondary" type="button" onclick="searchNotice();">검색</button>
 	</div>
 </div>
 	<table class="table text-center">
@@ -62,4 +62,11 @@ $(()=>{
 	</sec:authorize>
 	${pagebar}
 </div>
+<script>
+function searchNotice(){
+	const $keyword = $("#searchKeyword").val();
+	console.log($keyword);
+	location.href=`${pageContext.request.contextPath}/main/searchNotice.do?searchKeyword=`+$keyword;
+};
+</script>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
