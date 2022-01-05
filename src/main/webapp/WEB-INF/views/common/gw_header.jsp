@@ -145,7 +145,7 @@
     <ul class="list-unstyled ps-0">
       <li class="mb-1">
       	<div class="d-flex justify-content-between align-items-center">
-	        <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#board-collapse" aria-expanded="true">
+	        <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#board-collapse" aria-expanded="false">
 	          게시판 채널
 	        </button>
 	        <div class="createBoardRoom" style="cursor: pointer; ">
@@ -418,8 +418,14 @@
 	          <input type="text" name="" class="form-control validate" placeholder="${boardName}" id="changingChatRoomName">
 	        </div>
 	      </div>
-	      <input type="text" name="groupNo" value="${currGroupNo}" />
-	      <input type="text" name="" id="chat-no-for-update-delete" />
+	      <input type="hidden" name="groupNo" value="${currGroupNo}" />
+	      <input type="hidden" name="" id="chat-no-for-update-delete" />
+	      <div class="selected-chat-user-box" style="margin-left:5%;">
+	      	<p>현재 채팅 참여 멤버</p>
+	      </div>
+	      <div class="add-selected-chat-user-box" style="margin-left:5%;">
+	      
+	      </div>
       </form:form>
       <div class="modal-footer d-flex justify-content-center">
         <button class="btn btn-updateChatRoom">수정</button>
@@ -584,7 +590,6 @@ $(".btn-createChatRoom").click((e)=>{
 			contentType: "application/json; charset=utf-8",
 		 	success(res){
 		 		$.each(res,(k,v)=>{
-		 			console.log(v.profileRenamedFilename.indexOf('http'));
 		    	    	if(v.profileRenamedFilename.indexOf('http') == 0){
 		 					$(".modal-member-box").append(`
 		 					<div class="modal-member-profile">
@@ -592,7 +597,7 @@ $(".btn-createChatRoom").click((e)=>{
 		              		<div class="modal-member-profile-box">
 		    	          	<img src="\${v.profileRenamedFilename}" alt="" class="modal-member-profile-img" style="width: 1px; zoom : 30;"/>
 		    	          	</div>
-		              		<span class="modal-member-name">\${v.memberName}</span>
+		              		<span class="modal-member-name">\${v.nickname}</span>
 		              	</div>`);
 		    	          	}else{
 		 					$(".modal-member-box").append(`
@@ -601,7 +606,7 @@ $(".btn-createChatRoom").click((e)=>{
 		              		<div class="modal-member-profile-box">
 		    	          	<img src="${pageContext.request.contextPath }/resources/upFile/profile/\${v.profileRenamedFilename}" alt="" class="modal-member-profile-img" style="width: 1px; zoom : 30;"/>
 		    	          	</div>
-		              		<span class="modal-member-name">\${v.memberName}</span>
+		              		<span class="modal-member-name">\${v.nickname}</span>
 		              	</div>`);
 		    	          	}
 
@@ -612,6 +617,9 @@ $(".btn-createChatRoom").click((e)=>{
 		 	error : console.log
 			
 		 });
+		 
+		 
+		 
 		 
 		 
 		 $(".modal-member-box").show();
@@ -645,14 +653,90 @@ $(".btn-createChatRoom").click((e)=>{
  
  /* 채팅 채널 생성 변경 삭제 */
  $(".updateChatRoom").click((e)=> {
-	 $("#updateChatRoomModal").modal('show');
-	 var catRoomName = e.target.parentNode.children[0].children[0].innerText;
-	 console.log(catRoomName);
-	 $("#changingChatRoomName").val(catRoomName);
+	 
+	 var chatRoomName = e.target.parentNode.children[0].children[0].innerText;
+	 $("#changingChatRoomName").val(chatRoomName);
 	 var chatRoomNo = $(e.target).next().eq(0).text();
-	 console.log(chatRoomNo);
 	 $("#chat-no-for-update-delete").val(chatRoomNo);
- })
+	 var groupNo = ${currGroupNo}
+	 $.ajax({
+			url: `${pageContext.request.contextPath}/gw/chat/selectChatUser.do`,
+			method : "get",
+			data: {'chatRoomNo' : chatRoomNo},
+			contentType: "application/json; charset=utf-8",
+		 	success(res){
+				console.log(res);
+				var chatRoomNo = "";
+				$.each(res, (k, v)=>{
+					chatRoomNo += v.chatRoomOpenType == undefined? '' : v.chatRoomOpenType;
+				});
+					if(chatRoomNo == 'select'){
+						$.each(res, (k, v)=>{
+							if(v.nickname != undefined){
+								if(v.profileRenamedFilename.indexOf('http') == 0){
+				 					$(".selected-chat-user-box").append(`
+				 					<div class="modal-member-profile">
+				              		<input class="ml-2 mr-2"type="checkbox" name="memberId" value="\${v.memberId}"/>
+				              		<div class="modal-member-profile-box">
+				    	          	<img src="\${v.profileRenamedFilename}" alt="" class="modal-member-profile-img" style="width: 1px; zoom : 30;"/>
+				    	          	</div>
+				              		<span class="modal-member-name">\${v.nickname}</span>
+				              	</div>`);
+				    	          	}else{
+				 					$(".selected-chat-user-box").append(`
+				 					<div class="modal-member-profile">
+				              		<input class="ml-2 mr-2"type="checkbox" name="memberId" value="\${v.memberId}"/>
+				              		<div class="modal-member-profile-box">
+				    	          	<img src="${pageContext.request.contextPath }/resources/upFile/profile/\${v.profileRenamedFilename}" alt="" class="modal-member-profile-img" style="width: 1px; zoom : 30;"/>
+				    	          	</div>
+				              		<span class="modal-member-name">\${v.nickname}</span>
+				              	</div>`);
+								}
+							}
+						});
+						$(".selected-chat-user-box").append(`<hr />`);
+					};
+		 	},
+		 	error : console.log
+		 });
+	 
+	 $.ajax({
+			url: `${pageContext.request.contextPath}/gw/chat/selectMember.do`,
+			method : "get",
+			data: {'groupNo' : groupNo},
+			contentType: "application/json; charset=utf-8",
+		 	success(res){
+		 		$.each(res,(k,v)=>{
+	    	    	if(v.profileRenamedFilename.indexOf('http') == 0){
+	 					$(".add-selected-chat-user-box").append(`
+	 					<div class="modal-member-profile">
+	              		<input class="ml-2 mr-2"type="checkbox" name="memberId" value="\${v.memberId}"/>
+	              		<div class="modal-member-profile-box">
+	    	          	<img src="\${v.profileRenamedFilename}" alt="" class="modal-member-profile-img" style="width: 1px; zoom : 30;"/>
+	    	          	</div>
+	              		<span class="modal-member-name">\${v.nickname}</span>
+	              	</div>`);
+	    	          	}else{
+	 					$(".add-selected-chat-user-box").append(`
+	 					<div class="modal-member-profile">
+	              		<input class="ml-2 mr-2"type="checkbox" name="memberId" value="\${v.memberId}"/>
+	              		<div class="modal-member-profile-box">
+	    	          	<img src="${pageContext.request.contextPath }/resources/upFile/profile/\${v.profileRenamedFilename}" alt="" class="modal-member-profile-img" style="width: 1px; zoom : 30;"/>
+	    	          	</div>
+	              		<span class="modal-member-name">\${v.nickname}</span>
+	              	</div>`);
+	    	          	}
+
+	 		});
+	 		$(".add-selected-chat-user-box").append(`<input type="hidden" name="selectedMemberId" value="" />`);
+	 		
+	 	},
+	 	error : console.log
+		
+	 });
+	 
+	 $("#updateChatRoomModal").modal('show');
+ });
  
  $(".btn-createVoiceChatRoom").click((e)=>{
 	 $(document.createVoiceChatRoomFrm).submit();

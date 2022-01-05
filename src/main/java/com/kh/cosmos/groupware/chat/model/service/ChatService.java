@@ -56,4 +56,8 @@ public interface ChatService {
 
 	int deleteDmMessage(int dmMessageNo);
 
+	List<Member> selectAllChatUsers(int chatRoomNo);
+
+	String selectChatRoomNoByChatRoomNo(int chatRoomNo);
+
 }
