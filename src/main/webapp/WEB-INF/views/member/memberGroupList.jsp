@@ -140,13 +140,13 @@ a {
         	<div class="tab_container">
         	
 				<input class="tab-input" id="tab1" type="radio" name="tabs" ${type=='application-group'? 'checked' : ''}>
-				<label class="tab-label" for="tab1"><i class="fa fa-code"></i><span>신청 그룹</span></label>
+				<label class="tab-label" for="tab1"><i class="fa fa-spinner"></i><span>신청 그룹</span></label>
 	
 				<input class="tab-input" id="tab2" type="radio" name="tabs" ${type=='join-group'? 'checked' : ''}>
 				<label class="tab-label" for="tab2"><i class="fa fa-pencil-square-o"></i><span>가입 그룹</span></label>
 	
 				<input class="tab-input" id="tab3" type="radio" name="tabs" ${type=='liked-group'? 'checked' : ''}>
-				<label class="tab-label" for="tab3"><i class="fa fa-bar-chart-o"></i><span>관심 그룹</span></label>
+				<label class="tab-label" for="tab3"><i class="fa fa-hand-holding-heart"></i><span>관심 그룹</span></label>
 
 
 
