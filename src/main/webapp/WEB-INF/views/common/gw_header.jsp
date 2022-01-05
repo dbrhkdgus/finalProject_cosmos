@@ -56,17 +56,7 @@
         .bd-placeholder-img-lg {
           font-size: 3.5rem;
         }
-   	}
-    	
-   	  .updateBoardRoom{
-    	display:none;
-    	
-      }
-   	  #main:hover>#sub{
-    	display:inline;
    	  }
-    
-   	
     </style>
 <c:if test="${not empty msg}">
 <script>
@@ -168,7 +158,7 @@
           <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
            	<c:if test="${not empty boardList}">
            		<c:forEach var="boardRoom" items="${boardList}">
-           			<div class="d-flex justify-content-between align-items-center" id="main">
+           			<div class="d-flex justify-content-between align-items-center" id="board-channel-list">
            				<c:choose>
            					<c:when test="${fn:contains(boardRoom.boardType, 'N')}">
 			            		<li><a href="${pageContext.request.contextPath }/gw/board/notice.do?boardNo=${boardRoom.boardNo}&groupNo=${currGroupNo }" class="link-dark rounded">${boardRoom.boardName}</a></li>
@@ -185,7 +175,7 @@
 			            			<li><a href="${pageContext.request.contextPath }/gw/fileBoard/fileBoard.do?boardNo=${boardRoom.boardNo}&groupNo=${currGroupNo }" class="link-dark rounded">${boardRoom.boardName}</a></li>
 			            		</c:if>
 			            		<sec:authorize access="hasAnyRole('ROLE_GW${currGroupNo}MASTER', 'ROLE_ADMIN')">
-				            		<div class="updateBoardRoom div_sub" style="cursor:pointer;" id="sub">
+				            		<div class="updateBoardRoom div_sub" style="cursor:pointer;" id="board-channel-admin-btn">
 					            		<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gear" viewBox="0 0 16 16">
 				  							<path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492zM5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0z"/>
 				  							<path d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52l-.094-.319zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115l.094-.319z"/>
@@ -218,10 +208,21 @@
           	<c:choose>
 	          	<c:when test="${not empty chattingChannelList}">
 	          		<c:forEach var="chatRoom" items="${chattingChannelList }">
-	          			<sec:authorize access="hasAnyRole('ROLE_GW${currGroupNo}MASTER', 'ROLE_ADMIN')">
+	          			<%-- <sec:authorize access="hasAnyRole('ROLE_GW${currGroupNo}MASTER', 'ROLE_ADMIN')">
 		          			<span class="btn-delete-chatroom" style="float: right; cursor: pointer;" data-chatRoomNo ="${chatRoom.chatRoomNo}">x</span>
-	          			</sec:authorize>
-			            <li><a href="${pageContext.request.contextPath }/gw/chat/chatRoom.do?chatRoomNo=${chatRoom.chatRoomNo}&groupNo=${currGroupNo }" class="link-dark rounded">${chatRoom.chatRoomName }</a></li>
+	          			</sec:authorize> --%>
+	          			<div class="d-flex justify-content-between align-items-center" id="chat-channel-list">
+				            <li><a href="${pageContext.request.contextPath }/gw/chat/chatRoom.do?chatRoomNo=${chatRoom.chatRoomNo}&groupNo=${currGroupNo }" class="link-dark rounded">${chatRoom.chatRoomName }</a></li>
+				            <sec:authorize access="hasAnyRole('ROLE_GW${currGroupNo}MASTER', 'ROLE_ADMIN')">
+			            		<div class="updateChatRoom div_sub" style="cursor:pointer;" id="chat-channel-admin-btn">
+				            		<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gear" viewBox="0 0 16 16">
+			  							<path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492zM5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0z"/>
+			  							<path d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52l-.094-.319zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115l.094-.319z"/>
+									</svg>
+								</div>
+								<span class="d-none">${chatRoom.chatRoomNo}</span>
+							</sec:authorize>
+	          			</div>
 	          		</c:forEach>
 	          	</c:when>
 	          	<c:otherwise>
@@ -397,6 +398,36 @@
   </div>
 </div>
 
+<!-- 채팅방 수정하기 위한 모달창 -->
+<div class="modal fade" id="updateChatRoomModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">채팅 채널 관리</h4>
+        <button type="button" class="close close-modal" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form:form id="updateDeleteChatRoomFrm" name="updateChatRoomFrm" method="post" action="${pageContext.request.contextPath }/gw/board/updateBoardRoom.do">
+	      <div class="modal-body mx-3 my-2">
+	        <div class="md-form mb-3">
+	          <label  for="defaultForm-email">채널 이름</label>
+	          <input type="text" name="" class="form-control validate" placeholder="${boardName}" id="changingChatRoomName">
+	        </div>
+	      </div>
+	      <input type="text" name="groupNo" value="${currGroupNo}" />
+	      <input type="text" name="" id="chat-no-for-update-delete" />
+      </form:form>
+      <div class="modal-footer d-flex justify-content-center">
+        <button class="btn btn-updateChatRoom">수정</button>
+        <button class="btn btn-deleteChatRoom">삭제</button>
+        <button class="btn close-modal">취소</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- DM 모달창 -->
 <div class="modal fade" id="gwDMModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
   aria-hidden="true">
@@ -514,6 +545,8 @@ $(".btn-delete-chatroom").click((e)=>{
 	$("#changingBoardName").val(boardName);
  })
  
+ 
+ 
 /* 채팅방 개설 modal 제어 */
 $(".modal-member-box").hide();
 
@@ -528,6 +561,7 @@ $(".btn-createChatRoom").click((e)=>{
 	 $("#createBoardRoomModal").modal('hide');
 	 $("#updateBoardRoomModal").modal('hide');
 	 $("#createVoiceChatRoomModal").modal('hide');
+	 $("#updateChatRoomModal").modal('hide');
  });
 
  $("input[name=chatRoomOpenType]").change((e)=>{
@@ -606,6 +640,17 @@ $(".btn-createChatRoom").click((e)=>{
 	 $("#updateDeleteBoardFrm").attr("action", `${pageContext.request.contextPath }/gw/board/deleteBoardRoom.do`);
 	 $(document.updateBoardRoomFrm).submit();
  });
+ 
+ /* 채팅 채널 생성 변경 삭제 */
+ $(".updateChatRoom").click((e)=> {
+	 $("#updateChatRoomModal").modal('show');
+	 var catRoomName = e.target.parentNode.children[0].children[0].innerText;
+	 console.log(catRoomName);
+	 $("#changingChatRoomName").val(catRoomName);
+	 var chatRoomNo = $(e.target).next().eq(0).text();
+	 console.log(chatRoomNo);
+	 $("#chat-no-for-update-delete").val(chatRoomNo);
+ })
  
  $(".btn-createVoiceChatRoom").click((e)=>{
 	 $(document.createVoiceChatRoomFrm).submit();
