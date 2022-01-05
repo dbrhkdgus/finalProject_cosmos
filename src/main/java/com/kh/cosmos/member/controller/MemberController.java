@@ -306,6 +306,15 @@ public class MemberController {
 		updateMember.setMemberEmail(email);
 		
 		log.debug("upfile = {}", upFile);
+		
+		String upfileOriginalFilename = "";
+		try {
+			 upfileOriginalFilename = upFile.getOriginalFilename();
+		} catch (Exception e1) {
+			
+		}
+		
+		
 		log.debug("member = {}", updateMember);
 		if (!updateMember.getPassword().equals("")) {
 			updateMember.setPassword(passwordEncoder.encode(updateMember.getPassword()));
@@ -316,7 +325,7 @@ public class MemberController {
 
 		  try {
 			  
-			  if(oldProfile != null && !upFile.getOriginalFilename().equals("")) {
+			  if(oldProfile != null && ! upfileOriginalFilename.equals("")) {
 				  
 				  String originalFilename = upFile.getOriginalFilename(); String
 				  renamedFilename = CosmosUtils.getRenamedFilename(originalFilename);
@@ -332,7 +341,7 @@ public class MemberController {
 				  
 				  oldProfile.setRenamedFilename(renamedFilename);
 				  oldProfile.setOriginalFilename(originalFilename);
-			  }else if(upFile.getOriginalFilename().equals("")){
+			  }else if(upfileOriginalFilename.equals("")){
 				 
 				  
 			  }else {
