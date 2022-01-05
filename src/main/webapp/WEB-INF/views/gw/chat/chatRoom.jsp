@@ -34,7 +34,12 @@
 					            </c:otherwise>
 					          </c:choose>
 				          </div>
-				          <div class="chat-message-box">
+				          <div class="chat-message-box" style="cursor: pointer;" >
+					          <c:if test="${loginMember.id == user.memberId }">
+					          	<div class="btn-delete-chat-message">
+					          		<span data-chat-message-no="${message.chatMessageNo }" style="float: right; margin-right: 10px; cursor: pointer;">x</span>
+					          	</div>
+					          </c:if>
 				            <div class="chat-message-sender">
 				              <span><strong>${user.nickname }</strong></span>
 				              <span><fmt:formatDate value="${message.chatMessageAt}" pattern="HH:mm"/></span>
@@ -106,7 +111,7 @@
             </div> -->
     		<c:forEach var="user" items="${chatUserList }">
     		 <div class="test-member-profile">
-            <div class="member-profile-img-box">
+            <div class="member-profile-img-box btn-profile2">
 	           <c:choose>
 		          	<c:when test="${fn:startsWith(user.renamedFilename,'http')}">
 						<img class="member-profile-img" src="${user.renamedFilename}" alt="" style="width: 30px"/>
@@ -126,10 +131,10 @@
           </div>
     
     
-          <div class="offline-member-list">
-<!--             <div class="on-off-text">
+<!--           <div class="offline-member-list">
+             <div class="on-off-text">
               <p class="off-text">오프라인 - 1</p>
-            </div> -->
+            </div>
             <div class="test-member-profile">
               <div class="member-profile-img-box">
                 <img class="offline member-profile-img" src="https://i.pinimg.com/564x/9e/60/60/9e6060db90687be57c52ca5c5566c487.jpg" alt="">
@@ -137,7 +142,7 @@
                 <span>홍길동</span> 
             </div>
     
-          </div>
+          </div> -->
         </div>
 
 
@@ -352,6 +357,9 @@ if($(".chat-content").children().length == 0){
 			 var target = chatFile.split(".")[0];			 
 		 }else{
 			 var target = "foo";
+		 }
+		 if(msgTypeNo == 99){
+			 location.reload();
 		 }
 		if(msgTypeNo == 2){
 		$(".chat-content").append(`<div class="chat-profile-container">
@@ -609,6 +617,47 @@ function loadDM(obj){
 	});
 
 }
+/* 메시지 삭제 버튼 show // hide 처리 */
+$(".btn-delete-chat-message").hide();
+$(".chat-message-content").hover(function(e){
+	$(e.target).parents(".chat-message-box").children(".btn-delete-chat-message").show();
+	
+}, function(e){
+	$(".btn-delete-chat-message").hide();
+	
+});
+
+$(".chat-message-sender").hover(function(e){
+	$(e.target).parents(".chat-message-box").children(".btn-delete-chat-message").show();
+	
+}, function(e){
+	$(".btn-delete-chat-message").hide();
+	
+});
+
+/* 메시지 삭제 */
+$(".btn-delete-chat-message").click((e)=>{
+	if(confirm("해당 메시지를 삭제하시겠습니까?")){
+		var chatMessageNo = $(e.target).data('chatMessageNo');
+		$.ajax({
+			url : "${pageContext.request.contextPath}/gw/chat/deleteChatMessage.do",
+			data : {
+				chatMessageNo : chatMessageNo
+			},
+			success(res){
+				if(res > 0){
+					alert("메시지가 삭제되었습니다.");
+				 	obj = {
+							msgTypeNo : 99
+						};
+					stompClient.send("/app/chat/${chatRoomNo}", {}, JSON.stringify(obj))
+				};
+			},
+			error : console.log
+		});
+	};
+	
+});
 </script>
 
 

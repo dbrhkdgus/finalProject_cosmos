@@ -310,7 +310,7 @@ public class GwBoardController {
 
 	} 
 	
-	@PostMapping("/anonymousEnroll.do")
+	@PostMapping("/anonymousEnroll.dto")
 	public String anonymousEnroll(Post post, int boardNo, int groupNo, @RequestParam(value = "upFile", required = false) MultipartFile upFile, 
 			RedirectAttributes redirectAttr, Authentication authentication) {
 
@@ -341,7 +341,7 @@ public class GwBoardController {
 		
 	}
 	
-	@PostMapping("/postModify.do")
+	@PostMapping("/postModify.dto")
 	public String postModify(Post post, int exAttachNo, int boardNo, int groupNo,
 			@RequestParam(value = "upFile", required = false) MultipartFile upFile, RedirectAttributes redirectAttr,
 			Authentication authentication) {
@@ -434,7 +434,7 @@ public class GwBoardController {
 
 	} 
 	
-	@PostMapping("/anonymousPostModify.do")
+	@PostMapping("/anonymousPostModify.dto")
 	public String anonymousPostModify(RedirectAttributes redirectAttr, int postNo, Post post) {
 	
 		Board board = boardService.selectBoardByBoardNo(post.getBoardNo());
@@ -460,7 +460,7 @@ public class GwBoardController {
 
 	}
 
-	@PostMapping("/boardEnroll.do")
+	@PostMapping("/boardEnroll.dto")
 	public String boardEnroll(Post post, int boardNo, int groupNo,
 			@RequestParam(value = "upFile", required = false) MultipartFile upFile, RedirectAttributes redirectAttr,
 			Authentication authentication) {

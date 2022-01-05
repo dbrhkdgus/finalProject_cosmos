@@ -138,6 +138,18 @@ public class ChatDaoImpl implements ChatDao {
 		// TODO Auto-generated method stub
 		return session.delete("chat.deleteChatRoom",chatRoomNo);
 	}
+
+	@Override
+	public int deleteChatMessage(int chatMessageNo) {
+		// TODO Auto-generated method stub
+		return session.delete("chat.deleteChatMessage",chatMessageNo);
+	}
+
+	@Override
+	public int deleteDmMessage(int dmMessageNo) {
+		// TODO Auto-generated method stub
+		return session.delete("chat.deleteDmMessage", dmMessageNo);
+	}
 	
 	
 	

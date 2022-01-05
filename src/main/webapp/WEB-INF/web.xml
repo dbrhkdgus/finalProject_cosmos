@@ -88,17 +88,17 @@
 	</filter>
 	<filter-mapping>
 		<filter-name>multipartFilter</filter-name>
-		<url-pattern>/*</url-pattern>
+		<url-pattern>/gw/app/*</url-pattern>
 	</filter-mapping>
 
 	<!-- xss 필터링 -->
 	<filter> 
 		<filter-name>xssEscapeServletFilter</filter-name> 
-		<filter-class>com.navercorp.lucy.security.xss.servletfilter.XssEscapeServletFilter</filter-class> 
-	</filter> 
+		<filter-class>com.navercorp.lucy.security.xss.servletfilter.XssEscapeServletFilter</filter-class>
+	</filter>
 	<filter-mapping> 
 		<filter-name>xssEscapeServletFilter</filter-name> 
-		<url-pattern>/*</url-pattern> 
+		<url-pattern>/gw/app/*</url-pattern>
 	</filter-mapping>
 
 

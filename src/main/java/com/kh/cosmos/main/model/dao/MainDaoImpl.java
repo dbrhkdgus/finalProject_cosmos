@@ -142,6 +142,18 @@ public class MainDaoImpl implements MainDao {
 	@Override
 		public List<GroupWithCategoryTwo> selectCateTwoNameList() {
 		return session.selectList("index.selectCateTwoNameList");
+	}
+
+	@Override
+	public List<Notice> selectSearchNoticeList(int offset, int limit, String searchKeyword) {
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		return session.selectList("notice.selectSearchNoticeList",searchKeyword,rowBounds);
+	}
+
+	@Override
+	public int selectSearchNoticeTotalCount(String searchKeyword) {
+		// TODO Auto-generated method stub
+		return session.selectOne("notice.selectSearchNoticeTotalCount",searchKeyword);
 	}	
 	
 	

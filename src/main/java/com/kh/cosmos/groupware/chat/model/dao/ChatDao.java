@@ -52,4 +52,8 @@ public interface ChatDao {
 
 	int deleteChatRoom(int chatRoomNo);
 
+	int deleteChatMessage(int chatMessageNo);
+
+	int deleteDmMessage(int dmMessageNo);
+
 }

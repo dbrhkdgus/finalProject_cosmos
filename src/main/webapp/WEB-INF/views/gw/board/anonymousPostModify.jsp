@@ -26,7 +26,7 @@
   <form
 		name="anonymousFrm"   
 		enctype="multipart/form-data" 
-		action="${pageContext.request.contextPath }/gw/board/anonymousPostModify.do?${_csrf.parameterName}=${_csrf.token}"
+		action="${pageContext.request.contextPath }/gw/board/anonymousPostModify.dto?${_csrf.parameterName}=${_csrf.token}"
 		method="POST" 
 		>
 		<div class="input-group mb-3 mx-auto">
