@@ -64,7 +64,7 @@
 			
 				<div class="d-flex align-items-center">
 					  
-					  <div class="rep-profile">
+					  <div class="rep-profile ml-3">
 						<div class="p-0 bd-highlight">
 							<c:choose>
 								<c:when test="${post.memberId eq reply.memberId }">
@@ -89,20 +89,22 @@
 				
 				<!-- 대댓글 작성 폼 -->
 				</form:form>
-				<form:form name ="anonymousReRepEnrollFrm" action="${pageContext.request.contextPath }/gw/board/anonymousReplyEnroll.do" method="post" >	
-	            	<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi mr-1 bi-arrow-return-right" viewBox="0 0 16 16">
+				<form:form name ="anonymousReRepEnrollFrm" action="${pageContext.request.contextPath }/gw/board/anonymousReplyEnroll.do" class="mt-2" method="post" >
+					<div class="d-flex align-items-center">
+	            	<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi ml-3 mr-2 bi-arrow-return-right" viewBox="0 0 16 16">
 					  <path fill-rule="evenodd" d="M1.5 1.5A.5.5 0 0 0 1 2v4.8a2.5 2.5 0 0 0 2.5 2.5h9.793l-3.347 3.346a.5.5 0 0 0 .708.708l4.2-4.2a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 8.3H3.5A1.5 1.5 0 0 1 2 6.8V2a.5.5 0 0 0-.5-.5z"/>
 					</svg>
-					<div class="input-group mt-3 pl-2 pr-2">
-						<span class="input-group-text re-rep-pw" id="inputGroup-sizing-default">비밀번호</span><br>
+					<div class="input-group mt-2 pr-2">
+						<span class="input-group-text re-rep-pw ml-1" id="inputGroup-sizing-default">비밀번호</span><br>
 						<input id="reRepPw" name="replyPw" type="text" class="form-control re-rep-pw" onChange="checkNumber()" maxlength="4" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="숫자 4자리를 입력해 주세요.">
 					</div>
-					<div class="d-flex">
+					</div>	
+					<div class="d-flex mt-2 pl-6 pr-2" style="margin-left: 4%;">
 						<input type="text" class="form-control re-rep-con" name="content" placeholder="댓글을 입력하세요." />
 						<input type="hidden" value="${post.postNo}" name ="postNo">
 						<input type="hidden" value="2" name ="replyLevel">
 						<input type="hidden" name="replyRef" value="${reply.replyNo}" />
-						<input type="submit" class="btn btn-dark ml-2" value="등록" />
+						<input type="submit" class="btn btn-dark ml-1" value="등록" />
 					</div>
 	            </form:form>
 	            
@@ -114,7 +116,7 @@
 							<form:form name="postReRepUpdateFrm" action="${pageContext.request.contextPath }/gw/board/deleteUpdateReply.do" method="post">
 							<div class="d-flex justify-content-between align-items-end">
 							
-								<div class="d-flex align-items-center">
+								<div class="d-flex align-items-center ml-3">
 									  	<svg class="ml-3 mr-2 mb-3" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-return-right" viewBox="0 0 16 16">
 										  <path fill-rule="evenodd" d="M1.5 1.5A.5.5 0 0 0 1 2v4.8a2.5 2.5 0 0 0 2.5 2.5h9.793l-3.347 3.346a.5.5 0 0 0 .708.708l4.2-4.2a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 8.3H3.5A1.5 1.5 0 0 1 2 6.8V2a.5.5 0 0 0-.5-.5z"/>
 										</svg>
@@ -480,6 +482,12 @@ $(".btn-update-anonymous-reply").click((e)=> {
  });
 
  
+</script>
+<script>
+window.addEventListener("load", function(){
+	$("#dropdownBoard").removeClass("collapsed");
+	$("#board-collapse").addClass("show");
+	});
 </script>
 <jsp:include page="/WEB-INF/views/common/gw_footer.jsp"></jsp:include>
 </sec:authorize>

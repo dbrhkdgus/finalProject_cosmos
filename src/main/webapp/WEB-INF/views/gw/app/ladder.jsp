@@ -59,5 +59,11 @@
 		         <canvas class="ladder_canvas" id="ladder_canvas"></canvas>
 		    </div>
 	</div>
+<script>
+window.addEventListener("load", function(){
+	$("#dropdownApp").removeClass("collapsed");
+	$("#app-collapse").addClass("show");
+	});
+</script>
 <jsp:include page="/WEB-INF/views/common/gw_footer.jsp"></jsp:include>
 </sec:authorize>

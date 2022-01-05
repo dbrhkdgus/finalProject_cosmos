@@ -662,7 +662,12 @@ $(".btn-delete-chat-message").click((e)=>{
 
 
   </body>
-
+<script>
+window.addEventListener("load", function(){
+	$("#dropdownChat").removeClass("collapsed");
+	$("#chatting-collapse").addClass("show");
+	});
+</script>
 </html>
 </sec:authorize>
       
