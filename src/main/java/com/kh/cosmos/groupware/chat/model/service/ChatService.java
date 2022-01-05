@@ -52,4 +52,6 @@ public interface ChatService {
 
 	int deleteChatRoom(int chatRoomNo);
 
+	int deleteChatMessage(int chatMessageNo);
+
 }

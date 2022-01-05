@@ -34,7 +34,12 @@
 					            </c:otherwise>
 					          </c:choose>
 				          </div>
-				          <div class="chat-message-box">
+				          <div class="chat-message-box" style="cursor: pointer;" >
+					          <c:if test="${loginMember.id == user.memberId }">
+					          	<div class="btn-delete-chat-message">
+					          		<span data-chat-message-no="${message.chatMessageNo }" style="float: right; margin-right: 10px; cursor: pointer;">x</span>
+					          	</div>
+					          </c:if>
 				            <div class="chat-message-sender">
 				              <span><strong>${user.nickname }</strong></span>
 				              <span><fmt:formatDate value="${message.chatMessageAt}" pattern="HH:mm"/></span>
@@ -353,6 +358,9 @@ if($(".chat-content").children().length == 0){
 		 }else{
 			 var target = "foo";
 		 }
+		 if(msgTypeNo == 99){
+			 location.reload();
+		 }
 		if(msgTypeNo == 2){
 		$(".chat-content").append(`<div class="chat-profile-container">
 		      <div class="chat-user-profile">
@@ -609,6 +617,47 @@ function loadDM(obj){
 	});
 
 }
+/* 메시지 삭제 버튼 show // hide 처리 */
+$(".btn-delete-chat-message").hide();
+$(".chat-message-content").hover(function(e){
+	$(e.target).parents(".chat-message-box").children(".btn-delete-chat-message").show();
+	
+}, function(e){
+	$(".btn-delete-chat-message").hide();
+	
+});
+
+$(".chat-message-sender").hover(function(e){
+	$(e.target).parents(".chat-message-box").children(".btn-delete-chat-message").show();
+	
+}, function(e){
+	$(".btn-delete-chat-message").hide();
+	
+});
+
+/* 메시지 삭제 */
+$(".btn-delete-chat-message").click((e)=>{
+	if(confirm("해당 메시지를 삭제하시겠습니까?")){
+		var chatMessageNo = $(e.target).data('chatMessageNo');
+		$.ajax({
+			url : "${pageContext.request.contextPath}/gw/chat/deleteChatMessage.do",
+			data : {
+				chatMessageNo : chatMessageNo
+			},
+			success(res){
+				if(res > 0){
+					alert("메시지가 삭제되었습니다.");
+				 	obj = {
+							msgTypeNo : 99
+						};
+					stompClient.send("/app/chat/${chatRoomNo}", {}, JSON.stringify(obj))
+				};
+			},
+			error : console.log
+		});
+	};
+	
+});
 </script>
 
 
