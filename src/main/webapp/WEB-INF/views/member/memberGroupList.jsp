@@ -136,6 +136,9 @@ a {
 .link {
   text-align:center;
 }
+
+
+
 </style>
         	<div class="tab_container">
         	
@@ -265,7 +268,8 @@ a {
 			                          </p>
 			                        </div>
 			                        <div>
-			                      	  <button onclick="location.href='${pageContext.request.contextPath}/gw/gw.do?groupNo=${myGroup.groupNo }'">입장하기</button>
+			                        <button onclick="location.href='${pageContext.request.contextPath}/gw/gw.do?groupNo=${myGroup.groupNo }'" class="btn btn-outline-primary" style="float:right;">입장하기</button>
+			                      	  <%-- <button onclick="location.href='${pageContext.request.contextPath}/gw/gw.do?groupNo=${myGroup.groupNo }'">입장하기</button> --%>
 			                        </div>
 			                      </div>
 			                    </div>
