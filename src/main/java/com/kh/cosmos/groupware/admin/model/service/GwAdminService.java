@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.kh.cosmos.group.model.vo.ApplocationGroup;
+import com.kh.cosmos.groupware.admin.model.vo.TdlMemberCount;
 import com.kh.cosmos.groupware.app.model.vo.TDL;
 import com.kh.cosmos.groupware.fileBoard.vo.IdNickName;
 
@@ -29,6 +30,6 @@ public interface GwAdminService {
 
 	List<IdNickName> selectChartIdNickNameList();
 
-	List<TDL> selectcheckedToDoList(int groupNo);
+	List<TdlMemberCount> selectcheckedToDoList(int groupNo);
 
 }

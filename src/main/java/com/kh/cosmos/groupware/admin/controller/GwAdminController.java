@@ -25,6 +25,7 @@ import com.kh.cosmos.common.attachment.model.vo.Attachment;
 import com.kh.cosmos.group.model.vo.ApplocationGroup;
 import com.kh.cosmos.group.model.vo.Group;
 import com.kh.cosmos.groupware.admin.model.service.GwAdminService;
+import com.kh.cosmos.groupware.admin.model.vo.TdlMemberCount;
 import com.kh.cosmos.groupware.app.model.vo.TDL;
 import com.kh.cosmos.groupware.board.model.vo.Board;
 import com.kh.cosmos.groupware.chat.model.vo.ChatRoom;
@@ -116,9 +117,10 @@ public class GwAdminController {
 		 model.addAttribute("chartIdNickNameList",chartIdNickNameList);
 		 
 		 
-		 List<TDL> checkedToDoList = new ArrayList<TDL>() ;
+		 List<TdlMemberCount> checkedToDoList = new ArrayList<TdlMemberCount>() ;
 		checkedToDoList = gwAdminService.selectcheckedToDoList(groupNo);
-
+		log.debug("checkedToDoList = {}" ,checkedToDoList);
+		model.addAttribute("checkedToDoList",checkedToDoList);
 		 
 		 checkedToDoList = gwAdminService.selectcheckedToDoList(groupNo );
 		 log.debug("checkedToDoList = {}" , checkedToDoList);
