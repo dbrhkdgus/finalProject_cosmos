@@ -321,7 +321,7 @@ window.addEventListener("load", function(){
 /* dm modal 제어 */
 $("#btn-DM-modal").click((e)=>{
 	$("input[name=dm-memberId]").val($(e.target).siblings().val());
-	var $memberId = $(e.target).next().val();
+	var $memberId = $("#btn-DM-modal").next().val();
 	console.log($memberId);
 	$(".dm-profile-container").text('');
 	var script = document.createElement("script");

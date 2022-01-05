@@ -69,9 +69,14 @@
 					<img class="btn-profile chat-user-profile-img" src="${pageContext.request.contextPath }/resources/upFile/profile/${message.dmSenderProfileRenamedFilename}" alt="">
 	            </c:otherwise>
 	          </c:choose>				          
-				            
+				           
 				          </div>
 				          <div class="chat-message-box">
+				          	<c:if test="${loginMember.id == message.dmSender }">
+					          	<div class="btn-delete-dm-message" style="width: 93%">
+					          		<span data-dm-message-no="${message.dmNO }" style="float: right; margin-right: 10px; cursor: pointer;">x</span>
+					          	</div>
+					        </c:if>
 				            <div class="chat-message-sender">
 				              <span><strong>${message.dmSenderNickname }</strong></span>
 				              <span><fmt:formatDate value="${message.dmMessageAt}" pattern="HH:mm"/></span>
@@ -131,7 +136,8 @@ $("#btn-dm-message-send").click((e) =>{
 		const obj = {
 			sender : "${loginMember.id}",
 			receiver : receiver,
-			msg : $("#dm-chatMessageContent").val()
+			msg : $("#dm-chatMessageContent").val(),
+			msgTypeNo : 1
 		};
 			
 		stompClient.send(`/app/dm/${sender}`, {}, JSON.stringify(obj));
@@ -145,7 +151,48 @@ $("#btn-dm-message-send").click((e) =>{
 
 	
 });
+	/* 메시지 삭제 버튼 show // hide 처리 */
+	$(".btn-delete-dm-message").hide();
+	$(".chat-dm-content").hover(function(e){
+		$(e.target).parents(".chat-message-box").children(".btn-delete-dm-message").show();
+		
+	}, function(e){
+		$(".btn-delete-dm-message").hide();
+		
+	});
 
+	$(".chat-message-box").hover(function(e){
+		$(e.target).parents(".chat-message-box").children(".btn-delete-dm-message").show();
+		
+	}, function(e){
+		$(".btn-delete-dm-message").hide();
+		
+	});
+
+	/* 메시지 삭제 */
+	$(".btn-delete-dm-message").click((e)=>{
+		if(confirm("해당 메시지를 삭제하시겠습니까?")){
+			var dmMessageNo = $(e.target).data('dmMessageNo');
+			console.log(dmMessageNo);
+			 $.ajax({
+				url : "${pageContext.request.contextPath}/gw/chat/deleteDmMessage.do",
+				data : {
+					dmMessageNo : dmMessageNo
+				},
+				success(res){
+					if(res > 0){
+						alert("메시지가 삭제되었습니다.");
+					 	obj = {
+								msgTypeNo : 99
+							};
+						stompClient.send("/app/dm/${loginMember.id}", {}, JSON.stringify(obj))
+					};
+				},
+				error : console.log
+			}); 
+		};
+		
+	});
 
 </script>
 </body>
