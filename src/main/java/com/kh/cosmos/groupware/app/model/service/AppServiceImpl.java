@@ -33,9 +33,9 @@ public class AppServiceImpl implements AppService {
 	}
 
 	@Override
-	public List<TDL> selectTDLBysort(Map<String, Object> param) {
+	public List<TDL> selectTDLBysort(Map<String, Object> param, int limit, int offset) {
 		// TODO Auto-generated method stub
-		return appDao.selectTDLBysort(param);
+		return appDao.selectTDLBysort(param,limit,offset);
 	}
 
 	@Override
