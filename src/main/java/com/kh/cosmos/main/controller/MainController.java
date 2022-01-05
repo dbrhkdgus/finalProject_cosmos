@@ -454,5 +454,27 @@ public class MainController {
 		
 		return "redirect:/main/qa.do";
 	}
-	
+	@GetMapping("/searchNotice.do")
+	public String searchNotice(@RequestParam(defaultValue = "1") int cPage, @RequestParam("searchKeyword") String searchKeyword, Model model, HttpServletRequest request) {
+		log.debug("cPage = {}", cPage);
+		log.debug("searchKeyword = {}", searchKeyword);
+		
+		int limit = 10;
+		int offset = (cPage - 1) * limit;
+		
+		List<Notice> list = mainService.selectSearchNoticeList(offset, limit, searchKeyword);
+		log.debug("list = {}", list);
+		model.addAttribute("list", list);
+		
+		int totalContent = mainService.selectSearchNoticeTotalCount(searchKeyword);
+		log.debug("totalContent = {}", totalContent);
+		model.addAttribute("totalContent", totalContent);
+		
+		String url = request.getRequestURI();
+		String pagebar = CosmosUtils.getPagebar(cPage, limit, totalContent, url);
+		log.debug("pagebar = {}", pagebar);
+		model.addAttribute("pagebar", pagebar);
+		
+		return "main/notice";
+	}
 }

@@ -148,6 +148,18 @@ public class MainServiceImpl implements MainService {
 		return mainDao.selectCateTwoNameList();
 	}
 
+	@Override
+	public List<Notice> selectSearchNoticeList(int offset, int limit, String searchKeyword) {
+		// TODO Auto-generated method stub
+		return mainDao.selectSearchNoticeList(offset, limit, searchKeyword);
+	}
+
+	@Override
+	public int selectSearchNoticeTotalCount(String searchKeyword) {
+		// TODO Auto-generated method stub
+		return mainDao.selectSearchNoticeTotalCount(searchKeyword);
+	}
+
 	
 	
 
