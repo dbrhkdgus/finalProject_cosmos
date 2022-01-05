@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.kh.cosmos.group.model.vo.ApplocationGroup;
 import com.kh.cosmos.groupware.admin.model.dao.GwAdminDao;
 import com.kh.cosmos.groupware.admin.model.vo.TdlMemberCount;
+import com.kh.cosmos.groupware.admin.model.vo.TdlMonthlyData;
 import com.kh.cosmos.groupware.app.model.vo.TDL;
 import com.kh.cosmos.groupware.fileBoard.vo.IdNickName;
 
@@ -82,6 +83,12 @@ public class GwAdminServiceImpl implements GwAdminService {
 	public int insertMemberAuthority(Map<String, Object> param) {
 		// TODO Auto-generated method stub
 		return gwAdminDao.insertMemberAuthority(param);
+	}
+
+	@Override
+	public List<TdlMonthlyData> selectTdlMonthlyDataList(int groupNo) {
+		// TODO Auto-generated method stub
+		return gwAdminDao.selectTdlMonthlyDataList(groupNo);
 	}
 
 
