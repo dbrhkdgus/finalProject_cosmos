@@ -145,11 +145,7 @@
     <ul class="list-unstyled ps-0">
       <li class="mb-1">
       	<div class="d-flex justify-content-between align-items-center">
-<<<<<<< HEAD
 	        <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" id="dropdownBoard" data-bs-target="#board-collapse" aria-expanded="false">
-=======
-	        <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#board-collapse" aria-expanded="false">
->>>>>>> branch 'master' of https://github.com/dbrhkdgus/finalProject_cosmos.git
 	          게시판 채널
 	        </button>
 	        <div class="createBoardRoom" style="cursor: pointer; ">
