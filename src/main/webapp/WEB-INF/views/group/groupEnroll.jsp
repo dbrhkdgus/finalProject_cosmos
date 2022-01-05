@@ -182,79 +182,6 @@ window.addEventListener("load", function(){
         window.open("${pageContext.request.contextPath}/kakao/kakaoPay.do",
         		"childForm", "width=350, height=500, resizable = yes, scrollbars = yes"); 
     };
-
-	/* form 유효성 검사 */
-$("[id='groupEnrollFrm']").submit(function(){
-	const $cateOne = $("#selectCateOne");
-	const $cateTwo = $('input:checkbox[name="cateCheckBox"]');
-	const $groupName = $("#group-name");
-	const $studyTitle = $("#study-title");
-	const $upFile = $("#upFile");
-	const $memberNumber = $("#member-number");
-	const $location = $("#location");
-	const $giContent1 = $("#giContent1");
-	const $giContent2 = $("#giContent2");
-	const $giContent3 = $("#giContent3");
-	const $giContent4 = $("#giContent4");
-	console.log($cateOne.val());
-	console.log($('input:checkbox[name="cateCheckBox"]').is(":checked").val());
-	console.log($groupName.val());
-	console.log($studyTitle.val());
-	console.log($upFile.val());
-	console.log($memberNumber.val());
-	console.log($location.val());
-	console.log($giContent1.val());
-	console.log($giContent2.val());
-	console.log($giContent3.val());
-	console.log($giContent4.val());
-	
-	if($("#selectCateOne option:selected").val() == 0){
-		$cateOne.focus();
-		return false;
-	}
-	if($('input:checkbox[name="cateCheckBox"]').val() == null){
-		$cateOne.focus();
-		return false;
-	}
-	if($("#group-name").val() == null){
-		$groupName.focus();
-		return false;
-	}
-	if($("#study-title").val() == null){
-		$studyTitle.focus();
-		return false;
-	}
-	if($("#upFile").val() == null){
-		$upFile.focus();
-		return false;
-	}
-	if($("#member-number").val() == null){
-		$memberNumber.focus();
-		return false;
-	}
-	if($("#location").val() == null){
-		$location.focus();
-		return false;
-	}
-	if($("#giContent1").val() == null){
-		$giContent1.focus();
-		return false;
-	}
-	if($("#giContent2").val() == null){
-		$giContent2.focus();
-		return false;
-	}
-	if($("#giContent3").val() == null){
-		$giContent3.focus();
-		return false;
-	}
-	if($("#giContent4").val() == null){
-		$giContent4.focus();
-		return false;
-	}
-	return false;
-});
-
 	// 없습니다. 반드시 파일을 선택해야 합니다
 /* 	function EnrollFormSubmit() {		
 		const filename = $("[name=upFile]").prop("files")[0].name
@@ -262,15 +189,12 @@ $("[id='groupEnrollFrm']").submit(function(){
 			filename = ("https://cdn.dribbble.com/users/3398149/screenshots/9873711/media/81018d8c3595c458138d49bde716d2f9.jpg?compress=1&resize=800x600")
 		}
 	} */
-	
 /* 	document.my-form.onsubmit = e => {
 		const filename = $("[name=upFile]").prop("files")[0].name
 		if(filename =undefined || filename == null){
 			filename = ("https://cdn.dribbble.com/users/3398149/screenshots/9873711/media/81018d8c3595c458138d49bde716d2f9.jpg?compress=1&resize=800x600")
 		}
-		
 	} */
-
 		/* function YnCheck(obj) {
 			var checked = obj.checked;
 			if(checked) {
@@ -279,7 +203,6 @@ $("[id='groupEnrollFrm']").submit(function(){
 				obj.value="U";
 			}
 		}
-		
 		var checkYn="${data.groupPrivate}";
 		if(checkYn=="L") {
 			$("#groupPrivate").prop("checked", true);
@@ -291,7 +214,78 @@ $("[id='groupEnrollFrm']").submit(function(){
 		} else {
 			data.set("groupPrivate", "U");
 		} */
-
+		
+		/* form 유효성 검사 */
+		$("[id='groupEnrollFrm']").submit(function(){
+			const $cateOne = $("#selectCateOne");
+			const $cateTwo = $('input:checkbox[name="cateCheckBox"]');
+			const $groupName = $("#group-name");
+			const $studyTitle = $("#study-title");
+			const $upFile = $("#upFile");
+			const $memberNumber = $("#member-number");
+			const $location = $("#location");
+			const $giContent1 = $("#giContent1");
+			const $giContent2 = $("#giContent2");
+			const $giContent3 = $("#giContent3");
+			const $giContent4 = $("#giContent4");
+			console.log($cateOne.val());
+			console.log($('input[type="checkbox"]:checked').val());
+			console.log($groupName.val());
+			console.log($studyTitle.val());
+			console.log($upFile.val());
+			console.log($memberNumber.val());
+			console.log($location.val());
+			console.log($giContent1.val());
+			console.log($giContent2.val());
+			console.log($giContent3.val());
+			console.log($giContent4.val());
+			
+			if($("#group-name").val() == null || $("#group-name").val() == 'undefined' || $("#group-name").val() == ''){
+				$groupName.focus();
+				return false;
+			}
+			if($("#selectCateOne option:selected").val() == 0){
+				$cateOne.focus();
+				return false;
+			}
+			if($('input:checkbox[name="cateCheckBox"]:checked').val() == null || $('input:checkbox[name="cateCheckBox"]:checked').val() == 'undefined' || $('input:checkbox[name="cateCheckBox"]:checked').val() == ''){
+				$cateOne.focus();
+				return false;
+			}
+			if($("#study-title").val() == null || $("#study-title").val() == 'undefined' || $("#study-title").val() == ''){
+				$studyTitle.focus();
+				return false;
+			}
+			if($("#upFile").val() == null || $("#upFile").val() == 'undefined' || $("#upFile").val() == ''){
+				$upFile.focus();
+				return false;
+			}
+			if($("#member-number").val() == null || $("#member-number").val() == 'undefined' || $("#member-number").val() == 0){
+				$memberNumber.focus();
+				return false;
+			}
+			if($("#location").val() == null || $("#location").val() == 'undefined' || $("#location").val() == ''){
+				$location.focus();
+				return false;
+			}
+			if($("#giContent1").val() == null || $("#giContent1").val() == 'undefined' || $("#giContent1").val() == ''){
+				$giContent1.focus();
+				return false;
+			}
+			if($("#giContent2").val() == null || $("#giContent2").val() == 'undefined' || $("#giContent2").val() == ''){
+				$giContent2.focus();
+				return false;
+			}
+			if($("#giContent3").val() == null || $("#giContent3").val() == 'undefined' || $("#giContent3").val() == ''){
+				$giContent3.focus();
+				return false;
+			}
+			if($("#giContent4").val() == null || $("#giContent4").val() == 'undefined' || $("#giContent4").val() == ''){
+				$giContent4.focus();
+				return false;
+			}
+			return true;
+		});
 		
 		var charged = document.getElementsByName('groupCharge');
 		var isCharged;

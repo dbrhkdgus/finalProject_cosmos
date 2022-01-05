@@ -50,4 +50,6 @@ public interface ChatService {
 
 	int insertChatMessageWithFile(ChatMessage chatMessage);
 
+	int deleteChatRoom(int chatRoomNo);
+
 }

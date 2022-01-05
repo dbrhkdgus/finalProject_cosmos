@@ -175,6 +175,11 @@ public class AdminServiceImpl implements AdminService{
 	public List<ColumnAndCount> totalCountOfPost() {
 		return adminDao.totalCountOfPost();
 	}
+
+	@Override
+	public int totalCountOfMembers() {
+		return adminDao.totalCountOfMembers();
+	}
 	
 	
 }
