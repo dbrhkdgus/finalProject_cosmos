@@ -34,8 +34,9 @@ public class AppDaoImpl implements AppDao {
 	}
 
 	@Override
-	public List<TDL> selectTDLBysort(Map<String, Object> param) {
-		return session.selectList("app.selectTDLBysort",param);
+	public List<TDL> selectTDLBysort(Map<String, Object> param, int limit, int offset) {
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		return session.selectList("app.selectTDLBysort",param,rowBounds);
 	}
 
 	@Override

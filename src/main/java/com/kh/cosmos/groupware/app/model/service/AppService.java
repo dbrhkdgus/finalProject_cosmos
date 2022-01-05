@@ -13,7 +13,7 @@ public interface AppService {
 
 	int updateTDL(Map<String, Object> param);
 
-	List<TDL> selectTDLBysort(Map<String, Object> param);
+	List<TDL> selectTDLBysort(Map<String, Object> param, int limit, int offset);
 
 	int selectTDLTotalCount(Map<String, Object> param);
 
