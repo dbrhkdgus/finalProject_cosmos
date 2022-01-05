@@ -11,7 +11,6 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
-import org.springframework.http.codec.json.Jackson2JsonEncoder;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,6 +25,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kh.cosmos.common.attachment.model.vo.Attachment;
+import com.kh.cosmos.group.model.vo.ApplocationGroup;
 import com.kh.cosmos.group.model.vo.Group;
 import com.kh.cosmos.groupware.board.model.vo.Board;
 import com.kh.cosmos.groupware.chat.model.vo.ChatRoom;
@@ -39,7 +39,6 @@ import com.kh.cosmos.groupware.vote.model.vo.VoteQuestion;
 import com.kh.cosmos.member.model.vo.Member;
 
 import lombok.extern.slf4j.Slf4j;
-import net.sf.json.JSON;
 
 @Controller
 @Slf4j
@@ -266,5 +265,12 @@ public class GwVoteController {
 		model.addAttribute("memberProfileRenamedFilenameList", memberProfileRenamedFilenameList);
 		model.addAttribute("groupBannerAttachList", groupBannerAttachList);
 		model.addAttribute("myGroupList", myGroupList);
+		 Map<String,Object> param = new HashMap<>();
+	     param.put("memberId", loginMember.getId());
+	     param.put("groupNo", groupNo);
+	     ApplocationGroup applocationGroup = gwService.selectApplocationGroup(param);
+	        
+	        
+	     model.addAttribute("role", applocationGroup.getRole());
 	}
 }
