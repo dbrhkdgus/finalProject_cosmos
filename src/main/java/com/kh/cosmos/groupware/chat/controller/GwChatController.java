@@ -309,6 +309,14 @@ public class GwChatController {
 		
 		return result;
 	}
+	@ResponseBody
+	@GetMapping("/deleteDmMessage.do")
+	public int deleteDmMessage(int dmMessageNo) {
+
+		int result = chatService.deleteDmMessage(dmMessageNo);
+		
+		return result;
+	}
 	
 	public void groupwareHeaderSet(int groupNo, Model model, Authentication auth) {
 		Member loginMember = (Member) auth.getPrincipal();
