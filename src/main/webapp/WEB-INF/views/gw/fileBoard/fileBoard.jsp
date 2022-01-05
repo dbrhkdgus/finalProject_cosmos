@@ -21,7 +21,10 @@
   <div class="p-4">
 
     <!-- 정렬 및 검색 -->
-    <form action="${pageContext.request.contextPath}/gw/fileBoard/fileBoard.do?boardNo=${boardNo}&groupNo=${groupNo}" method="get">
+    <form
+    	enctype="multipart/form-data"
+    	action="${pageContext.request.contextPath}/gw/fileBoard/fileBoardSearch.do?" 
+    	method="get">
 	    <div class="test-board-search d-flex float-right">
 	    	 <select name="searchType" class="form-select search-select" id="form-select-search" style="width: 38%;" aria-label="Default select example">
 		        <option value="all" ${searchType == 'all' ? "selected":'' }> 전체보기 </option>
@@ -33,8 +36,10 @@
 		     </select>
 		     
 		   <div class="input-group mb-3 search-input">
-		      <input type="text" class="form-control" name="searchKeyword" value="${searchKeyword }" placeholder="작성자 또는 제목검색"  aria-describedby="button-addon2">
-		   		<button class="btn btn-outline-secondary" type="button" id="button-addon2" >검색</button>
+		   		<input type="hidden" name="boardNo" value="${boardNo}"/>
+				<input type="hidden" name="groupNo" value="${groupNo}"/>
+		        <input type="text" class="form-control" name="searchKeyword" value="${searchKeyword }" placeholder="작성자 또는 제목검색"  aria-describedby="button-addon2">
+		   		<button class="btn btn-primary"><i class="fas fa-search"></i></button>
 		   </div>   
 		</div>       
     </form>
@@ -52,7 +57,7 @@
     </thead>
     <tbody>
 <!--  -->
-  <c:if test="${not empty fileBoardList}">
+  <%-- <c:if test="${not empty fileBoardList}"> --%>
   <c:forEach var="post" items="${fileBoardList}" varStatus="status">
  <%--  <c:set var="count" value="${count + 1}" /> --%>
 		
@@ -90,10 +95,10 @@
                 </td>
              </tr>
         </c:forEach>      
-	</c:if>
+	<%-- </c:if> --%>
 
 <!--  -->
-	<c:if test="${empty fileBoardList and !isListempty}">
+	<%-- <c:if test="${empty fileBoardList and !isListempty}">
 	  <c:forEach var="post" items="${fileboardPostList}" varStatus="status">
 	            <tr>
 	             
@@ -125,7 +130,7 @@
 	                </td>
 	             </tr>
 	        </c:forEach>      
-	 </c:if>
+	 </c:if> --%>
     </tbody>
   </table>
   <div class="d-grid gap-2 d-md-flex justify-content-md-end mr-2 ">
@@ -137,12 +142,12 @@
  </div>
 </div>
 <script>
-$("#button-addon2").click((e)=>{
+/* $("#button-addon2").click((e)=>{
     const searchType = $("select[name=searchType]").val();
     const searchKeyword = $("input[name=searchKeyword]").val();
     location.href=`${pageContext.request.contextPath}/gw/fileBoard/fileBoard.do?boardNo=${boardNo}&groupNo=${groupNo}&searchType=\${searchType}&searchKeyword=\${searchKeyword}`; 
    
-});
+}); */
 </script>
 <jsp:include page="/WEB-INF/views/common/gw_footer.jsp"></jsp:include>
 
