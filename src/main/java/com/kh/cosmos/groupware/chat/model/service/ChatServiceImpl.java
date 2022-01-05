@@ -162,6 +162,18 @@ public class ChatServiceImpl implements ChatService {
 		// TODO Auto-generated method stub
 		return chatDao.selectChatRoomNoByChatRoomNo(chatRoomNo);
 	}
+
+	@Override
+	public int updateChatRoom(ChatRoom chatRoom) {
+		// TODO Auto-generated method stub
+		return chatDao.updateChatRoom(chatRoom);
+	}
+
+	@Override
+	public int selectChatAdminNoBychatRoomNo(int chatRoomNo) {
+		// TODO Auto-generated method stub
+		return chatDao.selectChatAdminNoBychatRoomNo(chatRoomNo);
+	}
 	
 	
 	

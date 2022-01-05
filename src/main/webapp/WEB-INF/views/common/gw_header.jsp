@@ -411,20 +411,25 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form:form id="updateDeleteChatRoomFrm" name="updateChatRoomFrm" method="post" action="${pageContext.request.contextPath }/gw/board/updateBoardRoom.do">
-	      <div class="modal-body mx-3 my-2">
-	        <div class="md-form mb-3">
-	          <label  for="defaultForm-email">채널 이름</label>
-	          <input type="text" name="" class="form-control validate" placeholder="${boardName}" id="changingChatRoomName">
-	        </div>
-	      </div>
-	      <input type="hidden" name="groupNo" value="${currGroupNo}" />
-	      <input type="hidden" name="" id="chat-no-for-update-delete" />
-	      <div class="selected-chat-user-box" style="margin-left:5%;">
-	      	<p>현재 채팅 참여 멤버</p>
-	      </div>
-	      <div class="add-selected-chat-user-box" style="margin-left:5%;">
-	      
+      <form:form id="updateDeleteChatRoomFrm" name="updateDeleteChatRoomFrm" method="post" action="${pageContext.request.contextPath }/gw/chat/updateChatRoom.do">
+	      <div class="updateDeleteChatRoomForm-height-set" style="overflow-y: auto; height: 69vh;">
+		      <div class="modal-body mx-3 my-2">
+		        <div class="md-form mb-3">
+		          <label  for="defaultForm-email">채널 이름</label>
+		          <input type="text" name="chatRoomName" class="form-control validate" placeholder="${boardName}" id="changingChatRoomName">
+		        </div>
+		      </div>
+		      <input type="hidden" name="groupNo" value="${currGroupNo}" />
+		      <input type="hidden" name="chatRoomNo" id="chat-room-no-for-update-delete" />
+		      <div class="selected-chat-user-box" style="margin-left:5%;">
+		      	<p>현재 채팅 참여 멤버</p>
+		      </div>
+		      <div class="add-selected-chat-user-box" style="margin-left:5%;">
+		      
+		      </div>
+		      <div class="udChatRoom-script">
+		      
+		      </div>
 	      </div>
       </form:form>
       <div class="modal-footer d-flex justify-content-center">
@@ -522,26 +527,7 @@
 <!-- 채팅방 삭제를 위한 스크립트. 그룹장 or admin일때만 아래의 스크립트 작성 -->
 <sec:authorize access="hasAnyRole('ROLE_GW${currGroupNo}MASTER', 'ROLE_ADMIN')">
 <script>
-$(".btn-delete-chatroom").click((e)=>{
-	if(confirm("모든 채팅 내역이 사라집니다. 삭제하시겠습니까?")){
-		var chatRoomNo = $(e.target).data("chatroomno");
-		$.ajax({
-			url : "${pageContext.request.contextPath}/gw/chat/deleteChatRoom.do",
-			data : {
-				chatRoomNo : chatRoomNo
-			},
-			success(res){
-				if(res > 0){
-					alert("채팅방이 삭제되었습니다.");
-					location.reload();
-				}
-			},
-			error : console.log
-		});
-		
-	}
-	
-});
+
 </script>
 </sec:authorize>
 
@@ -627,7 +613,6 @@ $(".btn-createChatRoom").click((e)=>{
 	 
  });
 
-
  /* 게시판 채널 생성 변경 삭제 */
  $(".btn-createBoardRoom").click((e)=>{
 	 $(document.createBoardRoomFrm).submit();
@@ -653,12 +638,15 @@ $(".btn-createChatRoom").click((e)=>{
  
  /* 채팅 채널 생성 변경 삭제 */
  $(".updateChatRoom").click((e)=> {
-	 
+	 $(".selected-chat-user-box").text('');
+	 $(".add-selected-chat-user-box").text('');
 	 var chatRoomName = e.target.parentNode.children[0].children[0].innerText;
 	 $("#changingChatRoomName").val(chatRoomName);
 	 var chatRoomNo = $(e.target).next().eq(0).text();
 	 $("#chat-no-for-update-delete").val(chatRoomNo);
 	 var groupNo = ${currGroupNo}
+	 $("#chat-room-no-for-update-delete").val(chatRoomNo);
+		 
 	 $.ajax({
 			url: `${pageContext.request.contextPath}/gw/chat/selectChatUser.do`,
 			method : "get",
@@ -676,7 +664,6 @@ $(".btn-createChatRoom").click((e)=>{
 								if(v.profileRenamedFilename.indexOf('http') == 0){
 				 					$(".selected-chat-user-box").append(`
 				 					<div class="modal-member-profile">
-				              		<input class="ml-2 mr-2"type="checkbox" name="memberId" value="\${v.memberId}"/>
 				              		<div class="modal-member-profile-box">
 				    	          	<img src="\${v.profileRenamedFilename}" alt="" class="modal-member-profile-img" style="width: 1px; zoom : 30;"/>
 				    	          	</div>
@@ -685,7 +672,6 @@ $(".btn-createChatRoom").click((e)=>{
 				    	          	}else{
 				 					$(".selected-chat-user-box").append(`
 				 					<div class="modal-member-profile">
-				              		<input class="ml-2 mr-2"type="checkbox" name="memberId" value="\${v.memberId}"/>
 				              		<div class="modal-member-profile-box">
 				    	          	<img src="${pageContext.request.contextPath }/resources/upFile/profile/\${v.profileRenamedFilename}" alt="" class="modal-member-profile-img" style="width: 1px; zoom : 30;"/>
 				    	          	</div>
@@ -695,22 +681,25 @@ $(".btn-createChatRoom").click((e)=>{
 							}
 						});
 						$(".selected-chat-user-box").append(`<hr />`);
+	 					
 					};
 		 	},
 		 	error : console.log
 		 });
 	 
 	 $.ajax({
-			url: `${pageContext.request.contextPath}/gw/chat/selectMember.do`,
+			url: `${pageContext.request.contextPath}/gw/chat/selectMemberExceptSelected.do`,
 			method : "get",
-			data: {'groupNo' : groupNo},
+			data: {'groupNo' : groupNo,
+				'chatRoomNo' : chatRoomNo
+			},
 			contentType: "application/json; charset=utf-8",
 		 	success(res){
 		 		$.each(res,(k,v)=>{
 	    	    	if(v.profileRenamedFilename.indexOf('http') == 0){
 	 					$(".add-selected-chat-user-box").append(`
 	 					<div class="modal-member-profile">
-	              		<input class="ml-2 mr-2"type="checkbox" name="memberId" value="\${v.memberId}"/>
+	              		<input class="ml-2 mr-2" type="checkbox" name="memberId" value="\${v.memberId}"/>
 	              		<div class="modal-member-profile-box">
 	    	          	<img src="\${v.profileRenamedFilename}" alt="" class="modal-member-profile-img" style="width: 1px; zoom : 30;"/>
 	    	          	</div>
@@ -719,24 +708,72 @@ $(".btn-createChatRoom").click((e)=>{
 	    	          	}else{
 	 					$(".add-selected-chat-user-box").append(`
 	 					<div class="modal-member-profile">
-	              		<input class="ml-2 mr-2"type="checkbox" name="memberId" value="\${v.memberId}"/>
+	              		<input class="ml-2 mr-2" type="checkbox" name="memberId" value="\${v.memberId}"/>
 	              		<div class="modal-member-profile-box">
 	    	          	<img src="${pageContext.request.contextPath }/resources/upFile/profile/\${v.profileRenamedFilename}" alt="" class="modal-member-profile-img" style="width: 1px; zoom : 30;"/>
 	    	          	</div>
 	              		<span class="modal-member-name">\${v.nickname}</span>
 	              	</div>`);
-	    	          	}
+
+	    	          	};
+	    	          	
 
 	 		});
-	 		$(".add-selected-chat-user-box").append(`<input type="hidden" name="selectedMemberId" value="" />`);
-	 		
 	 	},
 	 	error : console.log
 		
 	 });
-	 
+
 	 $("#updateChatRoomModal").modal('show');
  });
+ 
+ 
+ $(".btn-updateChatRoom").click((e)=>{
+		var form = $('#updateDeleteChatRoomFrm')[0];
+	    var formData = new FormData(form);
+	     $.ajax({
+	        url : "${pageContext.request.contextPath}/gw/chat/updateChatRoom.do",
+	        type : 'POST',
+	        data : formData,
+	        contentType : false,
+	        processData : false,
+	        headers: {
+				"${_csrf.headerName}" : "${_csrf.token}"
+		 	},
+		 	success(data){
+		 		if(data > 0){
+		 			alert("채팅방 정보가 변경되었습니다.");
+		 			location.reload();
+		 		}
+		 	},
+		 	error : console.log
+	    });  
+	});
+ 
+	$(".btn-deleteChatRoom").click((e)=>{
+		var chatRoomNo = $("#chat-room-no-for-update-delete").val();
+		console.log(chatRoomNo);
+ 	 	if(confirm("모든 채팅 내역이 사라집니다. 삭제하시겠습니까?")){
+			$.ajax({
+				url : "${pageContext.request.contextPath}/gw/chat/deleteChatRoom.do",
+				data : {
+					chatRoomNo : chatRoomNo
+				},
+				success(res){
+					if(res > 0){
+						alert("채팅방이 삭제되었습니다.");
+						location.reload();
+					}
+				},
+				error : console.log
+			});
+			
+		}
+		
+	});
+ 
+	
+	
  
  $(".btn-createVoiceChatRoom").click((e)=>{
 	 $(document.createVoiceChatRoomFrm).submit();
