@@ -486,7 +486,80 @@
 				    tb_group tg left join applocation_group ag on tg.group_no = ag.group_no where group_accept='Y'
 				order by
 				    tg.group_no desc	
-)
-	
+		)
 	</select>
+	
+	<select id="searchGroupList" resultType="Group">
+		select 
+		    distinct tg.group_no, category_no, group_name, GROUP_ENROLL_DATE, group_charge, group_close, group_pool, group_private, group_like_count, group_location 
+		from 
+		    tb_group tg left join applocation_group ag on tg.group_no = ag.group_no 
+
+		<where>
+		group_accept='Y'
+		<if test="searchType == 'groupName' and searchKeyword != ''">
+  			and group_name like '%'||#{searchKeyword}||'%'
+  		</if>
+  		<if test="searchType =='groupNo' and searchKeyword != ''">
+  			and tg.group_no = #{searchKeyword}
+  		</if>
+		<if test="searchRegDateStart != '' and searchRegDateEnd != ''">
+			and group_enroll_date between #{searchRegDateStart} and #{searchRegDateEnd}
+		</if>
+		<if test="groupClose != ''">
+			and group_close = #{groupClose}
+		</if>
+		</where>		
+		order by
+		    group_no desc	
+	</select>		
+	<select id="searchGroupListCounts" resultType="_int">
+		select
+			count(*)
+		from(
+			select 
+			    distinct tg.group_no, category_no, group_name, GROUP_ENROLL_DATE, group_charge, group_close, group_pool, group_private, group_like_count, group_location 
+			from 
+			    tb_group tg left join applocation_group ag on tg.group_no = ag.group_no 
+	
+			<where>
+			group_accept='Y'
+			<if test="searchType == 'groupName' and searchKeyword != ''">
+	  			and group_name like '%'||#{searchKeyword}||'%'
+	  		</if>
+	  		<if test="searchType =='groupNo' and searchKeyword != ''">
+	  			and tg.group_no = #{searchKeyword}
+	  		</if>
+			<if test="searchRegDateStart != '' and searchRegDateEnd != ''">
+				and group_enroll_date between #{searchRegDateStart} and #{searchRegDateEnd}
+			</if>
+			<if test="groupClose != ''">
+				and group_close = #{groupClose}
+			</if>
+			</where>		
+			order by
+			    group_no desc	
+		)
+		
+	</select>	
+	
+	<select id="selectLeader" resultType="MemberOfGroup">
+		select
+			member_id
+		from
+			applocation_group
+		where
+			group_no = #{groupNo} and role = 'G'
+		
+	</select>
+	
+	<select id="memberOfGroupList" resultType="MemberOfGroup">
+		select
+			member_id
+		from
+			applocation_group
+		where
+			group_no = #{groupNo} and role = 'P' and group_accept = 'Y'
+	</select>
+		
 </mapper>
