@@ -77,4 +77,6 @@ public interface AdminService {
 
 	List<ColumnAndCount> totalCountOfPost();
 
+	int totalCountOfMembers();
+
 }

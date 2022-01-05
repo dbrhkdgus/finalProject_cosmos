@@ -193,7 +193,7 @@ public class AdminController {
 		// 페이징처리
 		int limit = 10;
 		int offset = (cPage - 1) * limit;
-		int totalContent = mainService.selectQuestionTotalCount();
+		int totalContent = adminService.totalCountOfMembers();
 		String url = request.getRequestURI();
 		String pagebar = CosmosUtils.getPagebar(cPage, limit, totalContent, url);
 		model.addAttribute("totalContent", totalContent);
