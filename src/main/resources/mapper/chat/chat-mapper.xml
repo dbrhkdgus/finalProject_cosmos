@@ -139,4 +139,7 @@ where
   <delete id="deleteChatMessage">
   delete chat_message where chat_message_no = #{chatMessageNo}
   </delete>
+  <delete id="deleteDmMessage">
+   delete dm where dm_no = #{dmMessageNo}
+  </delete>
 </mapper>
