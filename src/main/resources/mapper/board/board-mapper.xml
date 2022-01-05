@@ -157,7 +157,7 @@
 	from 
 		reply 
 	where 
-		post_no is not null group by post_no
+		post_no is not null and delete_yn='N' group by post_no
   </select>
   <select id="selectProfileAttachmentList" resultType="attachment">
 	select * from attachment where img_flag = 'P'

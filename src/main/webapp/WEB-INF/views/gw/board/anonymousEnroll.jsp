@@ -19,7 +19,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/summernote-lite.css">
 
 <div class="workspace-box">
-	<div class="p-4 mt-4">
+	<div class="p-5 mt-4">
   <!-- form 안에 에디터를 사용하는 경우 (보통 이경우를 많이 사용하는듯)-->
 
   
