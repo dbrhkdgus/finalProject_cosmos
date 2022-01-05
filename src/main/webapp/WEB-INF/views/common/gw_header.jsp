@@ -145,7 +145,7 @@
     <ul class="list-unstyled ps-0">
       <li class="mb-1">
       	<div class="d-flex justify-content-between align-items-center">
-	        <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#board-collapse" aria-expanded="false">
+	        <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" id="dropdownBoard" data-bs-target="#board-collapse" aria-expanded="false">
 	          게시판 채널
 	        </button>
 	        <div class="createBoardRoom" style="cursor: pointer; ">
@@ -154,7 +154,7 @@
 			</svg>
 			</div>
       	</div>
-        <div class="collapse show" id="board-collapse">
+        <div class="collapse" id="board-collapse">
           <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
            	<c:if test="${not empty boardList}">
            		<c:forEach var="boardRoom" items="${boardList}">
@@ -194,7 +194,7 @@
       </li>
       <li class="mb-1">
       	<div class="d-flex justify-content-between align-items-center">
-	        <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#chatting-collapse" aria-expanded="false">
+	        <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" id="dropdownChat" data-bs-target="#chatting-collapse" aria-expanded="false">
 	          채팅 채널
 	        </button>
 	        <div class="createChatRoom" style="cursor: pointer;">
@@ -250,7 +250,7 @@
       </li>
       <li class="mb-1">
       	<div class="d-flex justify-content-between align-items-center">
-	        <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#schedule-collapse" aria-expanded="false">
+	        <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" id="dropdownCalendar" data-bs-target="#schedule-collapse" aria-expanded="false">
 	          일정 공유 채널
 	        </button>
 	        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
@@ -266,7 +266,7 @@
       </li>
       <li class="mb-1">
       	<div class="d-flex justify-content-between align-items-center">
-	        <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#app-collapse" aria-expanded="false">
+	        <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" id="dropdownApp" data-bs-target="#app-collapse" aria-expanded="false">
 	          APP
 	        </button>
 	        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
@@ -284,7 +284,7 @@
       <li class="border-top my-3"></li>	
      <c:if test="${fn:contains(role , 'G') || fn:contains(role , 'M') }">
       <li class="mb-1">
-        <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#account-collapse" aria-expanded="false">
+        <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" id="dropdownAdmin" data-bs-target="#account-collapse" aria-expanded="false">
           관리자 전용
         </button>
         <div class="collapse" id="account-collapse">
@@ -749,8 +749,8 @@ $(".btn-createChatRoom").click((e)=>{
 	 $("#memberLogoutFrm").submit();
  });
  
- $("#selectAllZoomRoomList").click((e)=>{
-		let $target = $(e.target);
+ window.addEventListener("load", function(){
+		let $target = $("#selectAllZoomRoomList");
 		let $groupNo = $target.data("groupNo");
 		
 		$.ajax({

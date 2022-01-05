@@ -13,7 +13,7 @@
 <sec:authorize access="isAuthenticated()">
 	<sec:authentication property="principal" var="loginMember"/>
 </sec:authorize>
-	
+
 <div class="workspace-box">
   <div class="voiceChatEdit-container text-center" style="width: 60%;margin: 0 auto;">
     <div class="voiceChatEdit-title">
@@ -69,7 +69,12 @@ function deleteRoom(roomNo){
 };
 </script>
 
-
+<script>
+window.addEventListener("load", function(){
+	$("#selectAllZoomRoomList").removeClass("collapsed");
+	$("#v-chatting-collapse").addClass("show");
+	});
+</script>
 
 
 <jsp:include page="/WEB-INF/views/common/gw_footer.jsp"></jsp:include>
