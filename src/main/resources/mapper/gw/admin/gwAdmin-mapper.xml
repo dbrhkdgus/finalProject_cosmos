@@ -102,19 +102,18 @@
 	</insert>
 
 	<select id="selectTdlMonthlyDataList" resultType="TdlMonthlyData">
-		
-				SELECT 
-				  COUNT(*) as COUNT, 
-				  TO_CHAR(TO_DATE(tdl_create_date), 'MM') as MONTHLYDATA
-				FROM
-				  todolist
-		
-				WHERE 1=1
-				  and tdl_create_date >=('2021/06/01','YYYY-MM-DD') and tdl_create_date <![CDATA[< 	]]>('2022/01/01','YYYY-MM-DD')
-				  and group_no = #{groupNo}
-				GROUP BY TO_CHAR(TO_DATE(tdl_create_date), 'MM')
-				ORDER BY MONTHLYDATA
-	
+
+				 <![CDATA[
+				select
+				TO_CHAR(tdl_create_date, 'MM') as monthlyData, 
+				count(*) as count 
+				from todolist
+				where tdl_create_date >=TO_DATE('2021/06/01','YYYY-MM-DD') and tdl_create_date < TO_DATE('2022/01/01','YYYY-MM-DD') 
+				and group_no =#{groupNo}
+				GROUP BY to_char(tdl_create_date, 'MM')
+				order by monthlyData asc
+				]]>
+					
 
 	</select>
 </mapper>
