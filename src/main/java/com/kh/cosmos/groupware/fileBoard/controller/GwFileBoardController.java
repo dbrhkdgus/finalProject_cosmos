@@ -36,7 +36,6 @@ import com.kh.cosmos.group.model.vo.Group;
 import com.kh.cosmos.groupware.board.model.service.BoardService;
 import com.kh.cosmos.groupware.board.model.vo.Board;
 import com.kh.cosmos.groupware.board.model.vo.Post;
-import com.kh.cosmos.groupware.board.model.vo.PostReplyCount;
 import com.kh.cosmos.groupware.board.model.vo.PostWithCategory;
 import com.kh.cosmos.groupware.board.model.vo.PostWithNickname;
 import com.kh.cosmos.groupware.chat.model.vo.ChatRoom;
@@ -45,7 +44,6 @@ import com.kh.cosmos.groupware.fileBoard.vo.FileEnroll;
 import com.kh.cosmos.groupware.fileBoard.vo.IdNickName;
 import com.kh.cosmos.groupware.service.GroupwareService;
 import com.kh.cosmos.member.model.vo.Member;
-import com.kh.cosmos.member.model.vo.MemberWithGroup;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -369,7 +367,6 @@ public class GwFileBoardController {
     	param.put("memberId", loginMember.getId());
     	param.put("groupNo", groupNo);
         ApplocationGroup applocationGroup = gwService.selectApplocationGroup(param);
-        
         
         model.addAttribute("role", applocationGroup.getRole());
         model.addAttribute("currGroupNo", groupNo);
