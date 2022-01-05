@@ -86,14 +86,14 @@
       data: {
         labels: ['1월','2월','3월','4월','5월','6월'],
         datasets: [{ 
-            data: [0,10,20,30,40,50],
+            data: [0,10,20,30,20,10],
             label: "전체 TDL",
             borderColor: 'rgb(255, 99, 132)',
             backgroundColor: 'rgba(255, 99, 132, 0.2)',
             borderWidth:1,
             fill: false
           }, { 
-            data: [50,40,30,20,10,0],
+            data: [10,20,30,20,10,0],
             label: "달성 TDL",
             borderColor: 'rgb(54, 162, 235)',
             backgroundColor: 'rgba(54, 162, 235, 0.2)',
@@ -111,6 +111,9 @@
         }
       }
     });
+    
+   
+    
     
     var ctx = document.getElementById('goalChart');
     var chart2 = new Chart(ctx, {
