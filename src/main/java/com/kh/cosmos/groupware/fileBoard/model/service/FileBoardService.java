@@ -6,6 +6,7 @@ import java.util.Map;
 import com.kh.cosmos.common.attachment.model.vo.Attachment;
 import com.kh.cosmos.groupware.board.model.vo.Post;
 import com.kh.cosmos.groupware.board.model.vo.PostWithCategory;
+import com.kh.cosmos.groupware.board.model.vo.PostWithNickname;
 import com.kh.cosmos.groupware.fileBoard.vo.FileEnroll;
 import com.kh.cosmos.groupware.fileBoard.vo.IdNickName;
 
@@ -15,7 +16,7 @@ public interface FileBoardService {
 
 	int insertFilePost(Post post);
 
-	List<PostWithCategory> selectAllPostInfileBoard(int boardNo);
+	List<PostWithCategory> selectAllPostInfileBoard(int boardNo, int limit, int offset);
 
 	Attachment selectOneAttachment(int attachNo);
 
@@ -25,11 +26,13 @@ public interface FileBoardService {
 
 	int deleteOneAttach(int attachNo);
 
-	List<PostWithCategory> selectAllFileBoardListByParam(Map<String, Object> param, int limit, int offset);
+	List<PostWithNickname> selectAllFileBoardListByParam(Map<String, Object> param, int limit, int offset);
 
 	List<IdNickName> selectIdNickName();
 
 	int selectPostInFileBoardTotalCount(int boardNo);
+
+	int selectSearchFileBoardTotalCnt(Map<String, Object> param);
 
 
 

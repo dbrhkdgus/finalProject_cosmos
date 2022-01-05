@@ -9,21 +9,18 @@ import org.springframework.stereotype.Service;
 import com.kh.cosmos.common.attachment.model.vo.Attachment;
 import com.kh.cosmos.groupware.board.model.vo.Post;
 import com.kh.cosmos.groupware.board.model.vo.PostWithCategory;
+import com.kh.cosmos.groupware.board.model.vo.PostWithNickname;
 import com.kh.cosmos.groupware.fileBoard.model.dao.FileBoardDao;
-import com.kh.cosmos.groupware.fileBoard.vo.FileEnroll;
 import com.kh.cosmos.groupware.fileBoard.vo.IdNickName;
 
 @Service
 public class FileBoardServiceImpl implements FileBoardService {
-	
-
-	
 
 	@Autowired
 	private FileBoardDao fileBoardDao;
 	@Override
-	public List<PostWithCategory> selectAllPostInfileBoard(int boardNo) {
-		return fileBoardDao.selectAllPostInfileBoard(boardNo);
+	public List<PostWithCategory> selectAllPostInfileBoard(int boardNo, int limit, int offset) {
+		return fileBoardDao.selectAllPostInfileBoard(boardNo, limit, offset);
 	}
 
 	@Override
@@ -41,6 +38,11 @@ public class FileBoardServiceImpl implements FileBoardService {
 		return fileBoardDao.selectOneAttachment(attachNo);
 	}
 
+	@Override
+	public int selectSearchFileBoardTotalCnt(Map<String, Object> param) {
+		// TODO Auto-generated method stub
+		return fileBoardDao.selectSearchFileBoardTotalCnt(param);
+	}
 
 	@Override
 	public List<Attachment> selectAttachmentList() {
@@ -59,7 +61,7 @@ public class FileBoardServiceImpl implements FileBoardService {
 	
 	
 	@Override
-	public List<PostWithCategory> selectAllFileBoardListByParam(Map<String, Object> param, int limit, int offset) {
+	public List<PostWithNickname> selectAllFileBoardListByParam(Map<String, Object> param, int limit, int offset) {
 		// TODO Auto-generated method stub
 		return fileBoardDao.selectAllFileBoardListByParam(param, limit, offset);
 	}
