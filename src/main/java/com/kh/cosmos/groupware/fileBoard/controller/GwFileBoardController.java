@@ -31,6 +31,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.kh.cosmos.common.CosmosUtils;
 import com.kh.cosmos.common.attachment.model.service.AttachmentService;
 import com.kh.cosmos.common.attachment.model.vo.Attachment;
+import com.kh.cosmos.group.model.vo.ApplocationGroup;
 import com.kh.cosmos.group.model.vo.Group;
 import com.kh.cosmos.groupware.board.model.service.BoardService;
 import com.kh.cosmos.groupware.board.model.vo.Board;
@@ -364,7 +365,13 @@ public class GwFileBoardController {
         List<Board> boardList = gwService.selectAllBoardRoomByGroupNo(groupNo);
         model.addAttribute("boardList", boardList);
         List<ChatRoom> chattingChannelList = gwService.selectAllChatRoomByGroupNo(groupNo);
+        Map<String,Object> param = new HashMap<>();
+    	param.put("memberId", loginMember.getId());
+    	param.put("groupNo", groupNo);
+        ApplocationGroup applocationGroup = gwService.selectApplocationGroup(param);
         
+        
+        model.addAttribute("role", applocationGroup.getRole());
         model.addAttribute("currGroupNo", groupNo);
         model.addAttribute("myGroup", myGroup);
         model.addAttribute("myGroupMemberList", myGroupMemberList);
