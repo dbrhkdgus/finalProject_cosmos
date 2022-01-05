@@ -104,11 +104,13 @@ public class AppController {
 		int result = appService.updateTDL(param);
 		
 	}
-	@ResponseBody
+	
 	@GetMapping("/reCalculate.do")
-	public Map<String, Object> reCalculate(@RequestParam("groupNo") int groupNo, Authentication auth, int check) {
+	public String reCalculate(@RequestParam(defaultValue = "1") int cPage, int groupNo, Model model, Authentication auth, int check, HttpServletRequest request) {
 		Map<String, Object> param = new HashMap<String, Object>();
 		Map<String, Object> map = new HashMap<String, Object>();
+		int limit = 10;
+		int offset = (cPage - 1) * limit;
 		log.debug("check = {}",check);
 		log.debug("groupNo = {}",groupNo);
 		param.put("groupNo", groupNo);
@@ -121,13 +123,24 @@ public class AppController {
 		case 2:param.put("check", "complete");break;
 		}
 		log.debug("param = {}",param);
-		List<TDL> tdlReList = appService.selectTDLBysort(param);
+		int totalContent = appService.selectTDLBysortTotalCount(param);
+		List<TDL> tdlList = appService.selectTDLBysort(param, limit, offset);
 		int num = 0;
-		for(TDL tdlList : tdlReList) {
-			map.put(Integer.toString(num), tdlList);
+		for(TDL list : tdlList) {
+			map.put(Integer.toString(num), list);
 			num++;
 		}
-		return map;
+		String url = request.getRequestURI();
+		url += "?groupNo=" + groupNo + "&check=" + check;
+		String pagebar = CosmosUtils.getPagebar(cPage, limit, totalContent, url);
+		model.addAttribute("totalContent", totalContent);
+		model.addAttribute("pagebar", pagebar);
+		model.addAttribute("check", check);
+		groupwareHeaderSet(groupNo, model, auth);
+		model.addAttribute("tdlList",tdlList);
+		model.addAttribute("loginMember",loginMember);
+		model.addAttribute("title", loginMember.getNickname()+"의 ToDoList");
+		return "gw/app/TDL";
 	}
 	
 	
