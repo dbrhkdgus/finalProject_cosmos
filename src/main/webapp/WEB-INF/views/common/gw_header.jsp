@@ -597,10 +597,12 @@ $(".btn-createChatRoom").click((e)=>{
  });
  $(".updateBoardRoom").click((e)=>{
 	 $("#updateBoardRoomModal").modal('show');
-	 var boardNo = $(e.target).next().eq(0).value;
-	 $("#board-no-for-update-delete").value(boardNo);b
+	 var boardNo = $(e.target).next().eq(0).text();
+	 console.log(boardNo);
+	 $("#board-no-for-update-delete").val(boardNo);
  });
  
+ form.attr("action", delte)
  
  $(".btn-createVoiceChatRoom").click((e)=>{
 	 $(document.createVoiceChatRoomFrm).submit();
