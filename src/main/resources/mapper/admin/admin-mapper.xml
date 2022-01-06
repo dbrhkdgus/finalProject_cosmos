@@ -304,7 +304,8 @@
 		    b.board_type,
 		    b.board_name,
 		    c.board_type_name,
-		    g.group_name
+		    g.group_name,
+		 	b.board_no
 		from
 		    post p left join tb_member m on p.member_id = m.id
 		              left join board b on p.board_no = b.board_no
