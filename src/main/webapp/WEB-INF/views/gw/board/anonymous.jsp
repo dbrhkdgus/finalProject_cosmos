@@ -15,12 +15,12 @@
  tr{cursor:pointer;}
 </style>
  <div class="workspace-box">
-  <div class="p-4">
+  <div class="p-5">
     <form 
 		enctype="multipart/form-data"
 		action="${pageContext.request.contextPath}/gw/board/anonymousSearch.do?" 
 		method="get">
-	    <div class="test-board-search d-flex float-right">
+	    <div class="test-board-search d-flex float-right mb-4" style="margin-right: 6%">
 	    	 <select name="searchType" class="form-select search-select" id="form-select-search" style="width: 27%;">
 		        <option value="post_title" 
 	        	<c:if test="${searcyType eq 'post_title'}">selected </c:if> 
@@ -41,13 +41,13 @@
     </form>
   
   
-  <table class="table file-board-table">
-    <thead>
+  <table class="table table-sm file-board-table mx-auto mt-3 board-table-hover" style="width: 85%;">
+    <thead class="board-thead">
       <tr>
         <th>No</th>
         <th colspan="2">제목</th>
         <th>조회수</th>
-        <th>날짜</th>
+        <th style="width: 12%">날짜</th>
         <th></th>
       </tr>
     </thead>
@@ -78,10 +78,12 @@
 
     </tbody>
   </table>
-  <div class="d-grid gap-2 d-md-flex justify-content-md-end mr-2 ">
-  <a href="${pageContext.request.contextPath}/gw/board/anonymousEnroll.do?boardNo=${boardNo}&groupNo=${groupNo} ">
-    <button class="btn btn-primary me-md-2" type="button">글쓰기</button>
+  <div class="d-grid gap-2 d-md-flex justify-content-md-end" style="margin-right: 7%;">
+  	<a href="${pageContext.request.contextPath}/gw/board/anonymousEnroll.do?boardNo=${boardNo}&groupNo=${groupNo} ">
+    <button class="btn btn-primary me-md-2 mt-2" type="button">글쓰기</button>
+    </a>
   </div>
+  
   <div class="test-board-pagebar">
      ${pagebar} 
   </div>
