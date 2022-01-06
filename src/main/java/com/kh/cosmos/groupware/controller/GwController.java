@@ -19,6 +19,7 @@ import com.kh.cosmos.group.model.vo.Group;
 import com.kh.cosmos.groupware.board.model.service.BoardService;
 import com.kh.cosmos.groupware.board.model.vo.Board;
 import com.kh.cosmos.groupware.board.model.vo.Post;
+import com.kh.cosmos.groupware.board.model.vo.PostWithBoardName;
 import com.kh.cosmos.groupware.calendar.model.vo.Schedule;
 import com.kh.cosmos.groupware.chat.model.vo.ChatRoom;
 import com.kh.cosmos.groupware.service.GroupwareService;
@@ -70,7 +71,10 @@ public class GwController {
 	    
 	    
 	    List<Schedule> todayScheduleList = gwService.selectTodayScheduleListByGroupNo(groupNo);
+	    List<PostWithBoardName> newPostsList = gwService.selectNewPostsListByGroupNo(groupNo);
 	    
+	    
+	    model.addAttribute("newPostsList",newPostsList);
 	    model.addAttribute("todayScheduleList",todayScheduleList);
 	    model.addAttribute("role", applocationGroup.getRole());	
 		model.addAttribute("currGroupNo", groupNo);

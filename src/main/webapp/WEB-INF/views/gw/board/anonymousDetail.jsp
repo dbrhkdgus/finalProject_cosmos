@@ -237,8 +237,8 @@
       <form:form name="deleteAnonymousFrm" method="post" action="${pageContext.request.contextPath}/gw/board/deletePostAnonymous.do?postNo=${post.postNo}">
 	      <div class="modal-body mx-3">
 	        <div class="md-form mb-5">
-	          <label  for="defaultForm-email">비밀번호</label>
-	          <input type="text" name="postPassword" class="form-control validate"  maxlength="4" onChange="checkNumber()" id="deleteanonymous">
+	          <label for="defaultForm-email">비밀번호</label>
+	          <input id="deletePostPw" type="text" name="postPassword" class="form-control validate"  maxlength="4" onChange="checkNumber()" id="deleteanonymous">
 	        </div>
 	      </div>
 	      <input type="hidden" name="groupNo" value="${currGroupNo}" />
@@ -265,8 +265,8 @@
       <form:form name="updateAnonymousFrm" method="post" action="${pageContext.request.contextPath}/gw/board/checkPassword.do?postNo=${post.postNo}">
 	      <div class="modal-body mx-3">
 	        <div class="md-form mb-5">
-	          <label  for="defaultForm-email">비밀번호</label>
-	          <input type="text" name="postPassword" class="form-control validate"  maxlength="4" onChange="checkNumber()" id="deleteanonymous">
+	          <label for="defaultForm-email">비밀번호</label>
+	          <input id="updatePostPw" type="text" name="postPassword" class="form-control validate"  maxlength="4" onChange="checkNumber()" id="deleteanonymous">
 	        </div>
 	      </div>
 	      <input type="hidden" name="groupNo" value="${currGroupNo}" />
@@ -294,7 +294,7 @@
 	      <div class="modal-body mx-3">
 	        <div class="md-form mb-5">
 	          <label  for="defaultForm-email">비밀번호</label>
-	          <input type="text" name="replyPw" class="form-control validate"  maxlength="4" onChange="checkNumber()" id="deleteanonymous">
+	          <input id="pw" type="text" name="replyPw" class="form-control validate"  maxlength="4" onChange="checkNumber()" id="deleteanonymous">
 	        </div>
 	      </div>
 	      <input type="hidden" class="deleteReplyNo" name="replyNo" />
@@ -469,12 +469,23 @@ $(".btn-update-anonymous-reply").click((e)=> {
 
 /* 게시글 수정삭제 */
  $(".btn-deleteAnonymousPost").click((e)=>{
-	 $(document.deleteAnonymousFrm).submit();
+	if($(deletePostPw).val() != null && $(deletePostPw).val() != '' ){
+	}else{
+		alert("비밀번호를 입력해주세요.");
+		return;
+	}
+	$(document.deleteAnonymousFrm).submit();
  });
+ 
  $(".deleteAnonymousPost").click((e)=>{
 	 $("#deleteAnonymousModal").modal('show');
  });
  $(".btn-updateAnonymousPost").click((e)=>{
+	 if($(updatePostPw).val() != null && $(updatePostPw).val() != '' ){
+		}else{
+			alert("비밀번호를 입력해주세요.");
+			return;
+	 }
 	 $(document.updateAnonymousFrm).submit();
  });
  $(".updateAnonymousPost").click((e)=>{
