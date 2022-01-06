@@ -12,13 +12,15 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Post implements Serializable {
-	
+public class PostWithBoardName extends Post implements Serializable {
+
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
+	
+	private String boardName;
+	private String boardType;
 	private int postNo;
 	private String memberId;
 	private int boardNo;
@@ -32,6 +34,9 @@ public class Post implements Serializable {
 	private int boardCategoryNo;
 	private int postPassword;
 	private int readCount;
+
 	
 	
+	
+
 }

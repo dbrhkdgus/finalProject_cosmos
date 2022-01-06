@@ -543,6 +543,16 @@ div.list-group1{
     justify-content: flex-start;
     align-items: baseline;
 }
+
+
+.file-board-icon{
+	width:63px;
+}
+
+#fileBoard-delete> i:hover{
+	color: red !important;
+    
+}
 .groupware-saved-file-info{
   border: 1.5px solid #E9E9E9;
     border-radius: 5px;
@@ -788,9 +798,10 @@ div.list-group1{
     width: 400px;
 }
 .groupware-main-today-schedule{
-	height: 100px;
+    height: 75px;
     width: 100%;
     margin-top: 10px;
+    overflow-y: auto; 
 }
 /* 채팅방 생성 modal */
 .modal-member-profile{
