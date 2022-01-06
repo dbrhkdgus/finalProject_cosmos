@@ -57,7 +57,7 @@ button:focus {
 
 	<div class="study-join-admin-box">
 		<div class="study-member-table">
-			<h4>그룹원 관리</h4>
+			<h4 style="font-weight:bold; margin-bottom:30px;">멤버 관리</h4>
 
 			<table class="table table-sm text-center" id="acceptedMemeber">
 				<thead>
@@ -119,8 +119,9 @@ button:focus {
 				</tbody>
 			</table>
 		</div>
+		
 		<div class="study-join-table">
-			<h4>그룹 가입 요청</h4>
+			<h4 style="font-weight:bold; margin-bottom:30px;">그룹 가입 요청</h4>
 			<form:form id="checkValidList"
 				action="${pageContext.request.contextPath }/gw/admin/groupAccept.do"
 				method="post">
