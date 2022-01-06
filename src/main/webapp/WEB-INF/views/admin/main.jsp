@@ -56,27 +56,29 @@
                     </div>
                 </div>
                 <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">
-                    <div class="tm-bg-primary-dark tm-block">
-                        <h2 class="tm-block-title">
-                            매출(지난달, 지지난달 등)
-                            <a href="#">
-                                <span id="seeMore" class="tm-text-color-secondary"> > 더 보기</span>
-                            </a>                            
-                        </h2>
-                        <canvas id="barChart"></canvas>
-                    </div>
-                </div>
-                <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">
                     <div class="tm-bg-primary-dark tm-block tm-block-taller">
                         <h2 class="tm-block-title">
-                            월간 모임 별 최근 게시글 수
+                            주간 새 게시글 순
                             <a href="${pageContext.request.contextPath}/admin/StatisticsOfGroup.do">
                                 <span id="seeMore" class="tm-text-color-secondary"> > 더 보기</span>
                             </a>                            
                         </h2>
-                        <div id="pieChartContainer">
-                            <canvas id="pieChart" class="chartjs-render-monitor" width="200" height="200"></canvas>
+                        <div id="div_categoryChart2">
+                            <canvas id="pie-chart2"></canvas>
                         </div>                        
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">
+                    <div class="tm-bg-primary-dark tm-block">
+                        <h2 class="tm-block-title">
+                            상위 카테고리별 모임
+                            <a href="#">
+                                <span id="seeMore" class="tm-text-color-secondary"> > 더 보기</span>
+                            </a>                            
+                        </h2>
+                        <div id="div_categoryChart">
+	                        <canvas id="pie-chart" height="200"></canvas>
+                        </div>
                     </div>
                 </div>
                 <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">
@@ -122,7 +124,7 @@
                 </div>
                 <div class="col-12 tm-block-col">
                     <div class="tm-bg-primary-dark tm-block tm-block-taller tm-block-scroll">
-                        <h2 class="tm-block-title">그룹 리스트(생성순으로)</h2>
+                        <h2 class="tm-block-title">그룹 리스트(등록순)</h2>
                         <table class="table text-center">
                             <thead>
                                 <tr>
@@ -172,7 +174,7 @@ let month = now.getMonth()+1;
 let date = now.getDate();
 
 (()=>{
-	
+	//회원 통계
 	$.ajax({
 		url: `${pageContext.request.contextPath}/admin/thisWeekEnrollMember.do`,
 		dataType: "json",
@@ -267,6 +269,101 @@ let date = now.getDate();
 			    }
 			  });
 		}
+	})
+	
+	//상위 카테고리별 모임 순
+		$.ajax({
+		url: `${pageContext.request.contextPath}/admin/statisticsCategory`,
+		dataType: "json",
+		success(data){
+			console.log(data);
+			//기존 차트 제거
+			let labels = [];
+			let counts = [];
+			for(i = 0; i < data.list.length; i++){
+				labels.push(data.list[i]["column"]);
+				counts.push(data.list[i]["count"]);
+			}
+
+			config = {
+				    type: 'pie',
+				    data: {
+				      labels: labels,
+				      datasets: [{
+				        label: "Population (millions)",
+				        backgroundColor: ["#EFC7D6","#BDE4D7", "#CCE2EE","#FACDCA","#F3E3AE","#D8DCEB","#E2D9E7"],
+				        data: counts
+				      }]
+				    },
+				    options: {
+				      title: {
+				        display: true,
+				        text: '카테고리 별 모임 수',
+				        fontColor: 'white',
+				        fontSize: 13
+				      }, 
+				      legend: {
+				    	  labels: {
+				    		  fontColor: "white",
+				    		  fontSize: 12
+				    	  }
+				      },
+				    }
+				};
+			let barctxx = document.getElementById('pie-chart').getContext('2d');
+			let newBarChart = new Chart(barctxx,config);
+		},
+		error: console.log
+	})
+	
+	//주간 새 게시글 순
+	$.ajax({
+		url: `${pageContext.request.contextPath}/admin/countOfnewPostInThisWeekList`,
+		dataType: "json",
+		success(data){
+			console.log(data);
+			console.log(data.countOfnewPostInThisWeekList);
+			
+			
+			
+			let labels = [];
+			let counts = [];
+			for(i = 0; i < data.countOfnewPostInThisWeekList.length; i++){
+				labels.push(data.countOfnewPostInThisWeekList[i]["column"]);
+				counts.push(data.countOfnewPostInThisWeekList[i]["count"]);
+			}
+			console.log('labels : '+labels);
+			console.log('counts : '+counts);
+
+			config = {
+				    type: 'pie',
+				    data: {
+				      labels: labels,
+				      datasets: [{
+				        label: "Population (millions)",
+				        backgroundColor: ["#EFC7D6","#BDE4D7", "#CCE2EE","#FACDCA","#F3E3AE","#D8DCEB","#E2D9E7"],
+				        data: counts
+				      }]
+				    },
+				    options: {
+				      title: {
+				        display: true,
+				        text: '주간 새 게시글 순',
+				        fontColor: 'white',
+				        fontSize: 13
+				      }, 
+				      legend: {
+				    	  labels: {
+				    		  fontColor: "white",
+				    		  fontSize: 12
+				    	  }
+				      },
+				    }
+				};
+			let barctxx2 = document.getElementById('pie-chart2').getContext('2d');
+			let newBarChart2 = new Chart(barctxx2,config);
+		},
+		error: console.log
 	})
 })()
 

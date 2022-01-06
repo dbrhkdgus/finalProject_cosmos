@@ -57,18 +57,37 @@
              <table class="table text-center mb-4 ">
              	<thead class="">
              	<tr>
-	             	<th style="border-right: solid #4E6175 1px">총 모임 수</th>
-	             	<th>프리미엄 모임 수</th>
-	             	<th>총 게시글 수</th>
-	             	<th>이번 달 신규 모임 수</th>
+	             	<th>총 매출</th>
+	             	<th style="border-right: solid #4E6175 1px">프리미엄 모임 수</th>
+	             	<th>이번 달 매출</th>
+	             	<th>전월 매출</th>
              	</tr>
              	</thead>
              	<tbody>
              	<tr>
-             		<td style="border-right: solid #4E6175 1px">${totalCountOfGroup.count }</td>
-             		<td style="border-right: solid #4E6175 1px">${countOfPremiumGroup.count }</td>
-             		<td style="border-right: solid #4E6175 1px">${countOfPost.count }</td>
-             		<td>${countOfNewGroupInThisMonth.count }</td>
+             		<td style="border-right: solid #4E6175 1px">
+	             		<fmt:formatNumber type="currency" value="${totalSales}"/>
+             		</td>
+             		<td style="border-right: solid #4E6175 1px">${countOfPremiumGroup.count}개</td>
+             		<td style="border-right: solid #4E6175 1px">
+	             		<fmt:formatNumber type="currency" value="${salesOfThisMonth}"/>
+	             		
+	             		<c:if test="${(salesOfThisMonth - salesOfLastMonth) < 0 }">
+	             		<span style="color: #FECABF">
+		             		(<fmt:formatNumber value="${salesOfThisMonth - salesOfLastMonth}"/>)  
+	             		</span>
+	             		</c:if>
+	             		
+	             		<c:if test="${(salesOfThisMonth - salesOfLastMonth) >= 0 }">
+	             		<span style="color: #33C073">
+		             		(<fmt:formatNumber value="${salesOfThisMonth - salesOfLastMonth}"/>) 
+	             		</span>	             		
+	             		</c:if>
+	             		
+             		</td>
+             		<td>
+             			<fmt:formatNumber type="currency" value="${salesOfLastMonth}"/>
+             		</td>
              	</tr>
              	</tbody>
              </table>
@@ -78,56 +97,25 @@
 					<table class="table text-center">
 		             	<thead>
 		             	<tr>
-			             	<th colspan="3">새 게시글 많은 모임(주간)</th>
+			             	<th colspan="3">월별 매출</th>
 		             	</tr>
 		             	</thead>
 		             	<tbody>
-		             	<c:forEach items="${countOfnewPostInThisWeekList }" var="postGroup" varStatus="status">
+		             	<c:forEach items="${monthDataList }" var="monthData" varStatus="status">
 		             		<tr>
 		             			<td style="border-right: solid #4E6175 1px">${status.count }</td>
-		             			<td style="border-right: solid #4E6175 1px">${postGroup.column}</td>
-		             			<td style="border-right: solid #4E6175 1px">${postGroup.count }개</td>
+		             			<td style="border-right: solid #4E6175 1px">${fn:substring(monthData,1,8)}</td>
+		             			<td style="border-right: solid #4E6175 1px">
+		             				<fmt:parseNumber var="i" type="number" value="${fn:substring(monthData,9,10)}" />
+		             				<c:out value="${i*10000}"/> 
+		             			</td>
 		             		</tr>
-		             	</c:forEach>
-		             	<c:if test="${fn:length(countOfnewPostInThisWeekList) < 5}">
-		             		<c:forEach var="i" begin="1" end="${5-fn:length(countOfnewPostInThisWeekList)}">
-		             			<tr>
-			             			<td style="border-right: solid #4E6175 1px">-</td>
-			             			<td style="border-right: solid #4E6175 1px">-</td>
-			             			<td style="border-right: solid #4E6175 1px">-</td>
-		             			</tr>
-		             		</c:forEach>
-		             	</c:if>						
+		             	</c:forEach>					
 		             	</tbody>
 		             </table>
              	</div>
-             	<div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">
-					<table class="table text-center">
-		             	<thead>
-		             	<tr>
-			             	<th colspan=3>좋아요 수 많은 모임</th>
-		             	</tr>
-		             	</thead>
-		             	<tbody>
-		             	<c:forEach items="${countOfGroupLikeList }" var="likeGroup" varStatus="status">
-		             	<tr>
-		             		<td style="border-right: solid #4E6175 1px">${status.count }</td>
-		             		<td style="border-right: solid #4E6175 1px">${likeGroup.column}</td>
-		             		<td style="border-right: solid #4E6175 1px">${likeGroup.count}</td>
-		             	</tr>
-		             	</c:forEach>
-		             	<c:if test="${fn:length(countOfGroupLikeList) < 5}">
-		             		<c:forEach var="i" begin="1" end="${5-fn:length(countOfGroupLikeList)}">
-		             			<tr>
-			             			<td>-</td>
-			             			<td>-</td>
-			             			<td>-</td>
-		             			</tr>
-		             		</c:forEach>
-		             	</c:if>				             	
-		             	</tbody>
-		             </table>             	
-             	</div>
+<!--  테스트-->
+
              </div>
              
 

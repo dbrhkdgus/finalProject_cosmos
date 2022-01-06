@@ -67,7 +67,13 @@ public class GwController {
 	    Map<String,Object> param = new HashMap<>();
 		param.put("memberId", loginMember.getId());
 		param.put("groupNo", groupNo);
-	    ApplocationGroup applocationGroup = gwService.selectApplocationGroup(param);
+		
+	    try {
+			ApplocationGroup applocationGroup = gwService.selectApplocationGroup(param);
+			model.addAttribute("role", applocationGroup.getRole());
+		} catch (Exception e) {
+
+		}	
 	    
 	    
 	    List<Schedule> todayScheduleList = gwService.selectTodayScheduleListByGroupNo(groupNo);
@@ -76,9 +82,9 @@ public class GwController {
 	    List<PostWithBoardName> newPostsList = gwService.selectNewPostsListByParam(param);
 	    
 	    
+	    
 	    model.addAttribute("newPostsList",newPostsList);
 	    model.addAttribute("todayScheduleList",todayScheduleList);
-	    model.addAttribute("role", applocationGroup.getRole());	
 		model.addAttribute("currGroupNo", groupNo);
 		model.addAttribute("myGroup", myGroup);
 		model.addAttribute("myGroupMemberList", myGroupMemberList);
