@@ -100,12 +100,15 @@ main {
 
 /* gw 메인 작업환경 */
 .gw_main_workspace-box{
-  flex-direction: column;
+  display: flex;
+  flex-direction: row;
   justify-content: space-between;
   width: 98%;
   overflow: auto;
 }
-
+.main-banner-notice-new-box{
+	width: 80%;
+}
 /* gw 채널 관리 */
 .updateBoardRoom{
    	display:none;
@@ -757,17 +760,23 @@ div.list-group1{
 	display: flex;
     width: 50%;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
+    margin-left: 35px;
 }
 .groupware-main-calendar{
 	display: flex;
-    width: 50%;
+    width: 37%;
     flex-direction: column;
     align-items: center;
 }
 .groupware-main-banner{
-	height: 35vh;
-    width: 80%;
+	height: 200px;
+    width: 400px;
+}
+.groupware-main-today-schedule{
+	height: 100px;
+    width: 100%;
+    margin-top: 10px;
 }
 /* 채팅방 생성 modal */
 .modal-member-profile{
