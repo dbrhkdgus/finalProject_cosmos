@@ -1062,3 +1062,10 @@ div.list-group1{
     border-bottom: 12px solid #D7ECFB;
 }
 
+
+.file-total-div {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
