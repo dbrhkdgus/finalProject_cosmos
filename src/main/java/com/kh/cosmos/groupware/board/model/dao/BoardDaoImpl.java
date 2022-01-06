@@ -142,12 +142,6 @@ public class BoardDaoImpl implements BoardDao {
 	}
 
 	@Override
-	public int deletePostInAnonymous(int postNo) {
-		// TODO Auto-generated method stub
-		return session.delete("board.deletePostInAnonymous", postNo);
-	}
-
-	@Override
 	public int updatePostReply(Reply reply) {
 		// TODO Auto-generated method stub
 		return session.update("board.updatePostReply", reply);
