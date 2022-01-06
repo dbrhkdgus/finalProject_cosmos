@@ -547,7 +547,6 @@ div.list-group1{
   align-items: center;
 }
 .groupware-saved-card-box{
-  display: flex;
   justify-content: center;
 }
 .card-header span{
