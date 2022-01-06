@@ -18,8 +18,8 @@
 		enctype="multipart/form-data"
 		action="${pageContext.request.contextPath}/gw/board/noticeSearch.do?" 
 		method="get">
-	    <div class="test-board-search d-flex float-right">
-	    	 <select name="searchType" class="form-select search-select" id="form-select-search" style="width: 27%;">
+	    <div class="test-board-search d-flex float-right mb-3">
+	    	 <select name="searchType" class="form-select search-select" id="form-select-search" style="width: 27%; height: 100%">
 		        <option value="post_title" 
 	        	<c:if test="${searcyType eq 'post_title'}">selected </c:if> 
 		        >제목</option>
@@ -38,12 +38,12 @@
 		</div>       
     </form>
   
-  <table class="table file-board-table">
+  <table class="table table-sm file-board-table mx-auto mt-3" style="width: 85%;">
   	<thead>
       <tr>
         <th colspan="3">제목</th>
         <th>조회수</th>
-        <th>날짜</th>
+        <th style="width: 12%">날짜</th>
       </tr>
     </thead>
     <tbody>
