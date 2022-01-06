@@ -17,7 +17,7 @@
     <div class="groupware-saved-outter">
         <div class="groupware-saved-title p-4 mb-4" style="text-align: center; margin-top: 20px; display: flex;
     justify-content: center;" >
-            <h3 style="font-weight: bold; background-color:#D7ECFB; width:fit-content;">저장된 항목</h3>
+            <h3 style="font-weight: bold; background-color:#D7ECFB; width:fit-content;">파일 게시판</h3>
         </div>
      
         <form enctype="multipart/form-data" action="${pageContext.request.contextPath}/gw/fileBoard/fileBoardSearch.do?" method="get">
@@ -61,7 +61,7 @@
                                 <span class="font-weight-bold" style="color:black; font-size:15px;">No.${fn:length(fileBoardList)- status.count+1}</span>
                                 <span style="font-size:19px; ">&nbsp;${post.postTitle}</span>
                                 </div>
-		                                <c:if test="${loginMember.id eq post.memberId}">
+		                                <c:if test="${loginMember.id eq post.memberId || fn:contains(role , 'G') || fn:contains(role , 'M')}">
 		                            <form  action="${pageContext.request.contextPath}/gw/fileBoard/deletefilePost.do?postNo=${post.postNo}" method="GET">
 		                              <c:forEach var="attach" items="${attach}" varStatus="status">
 		                                      <c:if test="${post.attachNo eq attach.attachNo}">                 
@@ -77,7 +77,7 @@
                             </div>
                             <div class="card-body">
                                 <div class="groupware-saved-inner" >
-                                    <div class="groupware-saved-user-name-fileType ml-3">
+                                    <div class="groupware-saved-user-name-fileType ml-3 d-flex align-items-center">
                                         <c:forEach items="${idnicknameList}" var="list" varStatus="status">
                                             <c:if test="${list.id eq post.memberId}">
                                                 <span class="mb-0 font-weight-bold" style="font-size:20px;">${list.nickName}</span>
