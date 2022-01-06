@@ -1,5 +1,6 @@
 package com.kh.cosmos.admin.model.service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -93,5 +94,13 @@ public interface AdminService {
 	List<MemberOfGroup> memberOfGroupList(String groupNo);
 
 	List<ColumnAndCount> statisticsCategory();
+
+	int totalSales();
+
+	int salesOfThisMonth();
+
+	int salesOfLastMonth();
+
+	int salesOfMonth(Map<String, Object> param);
 
 }

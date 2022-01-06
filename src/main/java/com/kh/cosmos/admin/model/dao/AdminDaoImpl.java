@@ -1,5 +1,6 @@
 package com.kh.cosmos.admin.model.dao;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -222,6 +223,27 @@ public class AdminDaoImpl implements AdminDao {
 	public List<ColumnAndCount> statisticsCategory() {
 		return session.selectList("admin.statisticsCategory");
 	}
+
+	@Override
+	public int totalSales() {
+		return session.selectOne("admin.totalSales");
+	}
+
+	@Override
+	public int salesOfThisMonth() {
+		return session.selectOne("admin.salesOfThisMonth");
+	}
+
+	@Override
+	public int salesOfLastMonth() {
+		return session.selectOne("admin.salesOfLastMonth");
+	}
+
+	@Override
+	public int salesOfMonth(Map<String, Object> param) {
+		return session.selectOne("admin.salesOfMonth", param);
+	}
+
 	
 	
 }
