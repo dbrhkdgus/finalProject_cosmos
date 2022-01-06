@@ -1,5 +1,6 @@
 package com.kh.cosmos.admin.model.service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -216,6 +217,27 @@ public class AdminServiceImpl implements AdminService{
 	public List<ColumnAndCount> statisticsCategory() {
 		return adminDao.statisticsCategory();
 	}
+
+	@Override
+	public int totalSales() {
+		return adminDao.totalSales();
+	}
+
+	@Override
+	public int salesOfThisMonth() {
+		return adminDao.salesOfThisMonth();
+	}
+
+	@Override
+	public int salesOfLastMonth() {
+		return adminDao.salesOfLastMonth();
+	}
+
+	@Override
+	public int salesOfMonth(Map<String, Object> param) {
+		return adminDao.salesOfMonth(param);
+	}
+	
 	
 	
 	

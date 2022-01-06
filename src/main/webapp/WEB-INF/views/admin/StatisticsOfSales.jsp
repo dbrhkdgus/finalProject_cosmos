@@ -57,18 +57,37 @@
              <table class="table text-center mb-4 ">
              	<thead class="">
              	<tr>
-	             	<th style="border-right: solid #4E6175 1px">총 모임 수</th>
-	             	<th>프리미엄 모임 수</th>
-	             	<th>총 게시글 수</th>
-	             	<th>이번 달 신규 모임 수</th>
+	             	<th>총 매출</th>
+	             	<th style="border-right: solid #4E6175 1px">프리미엄 모임 수</th>
+	             	<th>이번 달 매출</th>
+	             	<th>전월 매출</th>
              	</tr>
              	</thead>
              	<tbody>
              	<tr>
-             		<td style="border-right: solid #4E6175 1px">${totalCountOfGroup.count }</td>
-             		<td style="border-right: solid #4E6175 1px">${countOfPremiumGroup.count }</td>
-             		<td style="border-right: solid #4E6175 1px">${countOfPost.count }</td>
-             		<td>${countOfNewGroupInThisMonth.count }</td>
+             		<td style="border-right: solid #4E6175 1px">
+	             		<fmt:formatNumber type="currency" value="${totalSales}"/>
+             		</td>
+             		<td style="border-right: solid #4E6175 1px">${countOfPremiumGroup.count}개</td>
+             		<td style="border-right: solid #4E6175 1px">
+	             		<fmt:formatNumber type="currency" value="${salesOfThisMonth}"/>
+	             		
+	             		<c:if test="${(salesOfThisMonth - salesOfLastMonth) < 0 }">
+	             		<span style="color: #FECABF">
+		             		(<fmt:formatNumber value="${salesOfThisMonth - salesOfLastMonth}"/>)  
+	             		</span>
+	             		</c:if>
+	             		
+	             		<c:if test="${(salesOfThisMonth - salesOfLastMonth) >= 0 }">
+	             		<span style="color: #33C073">
+		             		(<fmt:formatNumber value="${salesOfThisMonth - salesOfLastMonth}"/>) 
+	             		</span>	             		
+	             		</c:if>
+	             		
+             		</td>
+             		<td>
+             			<fmt:formatNumber type="currency" value="${salesOfLastMonth}"/>
+             		</td>
              	</tr>
              	</tbody>
              </table>
@@ -78,7 +97,7 @@
 					<table class="table text-center">
 		             	<thead>
 		             	<tr>
-			             	<th colspan="3">새 게시글 많은 모임(주간)</th>
+			             	<th colspan="3">월별 매출</th>
 		             	</tr>
 		             	</thead>
 		             	<tbody>

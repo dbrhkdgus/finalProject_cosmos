@@ -571,5 +571,43 @@
 		order by
 		    "count" desc	
 	</select>
-		
+	
+	<select id="totalSales" resultType="_int">
+		select
+		    count(*)*10000 "COUNT"
+		from
+		    tb_group
+		where
+		    group_charge = 'P'
+	</select>
+	
+	<select id="salesOfThisMonth" resultType="_int">
+		select
+		    count(*)*10000
+		from 
+		    tb_group
+		where 
+		    group_enroll_date between TRUNC(sysdate,'MM') AND (LAST_DAY(SYSDATE))
+		    and group_charge = 'P'
+	</select>
+	
+	<select id="salesOfLastMonth" resultType="_int">
+		select
+		    count(*)*10000
+		from 
+		    tb_group
+		where 
+		    group_enroll_date between TRUNC(ADD_MONTHS(SYSDATE,-1)+1)-TO_CHAR(SYSDATE,'DD') AND TRUNC(LAST_DAY(ADD_MONTHS(SYSDATE, -1)))+0.99999421
+		    and group_charge = 'P'
+	</select>
+	
+	<select id="salesOfMonth" resultType="_int">
+		select 
+		    count(*)
+		from
+		    tb_group
+		where
+		    group_enroll_date between TRUNC(add_months(#{serviceStart},+#{monthInt}),'MM') and LAST_DAY(add_months(#{serviceStart},+#{monthInt})) and group_charge = 'P'		
+	</select>
+	
 </mapper>
