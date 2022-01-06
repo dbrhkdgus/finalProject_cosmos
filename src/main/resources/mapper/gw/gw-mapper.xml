@@ -56,4 +56,17 @@ select role from applocation_group where member_id =#{memberId} and group_no =#{
 <select id="selectTodayScheduleListByGroupNo" resultType="schedule">
 select * from schedule where to_char(start_date, 'YYYYMMDD') <![CDATA[<=]]> to_char(sysdate, 'YYYYMMDD') and to_char(end_date, 'YYYYMMDD') <![CDATA[>=]]> to_char(sysdate, 'YYYYMMDD') and group_no = #{groupNo}
 </select>
+
+<select id="selectNewPostsListByGroupNo" resultType="postWithBoardName">
+     select 
+        b.board_name,
+        b.board_no, 
+        b.board_type, 
+        p.*
+     from post p join board b on p.board_no = b.board_no 
+     where 
+        to_char(p.post_reg_date, 'YYYYMMDD') = to_char(sysdate, 'YYYYMMDD') 
+        and group_no = #{groupNo} and rownum <![CDATA[<=]]> 5
+    order by post_reg_date desc
+</select>
 </mapper>
