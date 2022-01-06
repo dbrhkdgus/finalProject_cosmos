@@ -129,8 +129,18 @@
 			<div class="groupware-main-notice" style="margin-left: 0px;" >
 				<h3>새로운 게시글</h3>
 				<ul>
-					<c:forEach var="notice" items="${noticePostList}">
-						<li><a href="${pageContext.request.contextPath }/gw/board/boardDetail.do?postNo=${notice.postNo}">${notice.postTitle }</a></li>
+					<c:forEach var="newPost" items="${newPostsList}">
+						<c:choose>
+							<c:when test="${newPost.boardType == 'B' }">
+								<li><a href="${pageContext.request.contextPath }/gw/board/boardDetail.do?postNo=${newPost.postNo}">[${newPost.boardName}] ${newPost.postTitle }</a></li>
+							</c:when>
+							<c:when test="${newPost.boardType == 'A' }">
+								<li><a href="${pageContext.request.contextPath }/gw/board/anonymous.do?postNo=${newPost.postNo}">[${newPost.boardName}] ${newPost.postTitle }</a></li>
+							</c:when>
+							<c:otherwise>
+								<li><a href="${pageContext.request.contextPath }/gw/fileBoard/fileBoard.do?boardNo=${newPost.boardNo }&groupNo=${currGroupNo}">[${newPost.boardName}] ${newPost.postTitle }</a></li>
+							</c:otherwise>
+						</c:choose>
 					</c:forEach>
 				</ul>
 			</div>
