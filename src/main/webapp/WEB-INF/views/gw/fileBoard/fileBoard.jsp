@@ -17,9 +17,9 @@
     <div class="groupware-saved-outter">
         <div class="groupware-saved-title p-4 mb-4" style="text-align: center; margin-top: 20px; display: flex;
     justify-content: center;" >
-            <h3 style="font-weight: bold; background-color:#D7ECFB; width:fit-content;">저장된 항목</h3>
+            <h3 style="font-weight: bold; background-color:#D7ECFB; width:fit-content;">파일 게시판</h3>
         </div>
-        
+     
         <form enctype="multipart/form-data" action="${pageContext.request.contextPath}/gw/fileBoard/fileBoardSearch.do?" method="get">
             <div class="test-board-search float-right d-flex" style="margin-right: 50px;">
                             <div class="d-grid gap-2 d-md-flex justify-content-md-end mr-2 ">
@@ -61,7 +61,7 @@
                                 <span class="font-weight-bold" style="color:black; font-size:15px;">No.${fn:length(fileBoardList)- status.count+1}</span>
                                 <span style="font-size:19px; ">&nbsp;${post.postTitle}</span>
                                 </div>
-		                                <c:if test="${loginMember.id eq post.memberId}">
+		                                <c:if test="${loginMember.id eq post.memberId || fn:contains(role , 'G') || fn:contains(role , 'M')}">
 		                            <form  action="${pageContext.request.contextPath}/gw/fileBoard/deletefilePost.do?postNo=${post.postNo}" method="GET">
 		                              <c:forEach var="attach" items="${attach}" varStatus="status">
 		                                      <c:if test="${post.attachNo eq attach.attachNo}">                 
@@ -77,7 +77,7 @@
                             </div>
                             <div class="card-body">
                                 <div class="groupware-saved-inner" >
-                                    <div class="groupware-saved-user-name-fileType ml-3">
+                                    <div class="groupware-saved-user-name-fileType ml-3 d-flex align-items-center">
                                         <c:forEach items="${idnicknameList}" var="list" varStatus="status">
                                             <c:if test="${list.id eq post.memberId}">
                                                 <span class="mb-0 font-weight-bold" style="font-size:20px;">${list.nickName}</span>
@@ -87,21 +87,21 @@
                                     <c:if test="${post.attachNo eq attach.attachNo}">
                                         <div class="groupware-saved-file-info mt-2" style="height: 70px; margin-left: 50px;">
                                       
-                                        <c:if test="  ${post.boardCategoryNo = 5}">
+                                    <%--     <c:if test="  ${post.boardCategoryNo = 5}">
                                         hello
-                                        </c:if>
+                                        </c:if> --%>
                                         	<!--이미지5 문서6 압축파일7 코드8 기타9  -->
                                         	<c:choose>
-                                        		<c:when test="${fn:contains(post.boardCategoryNo , 5 )} ">
+                                        		<c:when test="${post.boardCategoryNo == '5'}">
                                            			<img alt="" src="https://i.ibb.co/bBL0yKW/img-514.png" class="file-board-icon">
-                                        		</c:when>
-                                        		<c:when test="${fn:contains(post.boardCategoryNo , 6 )} ">
+                                        		</c:when> 
+                                        		<c:when test="${post.boardCategoryNo == '6'}">
                                            			<img alt="" src="https://i.ibb.co/MR7FWnW/txt-514.png"  class="file-board-icon">
                                         		</c:when>
-                                        		<c:when test="${fn:contains(post.boardCategoryNo , 7 )}  ">
+                                        		<c:when test="${post.boardCategoryNo == '7'}">
                                            			<img alt="" src="https://i.ibb.co/r6pNh1x/zip-514.png"  class="file-board-icon">
                                         		</c:when>
-                                        		<c:when test="${fn:contains(post.boardCategoryNo , 8 )} ">
+                                        		<c:when test="${post.boardCategoryNo == '8'}">
                                            			<img alt="" src="https://i.ibb.co/wR1LyGb/CODE.png"  class="file-board-icon">
                                         		</c:when>
                                         		<c:otherwise>
