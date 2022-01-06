@@ -61,12 +61,12 @@ button:focus {
 
 			<table class="table table-sm text-center" id="acceptedMemeber">
 				<thead>
-					<tr>
-						<th>번호</th>
-						<th>닉네임</th>
-						<th>역할</th>
-						<th>가입일</th>
-						<th colspan="1" width="20%">관리</th>
+					<tr style="font-size :1.2rem;">
+						<th >번호</th>
+						<th >닉네임</th>
+						<th >역할</th>
+						<th >가입일</th>
+						<th  colspan="1" width="20%">관리</th>
 
 					</tr>
 				</thead>
