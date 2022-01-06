@@ -368,6 +368,8 @@ public class GwFileBoardController {
     	param.put("groupNo", groupNo);
         ApplocationGroup applocationGroup = gwService.selectApplocationGroup(param);
         
+        
+
         model.addAttribute("role", applocationGroup.getRole());
         model.addAttribute("currGroupNo", groupNo);
         model.addAttribute("myGroup", myGroup);

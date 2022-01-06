@@ -1,3 +1,10 @@
+@font-face {
+    font-family: 'NanumSquareRound';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumSquareRound.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
 body {
   min-height: 100vh;
   min-height: -webkit-fill-available;
@@ -16,6 +23,7 @@ main {
   overflow-x: hidden;
   overflow-y: auto;
   flex-direction: column;
+  font-family:  'NanumSquareRound';
 }
 
 .b-example-divider {
@@ -1042,3 +1050,31 @@ div.list-group1{
     transition: 1s;
     transition-delay: 1s;
 }
+
+/*그룹장 멤버관리 페이지*/
+
+#acceptedMemeber th{
+	padding: 0.8rem !important;	
+}
+/*타이틀 h4*/
+.study-member-table h4 {
+    margin-bottom: 1rem;
+    height: 27px;
+    width: fit-content;
+    border-bottom: 12px solid #D7ECFB;
+}
+
+.study-join-table h4 {
+    margin-bottom: 1rem;
+    height: 27px;
+    width: fit-content;
+    border-bottom: 12px solid #D7ECFB;
+}
+
+
+.file-total-div {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+

@@ -44,7 +44,7 @@ private static final String HOST = "https://kapi.kakao.com";
         params.add("partner_user_id", "cosmos");
         params.add("item_name", "온라인 서비스 이용료");
         params.add("quantity", "1");
-        params.add("total_amount", "1");
+        params.add("total_amount", "10000");
         params.add("tax_free_amount", "1");
         params.add("approval_url", "http://localhost:9090/cosmos/kakao/kakaoPaySuccess.do");
         params.add("cancel_url", "http://localhost:9090/cosmos/kakao/kakaoPayCancel.do");

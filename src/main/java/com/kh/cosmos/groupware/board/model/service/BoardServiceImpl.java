@@ -34,12 +34,6 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public List<Post> selectAllPostInNotice(int boardNo, int limit, int offset) {
-		// TODO Auto-generated method stub
-		return  boardDao.selectAllPostInNotice(boardNo, limit, offset);
-	}
-
-	@Override
 	public int insertPost(Post post) {
 		// TODO Auto-generated method stub
 		return boardDao.insertPost(post);
@@ -117,12 +111,6 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public Post selectOnePostInNotice(int postNo) {
-		// TODO Auto-generated method stub
-		return boardDao.selectOnePostInNotice(postNo);
-	}
-
-	@Override
 	public int updatePostFile(Post post) {
 		// TODO Auto-generated method stub
 		return boardDao.updatePostFile(post);
@@ -147,33 +135,9 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public List<Post> selectAllPostInAnonymous(int boardNo, int limit, int offset) {
-		// TODO Auto-generated method stub
-		return  boardDao.selectAllPostInAnonymous(boardNo, limit, offset);
-	}
-
-	@Override
-	public Post selectOnePostInAnonymous(int postNo) {
-		// TODO Auto-generated method stub
-		return boardDao.selectOnePostInAnonymous(postNo);
-	}
-
-	@Override
 	public int insertPostInAnonymous(Post post) {
 		// TODO Auto-generated method stub
 		return boardDao.insertPostInAnonymous(post);
-	}
-
-	@Override
-	public int deletePostInAnonymous(int postNo) {
-		// TODO Auto-generated method stub
-		return boardDao.deletePostInAnonymous(postNo);
-	}
-
-	@Override
-	public int updatePostInAnonymous(Post post) {
-		// TODO Auto-generated method stub
-		return boardDao.updatePostInAnonymous(post);
 	}
 
 	@Override
@@ -216,6 +180,12 @@ public class BoardServiceImpl implements BoardService {
 	public List<PostReplyCount> selectReplyCount() {
 		// TODO Auto-generated method stub
 		return boardDao.selectReplyCount();
+	}
+
+	@Override
+	public int postViewCountUp(int postNo) {
+		// TODO Auto-generated method stub
+		return boardDao.postViewCountUp(postNo);
 	}
 
 	

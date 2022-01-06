@@ -17,8 +17,6 @@ public interface BoardDao {
 	
 	List<Post> selectAllPostInBoard(int boardNo, int limit, int offset);
 
-	List<Post> selectAllPostInNotice(int boardNo, int limit, int offset);
-
 	int insertPost(Post post);
 	
 	int insertPostReply(Reply reply);
@@ -44,8 +42,6 @@ public interface BoardDao {
 	Attachment selectOneAttachInBoard(int attachNo);
 
 	Post selectOnePostInBoard(int postNo);
-
-	Post selectOnePostInNotice(int postNo);
 	
 	int updatePostFile(Post post);
 	
@@ -55,15 +51,7 @@ public interface BoardDao {
 
 	int deleteAttachInBoard(int attachNo);
 
-	List<Post> selectAllPostInAnonymous(int boardNo, int limit, int offset);
-
-	Post selectOnePostInAnonymous(int postNo);
-
 	int insertPostInAnonymous(Post post);
-
-	int deletePostInAnonymous(int postNo);
-
-	int updatePostInAnonymous(Post post);
 
 	int updatePostReply(Reply reply);
 
@@ -78,5 +66,7 @@ public interface BoardDao {
 	int selectSearchBoardTotalCnt(Map<String, Object> param);
 	
 	List<PostReplyCount> selectReplyCount();
+
+	int postViewCountUp(int postNo);
 
 }

@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -184,7 +185,7 @@ public class GwBoardController {
 		model.addAttribute("replyCount", replyCount);
 		log.debug("replyCount = {}", replyCount);
 
-		List<Post> noticePostList = boardService.selectAllPostInNotice(boardNo, limit, offset);
+		List<Post> noticePostList = boardService.selectAllPostInBoard(boardNo, limit, offset);
 		Board board = boardService.selectBoardByBoardNo(boardNo);
 		log.debug("noticePostList = {}", noticePostList);
 		model.addAttribute("noticePostList", noticePostList);
@@ -405,7 +406,7 @@ public class GwBoardController {
 	
 	@PostMapping("/checkPassword.do")
 	public String checkPassword(@RequestParam int postNo, int postPassword, RedirectAttributes redirectAttr) {
-		Post post = boardService.selectOnePostInAnonymous(postNo);
+		Post post = boardService.selectOnePostInBoard(postNo);
 		Board board = boardService.selectBoardByBoardNo(post.getBoardNo());
 		
 		if(post.getPostPassword() != postPassword){
@@ -422,7 +423,7 @@ public class GwBoardController {
 	
 	@GetMapping("/anonymousPostModify.do")
 	public void anonymousPostModify(@RequestParam int postNo, Model model, Authentication auth) {
-		Post post = boardService.selectOnePostInAnonymous(postNo);
+		Post post = boardService.selectOnePostInBoard(postNo);
 		int boardNo = post.getBoardNo();
 		Board board = boardService.selectBoardByBoardNo(boardNo);
 		int groupNo = board.getGroupNo();
@@ -441,7 +442,7 @@ public class GwBoardController {
 		Board board = boardService.selectBoardByBoardNo(post.getBoardNo());
 		
 			
-	    int result = boardService.updatePostInAnonymous(post);
+	    int result = boardService.updatePost(post);
 		log.debug("********** result = {} ", result);
 		
 			redirectAttr.addFlashAttribute("msg", result > 0 ? "게시물이 수정되었습니다." : "실패");
@@ -515,7 +516,38 @@ public class GwBoardController {
 	}
 
 	@GetMapping("/boardDetail.do")
-	public String boardDetail(@RequestParam int postNo, Model model, HttpServletRequest request, HttpServletResponse response, Authentication auth) {
+	public String boardDetail(@RequestParam("postNo") int postNo, Model model, HttpServletRequest request, HttpServletResponse response, Authentication auth) {
+		
+		Cookie oldCookie = null;
+	    Cookie[] cookies = request.getCookies();
+	    if (cookies != null) {
+	        for (Cookie cookie : cookies) {
+	        	log.debug("Cookie = {}", cookie);
+	        	log.debug("Cookie = {}", cookie.getName());
+	            if (cookie.getName().equals("noticeView")) {
+	                oldCookie = cookie;
+	                log.debug("Cookie = {}", oldCookie.getValue());
+	            }
+	        }
+	    }
+	    log.debug("oldCookie = {}", oldCookie);
+	    int result = 0;
+	    if (oldCookie != null) {
+	        if (!oldCookie.getValue().contains("[" + Integer.toString(postNo) + "]")) {
+	            result = boardService.postViewCountUp(postNo);
+	            oldCookie.setValue(oldCookie.getValue() + "_[" + Integer.toString(postNo) + "]");
+	            oldCookie.setPath("/cosmos");
+	            oldCookie.setMaxAge(60 * 60 * 24);
+	            response.addCookie(oldCookie);
+	        }
+	    } else {
+	    	result = boardService.postViewCountUp(postNo);
+	        Cookie newCookie = new Cookie("noticeView","[" + Integer.toString(postNo) + "]");
+	        newCookie.setPath("/cosmos");
+	        newCookie.setMaxAge(60 * 60 * 24);
+	        response.addCookie(newCookie);
+	    }
+		
 		Post post = boardService.selectOnePostInBoard(postNo);
 		Board board = boardService.selectBoardByBoardNo(post.getBoardNo());
 		int groupNo = board.getGroupNo();
@@ -646,7 +678,7 @@ public class GwBoardController {
 	
 	@GetMapping("/noticeDetail.do")
 	public String noticeDetail(@RequestParam int postNo, Model model, HttpServletRequest request, HttpServletResponse response, Authentication auth) {
-		Post post = boardService.selectOnePostInNotice(postNo);
+		Post post = boardService.selectOnePostInBoard(postNo);
 		Board board = boardService.selectBoardByBoardNo(post.getBoardNo());
 		int groupNo = board.getGroupNo();
 		groupwareHeaderSet(groupNo, model, auth);
@@ -673,7 +705,37 @@ public class GwBoardController {
 	@GetMapping("/anonymousDetail.do")
 	public String anonymousDetail(@RequestParam int postNo, Model model, HttpServletRequest request, HttpServletResponse response, Authentication auth) {
 		
-		Post post = boardService.selectOnePostInAnonymous(postNo);
+		Cookie oldCookie = null;
+	    Cookie[] cookies = request.getCookies();
+	    if (cookies != null) {
+	        for (Cookie cookie : cookies) {
+	        	log.debug("Cookie = {}", cookie);
+	        	log.debug("Cookie = {}", cookie.getName());
+	            if (cookie.getName().equals("noticeView")) {
+	                oldCookie = cookie;
+	                log.debug("Cookie = {}", oldCookie.getValue());
+	            }
+	        }
+	    }
+	    log.debug("oldCookie = {}", oldCookie);
+	    int result = 0;
+	    if (oldCookie != null) {
+	        if (!oldCookie.getValue().contains("[" + Integer.toString(postNo) + "]")) {
+	            result = boardService.postViewCountUp(postNo);
+	            oldCookie.setValue(oldCookie.getValue() + "_[" + Integer.toString(postNo) + "]");
+	            oldCookie.setPath("/cosmos");
+	            oldCookie.setMaxAge(60 * 60 * 24);
+	            response.addCookie(oldCookie);
+	        }
+	    } else {
+	    	result = boardService.postViewCountUp(postNo);
+	        Cookie newCookie = new Cookie("noticeView","[" + Integer.toString(postNo) + "]");
+	        newCookie.setPath("/cosmos");
+	        newCookie.setMaxAge(60 * 60 * 24);
+	        response.addCookie(newCookie);
+	    }
+		
+		Post post = boardService.selectOnePostInBoard(postNo);
 		Board board = boardService.selectBoardByBoardNo(post.getBoardNo());
 		int groupNo = board.getGroupNo();
 		groupwareHeaderSet(groupNo, model, auth);
@@ -691,7 +753,7 @@ public class GwBoardController {
 	@PostMapping("/deletePostAnonymous.do")
 	public String deletePostAnonymous(@RequestParam int postNo, int postPassword, RedirectAttributes redirectAttr) {
 		    	
-		Post post = boardService.selectOnePostInAnonymous(postNo);
+		Post post = boardService.selectOnePostInBoard(postNo);
 		Board board = boardService.selectBoardByBoardNo(post.getBoardNo());
 		
 		if(post.getPostPassword() != postPassword){
@@ -700,7 +762,7 @@ public class GwBoardController {
 			return "redirect:/gw/board/anonymousDetail.do?postNo="+ postNo;
 		}else{
 			
-			int result  = boardService.deletePostInAnonymous(postNo);
+			int result  = boardService.deletePostInBoard(postNo);
 			log.debug("********** result = {} ", result);
 			redirectAttr.addFlashAttribute("msg", result > 0 ? "게시물이 삭제되었습니다." : "실패");
 			
@@ -759,7 +821,7 @@ public class GwBoardController {
 		String pagebar = CosmosUtils.getPagebar(cPage, limit, totalContent, url);
 		model.addAttribute("pagebar", pagebar);
 
-		List<Post> anonymousPostList = boardService.selectAllPostInAnonymous(boardNo, limit, offset);
+		List<Post> anonymousPostList = boardService.selectAllPostInBoard(boardNo, limit, offset);
 		Board board = boardService.selectBoardByBoardNo(boardNo);
 		log.debug("anonymousPostList = {}", anonymousPostList);
 		

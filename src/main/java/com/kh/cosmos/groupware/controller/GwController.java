@@ -62,7 +62,7 @@ public class GwController {
 		for(Board noticeNo : groupNoticeBoardList) {
 			num = noticeNo.getBoardNo();
 		}
-		List<Post> noticePostList = boardService.selectAllPostInNotice(num, 5, 1);
+		List<Post> noticePostList = boardService.selectAllPostInBoard(num, 5, 1);
 		model.addAttribute("noticePostList",noticePostList);
 		
 	    Map<String,Object> param = new HashMap<>();

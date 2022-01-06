@@ -4,22 +4,22 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="board">
   <insert id="createBoardRoom">
-  	insert into board values(seq_board_no_no.nextval, #{groupNo}, #{boardName}, #{boardType})
+  	 insert into board values(seq_board_no_no.nextval, #{groupNo}, #{boardName}, #{boardType})
   </insert>
   
   <update id="updateBoardRoom">
-  	update board set board_name = #{boardName} where board_no = #{boardNo}
+  	 update board set board_name = #{boardName} where board_no = #{boardNo}
   </update>
   <delete id="deleteBoardRoom">
-	delete from board where board_no = #{boardNo}
+	 delete from board where board_no = #{boardNo}
   </delete>
   <select id="selectAllPostInBoard" resultType="post">
-	select
-	    *
-	from
-	    post
-	where board_no = #{boardNo}
-	order by post_no desc
+	 select
+	     *
+	 from
+	     post
+	 where board_no = #{boardNo}
+	 order by post_no desc
   </select>
   <select id="selectBoardByBoardNo" resultType="board">
 		select * from board where board_no = #{boardNo} 
@@ -53,26 +53,12 @@
 		order by
 			p.post_reg_date desc
 	</select>
- <select id="selectAllPostInNotice" resultType="Post">
-  	select * from post where board_no = #{boardNo} order by post_no desc
-  </select>
-  <select id="selectAllPostInAnonymous" resultType="Post">
-  	select * from post where board_no = #{boardNo} order by post_no desc
-  </select>
   <select id="selectOnePostInBoard" resultType="post">
-		select * from post where post_no = #{postNo}
-  </select>
-  
-  <select id="selectOnePostInNotice" resultType="post">
-		select * from post where post_no = #{postNo}
-  </select>
-  <select id="selectOnePostInAnonymous" resultType="post">
 		select * from post where post_no = #{postNo}
   </select>
   <select id="selectOneReply" resultType="reply">
 		select * from reply where reply_no = #{replyNo}
   </select>
-  
   <select id="selectOneAttach" resultType="attachment">
 		select * from attachment where attach_no = #{attachNo}
   </select>
@@ -88,11 +74,6 @@
   	where post_no = #{postNo}
   </update>
   <update id="updatePost">
-  	update post 
-  	set post_title = #{postTitle}, post_content=#{postContent}, post_update=sysdate 
-  	where post_no = #{postNo}
-  </update>
-  <update id="updatePostInAnonymous">
   	update post 
   	set post_title = #{postTitle}, post_content=#{postContent}, post_update=sysdate 
   	where post_no = #{postNo}
@@ -114,10 +95,6 @@
    <delete id="deleteAttachInBoard">
   		delete from attachment where attach_no =#{attachNo}
   </delete>
-  <delete id="deletePostInAnonymous">
-  		delete from post where post_no =#{postNo}
-  </delete>
-  
   <insert id="insertPost">
 	insert into 
 		post
@@ -131,7 +108,8 @@
 		null,
 		null,
 		null,
-		null
+		null,
+		default
 	)
   </insert>
   <insert id="insertPostReply">
@@ -176,7 +154,8 @@
 		null,
 		null,
 		null,
-		#{postPassword}
+		#{postPassword},
+		default
 	)
   </insert>
   
@@ -201,7 +180,7 @@
 			from
 				dual
 		</selectKey>
-		insert into post values(SEQ_POST_NO_NO.nextval, #{memberId}, #{boardNo}, #{postTitle}, #{postContent}, current_date, null, #{attachNo}, null, null)
+		insert into post values(SEQ_POST_NO_NO.nextval, #{memberId}, #{boardNo}, #{postTitle}, #{postContent}, current_date, null, #{attachNo}, null, null, default)
 		
   </insert>
   <select id="memberWithGroupList" resultType ="MemberWithGroup">
@@ -244,4 +223,7 @@
    </where>
 		order by post_reg_date desc
    </select>
+   <update id="postViewCountUp">
+		update post set read_count = read_count+1 where post_no = #{postNo}
+	</update>
 </mapper>

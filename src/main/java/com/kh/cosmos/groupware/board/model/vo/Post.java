@@ -31,4 +31,5 @@ public class Post implements Serializable {
 	private int attachNo;
 	private int boardCategoryNo;
 	private int postPassword;
+	private int readCount;
 }

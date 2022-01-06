@@ -33,12 +33,6 @@ public class BoardDaoImpl implements BoardDao {
 		RowBounds rowBounds = new RowBounds(offset, limit);
 		return session.selectList("board.selectAllPostInBoard", boardNo, rowBounds);
 	}
-
-	@Override
-	public List<Post> selectAllPostInNotice(int boardNo, int limit, int offset) {
-		RowBounds rowBounds = new RowBounds(offset, limit);
-		return session.selectList("board.selectAllPostInNotice", boardNo, rowBounds);
-	}
  
 	@Override
 	public int insertPost(Post post) {
@@ -118,12 +112,6 @@ public class BoardDaoImpl implements BoardDao {
 	}
 
 	@Override
-	public Post selectOnePostInNotice(int postNo) {
-		// TODO Auto-generated method stub
-		return session.selectOne("board.selectOnePostInNotice", postNo);
-	}
-
-	@Override
 	public int updatePostFile(Post post) {
 		// TODO Auto-generated method stub
 		return session.delete("board.updatePostFile", post);
@@ -148,34 +136,9 @@ public class BoardDaoImpl implements BoardDao {
 	}
 
 	@Override
-	public List<Post> selectAllPostInAnonymous(int boardNo, int limit, int offset) {
-		// TODO Auto-generated method stub
-		RowBounds rowBounds = new RowBounds(offset, limit);
-		return session.selectList("board.selectAllPostInAnonymous", boardNo, rowBounds);
-	}
-
-	@Override
-	public Post selectOnePostInAnonymous(int postNo) {
-		// TODO Auto-generated method stub
-		return session.selectOne("board.selectOnePostInAnonymous", postNo);
-	}
-
-	@Override
 	public int insertPostInAnonymous(Post post) {
 		// TODO Auto-generated method stub
 		return session.insert("board.insertPostInAnonymous", post);
-	}
-
-	@Override
-	public int deletePostInAnonymous(int postNo) {
-		// TODO Auto-generated method stub
-		return session.delete("board.deletePostInAnonymous", postNo);
-	}
-
-	@Override
-	public int updatePostInAnonymous(Post post) {
-		// TODO Auto-generated method stub
-		return session.update("board.updatePostInAnonymous", post);
 	}
 
 	@Override
@@ -218,6 +181,12 @@ public class BoardDaoImpl implements BoardDao {
 	public List<PostReplyCount> selectReplyCount() {
 		// TODO Auto-generated method stub
 		return session.selectList("board.selectReplyCount");
+	}
+
+	@Override
+	public int postViewCountUp(int postNo) {
+		// TODO Auto-generated method stub
+		return session.update("board.postViewCountUp",postNo);
 	}
 
 	
