@@ -60,4 +60,8 @@ public interface ChatDao {
 
 	String selectChatRoomNoByChatRoomNo(int chatRoomNo);
 
+	int updateChatRoom(ChatRoom chatRoom);
+
+	int selectChatAdminNoBychatRoomNo(int chatRoomNo);
+
 }
