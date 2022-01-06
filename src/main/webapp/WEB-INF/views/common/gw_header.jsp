@@ -219,7 +219,7 @@
 	          			</sec:authorize> --%>
 	          			<div class="d-flex justify-content-between align-items-center" id="chat-channel-list">
 				            <li><a href="${pageContext.request.contextPath }/gw/chat/chatRoom.do?chatRoomNo=${chatRoom.chatRoomNo}&groupNo=${currGroupNo }" class="link-dark rounded">${chatRoom.chatRoomName }</a></li>
-				            <sec:authorize access="hasAnyRole('ROLE_GW${currGroupNo}MASTER', 'ROLE_ADMIN')">
+				            <c:if test="${fn:contains(role , 'G') || fn:contains(role , 'M') }">
 			            		<div class="updateChatRoom div_sub" style="cursor:pointer;" id="chat-channel-admin-btn">
 				            		<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gear" viewBox="0 0 16 16">
 			  							<path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492zM5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0z"/>
@@ -227,7 +227,7 @@
 									</svg>
 								</div>
 								<span class="d-none">${chatRoom.chatRoomNo}</span>
-							</sec:authorize>
+							</c:if>
 	          			</div>
 	          		</c:forEach>
 	          	</c:when>
