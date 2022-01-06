@@ -10,6 +10,7 @@ import com.kh.cosmos.common.attachment.model.vo.Attachment;
 import com.kh.cosmos.group.model.vo.ApplocationGroup;
 import com.kh.cosmos.group.model.vo.Group;
 import com.kh.cosmos.groupware.board.model.vo.Board;
+import com.kh.cosmos.groupware.board.model.vo.PostWithBoardName;
 import com.kh.cosmos.groupware.calendar.model.vo.Schedule;
 import com.kh.cosmos.groupware.chat.model.vo.ChatRoom;
 import com.kh.cosmos.groupware.dao.GroupwareDao;
@@ -103,6 +104,12 @@ public class GroupwareServiceImpl implements GroupwareService {
 	public List<Schedule> selectTodayScheduleListByGroupNo(int groupNo) {
 		// TODO Auto-generated method stub
 		return gwDao.selectTodayScheduleListByGroupNo(groupNo);
+	}
+
+	@Override
+	public List<PostWithBoardName> selectNewPostsListByGroupNo(int groupNo) {
+		// TODO Auto-generated method stub
+		return gwDao.selectNewPostsListByGroupNo(groupNo);
 	}
 
 	
