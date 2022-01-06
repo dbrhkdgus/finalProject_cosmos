@@ -218,6 +218,12 @@ public class BoardServiceImpl implements BoardService {
 		return boardDao.selectReplyCount();
 	}
 
+	@Override
+	public int postViewCountUp(int postNo) {
+		// TODO Auto-generated method stub
+		return boardDao.postViewCountUp(postNo);
+	}
+
 	
 	
 }

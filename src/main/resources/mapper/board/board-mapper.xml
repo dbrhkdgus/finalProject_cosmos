@@ -131,7 +131,8 @@
 		null,
 		null,
 		null,
-		null
+		null,
+		default
 	)
   </insert>
   <insert id="insertPostReply">
@@ -176,7 +177,8 @@
 		null,
 		null,
 		null,
-		#{postPassword}
+		#{postPassword},
+		default
 	)
   </insert>
   
@@ -201,7 +203,7 @@
 			from
 				dual
 		</selectKey>
-		insert into post values(SEQ_POST_NO_NO.nextval, #{memberId}, #{boardNo}, #{postTitle}, #{postContent}, current_date, null, #{attachNo}, null, null)
+		insert into post values(SEQ_POST_NO_NO.nextval, #{memberId}, #{boardNo}, #{postTitle}, #{postContent}, current_date, null, #{attachNo}, null, null, default)
 		
   </insert>
   <select id="memberWithGroupList" resultType ="MemberWithGroup">
@@ -244,4 +246,7 @@
    </where>
 		order by post_reg_date desc
    </select>
+   <update id="postViewCountUp">
+		update post set read_count = read_count+1 where post_no = #{postNo}
+	</update>
 </mapper>
