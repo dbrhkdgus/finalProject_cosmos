@@ -108,9 +108,9 @@ public class GroupwareDaoImpl implements GroupwareDao {
 	}
 
 	@Override
-	public List<PostWithBoardName> selectNewPostsListByGroupNo(int groupNo) {
+	public List<PostWithBoardName> selectNewPostsListByParam(Map<String, Object> param) {
 		// TODO Auto-generated method stub
-		return session.selectList("gw.selectNewPostsListByGroupNo", groupNo);
+		return session.selectList("gw.selectNewPostsListByParam", param);
 	}
 
 	

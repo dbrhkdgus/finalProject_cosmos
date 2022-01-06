@@ -61,7 +61,7 @@ public class GwController {
 		for(Board noticeNo : groupNoticeBoardList) {
 			num = noticeNo.getBoardNo();
 		}
-		List<Post> noticePostList = boardService.selectAllPostInBoard(num, 5, 1);
+		List<Post> noticePostList = boardService.selectAllPostInBoard(num, 5, 0);
 		model.addAttribute("noticePostList",noticePostList);
 		
 	    Map<String,Object> param = new HashMap<>();
@@ -71,7 +71,9 @@ public class GwController {
 	    
 	    
 	    List<Schedule> todayScheduleList = gwService.selectTodayScheduleListByGroupNo(groupNo);
-	    List<PostWithBoardName> newPostsList = gwService.selectNewPostsListByGroupNo(groupNo);
+	    param.put("groupNo", groupNo);
+	    param.put("noticeBoardNo", num);
+	    List<PostWithBoardName> newPostsList = gwService.selectNewPostsListByParam(param);
 	    
 	    
 	    model.addAttribute("newPostsList",newPostsList);
