@@ -95,10 +95,6 @@
    <delete id="deleteAttachInBoard">
   		delete from attachment where attach_no =#{attachNo}
   </delete>
-  <delete id="deletePostInAnonymous">
-  		delete from post where post_no =#{postNo}
-  </delete>
-  
   <insert id="insertPost">
 	insert into 
 		post
