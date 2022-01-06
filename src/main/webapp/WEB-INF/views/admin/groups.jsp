@@ -45,6 +45,9 @@
   #table_groupInfo tr{
   	border: solid 1px #435C70;
   }
+  #table_list{
+  	font-size: 70%;
+  }
 
 </style>
 
@@ -125,13 +128,13 @@
             </div>
             <!-- 회원목록 테이블 -->
             <div class="row tm-content-row">
-              <table class="table mb-3 text-center">
+              <table id="table_list" class="table mb-3 text-center">
                 <thead>
                   <tr>
                     <th scope="col">번호</th>
                     <th scope="col">그룹명</th>
                     <th scope="col">생성일</th>
-                    <th scope="col">유/무료</th>
+                    <th scope="col">프리미엄</th>
                     <th scope="col">모집여부</th>
                     <th scope="col">정원</th>
                     <th scope="col">비밀여부</th>
@@ -145,12 +148,17 @@
                 	<td>${group.groupName }</td>
                 	<td><fmt:formatDate value="${group.groupEnrollDate }" pattern="yy-MM-dd"/> </td>
                 	<td>
-                	${group.groupCharge}
-                	
+	                	<c:if test="${fn:contains(group.groupCharge,'F')}">.</c:if>
+	                	<c:if test="${fn:contains(group.groupCharge,'T')}">O</c:if>
                 	</td>
-                	<td>${group.groupClose}</td>
+                	<td>
+                		<c:if test="${fn:contains(group.groupClose,'N')}">O</c:if>
+                		<c:if test="${fn:contains(group.groupClose,'Y')}">.</c:if>                	
+                	</td>
                 	<td>${group.groupPool }명</td>
-                	<td>${group.groupPrivate }</td>
+                	<td>
+
+                	</td>
                 	<td>${group.groupLikeCount }</td>
                 </tr>
                 

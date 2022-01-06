@@ -92,4 +92,6 @@ public interface AdminService {
 
 	List<MemberOfGroup> memberOfGroupList(String groupNo);
 
+	List<ColumnAndCount> statisticsCategory();
+
 }

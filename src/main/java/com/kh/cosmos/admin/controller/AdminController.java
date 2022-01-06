@@ -611,8 +611,6 @@ public class AdminController {
 	@GetMapping("/groups/selectOneGroup")
 	@ResponseBody
 	public Map<String,Object> selectOneGroup(@RequestParam Map<String, String> param, Model model) {
-		log.debug("param = {}", param);
-		log.debug("param.get(groupNo) = {}", param.get("groupNo"));
 		String groupNo = param.get("groupNo");
 
 		
@@ -634,24 +632,20 @@ public class AdminController {
 		for(CategoryTwo categoryTwo: CategoryTwoList) {
 			category2Map.put(categoryTwo.getCategory2No(), categoryTwo.getCategory2Name());
 		}
-		log.debug("category2Map = {}", category2Map);
 
 		//그룹 내 카테고리2 정렬하기
 		List<GroupCategory> gcList = groupService.selectGroupCategoryListByGroupNo(groupNo);
-		log.debug("*****************gcList = {}", gcList);
 		String str_gc2List = ""; 
 		for(GroupCategory groupCategory: gcList) {
 			log.debug("출력 테스트1 : "+groupCategory.getCategory2No());
 			log.debug("출력 테스트2 : "+category2Map.get(groupCategory.getCategory2No()));
 			str_gc2List += category2Map.get(groupCategory.getCategory2No())+"  ";
 		}
-		log.debug("여기는 하위 카테고리 묶음 = {}", str_gc2List);
 		//팀장 불러오기
 		MemberOfGroup leader = adminService.selectLeader(groupNo); 
 		
 		//팀원 불러오기
 		List<MemberOfGroup> memberOfGroupList = adminService.memberOfGroupList(groupNo);
-		log.debug("*****************memberOfGroupList = {}", memberOfGroupList);
 		String str_memberList = "";
 		for(MemberOfGroup memberOfGroup : memberOfGroupList) {
 			str_memberList += memberOfGroup.getMemberId()+"  ";
@@ -672,5 +666,18 @@ public class AdminController {
 		result.put("str_memberList", str_memberList);
 		result.put("banner", banner);
 		return result;
+	}
+	
+	@GetMapping("/statisticsCategory")
+	@ResponseBody
+	public Map<String,Object> statisticsCategory(){
+		Map<String, Object> map = new HashMap<String, Object>();
+		List<ColumnAndCount> list = adminService.statisticsCategory();
+		log.debug("list = {}", list);
+		
+		
+		map.put("list", list);
+		
+		return map;
 	}
 }
