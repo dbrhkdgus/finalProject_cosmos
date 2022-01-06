@@ -46,6 +46,7 @@
       <tr>
         <th>No</th>
         <th colspan="2">제목</th>
+        <th>조회수</th>
         <th>날짜</th>
         <th></th>
       </tr>
@@ -61,6 +62,7 @@
         		</c:if>
         	</c:forEach>
         </td>
+        <td>${post.readCount}</td>
         <td><fmt:formatDate value="${post.postRegDate}" pattern="yy-MM-dd"/></td>
         <td>
         <div class="deleteAnonymousList">

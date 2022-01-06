@@ -80,7 +80,7 @@
       <div class="groupwear-header-box">
         
         <div class="" style="width: 4.5rem;">
-          <a href="#" class="d-block p-3 link-dark text-decoration-none" title="Icon-only" data-bs-toggle="tooltip" data-bs-placement="right">
+          <a href="#" class="d-block p-3 link-dark text-decoration-none" title="Home" data-bs-toggle="tooltip" data-bs-placement="right">
             <img src="${pageContext.request.contextPath }/resources/images/cosmoslogo_white.png" width="40" alt="" onclick="location.href='${pageContext.request.contextPath}/'">
             <!-- <svg class="bi" width="40" height="32"><use xlink:href="#bootstrap"/></svg> -->
             <span class="visually-hidden">Icon-only</span>
@@ -111,7 +111,7 @@
 
      	<c:if test="${group.groupNo == attach.groupNo }">
       <li class="nav-item">
-        <a href="${pageContext.request.contextPath }/gw/gw.do?groupNo=${group.groupNo}" class="nav-link ${group.groupNo == currGroupNo ? 'active' : '' }" py-3 border-bottom" aria-current="page" title="Home" data-bs-toggle="tooltip" data-bs-placement="right">
+        <a href="${pageContext.request.contextPath }/gw/gw.do?groupNo=${group.groupNo}" class="nav-link ${group.groupNo == currGroupNo ? 'active' : '' }" py-3 border-bottom" aria-current="page" title="${group.groupName}" data-bs-toggle="tooltip" data-bs-placement="right">
           <div class="study-thumbnail-box">
             <img class="study-thumbnail" src="${pageContext.request.contextPath }/resources/upFile/group/${attach.renamedFilename}" width="30" alt="">
           </div>
@@ -148,11 +148,14 @@
 	        <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" id="dropdownBoard" data-bs-target="#board-collapse" aria-expanded="false">
 	          게시판 채널
 	        </button>
-	        <div class="createBoardRoom" style="cursor: pointer; ">
-        	<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
-			  <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
-			</svg>
-			</div>
+	        <!-- 게시판 채널 생성 버튼 -->
+	        <c:if test="${fn:contains(role , 'G') || fn:contains(role , 'M') }">
+		        <div class="createBoardRoom" style="cursor: pointer; ">
+	        	<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
+				  <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
+				</svg>
+				</div>
+			</c:if>
       	</div>
         <div class="collapse" id="board-collapse">
           <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
@@ -197,11 +200,14 @@
 	        <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" id="dropdownChat" data-bs-target="#chatting-collapse" aria-expanded="false">
 	          채팅 채널
 	        </button>
+	        <!-- 채팅 채널 생성 버튼 -->
+	        <c:if test="${fn:contains(role , 'G') || fn:contains(role , 'M') }">
 	        <div class="createChatRoom" style="cursor: pointer;">
 		        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
 					  <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
 				</svg>
 	        </div>
+	        </c:if>
 		</div>
         <div class="collapse" id="chatting-collapse">
           <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
@@ -213,7 +219,7 @@
 	          			</sec:authorize> --%>
 	          			<div class="d-flex justify-content-between align-items-center" id="chat-channel-list">
 				            <li><a href="${pageContext.request.contextPath }/gw/chat/chatRoom.do?chatRoomNo=${chatRoom.chatRoomNo}&groupNo=${currGroupNo }" class="link-dark rounded">${chatRoom.chatRoomName }</a></li>
-				            <sec:authorize access="hasAnyRole('ROLE_GW${currGroupNo}MASTER', 'ROLE_ADMIN')">
+				            <c:if test="${fn:contains(role , 'G') || fn:contains(role , 'M') }">
 			            		<div class="updateChatRoom div_sub" style="cursor:pointer;" id="chat-channel-admin-btn">
 				            		<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gear" viewBox="0 0 16 16">
 			  							<path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492zM5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0z"/>
@@ -221,7 +227,7 @@
 									</svg>
 								</div>
 								<span class="d-none">${chatRoom.chatRoomNo}</span>
-							</sec:authorize>
+							</c:if>
 	          			</div>
 	          		</c:forEach>
 	          	</c:when>
@@ -237,11 +243,14 @@
 	        <button id="selectAllZoomRoomList" class="btn btn-toggle align-items-center rounded collapsed" data-group-no="${currGroupNo}" data-bs-toggle="collapse" data-bs-target="#v-chatting-collapse" aria-expanded="false">
 	          화상 채널
 	        </button>
-	        <div class="createVoiceChatRoom" style="cursor: pointer;">
-		        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
-					  <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
-				</svg>
-			</div>
+	        <!-- 화상 채널 생성 버튼 -->
+	        <c:if test="${fn:contains(role , 'G') || fn:contains(role , 'M') }">
+		        <div class="createVoiceChatRoom" style="cursor: pointer;">
+			        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
+						  <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
+					</svg>
+				</div>
+			</c:if>
 		</div>
         <div class="collapse" id="v-chatting-collapse">
           <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small" id="voiceChat">
@@ -253,9 +262,7 @@
 	        <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" id="dropdownCalendar" data-bs-target="#schedule-collapse" aria-expanded="false">
 	          일정 공유 채널
 	        </button>
-	        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
-				  <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
-			</svg>
+	        
 		</div>
         <div class="collapse" id="schedule-collapse">
           <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
@@ -269,9 +276,7 @@
 	        <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" id="dropdownApp" data-bs-target="#app-collapse" aria-expanded="false">
 	          APP
 	        </button>
-	        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
-				  <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
-			</svg>
+	        
 		</div>
         <div class="collapse" id="app-collapse">
           <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">

@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -515,7 +516,38 @@ public class GwBoardController {
 	}
 
 	@GetMapping("/boardDetail.do")
-	public String boardDetail(@RequestParam int postNo, Model model, HttpServletRequest request, HttpServletResponse response, Authentication auth) {
+	public String boardDetail(@RequestParam("postNo") int postNo, Model model, HttpServletRequest request, HttpServletResponse response, Authentication auth) {
+		
+		Cookie oldCookie = null;
+	    Cookie[] cookies = request.getCookies();
+	    if (cookies != null) {
+	        for (Cookie cookie : cookies) {
+	        	log.debug("Cookie = {}", cookie);
+	        	log.debug("Cookie = {}", cookie.getName());
+	            if (cookie.getName().equals("noticeView")) {
+	                oldCookie = cookie;
+	                log.debug("Cookie = {}", oldCookie.getValue());
+	            }
+	        }
+	    }
+	    log.debug("oldCookie = {}", oldCookie);
+	    int result = 0;
+	    if (oldCookie != null) {
+	        if (!oldCookie.getValue().contains("[" + Integer.toString(postNo) + "]")) {
+	            result = boardService.postViewCountUp(postNo);
+	            oldCookie.setValue(oldCookie.getValue() + "_[" + Integer.toString(postNo) + "]");
+	            oldCookie.setPath("/cosmos");
+	            oldCookie.setMaxAge(60 * 60 * 24);
+	            response.addCookie(oldCookie);
+	        }
+	    } else {
+	    	result = boardService.postViewCountUp(postNo);
+	        Cookie newCookie = new Cookie("noticeView","[" + Integer.toString(postNo) + "]");
+	        newCookie.setPath("/cosmos");
+	        newCookie.setMaxAge(60 * 60 * 24);
+	        response.addCookie(newCookie);
+	    }
+		
 		Post post = boardService.selectOnePostInBoard(postNo);
 		Board board = boardService.selectBoardByBoardNo(post.getBoardNo());
 		int groupNo = board.getGroupNo();
@@ -672,6 +704,36 @@ public class GwBoardController {
 	
 	@GetMapping("/anonymousDetail.do")
 	public String anonymousDetail(@RequestParam int postNo, Model model, HttpServletRequest request, HttpServletResponse response, Authentication auth) {
+		
+		Cookie oldCookie = null;
+	    Cookie[] cookies = request.getCookies();
+	    if (cookies != null) {
+	        for (Cookie cookie : cookies) {
+	        	log.debug("Cookie = {}", cookie);
+	        	log.debug("Cookie = {}", cookie.getName());
+	            if (cookie.getName().equals("noticeView")) {
+	                oldCookie = cookie;
+	                log.debug("Cookie = {}", oldCookie.getValue());
+	            }
+	        }
+	    }
+	    log.debug("oldCookie = {}", oldCookie);
+	    int result = 0;
+	    if (oldCookie != null) {
+	        if (!oldCookie.getValue().contains("[" + Integer.toString(postNo) + "]")) {
+	            result = boardService.postViewCountUp(postNo);
+	            oldCookie.setValue(oldCookie.getValue() + "_[" + Integer.toString(postNo) + "]");
+	            oldCookie.setPath("/cosmos");
+	            oldCookie.setMaxAge(60 * 60 * 24);
+	            response.addCookie(oldCookie);
+	        }
+	    } else {
+	    	result = boardService.postViewCountUp(postNo);
+	        Cookie newCookie = new Cookie("noticeView","[" + Integer.toString(postNo) + "]");
+	        newCookie.setPath("/cosmos");
+	        newCookie.setMaxAge(60 * 60 * 24);
+	        response.addCookie(newCookie);
+	    }
 		
 		Post post = boardService.selectOnePostInAnonymous(postNo);
 		Board board = boardService.selectBoardByBoardNo(post.getBoardNo());

@@ -38,11 +38,18 @@
 		</div>       
     </form>
   
-  <table class="table">
+  <table class="table file-board-table">
+  	<thead>
+      <tr>
+        <th colspan="3">제목</th>
+        <th>조회수</th>
+        <th>날짜</th>
+      </tr>
+    </thead>
     <tbody>
     <c:forEach var="post" items="${noticePostList}" varStatus="vs">
       <tr onclick="location.href='${pageContext.request.contextPath}/gw/board/boardDetail.do?postNo=${post.postNo}'">
-        <td colspan="3">
+        <td colspan="3" class="text-left">
 	        <svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" fill="currentColor" class="bi bi-circle-fill" viewBox="0 0 16 16">
 			  <circle cx="8" cy="8" r="8"/>
 			</svg>
@@ -53,6 +60,7 @@
         		</c:if>
         	</c:forEach>
         </td>
+        <td>${post.readCount}</td>
         <td><span class="text-secondary"><fmt:formatDate value="${post.postRegDate}" pattern="yy-MM-dd"/></span></td>
       </tr>
       </c:forEach>

@@ -37,7 +37,8 @@
   		null,
   		#{attachNo},
   		#{boardCategoryNo},
-  		null
+  		null,
+  		default
   		)
   	
   </insert>

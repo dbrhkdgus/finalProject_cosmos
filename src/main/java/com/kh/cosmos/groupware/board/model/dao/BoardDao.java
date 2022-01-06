@@ -79,4 +79,6 @@ public interface BoardDao {
 	
 	List<PostReplyCount> selectReplyCount();
 
+	int postViewCountUp(int postNo);
+
 }
