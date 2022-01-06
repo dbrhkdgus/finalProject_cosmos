@@ -762,7 +762,7 @@ public class GwBoardController {
 			return "redirect:/gw/board/anonymousDetail.do?postNo="+ postNo;
 		}else{
 			
-			int result  = boardService.deletePostInAnonymous(postNo);
+			int result  = boardService.deletePostInBoard(postNo);
 			log.debug("********** result = {} ", result);
 			redirectAttr.addFlashAttribute("msg", result > 0 ? "게시물이 삭제되었습니다." : "실패");
 			
