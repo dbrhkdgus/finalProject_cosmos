@@ -62,20 +62,13 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mx-auto h-100">
                         <li class="nav-item">
-                            <a class="nav-link" href="${pageContext.request.contextPath}/admin/board.do">
-                                <i class="far fa-clipboard"></i>
-                                게시물 관리
-                                <span class="sr-only">(current)</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="${pageContext.request.contextPath}/admin/QnA.do">
-                                <i class="fas fa-question"></i>
-                                문의사항
-                                <span class="sr-only">(current)</span>
-                            </a>
-                        </li>
+                            <a class="nav-link" href="${pageContext.request.contextPath}/admin/members.do" role="button" aria-haspopup="true" aria-expanded="false">
+                            <i class="far fa-user"></i>
 
+                            <span>회원관리</span>
+                            </a>
+
+                        </li>                        
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
                             aria-haspopup="true" aria-expanded="false">
@@ -90,15 +83,22 @@
                                 <a class="dropdown-item" href="${pageContext.request.contextPath}/admin/permitGroups.do">모임 승인 관리</a>
                             </div>
                         </li>  
-
                         <li class="nav-item">
-                            <a class="nav-link" href="${pageContext.request.contextPath}/admin/members.do" role="button" aria-haspopup="true" aria-expanded="false">
-                            <i class="far fa-user"></i>
-
-                            <span>회원관리</span>
+                            <a class="nav-link" href="${pageContext.request.contextPath}/admin/board.do">
+                                <i class="far fa-clipboard"></i>
+                                게시물 관리
+                                <span class="sr-only">(current)</span>
                             </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="${pageContext.request.contextPath}/admin/QnA.do">
+                                <i class="fas fa-question"></i>
+                                문의사항
+                                <span class="sr-only">(current)</span>
+                            </a>
+                        </li>
 
-                        </li>                        
+
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
                             aria-haspopup="true" aria-expanded="false">
@@ -111,7 +111,7 @@
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="${pageContext.request.contextPath}/admin/StatisticsOfMember.do">회원 통계</a>
                                 <a class="dropdown-item" href="${pageContext.request.contextPath}/admin/StatisticsOfGroup.do">모임 통계</a>
-                                <a class="dropdown-item" href="#">매출 통계</a>
+                                <a class="dropdown-item" href="${pageContext.request.contextPath}/admin/StatisticsOfSales.do">매출 통계</a>
 
                             </div>
                         </li>

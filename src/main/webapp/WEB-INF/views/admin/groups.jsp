@@ -39,8 +39,9 @@
     border-collapse: collapse;  	
 	color: white;
 	width: 80%;
-	height: 20vh;
-	font-size: 0.8vw;
+	
+	height: 30vh;
+	font-size: 1vw;
   }
   #table_groupInfo tr{
   	border: solid 1px #435C70;
@@ -55,7 +56,6 @@
         <div class="col-12 tm-block-col">
           <div class="tm-bg-primary-dark tm-block tm-block-h-auto">
             <h2 class="tm-block-title">모임 목록</h2>
-            <p class="text-white">검색 카테고리</p>
             <div>
               <form name="searchForm" action="${pageContext.request.contextPath}/admin/searchGroups">
               	<table class="table mb-3 table-striped ">

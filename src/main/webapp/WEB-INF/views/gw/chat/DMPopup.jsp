@@ -142,7 +142,7 @@ $("#btn-dm-message-send").click((e) =>{
 			
 		stompClient.send(`/app/dm/${sender}`, {}, JSON.stringify(obj));
 		setTimeout(function() { location.reload()}
-		, 90);
+		, 100);
 		
 		
 		

@@ -495,7 +495,8 @@ $("#btn-dm-message-send").click((e) =>{
 	const obj = {
 		sender : "${loginMember.id}",
 		receiver : receiver,
-		msg : $("#dm-chatMessageContent").val()
+		msg : $("#dm-chatMessageContent").val(),
+		msgTypeNo : 1
 	};
 		
 	stompClient.send(`/app/dm/\${$("input[name=dm-memberId]").val()}`, {}, JSON.stringify(obj));
@@ -539,7 +540,7 @@ $("#btn-message-send").click((e) =>{
 	}else{
 		var form = $('#file-form')[0];
 	    var formData = new FormData(form);
-	 
+	 	
 	    $.ajax({
 	        url : "${pageContext.request.contextPath}/gw/chat/uploadImg.do",
 	        type : 'POST',
@@ -555,7 +556,8 @@ $("#btn-message-send").click((e) =>{
 						memberId : "${loginMember.id}",
 						msg : $(chatMessageContent).val(),
 						logTime : hours + ":" + minutes,
-						chatFile : data
+						chatFile : data,
+						msgTypeNo : 2
 						};
 		        $('#file-form')[0].reset();
 		 	},

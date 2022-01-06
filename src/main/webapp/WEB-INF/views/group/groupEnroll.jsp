@@ -67,7 +67,7 @@ window.addEventListener("load", function(){
 					<div class="card">
 						<div class="card-header">스터디 그룹 생성</div>
 						<div class="card-body">
-							<form:form id="groupEnrollFrm" name="my-form" action="${pageContext.request.contextPath}/group/insertGroup.do" method="POST" enctype="multipart/form-data">
+							<form:form id="groupEnrollFrm" name="my-form" action="${pageContext.request.contextPath}/group/insertGroup.do?${_csrf.parameterName}=${_csrf.token}" method="POST" enctype="multipart/form-data">
 								<input type="hidden" name="memberId" value="<sec:authentication property="principal.id"/>"/>
 								<div class="form-group row">
 									<label for="full_name" class="col-md-4 col-form-label text-md-right">그룹명</label>
@@ -256,10 +256,7 @@ window.addEventListener("load", function(){
 				$studyTitle.focus();
 				return false;
 			}
-			if($("#upFile").val() == null || $("#upFile").val() == 'undefined' || $("#upFile").val() == ''){
-				$upFile.focus();
-				return false;
-			}
+			
 			if($("#member-number").val() == null || $("#member-number").val() == 'undefined' || $("#member-number").val() == 0){
 				$memberNumber.focus();
 				return false;

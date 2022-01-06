@@ -1,5 +1,6 @@
 package com.kh.cosmos.admin.model.dao;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -93,6 +94,14 @@ public interface AdminDao {
 	List<MemberOfGroup> memberOfGroupList(String groupNo);
 
 	List<ColumnAndCount> statisticsCategory();
+
+	int totalSales();
+
+	int salesOfThisMonth();
+
+	int salesOfLastMonth();
+
+	int salesOfMonth(Map<String, Object> param);
 	
 	
 }

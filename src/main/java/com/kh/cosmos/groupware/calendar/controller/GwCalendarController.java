@@ -57,8 +57,12 @@ public class GwCalendarController {
 		Schedule schedule = gwCalendarService.selectColor(param);
 		//DB를 불러올 때, 먼저 입력해 놓은 그룹일정의 색상/ 별개로 기본 개인일정 색상(회색) 세팅한다.
 		if(schedule == null) {
-			schedule = gwCalendarService.selectGroupColor(groupNo);
-			schedule.setPrivateColor("#C4C4C4");
+			try {
+				schedule = gwCalendarService.selectGroupColor(groupNo);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				schedule.setPrivateColor("#C4C4C4");
+			}
 		}
 		log.debug("여기는calendar.do schedule = {}", schedule);
 		model.addAttribute("schedule", schedule);

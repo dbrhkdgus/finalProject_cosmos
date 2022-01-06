@@ -67,7 +67,7 @@
 									class="col-md-4 col-form-label text-md-right">이름</label>
 								<div class="col-md-6 group-text-input">
 									<input type="text" id="name" class="form-control"
-										name="memberName" value="고길동">
+										name="memberName">
 								</div>
 							</div>
 
@@ -76,7 +76,7 @@
 									class="col-md-4 col-form-label text-md-right">닉네임</label>
 								<div class="col-md-6 group-text-input">
 									<input type="text" id="nickname" class="form-control"
-										name="nickname" value="고길동nick">
+										name="nickname">
 								</div>
 							</div>
 
@@ -102,7 +102,7 @@
 									class="col-md-4 col-form-label text-md-right">연락처</label>
 								<div class="col-md-6 group-text-input">
 									<input type="text" id="phone_number" class="form-control"
-										name="phone" value="01011112222">
+										name="phone">
 								</div>
 							</div>
 
@@ -134,7 +134,7 @@
 									class="col-md-4 col-form-label text-md-right">생년월일</label>
 								<div class="col-md-6 group-text-input">
 									<input type="date" id="birthday" class="form-control"
-										name="birthday" value="1999-01-01">
+										name="birthday" value="">
 								</div>
 							</div>
 
