@@ -409,6 +409,15 @@ div.list-group1{
 /* #re-rep-modify-input {
 	width: 370%;
 } */
+.board-thead {
+    color: #495057;
+    background-color: #f8f9fa;
+    border-color: #dee2e6;
+}
+.board-table-hover>tbody>tr:hover>* {
+    --bs-table-accent-bg: var(--bs-table-hover-bg);
+    color: #5288F2;
+}
 .test-board-outter{
   width: 100%;
   display: flex ; 
@@ -542,6 +551,16 @@ div.list-group1{
       display: flex;
     justify-content: flex-start;
     align-items: baseline;
+}
+
+
+.file-board-icon{
+	width:63px;
+}
+
+#fileBoard-delete> i:hover{
+	color: red !important;
+    
 }
 .groupware-saved-file-info{
   border: 1.5px solid #E9E9E9;
