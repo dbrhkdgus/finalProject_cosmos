@@ -11,6 +11,7 @@ import com.kh.cosmos.common.attachment.model.vo.Attachment;
 import com.kh.cosmos.group.model.vo.ApplocationGroup;
 import com.kh.cosmos.group.model.vo.Group;
 import com.kh.cosmos.groupware.board.model.vo.Board;
+import com.kh.cosmos.groupware.calendar.model.vo.Schedule;
 import com.kh.cosmos.groupware.chat.model.vo.ChatRoom;
 import com.kh.cosmos.groupware.model.vo.Room;
 import com.kh.cosmos.member.model.vo.Member;
@@ -97,6 +98,12 @@ public class GroupwareDaoImpl implements GroupwareDao {
 	public ApplocationGroup selectApplocationGroup(Map<String,Object> param) {
 		// TODO Auto-generated method stub
 		return session.selectOne("gw.selectApplocationGroup",param);
+	}
+
+	@Override
+	public List<Schedule> selectTodayScheduleListByGroupNo(int groupNo) {
+		// TODO Auto-generated method stub
+		return session.selectList("gw.selectTodayScheduleListByGroupNo",groupNo);
 	}
 
 	
