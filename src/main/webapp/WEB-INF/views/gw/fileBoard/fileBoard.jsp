@@ -56,9 +56,24 @@
                     <%--  <c:set var="count" value="${count + 1}" /> --%>
                     <div class="groupware-saved-card-box mb-4" style="width: 45%; margin-top: 0.7rem!important;">
                         <div class="card" style="box-shadow: 2px 3px 6px #ccc;">
-                            <div class="card-header">
+                            <div class="card-header d-flex" style="    justify-content: space-between;">
+                            	<div class="left-card-header">
                                 <span class="font-weight-bold" style="color:black; font-size:15px;">No.${fn:length(fileBoardList)- status.count+1}</span>
                                 <span style="font-size:19px; ">&nbsp;${post.postTitle}</span>
+                                </div>
+		                                <c:if test="${loginMember.id eq post.memberId}">
+		                            <form  action="${pageContext.request.contextPath}/gw/fileBoard/deletefilePost.do?postNo=${post.postNo}" method="GET">
+		                              <c:forEach var="attach" items="${attach}" varStatus="status">
+		                                      <c:if test="${post.attachNo eq attach.attachNo}">                 
+		                                        <button id="fileBoard-delete" style="border:none; background-color: transparent; font-size: 17px;" ><i class="far fa-times-circle"></i></button>
+		                                        <input type="hidden" value="${groupNo}" name ="groupNo">
+		                                        <input type="hidden" value="${post.postNo}"  name="postNo">
+		                                        <input type="hidden" value="${boardNo}" name = "boardNo">                            
+		                                        <input type="hidden" value="${attach.attachNo}" name = "attachNo">                            
+		                                     </c:if>
+		                              </c:forEach>
+		                            </form>
+		                        </c:if>
                             </div>
                             <div class="card-body">
                                 <div class="groupware-saved-inner" >
@@ -71,7 +86,28 @@
                                 <c:forEach var="attach" items="${attach}" varStatus="status">
                                     <c:if test="${post.attachNo eq attach.attachNo}">
                                         <div class="groupware-saved-file-info mt-2" style="height: 70px; margin-left: 50px;">
-                                           
+                                      
+                                        <c:if test="  ${post.boardCategoryNo = 5}">
+                                        hello
+                                        </c:if>
+                                        	<!--이미지5 문서6 압축파일7 코드8 기타9  -->
+                                        	<c:choose>
+                                        		<c:when test="${fn:contains(post.boardCategoryNo , 5 )} ">
+                                           			<img alt="" src="https://i.ibb.co/bBL0yKW/img-514.png" class="file-board-icon">
+                                        		</c:when>
+                                        		<c:when test="${fn:contains(post.boardCategoryNo , 6 )} ">
+                                           			<img alt="" src="https://i.ibb.co/MR7FWnW/txt-514.png"  class="file-board-icon">
+                                        		</c:when>
+                                        		<c:when test="${fn:contains(post.boardCategoryNo , 7 )}  ">
+                                           			<img alt="" src="https://i.ibb.co/r6pNh1x/zip-514.png"  class="file-board-icon">
+                                        		</c:when>
+                                        		<c:when test="${fn:contains(post.boardCategoryNo , 8 )} ">
+                                           			<img alt="" src="https://i.ibb.co/wR1LyGb/CODE.png"  class="file-board-icon">
+                                        		</c:when>
+                                        		<c:otherwise>
+                                           			<img alt="" src="https://i.ibb.co/XCx31BJ/ETC.png"  class="file-board-icon">
+                                        		</c:otherwise>
+                                        	</c:choose>
                                             <a href="${pageContext.request.contextPath}/gw/fileBoard/fileDown.do?attachNo=${post.attachNo}">
                                                 <p class="mb-0 ml-3">${attach.originalFilename}</p>
                                             </a>
