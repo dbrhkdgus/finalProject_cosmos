@@ -743,29 +743,23 @@ public class AdminController {
 		
 		List<Map<String,Integer>> monthDataList = new ArrayList<Map<String,Integer>>();
 		for(int i = 0; i <= monthDiffrence; i++) {
+			//monthData초기화한 후에 map예 차례차례 넣는다.
+			monthData = new HashMap<>();
+			
 			log.debug("반복문내부monthDiffrence = {}", monthDiffrence);
 			int salesOfMonth = adminService.salesOfMonth(param);
 			int _monthInt = (int)monthInt;
-			
-			log.debug("반복문내부sf2.format(cal.getTime()) = {}", sf2.format(cal.getTime()));
+
+			//마지막에 list에 담기
 			monthData.put(sf2.format(cal.getTime()), salesOfMonth);
-			
-			
+			monthDataList.add(monthData);
+
 			_monthInt++;
 			monthInt = (Object)_monthInt;
 			param.put("monthInt", monthInt);
-			
 
 			//이후 한 달이 더해져 2022-01, 2022-02... 진행
-			log.debug("반복문내부 더하기 전 cal.get(time)확인! = {}", cal.getTime());
 			cal.add(Calendar.MONTH, 1);
-			log.debug("반복문내부 더하기 후cal.get(time)확인! = {}", cal.getTime());
-			log.debug("반복문내부monthData 확인! = {}", monthData);
-			monthDataList.add(monthData);
-			
-			log.debug("반복문내부 monthDataList 확인! = {}", monthDataList);
-
-
 		}
 		log.debug("들어간 monthDataList 확인! = {}", monthDataList);
 		
@@ -785,7 +779,7 @@ public class AdminController {
 		model.addAttribute("countOfPremiumGroup", countOfPremiumGroup);
 		model.addAttribute("salesOfThisMonth",salesOfThisMonth);
 		model.addAttribute("salesOfLastMonth", salesOfLastMonth);
-		model.addAttribute("monthData", monthData);
+		model.addAttribute("monthDataList", monthDataList);
 		return "admin/StatisticsOfSales";
 	}
 }
