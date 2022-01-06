@@ -268,9 +268,6 @@ public class GwVoteController {
 		 Map<String,Object> param = new HashMap<>();
 	     param.put("memberId", loginMember.getId());
 	     param.put("groupNo", groupNo);
-	     ApplocationGroup applocationGroup = gwService.selectApplocationGroup(param);
-	        
-	        
-	     model.addAttribute("role", applocationGroup.getRole());
+
 	}
 }
