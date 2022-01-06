@@ -1,5 +1,10 @@
 package com.kh.cosmos.admin.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,6 +43,7 @@ import com.kh.cosmos.group.model.vo.Group;
 import com.kh.cosmos.group.model.vo.GroupCategory;
 import com.kh.cosmos.group.model.vo.MemberOfGroup;
 import com.kh.cosmos.group.model.vo.NotApprovedGroup;
+import com.kh.cosmos.groupware.admin.model.vo.TdlMonthlyData;
 import com.kh.cosmos.main.model.service.MainService;
 import com.kh.cosmos.main.model.vo.Question;
 import com.kh.cosmos.main.model.vo.QuestionWithMemberNameAndNickName;
@@ -674,10 +680,112 @@ public class AdminController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		List<ColumnAndCount> list = adminService.statisticsCategory();
 		log.debug("list = {}", list);
-		
-		
 		map.put("list", list);
-		
 		return map;
+	}
+	
+	@GetMapping("/countOfnewPostInThisWeekList")
+	@ResponseBody
+	public Map<String,Object> countOfnewPostInThisWeekList(){
+		Map<String, Object> map = new HashMap<String, Object>();
+		List<ColumnAndCount> countOfnewPostInThisWeekList = adminService.countOfnewPostInThisWeekList();
+		log.debug("countOfnewPostInThisWeekList= {}", countOfnewPostInThisWeekList);		
+		map.put("countOfnewPostInThisWeekList", countOfnewPostInThisWeekList);
+		return map;
+	}
+	
+	@GetMapping("/StatisticsOfSales.do")
+	public String StatisticsOfSales(@RequestParam(defaultValue = "1") int cPage, HttpServletRequest request, Model model) throws ParseException {
+		//총 매출
+		int totalSales = adminService.totalSales();
+		//프리미엄 모임 수
+		Count countOfPremiumGroup = adminService.countOfPremiumGroup();
+		//이번 달 매출
+		int salesOfThisMonth = adminService.salesOfThisMonth();
+		//전월 매출
+		int salesOfLastMonth = adminService.salesOfLastMonth();
+		
+		//매출
+		SimpleDateFormat sf = new SimpleDateFormat("yyyyMMdd");
+
+		String _serviceStart = "20211201";
+		Date sysdate = new Date();
+		Date serviceStart = sf.parse(_serviceStart);
+		
+			//두 현재와 서비스 시작일의 월 차이
+			int month1 = sysdate.getYear()*12 + sysdate.getMonth();
+			int month2 = serviceStart.getYear()*12 + serviceStart.getMonth();
+			int monthDiffrence = month2 - month1 + 2;
+			
+			log.debug("month1 = {}", month1);
+			log.debug("month2 = {}", month2);
+			log.debug("monthDiffrence = {}", monthDiffrence);
+		Map<String, Object> param = new HashMap<String, Object>();
+		Object monthInt = 0;
+		
+		param.put("monthInt", monthInt);
+		param.put("serviceStart", serviceStart);
+		param.put("monthInt", monthInt );
+		
+		//
+		Map<String, Integer> monthData = new HashMap<>();
+		String str_serviceStart = "2021-12";
+		Calendar cal = Calendar.getInstance();
+		SimpleDateFormat sf2 = new SimpleDateFormat("yyyy-MM");
+		Date date = new Date();
+		
+		Date _startDate = sf2.parse(str_serviceStart);
+		cal.setTime(_startDate);
+		log.debug("반복문 들어가기 전 cal= {}", cal);
+		log.debug("반복문 들어가기 전 _startDate= {}", _startDate);
+		log.debug("반복문 들어가기 전 sf2.format(_startDate)= {}", sf2.format(_startDate));
+		
+		
+		List<Map<String,Integer>> monthDataList = new ArrayList<Map<String,Integer>>();
+		for(int i = 0; i <= monthDiffrence; i++) {
+			log.debug("반복문내부monthDiffrence = {}", monthDiffrence);
+			int salesOfMonth = adminService.salesOfMonth(param);
+			int _monthInt = (int)monthInt;
+			
+			log.debug("반복문내부sf2.format(cal.getTime()) = {}", sf2.format(cal.getTime()));
+			monthData.put(sf2.format(cal.getTime()), salesOfMonth);
+			
+			
+			_monthInt++;
+			monthInt = (Object)_monthInt;
+			param.put("monthInt", monthInt);
+			
+
+			//이후 한 달이 더해져 2022-01, 2022-02... 진행
+			log.debug("반복문내부 더하기 전 cal.get(time)확인! = {}", cal.getTime());
+			cal.add(Calendar.MONTH, 1);
+			log.debug("반복문내부 더하기 후cal.get(time)확인! = {}", cal.getTime());
+			log.debug("반복문내부monthData 확인! = {}", monthData);
+			monthDataList.add(monthData);
+			
+			log.debug("반복문내부 monthDataList 확인! = {}", monthDataList);
+
+
+		}
+		log.debug("들어간 monthDataList 확인! = {}", monthDataList);
+		
+		
+		
+		// 페이징처리
+		int limit = 10;
+		int offset = (cPage - 1) * limit;
+		int totalContent = monthDiffrence;
+		String url = request.getRequestURI();
+		String pagebar = CosmosUtils.getPagebar(cPage, limit, totalContent, url);
+		model.addAttribute("totalContent", totalContent);
+		model.addAttribute("pagebar", pagebar);
+		
+		
+		model.addAttribute("totalSales",totalSales);
+		model.addAttribute("countOfPremiumGroup", countOfPremiumGroup);
+		model.addAttribute("salesOfThisMonth",salesOfThisMonth);
+		model.addAttribute("salesOfLastMonth", salesOfLastMonth);
+		model.addAttribute("monthData", monthData);
+		return "admin/StatisticsOfSales";
 	}
 }
