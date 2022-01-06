@@ -622,7 +622,9 @@ div.list-group1{
   float: right;
   margin: 0px;
 }
-
+.p-4{
+  margin: 40px 40px 40px 40px;
+}
 /* file게시판 enroll용 css */
 .form-group {
 	margin-bottom: 1rem;

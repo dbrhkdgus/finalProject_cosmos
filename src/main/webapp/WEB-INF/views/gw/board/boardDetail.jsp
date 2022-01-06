@@ -11,6 +11,7 @@
 <jsp:include page="/WEB-INF/views/common/gw_header.jsp">
 	<jsp:param value="" name="title"/>
 </jsp:include>
+
 <sec:authorize access="isAuthenticated()">
 	<sec:authentication property="principal" var="loginMember"/>
 </sec:authorize>
@@ -26,7 +27,8 @@
    	  <div class="d-flex justify-content-between align-items-center">
    	  	<div class="post-info">
 	        <span>작성자 : ${memberWithGroupMap[post.memberId]}</span>
-	        <span>[<fmt:formatDate value="${post.postRegDate}" pattern="yy-MM-dd"/>]</span>
+	        <span>[<fmt:formatDate value="${post.postRegDate}" pattern="yy-MM-dd"/>]</span><br>
+	        <span>조회수 : ${post.readCount}</span>
    	  	</div>
         <div class="post-button-set">
 			<button class="btn btn-primary" type="button" onclick="location.href='${pageContext.request.contextPath}/gw/board/postModify.do?postNo=${post.postNo}'">수정</button>&nbsp;
