@@ -43,6 +43,6 @@ public interface GroupwareService {
 
 	List<Schedule> selectTodayScheduleListByGroupNo(int groupNo);
 
-	List<PostWithBoardName> selectNewPostsListByGroupNo(int groupNo);
+	List<PostWithBoardName> selectNewPostsListByParam(Map<String, Object> param);
 	
 }

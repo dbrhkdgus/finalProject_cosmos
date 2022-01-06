@@ -9,8 +9,12 @@
 <jsp:include page="/WEB-INF/views/common/gw_header.jsp">
 	<jsp:param value="" name="title"/>
 </jsp:include>
+<style type="text/css">
+a { color:black; text-decoration:none !important } a:hover { color : black; text-decoration:none !important }
 
-<script	src='${pageContext.request.contextPath}/resources/js/moment.min.js'></script>
+</style>
+
+
 
 
 <div class="gw_main_workspace-box">
