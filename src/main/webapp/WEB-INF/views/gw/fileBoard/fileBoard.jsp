@@ -86,10 +86,8 @@
                                 <c:forEach var="attach" items="${attach}" varStatus="status">
                                     <c:if test="${post.attachNo eq attach.attachNo}">
                                         <div class="groupware-saved-file-info mt-2" style="height: 70px; margin-left: 50px;">
-                                      
-                                    <%--     <c:if test="  ${post.boardCategoryNo = 5}">
-                                        hello
-                                        </c:if> --%>
+
+
                                         	<!--이미지5 문서6 압축파일7 코드8 기타9  -->
                                         	<c:choose>
                                         		<c:when test="${post.boardCategoryNo == '5'}">
@@ -127,6 +125,7 @@
                 </c:forEach>
             </div>
             
+
             <div class="test-board-pagebar">
                 ${pagebar}
             </div>
