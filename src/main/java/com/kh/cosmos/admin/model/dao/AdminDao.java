@@ -91,6 +91,8 @@ public interface AdminDao {
 	MemberOfGroup selectLeader(String groupNo);
 
 	List<MemberOfGroup> memberOfGroupList(String groupNo);
+
+	List<ColumnAndCount> statisticsCategory();
 	
 	
 }

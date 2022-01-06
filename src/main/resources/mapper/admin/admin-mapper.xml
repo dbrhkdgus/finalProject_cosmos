@@ -561,5 +561,15 @@
 		where
 			group_no = #{groupNo} and role = 'P' and group_accept = 'Y'
 	</select>
+	
+	<select id="statisticsCategory" resultType="ColumnAndCount">
+		select
+		    distinct (select category1_name from studygroup_category1 tg2 where tg.category_no = tg2.category1_no) "column",
+		    (select count(*) from tb_group tg1 where tg.category_no=tg1.category_no) "count"
+		from 
+		    tb_group tg
+		order by
+		    "count" desc	
+	</select>
 		
 </mapper>

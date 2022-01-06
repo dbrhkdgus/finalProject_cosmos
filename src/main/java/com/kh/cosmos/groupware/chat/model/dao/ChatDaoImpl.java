@@ -162,6 +162,18 @@ public class ChatDaoImpl implements ChatDao {
 		// TODO Auto-generated method stub
 		return session.selectOne("chat.selectChatRoomNoByChatRoomNo", chatRoomNo);
 	}
+
+	@Override
+	public int updateChatRoom(ChatRoom chatRoom) {
+		// TODO Auto-generated method stub
+		return session.update("chat.updateChatRoom", chatRoom);
+	}
+
+	@Override
+	public int selectChatAdminNoBychatRoomNo(int chatRoomNo) {
+		// TODO Auto-generated method stub
+		return session.selectOne("chat.selectChatAdminNoBychatRoomNo", chatRoomNo);
+	}
 	
 	
 	
