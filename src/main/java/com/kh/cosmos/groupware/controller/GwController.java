@@ -68,12 +68,6 @@ public class GwController {
 		param.put("memberId", loginMember.getId());
 		param.put("groupNo", groupNo);
 		
-	    try {
-			ApplocationGroup applocationGroup = gwService.selectApplocationGroup(param);
-			model.addAttribute("role", applocationGroup.getRole());
-		} catch (Exception e) {
-
-		}	
 	    
 	    
 	    List<Schedule> todayScheduleList = gwService.selectTodayScheduleListByGroupNo(groupNo);
