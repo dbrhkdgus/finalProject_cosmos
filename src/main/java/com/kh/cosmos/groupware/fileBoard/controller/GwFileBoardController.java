@@ -152,7 +152,7 @@ public class GwFileBoardController {
 		List<PostWithCategory> fileBoardList = fileBoardService.selectAllPostInfileBoard(boardNo, limit, offset);
 		model.addAttribute("fileBoardList",fileBoardList);
 		Board board = boardService.selectBoardByBoardNo(boardNo);
-		
+		log.debug("board = {}",board);
 		model.addAttribute("groupNo", groupNo);
         model.addAttribute("boardNo", boardNo);
         model.addAttribute("title", "# " + board.getBoardName());
@@ -366,11 +366,14 @@ public class GwFileBoardController {
         Map<String,Object> param = new HashMap<>();
     	param.put("memberId", loginMember.getId());
     	param.put("groupNo", groupNo);
-        ApplocationGroup applocationGroup = gwService.selectApplocationGroup(param);
+    	
+		/*
+		 * ApplocationGroup applocationGroup = gwService.selectApplocationGroup(param);
+		 * model.addAttribute("role", applocationGroup.getRole());
+		 */
         
         
 
-        model.addAttribute("role", applocationGroup.getRole());
         model.addAttribute("currGroupNo", groupNo);
         model.addAttribute("myGroup", myGroup);
         model.addAttribute("myGroupMemberList", myGroupMemberList);

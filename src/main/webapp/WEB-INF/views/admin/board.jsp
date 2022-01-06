@@ -70,7 +70,7 @@
 	                    <td><a href="${pageContext.request.contextPath}/gw/board/anonymousDetail.do?postNo=${list.postNo}" style="color:white;">${list.postTitle }</a></td>
 	                    </c:if>
 	                    <c:if test="${list.boardType eq 'F'}">
-	                    <td><a href="${pageContext.request.contextPath}/gw/fileBoard/fileBoard.do?boardNo=${list.postNo}&groupNo=${list.groupNo}" style="color:white;">${list.postTitle }</a></td>
+	                    <td><a href="${pageContext.request.contextPath}/gw/fileBoard/fileBoard.do?boardNo=${list.boardNo}&groupNo=${list.groupNo}" style="color:white;">${list.postTitle }</a></td>
 	                    </c:if>
 	                    <c:if test="${list.boardType eq 'N' || list.boardType eq 'B'}">
 	                    <td><a href="${pageContext.request.contextPath}/gw/board/boardDetail.do?postNo=${list.postNo}" style="color:white;">${list.postTitle }</a></td>

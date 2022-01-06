@@ -792,6 +792,6 @@ _cal.setup({
 
 
 
-<jsp:include page="/WEB-INF/views/common/gw_footer.jsp"></jsp:include>
 </sec:authorize>
+<jsp:include page="/WEB-INF/views/common/gw_footer.jsp"></jsp:include>
 
