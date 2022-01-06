@@ -185,7 +185,7 @@ public class GwBoardController {
 		model.addAttribute("replyCount", replyCount);
 		log.debug("replyCount = {}", replyCount);
 
-		List<Post> noticePostList = boardService.selectAllPostInNotice(boardNo, limit, offset);
+		List<Post> noticePostList = boardService.selectAllPostInBoard(boardNo, limit, offset);
 		Board board = boardService.selectBoardByBoardNo(boardNo);
 		log.debug("noticePostList = {}", noticePostList);
 		model.addAttribute("noticePostList", noticePostList);
@@ -406,7 +406,7 @@ public class GwBoardController {
 	
 	@PostMapping("/checkPassword.do")
 	public String checkPassword(@RequestParam int postNo, int postPassword, RedirectAttributes redirectAttr) {
-		Post post = boardService.selectOnePostInAnonymous(postNo);
+		Post post = boardService.selectOnePostInBoard(postNo);
 		Board board = boardService.selectBoardByBoardNo(post.getBoardNo());
 		
 		if(post.getPostPassword() != postPassword){
@@ -423,7 +423,7 @@ public class GwBoardController {
 	
 	@GetMapping("/anonymousPostModify.do")
 	public void anonymousPostModify(@RequestParam int postNo, Model model, Authentication auth) {
-		Post post = boardService.selectOnePostInAnonymous(postNo);
+		Post post = boardService.selectOnePostInBoard(postNo);
 		int boardNo = post.getBoardNo();
 		Board board = boardService.selectBoardByBoardNo(boardNo);
 		int groupNo = board.getGroupNo();
@@ -442,7 +442,7 @@ public class GwBoardController {
 		Board board = boardService.selectBoardByBoardNo(post.getBoardNo());
 		
 			
-	    int result = boardService.updatePostInAnonymous(post);
+	    int result = boardService.updatePost(post);
 		log.debug("********** result = {} ", result);
 		
 			redirectAttr.addFlashAttribute("msg", result > 0 ? "게시물이 수정되었습니다." : "실패");
@@ -678,7 +678,7 @@ public class GwBoardController {
 	
 	@GetMapping("/noticeDetail.do")
 	public String noticeDetail(@RequestParam int postNo, Model model, HttpServletRequest request, HttpServletResponse response, Authentication auth) {
-		Post post = boardService.selectOnePostInNotice(postNo);
+		Post post = boardService.selectOnePostInBoard(postNo);
 		Board board = boardService.selectBoardByBoardNo(post.getBoardNo());
 		int groupNo = board.getGroupNo();
 		groupwareHeaderSet(groupNo, model, auth);
@@ -735,7 +735,7 @@ public class GwBoardController {
 	        response.addCookie(newCookie);
 	    }
 		
-		Post post = boardService.selectOnePostInAnonymous(postNo);
+		Post post = boardService.selectOnePostInBoard(postNo);
 		Board board = boardService.selectBoardByBoardNo(post.getBoardNo());
 		int groupNo = board.getGroupNo();
 		groupwareHeaderSet(groupNo, model, auth);
@@ -753,7 +753,7 @@ public class GwBoardController {
 	@PostMapping("/deletePostAnonymous.do")
 	public String deletePostAnonymous(@RequestParam int postNo, int postPassword, RedirectAttributes redirectAttr) {
 		    	
-		Post post = boardService.selectOnePostInAnonymous(postNo);
+		Post post = boardService.selectOnePostInBoard(postNo);
 		Board board = boardService.selectBoardByBoardNo(post.getBoardNo());
 		
 		if(post.getPostPassword() != postPassword){
@@ -821,7 +821,7 @@ public class GwBoardController {
 		String pagebar = CosmosUtils.getPagebar(cPage, limit, totalContent, url);
 		model.addAttribute("pagebar", pagebar);
 
-		List<Post> anonymousPostList = boardService.selectAllPostInAnonymous(boardNo, limit, offset);
+		List<Post> anonymousPostList = boardService.selectAllPostInBoard(boardNo, limit, offset);
 		Board board = boardService.selectBoardByBoardNo(boardNo);
 		log.debug("anonymousPostList = {}", anonymousPostList);
 		
