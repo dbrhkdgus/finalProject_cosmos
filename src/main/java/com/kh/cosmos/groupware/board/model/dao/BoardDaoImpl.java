@@ -220,6 +220,12 @@ public class BoardDaoImpl implements BoardDao {
 		return session.selectList("board.selectReplyCount");
 	}
 
+	@Override
+	public int postViewCountUp(int postNo) {
+		// TODO Auto-generated method stub
+		return session.update("board.postViewCountUp",postNo);
+	}
+
 	
 	
 

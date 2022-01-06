@@ -79,5 +79,7 @@ public interface BoardService {
 
 	List<PostReplyCount> selectReplyCount();
 
+	int postViewCountUp(int postNo);
+
 
 }
