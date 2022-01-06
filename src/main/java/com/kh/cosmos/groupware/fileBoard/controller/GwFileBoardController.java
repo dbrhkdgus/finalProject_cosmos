@@ -212,7 +212,8 @@ public class GwFileBoardController {
 	}
     
     @GetMapping("/fileEnroll.do")
-    public void fileEnroll(@RequestParam int groupNo,@RequestParam int boardNo, Model model ) {
+    public void fileEnroll(@RequestParam int groupNo,@RequestParam int boardNo, Model model, Authentication authentication) {
+    	groupwareHeaderSet(groupNo, model, authentication);
     	model.addAttribute("boardNo", boardNo);
     	model.addAttribute("groupNo", groupNo);
     	model.addAttribute("currGroupNo", groupNo);
@@ -257,10 +258,6 @@ public class GwFileBoardController {
 			attach.setOriginalFilename(originalFilename);
 			attach.setGroupNo(groupNo);
 			attach.setMemberId(member.getId());
-			
-//			int result = gwFileService.insertGroup(fileEnroll);
-			
-//			log.debug("attach ={} ",attach);
 			 int attachNo = 0;
 			 attachNo = fileBoardService.insertFileAttach(attach);
 			
@@ -279,26 +276,16 @@ public class GwFileBoardController {
 			 board.setBoardType('F');
 			 
 			 
-			 
 			 int filePostResult = fileBoardService.insertFilePost(post);
-			 
+		
 
-			 
-			 
-			
-			
-
-			
-//			log.debug("attachNo ={} ",attachNo);
 			
 		} catch (IllegalStateException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
-			
-    	
+   	
         return "redirect:/gw/fileBoard/fileBoard.do?boardNo="+boardNo+"&groupNo="+groupNo;
 
     }
