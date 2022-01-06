@@ -20,10 +20,10 @@ public class PostWithNickname extends Post implements Serializable {
 	private String boardCategory;
 	private String nickname;
 	public PostWithNickname(int postNo, String memberId, int boardNo, String postTitle, String postContent,
-			Date postRegDate, Date postUpdate, int attachNo, int boardCategoryNo, int postPassword,
+			Date postRegDate, Date postUpdate, int attachNo, int boardCategoryNo, int postPassword, int readCount,
 			String boardCategory, String nickname) {
 		super(postNo, memberId, boardNo, postTitle, postContent, postRegDate, postUpdate, attachNo, boardCategoryNo,
-				postPassword);
+				postPassword, readCount);
 		this.boardCategory = boardCategory;
 		this.nickname = nickname;
 	}

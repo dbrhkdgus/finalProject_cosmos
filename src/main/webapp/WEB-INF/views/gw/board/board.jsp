@@ -59,6 +59,7 @@
         <th>No</th>
         <th colspan="2">제목</th>
         <th>작성자</th>
+        <th>조회수</th>
         <th>날짜</th>
       </tr>
     </thead>
@@ -74,6 +75,7 @@
         	</c:forEach>
         </td>
         <td>${memberWithGroupMap[post.memberId]}</td>
+        <td>${post.readCount}</td>
         <td><fmt:formatDate value="${post.postRegDate}" pattern="yy-MM-dd"/></td>
       </tr>
       </c:forEach>

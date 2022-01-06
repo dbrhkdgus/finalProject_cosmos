@@ -111,6 +111,7 @@ public class MemberController {
 
 		log.debug("profile_img = {}", request.getParameter("profile_img"));
 		String profileImg = request.getParameter("profile_img");
+		
 		try {
 			// 0.비밀번호 암호화 처리
 			log.info("{}", passwordEncoder);

@@ -150,4 +150,12 @@ where
   <select id="selectChatRoomNoByChatRoomNo" resultType="string">
    select chat_room_open_type from chat_room where chat_room_no = #{chatRoomNo}
   </select>
+  
+  <update id="updateChatRoom">
+  update chat_room set chat_room_name = #{chatRoomName} where chat_room_no = #{chatRoomNo}
+  </update>
+  
+  <select id="selectChatAdminNoBychatRoomNo" resultType="_int">
+  select chat_admin_no from chat_admin where chat_room_no = #{chatRoomNo}
+  </select>
 </mapper>

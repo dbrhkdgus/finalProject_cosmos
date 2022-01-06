@@ -131,6 +131,7 @@ public class MainController {
 	    if (cookies != null) {
 	        for (Cookie cookie : cookies) {
 	        	log.debug("Cookie = {}", cookie);
+	        	log.debug("Cookie = {}", cookie.getName());
 	            if (cookie.getName().equals("noticeView")) {
 	                oldCookie = cookie;
 	            }

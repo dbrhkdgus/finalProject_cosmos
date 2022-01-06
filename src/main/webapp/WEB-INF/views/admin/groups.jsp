@@ -9,20 +9,47 @@
 	<jsp:param value="COSMOS" name="title"/>
 </jsp:include>
 
-  <style>
-    #searchKeyword{
-      width: 75%; display: inline;
-    }
-    .selectBar{
-      width: 20%;
-    }
-    .disabled{
-      
-    }
-    .form-control.validate[disabled]{
-      background-color: #4E657A;
-    }
-  </style>
+<style>
+  #searchKeyword{
+    width: 75%; display: inline;
+  }
+  .selectBar{
+    width: 20%;
+  }
+  .disabled{
+    
+  }
+  .form-control.validate[disabled]{
+    background-color: #4E657A;
+  }
+
+  
+  .tableTitle{
+ 	width: 15%;
+ 	background-color: #486177;
+  }
+  .tableContent{
+  	background-color: ;
+  }
+  #div_groupInfo{
+  	
+  }
+  #table_groupInfo{
+  	background-color: #4E657A;
+    border-collapse: collapse;  	
+	color: white;
+	width: 80%;
+	height: 20vh;
+	font-size: 0.8vw;
+  }
+  #table_groupInfo tr{
+  	border: solid 1px #435C70;
+  }
+  #table_list{
+  	font-size: 70%;
+  }
+
+</style>
 
 <div class="container mt-5">
         <div class="col-12 tm-block-col">
@@ -30,11 +57,11 @@
             <h2 class="tm-block-title">모임 목록</h2>
             <p class="text-white">검색 카테고리</p>
             <div>
-              <form name="searchForm" action="${pageContext.request.contextPath}/admin/searchMembers.do">
+              <form name="searchForm" action="${pageContext.request.contextPath}/admin/searchGroups">
               	<table class="table mb-3 table-striped ">
               		<thread>
               			<tr>
-              				<th style="border-right: solid 1px #3e464f" class="col-2 text-center">검색어</th>
+              				<th style="border-right: solid 1px #3e464f" class="col-1.5 text-center">검색어</th>
               				<td class="d-flex">
               					<select name="searchType" id="" class="mr-2">
 					                <option value="groupName">모임명</option>
@@ -96,18 +123,18 @@
               
 
 	         
-	             <button id="searchBtn" class="btn btn-primary col rounded mt-3 mb-5" type="button"><span class="font-weight-bold">검 색</span></button>
+	             <button id="searchBtn" class="btn btn-primary col rounded mt-3 mb-5" type="submit"><span class="font-weight-bold">검 색</span></button>
               </form>
             </div>
             <!-- 회원목록 테이블 -->
             <div class="row tm-content-row">
-              <table class="table mb-3 text-center">
+              <table id="table_list" class="table mb-3 text-center">
                 <thead>
                   <tr>
                     <th scope="col">번호</th>
                     <th scope="col">그룹명</th>
                     <th scope="col">생성일</th>
-                    <th scope="col">유/무료</th>
+                    <th scope="col">프리미엄</th>
                     <th scope="col">모집여부</th>
                     <th scope="col">정원</th>
                     <th scope="col">비밀여부</th>
@@ -116,14 +143,22 @@
                 </thead>
                 <tbody>
                 <c:forEach items="${allGroupList}" var="group">
-                <tr>
+                <tr class="selectOne">
                 	<td>${group.groupNo}</td>
                 	<td>${group.groupName }</td>
                 	<td><fmt:formatDate value="${group.groupEnrollDate }" pattern="yy-MM-dd"/> </td>
-                	<td>${group.groupCharge }</td>
-                	<td>${group.groupClose }</td>
-                	<td>${group.groupPool }</td>
-                	<td>${group.groupPrivate }</td>
+                	<td>
+	                	<c:if test="${fn:contains(group.groupCharge,'F')}">.</c:if>
+	                	<c:if test="${fn:contains(group.groupCharge,'T')}">O</c:if>
+                	</td>
+                	<td>
+                		<c:if test="${fn:contains(group.groupClose,'N')}">O</c:if>
+                		<c:if test="${fn:contains(group.groupClose,'Y')}">.</c:if>                	
+                	</td>
+                	<td>${group.groupPool }명</td>
+                	<td>
+
+                	</td>
                 	<td>${group.groupLikeCount }</td>
                 </tr>
                 
@@ -140,15 +175,17 @@
         </div>
   
         <!-- row -->
-        <div class="row tm-content-row">
-          <div class="tm-block-col tm-col-avatar">
-            <div class="tm-bg-primary-dark tm-block tm-block-avatar">
+        <div class="row tm-content-row" >
+        	<div class="col-11 tm-bg-primary-dark tm-block tm-block-h-auto" style="margin: auto" >
+        	
+            <div>
               <h2 class="tm-block-title">그룹 대표 사진</h2>
-              <div class="tm-avatar-container">
+              <div class="text-center col-10" style="margin: auto;">
                 <img
-                  src="${pageContext.request.contextPath}/resources/images/avatar.png"
+                	id="groupBanner"
+                  src="${pageContext.request.contextPath}/resources/upFile/group/group-banner-default.png"
                   alt="Avatar"
-                  class="tm-avatar img-fluid mb-4"
+                  class="col-5 mb-4"
                 />
                 <a href="#" class="tm-avatar-delete-link">
                   <i class="far fa-trash-alt tm-product-delete-icon"></i>
@@ -156,120 +193,96 @@
               </div>
               
             </div>
+		        <div id="div_groupInfo" class="col-12 text-center">
+			        <table id="table_groupInfo" style="margin: auto;">
+			        <tbody>
+			        <tr>
+			        	<th class="tableTitle">모임번호</th>
+			        	<td id="table_groupNo" class="tableContent tableContent1"></td>
+			        	<th class="tableTitle">모임명</th>
+			        	<td id="table_groupName" class="tableContent" colspan="5"></td>
+			        </tr>
+			        <tr>
+			        	<th class="tableTitle">상위 카테고리</th>
+			        	<td id="table_category1" class="tableContent tableContent1"></td>
+			        	<th class="tableTitle">하위 카테고리</th>
+			        	<td id="table_category2" class="tableContent" colspan="5"></td>
+			        </tr>
+			        <tr>
+			        	<th class="tableTitle">생성일</th>
+			        	<td id="table_enrollDate" class="tableContent tableContent1"></td>
+			        	<th class="tableTitle">프리미엄</th>
+			        	<td id="table_charge" class="tableContent"></td>
+			        	
+			        	<th class="tableTitle">비밀여부</th>
+			        	<td id="table_private" class="tableContent"></td>
+			        </tr>
+			        <tr>
+						<th class="tableTitle">모집여부</th>
+			        	<td id="table_close" class="tableContent tableContent1"></td>
+			        	<th class="tableTitle">정원</th>
+			        	<td id="table_pool" class="tableContent"></td>        
+			        	<th class="tableTitle">좋아요 수</th>
+			        	<td id="table_likeCount" class="tableContent"></td>
+			        </tr>
+			        <tr>
+			        	<th class="tableTitle">모임장</th>
+			        	<td id="table_leader" class="tableContent tableContent1"></td>
+			        	<th class="tableTitle">참여자</th>
+			        	<td id="table_member" class="tableContent" colspan="3"></td>
+			        </tr>
+			        </tbody>
+			        </table>
+		        </div>
+		        </div>
+		        
           </div>
-          <div class="tm-block-col tm-col-account-settings">
-            <div class="tm-bg-primary-dark tm-block tm-block-settings">
-              <h2 class="tm-block-title">모임 정보</h2>
-              <form action="" class="tm-signup-form row">
-                <div class="form-group col-lg-6">
-                  <label for="name">그룹명</label>
-                  <input
-                    id="name"
-                    name="name"
-                    type="text"
-                    class="form-control validate"
-                    value="개성공단"
-                    disabled
-                  />
-                </div>
-                <div class="form-group col-lg-6">
-                  <label for="email">생성일</label>
-                  <input
-                    id="enrollDate"
-                    name="enrollDate"
-                    type="date"
-                    class="form-control validate"
-                    value="2021-12-15"
-                    disabled
-                  />
-                </div>
-
-                <div class="form-group col-lg-6">
-                  <label for="password2">유/무료</label>
-                  <input
-                    id="charge"
-                    name="charge"
-                    class="form-control validate"
-                    value="유료"
-                    disabled
-                  />
-                </div>
-                <div class="form-group col-lg-6">
-                  <label for="phone">모집 여부</label>
-                  <input
-                    id="groupClose"
-                    name="groupClose"
-                    class="form-control validate"
-                    value="모집 중"
-                    disabled
-                  />
-                </div>
-                <div class="form-group col-lg-6">
-                  <label for="phone">정원</label>
-                  <input
-                    id="groupPool"
-                    name="groupPool"
-                    class="form-control validate"
-                    value="7/7"
-                    disabled
-                  />
-                </div>
-                <div class="form-group col-lg-6">
-                  <label for="phone">비밀 여부</label>
-                  <input
-                    id="groupPrivate"
-                    name="groupPrivate"
-                    class="form-control validate"
-                    value="미설정"
-                    disabled
-                  />
-                </div>
-                <div class="form-group col-lg-12">
-                  <label for="phone">좋아요 수</label>
-                  <input
-                    id="likeCount"
-                    name="likeCount"
-                    type="number"
-                    class="form-control validate"
-                    value="200000000"
-                    disabled
-                  />
-                </div>
-                
-                <!-- 멤버-그룹 연결 테이블 join 해야함. -->
-                <div class="form-group col-lg-12">
-                  <label for="phone">참여 인원</label>
-                  <input
-                    id="memberList"
-                    name="memberList"
-                    class="form-control validate"
-                    value="kh1231, honggd, sinsa, Michol, Ttochi, Duli, gogd"
-                    disabled
-                  />
-                </div>
-                <div class="form-group col-lg-6">
-                  <label class="tm-hide-sm">&nbsp;</label>
-                  <button
-                    type="button"
-                    class="btn btn-primary btn-block text-uppercase"
-                  >
-                      그룹 접속
-                  </button>
-                </div>
-                <div class="form-group col-lg-6">
-                  <label class="tm-hide-sm">&nbsp;</label>
-                  <button
-                    id="blackListBtn"
-                    type="button"
-                    class="btn btn-danger btn-block text-uppercase"
-                  >
-                      블랙리스트 등록
-                  </button>
-                </div>
-              </form>
-          </div>
-        </div>
+         
+        
       </div>
+<script>
+/*클릭한 그룹 정보 불러오기*/
+$(".selectOne").click((e)=>{
+	
+	/* 테이블 내 그룹 데이터 담긴 행을 클릭시, 해당 행 그룹 데이터를 비동기로 호출한다. */
+	let groupNo = e.target.parentNode.children[0].innerText;
+	
+	$.ajax({
+		url: `${pageContext.request.contextPath}/admin/groups/selectOneGroup`,
+		data:{
+			groupNo:groupNo
+		},
+		dataType: "json",
+		success(data){
+			console.log(data);
+			$("#table_groupNo").text(data.group.groupNo);
+			$("#table_groupName").text(data.group.groupName);
+			$("#table_category1").text(data.category1Map[data.group.categoryNo]);
+			if(data.str_gc2List == "null"){
+				$("#table_category2").text(" - ");
+			}else{
+				$("#table_category2").text(data.str_gc2List);
+			}
+			
+			
+ 			$("#table_enrollDate").text(data.group.groupEnrollDate);
+ 			data.group.groupCharge=='F'? $("#table_charge").text('X') : $("#table_charge").text('O');
+ 			data.group.groupPrivate=='U'? $("#table_private").text('X'):$("#table_private").text('O');
+			$("#table_likeCount").text(data.group.groupLikeCount);
+			data.group.groupClose=='Y'? $("#table_close").text('O'):$("#table_close").text('X');
+			$("#table_pool").text(data.group.groupPool+'명');
+			$("#table_leader").text(data.leader.memberId); 
+			$("#table_member").text(data.str_memberList);
+			
+			$("#groupBanner").attr("src", `${pageContext.request.contextPath}/resources/upFile/group/`+data.banner.renamedFilename);
+		},
+		error: console.log
+	})
+	
+	
+	
+});
+</script>
 
 <jsp:include page="/WEB-INF/views/common/ad_footer.jsp">
 	<jsp:param value="COSMOS" name="title"/>

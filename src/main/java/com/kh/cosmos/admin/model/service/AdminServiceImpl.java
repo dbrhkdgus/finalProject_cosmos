@@ -18,6 +18,7 @@ import com.kh.cosmos.admin.model.vo.SevenDaysData;
 import com.kh.cosmos.common.attachment.model.vo.Attachment;
 import com.kh.cosmos.group.model.vo.ApplocationGroup;
 import com.kh.cosmos.group.model.vo.Group;
+import com.kh.cosmos.group.model.vo.MemberOfGroup;
 import com.kh.cosmos.group.model.vo.NotApprovedGroup;
 import com.kh.cosmos.main.model.vo.Question;
 import com.kh.cosmos.main.model.vo.QuestionWithMemberNameAndNickName;
@@ -189,6 +190,31 @@ public class AdminServiceImpl implements AdminService{
 	@Override
 	public int allGroupCount() {
 		return adminDao.allGroupCount();
+	}
+
+	@Override
+	public List<Group> searchGroupList(Map<String, String> param, int limit, int offset) {
+		return adminDao.searchGroupList(param, limit, offset);
+	}
+
+	@Override
+	public int searchGroupListCounts(Map<String, String> param) {
+		return adminDao.searchGroupListCounts(param);
+	}
+
+	@Override
+	public MemberOfGroup selectLeader(String groupNo) {
+		return adminDao.selectLeader(groupNo);
+	}
+
+	@Override
+	public List<MemberOfGroup> memberOfGroupList(String groupNo) {
+		return adminDao.memberOfGroupList(groupNo);
+	}
+
+	@Override
+	public List<ColumnAndCount> statisticsCategory() {
+		return adminDao.statisticsCategory();
 	}
 	
 	

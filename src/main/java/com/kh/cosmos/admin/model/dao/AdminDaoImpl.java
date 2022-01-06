@@ -18,6 +18,7 @@ import com.kh.cosmos.admin.model.vo.SevenDaysData;
 import com.kh.cosmos.common.attachment.model.vo.Attachment;
 import com.kh.cosmos.group.model.vo.ApplocationGroup;
 import com.kh.cosmos.group.model.vo.Group;
+import com.kh.cosmos.group.model.vo.MemberOfGroup;
 import com.kh.cosmos.group.model.vo.NotApprovedGroup;
 import com.kh.cosmos.main.model.vo.Question;
 import com.kh.cosmos.main.model.vo.QuestionWithMemberNameAndNickName;
@@ -194,6 +195,32 @@ public class AdminDaoImpl implements AdminDao {
 	@Override
 	public int allGroupCount() {
 		return session.selectOne("admin.allGroupCount");
+	}
+
+	@Override
+	public List<Group> searchGroupList(Map<String, String> param, int limit, int offset) {
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		return session.selectList("admin.searchGroupList",param, rowBounds);
+	}
+
+	@Override
+	public int searchGroupListCounts(Map<String, String> param) {
+		return session.selectOne("admin.searchGroupListCounts", param);
+	}
+
+	@Override
+	public MemberOfGroup selectLeader(String groupNo) {
+		return session.selectOne("admin.selectLeader", groupNo);
+	}
+
+	@Override
+	public List<MemberOfGroup> memberOfGroupList(String groupNo) {
+		return session.selectList("admin.memberOfGroupList", groupNo);
+	}
+
+	@Override
+	public List<ColumnAndCount> statisticsCategory() {
+		return session.selectList("admin.statisticsCategory");
 	}
 	
 	

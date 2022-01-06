@@ -33,7 +33,10 @@ import com.kh.cosmos.common.attachment.model.vo.Attachment;
 import com.kh.cosmos.group.model.service.GroupService;
 import com.kh.cosmos.group.model.vo.ApplocationGroup;
 import com.kh.cosmos.group.model.vo.CategoryOne;
+import com.kh.cosmos.group.model.vo.CategoryTwo;
 import com.kh.cosmos.group.model.vo.Group;
+import com.kh.cosmos.group.model.vo.GroupCategory;
+import com.kh.cosmos.group.model.vo.MemberOfGroup;
 import com.kh.cosmos.group.model.vo.NotApprovedGroup;
 import com.kh.cosmos.main.model.service.MainService;
 import com.kh.cosmos.main.model.vo.Question;
@@ -46,6 +49,9 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 @Slf4j
 @RequestMapping("/admin")
+
+
+
 public class AdminController {
 	@Autowired
 	private MainService mainService;
@@ -57,6 +63,9 @@ public class AdminController {
 	@Autowired
 	private AttachmentService attachService;
 
+	
+	
+	
 	@GetMapping("/main.do")
 	public String main(Model model) {
 
@@ -568,5 +577,107 @@ public class AdminController {
 		map.put("totalCountOfPost", totalCountOfPost_list);
 		
 		return totalCountOfPost_list;
+	}
+	
+	@GetMapping("/searchGroups")
+	public String searchGroups(@RequestParam(defaultValue = "1") int cPage, @RequestParam Map<String, String> param, Model model, HttpServletRequest request) {
+		log.debug("param = {}", param);
+		
+		// 페이징처리
+		int limit = 10;
+		int offset = (cPage - 1) * limit;
+		int totalContent = adminService.searchGroupListCounts(param);
+		String url = request.getRequestURI();
+		String pagebar = CosmosUtils.getPagebar(cPage, limit, totalContent, url);
+		model.addAttribute("totalContent", totalContent);
+		model.addAttribute("pagebar", pagebar);
+		
+		//모임 리스트 불러오기
+		List<Group> searchGroupList = adminService.searchGroupList(param,limit, offset);
+		model.addAttribute("allGroupList", searchGroupList);
+		log.debug("searchGroupList= {}", searchGroupList);
+		
+		//카테고리 번호,이름 불러오기
+		List<CategoryOne> CategoryOneList = groupService.CategoryOneList();
+		model.addAttribute("CategoryOneList", CategoryOneList);
+		Map<Integer, String> categoryMap = new HashMap<>();
+		for(CategoryOne categoryOne: CategoryOneList) {
+			categoryMap.put(categoryOne.getCategory1No(), categoryOne.getCategory1Name());
+		}
+		model.addAttribute("categoryMap", categoryMap);
+		
+		return "admin/groups";
+	}
+	@GetMapping("/groups/selectOneGroup")
+	@ResponseBody
+	public Map<String,Object> selectOneGroup(@RequestParam Map<String, String> param, Model model) {
+		String groupNo = param.get("groupNo");
+
+		
+		//그룹 기본 정보 불러오기
+		Group group = groupService.selectGroupListByGroupNo(groupNo);
+		
+		
+		//카테고리1 번호,이름 불러오기
+		List<CategoryOne> CategoryOneList = groupService.CategoryOneList();
+		model.addAttribute("CategoryOneList", CategoryOneList);
+		Map<Integer, String> category1Map = new HashMap<>();
+		for(CategoryOne categoryOne: CategoryOneList) {
+			category1Map.put(categoryOne.getCategory1No(), categoryOne.getCategory1Name());
+		}
+		
+		//카테고리2 번호 이름 불러오기
+		List<CategoryTwo> CategoryTwoList = groupService.selectAllCategoryTwoList();
+		Map<Integer, String> category2Map = new HashMap<>();
+		for(CategoryTwo categoryTwo: CategoryTwoList) {
+			category2Map.put(categoryTwo.getCategory2No(), categoryTwo.getCategory2Name());
+		}
+
+		//그룹 내 카테고리2 정렬하기
+		List<GroupCategory> gcList = groupService.selectGroupCategoryListByGroupNo(groupNo);
+		String str_gc2List = ""; 
+		for(GroupCategory groupCategory: gcList) {
+			log.debug("출력 테스트1 : "+groupCategory.getCategory2No());
+			log.debug("출력 테스트2 : "+category2Map.get(groupCategory.getCategory2No()));
+			str_gc2List += category2Map.get(groupCategory.getCategory2No())+"  ";
+		}
+		//팀장 불러오기
+		MemberOfGroup leader = adminService.selectLeader(groupNo); 
+		
+		//팀원 불러오기
+		List<MemberOfGroup> memberOfGroupList = adminService.memberOfGroupList(groupNo);
+		String str_memberList = "";
+		for(MemberOfGroup memberOfGroup : memberOfGroupList) {
+			str_memberList += memberOfGroup.getMemberId()+"  ";
+		}
+		//팀원에서 팀장 이름은 제거
+		str_memberList = str_memberList.replace(leader.getMemberId(), "");
+		
+		//배너 불러오기
+		Attachment banner = attachService.selectGroupAttachmentListByGroupNo(groupNo);
+		
+		
+		Map<String, Object> result = new HashMap<String, Object>();
+		result.put("group", group);
+		result.put("category1Map", category1Map);
+		result.put("category2Map", category2Map);
+		result.put("str_gc2List", str_gc2List);
+		result.put("leader", leader);
+		result.put("str_memberList", str_memberList);
+		result.put("banner", banner);
+		return result;
+	}
+	
+	@GetMapping("/statisticsCategory")
+	@ResponseBody
+	public Map<String,Object> statisticsCategory(){
+		Map<String, Object> map = new HashMap<String, Object>();
+		List<ColumnAndCount> list = adminService.statisticsCategory();
+		log.debug("list = {}", list);
+		
+		
+		map.put("list", list);
+		
+		return map;
 	}
 }

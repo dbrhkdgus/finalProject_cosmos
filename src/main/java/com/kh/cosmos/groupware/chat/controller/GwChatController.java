@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,6 +26,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.cosmos.common.CosmosUtils;
 import com.kh.cosmos.common.attachment.model.vo.Attachment;
+import com.kh.cosmos.group.model.vo.ApplocationGroup;
 import com.kh.cosmos.group.model.vo.Group;
 import com.kh.cosmos.groupware.board.model.vo.Board;
 import com.kh.cosmos.groupware.chat.model.service.ChatService;
@@ -170,6 +172,36 @@ public class GwChatController {
 			map.put("nickname", m.getNickname());
 			map.put("memberId", m.getId());
 			resultList.add(map);
+		}
+		
+		
+		return resultList;
+	}
+	
+	@ResponseBody
+	@GetMapping("/selectMemberExceptSelected.do")
+	public List<Map<String,String>> selectMemberExceptSelected(int groupNo, int chatRoomNo){
+		log.debug("groupNo = {}", groupNo);
+		log.debug("chtRoomNo = {}", chatRoomNo);
+		
+		List<Map<String,String>> resultList = new ArrayList<>();
+		List<Member> selectedMemberList = chatService.selectAllChatUsers(chatRoomNo);
+		List<String> selectedMemberIdList = new ArrayList<String>();
+		for(Member m : selectedMemberList) {
+			selectedMemberIdList.add(m.getId());
+		}
+		
+		List<Member> memberList = gwService.selectAllGroupMembers(groupNo);
+		for(Member m : memberList) {
+			if(!selectedMemberIdList.contains(m.getId())) {
+				
+				Map<String, String> map = new HashMap<>();
+				String profileRenamedFilename = gwService.selectMemberProfileRenamedFilename(m.getId());
+				map.put("profileRenamedFilename", profileRenamedFilename);
+				map.put("nickname", m.getNickname());
+				map.put("memberId", m.getId());
+				resultList.add(map);
+			}
 		}
 		
 		
@@ -339,6 +371,35 @@ public class GwChatController {
 		
 		return result;
 	}
+	@ResponseBody
+	@PostMapping("/updateChatRoom.do")
+	public int updateChatRoom(ChatRoom chatRoom,HttpServletRequest request) {
+		
+		
+		int result = chatService.updateChatRoom(chatRoom);
+		
+		String[] memberIds = null;
+		try {
+			memberIds = request.getParameterValues("memberId");
+		} catch (Exception e) {
+
+		}
+		int chatAdminNo = chatService.selectChatAdminNoBychatRoomNo(chatRoom.getChatRoomNo());
+		if(memberIds != null) {
+			List<String> selectedMemberIdList = Arrays.asList(memberIds);			
+			for(String id : selectedMemberIdList) {
+				Map<String, Object> param = new HashMap<>();
+				param.put("chatRoomNo", chatRoom.getChatRoomNo());
+				param.put("memberId",id);
+				param.put("chatAdminNo", chatAdminNo);
+								
+				result = chatService.insertChatUserByParamWithAdminNo(param);
+			}
+		}
+		
+		
+		return result;
+	}
 	
 	public void groupwareHeaderSet(int groupNo, Model model, Authentication auth) {
 		Member loginMember = (Member) auth.getPrincipal();
@@ -366,5 +427,13 @@ public class GwChatController {
 		model.addAttribute("memberProfileRenamedFilenameList", memberProfileRenamedFilenameList);
 		model.addAttribute("groupBannerAttachList", groupBannerAttachList);
 		model.addAttribute("myGroupList", myGroupList);
+		
+		 Map<String,Object> param = new HashMap<>();
+	     param.put("memberId", loginMember.getId());
+	     param.put("groupNo", groupNo);
+	     ApplocationGroup applocationGroup = gwService.selectApplocationGroup(param);
+	        
+	        
+	     model.addAttribute("role", applocationGroup.getRole());
 	}
 }
