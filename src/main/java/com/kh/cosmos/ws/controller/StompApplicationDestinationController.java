@@ -135,6 +135,7 @@ public class StompApplicationDestinationController {
 			int result = chatService.insertChatMessageWithFile(chatMessage);
 		}else {
 			//log.debug("분기점 : 첨부파일 없는 메시지");
+			log.debug("==============**********************test");
 			int result = chatService.insertChatMessage(chatMessage);
 			
 		}

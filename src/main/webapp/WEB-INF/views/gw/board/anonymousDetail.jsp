@@ -21,7 +21,10 @@
 		    
     	</div>
      	<div class="d-flex justify-content-between align-items-center">
-      		<span>[<fmt:formatDate value="${post.postRegDate}" pattern="yy-MM-dd"/>]</span>
+     		<div class="post-info">
+      			<span>[<fmt:formatDate value="${post.postRegDate}" pattern="yy-MM-dd"/>]</span><br>
+      			<span>조회수 : ${post.readCount}</span>
+      		</div>
 		    <div class="d-grid gap-2 d-md-block" style="text-align: right;">
 				<button class="updateAnonymousPost btn btn-primary" type="button" style="margin:5px;" >수정</button>&nbsp;
 				<button class="deleteAnonymousPost btn btn-primary" type="button" >삭제</button>

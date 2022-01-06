@@ -107,9 +107,9 @@ public class GroupwareServiceImpl implements GroupwareService {
 	}
 
 	@Override
-	public List<PostWithBoardName> selectNewPostsListByGroupNo(int groupNo) {
+	public List<PostWithBoardName> selectNewPostsListByParam(Map<String, Object> param) {
 		// TODO Auto-generated method stub
-		return gwDao.selectNewPostsListByGroupNo(groupNo);
+		return gwDao.selectNewPostsListByParam(param);
 	}
 
 	

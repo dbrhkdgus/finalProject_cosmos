@@ -34,7 +34,7 @@
             <option value="5">이미지</option>
             <option value="6">문서</option>
             <option value="7">압축파일</option>
-            <option value="8">코트파일</option>
+            <option value="8">코드파일</option>
             <option value="9">기타</option>
             
           </select>

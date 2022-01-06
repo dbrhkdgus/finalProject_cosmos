@@ -294,8 +294,8 @@
         </button>
         <div class="collapse" id="account-collapse">
           <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-            <li><a href="${pageContext.request.contextPath }/gw/admin/groupManager.do?groupNo=${currGroupNo}" class="link-dark rounded">그룹 관리</a></li>
-            <li><a href="${pageContext.request.contextPath }/gw/admin/memberManager.do?groupNo=${currGroupNo}" class="link-dark rounded">그룹 가입 요청</a></li>
+            <li><a href="${pageContext.request.contextPath }/gw/admin/groupManager.do?groupNo=${currGroupNo}" class="link-dark rounded">스터디 활동량</a></li>
+            <li><a href="${pageContext.request.contextPath }/gw/admin/memberManager.do?groupNo=${currGroupNo}" class="link-dark rounded">그룹 가입 요청 & 멤버 관리</a></li>
           </ul>
         </div>
       </li>
