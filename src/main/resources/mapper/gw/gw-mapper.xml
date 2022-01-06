@@ -52,4 +52,8 @@ delete from zoom_room where room_no = #{roomNo}
 <select id="selectApplocationGroup" resultType="applocationGroup" parameterType="hashmap"> 
 select role from applocation_group where member_id =#{memberId} and group_no =#{groupNo}
 </select>
+
+<select id="selectTodayScheduleListByGroupNo" resultType="schedule">
+select * from schedule where to_char(start_date, 'YYYYMMDD') <![CDATA[<=]]> to_char(sysdate, 'YYYYMMDD') and to_char(end_date, 'YYYYMMDD') <![CDATA[>=]]> to_char(sysdate, 'YYYYMMDD') and group_no = #{groupNo}
+</select>
 </mapper>

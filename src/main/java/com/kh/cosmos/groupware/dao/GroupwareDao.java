@@ -7,6 +7,7 @@ import com.kh.cosmos.common.attachment.model.vo.Attachment;
 import com.kh.cosmos.group.model.vo.ApplocationGroup;
 import com.kh.cosmos.group.model.vo.Group;
 import com.kh.cosmos.groupware.board.model.vo.Board;
+import com.kh.cosmos.groupware.calendar.model.vo.Schedule;
 import com.kh.cosmos.groupware.chat.model.vo.ChatRoom;
 import com.kh.cosmos.groupware.model.vo.Room;
 import com.kh.cosmos.member.model.vo.Member;
@@ -38,6 +39,8 @@ public interface GroupwareDao {
 	List<Board> selectAllBoardRoomByGroupNotice(int groupNo);
 
 	ApplocationGroup selectApplocationGroup(Map<String,Object> param);
+
+	List<Schedule> selectTodayScheduleListByGroupNo(int groupNo);
 
 
 

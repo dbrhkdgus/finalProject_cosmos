@@ -28,10 +28,6 @@
 	clear: both;
 }
 
-body {
-	font-family: sans-serif;
-	background: #f6f9fa;
-}
 
 h1 {
 	color: #ccc;
@@ -49,6 +45,7 @@ a {
 	width: 90%;
 	margin: 0 auto;
 	position: relative;
+	background: #f6f9fa;
 }
 
 .tab-input, section {
