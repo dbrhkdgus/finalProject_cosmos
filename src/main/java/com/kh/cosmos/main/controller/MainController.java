@@ -268,13 +268,13 @@ public class MainController {
 		
 		
 		log.debug ("reply = {}",reply); 
-		log.debug("role = admin? : {}", authentication.getAuthorities().toString().equals("[ROLE_ADMIN]"));
+
 		
 		Map<String, Object> param = new HashMap<String, Object>();
 		
 		try {
 			int result = mainService.insertQueReply(reply);
-			if(authentication.getAuthorities().toString().equals("[ROLE_ADMIN]")) {
+			if(authentication.getAuthorities().toString().contains("ROLE_ADMIN")) {
 				param.put("status", "Y");
 				param.put("queNo", queNo);
 				
@@ -316,9 +316,10 @@ public class MainController {
 		List<Reply> replyList = mainService.selectReplyListByqueNo(queNo);
 		log.debug("reply = {}", replyList);
 		String role = authentication.getAuthorities().toString();
+		log.debug("role = {}", role);
 		Member loginMember = (Member) authentication.getPrincipal();
 		
-		if(!que.getMemberId().equals(loginMember.getId()) && !role.equals("[ROLE_ADMIN]")) {
+		if(!que.getMemberId().equals(loginMember.getId()) && !role.contains("ROLE_ADMIN")) {
 
 			redirectAttr.addFlashAttribute("msg", "작성자만 확인 가능합니다.");
 			return "redirect:/main/qa.do";

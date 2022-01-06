@@ -13,7 +13,6 @@
 <sec:authorize access="isAuthenticated()">
 	<sec:authentication property="principal" var="loginMember"/>
 </sec:authorize>
-
 <div class="container">
 <div>
 	<h2 class="text-center">문의사항</h2>
@@ -47,7 +46,7 @@
 		      
 		      <td> <a href="${pageContext.request.contextPath }/main/qaDetail.do?queNo=${que.queNo}"> 
 		      <c:choose>
-		      	<c:when test="${loginMember.id eq que.memberId ||loginMember.authorities eq '[ROLE_ADMIN]'}">
+		      	<c:when test="${loginMember.id eq que.memberId || fn:contains(loginMember.authorities, 'ROLE_ADMIN')}">
 		      		${que.queTitle}
 		      	</c:when>
 		      	<c:otherwise>
@@ -65,7 +64,7 @@
 		      
 		      <td>
 		      <c:choose>
-		      	<c:when test="${loginMember.id eq que.memberId ||loginMember.authorities eq '[ROLE_ADMIN]'}">
+		      	<c:when test="${loginMember.id eq que.memberId || fn:contains(loginMember.authorities, 'ROLE_ADMIN')}">
 					${que.memberName}		      	
 		      	</c:when>
 		      	<c:otherwise>
