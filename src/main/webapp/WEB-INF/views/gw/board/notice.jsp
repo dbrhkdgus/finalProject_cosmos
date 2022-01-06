@@ -18,7 +18,7 @@
 		enctype="multipart/form-data"
 		action="${pageContext.request.contextPath}/gw/board/noticeSearch.do?" 
 		method="get">
-	    <div class="test-board-search d-flex float-right mb-3">
+	    <div class="test-board-search d-flex float-right mb-4" style="margin-right: 6%">
 	    	 <select name="searchType" class="form-select search-select" id="form-select-search" style="width: 27%; height: 100%">
 		        <option value="post_title" 
 	        	<c:if test="${searcyType eq 'post_title'}">selected </c:if> 
@@ -38,8 +38,8 @@
 		</div>       
     </form>
   
-  <table class="table table-sm file-board-table mx-auto mt-3" style="width: 85%;">
-  	<thead>
+  <table class="table table-sm file-board-table mx-auto mt-3 board-table-hover" style="width: 85%;">
+  	<thead class="board-thead">
       <tr>
         <th colspan="3">제목</th>
         <th>조회수</th>
@@ -68,17 +68,17 @@
 
     </tbody>
   </table>
-  <div class="d-grid gap-2 d-md-flex justify-content-md-end mr-2 ">
+  <div class="d-grid gap-2 d-md-flex justify-content-md-end" style="margin-right: 7%;">
 	  <sec:authorize access="hasAnyRole('ROLE_GW${currGroupNo}MASTER', 'ROLE_ADMIN')">
 	  	<a href="${pageContext.request.contextPath}/gw/board/boardEnroll.do?boardNo=${boardNo}&groupNo=${groupNo} ">
-		    <button class="btn btn-primary me-md-2" type="button">글쓰기</button>
+		    <button class="btn btn-primary me-md-2 mt-2" type="button">글쓰기</button>
 	  	</a>
 	  </sec:authorize>
   </div>
 
 
   <div class="test-board-pagebar">
-	${pagebar }
+     ${pagebar} 
   </div>
 </div>
 </div>
