@@ -5,8 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -15,13 +13,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.kh.cosmos.common.CosmosUtils;
 import com.kh.cosmos.common.attachment.model.vo.Attachment;
 import com.kh.cosmos.group.model.vo.ApplocationGroup;
 import com.kh.cosmos.group.model.vo.Group;
 import com.kh.cosmos.groupware.board.model.service.BoardService;
 import com.kh.cosmos.groupware.board.model.vo.Board;
 import com.kh.cosmos.groupware.board.model.vo.Post;
+import com.kh.cosmos.groupware.calendar.model.vo.Schedule;
 import com.kh.cosmos.groupware.chat.model.vo.ChatRoom;
 import com.kh.cosmos.groupware.service.GroupwareService;
 import com.kh.cosmos.member.model.vo.Member;
@@ -71,8 +69,10 @@ public class GwController {
 	    ApplocationGroup applocationGroup = gwService.selectApplocationGroup(param);
 	    
 	    
-	    model.addAttribute("role", applocationGroup.getRole());
-		
+	    List<Schedule> todayScheduleList = gwService.selectTodayScheduleListByGroupNo(groupNo);
+	    
+	    model.addAttribute("todayScheduleList",todayScheduleList);
+	    model.addAttribute("role", applocationGroup.getRole());	
 		model.addAttribute("currGroupNo", groupNo);
 		model.addAttribute("myGroup", myGroup);
 		model.addAttribute("myGroupMemberList", myGroupMemberList);
