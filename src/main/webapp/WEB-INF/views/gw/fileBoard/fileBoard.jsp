@@ -15,11 +15,17 @@
         <sec:authentication property="principal" var="loginMember"/>
     </sec:authorize>
     <div class="groupware-saved-outter">
-        <div class="groupware-saved-title p-4 mb-4">
-            <h3>저장된 항목</h3>
+        <div class="groupware-saved-title p-4 mb-4" style="text-align: center; margin-top: 20px; display: flex;
+    justify-content: center;" >
+            <h3 style="font-weight: bold; background-color:#D7ECFB; width:fit-content;">저장된 항목</h3>
         </div>
+        
         <form enctype="multipart/form-data" action="${pageContext.request.contextPath}/gw/fileBoard/fileBoardSearch.do?" method="get">
-            <div class="test-board-search d-flex float-right">
+            <div class="test-board-search float-right d-flex" style="margin-right: 50px;">
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end mr-2 ">
+   <a href="${pageContext.request.contextPath}/gw/fileBoard/fileEnroll.do?boardNo=${boardNo}&groupNo=${groupNo} "> <button class="btn btn-primary me-md-2" type="button">글쓰기</button></a>
+  </div>
+  			
                 <select name="searchType" class="form-select search-select" id="form-select-search" style="width: 38%;" aria-label="Default select example">
                     <option value="all" ${searchType=='all' ? "selected" :'' }>
                         전체보기</option>
@@ -37,51 +43,55 @@
                             <i class="fas fa-search"></i>
                         </button>
                     </div>
-                </div>
+             
+     		 </div>
             </form>
+            
             <div
                 class="file-total-div">
                 <%-- <c:if test="${not empty fileBoardList}"> --%>
+                
                 <c:forEach
                     var="post" items="${fileBoardList}" varStatus="status">
                     <%--  <c:set var="count" value="${count + 1}" /> --%>
-                    <div class="groupware-saved-card-box mb-4" style="width: 40%; ">
+                    <div class="groupware-saved-card-box mb-4" style="width: 45%; margin-top: 0.7rem!important;">
                         <div class="card" style="box-shadow: 2px 3px 6px #ccc;">
                             <div class="card-header">
-                                <span class="font-weight-bold">No.${fn:length(fileBoardList)- status.count+1}</span>
-                                <span>${post.postTitle}</span>
+                                <span class="font-weight-bold" style="color:black; font-size:15px;">No.${fn:length(fileBoardList)- status.count+1}</span>
+                                <span style="font-size:19px; ">&nbsp;${post.postTitle}</span>
                             </div>
                             <div class="card-body">
-                                <div class="groupware-saved-inner">
+                                <div class="groupware-saved-inner" >
                                     <div class="groupware-saved-user-name-fileType ml-3">
                                         <c:forEach items="${idnicknameList}" var="list" varStatus="status">
                                             <c:if test="${list.id eq post.memberId}">
-                                                <span class="mb-0 font-weight-bold">${list.nickName}</span>
+                                                <span class="mb-0 font-weight-bold" style="font-size:20px;">${list.nickName}</span>
                                             </c:if>
                                         </c:forEach>
-                                        <span class="groupware-istoday"><fmt:formatDate value="${post.postRegDate}" pattern="yy-MM-dd"/></span>
-                                        <p class="mb-0 ml-1 text-secondary">${post.boardCategory}
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="9" height="9" fill="currentColor" class="bi bi-chevron-bar-down" viewBox="0 0 16 16">
-                                                <path fill-rule="evenodd" d="M3.646 4.146a.5.5 0 0 1 .708 0L8 7.793l3.646-3.647a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 0-.708zM1 11.5a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13a.5.5 0 0 1-.5-.5z"/>
-                                            </svg>
-                                        </p>
-                                    </div>
-                                </div>
                                 <c:forEach var="attach" items="${attach}" varStatus="status">
                                     <c:if test="${post.attachNo eq attach.attachNo}">
-                                        <div class="groupware-saved-file-info mt-2">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-file-earmark-zip"></svg>
+                                        <div class="groupware-saved-file-info mt-2" style="height: 70px; margin-left: 50px;">
+                                           
                                             <a href="${pageContext.request.contextPath}/gw/fileBoard/fileDown.do?attachNo=${post.attachNo}">
                                                 <p class="mb-0 ml-3">${attach.originalFilename}</p>
                                             </a>
                                         </div>
                                     </c:if>
                                 </c:forEach>
+                                     </div>
+                             
+                                </div>
+                                        <div class="file-board-card-last" style="display: flex; justify-content: flex-end;">
+	                                        <span class="mb-0 ml-1 text-secondary">${post.boardCategory} &nbsp;</span>
+	                                        <span class="groupware-istoday"><fmt:formatDate value="${post.postRegDate}" pattern="yy-MM-dd"/></span>
+                                     	</div>
                             </div>
                         </div>
                     </div>
                 </c:forEach>
             </div>
+            
+
             <div class="test-board-pagebar">
                 ${pagebar}
             </div>
