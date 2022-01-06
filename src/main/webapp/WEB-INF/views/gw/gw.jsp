@@ -154,7 +154,28 @@
 			</div>
 		</div>
 		<div class="groupware-main-today-schedule">
-			<p>오늘의 일정</p>
+			<p>오늘의 그룹 일정</p>
+			<div class="groupware-main-today-schedule">
+				<c:if test="${not empty todayScheduleList}">
+					<c:forEach var="todaySchedule" items="${todayScheduleList }">
+						<div class="groupware-main-today-schedule-content">
+							<svg xmlns="http://www.w3.org/2000/svg" color="${todaySchedule.groupColor }" width="10" height="10" fill="currentColor" class="bi bi-circle-fill" viewBox="0 0 16 16">
+							  <circle cx="8" cy="8" r="8"/>
+							</svg> <span style="font-size: 13px; margin-left: 10px;">${todaySchedule.content }</span>
+						</div>
+
+					</c:forEach>
+				</c:if>
+				<c:if test="${empty todayScheduleList}">
+						<div class="groupware-main-today-schedule-content">
+							<svg xmlns="http://www.w3.org/2000/svg" color="#aa00ff" width="10" height="10" fill="currentColor" class="bi bi-circle-fill" viewBox="0 0 16 16">
+							  <circle cx="8" cy="8" r="8"/>
+							</svg> <span style="font-size: 13px; margin-left: 10px;">등록된 일정이 없습니다.</span>
+						</div> 
+				</c:if>
+
+			</div>
+			
 		</div>
 	</div>
 	
