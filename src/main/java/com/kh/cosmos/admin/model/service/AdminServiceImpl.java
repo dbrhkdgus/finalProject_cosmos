@@ -211,6 +211,11 @@ public class AdminServiceImpl implements AdminService{
 	public List<MemberOfGroup> memberOfGroupList(String groupNo) {
 		return adminDao.memberOfGroupList(groupNo);
 	}
+
+	@Override
+	public List<ColumnAndCount> statisticsCategory() {
+		return adminDao.statisticsCategory();
+	}
 	
 	
 	
