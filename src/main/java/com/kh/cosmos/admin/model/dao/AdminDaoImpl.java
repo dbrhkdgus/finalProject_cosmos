@@ -217,6 +217,11 @@ public class AdminDaoImpl implements AdminDao {
 	public List<MemberOfGroup> memberOfGroupList(String groupNo) {
 		return session.selectList("admin.memberOfGroupList", groupNo);
 	}
+
+	@Override
+	public List<ColumnAndCount> statisticsCategory() {
+		return session.selectList("admin.statisticsCategory");
+	}
 	
 	
 }
