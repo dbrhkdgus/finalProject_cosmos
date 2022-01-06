@@ -443,6 +443,7 @@ div.list-group1{
 .test-board-pagebar{
   display: flex;
     justify-content: center;
+   margin-top: 30px;
 }
 
 #form-select-search {
@@ -534,9 +535,13 @@ div.list-group1{
 .groupware-saved-inner{
   display: flex;
   flex-direction: row;
+  margin-left:30px;
 }
 .groupware-saved-user-name-fileType{
   width:100%;
+      display: flex;
+    justify-content: flex-start;
+    align-items: baseline;
 }
 .groupware-saved-file-info{
   border: 1.5px solid #E9E9E9;
@@ -550,12 +555,13 @@ div.list-group1{
   align-items: center;
 }
 .groupware-saved-card-box{
-  display: flex;
   justify-content: center;
 }
+
 .card-header span{
   color: #8B6AD3;
 }
+
 
 /* 게시글 디테일 페이지 css */
 .groupware-board-detail-outter{
@@ -1074,8 +1080,10 @@ div.list-group1{
 
 
 .file-total-div {
-    display: flex;
+      display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    align-content: center;
+    justify-content: space-evenly;
 }
 
