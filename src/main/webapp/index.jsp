@@ -59,7 +59,7 @@
 		<div class="category" style="margin-bottom:5px;">
 			
 			<div class="category2">
-				<button type="button" class="btn-category" style="margin-bottom: 5%;">카테고리</button>
+				<button type="button" class="btn-category m-0">카테고리</button>
 				<ul class="cate-list" style="padding-left: 0;  height: 270px;">
 					<li class="popular"><a href="${pageContext.request.contextPath}/group/groupSearch.do?ca1No=2">웹개발</a></li>
 					<li class="popular"><a href="${pageContext.request.contextPath}/group/groupSearch.do?ca1No=3">프론트</a></li>
@@ -440,52 +440,39 @@ window.addEventListener("load", function(){
 			const {numOfMember, groupPool} = data;
 			$.each(data, (k,v)=>{
 				$("#best-box").append(`
-						<div class="card mb-4 search-card" style="width: 350px; height: 420px;">
-	                        <a href="${pageContext.request.contextPath}/group/groupDetail.do?groupNo=\${v.groupNo}">
-	                            	<img class="card-img-top" 
-	                            	style = "width: 100%; height: 60%;"
-	                            	src="${pageContext.request.contextPath }/resources/upFile/group/\${v.renamedFilename}"
-	                                    alt="..." />
-	                        </a>
+						<div class="card mb-4 search-card" style="width: 350px; height: 420px; cursor: pointer;"
+							onclick="location.href='${pageContext.request.contextPath}/group/groupDetail.do?groupNo=\${v.groupNo}'">
+	                        
+                           	<img class="card-img-top" 
+                           	style = "width: 100%; height: 60%;"
+                           	src="${pageContext.request.contextPath }/resources/upFile/group/\${v.renamedFilename}"
+                                   alt="..." />
+	                        
 	                        <div class="index-group-card-body card-body mb-0" style="height:150px">
 	                            <div class="small text-muted d-flex justify-content-between align-items-center">
 		                            <div class="best-\${v.groupNo}">
 											
 
 	                        		</div>
-	                        		<div>
-                    					<p class="card-text">\${v.category1Name}</p>
+	                        		<div class="border border-primary rounded">
+                    					<p class="card-text mx-2 my-1 text-primary">\${v.category1Name}</p>
                     					
                     				</div>
 	                            </div>
 	                            
 	                            <h2 class="card-title h4" style="margin: 0.2rem 0 0.2rem 0;">\${v.groupName}</h2>
                             	<p class="card-text" style="margin-bottom: 5px;">\${v.giTitle }</p>
-	                        	<p class="card-text" style="margin-bottom: 5px;">\${v.category2Name}</p>
+                            	
+                        		<span class="card-text text-white border rounded p-1" style="margin-bottom: 5px; background-color: #b8b8b8;">\${v.category2Name}</span>
 	                        
 	                        <div class="search-inner-button">
 	                        <!--좋아요 기능구현 해보는중  -->
-		                        <div class="like-button-outer">
-			                       <sec:authorize access="isAnonymous()">
-			                           		<i class="far fa-heart"  data-group-no="\${v.groupNo}"><span>\${v.groupLikeCount}</span></i>
-			                       </sec:authorize>
-			                         <sec:authorize access="isAuthenticated()">
-			                         		<c:if test="\${\${v.bool} eq true}"> 
-			                           			<i class="fas fa-heart"  data-group-no="\${v.groupNo}"><span>\${v.groupLikeCount}</span></i>
-			                         		</c:if>
-			                         		<c:if test="\${\${v.bool} eq false}"> 
-			                         			<i class="far fa-heart"  data-group-no="\${v.groupNo}"><span>\${v.groupLikeCount}</span></i>
-			                         		</c:if>
-			                         		<c:choose>
-			                         			<c:when test="${v.bool==true}">
-			                         				<i class="fas fa-heart"  data-group-no="\${v.groupNo}"><span>\${v.groupLikeCount}</span></i>
-			                         			</c:when>
-			                         			<c:otherwise>
-			                         				<i class="far fa-heart"  data-group-no="\${v.groupNo}"><span>\${v.groupLikeCount}</span></i>
-			                         			</c:otherwise>
-			                         		</c:choose>			                         		
-			                         </sec:authorize>
-			                     </div>
+		                        <!-- <div class="like-button-outer">
+			                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-suit-heart-fill text-danger" viewBox="0 0 16 16">
+			                        	<path d="M4 1c2.21 0 4 1.755 4 3.92C8 2.755 9.79 1 12 1s4 1.755 4 3.92c0 3.263-3.234 4.414-7.608 9.608a.513.513 0 0 1-.784 0C3.234 9.334 0 8.183 0 4.92 0 2.755 1.79 1 4 1z"/>
+			                        </svg>
+	                           		<span> \${v.groupLikeCount}</span>
+			                     </div> -->
                         	</div>
 	                     </div>
 	                   </div>
@@ -528,45 +515,34 @@ window.addEventListener("load", function(){
 		success(data){
 			$.each(data, (k,v)=>{
 				$("#new-box").append(`
-						<div class="card mb-4 search-card" style="width: 350px; height: 420px;">
-	                        <a href="${pageContext.request.contextPath}/group/groupDetail.do?groupNo=\${v.groupNo}">
+						<div class="card mb-4 search-card" style="width: 350px; height: 420px; cursor: pointer;"
+							onclick="location.href='${pageContext.request.contextPath}/group/groupDetail.do?groupNo=\${v.groupNo}'">
 	                            	<img class="card-img-top" 
 	                            	style = "width: 100%; height: 60%;"
 	                            	src="${pageContext.request.contextPath }/resources/upFile/group/\${v.renamedFilename}"
 	                                    alt="..." />
-	                        </a>
+	                        
 	                        <div class="index-group-card-body card-body mb-0" style="height:150px">
 	                            <div class="small text-muted d-flex justify-content-between align-items-center">
 		                            <div class="new-\${v.groupNo}">
-									
 	
 	                        		</div>
-	                        		<div>
-	                					<p class="card-text">\${v.category1Name}</p>
+	                        		<div class="border border-primary rounded">
+	                					<p class="card-text mx-2 my-1 text-primary">\${v.category1Name}</p>
 	                				</div>
 	                            </div>
 	                            <h2 class="card-title h4" style="margin: 0.2rem 0 0.2rem 0;">\${v.groupName}</h2>
                             	<p class="card-text" style="margin-bottom: 5px;">\${v.giTitle }</p>
-                            	<p class="card-text" style="margin-bottom: 5px;">\${v.category2Name}</p>
+                            	
+                            	<span class="card-text text-white border rounded p-1" style="margin-bottom: 5px; background-color: #b8b8b8;">\${v.category2Name}</span>
     	                        
     	                        <div class="search-inner-button">
     	                        <!--좋아요 기능구현 해보는중  -->
     		                        <div class="like-button-outer">
-    			                       <sec:authorize access="isAnonymous()">
-    			                           		<i class="far fa-heart"  data-group-no="\${v.groupNo}"><span>\${v.groupLikeCount}</span></i>
-    			                       </sec:authorize>
-    			                         <sec:authorize access="isAuthenticated()">
-    			                         		<c:choose>
-    			                         			<c:when test="\${v.bool == true}">
-    			                         				<i class="fas fa-heart"  data-group-no="\${v.groupNo}"><span>\${v.groupLikeCount}</span></i>
-    			                         			</c:when>
-    			                         			<c:otherwise>
-    			                         				<i class="far fa-heart"  data-group-no="\${v.groupNo}"><span>\${v.groupLikeCount}</span></i>
-    			                         			</c:otherwise>
-    			                         		</c:choose>
-    			                         		
-    			                         		
-    			                         </sec:authorize>
+				                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-suit-heart-fill text-danger" viewBox="0 0 16 16">
+				                        	<path d="M4 1c2.21 0 4 1.755 4 3.92C8 2.755 9.79 1 12 1s4 1.755 4 3.92c0 3.263-3.234 4.414-7.608 9.608a.513.513 0 0 1-.784 0C3.234 9.334 0 8.183 0 4.92 0 2.755 1.79 1 4 1z"/>
+				                        </svg>
+		                           		<span> \${v.groupLikeCount}</span>
     			                     </div>
                             	</div>
     	                     </div>
