@@ -7,6 +7,8 @@
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	<jsp:param value="" name="title"/>
 </jsp:include>
-		<h1 class="text-center" style="font-size:100px;">No! 접근권한이 없습니다.</h1>
+	<div style="height: 52vh; " class="d-flex align-items-center" >
+		<h1 class="text-center my-auto" style="font-size:100px; margin:auto;">No! 접근권한이 없습니다.</h1>
+	</div>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
 
