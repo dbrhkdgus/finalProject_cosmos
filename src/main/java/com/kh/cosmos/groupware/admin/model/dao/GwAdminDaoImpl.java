@@ -109,9 +109,25 @@ public class GwAdminDaoImpl implements GwAdminDao {
 	}
 
 	@Override
-	public List<Authorities> selectAllAuthoritiesList(int groupNo) {
-		return session.selectList("gwAdmin.selectAllAuthoritiesList",groupNo);
+	public List<String> selectMemberAutorities(String memberId) {
+		// TODO Auto-generated method stub
+		return session.selectList("gwAdmin.selectMemberAutorities", memberId);
 	}
+
+	@Override
+	public String selectMemberAuthorities(String memberId) {
+		// TODO Auto-generated method stub
+		return session.selectOne("gwAdmin.selectMemberAuthorities", memberId);
+	}
+
+	@Override
+	public List<Authorities> selectAllAuthoritiesList(int groupNo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
+
 
 	
 		

@@ -46,6 +46,10 @@ public interface GwAdminDao {
 
 	List<Authorities> selectAllAuthoritiesList(int groupNo);
 
+	List<String> selectMemberAutorities(String memberId);
+
+	String selectMemberAuthorities(String memberId);
+
 
 
 }

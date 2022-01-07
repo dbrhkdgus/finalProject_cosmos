@@ -48,6 +48,10 @@ public interface GwAdminService {
 
 
 
+	List<String> selectMemberAutorities(String memberId);
+
+	String selectMemberAuthorities(String memberId);
+
 
 
 }

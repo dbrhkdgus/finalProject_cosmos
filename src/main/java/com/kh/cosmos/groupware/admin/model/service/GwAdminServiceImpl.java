@@ -112,6 +112,18 @@ public class GwAdminServiceImpl implements GwAdminService {
 		return gwAdminDao.selectAllAuthoritiesList(groupNo);
 	}
 
+	@Override
+	public List<String> selectMemberAutorities(String memberId) {
+		// TODO Auto-generated method stub
+		return gwAdminDao.selectMemberAutorities(memberId);
+	}
+
+	@Override
+	public String selectMemberAuthorities(String memberId) {
+		// TODO Auto-generated method stub
+		return gwAdminDao.selectMemberAuthorities(memberId);
+	}
+
 	
 
 	

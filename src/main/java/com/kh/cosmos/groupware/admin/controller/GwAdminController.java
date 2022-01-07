@@ -15,7 +15,10 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -93,6 +96,25 @@ public class GwAdminController {
 				
 		}
 		
+		List<Map<String,Object>> memberAuthorityInfoList = new ArrayList<Map<String,Object>>();
+		
+		for(ApplocationGroup a : acceptApplocationGroupList) {
+			Map<String, Object> memberAuthorityInfo = new HashMap<String, Object>();
+			memberAuthorityInfo.put("memberId", a.getMemberId());
+			memberAuthorityInfo.put("joinRegDate", a.getJoinRegDate());
+			
+			String memberAuthorities = "";
+			List<String> memberAuthorityList = gwAdminService.selectMemberAutorities(a.getMemberId());
+			for(String auth : memberAuthorityList) {
+				memberAuthorities += ", " + auth;
+			}
+				memberAuthorityInfo.put("authority", memberAuthorities);
+				memberAuthorityInfoList.add(memberAuthorityInfo);
+			}
+		
+		log.debug("memberAuthorityInfoList = {}", memberAuthorityInfoList);
+		model.addAttribute("memberAuthorityInfoList",memberAuthorityInfoList);
+		
 		log.debug("member.getId() = {}" ,member.getId());
 		log.debug("apploginId = {}" ,apploginId);
 		log.debug("apploginRole = {}" ,apploginRole);
@@ -103,25 +125,6 @@ public class GwAdminController {
 		List<Authorities> authList = gwAdminService.selectAllAuthoritiesList(groupNo);
 		log.debug("authList ={}",authList);
 
-		Set<String> set = new HashSet<>();
-
-		for(Authorities aut: authList) {
-			set.add(aut.getMemberId());
-		}
-		
-		Stream<String> setS = set.stream(); 
-		setS.forEach(out -> log.debug("out +  ={}",out + " ")); 
-		//그대로 set 자체로 출력하면 중복이 제거된 데이터만 
-		// 출력되는 것을 확인할 수 있다.
-		
-		String [] newArr = new String [set.size()]; 
-		Iterator<String> it = set.iterator();
-		for(int i = 0; i < newArr.length; i++ ) { 
-			newArr[i] = it.next(); 
-			log.debug("newArr[i] ={} ",newArr[i] + " "); 
-			} 
-		//위 처럼 새로운 배열을 만들어서 다시 set으로 넣어주면 
-		// 다시 배열로도 사용할 수 있다
 
 
 			
@@ -317,33 +320,39 @@ public class GwAdminController {
 		param.put("memberId", memberId);
 		param.put("groupNo", groupNo);
 		
-		List<Authorities> autList = gwAdminService.selectMemberAuthoritiesList(param);
-		log.debug("autList ={}" ,autList);
+
+		String memberAuthorities = gwAdminService.selectMemberAuthorities(memberId);
 		
-		try {
-//			int result = gwAdminService.updateMemberRole(param);
-			
-//			int result2 = gwAdminService.insertMemberAuthorities(param);
-			int No= 0;
-			for(Authorities aut : autList) {
-				if(aut.getAuthority().contains("MANAGER")) {
-					No=1;
-				}
-//				if(aut.getAuthority().contains("MASTER")) {
-//					No=2;
-//				}
+		int result = 0;
+		
+		if(memberRole.equals("MEMBER")) {
+			if(memberAuthorities.contains("MANAGER")) {
+				param.put("type", "delete");
+				param.put("deleteRole", "MANAGER");
+				result = gwAdminService.insertMemberAuthority(param);
+				param.put("type", "insert");
+				result = gwAdminService.insertMemberAuthority(param);
+			}else {
+				param.put("type", "insert");
+				result = gwAdminService.insertMemberAuthority(param);
 			}
+		}else if(memberRole.equals("MANAGER")) {
+			if(memberAuthorities.contains("MEMBER")) {
+				param.put("type", "delete");
+				param.put("deleteRole", "MEMBER");
+				result = gwAdminService.insertMemberAuthority(param);
+				param.put("type", "insert");
+				result = gwAdminService.insertMemberAuthority(param);
+			}else {
+				param.put("type", "insert");
+				result = gwAdminService.insertMemberAuthority(param);
+			}
+		}else {
 			
-//			if(No == 1) {
-//				int result = gwAdminService
-//			}
-			
-			redirectAttr.addFlashAttribute("msg", "권한을 수정하였습니다!");
-		} catch (Exception e) {
-			log.error("권한수정 오류!", e);
-			redirectAttr.addFlashAttribute("msg", e.getMessage());
-			throw e;
 		}
+		
+
+		
 		
 		return "redirect:/gw/admin/memberManager.do?groupNo=" + groupNo;
 	}
