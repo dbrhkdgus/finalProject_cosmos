@@ -88,4 +88,8 @@
 	<select id="selectMemberAuthority" resultType="string">
 	select authority from authorities where member_id = #{id}
 	</select>
+	
+	<delete id="deleteMember">
+	delete tb_member where id = #{id}
+	</delete>
 </mapper>

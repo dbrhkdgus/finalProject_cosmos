@@ -177,7 +177,7 @@ public class MemberController {
 	public String memberLoginKakao(HttpServletRequest request, Model model, HttpSession session, Authentication auth,
 			RedirectAttributes redirectAttr) {
 
-		Member kakaoMember = memberService.selectOneMember(request.getParameter("kakaoId"));
+		Member kakaoMember = memberService.selectOneMember("a" + request.getParameter("kakaoId"));
 		log.debug("kakaoMember = {}", kakaoMember);
 		if (kakaoMember == null) {
 			kakaoMember = new Member();
@@ -277,20 +277,6 @@ public class MemberController {
 		
 		return map;
 	}
-//	@PostMapping("memberEnroll.do")
-//	public String memberEnrollPost(Member member, RedirectAttributes redirectAttr, HttpServletRequest request) {
-//		String email = (request.getParameter("emailId")) + "@" + (request.getParameter("email-server"));
-//		member.setMemberEmail(email);
-//		log.debug("member.birthday = {}", member.getBirthday());
-//		try {
-//			int result = memberService.insertMember(member);
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			redirectAttr.addFlashAttribute("msg", "회원가입 실패");
-//		}
-//		
-//		return "redirect:/";
-//	}
 
 	@GetMapping("/memberUpdate.do")
 	public void memberUpdate(Authentication auth, Model model) {
@@ -440,4 +426,20 @@ public class MemberController {
 		map.put("msg", msg);
 		return map;
 	}
+	
+	@ResponseBody
+	@PostMapping("/deleteMember.do")
+	
+	public int deleteMember(String id, RedirectAttributes redirectAttr) {
+		int result = memberService.deleteMember(id);
+		if(result>0) {
+			SecurityContextHolder.clearContext();
+		}
+		else {
+			
+		}
+
+		return result;
+	}
+	
 }

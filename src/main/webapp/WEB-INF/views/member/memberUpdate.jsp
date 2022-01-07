@@ -65,7 +65,7 @@
 									<label for="present_address"
 										class="col-md-4 col-form-label text-md-right">현재 비밀번호</label>
 									<div class="col-md-6 group-text-input">
-										<input type="password"  class="form-control" name="currpassword" placeholder="비밀번호를 변경하려면 현재 비밀번호를 입력하세요." >
+										<input type="password"  class="form-control" name="currpassword" placeholder="비밀번호를 변경 또는 회원탈퇴를 하려면 현재 비밀번호를 입력하세요." >
 									</div>
 								</div>
 								
@@ -183,8 +183,9 @@
 							</div>
 
 
-							<div class="col-md-6 offset-md-4 group-create-button">
+							<div class="col-md-6 offset-md-4 group-create-button" style="justify-content: space-around;">
 								<button type="submit" class="btn btn-primary">정보수정</button>
+								<button id="delete-member" type="button" class="btn btn-primary">회원탈퇴</button>
 							</div>
 						</form:form>
 					</div>
@@ -235,6 +236,7 @@ function setImageFromFile(input, expression) {
 };
 
 $(".new-pwd-box").hide();
+$("#delete-member").hide();
 $("input[name=currpassword]").blur((e)=>{
 	let data ={
 		id : $("input[name=id]").val(),
@@ -255,6 +257,7 @@ $("input[name=currpassword]").blur((e)=>{
 				console.log(res);
 				if(res){
 					$(".new-pwd-box").show();
+					$("#delete-member").show();
 					$("input[name=currpassword]").attr('readonly',true);
 				}else{
 					
@@ -274,8 +277,30 @@ $("#passwordCheck").blur(function(){
 		$password.select();
 	}
 });
-
-
+/* 회원 탈퇴 */
+$("#delete-member").click((e)=>{
+	if(confirm("코스모스에서 모든 회원 정보가 삭제됩니다. 탈퇴하시겠습니까?")){
+		
+		$.ajax({
+			url : "${pageContext.request.contextPath}/member/deleteMember.do",
+			method : "post",
+			data : {
+				id : "${loginMember.id }"
+			},
+			headers: {
+				"${_csrf.headerName}" : "${_csrf.token}"
+			 },
+			success(res){
+				 if(res > 0){
+					alert("회원 탈퇴처리 되었습니다.");
+					location.href = "${pageContext.request.contextPath}/";					 
+				 }
+				
+			},
+			error : console.log
+		});
+	}
+});
 
 </script>
 

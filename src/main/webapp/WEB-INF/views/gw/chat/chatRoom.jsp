@@ -560,6 +560,8 @@ $("#btn-message-send").click((e) =>{
 						msgTypeNo : 2
 						};
 		        $('#file-form')[0].reset();
+		        $('#preview').attr('src','');
+		        $('#preview-btn-x').hide();
 		 	},
 		 	error : console.log
 	    });  

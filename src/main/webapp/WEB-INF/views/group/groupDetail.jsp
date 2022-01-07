@@ -120,18 +120,20 @@ function hasScrolled() {
 				<p class="class-left-title" id="class-review">스터디원 리뷰</p>
 			</div>
 			<div class="comm-right-box">
-				<p style="display: flex; justify-content: flex-end;">리뷰작성하기</p>
-				<div class="card" style="width: 30rem; border: none;">
-				<div class="shop-detail-reblybox">
-					<div class="group-reply-enroll" style="display: flex;">
-					<form:form action="${pageContext.request.contextPath }/group/insertGroupeReply.do" method="post">
-					<input type="hidden" value="${group.groupNo}" name ="groupNo">
-						<input type="text" id="detail-inputbox" name="content"
-							placeholder="댓글을 입력하세요">
-						<button type="submit" class="btn btn-secondary">등록</button>
-					</form:form>
+					<div class="card" style="width: 30rem; border: none;">
+					<div class="shop-detail-reblybox">
+			<sec:authorize access="hasAnyRole('ROLE_GW${group.groupNo}MEMBER','ROLE_GW${group.groupNo}MASTER', 'ROLE_ADMIN')">
+					<p style="display: flex; justify-content: flex-end;">리뷰작성하기</p>
+						<div class="group-reply-enroll" style="display: flex;">
+						<form:form action="${pageContext.request.contextPath }/group/insertGroupeReply.do" method="post">
+						<input type="hidden" value="${group.groupNo}" name ="groupNo">
+							<input type="text" id="detail-inputbox" name="content"
+								placeholder="댓글을 입력하세요">
+							<button type="submit" class="btn btn-secondary">등록</button>
+						</form:form>
+						</div>
+			</sec:authorize>
 					</div>
-				</div>
 					<div class="card text-center" style="border: none;">
 						<div class="reply-outer ">
 							<form:form
@@ -145,7 +147,7 @@ function hasScrolled() {
 										<div class="p-2 bd-highlight" style="font-size: 10px;">
 											<fmt:formatDate value="${reply.regDate}" pattern="yy-MM-dd" />
 											<c:if
-												test="${reply.memberId eq loginMember.id || loginMember.authorities eq '[ROLE_ADMIN]'}">
+												test="${reply.memberId eq loginMember.id || fn:contains(loginMember.authorities, 'ROLE_ADMIN')}">
 												<button class="btn" type="submit" id="button-addon2"
 													style="margin-bottom: 0px; font-size: 10px">댓글삭제</button>
 											</c:if>
@@ -205,7 +207,10 @@ function hasScrolled() {
 								<button type="button" class="btn btn-secondary btn-m  ml-3" style="color:black; border:none; background-color:#CCE6FD;"  disabled>승인 대기중</button>
 							</c:if>
 							<c:if test="${fn:contains(alg.groupAccept, 'Y')}">
-								<button type="button" class="btn btn-secondary btn-m  ml-3"  style="color:black; border:none; background-color:#CCE6FD;"  disabled>가입된 그룹입니다</button>
+								<button type="button" class="btn btn-secondary btn-m  ml-3"  style="color:black; border:none; background-color:#CCE6FD;" 
+								onclick="location.href='${pageContext.request.contextPath}/gw/gw.do?groupNo=${group.groupNo}';">
+								그룹웨어 입장하기
+								</button>
 							</c:if>
 							
 							<c:set var="flag2" value="Y" />

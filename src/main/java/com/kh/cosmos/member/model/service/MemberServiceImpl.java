@@ -109,6 +109,12 @@ public class MemberServiceImpl implements MemberService {
 		// TODO Auto-generated method stub
 		return memberDao.selectMemberAuthority(id);
 	}
+
+	@Override
+	public int deleteMember(String id) {
+		// TODO Auto-generated method stub
+		return memberDao.deleteMember(id);
+	}
 	
 	
 	
