@@ -137,7 +137,7 @@
 	</select>
 	
 	<select id="selectAllAuthoritiesList" resultType="authorities">
-	select *from authorities where authority like  'ROLE_GW'||#{groupNo}||'M'||'%'
+	select member_id, LISTAGG(authority, ', ') within group (order by authority) authority from authorities where authority like 'ROLE_GW'||#{groupNo}||'M'||'%' group by member_id
 	</select>
 	
 </mapper>

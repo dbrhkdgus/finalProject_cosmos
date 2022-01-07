@@ -102,31 +102,9 @@ public class GwAdminController {
 		
 		List<Authorities> authList = gwAdminService.selectAllAuthoritiesList(groupNo);
 		log.debug("authList ={}",authList);
-
-		Set<String> set = new HashSet<>();
-
-		for(Authorities aut: authList) {
-			set.add(aut.getMemberId());
-		}
-		
-		Stream<String> setS = set.stream(); 
-		setS.forEach(out -> log.debug("out +  ={}",out + " ")); 
-		//그대로 set 자체로 출력하면 중복이 제거된 데이터만 
-		// 출력되는 것을 확인할 수 있다.
-		
-		String [] newArr = new String [set.size()]; 
-		Iterator<String> it = set.iterator();
-		for(int i = 0; i < newArr.length; i++ ) { 
-			newArr[i] = it.next(); 
-			log.debug("newArr[i] ={} ",newArr[i] + " "); 
-			} 
-		//위 처럼 새로운 배열을 만들어서 다시 set으로 넣어주면 
-		// 다시 배열로도 사용할 수 있다
-
-
 			
-
-//		log.debug("authentication.getPrincipal() = {}" ,member.getId());
+		model.addAttribute("authList",authList);
+		
 
 		return "gw/admin/memberManager";
 		

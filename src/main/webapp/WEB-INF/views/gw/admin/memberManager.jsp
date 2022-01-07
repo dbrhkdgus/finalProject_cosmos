@@ -86,11 +86,17 @@ button:focus {
 									
 									<select
 											class="boardType form-select" name="memberRole" required>
+											<c:forEach items="${authList}"  var="authList">
+												<c:if test="${authList.memberId eq memberList.id}">											
 												<option value="0"
-													<c:if test="${fn:contains(acceptList.role , 'P' )}"> selected</c:if>
+													<c:if test="${fn:contains(authList.authority , 'MEMBER')  && !(fn:contains(authList.authority , 'MANAGER')) && !(fn:contains(authList.authority , 'MASTER'))}"> selected</c:if>
 													>일반회원</option>
 												<option value="1"
-													<c:if test="${fn:contains(acceptList.role , 'M' )}"> selected</c:if>>매니저</option>
+													<c:if test="${fn:contains(authList.authority, 'MANAGER') && !(fn:contains(authList.authority , 'MASTER'))}"> selected</c:if>>매니저</option>
+												<option value="2"
+													<c:if test="${fn:contains(authList.authority, 'MASTER')}"> selected</c:if> disabled="disabled">마스터</option>
+												</c:if>
+											</c:forEach>
 										</select>
 										</td> 
 										
@@ -104,7 +110,14 @@ button:focus {
 									<i class="far fa-trash-alt"></i>멤버추방</button>  
 									</c:if>
 										<!-- <span style="font-weight:bold;">|</span> -->
-										<button type="submit" class="button-update-member"><i class="fas fa-user-edit"></i>권한수정</button>
+										
+										<c:forEach items="${authList}"  var="authList">
+											<c:if test="${authList.memberId eq memberList.id}">	
+												<c:if test="${!(fn:contains(authList.authority, 'MASTER'))}">
+												<button type="submit" class="button-update-member"><i class="fas fa-user-edit"></i>권한수정</button>
+												</c:if>
+											</c:if>
+										</c:forEach>
 										</td>
 									<input type="hidden" name="memberId" value="${acceptList.memberId}" />
 									<input type="hidden" name="groupNo" value="${groupNo}" />
