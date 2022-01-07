@@ -87,12 +87,12 @@
 	                        	<div class="search-inner">
 	                    	</c:if> 
 	                            <!-- Blog post-->
-									<div class="card mb-4 search-card" style="width: 350px; height: 460px;">
+									<div class="card mb-4 search-card" style="width:33%; height: 460px;">
 		                                <a href="${pageContext.request.contextPath}/group/groupDetail.do?groupNo=${group.groupNo}">
 		                                <c:forEach var="attach" items="${attachList }">
 			                                <c:if test="${group.groupNo == attach.groupNo }">
 			                                	<img class="card-img-top" 
-			                                	style = "width: 348px; height: 288px;"
+			                                	style = " height: 288px;"
 			                                	src="${pageContext.request.contextPath }/resources/upFile/group/${attach.renamedFilename}"
 			                                        alt="..." />
 			                                </c:if>
