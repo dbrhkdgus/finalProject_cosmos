@@ -24,9 +24,11 @@
 		        on g.group_no = a.group_no
 		    left join studygroup_category1 sc
 		        on g.category_no = category1_no
+		    left join applocation_group ag
+		    	on g.group_no = ag.group_no
 		where
-		
-		    a.img_flag = 'Y'
+			group_accept = 'Y' and role='G'
+		    and a.img_flag = 'Y'
 		<if test="type == 0">
 		order by g.group_like_count desc
 		</if>
