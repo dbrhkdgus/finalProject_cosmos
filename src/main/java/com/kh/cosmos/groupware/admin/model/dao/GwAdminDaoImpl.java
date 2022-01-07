@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.cosmos.group.model.vo.ApplocationGroup;
+import com.kh.cosmos.groupware.admin.model.vo.Authorities;
 import com.kh.cosmos.groupware.admin.model.vo.TdlMemberCount;
 import com.kh.cosmos.groupware.admin.model.vo.TdlMonthlyData;
 import com.kh.cosmos.groupware.app.model.vo.TDL;
@@ -103,11 +104,15 @@ public class GwAdminDaoImpl implements GwAdminDao {
 	}
 
 	@Override
-	public int updateMemberAuthorities(Map<String, Object> param) {
-		return session.update("gwAdmin.updateMemberAuthorities",param);
+	public List<Authorities> selectMemberAuthoritiesList(Map<String, Object> param) {
+		return session.selectList("gwAdmin.selectMemberAuthoritiesList",param);
 	}
 
-	
+	@Override
+	public List<Authorities> selectAllAuthoritiesList(int groupNo) {
+		return session.selectList("gwAdmin.selectAllAuthoritiesList",groupNo);
+	}
+
 	
 		
 	

@@ -4,8 +4,12 @@ import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.stream.Stream;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -25,6 +29,7 @@ import com.kh.cosmos.common.attachment.model.vo.Attachment;
 import com.kh.cosmos.group.model.vo.ApplocationGroup;
 import com.kh.cosmos.group.model.vo.Group;
 import com.kh.cosmos.groupware.admin.model.service.GwAdminService;
+import com.kh.cosmos.groupware.admin.model.vo.Authorities;
 import com.kh.cosmos.groupware.admin.model.vo.TdlMemberCount;
 import com.kh.cosmos.groupware.admin.model.vo.TdlMonthlyData;
 import com.kh.cosmos.groupware.board.model.vo.Board;
@@ -93,6 +98,33 @@ public class GwAdminController {
 		log.debug("apploginRole = {}" ,apploginRole);
 		
 		model.addAttribute("apploginRole",apploginRole);
+		
+		
+		List<Authorities> authList = gwAdminService.selectAllAuthoritiesList(groupNo);
+		log.debug("authList ={}",authList);
+
+		Set<String> set = new HashSet<>();
+
+		for(Authorities aut: authList) {
+			set.add(aut.getMemberId());
+		}
+		
+		Stream<String> setS = set.stream(); 
+		setS.forEach(out -> log.debug("out +  ={}",out + " ")); 
+		//그대로 set 자체로 출력하면 중복이 제거된 데이터만 
+		// 출력되는 것을 확인할 수 있다.
+		
+		String [] newArr = new String [set.size()]; 
+		Iterator<String> it = set.iterator();
+		for(int i = 0; i < newArr.length; i++ ) { 
+			newArr[i] = it.next(); 
+			log.debug("newArr[i] ={} ",newArr[i] + " "); 
+			} 
+		//위 처럼 새로운 배열을 만들어서 다시 set으로 넣어주면 
+		// 다시 배열로도 사용할 수 있다
+
+
+			
 
 //		log.debug("authentication.getPrincipal() = {}" ,member.getId());
 
@@ -141,7 +173,6 @@ public class GwAdminController {
 			
 		//	log.debug("totalTdlAvgltList = {}" ,totalTdlAvgltList);
 		
-			
 		
 			
 			model.addAttribute("totalTdlAvgltList",totalTdlAvgltList);
@@ -286,9 +317,27 @@ public class GwAdminController {
 		param.put("memberId", memberId);
 		param.put("groupNo", groupNo);
 		
+		List<Authorities> autList = gwAdminService.selectMemberAuthoritiesList(param);
+		log.debug("autList ={}" ,autList);
+		
 		try {
-			int result = gwAdminService.updateMemberRole(param);
-			int result2 = gwAdminService.updateMemberAuthorities(param);
+//			int result = gwAdminService.updateMemberRole(param);
+			
+//			int result2 = gwAdminService.insertMemberAuthorities(param);
+			int No= 0;
+			for(Authorities aut : autList) {
+				if(aut.getAuthority().contains("MANAGER")) {
+					No=1;
+				}
+//				if(aut.getAuthority().contains("MASTER")) {
+//					No=2;
+//				}
+			}
+			
+//			if(No == 1) {
+//				int result = gwAdminService
+//			}
+			
 			redirectAttr.addFlashAttribute("msg", "권한을 수정하였습니다!");
 		} catch (Exception e) {
 			log.error("권한수정 오류!", e);
