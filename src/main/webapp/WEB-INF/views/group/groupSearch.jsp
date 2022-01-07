@@ -188,9 +188,9 @@
 						
                         
                     </c:forEach>
- 					${pagebar }
                             
                         </div>
+ 					${pagebar }
 					</c:when>
 					<c:otherwise>
 						<div style="height: 35vh;">
