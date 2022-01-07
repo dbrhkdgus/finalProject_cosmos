@@ -151,7 +151,7 @@
 }
 .search-inner{
    display: flex;
-   justify-content: space-evenly;
+   justify-content: flex-start;
    margin-top: 40px;
 }
 .search-card{
