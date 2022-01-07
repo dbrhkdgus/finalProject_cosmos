@@ -177,7 +177,7 @@ public class MemberController {
 	public String memberLoginKakao(HttpServletRequest request, Model model, HttpSession session, Authentication auth,
 			RedirectAttributes redirectAttr) {
 
-		Member kakaoMember = memberService.selectOneMember(request.getParameter("kakaoId"));
+		Member kakaoMember = memberService.selectOneMember("a" + request.getParameter("kakaoId"));
 		log.debug("kakaoMember = {}", kakaoMember);
 		if (kakaoMember == null) {
 			kakaoMember = new Member();
