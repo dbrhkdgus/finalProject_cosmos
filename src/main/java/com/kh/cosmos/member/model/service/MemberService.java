@@ -39,4 +39,6 @@ public interface MemberService {
 	List<Member> selectAllMemberList();
 
 	List<String> selectMemberAuthority(String id);
+
+	int deleteMember(String id);
 }
