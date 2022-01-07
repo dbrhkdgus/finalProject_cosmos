@@ -126,7 +126,10 @@
                 GROUP BY TO_CHAR(tdl_update_date, 'MM')               
                 order by monthlyData asc
          ]]>
-	
 	</select>
+
+	<delete id="deleteGroupAuthorities">
+	delete  from AUTHORITIES where authority like  'ROLE_GW'||#{groupNo}||'M'||'%' and member_id = #{gwDeleteMember}
+	</delete>
 	
 </mapper>
