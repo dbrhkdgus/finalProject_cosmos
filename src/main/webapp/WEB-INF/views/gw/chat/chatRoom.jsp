@@ -587,18 +587,26 @@ function loadDM(obj){
 		},
 		dataType: "json",
 		success(data){
-			
+
 			$.each(data, (k,v)=>{
+				var date = new Date(v.dmMessageAt);
+				
+				var formatDate = (current_datetime)=>{
+				    let formatted_date = current_datetime.getHours() + ":" + current_datetime.getMinutes();
+				    return formatted_date;
+				}
+				
 				$(".dm-profile-container").append(`<div class="dm-message-content-box">
+			          	
 				          <div class="dm-user-profile">
-				            	
+				          
 				          </div>
 				          
 				          <div class="dm-message-box">
 				          
 				            <div class="dm-message-sender">
 				              <span><strong>\${v.dmSenderNickname}</strong></span>
-				              <span>\${v.dmMessageAt}</span>
+				              <span>\${formatDate(date)}</span>
 				            </div>
 				            
 				            <div class="dm-message-content">
@@ -610,11 +618,11 @@ function loadDM(obj){
 						
 						`);
 				 if(v.dmSenderProfileRenamedFilename.startsWith('http')){
-					$(".dm-user-profile").append(`<img class="dm-user-profile-img" src="\${v.dmSenderProfileRenamedFilename}" alt="">`);
-				}else{
-					$(".dm-user-profile").append(`<img class="dm-user-profile-img" src="${pageContext.request.contextPath}/resources/upFile/profile/\${v.dmSenderProfileRenamedFilename}" alt="">`);
-					
-				} 
+						$(".dm-user-profile").append(`<img class="dm-user-profile-img" src="\${v.dmSenderProfileRenamedFilename}" alt="">`);
+					}else{
+						$(".dm-user-profile").append(`<img class="dm-user-profile-img" src="${pageContext.request.contextPath}/resources/upFile/profile/\${v.dmSenderProfileRenamedFilename}" alt="">`);
+						
+					} 
 			});
 			var script = document.createElement("script");
 			 script.innerHTML = `$(".dm-modal-body").scrollTop($(".dm-modal-body")[0].scrollHeight);`;

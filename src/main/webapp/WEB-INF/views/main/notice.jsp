@@ -39,7 +39,7 @@ $(()=>{
 	  <thead>
 	    <tr>
 	      <th scope="col">NO</th>
-	      <th class="w-50" scope="col">제목</th>
+	      <th class="w-90" scope="col">제목</th>
 	      <th scope="col">작성자</th>
 	      <th scope="col">날짜</th>
 	      <th scope="col">조회수</th>

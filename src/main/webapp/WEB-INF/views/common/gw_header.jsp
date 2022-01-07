@@ -701,7 +701,6 @@ $(".btn-createChatRoom").click((e)=>{
 				 					$(".selected-chat-user-box").append(`
 				 					<div class="modal-member-profile">
 				              		<div class="modal-member-profile-box">
-				    	          	<img src="\${v.profileRenamedFilename}" alt="" class="modal-member-profile-img" style="width: 1px; zoom : 30;"/>
 				    	          	</div>
 				              		<span class="modal-member-name">\${v.nickname}</span>
 				              	</div>`);
@@ -714,6 +713,7 @@ $(".btn-createChatRoom").click((e)=>{
 				              		<span class="modal-member-name">\${v.nickname}</span>
 				              	</div>`);
 								}
+								
 							}
 						});
 						$(".selected-chat-user-box").append(`<hr />`);
