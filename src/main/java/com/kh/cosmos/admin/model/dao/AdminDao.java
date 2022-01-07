@@ -102,6 +102,12 @@ public interface AdminDao {
 	int salesOfLastMonth();
 
 	int salesOfMonth(Map<String, Object> param);
+
+	int enrollToayCount();
+
+	int enrollThisMonthCount();
+
+	int enrollLastMonthCount();
 	
 	
 }
