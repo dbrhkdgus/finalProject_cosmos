@@ -293,7 +293,9 @@
           <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
             <li><a href="${pageContext.request.contextPath }/gw/admin/groupManager.do?groupNo=${currGroupNo}" class="link-dark rounded">스터디 활동량</a></li>
             <li><a href="${pageContext.request.contextPath }/gw/admin/memberManager.do?groupNo=${currGroupNo}" class="link-dark rounded">그룹 가입 요청 & 멤버 관리</a></li>
-            <li><a id="btn-delte-group" style="cursor: pointer;" class="link-dark rounded">그룹 삭제</a></li>
+             <sec:authorize access="hasAnyRole('ROLE_GW${currGroupNo}MASTER','ROLE_ADMIN')">
+            	<li><a id="btn-delte-group" style="cursor: pointer;" class="link-dark rounded">그룹 삭제</a></li>
+            </sec:authorize>
           </ul>
         </div>
       </li>
