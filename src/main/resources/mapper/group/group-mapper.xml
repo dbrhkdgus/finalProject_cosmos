@@ -107,7 +107,7 @@
 	</if>
 	<if test="ca2No != 0">
 		tb_group t 
-			left join group_category g using(group_no)
+			left join group_category g on t.group_no = g.group_no
 			left join applocation_group ag on t.group_no = ag.group_no  
 	</if>
 	<where>
