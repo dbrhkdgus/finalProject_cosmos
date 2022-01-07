@@ -53,5 +53,10 @@ public class GwCalendarServiceImpl implements GwCalendarService {
 	public Schedule selectGroupColor(int groupNo) {
 		return gwCalendarDao.selectGroupColor(groupNo);
 	}
+
+	@Override
+	public String writerNickname(String id) {
+		return gwCalendarDao.writerNickname(id);
+	}
 	
 }
