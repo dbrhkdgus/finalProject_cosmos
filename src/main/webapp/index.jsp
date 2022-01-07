@@ -469,7 +469,8 @@ window.addEventListener("load", function(){
 	                            <h2 class="card-title h4" style="margin: 0.2rem 0 0.2rem 0;">\${v.groupName}</h2>
                             	<p class="card-text" style="margin-bottom: 5px;">\${v.giTitle }</p>
                             	
-                        		<span class="card-text text-white border rounded p-1" style="margin-bottom: 5px; background-color: #b8b8b8;">\${v.category2Name}</span>
+                        		<span class="card-text text-white border rounded p-1" style="margin-bottom: 5px; background-color: #b8b8b8;">
+                        		\${v.category2Name}</span>
 	                        
 	                     </div>
 	                        <div class="search-inner-button mr-3 mb-1">

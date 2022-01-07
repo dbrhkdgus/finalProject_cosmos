@@ -145,7 +145,7 @@
     <ul class="list-unstyled ps-0">
       <li class="mb-1">
       	<div class="d-flex justify-content-between align-items-center">
-	        <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" id="dropdownBoard" data-bs-target="#board-collapse" aria-expanded="false">
+	        <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" id="dropdownBoard" data-bs-target="#board-collapse" aria-expanded="" data-bs-placement="right">
 	          게시판 채널
 	        </button>
 	        <!-- 게시판 채널 생성 버튼 -->
@@ -197,7 +197,7 @@
       </li>
       <li class="mb-1">
       	<div class="d-flex justify-content-between align-items-center">
-	        <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" id="dropdownChat" data-bs-target="#chatting-collapse" aria-expanded="false">
+	        <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" id="dropdownChat" data-bs-target="#chatting-collapse" aria-expanded="false" data-bs-placement="right">
 	          채팅 채널
 	        </button>
 	        <!-- 채팅 채널 생성 버튼 -->
@@ -237,7 +237,7 @@
       </li>
       <li class="mb-1">
       	<div class="d-flex justify-content-between align-items-center">
-	        <button id="selectAllZoomRoomList" class="btn btn-toggle align-items-center rounded collapsed" data-group-no="${currGroupNo}" data-bs-toggle="collapse" data-bs-target="#v-chatting-collapse" aria-expanded="false">
+	        <button id="selectAllZoomRoomList" class="btn btn-toggle align-items-center rounded collapsed" data-group-no="${currGroupNo}" data-bs-toggle="collapse" data-bs-target="#v-chatting-collapse" aria-expanded="false" data-bs-placement="right">
 	          화상 채널
 	        </button>
 	        <!-- 화상 채널 생성 버튼 -->
@@ -256,7 +256,7 @@
       </li>
       <li class="mb-1">
       	<div class="d-flex justify-content-between align-items-center">
-	        <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" id="dropdownCalendar" data-bs-target="#schedule-collapse" aria-expanded="false">
+	        <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" id="dropdownCalendar" data-bs-target="#schedule-collapse" aria-expanded="false" data-bs-placement="right">
 	          일정 공유 채널
 	        </button>
 	        
@@ -270,7 +270,7 @@
       </li>
       <li class="mb-1">
       	<div class="d-flex justify-content-between align-items-center">
-	        <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" id="dropdownApp" data-bs-target="#app-collapse" aria-expanded="false">
+	        <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" id="dropdownApp" data-bs-target="#app-collapse" aria-expanded="false" data-bs-placement="right">
 	          APP
 	        </button>
 	        
@@ -286,7 +286,7 @@
       <li class="border-top my-3"></li>	
     <sec:authorize access="hasAnyRole('ROLE_GW${currGroupNo}MASTER', 'ROLE_GW${currGroupNo}MANAGER','ROLE_ADMIN')">
       <li class="mb-1">
-        <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" id="dropdownAdmin" data-bs-target="#account-collapse" aria-expanded="false">
+        <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" id="dropdownAdmin" data-bs-target="#account-collapse" aria-expanded="false" data-bs-placement="right">
           관리자 전용
         </button>
         <div class="collapse" id="account-collapse">

@@ -157,27 +157,43 @@ public class GwAdminController {
 //		log.debug("checkedToDoList = {}" ,checkedToDoList);
 		model.addAttribute("checkedToDoList",checkedToDoList);
 
-		List<TdlMonthlyData> tdlMonthlyDataList = new ArrayList<TdlMonthlyData>();
-		tdlMonthlyDataList = gwAdminService.selectTdlMonthlyDataList(groupNo);
-//		log.debug("tdlMonthlyDataList = {}" ,tdlMonthlyDataList);
-		model.addAttribute("tdlMonthlyDataList",tdlMonthlyDataList);
 		
 		List<TdlMonthlyData> tdlMonthlyMemberCountList = new ArrayList<TdlMonthlyData>();
 		tdlMonthlyMemberCountList =gwAdminService.selectTdlMonthlyMemberCountList(groupNo);
 //		log.debug("tdlMonthlyMemberCountList = {}" ,tdlMonthlyMemberCountList);
+		
+		List<TdlMonthlyData> tdlMonthlyDataList = new ArrayList<TdlMonthlyData>();
+		tdlMonthlyDataList = gwAdminService.selectTdlMonthlyDataList(groupNo);
+//		log.debug("tdlMonthlyDataList = {}" ,tdlMonthlyDataList);
+		model.addAttribute("tdlMonthlyDataList",tdlMonthlyDataList);
+
+		 
 
 		List<Map<String,Object>> totalTdlAvgltList = new ArrayList<>();
-			for(TdlMonthlyData tdl : tdlMonthlyMemberCountList ) {
+		for(TdlMonthlyData tdl : tdlMonthlyMemberCountList ) {
 			Map<String,Object> tdlMonthlyMemberCountMap = new HashMap<String, Object>();
+			
 			tdlMonthlyMemberCountMap.put("monthlyData",tdl.getMonthlyData());
 			tdlMonthlyMemberCountMap.put("avg",(tdl.getCount() / tdl.getMemberCount()));
 			totalTdlAvgltList.add(tdlMonthlyMemberCountMap);
 			}
+		
+		List<Map<String,Object>> tdlHalfYearTotalltList = new ArrayList<>();
+		for(TdlMonthlyData tdl : tdlMonthlyMemberCountList ) {
+			for(TdlMonthlyData tdlTotal : tdlMonthlyDataList ) {
+				Map<String,Object> tdlTotalCountMap = new HashMap<String, Object>();
+				tdlTotalCountMap.put("Month", tdlTotal.getMonthlyData());
+				tdlTotalCountMap.put("totalAvg", tdlTotal.getCount() / tdl.getMemberCount());
+				tdlHalfYearTotalltList.add(tdlTotalCountMap);
+			}
+			break;
+		}
 			
-		//	log.debug("totalTdlAvgltList = {}" ,totalTdlAvgltList);
+			log.debug("tdlHalfYearTotalltList = {}" ,tdlHalfYearTotalltList);
 		
 		
 			
+			model.addAttribute("tdlHalfYearTotalltList",tdlHalfYearTotalltList);
 			model.addAttribute("totalTdlAvgltList",totalTdlAvgltList);
 		
 		return "gw/admin/groupManager";
@@ -222,8 +238,10 @@ public class GwAdminController {
 				map.put("msg", msg);
 				for(String id : idlist) {
 					Map<String, Object> param2 = new HashMap<String, Object>();
-					param2.put("id", id);
+					param2.put("memberId", id);
 					param2.put("groupNo", groupNo);
+					param2.put("type","insert");
+					param2.put("memberRole", "MEMBER");
 					
 					result = gwAdminService.insertMemberAuthority(param2);
 				}
@@ -280,12 +298,13 @@ public class GwAdminController {
 		}
 //		그룹웨어 멤버 추방
 			@PostMapping("/memberDelete.do")
-		    public String memberDelete(@RequestParam int groupNo, @RequestParam String gwDeleteMember,RedirectAttributes redirectAttr,HttpServletRequest request, Model model,Authentication authentication) {
+		    public String memberDelete(@RequestParam int groupNo, @RequestParam String memberId,RedirectAttributes redirectAttr,HttpServletRequest request, Model model,Authentication authentication) {
 				
 				
 				Map<String, Object> param = new HashMap<>();
 				param.put("groupNo", groupNo);
-				param.put("gwDeleteMember", gwDeleteMember);
+				param.put("gwDeleteMember", memberId);
+				
 				try {
 					int result = gwAdminService.deleteGwMember(param);
 					int result2 = gwAdminService.deleteGroupAuthorities(param);
@@ -325,30 +344,33 @@ public class GwAdminController {
 		
 		int result = 0;
 		
-		if(memberRole.equals("MEMBER")) {
-			if(memberAuthorities.contains("MANAGER")) {
-				param.put("type", "delete");
-				param.put("deleteRole", "MANAGER");
-				result = gwAdminService.insertMemberAuthority(param);
-				param.put("type", "insert");
-				result = gwAdminService.insertMemberAuthority(param);
-			}else {
-				param.put("type", "insert");
-				result = gwAdminService.insertMemberAuthority(param);
-			}
-		}else if(memberRole.equals("MANAGER")) {
-			if(memberAuthorities.contains("MEMBER")) {
-				param.put("type", "delete");
-				param.put("deleteRole", "MEMBER");
-				result = gwAdminService.insertMemberAuthority(param);
-				param.put("type", "insert");
-				result = gwAdminService.insertMemberAuthority(param);
-			}else {
-				param.put("type", "insert");
-				result = gwAdminService.insertMemberAuthority(param);
-			}
-		}else {
 			
+		if(!memberAuthorities.contains(memberRole)) {
+			if(memberRole.equals("MEMBER")) {
+				if(memberAuthorities.contains("MANAGER")) {
+					param.put("type", "delete");
+					param.put("deleteRole", "MANAGER");
+					result = gwAdminService.insertMemberAuthority(param);
+					param.put("type", "insert");
+					result = gwAdminService.insertMemberAuthority(param);
+				}else {
+					param.put("type", "insert");
+					result = gwAdminService.insertMemberAuthority(param);
+				}
+			}else if(memberRole.equals("MANAGER")) {
+				if(memberAuthorities.contains("MEMBER")) {
+					param.put("type", "delete");
+					param.put("deleteRole", "MEMBER");
+					result = gwAdminService.insertMemberAuthority(param);
+					param.put("type", "insert");
+					result = gwAdminService.insertMemberAuthority(param);
+				}else {
+					param.put("type", "insert");
+					result = gwAdminService.insertMemberAuthority(param);
+				}
+			}else {
+				
+			}
 		}
 		
 

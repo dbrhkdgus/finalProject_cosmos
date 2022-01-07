@@ -50,9 +50,9 @@
 			</c:forEach>
 		</c:forEach>
 		
-		<c:forEach items="${tdlMonthlyDataList}" var="tdlMonthlyDataList">
-			monthList.push("${tdlMonthlyDataList.monthlyData}");
-			monthCountList.push("${tdlMonthlyDataList.count}");
+		<c:forEach items="${tdlHalfYearTotalltList}" var="tdlHalfYearTotalltList">
+			monthList.push("${tdlHalfYearTotalltList.Month} ");
+			monthCountList.push("${tdlHalfYearTotalltList.totalAvg}");
 		</c:forEach>
 		console.log(monthCountList);
 		
