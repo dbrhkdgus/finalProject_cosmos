@@ -95,6 +95,14 @@ public class GwAdminServiceImpl implements GwAdminService {
 	public List<TdlMonthlyData> selectTdlMonthlyMemberCountList(int groupNo) {
 		return gwAdminDao.selectTdlMonthlyMemberCountList(groupNo);
 	}
+
+	@Override
+	public int deleteGroupAuthorities(Map<String, Object> param) {
+		return gwAdminDao.deleteGroupAuthorities(param);
+	}
+
+
+	
 	
 	
 	

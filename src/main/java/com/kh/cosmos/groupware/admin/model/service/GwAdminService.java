@@ -39,4 +39,8 @@ public interface GwAdminService {
 
 	List<TdlMonthlyData> selectTdlMonthlyMemberCountList(int groupNo);
 
+	int deleteGroupAuthorities(Map<String, Object> param);
+
+
+
 }
