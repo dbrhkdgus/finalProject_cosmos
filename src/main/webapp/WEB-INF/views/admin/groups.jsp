@@ -49,6 +49,9 @@
   #table_list{
   	font-size: 70%;
   }
+  #table_list tr:hover{
+  	cursor: pointer;
+  }
 
 </style>
 
@@ -149,7 +152,7 @@
                 	<td><fmt:formatDate value="${group.groupEnrollDate }" pattern="yy-MM-dd"/> </td>
                 	<td>
 	                	<c:if test="${fn:contains(group.groupCharge,'F')}">.</c:if>
-	                	<c:if test="${fn:contains(group.groupCharge,'T')}">O</c:if>
+	                	<c:if test="${fn:contains(group.groupCharge,'P')}">O</c:if>
                 	</td>
                 	<td>
                 		<c:if test="${fn:contains(group.groupClose,'N')}">O</c:if>
@@ -157,9 +160,10 @@
                 	</td>
                 	<td>${group.groupPool }명</td>
                 	<td>
-
+						<c:if test="${fn:contains(group.groupPrivate,'P')}">O</c:if>
+						<c:if test="${fn:contains(group.groupPrivate,'U')}">.</c:if>
                 	</td>
-                	<td>${group.groupLikeCount }</td>
+                	<td>${group.groupLikeCount}</td>
                 </tr>
                 
                 </c:forEach>
@@ -269,7 +273,7 @@ $(".selectOne").click((e)=>{
  			data.group.groupCharge=='F'? $("#table_charge").text('X') : $("#table_charge").text('O');
  			data.group.groupPrivate=='U'? $("#table_private").text('X'):$("#table_private").text('O');
 			$("#table_likeCount").text(data.group.groupLikeCount);
-			data.group.groupClose=='Y'? $("#table_close").text('O'):$("#table_close").text('X');
+			data.group.groupClose=='Y'? $("#table_close").text('X'):$("#table_close").text('O');
 			$("#table_pool").text(data.group.groupPool+'명');
 			$("#table_leader").text(data.leader.memberId); 
 			$("#table_member").text(data.str_memberList);

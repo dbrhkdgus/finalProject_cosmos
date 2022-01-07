@@ -72,7 +72,7 @@
                     <div class="tm-bg-primary-dark tm-block">
                         <h2 class="tm-block-title">
                             상위 카테고리별 모임
-                            <a href="#">
+                            <a href="${pageContext.request.contextPath}/admin/StatisticsOfGroup.do">
                                 <span id="seeMore" class="tm-text-color-secondary"> > 더 보기</span>
                             </a>                            
                         </h2>
@@ -113,7 +113,7 @@
                                	</div>
                                 <div class="media-body">
                                     <p class="mb-2"><b>문의번호 ${question.queNo}&nbsp&nbsp</b> 
-                                        <a href="#" class="tm-notification-link">[${question.queCategory}]</a></p>
+                                        <a href="${pageContext.request.contextPath}/main/qaDetail.do?queNo=${question.queNo}" class="tm-notification-link">[${question.queCategory}]</a></p>
                                     <p class="mb-2">${question.queTitle}</p>
                                     <span class="tm-small tm-text-color-secondary">작성자: ${question.memberId} / 작성일: <fmt:formatDate value="${question.regDate}" pattern="yyyy-MM-dd"/> </span>
                                 </div>
@@ -124,7 +124,11 @@
                 </div>
                 <div class="col-12 tm-block-col">
                     <div class="tm-bg-primary-dark tm-block tm-block-taller tm-block-scroll">
-                        <h2 class="tm-block-title">그룹 리스트(등록순)</h2>
+                        <h2 class="tm-block-title">그룹 리스트
+                            <a href="${pageContext.request.contextPath}/admin/groups.do">
+                                <span id="seeMore" class="tm-text-color-secondary"> > 더 보기</span>
+                        </h2>
+                            </a>                            
                         <table class="table text-center">
                             <thead>
                                 <tr>
@@ -144,7 +148,12 @@
                                     <td>${categoryOneMap[group.categoryNo]}</td>
                                     <td><b>${group.groupName }</b></td>
                                     <td><b><fmt:formatDate value="${group.groupEnrollDate}" pattern="yyyy-MM-dd"/></b></td>
-                                    <td><b>${group.groupCharge }</b></td>
+                                    <td>
+                                    <b>
+										<c:if test="${fn:contains(group.groupPrivate,'P')}">O</c:if>
+										<c:if test="${fn:contains(group.groupPrivate,'U')}">.</c:if>      
+                                    </b>
+                                    </td>
                                     <td>${group.groupLocation}</td>
                                 </tr>
                             	</c:forEach>

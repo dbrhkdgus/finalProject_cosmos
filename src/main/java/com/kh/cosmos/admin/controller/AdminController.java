@@ -654,7 +654,7 @@ public class AdminController {
 		List<MemberOfGroup> memberOfGroupList = adminService.memberOfGroupList(groupNo);
 		String str_memberList = "";
 		for(MemberOfGroup memberOfGroup : memberOfGroupList) {
-			str_memberList += memberOfGroup.getMemberId()+"  ";
+			str_memberList += memberOfGroup.getMemberId()+"    ";
 		}
 		//팀원에서 팀장 이름은 제거
 		str_memberList = str_memberList.replace(leader.getMemberId(), "");
