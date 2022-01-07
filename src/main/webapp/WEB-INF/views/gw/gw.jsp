@@ -98,6 +98,8 @@ a { color:black; text-decoration:none !important } a:hover { color : black; text
 <script>
 //document.oncontextmenu = function () {return false}
 
+
+
 var _cal = (function (cal) {
 
  var layout, multiMemory = {pick0: [], pick1: []};
