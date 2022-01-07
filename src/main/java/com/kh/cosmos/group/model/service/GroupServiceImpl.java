@@ -247,9 +247,17 @@ public class GroupServiceImpl implements GroupService {
 		// TODO Auto-generated method stub
 		return groupDao.selectApprovedAG();
 	}
-
-
-
 	
+	@Override
+	public int deleteGroup(int groupNo) {
+		// TODO Auto-generated method stub
+		return groupDao.deleteGroup(groupNo);
+	}
+
+	@Override
+	public int deleteAuthoritiesRelatedGroup(String groupNo) {
+		// TODO Auto-generated method stub
+		return groupDao.deleteAuthoritiesRelatedGroup(groupNo);
+	}
 	
 }

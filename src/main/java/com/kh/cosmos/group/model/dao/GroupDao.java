@@ -99,7 +99,8 @@ public interface GroupDao {
 
 	List<ApplocationGroup> selectApprovedAG();
 
+	int deleteGroup(int groupNo);
 
-
+	int deleteAuthoritiesRelatedGroup(String groupNo);
 
 }

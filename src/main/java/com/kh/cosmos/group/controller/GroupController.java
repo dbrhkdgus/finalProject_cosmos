@@ -12,7 +12,10 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ResourceLoader;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -470,6 +473,26 @@ public class GroupController {
 		
 		return"redirect:/group/groupDetail.do?groupNo="+groupNo;
 	}
+	
+	@ResponseBody
+	@PostMapping("/deleteGroup.do")
+	public int deleteGroup(int groupNo) {
+		
+		int result = groupService.deleteGroup(groupNo);
+		String groupNostr = Integer.toString(groupNo);
+		result = groupService.deleteAuthoritiesRelatedGroup(groupNostr);
+		
+		if(result > 0) {
+			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+			List<GrantedAuthority> updatedAuthorities = new ArrayList<>(auth.getAuthorities());
+			
+			Authentication newAuth = new UsernamePasswordAuthenticationToken(auth.getPrincipal(), auth.getCredentials(), updatedAuthorities);
+			SecurityContextHolder.getContext().setAuthentication(newAuth);
+		}
+		return result;
+	}
+	
 }
 
 

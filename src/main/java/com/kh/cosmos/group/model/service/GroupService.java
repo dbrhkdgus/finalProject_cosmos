@@ -98,14 +98,7 @@ public interface GroupService {
 
 	List<ApplocationGroup> selectApprovedAG();
 
+	int deleteGroup(int groupNo);
 
-	
-
-
-
-
-
-
-	
-	
+	int deleteAuthoritiesRelatedGroup(String groupNostr);
 }

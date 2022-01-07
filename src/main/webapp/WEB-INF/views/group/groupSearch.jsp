@@ -90,12 +90,12 @@
                     	<c:forEach var="group" items="${groupList }">
 							<c:if test="${group.groupNo == approvedGroup.groupNo}">
 	                            <!-- Blog post-->
-									<div class="card mb-4 search-card" style="width: 350px; height: 475px;">
+									<div class="card mb-4 search-card" style="width: 350px; height: 478px;">
 		                                <a href="${pageContext.request.contextPath}/group/groupDetail.do?groupNo=${group.groupNo}">
 		                                <c:forEach var="attach" items="${attachList }">
 			                                <c:if test="${group.groupNo == attach.groupNo }">
 			                                	<img class="card-img-top" 
-			                                	style = "width: 348px; height: 278px;"
+			                                	style = "width: 348px; height: 274px;"
 			                                	src="${pageContext.request.contextPath }/resources/upFile/group/${attach.renamedFilename}"
 			                                        alt="..." />
 			                                </c:if>
@@ -154,13 +154,12 @@
                                  			</div>
 		                                    
 							</div>
-								<div class="search-inner-button mr-3 mb-1 d-flex align-items-center">
+								<div class="search-inner-button mr-3 mb-2 d-flex align-items-center">
 		                                <!--좋아요 기능구현 해보는중  -->
 									<div class="like-button-outer d-flex align-items-center">
 
 									 <sec:authorize access="isAnonymous()">
-			                               		<i class="far fa-heart"  data-group-no="${group.groupNo }"></i>
-			                               		<p class="mt-1 mb-0 ml-1">${group.groupLikeCount }</p>
+			                               		<i class="far fa-heart"  data-group-no="${group.groupNo }"><span>&nbsp;${group.groupLikeCount }</span></i>
 			                           </sec:authorize>
 			                             <sec:authorize access="isAuthenticated()">
   										<!--start  -->
@@ -168,13 +167,11 @@
                                                      <c:forEach var="git" items="${groupInterestList}" >
                                                          <c:if test="${git.memberId == loginMember.id && group.groupNo == git.groupNo}"> 
                                                          		<c:set var="flag" value="Y"/>                                                 
-                                                                 <i class="fas fa-heart"  data-group-no="${group.groupNo }"></i>
-                                                                 <p class="mt-1 mb-0 ml-1">${group.groupLikeCount }</p>
+                                                                 <i class="fas fa-heart"  data-group-no="${group.groupNo }"><span>&nbsp;${group.groupLikeCount }</span></i>
                                                          </c:if>
                                                      </c:forEach>
                                                      <c:if test="${flag == 'N'}">
-                                                     	<i class="far fa-heart"  data-group-no="${group.groupNo}"></i>
-                                                     	<p class="mt-1 mb-0 ml-1">${group.groupLikeCount }</p>
+                                                     	<i class="far fa-heart"  data-group-no="${group.groupNo}"><span>&nbsp;${group.groupLikeCount }</span></i>
                                                      </c:if>
                                                  
                                                  
@@ -247,7 +244,7 @@
                         .removeClass("fas")
                         .addClass("far");
                 }
-                $target.html(`<span>\${likeCnt}</span>`);
+                $target.html(`<span>&nbsp;\${likeCnt}</span>`);
             },
             error(xhr, textStatus, err){
                 console.log(xhr, textStatus, err);

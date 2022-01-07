@@ -270,6 +270,14 @@
 	delete from interest_group where member_id = #{memberId} and group_no = #{groupNo}
 	</delete>
 	
+	<delete id="deleteGroup">
+	delete tb_group where group_no = #{groupNo}
+	</delete>
+	
+	<delete id="deleteAuthoritiesRelatedGroup">
+	delete authorities where authority like '%' ||  #{groupNo} || '%'
+
+	</delete>
 
 
 </mapper>
