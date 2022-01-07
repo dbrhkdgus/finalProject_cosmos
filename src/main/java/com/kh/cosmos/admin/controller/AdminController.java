@@ -537,7 +537,12 @@ public class AdminController {
 		String groupNo = request.getParameter("groupNo");
 		String boardType = request.getParameter("boardType");
 		String searchType = request.getParameter("searchType");
-		String searchKeyword = request.getParameter("searchKeyword");
+		String searchKeyword = "";
+		if(request.getParameter("searchKeyword")!= null) {
+			searchKeyword = request.getParameter("searchKeyword");
+		}else {
+			searchKeyword = "null";
+		}
 		Map<String, Object> param1 = new HashMap<>();
 		param1.put("groupNo", groupNo);
 		param1.put("boardType", boardType);
