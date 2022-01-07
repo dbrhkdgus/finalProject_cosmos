@@ -451,7 +451,7 @@ public class GwBoardController {
 			
 		}
 	
-	
+
 	@GetMapping("/boardEnroll.do")
 	public void boardEnroll(@RequestParam int boardNo, @RequestParam int groupNo, Model model, Authentication auth) {
 		groupwareHeaderSet(groupNo, model, auth);
@@ -496,7 +496,7 @@ public class GwBoardController {
 				attach.setMemberId(memberId);
 
 				int attachNo = boardService.insertAttach(attach);
-
+				
 				int result = boardService.insertPostFile(post);
 			} else {
 				// 업무로직
@@ -881,14 +881,21 @@ public class GwBoardController {
 
 	
 	@PostMapping("/createBoardRoom.do")
-	public String createBoardRoom(Board board, RedirectAttributes redirectAtt) {
-
-		int result = boardService.createBoardRoom(board);
-		redirectAtt.addAttribute("groupNo", board.getGroupNo());
-		redirectAtt.addAttribute("msg", result > 0 ? "게시판 ["+board.getBoardName()+"]이 개설되었습니다." : "실패");
+	public String createBoardRoom(Board board, RedirectAttributes redirectAtt, HttpServletRequest request) {
 		
-		return "redirect:/gw/gw.do";
+		try {
+			int result = boardService.createBoardRoom(board);
+			String msg = result > 0 ? "게시판 ["+board.getBoardName()+"]이 개설되었습니다." : "실패";
+			redirectAtt.addFlashAttribute("msg", msg);
+			//log.debug("*****************msg = {}", msg);
+		} catch (Exception e) {
+			log.error(e.getMessage(), e); // 
+			redirectAtt.addFlashAttribute("msg", "실패");
+		}
+
+		return "redirect:/gw/gw.do?groupNo=" + board.getGroupNo();
 	}
+	
 	
 	@PostMapping("/updateBoardRoom.do")
 	public String updateBoardRoom(@ModelAttribute Board board, RedirectAttributes redirectAtt, HttpSession session) {
