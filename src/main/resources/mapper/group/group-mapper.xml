@@ -266,6 +266,11 @@
 	<delete id="deleteGroup">
 	delete tb_group where group_no = #{groupNo}
 	</delete>
+	
+	<delete id="deleteAuthoritiesRelatedGroup">
+	delete authorities where authority like '%' ||  #{groupNo} || '%'
+
+	</delete>
 
 
 </mapper>

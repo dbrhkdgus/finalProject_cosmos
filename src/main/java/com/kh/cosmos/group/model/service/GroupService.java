@@ -98,6 +98,8 @@ public interface GroupService {
 
 	int deleteGroup(int groupNo);
 
+	int deleteAuthoritiesRelatedGroup(String groupNostr);
+
 
 	
 

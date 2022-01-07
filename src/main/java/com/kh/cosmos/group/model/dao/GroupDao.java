@@ -99,6 +99,8 @@ public interface GroupDao {
 
 	int deleteGroup(int groupNo);
 
+	int deleteAuthoritiesRelatedGroup(String groupNo);
+
 
 
 
