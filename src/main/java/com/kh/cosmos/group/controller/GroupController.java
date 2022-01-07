@@ -122,6 +122,9 @@ public class GroupController {
 //			model.addAttribute("ca2No", ca2No);
 //		}
 		
+		List<ApplocationGroup> approvedGroup = groupService.selectApprovedAG();
+		model.addAttribute("approvedGroup", approvedGroup);
+		
 		List<CategoryOne> caOneList = groupService.groupgroupContOne();
 		model.addAttribute("caOneList", caOneList);
 		

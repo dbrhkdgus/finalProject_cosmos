@@ -100,16 +100,20 @@
 	
 	</insert>
 	<select id="selectGroupTotalCount" resultType="_int">
-	select count(*) from 
+		select count(*) from 
 	<if test="ca2No == 0">
-		tb_group
+		tb_group t
+			left join applocation_group ag on t.group_no = ag.group_no
 	</if>
 	<if test="ca2No != 0">
-	tb_group t left join group_category g using(group_no) 
+		tb_group t 
+			left join group_category g using(group_no)
+			left join applocation_group ag on t.group_no = ag.group_no  
 	</if>
 	<where>
+		ag.group_accept = 'Y' and ag.role='G'
 		<if test="ca1No != 0">
-			category_no = #{ca1No}
+			and category_no = #{ca1No}
 		</if>
 		<if test="ca2No != 0">
 			and category2_no = #{ca2No}
@@ -139,6 +143,9 @@
 	</select>
 	<select id="selectAllGroupListByCa2No" resultType="group">
 	select * from tb_group t left join group_category g using(group_no) where category2_no = #{ca2No}
+	</select>
+	<select id="selectApprovedAG" resultType="ApplocationGroup">
+		select * from applocation_group where group_accept = 'Y' and role='G'
 	</select>
 	
 	<select id="selectAllGroupListByParam" resultType="group">
