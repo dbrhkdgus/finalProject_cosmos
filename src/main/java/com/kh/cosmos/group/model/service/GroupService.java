@@ -96,6 +96,8 @@ public interface GroupService {
 
 	int deleteInterestGroupByParam(Map<String, Object> param);
 
+	List<ApplocationGroup> selectApprovedAG();
+
 
 	
 

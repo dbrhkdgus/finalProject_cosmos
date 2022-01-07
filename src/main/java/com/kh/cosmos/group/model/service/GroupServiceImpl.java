@@ -242,6 +242,12 @@ public class GroupServiceImpl implements GroupService {
 		return groupDao.deleteInterestGroupByParam(param);
 	}
 
+	@Override
+	public List<ApplocationGroup> selectApprovedAG() {
+		// TODO Auto-generated method stub
+		return groupDao.selectApprovedAG();
+	}
+
 
 
 	

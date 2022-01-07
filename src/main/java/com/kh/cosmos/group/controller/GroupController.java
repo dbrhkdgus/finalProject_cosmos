@@ -37,15 +37,12 @@ import com.kh.cosmos.group.model.vo.GroupEnroll;
 import com.kh.cosmos.group.model.vo.GroupInfo;
 import com.kh.cosmos.group.model.vo.GroupInfoConnect;
 import com.kh.cosmos.group.model.vo.MemberInterestGroup;
-
 import com.kh.cosmos.group.model.vo.NumberOfGroupMember;
-
 import com.kh.cosmos.main.model.vo.Reply;
 import com.kh.cosmos.member.model.service.MemberService;
 import com.kh.cosmos.member.model.vo.Member;
 
 import lombok.extern.slf4j.Slf4j;
-import oracle.jdbc.proxy.annotation.Post;
 
 @Controller
 @Slf4j
@@ -121,6 +118,9 @@ public class GroupController {
 //			model.addAttribute("ca1No", ca1No);
 //			model.addAttribute("ca2No", ca2No);
 //		}
+		
+		List<ApplocationGroup> approvedGroup = groupService.selectApprovedAG();
+		model.addAttribute("approvedGroup", approvedGroup);
 		
 		List<CategoryOne> caOneList = groupService.groupgroupContOne();
 		model.addAttribute("caOneList", caOneList);

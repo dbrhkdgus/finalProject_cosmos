@@ -245,6 +245,12 @@ public class GroupDaoImpl implements GroupDao {
 		return session.delete("group.deleteInterestGroupByParam",param);
 	}
 
+	@Override
+	public List<ApplocationGroup> selectApprovedAG() {
+		// TODO Auto-generated method stub
+		return session.selectList("group.selectApprovedAG");
+	}
+
 
 	
 	
