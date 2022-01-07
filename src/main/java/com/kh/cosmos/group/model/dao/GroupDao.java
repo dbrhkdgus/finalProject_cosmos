@@ -97,11 +97,10 @@ public interface GroupDao {
 
 	int deleteInterestGroupByParam(Map<String, Object> param);
 
+	List<ApplocationGroup> selectApprovedAG();
+
 	int deleteGroup(int groupNo);
 
 	int deleteAuthoritiesRelatedGroup(String groupNo);
-
-
-
 
 }

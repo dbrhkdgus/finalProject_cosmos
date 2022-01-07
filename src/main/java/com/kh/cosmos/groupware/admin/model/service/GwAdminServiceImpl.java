@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.cosmos.group.model.vo.ApplocationGroup;
 import com.kh.cosmos.groupware.admin.model.dao.GwAdminDao;
+import com.kh.cosmos.groupware.admin.model.vo.Authorities;
 import com.kh.cosmos.groupware.admin.model.vo.TdlMemberCount;
 import com.kh.cosmos.groupware.admin.model.vo.TdlMonthlyData;
 import com.kh.cosmos.groupware.app.model.vo.TDL;
@@ -102,8 +103,13 @@ public class GwAdminServiceImpl implements GwAdminService {
 	}
 
 	@Override
-	public int updateMemberAuthorities(Map<String, Object> param) {
-		return gwAdminDao.updateMemberAuthorities(param);
+	public List<Authorities> selectMemberAuthoritiesList(Map<String, Object> param) {
+		return gwAdminDao.selectMemberAuthoritiesList(param);
+	}
+
+	@Override
+	public List<Authorities> selectAllAuthoritiesList(int groupNo) {
+		return gwAdminDao.selectAllAuthoritiesList(groupNo);
 	}
 
 	@Override
