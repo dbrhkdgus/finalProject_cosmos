@@ -86,8 +86,8 @@
 		<div class="login-index category" style="margin-bottom:5px;">
 			
 			<div class="category2">
-				<button type="button" class="btn-category" style="margin-bottom:5%;">카테고리</button>
-				<ul class="cate-list" style="padding-left: 0;">
+				<button type="button" class="btn-category">카테고리</button>
+				<ul class="cate-list" style="padding-left: 0; margin-top:5px;" >
 					<li class="login-popular"><a href="${pageContext.request.contextPath}/group/groupSearch.do?ca1No=2">웹개발</a></li>
 					<li class="login-popular"><a href="${pageContext.request.contextPath}/group/groupSearch.do?ca1No=3">프론트</a></li>
 					<li class="login-popular"><a href="${pageContext.request.contextPath}/group/groupSearch.do?ca1No=4">백엔드</a></li>
