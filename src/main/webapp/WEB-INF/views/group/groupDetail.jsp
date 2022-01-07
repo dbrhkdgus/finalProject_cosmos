@@ -207,7 +207,10 @@ function hasScrolled() {
 								<button type="button" class="btn btn-secondary btn-m  ml-3" style="color:black; border:none; background-color:#CCE6FD;"  disabled>승인 대기중</button>
 							</c:if>
 							<c:if test="${fn:contains(alg.groupAccept, 'Y')}">
-								<button type="button" class="btn btn-secondary btn-m  ml-3"  style="color:black; border:none; background-color:#CCE6FD;"  disabled>가입된 그룹입니다</button>
+								<button type="button" class="btn btn-secondary btn-m  ml-3"  style="color:black; border:none; background-color:#CCE6FD;" 
+								onclick="location.href='${pageContext.request.contextPath}/gw/gw.do?groupNo=${group.groupNo}';">
+								그룹웨어 입장하기
+								</button>
 							</c:if>
 							
 							<c:set var="flag2" value="Y" />
