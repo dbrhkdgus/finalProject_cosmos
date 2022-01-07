@@ -239,7 +239,7 @@
 	</select>
 
 	<insert id="insertGroupeReply">
-	insert into reply values(SEQ_REPLY_NO_NO.nextval, #{memberId},#{content},null,null,default,null,null,null,#{groupNo})
+	insert into reply values(SEQ_REPLY_NO_NO.nextval, #{memberId},#{content},null,null,default,null,null,null,#{groupNo}, null)
 	</insert>
 	
 	<select id="selectReplyListBygroupNo" resultType="reply">
