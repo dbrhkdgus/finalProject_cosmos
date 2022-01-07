@@ -185,6 +185,7 @@
 
 							<div class="col-md-6 offset-md-4 group-create-button">
 								<button type="submit" class="btn btn-primary">정보수정</button>
+								<button id="delete-member" type="button" class="btn btn-primary">회원탈퇴</button>
 							</div>
 						</form:form>
 					</div>
@@ -274,8 +275,30 @@ $("#passwordCheck").blur(function(){
 		$password.select();
 	}
 });
-
-
+/* 회원 탈퇴 */
+$("#delete-member").click((e)=>{
+	if(confirm("코스모스에서 모든 회원 정보가 삭제됩니다. 탈퇴하시겠습니까?")){
+		
+		$.ajax({
+			url : "${pageContext.request.contextPath}/member/deleteMember.do",
+			method : "post",
+			data : {
+				id : "${loginMember.id }"
+			},
+			headers: {
+				"${_csrf.headerName}" : "${_csrf.token}"
+			 },
+			success(res){
+				 if(res > 0){
+					alert("회원 탈퇴처리 되었습니다.");
+					location.href = "${pageContext.request.contextPath}/";					 
+				 }
+				
+			},
+			error : console.log
+		});
+	}
+});
 
 </script>
 
