@@ -101,6 +101,12 @@ public class GwAdminServiceImpl implements GwAdminService {
 		return gwAdminDao.deleteGroupAuthorities(param);
 	}
 
+	@Override
+	public int updateMemberAuthorities(Map<String, Object> param) {
+		return gwAdminDao.updateMemberAuthorities(param);
+	}
+
+	
 
 	
 	

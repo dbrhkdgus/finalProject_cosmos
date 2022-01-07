@@ -41,6 +41,8 @@ public interface GwAdminDao {
 
 	int deleteGroupAuthorities(Map<String, Object> param);
 
+	int updateMemberAuthorities(Map<String, Object> param);
+
 
 
 }

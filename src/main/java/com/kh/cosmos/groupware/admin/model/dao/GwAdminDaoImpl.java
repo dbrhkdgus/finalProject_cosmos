@@ -102,6 +102,11 @@ public class GwAdminDaoImpl implements GwAdminDao {
 		return session.delete("gwAdmin.deleteGroupAuthorities",param);
 	}
 
+	@Override
+	public int updateMemberAuthorities(Map<String, Object> param) {
+		return session.update("gwAdmin.updateMemberAuthorities",param);
+	}
+
 	
 	
 		
