@@ -590,9 +590,8 @@ function loadDM(obj){
 			
 			$.each(data, (k,v)=>{
 				$(".dm-profile-container").append(`<div class="dm-message-content-box">
-			          	
 				          <div class="dm-user-profile">
-				            <img class="dm-user-profile-img" src="${pageContext.request.contextPath}/resources/upFile/profile/\${v.dmSenderProfileRenamedFilename}" alt="">
+				            	
 				          </div>
 				          
 				          <div class="dm-message-box">
@@ -610,6 +609,12 @@ function loadDM(obj){
 			        </div>	
 						
 						`);
+				 if(v.dmSenderProfileRenamedFilename.startsWith('http')){
+					$(".dm-user-profile").append(`<img class="dm-user-profile-img" src="\${v.dmSenderProfileRenamedFilename}" alt="">`);
+				}else{
+					$(".dm-user-profile").append(`<img class="dm-user-profile-img" src="${pageContext.request.contextPath}/resources/upFile/profile/\${v.dmSenderProfileRenamedFilename}" alt="">`);
+					
+				} 
 			});
 			var script = document.createElement("script");
 			 script.innerHTML = `$(".dm-modal-body").scrollTop($(".dm-modal-body")[0].scrollHeight);`;
