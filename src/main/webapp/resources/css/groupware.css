@@ -25,7 +25,12 @@ main {
   flex-direction: column;
   font-family:  'NanumSquareRound';
 }
+::-webkit-scrollbar{width: 16px;}
+::-webkit-scrollbar-track {background-color:#f1f1f1;}
+::-webkit-scrollbar-thumb {background-color:#D7ECFB;border-radius: 10px;}
 
+::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
+width:16px;height:16px;background:#36A2EB;} 
 .b-example-divider {
   flex-shrink: 0;
   /* width: 1.5rem; */
