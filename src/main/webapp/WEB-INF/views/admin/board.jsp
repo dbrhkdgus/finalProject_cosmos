@@ -24,15 +24,15 @@
             <h2 class="tm-block-title">게시물 관리</h2>
             <div>
               <select class="custom-select selectBar mr-1" id="selectTagGroupNo">
-                <option value="All">전체 그룹</option>
+                <option value="All" selected>전체 그룹</option>
                 <c:forEach var="group" items="${groupList }">
-                <option value="${group.groupNo }" <c:if test="${groupNo eq group.groupNo}">selected</c:if>>${group.groupName }</option>
+                <option value="${group.groupNo }" <c:if test="${groupNo != null && fn:contains(group.groupNo, groupNo)}">selected</c:if>>${group.groupName }</option>
                 </c:forEach>
               </select>
               <select class="custom-select selectBar mr-1" id="selectTagBoardType">
-                <option value="All">게시판 전체</option>
+                <option value="All" selected>게시판 전체</option>
                 <c:forEach var="type" items="${adminBoardTypeList }">
-                <option value="${type.boardType }"<c:if test="${boardType eq type.boardType}">selected</c:if>>${type.boardTypeName }</option>
+                <option value="${type.boardType }"<c:if test="${boardType != null && fn:contains(type.boardType, boardType)}">selected</c:if>>${type.boardTypeName }</option>
                 </c:forEach>
               </select>
               
