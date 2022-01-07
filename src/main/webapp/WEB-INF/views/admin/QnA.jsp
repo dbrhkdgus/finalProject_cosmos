@@ -22,6 +22,9 @@
   #selectDate{
     display: none;
   }
+  #table_list tr{
+  	cursor: pointer;
+  }
 </style>
 
       <div class="container mt-5">
@@ -102,7 +105,7 @@
             </div>
             <!-- 회원목록 테이블 -->
             <div class="row tm-content-row  mt-5 w-200">
-              <table class="table mb-3 mt-1 text-center">
+              <table id="table_list" class="table mb-3 mt-1 text-center">
                 <thead>
                   <tr>
 				      <th class="col-1" scope="col">NO</th>

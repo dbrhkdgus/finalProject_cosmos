@@ -5,7 +5,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>    
-<sec:authorize access="hasAnyRole('ROLE_GW${currGroupNo}MEMBER','ROLE_GW${currGroupNo}MASTER', 'ROLE_ADMIN')">
+<sec:authorize access="hasAnyRole('ROLE_GW${currGroupNo}MEMBER','ROLE_GW${currGroupNo}MANAGER','ROLE_GW${currGroupNo}MASTER', 'ROLE_ADMIN')">
 
 <fmt:requestEncoding value="utf-8"/> 
 <jsp:include page="/WEB-INF/views/common/gw_header.jsp">
@@ -102,7 +102,7 @@
 						<input id="reRepPw" name="replyPw" type="text" class="form-control re-rep-pw" onChange="checkNumber()" maxlength="4" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="숫자 4자리를 입력해 주세요.">
 					</div>
 					</div>	
-					<div class="d-flex mt-2 pl-6 pr-2" style="margin-left: 4%;">
+					<div class="d-flex mt-2 pl-6 pr-2" style="margin-left: 5%;">
 						<input type="text" class="form-control re-rep-con" name="content" placeholder="댓글을 입력하세요." />
 						<input type="hidden" value="${post.postNo}" name ="postNo">
 						<input type="hidden" value="2" name ="replyLevel">

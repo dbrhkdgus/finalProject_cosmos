@@ -150,8 +150,8 @@
                                     <td><b><fmt:formatDate value="${group.groupEnrollDate}" pattern="yyyy-MM-dd"/></b></td>
                                     <td>
                                     <b>
-										<c:if test="${fn:contains(group.groupPrivate,'P')}">O</c:if>
-										<c:if test="${fn:contains(group.groupPrivate,'U')}">.</c:if>      
+										<c:if test="${fn:contains(group.groupCharge,'P')}">O</c:if>
+										<c:if test="${fn:contains(group.groupCharge,'U')}">.</c:if>      
                                     </b>
                                     </td>
                                     <td>${group.groupLocation}</td>

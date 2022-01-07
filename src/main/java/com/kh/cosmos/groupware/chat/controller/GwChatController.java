@@ -303,7 +303,11 @@ public class GwChatController {
 	public int newDMCheck(Authentication auth) {
 		int result = 0;
 		Member loginMember = (Member) auth.getPrincipal();
-		result = chatService.newDMCheck(loginMember.getId());
+		try {
+			result = chatService.newDMCheck(loginMember.getId());
+		} catch (Exception e) {
+
+		}
 		return result;
 	}
 	

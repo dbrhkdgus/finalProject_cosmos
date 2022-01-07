@@ -77,6 +77,7 @@ public class GwCalendarController {
 		groupwareHeaderSet(groupNo, model, authentication);		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("list", gwCalendarService.selectScheduleList(groupNo));
+		log.debug("스케줄맵 = {}", map);
 		return map;
 	}
 
@@ -161,7 +162,17 @@ public class GwCalendarController {
 		return "redirect:/gw/calendar/calendar.do?groupNo="+groupNo;
 	}
 	
-	
+	@GetMapping("writerNickname")
+	@ResponseBody
+	public Map<String,String> writerNickname(@RequestParam("id") String id) {
+		log.debug("id: "+id);
+		String nickname = gwCalendarService.writerNickname(id);
+		log.debug("nickname = {}", nickname);
+		
+		Map<String,String> map = new HashMap<>();
+		map.put("nickname", nickname);
+		return map;
+	}
 	
 	
 	

@@ -50,6 +50,7 @@ public class Member implements Serializable, UserDetails {
 	private boolean enabled;//회원 활성화 여부
 	
 	private String RenamedFilename;
+	private String authority;
 
 	
 	/**

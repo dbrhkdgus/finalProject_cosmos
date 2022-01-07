@@ -4,14 +4,21 @@ import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.stream.Stream;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,6 +32,7 @@ import com.kh.cosmos.common.attachment.model.vo.Attachment;
 import com.kh.cosmos.group.model.vo.ApplocationGroup;
 import com.kh.cosmos.group.model.vo.Group;
 import com.kh.cosmos.groupware.admin.model.service.GwAdminService;
+import com.kh.cosmos.groupware.admin.model.vo.Authorities;
 import com.kh.cosmos.groupware.admin.model.vo.TdlMemberCount;
 import com.kh.cosmos.groupware.admin.model.vo.TdlMonthlyData;
 import com.kh.cosmos.groupware.board.model.vo.Board;
@@ -88,11 +96,38 @@ public class GwAdminController {
 				
 		}
 		
+		List<Map<String,Object>> memberAuthorityInfoList = new ArrayList<Map<String,Object>>();
+		
+		for(ApplocationGroup a : acceptApplocationGroupList) {
+			Map<String, Object> memberAuthorityInfo = new HashMap<String, Object>();
+			memberAuthorityInfo.put("memberId", a.getMemberId());
+			memberAuthorityInfo.put("joinRegDate", a.getJoinRegDate());
+			
+			String memberAuthorities = "";
+			List<String> memberAuthorityList = gwAdminService.selectMemberAutorities(a.getMemberId());
+			for(String auth : memberAuthorityList) {
+				memberAuthorities += ", " + auth;
+			}
+				memberAuthorityInfo.put("authority", memberAuthorities);
+				memberAuthorityInfoList.add(memberAuthorityInfo);
+			}
+		
+		log.debug("memberAuthorityInfoList = {}", memberAuthorityInfoList);
+		model.addAttribute("memberAuthorityInfoList",memberAuthorityInfoList);
+		
 		log.debug("member.getId() = {}" ,member.getId());
 		log.debug("apploginId = {}" ,apploginId);
 		log.debug("apploginRole = {}" ,apploginRole);
 		
 		model.addAttribute("apploginRole",apploginRole);
+		
+		
+		List<Authorities> authList = gwAdminService.selectAllAuthoritiesList(groupNo);
+		log.debug("authList ={}",authList);
+
+
+
+			
 
 //		log.debug("authentication.getPrincipal() = {}" ,member.getId());
 
@@ -141,7 +176,6 @@ public class GwAdminController {
 			
 		//	log.debug("totalTdlAvgltList = {}" ,totalTdlAvgltList);
 		
-			
 		
 			
 			model.addAttribute("totalTdlAvgltList",totalTdlAvgltList);
@@ -286,14 +320,39 @@ public class GwAdminController {
 		param.put("memberId", memberId);
 		param.put("groupNo", groupNo);
 		
-		try {
-			int result = gwAdminService.updateMemberRole(param);
-			redirectAttr.addFlashAttribute("msg", "권한을 수정하였습니다!");
-		} catch (Exception e) {
-			log.error("권한수정 오류!", e);
-			redirectAttr.addFlashAttribute("msg", e.getMessage());
-			throw e;
+
+		String memberAuthorities = gwAdminService.selectMemberAuthorities(memberId);
+		
+		int result = 0;
+		
+		if(memberRole.equals("MEMBER")) {
+			if(memberAuthorities.contains("MANAGER")) {
+				param.put("type", "delete");
+				param.put("deleteRole", "MANAGER");
+				result = gwAdminService.insertMemberAuthority(param);
+				param.put("type", "insert");
+				result = gwAdminService.insertMemberAuthority(param);
+			}else {
+				param.put("type", "insert");
+				result = gwAdminService.insertMemberAuthority(param);
+			}
+		}else if(memberRole.equals("MANAGER")) {
+			if(memberAuthorities.contains("MEMBER")) {
+				param.put("type", "delete");
+				param.put("deleteRole", "MEMBER");
+				result = gwAdminService.insertMemberAuthority(param);
+				param.put("type", "insert");
+				result = gwAdminService.insertMemberAuthority(param);
+			}else {
+				param.put("type", "insert");
+				result = gwAdminService.insertMemberAuthority(param);
+			}
+		}else {
+			
 		}
+		
+
+		
 		
 		return "redirect:/gw/admin/memberManager.do?groupNo=" + groupNo;
 	}

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.kh.cosmos.group.model.vo.ApplocationGroup;
+import com.kh.cosmos.groupware.admin.model.vo.Authorities;
 import com.kh.cosmos.groupware.admin.model.vo.TdlMemberCount;
 import com.kh.cosmos.groupware.admin.model.vo.TdlMonthlyData;
 import com.kh.cosmos.groupware.app.model.vo.TDL;
@@ -40,6 +41,16 @@ public interface GwAdminService {
 	List<TdlMonthlyData> selectTdlMonthlyMemberCountList(int groupNo);
 
 	int deleteGroupAuthorities(Map<String, Object> param);
+
+	List<Authorities> selectMemberAuthoritiesList(Map<String, Object> param);
+
+	List<Authorities> selectAllAuthoritiesList(int groupNo);
+
+
+
+	List<String> selectMemberAutorities(String memberId);
+
+	String selectMemberAuthorities(String memberId);
 
 
 

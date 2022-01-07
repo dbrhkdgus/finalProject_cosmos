@@ -98,7 +98,12 @@
 	</select>
 
 	<insert id="insertMemberAuthority">
-		insert into authorities values(#{id}, 'ROLE_GW${groupNo}MEMBER')
+		<if test="type == 'insert'">
+			insert into authorities values(#{memberId}, 'ROLE_GW${groupNo}${memberRole}')
+		</if>
+		<if test="type == 'delete'">
+			delete authorities where member_id = #{memberId} and authority like '%'||#{deleteRole}||'%'
+		</if>
 	</insert>
 
 	<select id="selectTdlMonthlyDataList" resultType="TdlMonthlyData">
@@ -132,4 +137,28 @@
 	delete  from AUTHORITIES where authority like  'ROLE_GW'||#{groupNo}||'M'||'%' and member_id = #{gwDeleteMember}
 	</delete>
 	
+
+	<update id="updateMemberAuthorities" parameterType="hashmap">
+					
+		update AUTHORITIES
+		<set>
+			<if test="'memberRole.equals(P)'">
+			authority =  'ROLE_GW'||#{groupNo}||'MEMBER' 
+			</if> 
+			<if test="'memberRole.equals(M)'">			
+			authority =  'ROLE_GW'||#{groupNo}||'MANAGER' 
+			</if> 
+			<if test="'memberRole.equals(G)'">			
+			authority =  'ROLE_GW'||#{groupNo}||'MASTER' 
+			</if> 
+		</set>  
+		where member_id =#{memberId}
+	</update>
+	<select id="selectMemberAutorities" resultType="string">
+	select authority from authorities where member_id = #{memberId}
+	</select>
+	<select id="selectMemberAuthorities" resultType="string">
+	select LISTAGG(authority, ', ') from authorities where member_id = #{memberId}
+	</select>
+
 </mapper>

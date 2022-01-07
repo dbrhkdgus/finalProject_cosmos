@@ -244,6 +244,21 @@ public class AdminDaoImpl implements AdminDao {
 		return session.selectOne("admin.salesOfMonth", param);
 	}
 
+	@Override
+	public int enrollToayCount() {
+		return session.selectOne("admin.enrollToayCount");
+	}
+
+	@Override
+	public int enrollThisMonthCount() {
+		return session.selectOne("admin.enrollLastMonthCount");
+	}
+
+	@Override
+	public int enrollLastMonthCount() {
+		return session.selectOne("admin.enrollThisMonthCount");
+	}
+
 	
 	
 }

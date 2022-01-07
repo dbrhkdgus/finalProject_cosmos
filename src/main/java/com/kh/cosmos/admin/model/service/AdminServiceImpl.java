@@ -237,6 +237,21 @@ public class AdminServiceImpl implements AdminService{
 	public int salesOfMonth(Map<String, Object> param) {
 		return adminDao.salesOfMonth(param);
 	}
+
+	@Override
+	public int enrollToayCount() {
+		return adminDao.enrollToayCount();
+	}
+
+	@Override
+	public int enrollThisMonthCount() {
+		return adminDao.enrollThisMonthCount();
+	}
+
+	@Override
+	public int enrollLastMonthCount() {
+		return adminDao.enrollLastMonthCount();
+	}
 	
 	
 	

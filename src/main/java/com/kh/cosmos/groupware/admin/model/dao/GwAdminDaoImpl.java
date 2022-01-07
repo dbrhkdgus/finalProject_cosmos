@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.cosmos.group.model.vo.ApplocationGroup;
+import com.kh.cosmos.groupware.admin.model.vo.Authorities;
 import com.kh.cosmos.groupware.admin.model.vo.TdlMemberCount;
 import com.kh.cosmos.groupware.admin.model.vo.TdlMonthlyData;
 import com.kh.cosmos.groupware.app.model.vo.TDL;
@@ -102,7 +103,32 @@ public class GwAdminDaoImpl implements GwAdminDao {
 		return session.delete("gwAdmin.deleteGroupAuthorities",param);
 	}
 
+	@Override
+	public List<Authorities> selectMemberAuthoritiesList(Map<String, Object> param) {
+		return session.selectList("gwAdmin.selectMemberAuthoritiesList",param);
+	}
+
+	@Override
+	public List<String> selectMemberAutorities(String memberId) {
+		// TODO Auto-generated method stub
+		return session.selectList("gwAdmin.selectMemberAutorities", memberId);
+	}
+
+	@Override
+	public String selectMemberAuthorities(String memberId) {
+		// TODO Auto-generated method stub
+		return session.selectOne("gwAdmin.selectMemberAuthorities", memberId);
+	}
+
+	@Override
+	public List<Authorities> selectAllAuthoritiesList(int groupNo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	
+
+
 	
 		
 	

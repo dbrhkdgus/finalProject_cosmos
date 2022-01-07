@@ -5,7 +5,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>	
-<sec:authorize access="hasAnyRole('ROLE_GW${currGroupNo}MEMBER','ROLE_GW${currGroupNo}MASTER', 'ROLE_ADMIN')">
+<sec:authorize access="hasAnyRole('ROLE_GW${currGroupNo}MEMBER','ROLE_GW${currGroupNo}MANAGER','ROLE_GW${currGroupNo}MASTER', 'ROLE_ADMIN')">
 <fmt:requestEncoding value="utf-8" />
 
 <jsp:include page="/WEB-INF/views/common/gw_header.jsp">
@@ -50,6 +50,12 @@
 	font-size: 10px;
 	margin-right: 10px;
 }
+#detailWriter{
+	text-align: right;
+	margin-right: 10px;
+	font-size: 12px;
+}
+
 #detail-modal-header,#detail-modal-footer{
 	border: 0 none;
 }
@@ -145,11 +151,13 @@
 		<div class="modal-content" style="background-color: #fffadf;">
 			<div class="modal-header" id="detail-modal-header">
 				<h5 class="modal-title font-italic" id="detailTitle">제목입니다</h5>
+				
 				<button type="button" class="close" data-bs-dismiss="modal"
 					aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
+				<p id="detailWriter""></p>
 			<div>
 				<p id="p_detailStart">- 시작일시: <span id="detailStart"></span></p>	
 				<p id="p_detailEnd">- 종료일시: <span id="detailEnd"></span></p>	
@@ -538,17 +546,17 @@ document.addEventListener('DOMContentLoaded', function() {
 					groupNo : groupNo
 				},
 				success: function(data){
-					console.log("data: "+data);
-					console.log("data.list: "+data.list);
+					console.log(data);
+					console.log(data.list);
 					result = data.list;
 					console.log("data.list.length: "+data.list.length);
 					
 
 					for(i=0; i < result.length; i++){
 
-						console.log("result[i] = "+result[i]);
-						console.log("result[i]['endDate'] = ", result[i]['endDate']);
-						console.log(new Date(result[i]['endDate']));
+						console.log('여기는for문 내부입니다.')
+						console.log(result[i])
+						
 						let date = new Date(result[i]['endDate']);
 						
 						/* fullcalendar는 종일 일정 기간에서 마지막 기간은 포함하지 않는다. 따라서 종일일정일 경우, +1일을 한다. */
@@ -561,19 +569,12 @@ document.addEventListener('DOMContentLoaded', function() {
 						console.log("테스트출력: "+$("#memberId").val());
 						let _writer = result[i]['memberId'];
 						let _loginMember = $("#memberId").val();
-						console.log("--------------------------------------")
-						console.log(typeof(_writer));
-						console.log(typeof(_loginMember));
-						console.log(_writer==_loginMember);
-						console.log("--------------------------------------")
-						
-						
+
 						if(result[i]['category'] == 'G'){
 							changeColor = input_groupColor;
 						}else{
 							changeColor = result[i]['privateColor'];
 						}
-						console.log("컬러: "+changeColor);
 						
 						calendar.addEvent({
 							title: result[i]['title'],
@@ -585,76 +586,68 @@ document.addEventListener('DOMContentLoaded', function() {
 							writer: result[i]['memberId'],
 							scheduleNo: result[i]['scheduleNo'],
 							groupColor: result[i]['groupColor'],
-							privateColor: result[i]['privateColor']
+							privateColor: result[i]['privateColor'],
+							id: result[i]['memberId']
 						})
-					}
+					}//for문 종료
 				},
 				error: console.log
 			})
 	
-		],//event Drag & Drop
- 		eventDrop: function(event, delta, newResource) {
- 			console.log("+++++++++++++++++++++++++++++++++++++++++++++++++")
-			console.log(event.event);
-			console.log("delta = "+event.delta);
-			console.log("newResource = "+event.newResource);
+		],//event[] 종료
 
-/* 	        if (allDay) {
-	            alert("Event is now all-day");
-	        }else{
-	            alert("Event has a time-of-day");
-	        }
-
-	        if (!confirm("Are you sure about this change?")) {
-	            revertFunc();
-	        } */
-
-	    },
-		
-		
-		
-		
-		
 		//일정 클릭시 상세 일정이 (포스트잇 모양의) 모달 페이지에 표시된다
 		eventClick : function(info){
+			
+
+			
+			console.log('여기는 eventClick function입니다.')
+			console.log(info);
 			//기존 모달 숨기기
 			$(".fc-popover").css('display', 'none');
 			//상세 페이지 모달 띄우기
 			$("#detailSchedule").modal("show");
-			
-			var eventObj = info.event;
+			let eventObj = info.event;
 			console.log(eventObj);
-
+			console.log('eventObj.allDay: '+eventObj.allDay);
 			/* fullcalendar는 종일 일정 기간에서 마지막 기간은 포함하지 않는다. 위에서 +1일을 해줬기에, 종일 일정일 경우 다시 -1일을 한다.*/
 			console.log("++++++++++++++++++++++++++++++++++++++++")
 			let minusDate = new Date(eventObj.end);
-			if(JSON.stringify(eventObj.allDay == 'true')){
+			console.log('JSON.stringify(eventObj.allDay): '+JSON.stringify(eventObj.allDay ));
+			if(JSON.stringify(eventObj.allDay)=='true'){
 				minusDate.setDate(minusDate.getDate()-1);				
 			}
-			console.log("변경 후: "+minusDate);
-			
-
 			console.log("++++++++++++++++++++++++++++++++++++++++")
 
 			//JSON 객체 String 타입으로 형 변환
 			//데이트 타입으로 형변환- 입력한 값보다 -1일 되서 나와야 함.
 			var detailStartDateForm = new Date(eventObj.start);
 			var detailEndDateForm = new Date(minusDate);
-			
-			//console.log("typeof: "+typeof(detailStartDateForm_direct));
-			//console.log(detailStartDateForm.getMonth)
-			
 
-			//console.log('변환값= '+ dateFormat(detailStartDateForm));
-			//console.log('종료일' + document.querySelector("#detailEnd").innerText);
+
+			
 			
 			//detail modal 값 채우기
 			$("#detailTitle").text(eventObj.title);
 			$("#detailStart").text(dateFormat(detailStartDateForm));
 			$("#detailEnd").text(dateFormat(detailEndDateForm));
 			$("#detailContent").text(eventObj.extendedProps.content).css('font-style','italic');
-			$("#detail-modal-shceduleNo").val(eventObj.extendedProps.scheduleNo);			
-			
+			$("#detail-modal-shceduleNo").val(eventObj.extendedProps.scheduleNo);
+			//일정 작성자 닉네임 가져오기
+			let nickname = '';
+			$.ajax({
+				url: `${pageContext.request.contextPath}/gw/calendar/writerNickname`,
+				data:{id:eventObj.id},
+				dataType: "JSON",
+				success(data){
+					console.log(data.nickname);
+					nickname = data.nickname;
+					$("#detailWriter").text('작성자: '+nickname);
+
+				},
+				error: console.log
+			});
+
 			//작성자 일시 상세 모달에 '삭제' 버튼이 표기된다
  			if(loginMember != eventObj.extendedProps.writer){
 				$("#detailDeleteBtn").css('display', 'none');				

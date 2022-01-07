@@ -16,9 +16,31 @@
 .fa-chevron-left, .fa-chevron-right{
 	cursor: pointer;
 }
+table{
+	border-bottom: 1px solid #435C70;
+}
 </style>
-
    <div class="container mt-5">
+            <table class="table text-center mb-4 ">
+             	<thead class="">
+             	<tr>
+	             	<th style="border-right: solid #4E6175 1px">총 회원 수</th>
+					<%@ page import="java.util.*, java.text.*" %>
+	             	<% Calendar cal = Calendar.getInstance(); %>
+	             	<th> <%= cal.get(Calendar.MONTH) + 1 %> /  <%= cal.get(Calendar.DATE) %> 가입자 수</th>
+	             	<th>이번 달 가입자 수</th>
+	             	<th>지난 달 가입자 수</th>
+             	</tr>
+             	</thead>
+             	<tbody>
+             	<tr>
+             		<td>${totalCountOfMembers}명</td>
+             		<td>${enrollTodayCount}명</td>
+             		<td>${enrollThisMonthCount}명</td>
+             		<td>${enrollLastMonthCount}명</td>
+             	</tr>
+             	</tbody>
+             </table>
     <div class="row tm-content-row">
        <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">
            <div class="tm-bg-primary-dark tm-block">
