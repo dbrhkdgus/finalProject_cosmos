@@ -14,6 +14,10 @@
     <sec:authentication property="principal" var="loginMember"/>
 </sec:authorize>
 
+<style>
+	a:link{color: black;}
+	a:visited{color: black;}
+</style>
 		<!-- Page header with logo and tagline-->
         <!-- Page content-->
         <div class="container">
