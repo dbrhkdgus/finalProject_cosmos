@@ -98,7 +98,12 @@
 	</select>
 
 	<insert id="insertMemberAuthority">
-		insert into authorities values(#{id}, 'ROLE_GW${groupNo}MEMBER')
+		<if test="type == 'insert'">
+			insert into authorities values(#{memberId}, 'ROLE_GW${groupNo}${memberRole}')
+		</if>
+		<if test="type == 'delete'">
+			delete authorities where member_id = #{memberId} and authority like '%'||#{deleteRole}||'%'
+		</if>
 	</insert>
 
 	<select id="selectTdlMonthlyDataList" resultType="TdlMonthlyData">
@@ -148,5 +153,10 @@
 		</set>  
 		where member_id =#{memberId}
 	</update>
-	
+	<select id="selectMemberAutorities" resultType="string">
+	select authority from authorities where member_id = #{memberId}
+	</select>
+	<select id="selectMemberAuthorities" resultType="string">
+	select LISTAGG(authority, ', ') from authorities where member_id = #{memberId}
+	</select>
 </mapper>

@@ -73,9 +73,9 @@ button:focus {
 				<tbody>
 
 					<c:forEach var="memberList" items="${memberList }">
-						<c:forEach var="acceptList" items="${acceptApplocationGroupList }"
+						<c:forEach var="maInfo" items="${memberAuthorityInfoList }"
 							varStatus="vs">
-							<c:if test="${memberList.id eq acceptList.memberId}">
+							<c:if test="${memberList.id eq maInfo.memberId}">
 								<c:set var="j" value="${j+1}" />
 								<form name="createBoardRoomFrm" method="post" action="${pageContext.request.contextPath }/gw/admin/memberUpdate.do?${_csrf.parameterName}=${_csrf.token}">
 								<tr>
@@ -86,12 +86,12 @@ button:focus {
 									
 									<select
 											class="boardType form-select" name="memberRole" required>
-												<option value="P"
-													<c:if test="${fn:contains(acceptList.role , 'P' )}"> selected</c:if>>일반회원</option>
-												<option value="M"
-													<c:if test="${fn:contains(acceptList.role , 'M' )}"> selected</c:if>>매니저</option>
-												<option value="G"
-													<c:if test="${fn:contains(acceptList.role , 'G' )}"> selected</c:if>
+												<option value="MEMBER"
+													<c:if test="${fn:contains(maInfo.authority , 'MEMBER' )}"> selected</c:if>>일반회원</option>
+												<option value="MANAGER"
+													<c:if test="${fn:contains(maInfo.authority , 'MANAGER' )}"> selected</c:if>>매니저</option>
+												<option value="MASTER"
+													<c:if test="${fn:contains(maInfo.authority , 'MASTER' )}"> selected</c:if>
 													 <c:if test="${apploginRole ne 'G'}"> disabled="disabled"</c:if>
 													>그룹장</option>
 										</select>
@@ -99,17 +99,17 @@ button:focus {
 										
 										
 										
-									<td><fmt:formatDate value="${acceptList.joinRegDate}"
+									<td><fmt:formatDate value="${maInfo.joinRegDate}"
 											pattern="yy-MM-dd" /></td>
 									<td>
-									<c:if test="${not (fn:contains(acceptList.role , 'G' ))}">
+									<c:if test="${not (fn:contains(maInfo.authority , 'MASTER' ))}">
 									<button type="submit" class="button-delete-member" name="gwDeleteMember" value="${acceptList.memberId}" onclick='return submit2(this.form);'>
 									<i class="far fa-trash-alt"></i>멤버추방</button>  
 									</c:if>
 										<!-- <span style="font-weight:bold;">|</span> -->
 										<button type="submit" class="button-update-member"><i class="fas fa-user-edit"></i>권한수정</button>
 										</td>
-									<input type="hidden" name="memberId" value="${acceptList.memberId}" />
+									<input type="hidden" name="memberId" value="${maInfo.memberId}" />
 									<input type="hidden" name="groupNo" value="${groupNo}" />
 								</tr>
 							 </form>

@@ -88,6 +88,25 @@ public class GwAdminController {
 				
 		}
 		
+		List<Map<String,Object>> memberAuthorityInfoList = new ArrayList<Map<String,Object>>();
+		
+		for(ApplocationGroup a : acceptApplocationGroupList) {
+			Map<String, Object> memberAuthorityInfo = new HashMap<String, Object>();
+			memberAuthorityInfo.put("memberId", a.getMemberId());
+			memberAuthorityInfo.put("joinRegDate", a.getJoinRegDate());
+			
+			String memberAuthorities = "";
+			List<String> memberAuthorityList = gwAdminService.selectMemberAutorities(a.getMemberId());
+			for(String auth : memberAuthorityList) {
+				memberAuthorities += ", " + auth;
+			}
+				memberAuthorityInfo.put("authority", memberAuthorities);
+				memberAuthorityInfoList.add(memberAuthorityInfo);
+			}
+		
+		log.debug("memberAuthorityInfoList = {}", memberAuthorityInfoList);
+		model.addAttribute("memberAuthorityInfoList",memberAuthorityInfoList);
+		
 		log.debug("member.getId() = {}" ,member.getId());
 		log.debug("apploginId = {}" ,apploginId);
 		log.debug("apploginRole = {}" ,apploginRole);
@@ -286,15 +305,35 @@ public class GwAdminController {
 		param.put("memberId", memberId);
 		param.put("groupNo", groupNo);
 		
-		try {
-			int result = gwAdminService.updateMemberRole(param);
-			int result2 = gwAdminService.updateMemberAuthorities(param);
-			redirectAttr.addFlashAttribute("msg", "권한을 수정하였습니다!");
-		} catch (Exception e) {
-			log.error("권한수정 오류!", e);
-			redirectAttr.addFlashAttribute("msg", e.getMessage());
-			throw e;
+		String memberAuthorities = gwAdminService.selectMemberAuthorities(memberId);
+		
+		
+		if(memberRole.equals("MEMBER")) {
+			if(memberAuthorities.contains("MANAGER")) {
+				param.put("type", "delete");
+				param.put("deleteRole", "MANAGER");
+				int result = gwAdminService.insertMemberAuthority(param);
+				param.put("type", "insert");
+				result = gwAdminService.insertMemberAuthority(param);
+			}else {
+				param.put("type", "insert");
+				int result = gwAdminService.insertMemberAuthority(param);
+			}
+		}else if(memberRole.equals("MANAGER")) {
+			if(memberAuthorities.contains("MEMBER")) {
+				param.put("type", "delete");
+				param.put("deleteRole", "MEMBER");
+				int result = gwAdminService.insertMemberAuthority(param);
+				param.put("type", "insert");
+				result = gwAdminService.insertMemberAuthority(param);
+			}else {
+				param.put("type", "insert");
+				int result = gwAdminService.insertMemberAuthority(param);
+			}
+		}else {
+			
 		}
+		
 		
 		return "redirect:/gw/admin/memberManager.do?groupNo=" + groupNo;
 	}

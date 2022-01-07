@@ -107,6 +107,18 @@ public class GwAdminDaoImpl implements GwAdminDao {
 		return session.update("gwAdmin.updateMemberAuthorities",param);
 	}
 
+	@Override
+	public List<String> selectMemberAutorities(String memberId) {
+		// TODO Auto-generated method stub
+		return session.selectList("gwAdmin.selectMemberAutorities", memberId);
+	}
+
+	@Override
+	public String selectMemberAuthorities(String memberId) {
+		// TODO Auto-generated method stub
+		return session.selectOne("gwAdmin.selectMemberAuthorities", memberId);
+	}
+
 	
 	
 		

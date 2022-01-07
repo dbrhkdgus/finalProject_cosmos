@@ -43,6 +43,10 @@ public interface GwAdminService {
 
 	int updateMemberAuthorities(Map<String, Object> param);
 
+	List<String> selectMemberAutorities(String memberId);
+
+	String selectMemberAuthorities(String memberId);
+
 
 
 }
