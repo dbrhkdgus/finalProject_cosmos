@@ -825,6 +825,7 @@ div.list-group1{
 
 #main {
 	margin: 0 auto;
+
 }
 #app{
 	border: 1px solid;
@@ -988,6 +989,7 @@ div.list-group1{
 }
 
 .calendar-body .calendar-row {
+ 	pointer-events: none;
     display:flex;
     height: 30px;
     border-bottom: 1px solid #ccc;   
