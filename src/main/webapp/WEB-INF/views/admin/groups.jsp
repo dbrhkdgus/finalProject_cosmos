@@ -16,14 +16,11 @@
   .selectBar{
     width: 20%;
   }
-  .disabled{
-    
-  }
+
   .form-control.validate[disabled]{
     background-color: #4E657A;
   }
 
-  
   .tableTitle{
  	width: 15%;
  	background-color: #486177;
@@ -31,9 +28,7 @@
   .tableContent{
   	background-color: ;
   }
-  #div_groupInfo{
-  	
-  }
+
   #table_groupInfo{
   	background-color: #4E657A;
     border-collapse: collapse;  	
@@ -41,13 +36,16 @@
 	width: 80%;
 	
 	height: 30vh;
-	font-size: 1vw;
+	font-size: 0.8vw;
   }
   #table_groupInfo tr{
   	border: solid 1px #435C70;
   }
   #table_list{
   	font-size: 70%;
+  }
+  #table_list tr:hover{
+  	cursor: pointer;
   }
 
 </style>
@@ -149,7 +147,7 @@
                 	<td><fmt:formatDate value="${group.groupEnrollDate }" pattern="yy-MM-dd"/> </td>
                 	<td>
 	                	<c:if test="${fn:contains(group.groupCharge,'F')}">.</c:if>
-	                	<c:if test="${fn:contains(group.groupCharge,'T')}">O</c:if>
+	                	<c:if test="${fn:contains(group.groupCharge,'P')}">O</c:if>
                 	</td>
                 	<td>
                 		<c:if test="${fn:contains(group.groupClose,'N')}">O</c:if>
@@ -157,9 +155,10 @@
                 	</td>
                 	<td>${group.groupPool }명</td>
                 	<td>
-
+						<c:if test="${fn:contains(group.groupPrivate,'P')}">O</c:if>
+						<c:if test="${fn:contains(group.groupPrivate,'U')}">.</c:if>
                 	</td>
-                	<td>${group.groupLikeCount }</td>
+                	<td>${group.groupLikeCount}</td>
                 </tr>
                 
                 </c:forEach>
@@ -269,7 +268,7 @@ $(".selectOne").click((e)=>{
  			data.group.groupCharge=='F'? $("#table_charge").text('X') : $("#table_charge").text('O');
  			data.group.groupPrivate=='U'? $("#table_private").text('X'):$("#table_private").text('O');
 			$("#table_likeCount").text(data.group.groupLikeCount);
-			data.group.groupClose=='Y'? $("#table_close").text('O'):$("#table_close").text('X');
+			data.group.groupClose=='Y'? $("#table_close").text('X'):$("#table_close").text('O');
 			$("#table_pool").text(data.group.groupPool+'명');
 			$("#table_leader").text(data.leader.memberId); 
 			$("#table_member").text(data.str_memberList);

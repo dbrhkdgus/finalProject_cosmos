@@ -93,7 +93,6 @@
              </table>
              
              <div class="row tm-content-row">
-             	<div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">
 					<table class="table text-center">
 		             	<thead>
 		             	<tr>
@@ -107,297 +106,25 @@
 		             			<td style="border-right: solid #4E6175 1px">${fn:substring(monthData,1,8)}</td>
 		             			<td style="border-right: solid #4E6175 1px">
 		             				<fmt:parseNumber var="i" type="number" value="${fn:substring(monthData,9,10)}" />
-		             				<c:out value="${i*10000}"/> 
+		             				<fmt:formatNumber type="currency">${i*10000}</fmt:formatNumber>  
 		             			</td>
 		             		</tr>
 		             	</c:forEach>					
 		             	</tbody>
 		             </table>
-             	</div>
-<!--  테스트-->
 
              </div>
-             
 
-<!--               <label class="form-check-label mr-5 statisticsOf" for="flexRadioDefault1">리뷰 수</label>
-              <br><br>
-              <form action="#" name="dateSet" id="dateForm">
-                <p class="text-white mt-3">- 기간 설정</p>
-                <div class="form-group d-flex">
-                  <input
-                  id="startDate"
-                  name="startDate"
-                  type="date"
-                  class="form-control validate col-5 mr-4"
-                  value="2021-12-15"
-                  />
-                  <input
-                  id="endDate"
-                  name="endDate"
-                type="date"
-                class="form-control validate col-5 mr-3"
-                value="2021-12-21"
-              />
-              <button class="btn btn-secondary" type="submit">검색</button>
-            </div>
-          </form> -->
             </div>
             
-            <!-- 차트가 바뀌어야 함. include로 상황에 맞춰서  -->
-          	<ul id="chartList">
-          		<li id="firstTap">총 게시글&nbsp&nbsp|</li>
-          		<li id="secondTap">카테고리</li>
-          	</ul>
-          <div id="div_chart">
-	      	<canvas id="pie-chart" class="col-12"></canvas>
-          </div>
-            <div></div>
-          <!--  -->
+
+
           </div>
           
         </div>
 
       </div>
 
-<script>
-console.log($("#pie-chart").parents("div"));
-
-let labels = [];
-let counts = [];
-let chart = new Chart(document.getElementById("pie-chart"))
-let config = {
-	    type: 'pie',
-	    data: {
-	      labels: labels,
-	      datasets: [{
-	        label: "Population (millions)",
-	        backgroundColor: ["#EFC7D6","#BDE4D7", "#CCE2EE","#FACDCA","#F3E3AE","#D8DCEB","#E2D9E7"],
-	        data: counts
-	      }]
-	    },
-	    options: {
-	      title: {
-	        display: true,
-	        text: '카테고리 별 모임 수',
-	        fontColor: 'white',
-	        fontSize: 13
-	      }, 
-	      legend: {
-	    	  labels: {
-	    		  fontColor: "white",
-	    		  fontSize: 12
-	    	  }
-	      },
-	    }
-	};
-
-
-(()=>{
-	let totalCountOfPost_arr = [];
-	let labels_arr = [];
-	/* 남녀 성별 기본 데이터 불러오기 */
-	$.ajax({
-		url: `${pageContext.request.contextPath}/admin/totalCountOfPost`,
-		dataType: "json",
-		success: function(data){
-			for(i=0; i<data.length; i++){
-				totalCountOfPost_arr.push(data[i].column);
-				labels_arr.push(data[i].count);
-			}
-			console.log('totalCountOfPost_array: '+totalCountOfPost_arr);
-
-		config = {};	
-		config = {
-			    type: 'pie',
-			    data: {
-			      labels: [],
-			      datasets: [{
-			        label: "",
-			        backgroundColor: ["#EFC7D6","#BDE4D7", "#CCE2EE","#FACDCA","#F3E3AE","#D8DCEB","#E2D9E7"],
-			        data: []
-			      }]
-			    },
-			    options: {
-			      title: {
-			        display: true,
-			        text: '총 게시글 많은 모임 순',
-			        fontColor: 'white',
-			        fontSize: 13
-			      }, 
-			      legend: {
-			    	  labels: {
-			    		  fontColor: "white",
-			    		  fontSize: 12
-			    	  }
-			      },
-			    }
-			};
-			config.data.labels = totalCountOfPost_arr;
-			config.data.datasets[0].data = labels_arr;
-			
-			new Chart(document.getElementById("pie-chart"),config);
-			
-		},
-		error: console.log
-	});
-})()
-
-//총 게시글 Tab 클릭시
-$("#secondTap").click((e)=>{
-	$.ajax({
-		url: `${pageContext.request.contextPath}/admin/statisticsCategory`,
-		dataType: "json",
-		success(data){
-			console.log(data);
-			console.log(data.list[0]["column"]);
-			console.log(data.list.length);
-			let labels = [];
-			let counts = [];
-			for(i = 0; i < data.list.length; i++){
-				labels.push(data.list[i]["column"]);
-				counts.push(data.list[i]["count"]);
-			}
-
-			config = {
-			    type: 'pie',
-			    data: {
-			      labels: labels,
-			      datasets: [{
-			        label: "Population (millions)",
-			        backgroundColor: ["#EFC7D6","#BDE4D7", "#CCE2EE","#FACDCA","#F3E3AE","#D8DCEB","#E2D9E7"],
-			        data: counts
-			      }]
-			    },
-			    options: {
-			      title: {
-			        display: true,
-			        text: '카테고리 별 모임 수',
-			        fontColor: 'white',
-			        fontSize: 13
-			      }, 
-			      legend: {
-			    	  labels: {
-			    		  fontColor: "white",
-			    		  fontSize: 12
-			    	  }
-			      },
-			    }
-			};
-			
-			$("#pie-chart").remove();
-			$("#div_chart").append('<canvas id="pie-chart" class="col-12"></canvas>');
-			new Chart(document.getElementById("pie-chart"),config);
-
-		},
-		error: console.log
-	})
-})
-
-//총 게시글 Tab 클릭시
-$("#firstTap").click((e)=>{
-	let totalCountOfPost_arr = [];
-	let labels_arr = [];
-	$.ajax({
-		url: `${pageContext.request.contextPath}/admin/totalCountOfPost`,
-		dataType: "json",
-		success: function(data){
-			for(i=0; i<data.length; i++){
-				totalCountOfPost_arr.push(data[i].column);
-				labels_arr.push(data[i].count);
-			}
-			console.log('totalCountOfPost_array: '+totalCountOfPost_arr);
-
-
-			$("#pie-chart").remove();
-			$("#div_chart").append('<canvas id="pie-chart" class="col-12"></canvas>');
-			
-			config = {
-				    type: 'pie',
-				    data: {
-				      labels: [],
-				      datasets: [{
-				        label: "",
-				        backgroundColor: ["#EFC7D6","#BDE4D7", "#CCE2EE","#FACDCA","#F3E3AE","#D8DCEB","#E2D9E7"],
-				        data: []
-				      }]
-				    },
-				    options: {
-				      title: {
-				        display: true,
-				        text: '총 게시글 많은 모임 순',
-				        fontColor: 'white',
-				        fontSize: 13
-				      }, 
-				      legend: {
-				    	  labels: {
-				    		  fontColor: "white",
-				    		  fontSize: 12
-				    	  }
-				      },
-				    }
-				};
-			
-			config.data.labels = totalCountOfPost_arr;
-			config.data.datasets[0].data = labels_arr;
-			
-			new Chart(document.getElementById("pie-chart"),config);
-			
-		},
-		error: console.log
-	});
-})
-
-//
-$("#secondTap").click((e)=>{
-	$.ajax({
-		url: `${pageContext.request.contextPath}/admin/statisticsCategory`,
-		dataType: "json",
-		success(data){
-			console.log(data);
-			//기존 차트 제거
-			$("#pie-chart").remove();
-
-			let labels = [];
-			let counts = [];
-			for(i = 0; i < data.list.length; i++){
-				labels.push(data.list[i]["column"]);
-				counts.push(data.list[i]["count"]);
-			}
-
-			
-			config = {
-				    type: 'pie',
-				    data: {
-				      labels: labels,
-				      datasets: [{
-				        label: "Population (millions)",
-				        backgroundColor: ["#EFC7D6","#BDE4D7", "#CCE2EE","#FACDCA","#F3E3AE","#D8DCEB","#E2D9E7"],
-				        data: counts
-				      }]
-				    },
-				    options: {
-				      title: {
-				        display: true,
-				        text: '카테고리 별 모임 수',
-				        fontColor: 'white',
-				        fontSize: 13
-				      }, 
-				      legend: {
-				    	  labels: {
-				    		  fontColor: "white",
-				    		  fontSize: 12
-				    	  }
-				      },
-				    }
-				};
-			$('#div_chart').html('<canvas id="pie-chart" class="col-12"></canvas>'); 
-			let barctxx = document.getElementById('pie-chart').getContext('2d');
-			let newBarChart = new Chart(barctxx,config);
-		},
-		error: console.log
-	})
-})
-</script>
 
 <jsp:include page="/WEB-INF/views/common/ad_footer.jsp">
 	<jsp:param value="COSMOS" name="title"/>

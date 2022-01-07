@@ -241,7 +241,7 @@ let config = {
 			    		  fontColor: "white",
 			    		  fontSize: 12
 			    	  }
-			      },
+			      }
 			    }
 			};
 			config.data.labels = totalCountOfPost_arr;

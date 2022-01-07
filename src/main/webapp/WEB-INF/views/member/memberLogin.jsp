@@ -49,6 +49,7 @@ $(() => {
 </script>
 </head>
 <body>
+
 	<div class="modal fade" id="loginModal" tabindex="-1" role="dialog"
 		aria-labelledby="loginModalLabel" aria-hidden="true">
 		<div class="modal-dialog align-middle"
@@ -66,6 +67,9 @@ $(() => {
 				<form:form name="loginForm" class="form-signin" method="POST"
 					action="${pageContext.request.contextPath}/member/memberLogin.do">
 					<h5 class="form-signin-heading text-center">로그인</h5>
+					<c:if test="${param.error != null}">
+						<span class="text-danger">아이디 또는 비밀번호가 일치하지 않습니다.</span>
+					</c:if>
 					<label for="inputEmail" class="sr-only">Your ID</label>
 					<input type="text" id="uid" class="form-control" placeholder="Your ID" required autofocus name="id"><BR>
 						<label for="inputPassword" class="sr-only">Password</label>
@@ -74,7 +78,6 @@ $(() => {
 						<label> <input type="checkbox" value="remember-me">
 							기억하기
 						</label>
-						<input type="button" value="카카오 로그아웃" onclick="kakaoLogout();" />
 					</div>
 					<div class="mx-auto d-block">
 						<button class="btn btn-lg btn-outline-warning btn-block" type="button" onclick="kakaoLogin();">카카오 login</button>
@@ -173,6 +176,10 @@ $(() => {
 	      Kakao.Auth.setAccessToken(undefined)
 	    }
 	  };
+	  /* 회원 가입 페이지 연결 */
+	  $("#btn-enroll").click((e)=>{
+		 location.href = "${pageContext.request.contextPath}/member/memberAPIEnroll.do" 
+	  });
 	</script>
 </body>
 </html>

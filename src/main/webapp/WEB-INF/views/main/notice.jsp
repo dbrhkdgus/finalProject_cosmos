@@ -58,7 +58,7 @@ $(()=>{
 	  </tbody>
 	</table>
 	<sec:authorize access="hasRole('ADMIN')">
-	<button type="button" class="btn btn-primary float-right" onclick="goNoticeForm();">작성하기(관리자만)</button>
+	<button type="button" class="btn btn-primary float-right" onclick="goNoticeForm();">작성하기</button>
 	</sec:authorize>
 	${pagebar}
 </div>
