@@ -39,5 +39,8 @@ public interface GwAdminDao {
 
 	List<TdlMonthlyData> selectTdlMonthlyMemberCountList(int groupNo);
 
+	int deleteGroupAuthorities(Map<String, Object> param);
+
+
 
 }
