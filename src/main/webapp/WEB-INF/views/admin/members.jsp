@@ -23,6 +23,9 @@
 	.form-control:disabled, .form-control[readonly] {
 	    background-color: #4E657A;
 	}
+	#memberTable tr{
+		cursor: pointer;
+	}
   </style>
 
       <div class="container mt-5">
