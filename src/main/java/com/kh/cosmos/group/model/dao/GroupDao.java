@@ -97,6 +97,8 @@ public interface GroupDao {
 
 	int deleteInterestGroupByParam(Map<String, Object> param);
 
+	int deleteGroup(int groupNo);
+
 
 
 
