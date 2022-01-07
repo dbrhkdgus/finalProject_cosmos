@@ -46,7 +46,7 @@
                 </thead>
                 <tbody>
 	                <c:forEach var="notA" items="${notApprovedAG}">
-	                  <tr class="selectOne">
+	                  <tr class="selectOne" style="cursor:pointer;">
 	                    <td>${notA.groupNo}</td>
 	                    <c:forEach var="allGroup" items="${groupList}">
 	                    	<c:if test="${notA.groupNo == allGroup.groupNo}">
@@ -131,7 +131,7 @@
               <div class="tm-avatar-container">
                 <img
                   id="profileImg"
-                  src="${pageContext.request.contextPath}/resources/images/avatar.png"
+                  src="/cosmos/resources/upFile/group/group-banner-default.png"
                   alt="Avatar"
                   class="tm-avatar img-fluid mb-4"
                 />
