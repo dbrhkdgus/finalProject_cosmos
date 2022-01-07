@@ -30,7 +30,7 @@ main {
 ::-webkit-scrollbar-thumb {background-color:#D7ECFB;border-radius: 10px;}
 
 ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
-width:16px;height:16px;background:#36A2EB;} 
+width:16px;height:10px;background:#36A2EB;} 
 .b-example-divider {
   flex-shrink: 0;
   /* width: 1.5rem; */
@@ -358,7 +358,7 @@ div.list-group1{
 .test-member-profile{
   display: flex;
   padding-left: 1rem;
-  margin-bottom: 0.6rem;
+  margin-bottom: 1rem;
 }
 .test-member-list{
   width: 20%;
@@ -369,6 +369,7 @@ div.list-group1{
   border-radius: 70%;
   margin-right: 0.5rem;
   overflow: hidden;
+  border: 2px solid #eee;
 }
 .member-profile-img{
   width: 100%;

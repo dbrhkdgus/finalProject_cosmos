@@ -15,13 +15,11 @@
 	<!-- 그룹원 리스트 (확장버전) -->
 	 <div class="test-member-list bg-light">
 	 	<!-- <button style="width: 100%">controll</button> -->
-	 	<div class="memberList-size-controll-box mb-3" style="cursor: pointer;">
-		 	<svg id="arrow-to-smaller" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-double-right" viewBox="0 0 16 16">
-			  <path fill-rule="evenodd" d="M3.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L9.293 8 3.646 2.354a.5.5 0 0 1 0-.708z"/>
-			  <path fill-rule="evenodd" d="M7.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L13.293 8 7.646 2.354a.5.5 0 0 1 0-.708z"/>
-			</svg> <span class="ml-3">그룹멤버</span>
+	 	<div class="memberList-size-controll-box mb-3" style="cursor: pointer;margin-top: 17px; margin-left: 22px;">
+		 	<i class="fas fa-angle-double-right" style=" font-size: 1.3rem;"></i> <span class="ml-3" style=" font-size: 1.3rem;">그룹멤버</span>
 	 	</div>
-          <div class="online-member-list">
+
+          <div class="online-member-list mt-4">
 <!--             <div class="on-off-text">
               <p class="on-text">온라인 - 3</p>
             </div> -->
@@ -66,13 +64,10 @@
 	
     <!-- 그룹원 리스트(축약버전) (오른쪽) -->
      <div class="test-member-list-small bg-light">
-     	 <div class="memberList-size-controll-box mb-3" style="cursor: pointer;">
-			<svg id="arrow-to-bigger" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-double-left" viewBox="0 0 16 16">
-			  <path fill-rule="evenodd" d="M8.354 1.646a.5.5 0 0 1 0 .708L2.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
-			  <path fill-rule="evenodd" d="M12.354 1.646a.5.5 0 0 1 0 .708L6.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
-			</svg>
+     	 <div class="memberList-size-controll-box mb-3" style="cursor: pointer; margin-top: 17px; margin-left: 22px;">
+			<i class="fas fa-angle-double-left" style=" font-size: 1.3rem;"></i>
 	 	</div>
-      <div class="online-member-list">
+      <div class="online-member-list mt-4">
 		<c:forEach var="member" items="${myGroupMemberList }">
 	        <div class="test-member-profile">
 	          <div class="member-profile-img-box">
