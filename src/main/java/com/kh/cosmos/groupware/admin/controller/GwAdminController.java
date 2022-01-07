@@ -157,27 +157,43 @@ public class GwAdminController {
 //		log.debug("checkedToDoList = {}" ,checkedToDoList);
 		model.addAttribute("checkedToDoList",checkedToDoList);
 
-		List<TdlMonthlyData> tdlMonthlyDataList = new ArrayList<TdlMonthlyData>();
-		tdlMonthlyDataList = gwAdminService.selectTdlMonthlyDataList(groupNo);
-//		log.debug("tdlMonthlyDataList = {}" ,tdlMonthlyDataList);
-		model.addAttribute("tdlMonthlyDataList",tdlMonthlyDataList);
 		
 		List<TdlMonthlyData> tdlMonthlyMemberCountList = new ArrayList<TdlMonthlyData>();
 		tdlMonthlyMemberCountList =gwAdminService.selectTdlMonthlyMemberCountList(groupNo);
 //		log.debug("tdlMonthlyMemberCountList = {}" ,tdlMonthlyMemberCountList);
+		
+		List<TdlMonthlyData> tdlMonthlyDataList = new ArrayList<TdlMonthlyData>();
+		tdlMonthlyDataList = gwAdminService.selectTdlMonthlyDataList(groupNo);
+//		log.debug("tdlMonthlyDataList = {}" ,tdlMonthlyDataList);
+		model.addAttribute("tdlMonthlyDataList",tdlMonthlyDataList);
+
+		 
 
 		List<Map<String,Object>> totalTdlAvgltList = new ArrayList<>();
-			for(TdlMonthlyData tdl : tdlMonthlyMemberCountList ) {
+		for(TdlMonthlyData tdl : tdlMonthlyMemberCountList ) {
 			Map<String,Object> tdlMonthlyMemberCountMap = new HashMap<String, Object>();
+			
 			tdlMonthlyMemberCountMap.put("monthlyData",tdl.getMonthlyData());
 			tdlMonthlyMemberCountMap.put("avg",(tdl.getCount() / tdl.getMemberCount()));
 			totalTdlAvgltList.add(tdlMonthlyMemberCountMap);
 			}
+		
+		List<Map<String,Object>> tdlHalfYearTotalltList = new ArrayList<>();
+		for(TdlMonthlyData tdl : tdlMonthlyMemberCountList ) {
+			for(TdlMonthlyData tdlTotal : tdlMonthlyDataList ) {
+				Map<String,Object> tdlTotalCountMap = new HashMap<String, Object>();
+				tdlTotalCountMap.put("Month", tdlTotal.getMonthlyData());
+				tdlTotalCountMap.put("totalAvg", tdlTotal.getCount() / tdl.getMemberCount());
+				tdlHalfYearTotalltList.add(tdlTotalCountMap);
+			}
+			break;
+		}
 			
-		//	log.debug("totalTdlAvgltList = {}" ,totalTdlAvgltList);
+			log.debug("tdlHalfYearTotalltList = {}" ,tdlHalfYearTotalltList);
 		
 		
 			
+			model.addAttribute("tdlHalfYearTotalltList",tdlHalfYearTotalltList);
 			model.addAttribute("totalTdlAvgltList",totalTdlAvgltList);
 		
 		return "gw/admin/groupManager";

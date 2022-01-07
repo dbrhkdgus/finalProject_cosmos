@@ -50,11 +50,11 @@
 			</c:forEach>
 		</c:forEach>
 		
-		<c:forEach items="${tdlMonthlyDataList}" var="tdlMonthlyDataList">
-			monthList.push("${tdlMonthlyDataList.monthlyData}");
-			monthCountList.push("${tdlMonthlyDataList.count}");
+		<c:forEach items="${tdlHalfYearTotalltList}" var="tdlHalfYearTotalltList">
+			monthList.push("${tdlHalfYearTotalltList.Month} ");
+			monthCountList.push("${tdlHalfYearTotalltList.totalAvg}");
 		</c:forEach>
-		
+		console.log(monthCountList);
 		
 		
 		
@@ -62,8 +62,7 @@
 		<c:forEach items="${totalTdlAvgltList}" var="avgList">
 			avgMonthCountList.push(${avgList.avg});
 		</c:forEach>
-		
-		
+	
 		var colors = [ 'rgba(255, 99, 132, 0.2)',
             'rgba(255, 159, 64, 0.2)',
             'rgba(255, 205, 86, 0.2)',
