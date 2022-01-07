@@ -293,6 +293,7 @@
           <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
             <li><a href="${pageContext.request.contextPath }/gw/admin/groupManager.do?groupNo=${currGroupNo}" class="link-dark rounded">스터디 활동량</a></li>
             <li><a href="${pageContext.request.contextPath }/gw/admin/memberManager.do?groupNo=${currGroupNo}" class="link-dark rounded">그룹 가입 요청 & 멤버 관리</a></li>
+            <li><a id="btn-delte-group" style="cursor: pointer;" class="link-dark rounded">그룹 삭제</a></li>
           </ul>
         </div>
       </li>
@@ -526,13 +527,43 @@
   </div>
 </div>
 
-<!-- 채팅방 삭제를 위한 스크립트. 그룹장 or admin일때만 아래의 스크립트 작성 -->
-<sec:authorize access="hasAnyRole('ROLE_GW${currGroupNo}MASTER', 'ROLE_ADMIN')">
-<script>
+<!-- 그룹 삭제 모달 -->
+<div class="modal fade" id="deleteGroupModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold text-danger" >그룹 삭제</h4>
+        <button type="button" class="close close-modal" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form:form id="updateDeleteChatRoomFrm" name="updateDeleteChatRoomFrm" method="post" action="${pageContext.request.contextPath }/gw/chat/updateChatRoom.do">
+	      <div class="updateDeleteChatRoomForm-height-set" style="overflow-y: auto; height: 69vh;">
+		      <div class="modal-body mx-3 my-2">
+		        <div class="md-form mb-3" style="text-align: center;">
 
-</script>
-</sec:authorize>
-
+			        	<p>그룹 삭제 시, 그룹과 관련한 모든 정보가 삭제됩니다.</p>
+			        	<p>그룹 삭제는 신중하게 진행해 주시기 바랍니다.</p>
+						<hr />
+		        
+		          <label  for="defaultForm-email">삭제를 위해 다음 문장을 정확히 기입해주세요.</label>
+		          <p>"<span class="delete-group-sentence text-info">${myGroup.groupName }을 삭제합니다.</span>"</p>
+		          
+		          <label for="delete-group-check">입력란 : </label>
+		          <input type="text" id="delete-group-check" />
+		        </div>
+		      </div>
+		      <input type="hidden" name="groupNo" value="${currGroupNo}" />
+	      </div>
+      </form:form>
+      <div class="modal-footer d-flex justify-content-center">
+        <button class="btn btn-deleteGroup">삭제</button>
+        <button class="btn close-modal">취소</button>
+      </div>
+    </div>
+  </div>
+</div>
  <script>
 
  $(".div_sub").click((e)=>{
@@ -558,6 +589,7 @@ $(".btn-createChatRoom").click((e)=>{
 	 $("#updateBoardRoomModal").modal('hide');
 	 $("#createVoiceChatRoomModal").modal('hide');
 	 $("#updateChatRoomModal").modal('hide');
+	 $("#deleteGroupModal").modal('hide');
  });
 
  $("input[name=chatRoomOpenType]").change((e)=>{
@@ -814,6 +846,37 @@ $(".btn-createChatRoom").click((e)=>{
 			}
 		});
 	});
+ /* 그룹삭제 */
+ $("#btn-delte-group").click((e)=>{
+	$("#deleteGroupModal").modal('show');
+ });
+ $(".btn-deleteGroup").click((e)=>{
+	 if($(".delete-group-sentence").text() == $("#delete-group-check").val()){
+		 $.ajax({
+			url : "${pageContext.request.contextPath}/group/deleteGroup.do",
+			method : "post",
+			headers: {
+				"${_csrf.headerName}" : "${_csrf.token}"
+		 	},
+			data : {
+				groupNo : "${currGroupNo}"
+			},
+			success(res){
+				if(res > 0){
+					alert("그룹이 삭제되었습니다.");
+					location.href = "${pageContext.request.contextPath}/";
+				}
+			},
+			error : console.log
+		 });
+		 
+		 
+		 
+		 
+	 }else{
+		 alert("입력 정보가 일치하지 않습니다.");
+	 }
+ });
  
  </script>
  </sec:authorize>
