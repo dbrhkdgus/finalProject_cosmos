@@ -150,7 +150,10 @@
 		
 	<hr />
 
-	<h2>BEST</h2>
+	<div class="d-flex align-items-center my-3">
+		<img src="https://i.ibb.co/L5B7N3z/thumbs-up.png" style="width: 3%; height: 3%"  alt="" />
+		<h2 class="ml-2 mt-2 mb-0">BEST</h2>
+	</div>
 	<div id="best-box" class="index-group-list" style="height: 430px;">
 
 
@@ -164,7 +167,10 @@
 	</div>
 	<br />
 	<hr />
-	<h2>NEW</h2>
+	<div class="d-flex align-items-center my-3">
+		<img src="https://i.ibb.co/0C05fNf/flame.png" style="width: 3%; height: 3%"  alt="" />
+		<h2 class="ml-2 mt-2 mb-0">NEW</h2>
+	</div>
 		<div id="new-box" class="index-group-list" style="height: 430px;">
 
 		
@@ -440,11 +446,11 @@ window.addEventListener("load", function(){
 			const {numOfMember, groupPool} = data;
 			$.each(data, (k,v)=>{
 				$("#best-box").append(`
-						<div class="card mb-4 search-card" style="width: 350px; height: 420px; cursor: pointer;"
+						<div class="card mb-4 search-card" style="width: 350px; height: 450px; cursor: pointer;"
 							onclick="location.href='${pageContext.request.contextPath}/group/groupDetail.do?groupNo=\${v.groupNo}'">
 	                        
                            	<img class="card-img-top" 
-                           	style = "width: 100%; height: 60%;"
+                           	style = "width: 100%; height: 59%;"
                            	src="${pageContext.request.contextPath }/resources/upFile/group/\${v.renamedFilename}"
                                    alt="..." />
 	                        
@@ -465,16 +471,15 @@ window.addEventListener("load", function(){
                             	
                         		<span class="card-text text-white border rounded p-1" style="margin-bottom: 5px; background-color: #b8b8b8;">\${v.category2Name}</span>
 	                        
-	                        <div class="search-inner-button">
-	                        <!--좋아요 기능구현 해보는중  -->
-		                        <!-- <div class="like-button-outer">
-			                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-suit-heart-fill text-danger" viewBox="0 0 16 16">
+	                     </div>
+	                        <div class="search-inner-button mr-3 mb-1">
+		                        <div class="like-button-outer d-flex align-items-center">
+			                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-suit-heart-fill text-danger" viewBox="0 0 16 16">
 			                        	<path d="M4 1c2.21 0 4 1.755 4 3.92C8 2.755 9.79 1 12 1s4 1.755 4 3.92c0 3.263-3.234 4.414-7.608 9.608a.513.513 0 0 1-.784 0C3.234 9.334 0 8.183 0 4.92 0 2.755 1.79 1 4 1z"/>
 			                        </svg>
-	                           		<span> \${v.groupLikeCount}</span>
-			                     </div> -->
+		                       		<p class="mt-1 mb-0 ml-1"> \${v.groupLikeCount}</p>
+			                     </div>
                         	</div>
-	                     </div>
 	                   </div>
 						`);
 	 			 if(v.numOfMember == v.groupPool){
@@ -515,10 +520,10 @@ window.addEventListener("load", function(){
 		success(data){
 			$.each(data, (k,v)=>{
 				$("#new-box").append(`
-						<div class="card mb-4 search-card" style="width: 350px; height: 420px; cursor: pointer;"
+						<div class="card mb-4 search-card" style="width: 350px; height: 450px; cursor: pointer;"
 							onclick="location.href='${pageContext.request.contextPath}/group/groupDetail.do?groupNo=\${v.groupNo}'">
 	                            	<img class="card-img-top" 
-	                            	style = "width: 100%; height: 60%;"
+	                            	style = "width: 100%; height: 57%;"
 	                            	src="${pageContext.request.contextPath }/resources/upFile/group/\${v.renamedFilename}"
 	                                    alt="..." />
 	                        
@@ -536,16 +541,10 @@ window.addEventListener("load", function(){
                             	
                             	<span class="card-text text-white border rounded p-1" style="margin-bottom: 5px; background-color: #b8b8b8;">\${v.category2Name}</span>
     	                        
-    	                        <div class="search-inner-button">
-    	                        <!--좋아요 기능구현 해보는중  -->
-    		                        <div class="like-button-outer">
-				                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-suit-heart-fill text-danger" viewBox="0 0 16 16">
-				                        	<path d="M4 1c2.21 0 4 1.755 4 3.92C8 2.755 9.79 1 12 1s4 1.755 4 3.92c0 3.263-3.234 4.414-7.608 9.608a.513.513 0 0 1-.784 0C3.234 9.334 0 8.183 0 4.92 0 2.755 1.79 1 4 1z"/>
-				                        </svg>
-		                           		<span> \${v.groupLikeCount}</span>
-    			                     </div>
-                            	</div>
     	                     </div>
+    	                        <div class="search-inner-button mr-3 mb-1">
+   		                        	<img src="https://i.ibb.co/F6B6n2K/new.png" style="width: 8.5%; height:8.5%" alt="" />
+                            	</div>
     	                   </div>
 						`);
 				 if(v.numOfMember == v.groupPool){
