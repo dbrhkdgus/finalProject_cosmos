@@ -65,7 +65,7 @@
 									<label for="present_address"
 										class="col-md-4 col-form-label text-md-right">현재 비밀번호</label>
 									<div class="col-md-6 group-text-input">
-										<input type="password"  class="form-control" name="currpassword" placeholder="비밀번호를 변경하려면 현재 비밀번호를 입력하세요." >
+										<input type="password"  class="form-control" name="currpassword" placeholder="비밀번호를 변경 또는 회원탈퇴를 하려면 현재 비밀번호를 입력하세요." >
 									</div>
 								</div>
 								
@@ -183,7 +183,7 @@
 							</div>
 
 
-							<div class="col-md-6 offset-md-4 group-create-button">
+							<div class="col-md-6 offset-md-4 group-create-button" style="justify-content: space-around;">
 								<button type="submit" class="btn btn-primary">정보수정</button>
 								<button id="delete-member" type="button" class="btn btn-primary">회원탈퇴</button>
 							</div>
@@ -236,6 +236,7 @@ function setImageFromFile(input, expression) {
 };
 
 $(".new-pwd-box").hide();
+$("#delete-member").hide();
 $("input[name=currpassword]").blur((e)=>{
 	let data ={
 		id : $("input[name=id]").val(),
@@ -256,6 +257,7 @@ $("input[name=currpassword]").blur((e)=>{
 				console.log(res);
 				if(res){
 					$(".new-pwd-box").show();
+					$("#delete-member").show();
 					$("input[name=currpassword]").attr('readonly',true);
 				}else{
 					
