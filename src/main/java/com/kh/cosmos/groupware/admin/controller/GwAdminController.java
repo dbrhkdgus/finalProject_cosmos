@@ -288,6 +288,7 @@ public class GwAdminController {
 		
 		try {
 			int result = gwAdminService.updateMemberRole(param);
+			int result2 = gwAdminService.updateMemberAuthorities(param);
 			redirectAttr.addFlashAttribute("msg", "권한을 수정하였습니다!");
 		} catch (Exception e) {
 			log.error("권한수정 오류!", e);
