@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.kh.cosmos.group.model.vo.MemberInterestGroup;
 
 import lombok.AllArgsConstructor;
@@ -21,6 +22,7 @@ public class JoinAllGroupInfo implements Serializable {
 
 	private int groupNo;
 	private String groupName;
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy/MM/dd")
 	private Date groupEnrollDate;
 	private int groupLikeCount;
 	private char groupClose;

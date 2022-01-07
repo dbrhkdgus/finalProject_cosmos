@@ -97,6 +97,12 @@ public class GwAdminDaoImpl implements GwAdminDao {
 		return session.selectList("gwAdmin.tdlMonthlyMemberCountList",groupNo);
 	}
 
+	@Override
+	public int deleteGroupAuthorities(Map<String, Object> param) {
+		return session.delete("gwAdmin.deleteGroupAuthorities",param);
+	}
+
+	
 	
 		
 	

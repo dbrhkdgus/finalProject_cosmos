@@ -372,12 +372,6 @@ var showMemberInfo = $(".selectOne").click((e)=>{
 			
 		},
 		error: console.log
-	/* Promise 사용해보기. */
-	}).then(function(result,status,responseObj){
-		console.log("여기는 Promise 함수입니다.");
-		console.log("Promise함수: calledId = "+calledId);
-		console.log("Promise함수: fileName = "+fileName);
-	
 	});
 })
 
@@ -391,7 +385,7 @@ $("#blackListBtn").click((e)=>{
 		alert("먼저 회원을 선택해주세요."); 
 		return false;
 	}
-		
+	console.log('행에 있는 값: '+$("#enabled").val())
 
 	var targetMember = document.getElementById('id').value; 
     var changeMemberEnabled = 'tr-'+targetMember;
@@ -405,17 +399,24 @@ $("#blackListBtn").click((e)=>{
 		dataType: "json",
 		success(data){
 			console.log(data);
-			alert("변경이 완료되었습니다.");
 			console.log($("#enabled").val())
 			if($("#enabled").val()=='true'){
 			  document.getElementById('blackListBtn').className = 'btn btn-success btn-block text-uppercase';
 			  document.getElementById('blackListBtn').innerText = '블랙리스트 회원 해제';
-			  document.getElementById(changeMemberEnabled).children[6].innerText='O'	  				  
+			  document.getElementById(changeMemberEnabled).children[6].innerText='O';
+			  $("#enabled").val("false");
+			  console.log('바뀐 값: '+$("#enabled").val());
 			}else{
 			  document.getElementById('blackListBtn').className = 'btn btn-primary btn-block text-uppercase';
 			  document.getElementById('blackListBtn').innerText = '블랙리스트 회원 등록';
-			  document.getElementById(changeMemberEnabled).children[6].innerText='.'	  				  
+			  document.getElementById(changeMemberEnabled).children[6].innerText='.';
+			  $("#enabled").val("true");
+			  console.log('바뀐 값: '+$("#enabled").val());
 			}
+		},
+		complete: function(){
+			alert("변경이 완료되었습니다.");
+
 		},
 		error: console.log
 	});
