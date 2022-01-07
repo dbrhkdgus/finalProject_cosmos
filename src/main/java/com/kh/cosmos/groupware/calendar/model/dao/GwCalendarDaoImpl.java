@@ -54,6 +54,11 @@ public class GwCalendarDaoImpl implements GwCalendarDao {
 		return session.selectOne("calendar.selectGroupColor", groupNo);
 	}
 
+	@Override
+	public String writerNickname(String id) {
+		return session.selectOne("calendar.writerNickname", id);
+	}
+
 
 
 
