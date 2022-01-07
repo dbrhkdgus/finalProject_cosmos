@@ -251,6 +251,12 @@ public class GroupDaoImpl implements GroupDao {
 		return session.delete("group.deleteGroup", groupNo);
 	}
 
+	@Override
+	public int deleteAuthoritiesRelatedGroup(String groupNo) {
+		// TODO Auto-generated method stub
+		return session.delete("group.deleteAuthoritiesRelatedGroup", groupNo);
+	}
+
 
 	
 	

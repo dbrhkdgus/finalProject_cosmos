@@ -248,6 +248,12 @@ public class GroupServiceImpl implements GroupService {
 		return groupDao.deleteGroup(groupNo);
 	}
 
+	@Override
+	public int deleteAuthoritiesRelatedGroup(String groupNo) {
+		// TODO Auto-generated method stub
+		return groupDao.deleteAuthoritiesRelatedGroup(groupNo);
+	}
+
 
 
 	

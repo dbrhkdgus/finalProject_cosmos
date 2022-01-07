@@ -476,6 +476,8 @@ public class GroupController {
 	public int deleteGroup(int groupNo) {
 		
 		int result = groupService.deleteGroup(groupNo);
+		String groupNostr = Integer.toString(groupNo);
+		result = groupService.deleteAuthoritiesRelatedGroup(groupNostr);
 		return result;
 	}
 	
