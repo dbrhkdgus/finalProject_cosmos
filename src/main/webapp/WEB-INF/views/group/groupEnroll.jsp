@@ -9,6 +9,10 @@
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	<jsp:param value="그룹 생성" name="title" />
 </jsp:include>
+
+<script src="${pageContext.request.contextPath }/resources/js/summernote-lite.js"></script>
+<script src="${pageContext.request.contextPath }/resources/js/summernote-ko-KR.js"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/summernote-lite.css">
 <script type="text/javascript">
 window.addEventListener("load", function(){
 	$.ajax({
@@ -55,9 +59,6 @@ function getItem(){
 };
 
 
-window.addEventListener("load", function(){
-	
-});
 </script>
 
 	<main class="my-form">
@@ -132,7 +133,7 @@ window.addEventListener("load", function(){
 									<label for="permanent_address" class="col-md-4 col-form-label text-md-right">스터디를 소개해주세요!</label>
 									<div class="col-md-6 group-text-input">
 										<div class="group-text-input form-floating col-md-6">
-											<textarea class="form-control" placeholder="Leave a comment here" id="giContent1" name="giContent" style="height: 100px; width: 200%; resize: none;"></textarea>
+											<textarea id="giContent1" name="giContent" style="height: 100px; width: 200%; resize: none;"></textarea>
 										</div>
 									</div>
 								</div>
@@ -140,7 +141,7 @@ window.addEventListener("load", function(){
 									<label for="permanent_address" class="col-md-4 col-form-label text-md-right">이런 분들이 들으면 좋아요!</label>
 									<div class="col-md-6 group-text-input">
 										<div class="group-text-input form-floating col-md-6">
-											<textarea class="form-control" placeholder="Leave a comment here" id="giContent2" name="giContent" style="height: 100px; width: 200%; resize: none;"></textarea>
+											<textarea id="giContent2" name="giContent" style="height: 100px; width: 200%; resize: none;"></textarea>
 										</div>
 									</div>
 								</div>
@@ -148,7 +149,7 @@ window.addEventListener("load", function(){
 									<label for="permanent_address" class="col-md-4 col-form-label text-md-right">스터디는 이렇게 진행됩니다!</label>
 									<div class="col-md-6 group-text-input">
 										<div class="group-text-input form-floating col-md-6">
-											<textarea class="form-control" placeholder="Leave a comment here" id="giContent3" name="giContent" style="height: 100px; width: 200%; resize: none;"></textarea>
+											<textarea id="giContent3" name="giContent" style="height: 100px; width: 200%; resize: none;"></textarea>
 										</div>
 									</div>
 								</div>
@@ -156,7 +157,7 @@ window.addEventListener("load", function(){
 									<label for="permanent_address" class="col-md-4 col-form-label text-md-right">꼭! 지켜주세요.</label>
 									<div class="col-md-6 group-text-input">
 										<div class="group-text-input form-floating col-md-6">
-											<textarea class="form-control" placeholder="Leave a comment here" id="giContent4" name="giContent" style="height: 100px; width: 200%; resize: none;"></textarea>
+											<textarea id="giContent4" name="giContent" style="height: 100px; width: 200%; resize: none;"></textarea>
 										</div>
 									</div>
 								</div>
@@ -173,8 +174,6 @@ window.addEventListener("load", function(){
 	</main>
 	<script>
 	
-	var openWin;
-	
 	function pay() {
         // window.name = "부모창 이름"; 
         window.name = "parentForm";
@@ -182,38 +181,6 @@ window.addEventListener("load", function(){
         window.open("${pageContext.request.contextPath}/kakao/kakaoPay.do",
         		"childForm", "width=350, height=500, resizable = yes, scrollbars = yes"); 
     };
-	// 없습니다. 반드시 파일을 선택해야 합니다
-/* 	function EnrollFormSubmit() {		
-		const filename = $("[name=upFile]").prop("files")[0].name
-		if(filename =undefined || filename == null){
-			filename = ("https://cdn.dribbble.com/users/3398149/screenshots/9873711/media/81018d8c3595c458138d49bde716d2f9.jpg?compress=1&resize=800x600")
-		}
-	} */
-/* 	document.my-form.onsubmit = e => {
-		const filename = $("[name=upFile]").prop("files")[0].name
-		if(filename =undefined || filename == null){
-			filename = ("https://cdn.dribbble.com/users/3398149/screenshots/9873711/media/81018d8c3595c458138d49bde716d2f9.jpg?compress=1&resize=800x600")
-		}
-	} */
-		/* function YnCheck(obj) {
-			var checked = obj.checked;
-			if(checked) {
-				obj.value="L";
-			} else {
-				obj.value="U";
-			}
-		}
-		var checkYn="${data.groupPrivate}";
-		if(checkYn=="L") {
-			$("#groupPrivate").prop("checked", true);
-		} else {
-			$("#groupPrivate").prop("checked", false);
-		}
-		if($("#groupPrivate").is(':checked')==true) {
-			data.set("groupPrivate", "L");
-		} else {
-			data.set("groupPrivate", "U");
-		} */
 		
 		/* form 유효성 검사 */
 		$("[id='groupEnrollFrm']").submit(function(){
@@ -256,7 +223,6 @@ window.addEventListener("load", function(){
 				$studyTitle.focus();
 				return false;
 			}
-			
 			if($("#member-number").val() == null || $("#member-number").val() == 'undefined' || $("#member-number").val() == 0){
 				$memberNumber.focus();
 				return false;
@@ -281,35 +247,42 @@ window.addEventListener("load", function(){
 				$giContent4.focus();
 				return false;
 			}
-			var contents1 = $("#giContent1").val();
-			contents1 = contents.value.replace(/(\n|\r\n)/g, '&lt;br&gt;');
-			$("#giContent1").val('');
-			$("#giContent1").val(contents1);
-			var contents2 = $("#giContent2").val();
-			contents2 = contents.value.replace(/(\n|\r\n)/g, '&lt;br&gt;');
-			$("#giContent2").val('');
-			$("#giContent2").val(contents2);
-			var contents3 = $("#giContent3").val();
-			contents3 = contents.value.replace(/(\n|\r\n)/g, '&lt;br&gt;');
-			$("#giContent3").val('');
-			$("#giContent3").val(contents3);
-			var contents4 = $("#giContent4").val();
-			contents4 = contents.value.replace(/(\n|\r\n)/g, '&lt;br&gt;');
-			$("#giContent4").val('');
-			$("#giContent4").val(contents4);
+			var $contents1 = $("#giContent1").val();
+			$contents1 = $contents1.replace(/\r\n/ig, "<br>");
+			$contents1 = $contents1.replace(/\\n/ig, "<br>");
+			$contents1 = $contents1.replace(/\n/ig, "<br>");
+			$("#giContent1").val($contents1);
+			var $contents2 = $("#giContent2").val();
+			$contents2 = $contents2.replace(/\r\n/ig, "<br>");
+			$contents2 = $contents2.replace(/\\n/ig, "<br>");
+			$contents2 = $contents2.replace(/\n/ig, "<br>");
+			$("#giContent2").val($contents2);
+			var $contents3 = $("#giContent3").val();
+			$contents3 = $contents3.replace(/\r\n/ig, "<br>");
+			$contents3 = $contents3.replace(/\\n/ig, "<br>");
+			$contents3 = $contents3.replace(/\n/ig, "<br>");
+			$("#giContent3").val($contents3);
+			var $contents4 = $("#giContent4").val();
+			$contents4 = $contents4.replace(/\r\n/ig, "<br>");
+			$contents4 = $contents4.replace(/\\n/ig, "<br>");
+			$contents4 = $contents4.replace(/\n/ig, "<br>");
+			$("#giContent4").val($contents4);
+			
+			
+			console.log($("#giContent1").val());
+			console.log($("#giContent2").val());
+			console.log($("#giContent3").val());
+			console.log($("#giContent4").val());
 			
 			return true;
-		});
-		
+		});		
 		var charged = document.getElementsByName('groupCharge');
 		var isCharged;
 		for(var i = 0; i < charged.length; i++) {
 			if(charged[i].checked) {
 				isCharged = charged[i].value;
 			}
-		};
-		
-		
+		};		
 		$(() => {
 			$("[name=upFile]").change((e) => {
 				// 1.파일명 가져오기
@@ -323,12 +296,11 @@ window.addEventListener("load", function(){
 				if(file != undefined)
 					$label.html(filename);
 				else
-					$label.html("파일을 선택하세요.");
-				
-			});
-			
-			
+					$label.html("파일을 선택하세요.");				
+			});	
 		});
+		
+		
 		</script>
 		
 		<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=753f0f237470af5e83541545d143b9c3&libraries=services"></script>

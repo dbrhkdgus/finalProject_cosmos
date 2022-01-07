@@ -14,11 +14,16 @@
     <sec:authentication property="principal" var="loginMember"/>
 </sec:authorize>
 
+<style>
+	a:link{color: black;}
+	a:visited{color: black;}
+	#search_nav{padding-bottom:5px}
+</style>
 		<!-- Page header with logo and tagline-->
         <!-- Page content-->
         <div class="container">
             <div class="search-parent-category">
-                <ul class="nav nav-tabs">
+                <ul class="nav nav-tabs" id="search_nav">
                 	<li class="nav-item" style="margin: 0;">
                       <a class="nav-link ${ca1No == 0 ? 'active':'' }" aria-current="page" href="${pageContext.request.contextPath }/group/groupSearch.do">ALL</a>
                     </li>
