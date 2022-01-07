@@ -246,6 +246,12 @@ public class GroupDaoImpl implements GroupDao {
 	}
 
 	@Override
+	public List<ApplocationGroup> selectApprovedAG() {
+		// TODO Auto-generated method stub
+		return session.selectList("group.selectApprovedAG");
+	}
+	
+	@Override
 	public int deleteGroup(int groupNo) {
 		// TODO Auto-generated method stub
 		return session.delete("group.deleteGroup", groupNo);
@@ -256,14 +262,5 @@ public class GroupDaoImpl implements GroupDao {
 		// TODO Auto-generated method stub
 		return session.delete("group.deleteAuthoritiesRelatedGroup", groupNo);
 	}
-
-
-	
-	
-	
-	
-	
-
-	
 	
 }

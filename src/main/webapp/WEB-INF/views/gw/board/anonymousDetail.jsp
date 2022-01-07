@@ -102,7 +102,7 @@
 						<input id="reRepPw" name="replyPw" type="text" class="form-control re-rep-pw" onChange="checkNumber()" maxlength="4" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="숫자 4자리를 입력해 주세요.">
 					</div>
 					</div>	
-					<div class="d-flex mt-2 pl-6 pr-2" style="margin-left: 4%;">
+					<div class="d-flex mt-2 pl-6 pr-2" style="margin-left: 5%;">
 						<input type="text" class="form-control re-rep-con" name="content" placeholder="댓글을 입력하세요." />
 						<input type="hidden" value="${post.postNo}" name ="postNo">
 						<input type="hidden" value="2" name ="replyLevel">
