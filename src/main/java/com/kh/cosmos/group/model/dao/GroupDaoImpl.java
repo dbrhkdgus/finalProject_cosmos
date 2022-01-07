@@ -245,6 +245,12 @@ public class GroupDaoImpl implements GroupDao {
 		return session.delete("group.deleteInterestGroupByParam",param);
 	}
 
+	@Override
+	public int deleteGroup(int groupNo) {
+		// TODO Auto-generated method stub
+		return session.delete("group.deleteGroup", groupNo);
+	}
+
 
 	
 	

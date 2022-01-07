@@ -470,6 +470,15 @@ public class GroupController {
 		
 		return"redirect:/group/groupDetail.do?groupNo="+groupNo;
 	}
+	
+	@ResponseBody
+	@PostMapping("/deleteGroup.do")
+	public int deleteGroup(int groupNo) {
+		
+		int result = groupService.deleteGroup(groupNo);
+		return result;
+	}
+	
 }
 
 
