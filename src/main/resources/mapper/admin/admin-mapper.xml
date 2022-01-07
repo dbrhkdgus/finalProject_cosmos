@@ -72,10 +72,10 @@
 			and member_job like #{searchJob}
 		</if>		
 		<if test="searchRegDateStart != '' and searchRegDateEnd != ''">
-			and member_enroll_date between #{searchRegDateStart} and #{searchRegDateEnd}
+			and member_enroll_date between to_date(#{searchRegDateStart},'YYYY-MM-DD') and to_date(#{searchRegDateEnd},'YYYY-MM-DD')+0.99999 
 		</if>
 		<if test="searchBirthdayStart != '' and searchBirthdayStart != ''">
-			and birthday between #{searchBirthdayStart} and #{searchBirthdayEnd}
+			and birthday between to_date(#{searchBirthdayStart},'YYYY-MM-DD') and to_date(#{searchBirthdayEnd},'YYYY-MM-DD') + 0.99999 
 		</if>
 		<if test="searchEnabled != ''">
 			and enabled = ${searchEnabled}
@@ -241,7 +241,7 @@
 		nickname = #{searchKeyword}
   	</if>
 	<if test="searchRegDateStart != '' and searchRegDateEnd != '' ">
-		and reg_date between #{searchRegDateStart} and #{searchRegDateEnd}
+		and reg_date between to_date(#{searchRegDateStart},'YYYY-MM-DD') and to_date(#{searchRegDateEnd},'YYYY-MM-DD')+0.99999
 	</if>
 	<if test="answerComplete != ''">
 		and status = #{answerComplete}
