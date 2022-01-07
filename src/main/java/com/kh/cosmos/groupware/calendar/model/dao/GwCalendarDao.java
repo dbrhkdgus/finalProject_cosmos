@@ -21,4 +21,6 @@ public interface GwCalendarDao {
 
 	Schedule selectGroupColor(int groupNo);
 
+	String writerNickname(String id);
+
 }

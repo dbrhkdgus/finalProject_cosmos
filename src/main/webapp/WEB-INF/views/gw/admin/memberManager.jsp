@@ -5,7 +5,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>	
-<sec:authorize access="hasAnyRole('ROLE_GW${currGroupNo}MEMBER','ROLE_GW${currGroupNo}MASTER', 'ROLE_ADMIN')">
+<sec:authorize access="hasAnyRole('ROLE_GW${currGroupNo}MEMBER','ROLE_GW${currGroupNo}MANAGER','ROLE_GW${currGroupNo}MASTER', 'ROLE_ADMIN')">
 
 <fmt:requestEncoding value="utf-8" />
 <jsp:include page="/WEB-INF/views/common/gw_header.jsp">
@@ -86,14 +86,11 @@ button:focus {
 									
 									<select
 											class="boardType form-select" name="memberRole" required>
-												<option value="P"
-													<c:if test="${fn:contains(acceptList.role , 'P' )}"> selected</c:if>>일반회원</option>
-												<option value="M"
+												<option value="0"
+													<c:if test="${fn:contains(acceptList.role , 'P' )}"> selected</c:if>
+													>일반회원</option>
+												<option value="1"
 													<c:if test="${fn:contains(acceptList.role , 'M' )}"> selected</c:if>>매니저</option>
-												<option value="G"
-													<c:if test="${fn:contains(acceptList.role , 'G' )}"> selected</c:if>
-													 <c:if test="${apploginRole ne 'G'}"> disabled="disabled"</c:if>
-													>그룹장</option>
 										</select>
 										</td> 
 										

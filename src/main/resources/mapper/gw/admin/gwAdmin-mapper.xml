@@ -132,21 +132,12 @@
 	delete  from AUTHORITIES where authority like  'ROLE_GW'||#{groupNo}||'M'||'%' and member_id = #{gwDeleteMember}
 	</delete>
 	
-	<update id="updateMemberAuthorities" parameterType="hashmap">
-					
-		update AUTHORITIES
-		<set>
-			<if test="'memberRole.equals(P)'">
-			authority =  'ROLE_GW'||#{groupNo}||'MEMBER' 
-			</if> 
-			<if test="'memberRole.equals(M)'">			
-			authority =  'ROLE_GW'||#{groupNo}||'MANAGER' 
-			</if> 
-			<if test="'memberRole.equals(G)'">			
-			authority =  'ROLE_GW'||#{groupNo}||'MASTER' 
-			</if> 
-		</set>  
-		where member_id =#{memberId}
-	</update>
+	<select id="selectMemberAuthoritiesList" resultType="authorities" parameterType="hashmap">
+	select *from authorities where member_id =#{memberId} and authority like  'ROLE_GW'||#{groupNo}||'M'||'%'
+	</select>
+	
+	<select id="selectAllAuthoritiesList" resultType="authorities">
+	select *from authorities where authority like  'ROLE_GW'||#{groupNo}||'M'||'%'
+	</select>
 	
 </mapper>

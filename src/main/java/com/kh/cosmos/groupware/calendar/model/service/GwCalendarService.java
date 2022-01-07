@@ -23,5 +23,7 @@ public interface GwCalendarService {
 
 	Schedule selectGroupColor(int groupNo);
 
+	String writerNickname(String id);
+
 
 }

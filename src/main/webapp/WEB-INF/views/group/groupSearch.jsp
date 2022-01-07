@@ -59,7 +59,7 @@
 		                <form action="${pageContext.request.contextPath}/group/groupSearch.do?ca1No=${ca1No}&ca2No=${ca2No}" method="get">
 	                      <div class="search-outer-top right">
 	       
-		                    <select name="searchType" class="form-select search-select" aria-label="Default select example" style="width:38%;">
+		                    <select name="searchType" style="width: 150px;" class="form-select search-select" aria-label="Default select example">
 		                      <option value="groupName" ${searchType == 'groupName' ? "selected":'' }>스터디 그룹명 검색 </option>
 		                      <option value="location" ${searchType == 'location' ? "selected":'' }>스터디 지역 검색</option>
 		                      <option value="pop" ${searchType == 'pop' ? "selected":'' }>인기순으로 보기</option>
