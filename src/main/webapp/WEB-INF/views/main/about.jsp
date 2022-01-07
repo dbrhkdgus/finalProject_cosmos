@@ -165,28 +165,28 @@
 
 				<div class="aboutdetail rightinner" name="멤버1" id="member1">
 					<img
-						src="${pageContext.request.contextPath }/resources/images/facebook.png"
+						src="https://i.ibb.co/L1pCTTN/tmp-1613290479805.jpg"
 						alt="">
 					<button type="button" class="rightBtn">멤버1</button>
 				</div>
 
 				<div class="aboutdetail rightinner" id="member1">
 					<img
-						src="${pageContext.request.contextPath }/resources/images/github.png"
+						src="https://i.ibb.co/bsF7PgZ/LeeJP.png"
 						alt="">
 					<button type="button" class="rightBtn">멤버2</button>
 				</div>
 
 				<div class="aboutdetail rightinner">
 					<img
-						src="${pageContext.request.contextPath }/resources/images/facebook.png"
+						src="https://i.ibb.co/Pj7sHTX/goo.gif"
 						alt="">
 					<button type="button" class="rightBtn">멤버3</button>
 				</div>
 
 				<div class="aboutdetail rightinner">
 					<img
-						src="${pageContext.request.contextPath }/resources/images/github.png"
+						src="https://i.ibb.co/vkrrfhm/Ke.jpg"
 						alt="">
 					<button type="button" class="rightBtn">멤버4</button>
 				</div>
