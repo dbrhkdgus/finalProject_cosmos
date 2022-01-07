@@ -108,9 +108,13 @@ function hasScrolled() {
 		<section class="class-info-comm">
 			<div class="comm-left-box">
 				<p class="class-left-title" id="class-graph">저희 모임장소입니다!</p>
-				
+			</div>
+			<div class="d-flex flex-column">
+			<div class="comm-right-box">
+				<p class="class-right-content">${group.groupLocation}</p>
 			</div>
 			<div id="map" style= "width: 500px; height: 500px; margin-left: 10% ">
+			</div>
 				
 			</div>
 		</section>
