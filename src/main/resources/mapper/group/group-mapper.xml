@@ -167,7 +167,7 @@
 			and category2_no = #{ca2No}
 		</if>
 		<if test="searchType == 'groupName'">
-			 and group_name like '%'||#{searchKeyword}||'%' 
+			 and lower(group_name ) like lower('%'||#{searchKeyword}||'%')
 		</if>
 		<if test="searchType == 'location'">
 			 and group_location like '%'||#{searchKeyword}||'%'
