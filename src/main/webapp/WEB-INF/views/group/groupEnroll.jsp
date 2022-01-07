@@ -281,6 +281,23 @@ window.addEventListener("load", function(){
 				$giContent4.focus();
 				return false;
 			}
+			var contents1 = $("#giContent1").val();
+			contents1 = contents.value.replace(/(\n|\r\n)/g, '&lt;br&gt;');
+			$("#giContent1").val('');
+			$("#giContent1").val(contents1);
+			var contents2 = $("#giContent2").val();
+			contents2 = contents.value.replace(/(\n|\r\n)/g, '&lt;br&gt;');
+			$("#giContent2").val('');
+			$("#giContent2").val(contents2);
+			var contents3 = $("#giContent3").val();
+			contents3 = contents.value.replace(/(\n|\r\n)/g, '&lt;br&gt;');
+			$("#giContent3").val('');
+			$("#giContent3").val(contents3);
+			var contents4 = $("#giContent4").val();
+			contents4 = contents.value.replace(/(\n|\r\n)/g, '&lt;br&gt;');
+			$("#giContent4").val('');
+			$("#giContent4").val(contents4);
+			
 			return true;
 		});
 		
