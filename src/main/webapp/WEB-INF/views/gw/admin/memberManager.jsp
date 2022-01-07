@@ -86,7 +86,7 @@ button:focus {
 									
 									<select
 											class="boardType form-select" name="memberRole" required>
-<<<<<<< HEAD
+
 												<option value="MEMBER"
 													<c:if test="${fn:contains(maInfo.authority , 'MEMBER' )}"> selected</c:if>>일반회원</option>
 												<option value="MANAGER"
@@ -95,13 +95,6 @@ button:focus {
 													<c:if test="${fn:contains(maInfo.authority , 'MASTER' )}"> selected</c:if>
 													 <c:if test="${apploginRole ne 'G'}"> disabled="disabled"</c:if>
 													>그룹장</option>
-=======
-												<option value="0"
-													<c:if test="${fn:contains(acceptList.role , 'P' )}"> selected</c:if>
-													>일반회원</option>
-												<option value="1"
-													<c:if test="${fn:contains(acceptList.role , 'M' )}"> selected</c:if>>매니저</option>
->>>>>>> branch 'master' of https://github.com/dbrhkdgus/finalProject_cosmos.git
 										</select>
 										</td> 
 										

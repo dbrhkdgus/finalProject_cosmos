@@ -15,7 +15,10 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -122,25 +125,6 @@ public class GwAdminController {
 		List<Authorities> authList = gwAdminService.selectAllAuthoritiesList(groupNo);
 		log.debug("authList ={}",authList);
 
-		Set<String> set = new HashSet<>();
-
-		for(Authorities aut: authList) {
-			set.add(aut.getMemberId());
-		}
-		
-		Stream<String> setS = set.stream(); 
-		setS.forEach(out -> log.debug("out +  ={}",out + " ")); 
-		//그대로 set 자체로 출력하면 중복이 제거된 데이터만 
-		// 출력되는 것을 확인할 수 있다.
-		
-		String [] newArr = new String [set.size()]; 
-		Iterator<String> it = set.iterator();
-		for(int i = 0; i < newArr.length; i++ ) { 
-			newArr[i] = it.next(); 
-			log.debug("newArr[i] ={} ",newArr[i] + " "); 
-			} 
-		//위 처럼 새로운 배열을 만들어서 다시 set으로 넣어주면 
-		// 다시 배열로도 사용할 수 있다
 
 
 			
@@ -339,32 +323,35 @@ public class GwAdminController {
 
 		String memberAuthorities = gwAdminService.selectMemberAuthorities(memberId);
 		
+		int result = 0;
 		
 		if(memberRole.equals("MEMBER")) {
 			if(memberAuthorities.contains("MANAGER")) {
 				param.put("type", "delete");
 				param.put("deleteRole", "MANAGER");
-				int result = gwAdminService.insertMemberAuthority(param);
+				result = gwAdminService.insertMemberAuthority(param);
 				param.put("type", "insert");
 				result = gwAdminService.insertMemberAuthority(param);
 			}else {
 				param.put("type", "insert");
-				int result = gwAdminService.insertMemberAuthority(param);
+				result = gwAdminService.insertMemberAuthority(param);
 			}
 		}else if(memberRole.equals("MANAGER")) {
 			if(memberAuthorities.contains("MEMBER")) {
 				param.put("type", "delete");
 				param.put("deleteRole", "MEMBER");
-				int result = gwAdminService.insertMemberAuthority(param);
+				result = gwAdminService.insertMemberAuthority(param);
 				param.put("type", "insert");
 				result = gwAdminService.insertMemberAuthority(param);
 			}else {
 				param.put("type", "insert");
-				int result = gwAdminService.insertMemberAuthority(param);
+				result = gwAdminService.insertMemberAuthority(param);
 			}
 		}else {
 			
 		}
+		
+
 		
 		
 		return "redirect:/gw/admin/memberManager.do?groupNo=" + groupNo;

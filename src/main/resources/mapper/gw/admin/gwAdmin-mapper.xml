@@ -137,7 +137,7 @@
 	delete  from AUTHORITIES where authority like  'ROLE_GW'||#{groupNo}||'M'||'%' and member_id = #{gwDeleteMember}
 	</delete>
 	
-<<<<<<< HEAD
+
 	<update id="updateMemberAuthorities" parameterType="hashmap">
 					
 		update AUTHORITIES
@@ -160,14 +160,5 @@
 	<select id="selectMemberAuthorities" resultType="string">
 	select LISTAGG(authority, ', ') from authorities where member_id = #{memberId}
 	</select>
-=======
-	<select id="selectMemberAuthoritiesList" resultType="authorities" parameterType="hashmap">
-	select *from authorities where member_id =#{memberId} and authority like  'ROLE_GW'||#{groupNo}||'M'||'%'
-	</select>
-	
-	<select id="selectAllAuthoritiesList" resultType="authorities">
-	select *from authorities where authority like  'ROLE_GW'||#{groupNo}||'M'||'%'
-	</select>
-	
->>>>>>> branch 'master' of https://github.com/dbrhkdgus/finalProject_cosmos.git
+
 </mapper>

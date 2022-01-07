@@ -120,6 +120,12 @@ public class GwAdminDaoImpl implements GwAdminDao {
 		return session.selectOne("gwAdmin.selectMemberAuthorities", memberId);
 	}
 
+	@Override
+	public List<Authorities> selectAllAuthoritiesList(int groupNo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	
 
 
