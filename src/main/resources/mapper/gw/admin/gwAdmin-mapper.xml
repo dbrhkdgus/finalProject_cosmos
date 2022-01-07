@@ -102,7 +102,7 @@
 			insert into authorities values(#{memberId}, 'ROLE_GW${groupNo}${memberRole}')
 		</if>
 		<if test="type == 'delete'">
-			delete authorities where member_id = #{memberId} and authority like '%'||#{deleteRole}||'%'
+			delete authorities where member_id = #{memberId} and authority like '%'||#{groupNo}||#{deleteRole}||'%'
 		</if>
 	</insert>
 

@@ -94,7 +94,7 @@ button:focus {
 												<option value="MASTER"
 													<c:if test="${fn:contains(maInfo.authority , 'MASTER' )}"> selected</c:if>
 													 <c:if test="${apploginRole ne 'G'}"> disabled="disabled"</c:if>
-													>그룹장</option>
+													 disabled="disabled">그룹장</option>
 										</select>
 										</td> 
 										
@@ -108,7 +108,9 @@ button:focus {
 									<i class="far fa-trash-alt"></i>멤버추방</button>  
 									</c:if>
 										<!-- <span style="font-weight:bold;">|</span> -->
+										<c:if test="${!(fn:contains(maInfo.authority , 'MASTER' ))}">
 										<button type="submit" class="button-update-member"><i class="fas fa-user-edit"></i>권한수정</button>
+										</c:if>
 										</td>
 									<input type="hidden" name="memberId" value="${maInfo.memberId}" />
 									<input type="hidden" name="groupNo" value="${groupNo}" />

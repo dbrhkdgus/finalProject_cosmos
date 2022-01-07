@@ -325,30 +325,33 @@ public class GwAdminController {
 		
 		int result = 0;
 		
-		if(memberRole.equals("MEMBER")) {
-			if(memberAuthorities.contains("MANAGER")) {
-				param.put("type", "delete");
-				param.put("deleteRole", "MANAGER");
-				result = gwAdminService.insertMemberAuthority(param);
-				param.put("type", "insert");
-				result = gwAdminService.insertMemberAuthority(param);
-			}else {
-				param.put("type", "insert");
-				result = gwAdminService.insertMemberAuthority(param);
-			}
-		}else if(memberRole.equals("MANAGER")) {
-			if(memberAuthorities.contains("MEMBER")) {
-				param.put("type", "delete");
-				param.put("deleteRole", "MEMBER");
-				result = gwAdminService.insertMemberAuthority(param);
-				param.put("type", "insert");
-				result = gwAdminService.insertMemberAuthority(param);
-			}else {
-				param.put("type", "insert");
-				result = gwAdminService.insertMemberAuthority(param);
-			}
-		}else {
 			
+		if(!memberAuthorities.contains(memberRole)) {
+			if(memberRole.equals("MEMBER")) {
+				if(memberAuthorities.contains("MANAGER")) {
+					param.put("type", "delete");
+					param.put("deleteRole", "MANAGER");
+					result = gwAdminService.insertMemberAuthority(param);
+					param.put("type", "insert");
+					result = gwAdminService.insertMemberAuthority(param);
+				}else {
+					param.put("type", "insert");
+					result = gwAdminService.insertMemberAuthority(param);
+				}
+			}else if(memberRole.equals("MANAGER")) {
+				if(memberAuthorities.contains("MEMBER")) {
+					param.put("type", "delete");
+					param.put("deleteRole", "MEMBER");
+					result = gwAdminService.insertMemberAuthority(param);
+					param.put("type", "insert");
+					result = gwAdminService.insertMemberAuthority(param);
+				}else {
+					param.put("type", "insert");
+					result = gwAdminService.insertMemberAuthority(param);
+				}
+			}else {
+				
+			}
 		}
 		
 
