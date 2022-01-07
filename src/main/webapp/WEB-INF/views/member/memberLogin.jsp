@@ -82,9 +82,9 @@ $(() => {
 					<div class="mx-auto d-block">
 						<button class="btn btn-lg btn-outline-warning btn-block" type="button" onclick="kakaoLogin();">카카오 login</button>
 						<button id="btn_Yes_Basic" class="btn btn-lg btn-outline-info btn-block" type="button" style=" font-weight: bold; background: linear-gradient(to right top, #000BA9, #52E3FF); color: transparent; -webkit-background-clip: text; margin-bottom: 3%;">COSMOS login</button>
-					<div class="float-right">
-						<button id="btn-enroll" class="btn btn-lg btn-outline-primary" type="button">회원가입</button>
-						<button id="btn-cancle" class="btn btn-lg btn-outline-secondary" type="button">취소</button>
+					<div class="d-flex justify-content-between">
+						<button id="btn-enroll" style="width:49%" class="btn btn-lg btn-outline-primary" type="button">회원가입</button>
+						<button id="btn-cancle" style="width:49%" class="btn btn-lg btn-outline-secondary" type="button">취소</button>
 					</div>
 						<input type="hidden" name="kakaoId" val="" />
 						<input type="hidden" name="memberName" val="" />
