@@ -74,7 +74,6 @@ $(() => {
 						<label> <input type="checkbox" value="remember-me">
 							기억하기
 						</label>
-						<input type="button" value="카카오 로그아웃" onclick="kakaoLogout();" />
 					</div>
 					<div class="mx-auto d-block">
 						<button class="btn btn-lg btn-outline-warning btn-block" type="button" onclick="kakaoLogin();">카카오 login</button>
@@ -173,6 +172,10 @@ $(() => {
 	      Kakao.Auth.setAccessToken(undefined)
 	    }
 	  };
+	  /* 회원 가입 페이지 연결 */
+	  $("#btn-enroll").click((e)=>{
+		 location.href = "${pageContext.request.contextPath}/member/memberAPIEnroll.do" 
+	  });
 	</script>
 </body>
 </html>
