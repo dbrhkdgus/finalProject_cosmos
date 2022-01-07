@@ -12,7 +12,10 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ResourceLoader;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,15 +40,12 @@ import com.kh.cosmos.group.model.vo.GroupEnroll;
 import com.kh.cosmos.group.model.vo.GroupInfo;
 import com.kh.cosmos.group.model.vo.GroupInfoConnect;
 import com.kh.cosmos.group.model.vo.MemberInterestGroup;
-
 import com.kh.cosmos.group.model.vo.NumberOfGroupMember;
-
 import com.kh.cosmos.main.model.vo.Reply;
 import com.kh.cosmos.member.model.service.MemberService;
 import com.kh.cosmos.member.model.vo.Member;
 
 import lombok.extern.slf4j.Slf4j;
-import oracle.jdbc.proxy.annotation.Post;
 
 @Controller
 @Slf4j
@@ -478,6 +478,15 @@ public class GroupController {
 		int result = groupService.deleteGroup(groupNo);
 		String groupNostr = Integer.toString(groupNo);
 		result = groupService.deleteAuthoritiesRelatedGroup(groupNostr);
+		
+		if(result > 0) {
+			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+			List<GrantedAuthority> updatedAuthorities = new ArrayList<>(auth.getAuthorities());
+			
+			Authentication newAuth = new UsernamePasswordAuthenticationToken(auth.getPrincipal(), auth.getCredentials(), updatedAuthorities);
+			SecurityContextHolder.getContext().setAuthentication(newAuth);
+		}
 		return result;
 	}
 	
