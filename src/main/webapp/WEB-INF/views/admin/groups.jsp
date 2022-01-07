@@ -16,14 +16,11 @@
   .selectBar{
     width: 20%;
   }
-  .disabled{
-    
-  }
+
   .form-control.validate[disabled]{
     background-color: #4E657A;
   }
 
-  
   .tableTitle{
  	width: 15%;
  	background-color: #486177;
@@ -31,9 +28,7 @@
   .tableContent{
   	background-color: ;
   }
-  #div_groupInfo{
-  	
-  }
+
   #table_groupInfo{
   	background-color: #4E657A;
     border-collapse: collapse;  	
@@ -41,7 +36,7 @@
 	width: 80%;
 	
 	height: 30vh;
-	font-size: 1vw;
+	font-size: 0.8vw;
   }
   #table_groupInfo tr{
   	border: solid 1px #435C70;
