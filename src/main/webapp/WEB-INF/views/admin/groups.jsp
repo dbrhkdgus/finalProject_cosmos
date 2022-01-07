@@ -33,10 +33,10 @@
   	background-color: #4E657A;
     border-collapse: collapse;  	
 	color: white;
-	width: 80%;
+	width: 100%;
 	
-	height: 30vh;
-	font-size: 0.8vw;
+	height: 25vh;
+	font-size: 0.7vw;
   }
   #table_groupInfo tr{
   	border: solid 1px #435C70;

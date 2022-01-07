@@ -103,4 +103,10 @@ public interface AdminService {
 
 	int salesOfMonth(Map<String, Object> param);
 
+	int enrollToayCount();
+
+	int enrollThisMonthCount();
+
+	int enrollLastMonthCount();
+
 }

@@ -157,8 +157,8 @@
             
             <!-- 차트가 바뀌어야 함. include로 상황에 맞춰서  -->
           	<ul id="chartList">
-          		<li id="firstTap">총 게시글&nbsp&nbsp|</li>
-          		<li id="secondTap">카테고리</li>
+          		<li id="firstTap">총 게시글 순&nbsp&nbsp|</li>
+          		<li id="secondTap">카테고리 별</li>
           	</ul>
           <div id="div_chart">
 	      	<canvas id="pie-chart" class="col-12"></canvas>
