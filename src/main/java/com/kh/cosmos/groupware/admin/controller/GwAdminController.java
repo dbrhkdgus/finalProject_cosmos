@@ -254,6 +254,8 @@ public class GwAdminController {
 				param.put("gwDeleteMember", gwDeleteMember);
 				try {
 					int result = gwAdminService.deleteGwMember(param);
+					int result2 = gwAdminService.deleteGroupAuthorities(param);
+
 					redirectAttr.addFlashAttribute("msg", "멤버를 추방하였습니다!");
 					
 		    	} catch (InvalidParameterException e) {
