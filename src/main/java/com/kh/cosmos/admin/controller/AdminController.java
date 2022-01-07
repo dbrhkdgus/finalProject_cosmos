@@ -396,9 +396,7 @@ public class AdminController {
 		log.debug("list = {}", list);
 		for (Attachment attach : list) {
 			// http://~로 시작하는 filseName이 있다면 그게 카카오 아이디의 대표 프로필 이미지 주소이다.
-			System.out.println("111111111111111111111111");
-			System.out.println(attach.getRenamedFilename());
-			System.out.println(attach.getOriginalFilename().contains("http://kakaocdn.net/"));
+
 			if (attach.getOriginalFilename().contains("http://k.kakaocdn.net/")) {
 				imgSrc = attach.getRenamedFilename();
 				System.out.println("222222222222222222222222");
@@ -415,7 +413,18 @@ public class AdminController {
 	}
 
 	@GetMapping("/StatisticsOfMember.do")
-	public String StatisticsOfMember() {
+	public String StatisticsOfMember(Model model) {
+		int totalCountOfMembers = adminService.totalCountOfMembers();
+		int enrollTodayCount = adminService.enrollToayCount();
+		log.debug("오늘 가입자 수 enrollTodayCount= {} "+enrollTodayCount);
+		int enrollThisMonthCount= adminService.enrollThisMonthCount();
+		int enrollLastMonthCount = adminService.enrollLastMonthCount();
+
+		model.addAttribute("totalCountOfMembers",totalCountOfMembers);
+		model.addAttribute("enrollTodayCount",enrollTodayCount);
+		model.addAttribute("enrollThisMonthCount",enrollThisMonthCount);
+		model.addAttribute("enrollLastMonthCount",enrollLastMonthCount);
+		
 		return "admin/StatisticsOfMember";
 	}
 	

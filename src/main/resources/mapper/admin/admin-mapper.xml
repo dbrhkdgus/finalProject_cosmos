@@ -611,4 +611,14 @@
 		    group_enroll_date between TRUNC(add_months(#{serviceStart},+#{monthInt}),'MM') and LAST_DAY(add_months(#{serviceStart},+#{monthInt})) and group_charge = 'P'		
 	</select>
 	
+	<select id="enrollToayCount" resultType="_int">
+		select count(*) from tb_member where to_char(member_enroll_date,'YYYY/MM/DD') = to_char(sysdate, 'YYYY/MM/DD')
+	</select>
+	<select id="enrollThisMonthCount" resultType="_int">
+		select count(*) from tb_member where member_enroll_date between TRUNC(sysdate,'MM') AND (LAST_DAY(SYSDATE))
+	</select>
+	<select id="enrollLastMonthCount" resultType="_int">
+		select count(*) from tb_member where member_enroll_date between TRUNC(add_months(sysdate,-1),'MM') and LAST_DAY(add_months(sysdate,-1))
+	</select>
+	
 </mapper>
