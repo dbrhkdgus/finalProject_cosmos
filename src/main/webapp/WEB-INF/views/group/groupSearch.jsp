@@ -9,21 +9,14 @@
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	<jsp:param value="그룹 검색" name="title"/>
 </jsp:include>
-
 <sec:authorize access="isAuthenticated()">
     <sec:authentication property="principal" var="loginMember"/>
 </sec:authorize>
-
-<style>
-	a:link{color: black;}
-	a:visited{color: black;}
-	#search_nav{padding-bottom:5px}
-</style>
 		<!-- Page header with logo and tagline-->
         <!-- Page content-->
         <div class="container">
             <div class="search-parent-category">
-                <ul class="nav nav-tabs" id="search_nav">
+                <ul class="nav nav-tabs">
                 	<li class="nav-item" style="margin: 0;">
                       <a class="nav-link ${ca1No == 0 ? 'active':'' }" aria-current="page" href="${pageContext.request.contextPath }/group/groupSearch.do">ALL</a>
                     </li>
@@ -64,7 +57,7 @@
 		                <form action="${pageContext.request.contextPath}/group/groupSearch.do?ca1No=${ca1No}&ca2No=${ca2No}" method="get">
 	                      <div class="search-outer-top right">
 	       
-		                    <select name="searchType" style="width: 38%;" class="form-select search-select" aria-label="Default select example">
+		                    <select name="searchType" class="form-select search-select" aria-label="Default select example">
 		                      <option value="groupName" ${searchType == 'groupName' ? "selected":'' }>스터디 그룹명 검색 </option>
 		                      <option value="location" ${searchType == 'location' ? "selected":'' }>스터디 지역 검색</option>
 		                      <option value="pop" ${searchType == 'pop' ? "selected":'' }>인기순으로 보기</option>
@@ -88,19 +81,18 @@
                     
                     <!-- Nested row for non-featured blog posts-->
                     <div class="search-outer">
-					<c:forEach var="approvedGroup" items="${approvedGroup }" varStatus="vs">
+                    <c:forEach var="group" items="${groupList }" varStatus="vs">
+							
 	                    	<c:if test="${vs.count %3 == 1}">
 	                        	<div class="search-inner">
 	                    	</c:if> 
-                    	<c:forEach var="group" items="${groupList }">
-							<c:if test="${group.groupNo == approvedGroup.groupNo}">
 	                            <!-- Blog post-->
-									<div class="card mb-4 search-card" style="width: 350px; height: 478px;">
+									<div class="card mb-4 search-card" style="width: 350px; height: 460px;">
 		                                <a href="${pageContext.request.contextPath}/group/groupDetail.do?groupNo=${group.groupNo}">
 		                                <c:forEach var="attach" items="${attachList }">
 			                                <c:if test="${group.groupNo == attach.groupNo }">
 			                                	<img class="card-img-top" 
-			                                	style = "width: 348px; height: 274px;"
+			                                	style = "width: 348px; height: 288px;"
 			                                	src="${pageContext.request.contextPath }/resources/upFile/group/${attach.renamedFilename}"
 			                                        alt="..." />
 			                                </c:if>
@@ -132,8 +124,8 @@
 			                                    </c:if>
 		                                    	<c:forEach var="cate" items="${caOneList}">
 		                                    		<c:if test="${group.categoryNo == cate.category1No}">
-		                                    			<div class="border border-primary rounded">
-		                                    				<p class="card-text mx-2 my-1 text-primary">${cate.category1Name}</p>
+		                                    			<div>
+		                                    				<p class="card-text">${cate.category1Name}</p>
 		                                    			</div>
 		                                    		</c:if>
 		                                    	</c:forEach>
@@ -151,20 +143,18 @@
 			                                    	<c:if test="${group.groupNo == gcl.groupNo}">
 				                                    		<c:forEach var="ctl" items ="${categoryTwoList}">
 				                                    			<c:if test="${gcl.category2No == ctl.category2No }">
-				                                    					<span class="card-text text-white border rounded p-1" style="margin-bottom: 5px; background-color: #b8b8b8;">#${ctl.category2Name}</span>
+				                                    					<span>#${ctl.category2Name}</span>
 				                                    			</c:if>
 				                                    		</c:forEach>
 			                                    	</c:if>
 			                                    </c:forEach>
                                  			</div>
 		                                    
-							</div>
-								<div class="search-inner-button mr-3 mb-2 d-flex align-items-center">
+								<div class="search-inner-button">
 		                                <!--좋아요 기능구현 해보는중  -->
-									<div class="like-button-outer d-flex align-items-center">
-
+									<div class="like-button-outer">
 									 <sec:authorize access="isAnonymous()">
-			                               		<i class="far fa-heart"  data-group-no="${group.groupNo }"><span>&nbsp;${group.groupLikeCount }</span></i>
+			                               		<i class="far fa-heart"  data-group-no="${group.groupNo }"><span>${group.groupLikeCount }</span></i>
 			                           </sec:authorize>
 			                             <sec:authorize access="isAuthenticated()">
   										<!--start  -->
@@ -172,11 +162,11 @@
                                                      <c:forEach var="git" items="${groupInterestList}" >
                                                          <c:if test="${git.memberId == loginMember.id && group.groupNo == git.groupNo}"> 
                                                          		<c:set var="flag" value="Y"/>                                                 
-                                                                 <i class="fas fa-heart"  data-group-no="${group.groupNo }"><span>&nbsp;${group.groupLikeCount }</span></i>
+                                                                 <i class="fas fa-heart"  data-group-no="${group.groupNo }"><span>${group.groupLikeCount }</span></i>
                                                          </c:if>
                                                      </c:forEach>
                                                      <c:if test="${flag == 'N'}">
-                                                     	<i class="far fa-heart"  data-group-no="${group.groupNo}"><span>&nbsp;${group.groupLikeCount }</span></i>
+                                                     	<i class="far fa-heart"  data-group-no="${group.groupNo }"><span>${group.groupLikeCount }</span></i>
                                                      </c:if>
                                                  
                                                  
@@ -184,17 +174,18 @@
                                          
 			                             </sec:authorize>         
 									</div>
-
 								</div>
+							</div>
 						</div>
-							</c:if>
 							<c:if test="${vs.count %3 == 0}">
 	                       		</div>
 	                    	</c:if>
 						
-                        </c:forEach>
+
+
                     </c:forEach>
-                            
+
+
                         </div>
  					${pagebar }
 					</c:when>
@@ -204,10 +195,7 @@
 							
 						</div>
 					</c:otherwise>
-
                 </c:choose>
-
-
                             
                         </div>
                     </div>
@@ -218,15 +206,12 @@
  <script>
  $("#button-addon2").click((e)=>{
      const searchType = $("select[name=searchType]").val();
-
      const searchKeyword = $("input[name=searchKeyword]").val();
     location.href=`${pageContext.request.contextPath}/group/groupSearch.do?ca1No=${ca1No}&ca2No=${ca2No}&searchType=\${searchType}&searchKeyword=\${searchKeyword}`; 
  });
-
 /*  }); */
  /* 좋아요 버튼 클릭시 사용자 좋아요 여부에 따른 버튼 이벤트 */
     $(".fa-heart").click((e)=>{
-
         let $target = $(e.target);
         let $groupNo = $target.data("groupNo");
         
@@ -249,7 +234,7 @@
                         .removeClass("fas")
                         .addClass("far");
                 }
-                $target.html(`<span>&nbsp;\${likeCnt}</span>`);
+                $target.html(`<span>\${likeCnt}</span>`);
             },
             error(xhr, textStatus, err){
                 console.log(xhr, textStatus, err);
@@ -259,5 +244,4 @@
     });
     
  </script>
-
 <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
