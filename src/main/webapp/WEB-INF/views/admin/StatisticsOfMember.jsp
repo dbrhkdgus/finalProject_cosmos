@@ -271,6 +271,7 @@ let today4;
 let today5;
 let today6;
 let today7;
+let arr_today = [];
 
 //자동 실행 함수로 세 종류의 통계를 불러온다.
 (()=>{
@@ -353,6 +354,7 @@ let today7;
 			today4 = data.sevenDaysData['today4'];
 			today5 = data.sevenDaysData['today5'];
 			today6 = data.sevenDaysData['today6'];
+			arr_today = [today, today1, today2, today3, today4, today5, today6];
 		},
 		error: console.log,
 		complete: 
@@ -385,7 +387,6 @@ let today7;
 			
 			//var _firstDate = new Date(+firstDate + 3240 * 10000).toISOString().split("T")[0];
 			//var _lastDate = new Date(+lastDate + 3240 * 10000).toISOString().split("T")[0];
-			
 			
 			  var chart1 = new Chart(context, {
 			    type: 'line',
@@ -424,7 +425,8 @@ let today7;
 			    	  yAxes: [{
 							ticks: {
 								beginAtZero: true,
-								stepSize : 1, 
+								//일주일 가입자 수 최댓값의 1/4을 stepSize 기준으로 잡는다.
+								stepSize : Math.max(arr_today)/4, 
 								fontColor : "rgba(251, 203, 9, 1)",
 								fontSize : 14,
 							}
