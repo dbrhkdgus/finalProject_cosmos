@@ -88,12 +88,16 @@ public class GwController {
 	    try {
 	    	expend = gwService.selectMemberExpendCheck(loginMember.getId());
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			
+		}
+	   if(expend==null) {
 			int result = gwService.insertDefaultExpendCheck(loginMember.getId());
 			if(result > 0) {
 				expend = gwService.selectMemberExpendCheck(loginMember.getId());
 			}
-		}
+	   }
+	   
+	    
 	    
 	    model.addAttribute("expend", expend);
 	    model.addAttribute("groupwareMainBanner",groupwareMainBanner);
