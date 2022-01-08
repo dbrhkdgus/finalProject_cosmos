@@ -16,7 +16,9 @@ body{
 a { color:black; text-decoration:none !important } a:hover { color : black; text-decoration:none !important }
 
 .gw-main-notice-title{
-	margin:5px;
+	font-size: 20px;
+    background-color: #5CC4EB;
+    transform: scale(1.1);
 	font-size:20px;
 }
 </style>
