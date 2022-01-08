@@ -13,6 +13,7 @@
 	<sec:authentication property="principal" var="loginMember"/>
 </sec:authorize>
 	<!-- 그룹원 리스트 (확장버전) -->
+
 	 <div class="test-member-list bg-light">
 	 	<!-- <button style="width: 100%">controll</button> -->
 	 	<div class="memberList-size-controll-box mb-3" style="cursor: pointer;margin-top: 17px; margin-left: 22px;">
@@ -45,6 +46,7 @@
             <!-- 테스트 -->
     
           </div>
+
     
     
 <!--           <div class="offline-member-list">
@@ -61,7 +63,7 @@
     
           </div> -->
         </div>
-	
+
     <!-- 그룹원 리스트(축약버전) (오른쪽) -->
      <div class="test-member-list-small bg-light">
      	 <div class="memberList-size-controll-box mb-3" style="cursor: pointer; margin-top: 17px; margin-left: 22px;">
@@ -96,20 +98,37 @@
         </div>
 
       </div>-->
-    </div>  
+    </div> 
 <div class="subscribe">
 
 </div>
   </section>
 </main>
+
+<c:if test="${expend == 'Y' }">
+<script>
+	$(".test-member-list-small").hide();
+</script>
+</c:if>
+<c:if test="${expend == 'N' }">
+<script>
+	$(".test-member-list").hide();
+</script>
+</c:if>
 <script>
 // 그룹원 리스트 (확장/축소) 제어
-$(".test-member-list-small").hide();
 
 
 $(".memberList-size-controll-box").click((e)=>{
 	$(".test-member-list-small").toggle();
 	$(".test-member-list").toggle();
+	
+	$.ajax({
+		url: `${pageContext.request.contextPath}/gw/updateExpendCheck.do`,
+		success(data){
+		},
+		error: console.log
+	});
 	
 });
 

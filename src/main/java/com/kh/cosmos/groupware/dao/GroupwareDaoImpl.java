@@ -125,6 +125,24 @@ public class GroupwareDaoImpl implements GroupwareDao {
 		return session.update("gw.updateGroupwareMainBanner", attach);
 	}
 
+	@Override
+	public String selectMemberExpendCheck(String id) {
+		// TODO Auto-generated method stub
+		return session.selectOne("gw.selectMemberExpendCheck", id);
+	}
+
+	@Override
+	public int insertDefaultExpendCheck(String id) {
+		// TODO Auto-generated method stub
+		return session.insert("gw.insertDefaultExpendCheck", id);
+	}
+
+	@Override
+	public int updateMemberExpendCheck(Map<String, String> param) {
+		// TODO Auto-generated method stub
+		return session.update("gw.updateMemberExpendCheck", param);
+	}
+
 	
 
 
