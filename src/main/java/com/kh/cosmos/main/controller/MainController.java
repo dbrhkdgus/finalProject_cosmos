@@ -175,25 +175,6 @@ public class MainController {
 		List<Question> list = mainService.selectQuestionList(limit, offset);
 		model.addAttribute("list", list);
 		
-		
-		/*
-		 * for(Question que : list ) { String statusCheck =
-		 * mainService.checkAuthoritiesOfReplyByQueNo(que.getQueNo());
-		 * 
-		 * if(statusCheck!= null) { if (statusCheck.equals("ROLE_ADMIN")){
-		 * Map<String,Object> param = new HashMap<String, Object>(); param.put("status",
-		 * "Y"); param.put("queNo", que.getQueNo());
-		 * 
-		 * int result = mainService.updateQueStatus(param); }else
-		 * if(statusCheck.equals("ROLE_USER")){ Map<String,Object> param = new
-		 * HashMap<String, Object>(); param.put("status", "N"); param.put("queNo",
-		 * que.getQueNo());
-		 * 
-		 * int result = mainService.updateQueStatus(param);
-		 * 
-		 * } } }
-		 */
-		
 		int totalContent = mainService.selectQuestionTotalCount();
 		model.addAttribute("totalContent", totalContent);
 		

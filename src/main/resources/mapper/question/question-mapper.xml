@@ -33,7 +33,7 @@
 	
 	<select id="selectReplyListByqueNo" resultType="reply">
 	
-	select * from reply r join tb_member m on m.id = r.member_id  where que_no=#{queNo} order by que_no desc
+	select * from reply r join tb_member m on m.id = r.member_id  where que_no=#{queNo} order by reg_date
 	</select>
 	
 	<delete id="deleteOneReply">
