@@ -351,6 +351,12 @@ $("#btn-DM-modal").click((e)=>{
 		success(data){
 			console.log(data); 
 			$.each(data, (k,v)=>{
+				var date = new Date(v.dmMessageAt);
+				
+				var formatDate = (current_datetime)=>{
+				    let formatted_date = current_datetime.getHours() + ":" + current_datetime.getMinutes();
+				    return formatted_date;
+				}
 				if(v.dmSender == $memberId){
 				$(".dm-profile-container").append(``);
 				}else{
@@ -364,7 +370,7 @@ $("#btn-DM-modal").click((e)=>{
 					        <div class="dm-message-box">
 							    <div class="dm-message-sender">
 									<span><strong>\${v.dmSenderNickname}</strong></span>
-									<span>\${v.dmMessageAt}</span>
+									<span>\${formatDate(date)}</span>
 								</div>
 							    <div class="dm-message-content">
 							    	<p>\${v.dmContent}</p>
