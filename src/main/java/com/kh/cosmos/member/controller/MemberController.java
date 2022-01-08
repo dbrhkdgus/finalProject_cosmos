@@ -288,7 +288,7 @@ public class MemberController {
 	@PostMapping("/memberUpdate.do")
 	public String memberUpdatePost(@RequestParam(value = "upFile", required = false) MultipartFile upFile,
 			Member updateMember, Authentication oldAuthentication, HttpServletRequest request) throws Exception {
-		
+		log.debug("updateMember={}", updateMember);
 		String email = (request.getParameter("emailId")) + "@" + (request.getParameter("email-server"));
 		updateMember.setMemberEmail(email);
 		
@@ -355,13 +355,13 @@ public class MemberController {
 		principal.setMemberJob(updateMember.getMemberJob());
 		principal.setPassword(updateMember.getPassword());
 		principal.setMemberGender(updateMember.getMemberGender());
-		
+		principal.setAuthorities((List<SimpleGrantedAuthority>) oldAuthentication.getAuthorities());
 		
 		log.debug("member = {}", updateMember);
 		result = memberService.updateMember(updateMember);
 
 		Authentication newAuthentication = new UsernamePasswordAuthenticationToken(principal,
-				oldAuthentication.getCredentials(), oldAuthentication.getAuthorities());
+				oldAuthentication.getCredentials(), principal.getAuthorities());
 
 		SecurityContextHolder.getContext().setAuthentication(newAuthentication);
 		
