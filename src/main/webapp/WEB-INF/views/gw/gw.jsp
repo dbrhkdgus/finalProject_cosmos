@@ -23,6 +23,7 @@ a { color:black; text-decoration:none !important } a:hover { color : black; text
     color: white;
     padding: 7px;
     border-radius: 4px;
+    box-shadow: 3px 3px 5px #ccc;
 }
 }
 .gw-main-banner-change:hover{
@@ -32,17 +33,13 @@ a { color:black; text-decoration:none !important } a:hover { color : black; text
 </style>
 
 
-<!--  -->
+
 
 <div class="gw_main_workspace-box">
 	<div class="main-banner-notice-new-box">
-		<div class="groupware-main-title d-flex ">
-
-				<div class="gw-main-banner-img">
-					<c:if test="${myGroup.groupNo == groupwareMainBanner.groupNo }">
 					<sec:authorize access="hasAnyRole('ROLE_GW${currGroupNo}MASTER', 'ROLE_GW${currGroupNo}MANAGER','ROLE_ADMIN')">
-						<div class="gw-banner-controller" style=" cursor: pointer;">
-							<span class="gw-main-banner-change"style="float: right;">[배너 바꾸기]</span>
+						<div class="gw-banner-controller" style=" cursor: pointer; margin: 20px 0 5px 50px;">
+							<span class="gw-main-banner-change">[배너 바꾸기]</span>
 						  <!--   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gear" viewBox="0 0 16 16">
 					  			<path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492zM5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0z"/>
 					  			<path d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52l-.094-.319zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115l.094-.319z"/>
@@ -50,16 +47,19 @@ a { color:black; text-decoration:none !important } a:hover { color : black; text
 						</div>
 					</sec:authorize>
 						<%-- <img src="${pageContext.request.contextPath }/resources/upFile/group/${attach.renamedFilename}" alt="" /> --%>
+		<div class="groupware-main-title d-flex  align-items-center" style="height: 55vh;">
+
+				<div class="gw-main-banner-img" style="width: 40vw; height: 55vh;">
+					<c:if test="${myGroup.groupNo == groupwareMainBanner.groupNo }">
 						
-							<img class="groupware-main-banner" src="${pageContext.request.contextPath }/resources/upFile/group/${groupwareMainBanner.renamedFilename}" alt="" />
-						
+							<img class="groupware-main-banner rounded" src="${pageContext.request.contextPath }/resources/upFile/group/${groupwareMainBanner.renamedFilename}" alt=""  style="width: 38vw;height: 55vh;"/>			
 					<!-- 	<hr style="margin-bottom: 30px"/> -->
 					</c:if>
 				</div>
-				<div class="calendar-box">
+				<div class="calendar-box rounded">
 					<div id='main'>
 						<div id='app'></div>
-						<!-- <input type='text' name='calendar' id='app' style='padding:5px 10px; margin: 20px 20px; border:1px solid black'/> -->
+						
 					</div>
 				</div>
 
@@ -68,7 +68,7 @@ a { color:black; text-decoration:none !important } a:hover { color : black; text
 		<div class="groupware-main-contents">
 			<div class="groupware-main-notice" style="background-color:white;" >
 				<p class="gw-main-notice-title">공지사항</p>
-				<ul>
+				<ul style="font-size:13px;">
 					<c:forEach var="notice" items="${noticePostList}">
 						<li><a href="${pageContext.request.contextPath }/gw/board/boardDetail.do?postNo=${notice.postNo}">${notice.postTitle }</a></li>
 					</c:forEach>
@@ -76,7 +76,7 @@ a { color:black; text-decoration:none !important } a:hover { color : black; text
 			</div>
 			<div class="groupware-main-notice new" style="margin-left: 23px;background-color:white;" >
 				<p class="gw-main-notice-title">새로운 게시글</p>
-				<ul>
+				<ul style="font-size:13px;">
 					<c:forEach var="newPost" items="${newPostsList}">
 						<c:choose>
 							<c:when test="${newPost.boardType == 'B' }">
