@@ -34,7 +34,7 @@
             <div class="search-child-category">
                  <ul class="child-category-all" id="c2">
                     <c:if test="${ca2NoList != null }">
-                    	<c:forEach var="ca2" items="${ca2NoList }"> 
+                    	<c:forEach var="ca2" items="${ca2NoList }">
                     		<li><a href="${pageContext.request.contextPath}/group/groupSearch.do?ca1No=${ca1No}&ca2No=${ca2.category2No}">${ca2.category2Name}</a></li>
                     	</c:forEach>
                     </c:if>
