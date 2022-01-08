@@ -34,7 +34,6 @@ a { color:black; text-decoration:none !important } a:hover { color : black; text
 
 
 
-<!--  -->
 
 <div class="gw_main_workspace-box">
 	<div class="main-banner-notice-new-box">
@@ -60,7 +59,7 @@ a { color:black; text-decoration:none !important } a:hover { color : black; text
 				<div class="calendar-box rounded">
 					<div id='main'>
 						<div id='app'></div>
-						<!-- <input type='text' name='calendar' id='app' style='padding:5px 10px; margin: 20px 20px; border:1px solid black'/> -->
+						
 					</div>
 				</div>
 
