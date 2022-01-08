@@ -50,7 +50,7 @@
 	from
 	    post p left join board_category bc
 	        on p.board_category_no = bc.board_category_no 
-	where board_no = #{boardNo}
+	where board_no = #{boardNo} ORDER BY p.post_reg_date desc
   </select>
   	
   <select id="selectAttachmentList" resultType="attachment">
