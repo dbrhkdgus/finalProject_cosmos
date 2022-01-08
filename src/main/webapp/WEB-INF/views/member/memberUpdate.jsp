@@ -145,14 +145,18 @@
 								<div class="col-md-6 group-text-input gender-radio">
 									<div class="form-check">
 										<input class="form-check-input" type="radio"
-											name="memberGender" id="flexRadioDefault2" value="F"> <label
+											name="memberGender" id="flexRadioDefault2" value="F"
+											<c:if test="${loginMember.memberGender eq 'F'}">checked</c:if>
+											> <label
 											class="form-check-label" for="flexRadioDefault2" > 여성
 										</label>
 									</div>
 
 									<div class="form-check">
 										<input class="form-check-input" type="radio"
-											name="memberGender" id="flexRadioDefault1" value="M" checked="checked"> <label
+											name="memberGender" id="flexRadioDefault1" value="M"
+											<c:if test="${loginMember.memberGender eq 'M'}">checked</c:if>
+											> <label
 											class="form-check-label" for="flexRadioDefault1"> 남성
 										</label>
 									</div>
@@ -173,11 +177,18 @@
 								<label for="full_name"
 									class="col-md-4 col-form-label text-md-right">직업</label>
 								<div class="col-md-6 group-text-input">
+									
 									<select class="form-select" aria-label="Default select example" name="memberJob">
 										<option selected>직업</option>
-										<option value="프론트 개발자" selected>프론트 개발자</option>
-										<option value="백엔드 개발자">백엔드 개발자</option>
-										<option value="취업 준비생">취업 준비생</option>
+										<option value="프론트 개발자"
+											<c:if test="${loginMember.memberJob eq '프론트 개발자'}">selected</c:if>
+										>프론트 개발자</option>
+										<option value="백엔드 개발자"
+											<c:if test="${loginMember.memberJob eq '백엔드 개발자'}">selected</c:if>
+										>백엔드 개발자</option>
+										<option value="취업 준비생"
+											<c:if test="${loginMember.memberJob eq '취업 준비생'}">selected</c:if>
+										>취업 준비생</option>
 									</select>
 								</div>
 							</div>

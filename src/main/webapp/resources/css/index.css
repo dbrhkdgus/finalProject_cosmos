@@ -153,6 +153,7 @@
    display: flex;
    justify-content: flex-start;
    margin-top: 40px;
+   margin-left: 5%;
 }
 .search-card{
   margin-right: 20px;
@@ -162,6 +163,7 @@
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
+  margin-left: 10px;
  
 }
 
@@ -190,7 +192,6 @@
 }
 
 .search-card-body{
-	width: 350px; 
     height: 167px;
 }
 
@@ -202,6 +203,7 @@
 	display: flex;
 	justify-content: flex-end;
 	align-items: center;
+
 }
 
 .fa-heart:before {
