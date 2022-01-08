@@ -66,7 +66,7 @@
 
     <!-- 그룹원 리스트(축약버전) (오른쪽) -->
      <div class="test-member-list-small bg-light">
-     	 <div class="memberList-size-controll-box mb-3" style="cursor: pointer; margin-top: 17px; margin-left: 2px;">
+     	 <div class="memberList-size-controll-box mb-3" style="cursor: pointer; margin-top: 17px; margin-left: 10%;">
 			<i class="fas fa-angle-double-left" style=" font-size: 1.3rem;"></i>
 	 	</div>
       <div class="online-member-list mt-4">
