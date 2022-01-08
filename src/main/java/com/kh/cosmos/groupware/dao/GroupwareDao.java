@@ -45,6 +45,8 @@ public interface GroupwareDao {
 
 	List<PostWithBoardName> selectNewPostsListByParam(Map<String, Object> param);
 
+	Attachment selectGropwareBannerByGroupNo(int groupNo);
+
 
 
 	

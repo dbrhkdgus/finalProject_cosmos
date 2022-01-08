@@ -300,12 +300,17 @@ public class GroupController {
 			
 			
 			int result = groupService.insertGroup(groupEnroll);
-		
+			
+			Map<String, Object> param = new HashMap<String, Object>();
+			param.put("memberId", groupEnroll.getMemberId());
+			param.put("imgFlag", "M");
+			result = groupService.insertGroupwareBanner(param);
+			
 			int attachNo = groupService.insertAttach(attach);
 //			log.debug("attachNo = {}", attachNo);
 			
 			result = groupService.insertGroupInfoConnect(groupInfoConnect);
-		
+			
 			String[] cateNo = groupEnroll.getCateCheckBox();
 			
 //			log.debug("cateNo={}" ,cateNo);

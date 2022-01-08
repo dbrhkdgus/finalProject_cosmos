@@ -281,6 +281,15 @@
 	delete authorities where authority like '%' ||  #{groupNo} || '%'
 
 	</delete>
-
+	
+	<insert id="insertGroupwareBanner">
+			<selectKey keyProperty="groupNo" resultType="_int" order="BEFORE">
+				select
+					seq_group_no.currval
+				from
+					dual
+			</selectKey>
+		insert into attachment values(seq_attach_no_no.nextval, #{memberId}, #{groupNo}, 'gw-main-banner-default.jpg','gw-main-banner-default.jpg', sysdate, #{imgFlag}, 'N')
+	</insert>
 
 </mapper>
