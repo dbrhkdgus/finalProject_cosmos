@@ -32,6 +32,12 @@
 <!-- 사용자작성 css -->
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath }/resources/css/styles.css" />
+<style>
+.modal-body{
+font-family: 'NanumSquareRound';
+}
+
+</style>
 <script>
 <c:if test="${not empty msg}">
 alert("${msg}");
@@ -47,6 +53,7 @@ $(() => {
 });
 
 </script>
+
 </head>
 <body>
 
@@ -61,9 +68,9 @@ $(() => {
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
-				<h2 class="modal-title text-center" style="color: #113366;">COSMOS</h2>
+				<h2 class="modal-title text-center" style="color: #113366; font-weight:bold;">COSMOS</h2>
 			
-			<div class="modal-body">
+			<div class="modal-body" >
 				<form:form name="loginForm" class="form-signin" method="POST"
 					action="${pageContext.request.contextPath}/member/memberLogin.do">
 					<h5 class="form-signin-heading text-center">로그인</h5>
