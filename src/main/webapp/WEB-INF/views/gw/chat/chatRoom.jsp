@@ -289,7 +289,6 @@ $(".memberList-size-controll-box").click((e)=>{
 
 				// drop file img preview
                 if (document.getElementById('file').files && document.getElementById('file').files[0]) {
-                	console.log("test");
                     var reader = new FileReader();
                     reader.onload = function (e) {
                         $("#preview").attr('src', e.target.result);

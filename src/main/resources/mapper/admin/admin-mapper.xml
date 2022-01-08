@@ -112,7 +112,7 @@
 	    left join studygroup_category1 sc
 	        on g.category_no = sc.category1_no
 	where
-	    g.group_no = #{groupNo} and ag.role='G'
+	    g.group_no = #{groupNo} and ag.role='G' and a.img_flag = 'Y'
   </select>
   
     <!-- 그룹 승인하기 -->
@@ -260,12 +260,14 @@
   </select>
   
   <select id="EnrollMemberByMonth" resultType="EnrollMemberByMonth">
-	SELECT TO_CHAR(b.dt, 'YYYY-MM-DD') AS member_enroll_date
-	     , NVL(SUM(a.cnt), 0) cnt
+	SELECT 
+	    TO_DATE(b.dt, 'YYYY-MM-DD') AS member_enroll_date,
+	    NVL(SUM(a.cnt), 0) cnt
+
 	FROM 
 	        (           
 	            SELECT 
-	                 TO_CHAR(member_enroll_date, 'YYYY-MM-DD') AS member_enroll_date
+	                 TO_DATE(member_enroll_date, 'YYYY-MM-DD') AS member_enroll_date
 	                , COUNT(*) cnt
 	            FROM 
 	                tb_member
@@ -274,7 +276,7 @@
 	        ) a
 	      , ( 
 	        SELECT 
-	            TO_DATE(#{firstDate}, 'YYYY-MM-DD') + (LEVEL-1) AS DT 
+	            TO_DATE((TO_DATE(#{firstDate}, 'YYYY-MM-DD') + (LEVEL-1)),'YYYY-MM-DD') AS DT 
 	        FROM 
 	            DUAL 
 	        CONNECT BY LEVEL <![CDATA[ < ]]>= (TO_DATE(#{lastDate}, 'YYYY-MM-DD') - TO_DATE(#{firstDate}, 'YYYY-MM-DD')) + 1

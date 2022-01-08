@@ -69,4 +69,11 @@ select * from schedule where to_char(start_date, 'YYYYMMDD') <![CDATA[<=]]> to_c
         and group_no = #{groupNo} and p.board_no != #{noticeBoardNo} and rownum <![CDATA[<=]]> 5
     order by post_reg_date desc
 </select>
+<select id="selectGropwareBannerByGroupNo" resultType="attachment">
+select * from attachment where group_no = #{groupNo} and img_flag='M'
+</select>
+
+<update id="updateGroupwareMainBanner">
+update attachment set original_filename = #{originalFilename}, renamed_filename = #{renamedFilename} where group_no = #{groupNo} and img_flag = 'M'
+</update>
 </mapper>

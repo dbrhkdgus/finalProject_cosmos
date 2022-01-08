@@ -44,5 +44,9 @@ public interface GroupwareService {
 	List<Schedule> selectTodayScheduleListByGroupNo(int groupNo);
 
 	List<PostWithBoardName> selectNewPostsListByParam(Map<String, Object> param);
+
+	Attachment selectGropwareBannerByGroupNo(int groupNo);
+
+	int updateGroupwareMainBanner(Attachment attach);
 	
 }
