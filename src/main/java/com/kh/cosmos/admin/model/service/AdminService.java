@@ -109,4 +109,8 @@ public interface AdminService {
 
 	int enrollLastMonthCount();
 
+	int disapproveGroup(int groupNo);
+
+	int sendDisapprveGroupDM(String memberId);
+
 }
