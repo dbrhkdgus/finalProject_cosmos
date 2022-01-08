@@ -64,7 +64,7 @@
                     <div id="navbar">
                        
                             <a href="${pageContext.request.contextPath}" style="width:fit-content; display:flex;">
-                                <img src="${pageContext.request.contextPath }/resources/images/logo-3.png" class="nav-logo-img" alt="" style="    border-radius: 15px; width: 55px; transform: translateX(85px);"> 
+                                <img src="${pageContext.request.contextPath }/resources/images/cosmoslogo_black.png" class="nav-logo-img" alt="" style="    border-radius: 15px; width: 81px;transform: translateX(85px);"> 
                             </a>
                      
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>

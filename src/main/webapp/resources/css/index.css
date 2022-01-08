@@ -154,7 +154,7 @@
    display: flex;
    justify-content: flex-start;
    margin-top: 40px;
-   margin-left: 5%;
+   margin-left: 8%;
 }
 .search-card{
   margin-right: 20px;
@@ -589,7 +589,7 @@
 
 
 .rightBtn{
-	background:#A0BFB5;
+	background:#5298F2;
 	color:#fff;
 	border:none;
 	position:relative;
@@ -606,7 +606,7 @@
 }
 .aboutdetail.rightinner >button:hover{
 	background: #fff;
-    color: #1AAB8A
+    color: #83BBF8;
 	
 }
 
@@ -626,7 +626,7 @@
     width: 250px;
     border-radius:50%;
     height: 250px;
-    border: 4px solid #005A3C;
+    border: 4px solid #D7ECFB;
 }
 
 
@@ -692,12 +692,12 @@
 }
 .underlined.first:before {
   height:25px;
-  background:#A0BFB5;
+  background:#D7ECFB;
   
 }
 .underlined.second:before {
   height:25px;
-  background:#005A3C;
+  background:#A2BEE4;
 }
 .about p{
 	margin-bottom :10px;
