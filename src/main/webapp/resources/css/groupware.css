@@ -821,7 +821,7 @@ div.list-group1{
 
 }
 .groupware-main-title{
-	    margin: 40px 20px 40px 50px;
+	    margin: 0px 0px 40px 50px; 
 }
 .groupware-main-contents{
 	display: flex;
@@ -843,7 +843,7 @@ div.list-group1{
 .groupware-main-banner{
 	width: 805px;
     height: 460px;
-    border: 2px solid;
+
 }
  .groupware-main-today-schedule{
 	margin-left:20px;
@@ -860,8 +860,7 @@ div.list-group1{
 
 }
 #app{
-	/* border: 1px solid; */
-    margin-top: 20px;
+	/* border: 1px solid; */ 
     margin-right: 5px;
 }
 
@@ -934,8 +933,8 @@ div.list-group1{
 
 .calendar-body {
     position: relative;
-    width: 450px;
-    height: 460px;
+    width: 23vw;
+    height: 55vh;
     margin: 0px 30px 0 45px;
     font-size: 17px;
     font-family: 'Nanum Gothic';
@@ -1024,7 +1023,7 @@ div.list-group1{
 .calendar-body .calendar-row {
  	pointer-events: none;
     display: flex;
-    height: 51px;
+    height: 7.5vh;
     border-bottom: 1px solid #ccc;
 }
 
