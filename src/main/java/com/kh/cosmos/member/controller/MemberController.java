@@ -355,7 +355,7 @@ public class MemberController {
 		principal.setMemberJob(updateMember.getMemberJob());
 		principal.setPassword(updateMember.getPassword());
 		principal.setMemberGender(updateMember.getMemberGender());
-
+		principal.setAuthorities(oldAuthentication.getAuthorities());
 		log.debug("member = {}", updateMember);
 		result = memberService.updateMember(updateMember);
 

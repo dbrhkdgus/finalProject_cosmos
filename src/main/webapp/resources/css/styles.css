@@ -4015,10 +4015,19 @@ textarea.form-control-lg {
   font-weight: bold;
   border: none;
   font-size:1.1rem;
-  color: #6D8EF2;
+  color:#2458BF;
   background-color: #fff;
   border-color: #dee2e6 #dee2e6 #fff;
 }
+.cate-link.active,
+.cate-item.show .cate-link{
+  font-weight: bold;
+  border: none;
+  color:#2458BF;
+  background-color: #fff;
+  border-color: #dee2e6 #dee2e6 #fff;
+}
+
 .nav-tabs .dropdown-menu {
   margin-top: -1px;
   border-top-left-radius: 0;
