@@ -66,20 +66,20 @@
 
     <!-- 그룹원 리스트(축약버전) (오른쪽) -->
      <div class="test-member-list-small bg-light">
-     	 <div class="memberList-size-controll-box mb-3" style="cursor: pointer; margin-top: 17px; margin-left: 10%;">
-			<i class="fas fa-angle-double-left" style=" font-size: 1.3rem;"></i>
+     	 <div class="memberList-size-controll-box mb-3" style="cursor: pointer; margin-top: 17px;">
+			<i class="fas fa-angle-double-left" style="zoom:1.7;"></i>
 	 	</div>
-      <div class="online-member-list mt-4">
+      <div class="online-member-list mt-4" style="zoom: 0.7;">
 		<c:forEach var="member" items="${myGroupMemberList }">
 	        <div class="test-member-profile">
-	          <div class="member-profile-img-box">
+	          <div class="member-profile-img-box-small">
 	          <c:choose>
 	          	<c:when test="${fn:startsWith(member.renamedFilename,'http')}">
-					<img class="btn-profile3 btn-profile member-profile-img" src="${member.renamedFilename}" alt="" style="width: 1px; zoom : 30;"/>
+					<img class="btn-profile3 btn-profile member-profile-img" src="${member.renamedFilename}" alt="" style="width:5px; zoom :10;"/>
 					<input type="hidden" name="profile_owner" value="${member.id}" />
 				</c:when>
 				<c:otherwise>
-	            	<img class="btn-profile3 member-profile-img" src="${pageContext.request.contextPath }/resources/upFile/profile/${member.renamedFilename}" alt="">
+	            	<img class="btn-profile3 member-profile-img" src="${pageContext.request.contextPath }/resources/upFile/profile/${member.renamedFilename}" alt="" style="width: 45px; height: 45px">
 					<input type="hidden" name="profile_owner" value="${member.id}" />
 	            </c:otherwise>
 	          </c:choose>
