@@ -10,13 +10,13 @@
 			<img src="https://i.ibb.co/bmPcjFV/error-Page-Img.png" alt="" style="width: 100%;"/>
 	</div>	
 		
-<!-- 
+ 
  <script>
 setTimeout(function() {
 	  location.href = "${pageContext.request.contextPath}/"
 	}, 5000);
 	
-</script> -->
+</script> 
 <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
 		
 		

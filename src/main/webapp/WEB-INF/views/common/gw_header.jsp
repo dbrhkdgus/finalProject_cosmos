@@ -88,7 +88,7 @@
         </div>
         
         <div class="groupwear-study-title" style="width: 260px;">
-          <a href="${pageContext.request.contextPath }/gw/gw.do?groupNo=${myGroup.groupNo}" class="d-flex align-items-center pb-3 mb-3 link-dark text-decoration-none border-bottom">
+          <a href="${pageContext.request.contextPath }/gw/gw.do?groupNo=${myGroup.groupNo}" class="d-flex align-items-center pb-3 mb-3 link-dark text-decoration-none ">
             <span class="fs-5 fw-semibold" style="color: white;">${myGroup.groupName }</span>
           </a>
         </div>
