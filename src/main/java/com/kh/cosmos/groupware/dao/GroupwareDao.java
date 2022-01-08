@@ -47,6 +47,8 @@ public interface GroupwareDao {
 
 	Attachment selectGropwareBannerByGroupNo(int groupNo);
 
+	int updateGroupwareMainBanner(Attachment attach);
+
 
 
 	

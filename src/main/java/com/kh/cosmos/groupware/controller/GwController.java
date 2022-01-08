@@ -1,18 +1,25 @@
 package com.kh.cosmos.groupware.controller;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.ServletContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.kh.cosmos.common.CosmosUtils;
 import com.kh.cosmos.common.attachment.model.vo.Attachment;
 import com.kh.cosmos.group.model.vo.ApplocationGroup;
 import com.kh.cosmos.group.model.vo.Group;
@@ -36,6 +43,8 @@ public class GwController {
 	private GroupwareService gwService;
 	@Autowired
 	private BoardService boardService;
+	@Autowired
+	ServletContext application;
 	
 	@GetMapping("/gw.do")
 	public String gw(@RequestParam int groupNo, @RequestParam(required=false) String msg, Model model, Authentication auth) {
@@ -96,4 +105,42 @@ public class GwController {
 		model.addAttribute("title", "메인화면");
 		return "gw/gw";
 	}
+	@ResponseBody
+	@PostMapping("/updateGropwareMainBanner.do")
+	public int updateGropwareMainBanner(int groupNo,String memberId, @RequestParam(value="ev_display", required=false) MultipartFile upFile) {
+		int result = 0;
+		try {
+			 String saveDirectory = application.getRealPath("/resources/upFile/group");
+			 log.debug("saveDirectory = {}", saveDirectory);
+		 
+			 log.debug("upfile = {}", upFile);
+		 
+		 if(!upFile.isEmpty() && upFile.getSize() != 0) {
+			 log.debug("upFile = {}", upFile);
+			 log.debug("upFile.name = {}",upFile.getOriginalFilename());
+			 log.debug("upFile.size = {}",upFile.getSize());
+		 
+			 String originalFilename = upFile.getOriginalFilename();
+			 String renamedFilename = CosmosUtils.getRenamedFilename(originalFilename);
+			 
+			 // 1.서버컴퓨터에 저장
+			 File dest = new File(saveDirectory, renamedFilename);
+			 log.debug("dest = {}", dest);
+			 upFile.transferTo(dest);
+			 
+			 // 2.DB에 attachment 레코드 등록
+			 Attachment attach = new Attachment();
+			 attach.setRenamedFilename(renamedFilename);
+			 attach.setOriginalFilename(originalFilename);
+			 attach.setMemberId(memberId);
+			 attach.setGroupNo(groupNo);
+			 result = gwService.updateGroupwareMainBanner(attach);
+		 }
+		 
+		 } catch (Exception e){
+		 	
+		 }
+		
+		return result;
+		}
 }
