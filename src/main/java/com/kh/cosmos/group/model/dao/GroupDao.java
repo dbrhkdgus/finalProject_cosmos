@@ -103,4 +103,6 @@ public interface GroupDao {
 
 	int deleteAuthoritiesRelatedGroup(String groupNo);
 
+	int insertGroupwareBanner(Map<String, Object> param);
+
 }

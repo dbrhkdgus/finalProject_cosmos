@@ -101,4 +101,6 @@ public interface GroupService {
 	int deleteGroup(int groupNo);
 
 	int deleteAuthoritiesRelatedGroup(String groupNostr);
+
+	int insertGroupwareBanner(Map<String, Object> param);
 }

@@ -47,6 +47,7 @@ public class GwController {
 		
 		List<Group> myGroupList = gwService.selectAllMyGroup(loginMember.getId());
 		List<Attachment> groupBannerAttachList = gwService.selectAllGroupBannerAttach();
+		Attachment groupwareMainBanner = gwService.selectGropwareBannerByGroupNo(groupNo);
 		List<String> memberProfileRenamedFilenameList = new ArrayList<String>();
 		for(Member m : myGroupMemberList) {
 			String memberProfileRenamedFilename = gwService.selectMemberProfileRenamedFilename(m.getId());
@@ -77,6 +78,7 @@ public class GwController {
 	    
 	    
 	    
+	    model.addAttribute("groupwareMainBanner",groupwareMainBanner);
 	    model.addAttribute("newPostsList",newPostsList);
 	    model.addAttribute("todayScheduleList",todayScheduleList);
 		model.addAttribute("currGroupNo", groupNo);
