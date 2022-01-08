@@ -364,13 +364,13 @@ public class GwFileBoardController {
 		} catch (Exception e) {
 			
 		}
-	   if(expend==null) {
+	    if(expend==null) {
 			int result = gwService.insertDefaultExpendCheck(loginMember.getId());
 			if(result > 0) {
 				expend = gwService.selectMemberExpendCheck(loginMember.getId());
 			}
-	   }
-        
+	    }
+	    model.addAttribute("expend", expend);
 
         model.addAttribute("currGroupNo", groupNo);
         model.addAttribute("myGroup", myGroup);

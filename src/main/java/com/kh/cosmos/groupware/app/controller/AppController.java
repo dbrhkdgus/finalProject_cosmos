@@ -173,6 +173,7 @@ public class AppController {
 				expend = gwService.selectMemberExpendCheck(loginMember.getId());
 			}
 	   }
+	   model.addAttribute("expend", expend);
 		List<ChatRoom> chattingChannelList = gwService.selectAllChatRoomByGroupNo(groupNo);
 		List<Board> boardList = gwService.selectAllBoardRoomByGroupNo(groupNo);
 		model.addAttribute("boardList", boardList);

@@ -201,12 +201,13 @@ public class GwCalendarController {
 		} catch (Exception e) {
 			
 		}
-	   if(expend==null) {
+	    if(expend==null) {
 			int result = gwService.insertDefaultExpendCheck(loginMember.getId());
 			if(result > 0) {
 				expend = gwService.selectMemberExpendCheck(loginMember.getId());
 			}
-	   }
+	    }
+	    model.addAttribute("expend", expend);
 		List<ChatRoom> chattingChannelList = gwService.selectAllChatRoomByGroupNo(groupNo);
 		List<Board> boardList = gwService.selectAllBoardRoomByGroupNo(groupNo);
 		model.addAttribute("boardList", boardList);
