@@ -103,7 +103,7 @@
 		</div>
 		<div class="login-index category " style="margin-bottom:5px;">
 				<div class="index-member-box">
-					<img id="index-profile" src="${pageContext.request.contextPath }/resources/images/facebook.png" alt="" />					
+					<img id="index-profile" src="https://i.ibb.co/jhPHsGj/foo.png" alt="" />					
 					<div class="index-member-info">
 					<a href="${pageContext.request.contextPath }/member/memberUpdate.do" ><p style="font-size: 20px;">&nbsp;<sec:authentication property="principal.memberName"/>님 </p></a>
 					<form:form action="${pageContext.request.contextPath }/member/memberLogout.do" method="POST">
