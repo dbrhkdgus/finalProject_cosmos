@@ -33,17 +33,13 @@
 			<div class="about content"></div>
 			<div class="aboutdetail outer">
 
-
-
-
-				<div class="aboutdetail leftbox active ">
-					<input type="hidden" value="" class="input-val" />
+				<div class="aboutdetail leftbox active" id="ygh">
 					<div class="left image ">
 						<img
-							src="${pageContext.request.contextPath }/resources/images/facebook.png"
+							src="https://i.ibb.co/L1pCTTN/tmp-1613290479805.jpg"
 							alt="" id="bigImg">
 						<p>
-							<mark>멤버1</mark>
+							<mark>유광현</mark>
 						</p>
 					</div>
 					<div class="left content about-detail-content">Lorem ipsum
@@ -56,14 +52,14 @@
 
 
 
-				<div class="aboutdetail leftbox">
+				<div class="aboutdetail leftbox" id="ljp">
 					<input type="hidden" value="" class="input-val" />
 					<div class="left image">
 						<img
-							src="${pageContext.request.contextPath }/resources/images/github.png"
+							src="https://i.ibb.co/bsF7PgZ/LeeJP.png"
 							alt="" id="bigImg">
 						<p>
-							<mark>멤버2</mark>
+							<mark>이진표</mark>
 						</p>
 					</div>
 					<div class="left content about-detail-content">Lorem ipsum
@@ -74,13 +70,13 @@
 				</div>
 
 
-				<div class="aboutdetail leftbox">
+				<div class="aboutdetail leftbox" id="ggj">
 					<div class="left image">
 						<input type="hidden" value="" class="input-val" /> <img
-							src="${pageContext.request.contextPath }/resources/images/facebook.png"
+							src="https://i.ibb.co/Pj7sHTX/goo.gif"
 							alt="" id="bigImg">
 						<p>
-							<mark>멤버3</mark>
+							<mark>강구진</mark>
 						</p>
 					</div>
 					<div class="left content about-detail-content">Lorem ipsum
@@ -90,15 +86,14 @@
 						voluptate qui sequi sed. Voluptatibus harum.</div>
 				</div>
 
-			</div>
-			<div class="aboutdetail leftbox">
+			<div class="aboutdetail leftbox" id="keh">
 				<input type="hidden" value="" class="input-val" />
 				<div class="left image">
 					<img
-						src="${pageContext.request.contextPath }/resources/images/github.png"
+						src="https://i.ibb.co/vkrrfhm/Ke.jpg"
 						alt="" id="bigImg">
 					<p>
-						<mark>멤버4</mark>
+						<mark>김은희</mark>
 					</p>
 				</div>
 				<div class="left content about-detail-content">Lorem ipsum
@@ -108,48 +103,14 @@
 					voluptate qui sequi sed. Voluptatibus harum.</div>
 			</div>
 
-			<div class="aboutdetail leftbox">
-				<input type="hidden" value="" class="input-val" />
-				<div class="left image">
-					<img
-						src="${pageContext.request.contextPath }/resources/images/facebook.png"
-						alt="" id="bigImg">
-					<p>
-						<mark>멤버5</mark>
-					</p>
-				</div>
-				<div class="left content about-detail-content">Lorem ipsum
-					dolor sit amet, consectetur adipisicing elit. Officia dignissimos
-					rem sequi amet necessitatibus nostrum enim. Incidunt iste
-					reprehenderit nostrum asperiores fugiat blanditiis delectus
-					voluptate qui sequi sed. Voluptatibus harum.</div>
-			</div>
-
-			<div class="aboutdetail leftbox">
-				<input type="hidden" value="" class="input-val" />
-				<div class="left image">
-					<img
-						src="${pageContext.request.contextPath }/resources/images/github.png"
-						alt="" id="bigImg">
-					<p>
-						<mark>멤버6</mark>
-					</p>
-				</div>
-				<div class="left content about-detail-content">Lorem ipsum
-					dolor sit amet, consectetur adipisicing elit. Officia dignissimos
-					rem sequi amet necessitatibus nostrum enim. Incidunt iste
-					reprehenderit nostrum asperiores fugiat blanditiis delectus
-					voluptate qui sequi sed. Voluptatibus harum.</div>
-			</div>
-
-			<div class="aboutdetail leftbox">
+			<div class="aboutdetail leftbox" id="bjy">
 				<input type="hidden" value="" class="input-val" />
 				<div class="left image">
 					<img
 						src="${pageContext.request.contextPath }/resources/images/facebook.png"
 						alt="" id="bigImg">
 					<p>
-						<mark>멤버7</mark>
+						<mark>백지영</mark>
 					</p>
 				</div>
 				<div class="left content about-detail-content">Lorem ipsum
@@ -159,6 +120,41 @@
 					voluptate qui sequi sed. Voluptatibus harum.</div>
 			</div>
 
+			<div class="aboutdetail leftbox" id="yjw">
+				<input type="hidden" value="" class="input-val" />
+				<div class="left image">
+					<img
+						src="${pageContext.request.contextPath }/resources/images/github.png"
+						alt="" id="bigImg">
+					<p>
+						<mark>유지우</mark>
+					</p>
+				</div>
+				<div class="left content about-detail-content">Lorem ipsum
+					dolor sit amet, consectetur adipisicing elit. Officia dignissimos
+					rem sequi amet necessitatibus nostrum enim. Incidunt iste
+					reprehenderit nostrum asperiores fugiat blanditiis delectus
+					voluptate qui sequi sed. Voluptatibus harum.</div>
+			</div>
+
+			<div class="aboutdetail leftbox" id="lyh">
+				<input type="hidden" value="" class="input-val" />
+				<div class="left image">
+					<img
+						src="${pageContext.request.contextPath }/resources/images/facebook.png"
+						alt="" id="bigImg">
+					<p>
+						<mark>이윤희</mark>
+					</p>
+				</div>
+				<div class="left content about-detail-content">Lorem ipsum
+					dolor sit amet, consectetur adipisicing elit. Officia dignissimos
+					rem sequi amet necessitatibus nostrum enim. Incidunt iste
+					reprehenderit nostrum asperiores fugiat blanditiis delectus
+					voluptate qui sequi sed. Voluptatibus harum.</div>
+			</div>
+
+			</div>
 
 
 			<div class="aboutdetail rightouter">
@@ -167,49 +163,49 @@
 					<img
 						src="https://i.ibb.co/L1pCTTN/tmp-1613290479805.jpg"
 						alt="">
-					<button type="button" class="rightBtn">멤버1</button>
+					<button type="button" class="rightBtn" data-member="ygh">유광현</button>
 				</div>
 
 				<div class="aboutdetail rightinner" id="member1">
 					<img
 						src="https://i.ibb.co/bsF7PgZ/LeeJP.png"
 						alt="">
-					<button type="button" class="rightBtn">멤버2</button>
+					<button type="button" class="rightBtn" data-member="ljp">이진표</button>
 				</div>
 
 				<div class="aboutdetail rightinner">
 					<img
 						src="https://i.ibb.co/Pj7sHTX/goo.gif"
 						alt="">
-					<button type="button" class="rightBtn">멤버3</button>
+					<button type="button" class="rightBtn" data-member="ggj">강구진</button>
 				</div>
 
 				<div class="aboutdetail rightinner">
 					<img
 						src="https://i.ibb.co/vkrrfhm/Ke.jpg"
 						alt="">
-					<button type="button" class="rightBtn">멤버4</button>
+					<button type="button" class="rightBtn"data-member="keh">김은희</button>
 				</div>
 
 				<div class="aboutdetail rightinner">
 					<img
 						src="${pageContext.request.contextPath }/resources/images/facebook.png"
 						alt="">
-					<button type="button" class="rightBtn">멤버5</button>
+					<button type="button" class="rightBtn" data-member="bjy">백지영</button>
 				</div>
 
 				<div class="aboutdetail rightinner">
 					<img
 						src="${pageContext.request.contextPath }/resources/images/github.png"
 						alt="">
-					<button type="button" class="rightBtn">멤버6</button>
+					<button type="button" class="rightBtn" data-member="yjw">유지우</button>
 				</div>
 
 				<div class="aboutdetail rightinner">
 					<img
 						src="${pageContext.request.contextPath }/resources/images/facebook.png"
 						alt="">
-					<button type="button" class="rightBtn">멤버7</button>
+					<button type="button" class="rightBtn" data-member="lyh">이윤희</button>
 				</div>
 
 
@@ -221,32 +217,15 @@
 
 </section>
 <script>
-            var i =0;
-             const $name = $(".input-val").val(); 
-			while(i<=5){
-				if($(".input-val").eq(i).val()== $name){
-					const $leftinner = $(".leftbox");
-					 $leftinner.css("display" ,"none");
-	                 $leftinner.eq(i).css("display","flex");
-				}
-            	
-			i++	
-			}
-  
-            	
-            	
-                 $(".rightBtn").click((e)=>{
-                   const $index = $(e.target).parent().index();
-                    const $leftinner = $(".leftbox");
-                    $leftinner.css("display" ,"none");
-                    $leftinner.eq($index).css("display","flex");
+$(".rightBtn").click((e)=>{
+	var member = $(e.target).data("member");
+	var target = "#"+member;
+	$(target).addClass("active").siblings().removeClass("active");
 
- 
-                });
-                 
+});
     	    
                 
             
-                </script>
+</script>
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
