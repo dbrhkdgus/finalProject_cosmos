@@ -34,7 +34,7 @@
             <div class="search-child-category">
                  <ul class="child-category-all" id="c2">
                     <c:if test="${ca2NoList != null }">
-                    	<c:forEach var="ca2" items="${ca2NoList }"> 
+                    	<c:forEach var="ca2" items="${ca2NoList }">
                     		<li><a href="${pageContext.request.contextPath}/group/groupSearch.do?ca1No=${ca1No}&ca2No=${ca2.category2No}">${ca2.category2Name}</a></li>
                     	</c:forEach>
                     </c:if>
@@ -57,7 +57,7 @@
 		                <form action="${pageContext.request.contextPath}/group/groupSearch.do?ca1No=${ca1No}&ca2No=${ca2No}" method="get">
 	                      <div class="search-outer-top right">
 	       
-		                    <select name="searchType" class="form-select search-select" aria-label="Default select example">
+		                    <select name="searchType" style="width: 38%" class="form-select search-select" aria-label="Default select example">
 		                      <option value="groupName" ${searchType == 'groupName' ? "selected":'' }>스터디 그룹명 검색 </option>
 		                      <option value="location" ${searchType == 'location' ? "selected":'' }>스터디 지역 검색</option>
 		                      <option value="pop" ${searchType == 'pop' ? "selected":'' }>인기순으로 보기</option>
@@ -92,7 +92,7 @@
 		                                <c:forEach var="attach" items="${attachList }">
 			                                <c:if test="${group.groupNo == attach.groupNo }">
 			                                	<img class="card-img-top" 
-			                                	style = "width: 348px; height: 288px;"
+			                                	style = "width: 348px; height: 274px;"
 			                                	src="${pageContext.request.contextPath }/resources/upFile/group/${attach.renamedFilename}"
 			                                        alt="..." />
 			                                </c:if>
@@ -124,8 +124,8 @@
 			                                    </c:if>
 		                                    	<c:forEach var="cate" items="${caOneList}">
 		                                    		<c:if test="${group.categoryNo == cate.category1No}">
-		                                    			<div>
-		                                    				<p class="card-text">${cate.category1Name}</p>
+		                                    			<div class="border border-primary rounded">
+		                                    				<p class="card-text mx-2 my-1 text-primary">${cate.category1Name}</p>
 		                                    			</div>
 		                                    		</c:if>
 		                                    	</c:forEach>
@@ -138,12 +138,12 @@
 			                                </c:if>
 			                                </c:forEach>
 		                                    
-                                			<div>
+                                			<div class="pb-2">
 			                                    <c:forEach var="gcl" items="${groupCategoryList}">
 			                                    	<c:if test="${group.groupNo == gcl.groupNo}">
 				                                    		<c:forEach var="ctl" items ="${categoryTwoList}">
 				                                    			<c:if test="${gcl.category2No == ctl.category2No }">
-				                                    					<span>#${ctl.category2Name}</span>
+				                                    					<span class="card-text text-white border rounded p-1" style="margin-bottom: 5px; background-color: #b8b8b8;">#${ctl.category2Name}</span>
 				                                    			</c:if>
 				                                    		</c:forEach>
 			                                    	</c:if>
