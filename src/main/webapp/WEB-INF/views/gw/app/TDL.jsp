@@ -13,11 +13,12 @@
 </jsp:include>
 <div class="workspace-box">
 	<div class="TDL-title-container">
-		<div class="container">
-			<div class="TDL-title">
-				<h2>ToDoList(${loginMember.memberName}의 할일목록)</h2>
+		<div class="p-4">
+			<div class="tdl-title d-flex align-items-center">
+				<img src="https://i.ibb.co/djvWcfN/list.png" class="ml-3 mr-2" style="width: 5%; height: 5%;"alt="" />
+				<h2 class="m-0">나의 To do list</h2>
 			</div>
-			<div style="width: 20%;float: right;margin-bottom: 5px;">
+			<div class ="mb-3" style="width: 20%;float: right;margin-bottom: 5px;">
 				<select class="form-select" id="sort-select" aria-label="Default select example">
 				  <option value="0" <c:if test="${check == '0'}">selected</c:if>>전체</option>
 				  <option value="1" <c:if test="${check == '1'}">selected</c:if>>해야할일</option>
@@ -25,8 +26,8 @@
 				</select>
 				<input type="hidden" class="groupNo" value="${currGroupNo } "/>
 			</div>
-			<table class="table">
-				<thead>
+			<table class="table table-sm board-table-hover">
+				<thead class="board-thead">
 					<tr>
 						<th class="w-10 text-center" scope="col">번호</th>
 						<th class="w-40 text-center" scope="col" colspan="2">내용</th>
@@ -38,20 +39,20 @@
 				<tbody class="tbody-form">
 					<c:forEach var="tdl" items="${tdlList}" varStatus="vs">
 						<tr>
-							<th class="w-10 text-center" scope="row">${vs.index+1 }</th>
-							<td class="w-40 text-center" colspan="2">${tdl.tdlContent }</td>
-							<td class="w-10 text-center"><fmt:formatDate value="${tdl.tdlCreateDate }" pattern="yyyy-MM-dd"/></td>
-							<td class="w-10 text-center">
+							<th class="w-10 text-center align-middle" scope="row">${vs.index+1 }</th>
+							<td class="w-40 text-center align-middle" colspan="2">${tdl.tdlContent }</td>
+							<td class="w-10 text-center align-middle"><fmt:formatDate value="${tdl.tdlCreateDate }" pattern="yyyy-MM-dd"/></td>
+							<td class="w-10 text-center align-middle">
 								<div>
 									<c:if test="${fn:contains(tdl.tdlChecked, 'N')}">
-											<p>미완료</p>
+											<p class="m-0">미완료</p>
 									</c:if>
 									<c:if test="${fn:contains(tdl.tdlChecked, 'Y')}">
-											<p>완료</p>
+											<p class="m-0">완료</p>
 									</c:if>
 								</div>
 							</td>
-							<td class="w-10 text-center">
+							<td class="w-10 text-center align-middle">
 								<div>
 									<c:if test="${fn:contains(tdl.tdlChecked, 'N')}">
 											<button type="button" class="btn btn-outline-primary btn-sm btn-TDLComplete" onclick="TDLComplete(${tdl.tdlNo },${tdl.groupNo })">완료하기</button>
