@@ -57,7 +57,7 @@
 		                <form action="${pageContext.request.contextPath}/group/groupSearch.do?ca1No=${ca1No}&ca2No=${ca2No}" method="get">
 	                      <div class="search-outer-top right">
 	       
-		                    <select name="searchType" style="width: 35%;" class="form-select search-select" aria-label="Default select example">
+		                    <select name="searchType" class="form-select search-select" aria-label="Default select example">
 		                      <option value="groupName" ${searchType == 'groupName' ? "selected":'' }>스터디 그룹명 검색 </option>
 		                      <option value="location" ${searchType == 'location' ? "selected":'' }>스터디 지역 검색</option>
 		                      <option value="pop" ${searchType == 'pop' ? "selected":'' }>인기순으로 보기</option>
@@ -87,12 +87,12 @@
 	                        	<div class="search-inner">
 	                    	</c:if> 
 	                            <!-- Blog post-->
-									<div class="card mb-4 search-card" style="width:31%; height: 460px;">
+									<div class="card mb-4 search-card" style="width: 350px; height: 460px;">
 		                                <a href="${pageContext.request.contextPath}/group/groupDetail.do?groupNo=${group.groupNo}">
 		                                <c:forEach var="attach" items="${attachList }">
 			                                <c:if test="${group.groupNo == attach.groupNo }">
 			                                	<img class="card-img-top" 
-			                                	style = " height: 288px;"
+			                                	style = "width: 348px; height: 288px;"
 			                                	src="${pageContext.request.contextPath }/resources/upFile/group/${attach.renamedFilename}"
 			                                        alt="..." />
 			                                </c:if>
