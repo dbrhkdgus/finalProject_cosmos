@@ -80,13 +80,10 @@ public class MemberController {
 	private BCryptPasswordEncoder passwordEncoder;
 
 	@GetMapping("/memberLogin.do")
-	public String memberLogin() {
-		return "member/memberLogin";
-	}
+	public void memberLogin() {}
 
 	@PostMapping("/memberLogin.do")
-	public void memberLoginPost(@RequestParam String id, @RequestParam String password) {
-	}
+	public void memberLoginPost() {}
 
 	@GetMapping("/memberLogout.do")
 	public String memberLogout(SessionStatus sessionStatus) {
