@@ -77,6 +77,9 @@ button:focus {
 							varStatus="vs">
 							<c:if test="${memberList.id eq maInfo.memberId}">
 								<c:set var="j" value="${j+1}" />
+								<c:set var="member" value="${currGroupNo }MEMBER"/>
+								<c:set var="manager" value="${currGroupNo }MANAGER"/>
+								<c:set var="master" value="${currGroupNo }MASTER"/>
 								<form name="createBoardRoomFrm" method="post" action="${pageContext.request.contextPath }/gw/admin/memberUpdate.do?${_csrf.parameterName}=${_csrf.token}">
 								<tr>
 									<td>${j}</td>
@@ -88,12 +91,12 @@ button:focus {
 											class="boardType form-select" name="memberRole" required>
 
 												<option value="MEMBER"
-													<c:if test="${fn:contains(maInfo.authority , 'MEMBER' )}"> selected</c:if>>일반회원</option>
+													<c:if test="${fn:contains(maInfo.authority , member)}"> selected</c:if>>일반회원</option>
 												<option value="MANAGER"
-													<c:if test="${fn:contains(maInfo.authority , 'MANAGER' )}"> selected</c:if>>매니저</option>
+													<c:if test="${fn:contains(maInfo.authority , manager)}"> selected</c:if>>매니저</option>
 												<option value="MASTER"
-													<c:if test="${fn:contains(maInfo.authority , 'MASTER' )}"> selected</c:if>
-													 <c:if test="${apploginRole ne 'G'}"></c:if>
+													<c:if test="${fn:contains(maInfo.authority , master)}"> selected</c:if>
+													 <c:if test="${apploginRole ne 'G'}"> disabled="disabled"</c:if>
 													 disabled="disabled">그룹장</option>
 										</select>
 										</td> 
@@ -103,12 +106,12 @@ button:focus {
 									<td><fmt:formatDate value="${maInfo.joinRegDate}"
 											pattern="yy-MM-dd" /></td>
 									<td>
-									<c:if test="${not (fn:contains(maInfo.authority , 'MASTER' ))}">
+									<c:if test="${not (fn:contains(maInfo.authority , master ))}">
 									<button type="submit" class="button-delete-member" name="gwDeleteMember" value="${acceptList.memberId}" onclick='return submit2(this.form);'>
 									<i class="far fa-trash-alt"></i>멤버추방</button>  
 									</c:if>
 										<!-- <span style="font-weight:bold;">|</span> -->
-										<c:if test="${!(fn:contains(maInfo.authority , 'MASTER' ))}">
+										<c:if test="${!(fn:contains(maInfo.authority , master ))}">
 										<button type="submit" class="button-update-member"><i class="fas fa-user-edit"></i>권한수정</button>
 										</c:if>
 										</td>

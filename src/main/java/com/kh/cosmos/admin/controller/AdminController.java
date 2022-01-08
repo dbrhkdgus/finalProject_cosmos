@@ -382,6 +382,18 @@ public class AdminController {
 
 		return "redirect:/admin/permitGroups.do";
 	}
+	
+	@PostMapping("/disapproveGroup.do")
+	public String disapproveGroup(@RequestParam("groupNo") int groupNo, @RequestParam("hostId") String memberId, RedirectAttributes redirectAttributes) {
+		log.debug("memberId = {}",memberId);
+		int result = adminService.disapproveGroup(groupNo);
+		if(result>0) {
+			
+			result = adminService.sendDisapprveGroupDM(memberId);
+		}
+		
+		return "redirect:/admin/permitGroups.do";
+	}
 
 	@GetMapping("/selectKakaoImage.do")
 	@ResponseBody

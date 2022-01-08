@@ -108,6 +108,10 @@ public interface AdminDao {
 	int enrollThisMonthCount();
 
 	int enrollLastMonthCount();
+
+	int disapproveGroup(int groupNo);
+
+	int sendDisapprveGroupDM(String memberId);
 	
 	
 }
