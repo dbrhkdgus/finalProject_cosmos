@@ -33,11 +33,7 @@
 			<div class="about content"></div>
 			<div class="aboutdetail outer">
 
-
-
-
-				<div class="aboutdetail leftbox active ">
-					<input type="hidden" value="" class="input-val" />
+				<div class="aboutdetail leftbox active" data-member="ygh">
 					<div class="left image ">
 						<img
 							src="https://i.ibb.co/L1pCTTN/tmp-1613290479805.jpg"
@@ -56,14 +52,14 @@
 
 
 
-				<div class="aboutdetail leftbox">
+				<div class="aboutdetail leftbox" data-member="ljp">
 					<input type="hidden" value="" class="input-val" />
 					<div class="left image">
 						<img
 							src="${pageContext.request.contextPath }/resources/images/github.png"
 							alt="" id="bigImg">
 						<p>
-							<mark>멤버2</mark>
+							<mark>이진표</mark>
 						</p>
 					</div>
 					<div class="left content about-detail-content">Lorem ipsum
@@ -167,49 +163,49 @@
 					<img
 						src="https://i.ibb.co/L1pCTTN/tmp-1613290479805.jpg"
 						alt="">
-					<button type="button" class="rightBtn">멤버1</button>
+					<button type="button" class="rightBtn" data-member="ygh">유광현</button>
 				</div>
 
 				<div class="aboutdetail rightinner" id="member1">
 					<img
 						src="https://i.ibb.co/bsF7PgZ/LeeJP.png"
 						alt="">
-					<button type="button" class="rightBtn">멤버2</button>
+					<button type="button" class="rightBtn" data-member="ljp">멤버2</button>
 				</div>
 
 				<div class="aboutdetail rightinner">
 					<img
 						src="https://i.ibb.co/Pj7sHTX/goo.gif"
 						alt="">
-					<button type="button" class="rightBtn">멤버3</button>
+					<button type="button" class="rightBtn" data-member="ggj">멤버3</button>
 				</div>
 
 				<div class="aboutdetail rightinner">
 					<img
 						src="https://i.ibb.co/vkrrfhm/Ke.jpg"
 						alt="">
-					<button type="button" class="rightBtn">멤버4</button>
+					<button type="button" class="rightBtn"data-member="keh">멤버4</button>
 				</div>
 
 				<div class="aboutdetail rightinner">
 					<img
 						src="${pageContext.request.contextPath }/resources/images/facebook.png"
 						alt="">
-					<button type="button" class="rightBtn">멤버5</button>
+					<button type="button" class="rightBtn" data-member="bjy">멤버5</button>
 				</div>
 
 				<div class="aboutdetail rightinner">
 					<img
 						src="${pageContext.request.contextPath }/resources/images/github.png"
 						alt="">
-					<button type="button" class="rightBtn">멤버6</button>
+					<button type="button" class="rightBtn" data-member="yjw">멤버6</button>
 				</div>
 
 				<div class="aboutdetail rightinner">
 					<img
 						src="${pageContext.request.contextPath }/resources/images/facebook.png"
 						alt="">
-					<button type="button" class="rightBtn">멤버7</button>
+					<button type="button" class="rightBtn" data-member="lyh">멤버7</button>
 				</div>
 
 
@@ -221,32 +217,13 @@
 
 </section>
 <script>
-            var i =0;
-             const $name = $(".input-val").val(); 
-			while(i<=5){
-				if($(".input-val").eq(i).val()== $name){
-					const $leftinner = $(".leftbox");
-					 $leftinner.css("display" ,"none");
-	                 $leftinner.eq(i).css("display","flex");
-				}
-            	
-			i++	
-			}
-  
-            	
-            	
-                 $(".rightBtn").click((e)=>{
-                   const $index = $(e.target).parent().index();
-                    const $leftinner = $(".leftbox");
-                    $leftinner.css("display" ,"none");
-                    $leftinner.eq($index).css("display","flex");
-
- 
-                });
-                 
+$(".rightBtn").click((e)=>{
+	var member = $(e.target).data("member")
+	
+});
     	    
                 
             
-                </script>
+</script>
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
