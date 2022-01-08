@@ -120,7 +120,7 @@ width:16px;height:10px;background:#36A2EB;}
   overflow: auto;
 }
 .main-banner-notice-new-box{
-	width: 80%;
+	width: 100%;
 }
 /* gw 채널 관리 */
 .updateBoardRoom{
@@ -800,8 +800,7 @@ div.list-group1{
 
 }
 .groupware-main-title{
-	text-align: center;
-    margin: 20px;
+	    margin: 40px 20px 40px 50px;
 }
 .groupware-main-contents{
 	display: flex;
@@ -821,16 +820,16 @@ div.list-group1{
     align-items: center;
 }
 .groupware-main-banner{
-	height: 200px;
-    width: 400px;
+	width: 60%;
+    /* height: 200px; */
+    /* width: 451px; */
+    border: 2px solid;
 }
-.groupware-main-today-schedule{
-	height: 40%;
-    width: 100%;
-    margin-top: 10px;
+ .groupware-main-today-schedule{
+	
     overflow-y: auto;
 
-}
+} 
 /* 그룹웨어 메인 달력 css */
 /* Nanum Gothic;  Jeju Gothic;*/
 

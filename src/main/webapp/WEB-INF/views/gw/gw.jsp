@@ -19,7 +19,7 @@ a { color:black; text-decoration:none !important } a:hover { color : black; text
 
 <div class="gw_main_workspace-box">
 	<div class="main-banner-notice-new-box">
-		<div class="groupware-main-title">
+		<div class="groupware-main-title d-flex">
 			<c:forEach var="attach" items="${groupBannerAttachList }">
 				<c:if test="${myGroup.groupNo == attach.groupNo }">
 					<%-- <img src="${pageContext.request.contextPath }/resources/upFile/group/${attach.renamedFilename}" alt="" /> --%>
@@ -27,10 +27,17 @@ a { color:black; text-decoration:none !important } a:hover { color : black; text
 					<hr style="margin-bottom: 30px"/>
 				</c:if>
 			</c:forEach>
+				<div class="calendar-box">
+				<div id='main'>
+					<div id='app'></div>
+					<!-- <input type='text' name='calendar' id='app' style='padding:5px 10px; margin: 20px 20px; border:1px solid black'/> -->
+					</div>
+	
+			</div>
 		</div>
-
+	<hr>
 		<div class="groupware-main-contents">
-			<div class="groupware-main-notice" >
+			<div class="groupware-main-notice" style="background-color:gray;" >
 				<h3>공지사항</h3>
 				<ul>
 					<c:forEach var="notice" items="${noticePostList}">
@@ -38,7 +45,7 @@ a { color:black; text-decoration:none !important } a:hover { color : black; text
 					</c:forEach>
 				</ul>
 			</div>
-			<div class="groupware-main-notice" style="margin-left: 0px;" >
+			<div class="groupware-main-notice new" style="margin-left: 10px;background-color:gray;" >
 				<h3>새로운 게시글</h3>
 				<ul>
 					<c:forEach var="newPost" items="${newPostsList}">
@@ -56,42 +63,39 @@ a { color:black; text-decoration:none !important } a:hover { color : black; text
 					</c:forEach>
 				</ul>
 			</div>
+			<div class="groupware-main-notice new" style="margin-left: 10px;background-color:gray; margin-right: 35px;">
+					<div class="groupware-main-today-schedule" style="background-color:gray; margin-left:20px;" >
+					<p>오늘의 그룹 일정</p>
+					<div class="groupware-main-today-schedule">
+						<c:if test="${not empty todayScheduleList}">
+							<c:forEach var="todaySchedule" items="${todayScheduleList }">
+								<div class="groupware-main-today-schedule-content">
+									<svg xmlns="http://www.w3.org/2000/svg" color="${todaySchedule.groupColor }" width="10" height="10" fill="currentColor" class="bi bi-circle-fill" viewBox="0 0 16 16">
+									  <circle cx="8" cy="8" r="8"/>
+									</svg> <span style="font-size: 13px; margin-left: 10px;">${todaySchedule.content }</span>
+								</div>
+		
+							</c:forEach>
+						</c:if>
+						<c:if test="${empty todayScheduleList}">
+								<div class="groupware-main-today-schedule-content">
+									<svg xmlns="http://www.w3.org/2000/svg" color="#aa00ff" width="10" height="10" fill="currentColor" class="bi bi-circle-fill" viewBox="0 0 16 16">
+									  <circle cx="8" cy="8" r="8"/>
+									</svg> <span style="font-size: 13px; margin-left: 10px;">등록된 일정이 없습니다.</span>
+								</div> 
+						</c:if>
+		
+					</div>
+					
+				 </div>
+			</div>
 		</div>
 			<!-- 메인페이지 달력-->
 	</div>
-	<div class="groupware-main-calendar-schedule-box">
-		<div class="calendar-box">
-			<div id='main'>
-				<div id='app'></div>
-				<!-- <input type='text' name='calendar' id='app' style='padding:5px 10px; margin: 20px 20px; border:1px solid black'/> -->
-				</div>
-
-		</div>
-		<div class="groupware-main-today-schedule">
-			<p>오늘의 그룹 일정</p>
-			<div class="groupware-main-today-schedule">
-				<c:if test="${not empty todayScheduleList}">
-					<c:forEach var="todaySchedule" items="${todayScheduleList }">
-						<div class="groupware-main-today-schedule-content">
-							<svg xmlns="http://www.w3.org/2000/svg" color="${todaySchedule.groupColor }" width="10" height="10" fill="currentColor" class="bi bi-circle-fill" viewBox="0 0 16 16">
-							  <circle cx="8" cy="8" r="8"/>
-							</svg> <span style="font-size: 13px; margin-left: 10px;">${todaySchedule.content }</span>
-						</div>
-
-					</c:forEach>
-				</c:if>
-				<c:if test="${empty todayScheduleList}">
-						<div class="groupware-main-today-schedule-content">
-							<svg xmlns="http://www.w3.org/2000/svg" color="#aa00ff" width="10" height="10" fill="currentColor" class="bi bi-circle-fill" viewBox="0 0 16 16">
-							  <circle cx="8" cy="8" r="8"/>
-							</svg> <span style="font-size: 13px; margin-left: 10px;">등록된 일정이 없습니다.</span>
-						</div> 
-				</c:if>
-
-			</div>
-			
-		</div>
-	</div>
+<!-- 	<div class="groupware-main-calendar-schedule-box"> -->
+	
+		
+<!-- 	</div> -->
 	
 </div>
 
