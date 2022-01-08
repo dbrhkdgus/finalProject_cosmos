@@ -40,7 +40,7 @@
 					<input type="hidden" value="" class="input-val" />
 					<div class="left image ">
 						<img
-							src="${pageContext.request.contextPath }/resources/images/facebook.png"
+							src="https://i.ibb.co/L1pCTTN/tmp-1613290479805.jpg"
 							alt="" id="bigImg">
 						<p>
 							<mark>멤버1</mark>
@@ -90,7 +90,6 @@
 						voluptate qui sequi sed. Voluptatibus harum.</div>
 				</div>
 
-			</div>
 			<div class="aboutdetail leftbox">
 				<input type="hidden" value="" class="input-val" />
 				<div class="left image">
@@ -159,6 +158,7 @@
 					voluptate qui sequi sed. Voluptatibus harum.</div>
 			</div>
 
+			</div>
 
 
 			<div class="aboutdetail rightouter">
