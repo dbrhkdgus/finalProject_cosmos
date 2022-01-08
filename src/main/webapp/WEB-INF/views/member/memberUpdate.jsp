@@ -161,7 +161,7 @@
 									class="col-md-4 col-form-label text-md-right">연락처</label>
 								<div class="col-md-6 group-text-input">
 									<input type="text" id="phone_number" class="form-control"
-										name="phone" value="01011112222">
+										name="phone" value="${loginMember.phone }">
 								</div>
 							</div>
 
