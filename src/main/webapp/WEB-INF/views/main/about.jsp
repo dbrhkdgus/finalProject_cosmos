@@ -33,13 +33,13 @@
 			<div class="about content"></div>
 			<div class="aboutdetail outer">
 
-				<div class="aboutdetail leftbox active" data-member="ygh">
+				<div class="aboutdetail leftbox active" id="ygh">
 					<div class="left image ">
 						<img
 							src="https://i.ibb.co/L1pCTTN/tmp-1613290479805.jpg"
 							alt="" id="bigImg">
 						<p>
-							<mark>멤버1</mark>
+							<mark>유광현</mark>
 						</p>
 					</div>
 					<div class="left content about-detail-content">Lorem ipsum
@@ -52,11 +52,11 @@
 
 
 
-				<div class="aboutdetail leftbox" data-member="ljp">
+				<div class="aboutdetail leftbox" id="ljp">
 					<input type="hidden" value="" class="input-val" />
 					<div class="left image">
 						<img
-							src="${pageContext.request.contextPath }/resources/images/github.png"
+							src="https://i.ibb.co/bsF7PgZ/LeeJP.png"
 							alt="" id="bigImg">
 						<p>
 							<mark>이진표</mark>
@@ -70,13 +70,13 @@
 				</div>
 
 
-				<div class="aboutdetail leftbox">
+				<div class="aboutdetail leftbox" id="ggj">
 					<div class="left image">
 						<input type="hidden" value="" class="input-val" /> <img
-							src="${pageContext.request.contextPath }/resources/images/facebook.png"
+							src="https://i.ibb.co/Pj7sHTX/goo.gif"
 							alt="" id="bigImg">
 						<p>
-							<mark>멤버3</mark>
+							<mark>강구진</mark>
 						</p>
 					</div>
 					<div class="left content about-detail-content">Lorem ipsum
@@ -86,14 +86,14 @@
 						voluptate qui sequi sed. Voluptatibus harum.</div>
 				</div>
 
-			<div class="aboutdetail leftbox">
+			<div class="aboutdetail leftbox" id="keh">
 				<input type="hidden" value="" class="input-val" />
 				<div class="left image">
 					<img
-						src="${pageContext.request.contextPath }/resources/images/github.png"
+						src="https://i.ibb.co/vkrrfhm/Ke.jpg"
 						alt="" id="bigImg">
 					<p>
-						<mark>멤버4</mark>
+						<mark>김은희</mark>
 					</p>
 				</div>
 				<div class="left content about-detail-content">Lorem ipsum
@@ -103,14 +103,14 @@
 					voluptate qui sequi sed. Voluptatibus harum.</div>
 			</div>
 
-			<div class="aboutdetail leftbox">
+			<div class="aboutdetail leftbox" id="bjy">
 				<input type="hidden" value="" class="input-val" />
 				<div class="left image">
 					<img
 						src="${pageContext.request.contextPath }/resources/images/facebook.png"
 						alt="" id="bigImg">
 					<p>
-						<mark>멤버5</mark>
+						<mark>백지영</mark>
 					</p>
 				</div>
 				<div class="left content about-detail-content">Lorem ipsum
@@ -120,14 +120,14 @@
 					voluptate qui sequi sed. Voluptatibus harum.</div>
 			</div>
 
-			<div class="aboutdetail leftbox">
+			<div class="aboutdetail leftbox" id="yjw">
 				<input type="hidden" value="" class="input-val" />
 				<div class="left image">
 					<img
 						src="${pageContext.request.contextPath }/resources/images/github.png"
 						alt="" id="bigImg">
 					<p>
-						<mark>멤버6</mark>
+						<mark>유지우</mark>
 					</p>
 				</div>
 				<div class="left content about-detail-content">Lorem ipsum
@@ -137,14 +137,14 @@
 					voluptate qui sequi sed. Voluptatibus harum.</div>
 			</div>
 
-			<div class="aboutdetail leftbox">
+			<div class="aboutdetail leftbox" id="lyh">
 				<input type="hidden" value="" class="input-val" />
 				<div class="left image">
 					<img
 						src="${pageContext.request.contextPath }/resources/images/facebook.png"
 						alt="" id="bigImg">
 					<p>
-						<mark>멤버7</mark>
+						<mark>이윤희</mark>
 					</p>
 				</div>
 				<div class="left content about-detail-content">Lorem ipsum
@@ -170,42 +170,42 @@
 					<img
 						src="https://i.ibb.co/bsF7PgZ/LeeJP.png"
 						alt="">
-					<button type="button" class="rightBtn" data-member="ljp">멤버2</button>
+					<button type="button" class="rightBtn" data-member="ljp">이진표</button>
 				</div>
 
 				<div class="aboutdetail rightinner">
 					<img
 						src="https://i.ibb.co/Pj7sHTX/goo.gif"
 						alt="">
-					<button type="button" class="rightBtn" data-member="ggj">멤버3</button>
+					<button type="button" class="rightBtn" data-member="ggj">강구진</button>
 				</div>
 
 				<div class="aboutdetail rightinner">
 					<img
 						src="https://i.ibb.co/vkrrfhm/Ke.jpg"
 						alt="">
-					<button type="button" class="rightBtn"data-member="keh">멤버4</button>
+					<button type="button" class="rightBtn"data-member="keh">김은희</button>
 				</div>
 
 				<div class="aboutdetail rightinner">
 					<img
 						src="${pageContext.request.contextPath }/resources/images/facebook.png"
 						alt="">
-					<button type="button" class="rightBtn" data-member="bjy">멤버5</button>
+					<button type="button" class="rightBtn" data-member="bjy">백지영</button>
 				</div>
 
 				<div class="aboutdetail rightinner">
 					<img
 						src="${pageContext.request.contextPath }/resources/images/github.png"
 						alt="">
-					<button type="button" class="rightBtn" data-member="yjw">멤버6</button>
+					<button type="button" class="rightBtn" data-member="yjw">유지우</button>
 				</div>
 
 				<div class="aboutdetail rightinner">
 					<img
 						src="${pageContext.request.contextPath }/resources/images/facebook.png"
 						alt="">
-					<button type="button" class="rightBtn" data-member="lyh">멤버7</button>
+					<button type="button" class="rightBtn" data-member="lyh">이윤희</button>
 				</div>
 
 
@@ -218,8 +218,10 @@
 </section>
 <script>
 $(".rightBtn").click((e)=>{
-	var member = $(e.target).data("member")
-	
+	var member = $(e.target).data("member");
+	var target = "#"+member;
+	$(target).addClass("active").siblings().removeClass("active");
+
 });
     	    
                 
