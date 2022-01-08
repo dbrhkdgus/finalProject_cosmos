@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Selector priority</title>
+</head>
+<body>
+  <h1>Selector priority</h1>
+  <h2>선택자 우선순위</h2>
+  <!-- 
+    !important
+    인라인
+    아이디
+    클래스
+    속성
+    태그  
+  -->
+  <div id="mydiv" class="mycls" style="background-color: lightpink;">안녕</div>
+  <style>
+  #mydiv {
+    background-color: lightgreen;
+  }
+
+  .mycls {
+    background-color: lightblue;
+  }
+
+  div {
+    width: 300px;
+    height: 300px;
+    background-color: lightgray !important; /* override되지 않는다. */
+    border: 3px solid #000;
+  }
+
+
+  </style>
+</body>
+</html>
