@@ -143,7 +143,7 @@
           <div class="tm-block-col tm-col-account-settings">
             <div class="tm-bg-primary-dark tm-block tm-block-settings">
               <h2 class="tm-block-title">모임 정보</h2>
-              <form action="${pageContext.request.contextPath}/admin/approveGroup.do?${_csrf.parameterName}=${_csrf.token}" id="frm" class="tm-signup-form row" method="POST" enctype="multipart/form-data">
+              <form name="approveGroup" action="${pageContext.request.contextPath}/admin/approveGroup.do?${_csrf.parameterName}=${_csrf.token}" id="frm" class="tm-signup-form row" method="POST" enctype="multipart/form-data">
                 <div class="form-group col-lg-12">
                   <input type="hidden" id="groupNo" name="groupNo"/>
                   <label for="groupName">그룹명</label>
@@ -232,9 +232,8 @@
                 <div class="form-group col-lg-6">
                   <label class="tm-hide-sm">&nbsp;</label>
                   <button
-                    id="blackListBtn"
                     type="button"
-                    class="btn btn-danger btn-block text-uppercase"
+                    class="btn btn-danger btn-block text-uppercase disapprove-group"
                   >
                       거절하기
                   </button>
@@ -282,6 +281,11 @@ $(".selectOne").click((e)=>{
 		},
 		error: console.log
 	});
+});
+
+$(".disapprove-group").click((e) => {
+	$("#frm").attr("action", `${pageContext.request.contextPath}/admin/disapproveGroup.do?${_csrf.parameterName}=${_csrf.token}`)
+	$(document.approveGroup).submit();
 });
 </script>
 <jsp:include page="/WEB-INF/views/common/ad_footer.jsp">

@@ -621,4 +621,8 @@
 		select count(*) from tb_member where member_enroll_date between TRUNC(add_months(sysdate,-1),'MM') and LAST_DAY(add_months(sysdate,-1))
 	</select>
 	
+	<insert id="sendDisapprveGroupDM">
+	  insert into dm values(seq_dm_no.nextval, 'admin', #{memberId}, '스터디 생성 관련 조항을 어겨 스터디 신청이 거절되었습니다. 관련 조항을 다시 확인해 주세요.', default, 1, null)
+	</insert>
+	
 </mapper>
