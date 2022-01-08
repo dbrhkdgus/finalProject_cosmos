@@ -93,7 +93,7 @@ button:focus {
 													<c:if test="${fn:contains(maInfo.authority , 'MANAGER' )}"> selected</c:if>>매니저</option>
 												<option value="MASTER"
 													<c:if test="${fn:contains(maInfo.authority , 'MASTER' )}"> selected</c:if>
-													 <c:if test="${apploginRole ne 'G'}"> disabled="disabled"</c:if>
+													 <c:if test="${apploginRole ne 'G'}"></c:if>
 													 disabled="disabled">그룹장</option>
 										</select>
 										</td> 

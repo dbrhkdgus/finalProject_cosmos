@@ -77,7 +77,7 @@
 </sec:authorize>
   <header class="bg-light">
     <div id="cosmos-groupwear-header"  style="background-color: #5288F2;">
-      <div class="groupwear-header-box">
+      <div class="groupwear-header-box"  style="height: 50px;">
         
         <div class="" style="width: 4.5rem;">
           <a href="#" class="d-block p-3 link-dark text-decoration-none" title="Home" data-bs-toggle="tooltip" data-bs-placement="right">
@@ -88,13 +88,13 @@
         </div>
         
         <div class="groupwear-study-title" style="width: 260px;">
-          <a href="${pageContext.request.contextPath }/gw/gw.do?groupNo=${myGroup.groupNo}" class="d-flex align-items-center pb-3 mb-3 link-dark text-decoration-none ">
+          <a href="${pageContext.request.contextPath }/gw/gw.do?groupNo=${myGroup.groupNo}" class="d-flex align-items-center pb-3  link-dark text-decoration-none ">
             <span class="fs-5 fw-semibold" style="color: white;">${myGroup.groupName }</span>
           </a>
         </div>
         <div class="groupwear-channel-title">
 
-          <h5 style="color: white;"> ${title }</h5>
+          <h5 style="color: white; padding-top: 1rem;font-size: 1rem;"> ${title }</h5>
 
         </div>
           

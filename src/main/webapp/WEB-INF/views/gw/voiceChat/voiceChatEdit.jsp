@@ -15,7 +15,7 @@
 </sec:authorize>
 
 <div class="workspace-box">
-  <div class="voiceChatEdit-container text-center" style="width: 60%;margin: 0 auto;">
+  <div class="voiceChatEdit-container text-center" style="width: 60%;margin: 30px  auto ;">
     <div class="voiceChatEdit-title">
       <h1>화상 채널 관리</h1>
 	      <div class="voiceChatEdit-body">
