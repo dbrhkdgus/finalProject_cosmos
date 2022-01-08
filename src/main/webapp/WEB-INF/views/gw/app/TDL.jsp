@@ -15,7 +15,7 @@
 	<div class="TDL-title-container">
 		<div class="p-4">
 			<div class="tdl-title d-flex align-items-center">
-				<img src="https://i.ibb.co/djvWcfN/list.png" class="mr-2" style="width: 5%; height: 5%;"alt="" />
+				<img src="https://i.ibb.co/djvWcfN/list.png" class="ml-3 mr-2" style="width: 5%; height: 5%;"alt="" />
 				<h2 class="m-0">나의 To do list</h2>
 			</div>
 			<div class ="mb-3" style="width: 20%;float: right;margin-bottom: 5px;">
