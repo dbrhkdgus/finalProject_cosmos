@@ -48,5 +48,11 @@ public interface GroupwareService {
 	Attachment selectGropwareBannerByGroupNo(int groupNo);
 
 	int updateGroupwareMainBanner(Attachment attach);
+
+	String selectMemberExpendCheck(String id);
+
+	int insertDefaultExpendCheck(String id);
+
+	int updateMemberExpendCheck(Map<String, String> param);
 	
 }

@@ -84,9 +84,18 @@ public class GwController {
 	    param.put("groupNo", groupNo);
 	    param.put("noticeBoardNo", num);
 	    List<PostWithBoardName> newPostsList = gwService.selectNewPostsListByParam(param);
+	    String expend = "";
+	    try {
+	    	expend = gwService.selectMemberExpendCheck(loginMember.getId());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			int result = gwService.insertDefaultExpendCheck(loginMember.getId());
+			if(result > 0) {
+				expend = gwService.selectMemberExpendCheck(loginMember.getId());
+			}
+		}
 	    
-	    
-	    
+	    model.addAttribute("expend", expend);
 	    model.addAttribute("groupwareMainBanner",groupwareMainBanner);
 	    model.addAttribute("newPostsList",newPostsList);
 	    model.addAttribute("todayScheduleList",todayScheduleList);
@@ -143,4 +152,23 @@ public class GwController {
 		
 		return result;
 		}
+	
+	@ResponseBody
+	@GetMapping("/updateExpendCheck.do")
+	public void updateExpendCheck(Authentication auth) {
+		Member loginMember = (Member) auth.getPrincipal();
+		String currExpendCheck = gwService.selectMemberExpendCheck(loginMember.getId());
+		if(currExpendCheck.equals("Y")) {
+			Map<String, String> param = new HashMap<String, String>();
+			param.put("memberId", loginMember.getId());
+			param.put("expend", "N");
+			int result = gwService.updateMemberExpendCheck(param);
+		}else {
+			Map<String, String> param = new HashMap<String, String>();
+			param.put("memberId", loginMember.getId());
+			param.put("expend", "Y");
+			int result = gwService.updateMemberExpendCheck(param);
+		}
+		
+	}
 }
