@@ -12,7 +12,29 @@
 <sec:authorize access="isAuthenticated()">
 	<sec:authentication property="principal" var="loginMember"/>
 </sec:authorize>
-
+<style>
+#profile{
+	border: 1px solid #bababa;
+	border-radius: 10px;
+	padding: 12px;
+	width: 100px;
+}
+#new_profile{
+	padding: 7px;
+	border-radius: 5px;
+	font-weight: bold;
+	
+	color: #545454;
+	border: 1px solid #8d8e8e;
+}
+#new_profile:hover{
+	cursor: pointer;
+	color: white;
+	font-weight: bold;
+	background-color: #8d8e8e;
+	border: none;
+}
+</style>
 
 <main class="my-form">
 	<div class="cotainer">
@@ -22,32 +44,38 @@
 					<div class="card-header">회원 정보수정</div>
 					<div class="card-body">
 						<form:form name="memberUpdateFrm" method="POST" action="${pageContext.request.contextPath }/member/memberUpdate.do?${_csrf.parameterName}=${_csrf.token}" enctype="multipart/form-data">
-							<div class="form-group row profile-box" style="display: flex; justify-content: center; margin: 45px; position: relative;">
+							<div class="form-group row profile-box" style="display: flex; justify-content: center; margin: 45px; position: relative;" id="div_profile">
+								<div class="deleteProfile">
+									<span data-tooltip-text="기본 프로필 이미지로 설정합니다.">x</span>								
+								</div>
 								<c:if test="${not empty profile }">
 									<c:choose>
 										<c:when test="${fn:startsWith(profile.renamedFilename,'http')}">
-											<img id="profile" src="${profile.renamedFilename}" alt="" style="width: 150px"/>
+											<img id="profile" src="${profile.renamedFilename}" alt="" style="width: 150px; height: 150px;"/>
 										</c:when>
 										<c:otherwise>
-											<img id="profile" src="${pageContext.request.contextPath }/resources/upFile/profile/${profile.renamedFilename}" alt="" style="width: 150px"/>
+											<img id="profile" src="${pageContext.request.contextPath }/resources/upFile/profile/${profile.renamedFilename}" alt="" style="width: 150px; height: 150px;"/>
 										</c:otherwise>
 									</c:choose>
 								</c:if>
 								<c:if test="${empty profile }">
-									<img id="profile" src="https://cdn-icons-png.flaticon.com/512/64/64572.png" alt="" style="width: 150px"	/>
+									<img id="profile" src="https://cdn-icons-png.flaticon.com/512/64/64572.png" alt="" style="width: 150px; height: 150px;"	/>
 								</c:if>
-								<div class="deleteProfile">
-									<span data-tooltip-text="기본 프로필 이미지로 설정합니다.">x</span>								
-								</div>
-								
 							</div>
 							
 							<c:if test="${not fn:startsWith(profile.renamedFilename,'http')}">
+							
 								<div class="form-group row">
-										<label for="phone_number"
+										<label for="upFile"
 											class="col-md-4 col-form-label text-md-right">프로필 이미지</label>
 										<div class="col-md-6 group-text-input">
-											<input class="form-control" type="file" id="upFile" name="upFile" accept=".jpg,.jpeg,.png,.gif,.bmp">
+											<p style="margin-top:7px">
+											
+											<span id="fileName">${profile.originalFilename }</span>
+											
+											&nbsp&nbsp<span id="new_profile" >new</span>
+											<input class="form-control" type="file" id="upFile" name="upFile" accept=".jpg,.jpeg,.png,.gif,.bmp" style="display: none;">
+											</p>
 										</div>
 								</div>
 								
@@ -137,8 +165,6 @@
 								</div>
 							</div>
 
-
-
 							<div class="form-group row">
 								<label for="gender"
 									class="col-md-4 col-form-label text-md-right">성별</label>
@@ -169,7 +195,7 @@
 									class="col-md-4 col-form-label text-md-right">생년월일</label>
 								<div class="col-md-6 group-text-input">
 									<input type="date" id="birthday" class="form-control"
-										name="birthday" value="1999-01-01">
+										name="birthday" value="<fmt:formatDate value="${loginMember.birthday }" pattern="yyyy-MM-dd"/>">
 								</div>
 							</div>
 
@@ -179,7 +205,6 @@
 								<div class="col-md-6 group-text-input">
 									
 									<select class="form-select" aria-label="Default select example" name="memberJob">
-										<option selected>직업</option>
 										<option value="프론트 개발자"
 											<c:if test="${loginMember.memberJob eq '프론트 개발자'}">selected</c:if>
 										>프론트 개발자</option>
@@ -207,6 +232,12 @@
 </main>
 
 <script>
+//새 프로필 사진 등록
+$("#new_profile").click((e)=>{
+	$("#upFile").click();
+})
+
+
 $(".deleteProfile").click((e)=>{
 	if(confirm("기본 프로필로 바꾸시겠습니까?")){
 		
@@ -232,8 +263,11 @@ $(".deleteProfile").click((e)=>{
 	}
 });
 $(upFile).change(function(){
+	console.log('변경중');
+	console.log(this);
     setImageFromFile(this, '#profile');
-    upFile = $(upFile).val();
+    $(profile).css("width", "150px").css("height", "150px");
+    $("#fileName").html(document.getElementById('upFile').value);
 });
 
 function setImageFromFile(input, expression) {
