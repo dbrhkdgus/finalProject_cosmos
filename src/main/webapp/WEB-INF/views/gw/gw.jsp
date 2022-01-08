@@ -37,7 +37,7 @@ a { color:black; text-decoration:none !important } a:hover { color : black; text
 
 <div class="gw_main_workspace-box">
 	<div class="main-banner-notice-new-box">
-						<div class="gw-banner-controller" style=" cursor: pointer; margin: 40px 0 5px 50px;">
+						<div class="gw-banner-controller" style=" cursor: pointer; margin-left: 5%;">
 							<sec:authorize access="hasAnyRole('ROLE_GW${currGroupNo}MASTER', 'ROLE_GW${currGroupNo}MANAGER','ROLE_ADMIN')">
 								<div class="gw-banner-controller" style=" cursor: pointer; margin: 20px 0 5px 0px;">
 									<span class="gw-main-banner-change">[배너 바꾸기]</span>
@@ -49,16 +49,17 @@ a { color:black; text-decoration:none !important } a:hover { color : black; text
 							</sec:authorize>
 						</div>
 						<%-- <img src="${pageContext.request.contextPath }/resources/upFile/group/${attach.renamedFilename}" alt="" /> --%>
-		<div class="groupware-main-title d-flex  align-items-center" style="height: 55vh;">
+		<div class="groupware-main-title d-flex justify-content-around">
 
-				<div class="gw-main-banner-img" style="width: 40vw; height: 55vh;">
+				<div class="gw-main-banner-img" style="width: 53%; height: 110%;">
 					<c:if test="${myGroup.groupNo == groupwareMainBanner.groupNo }">
 						
-							<img class="groupware-main-banner rounded" src="${pageContext.request.contextPath }/resources/upFile/group/${groupwareMainBanner.renamedFilename}" alt=""  style="width: 38vw;height: 55vh;"/>			
+							<img class="groupware-main-banner rounded" src="${pageContext.request.contextPath }/resources/upFile/group/${groupwareMainBanner.renamedFilename}" alt=""  style="width: 38vw;height: 90%;"/>			
 					<!-- 	<hr style="margin-bottom: 30px"/> -->
 					</c:if>
 				</div>
-				<div class="calendar-box rounded">
+				<div class="calendar-box rounded" style="width: 47%">
+			
 					<div id='main'>
 						<div id='app'></div>
 						
@@ -94,7 +95,7 @@ a { color:black; text-decoration:none !important } a:hover { color : black; text
 					</c:forEach>
 				</ul>
 			</div>
-			<div class="groupware-main-notice new" style="margin-left: 23px;background-color:white; margin-right: 35px;">
+			<div class="groupware-main-notice new" style="margin-right: 15px;background-color:white;">
 					<p class="gw-main-notice-title">오늘의 그룹 일정</p>
 					<div class="groupware-main-today-schedule" >
 					<div class="groupware-main-today-schedule">
