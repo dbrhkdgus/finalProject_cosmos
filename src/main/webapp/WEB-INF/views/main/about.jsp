@@ -136,7 +136,7 @@
 				<input type="hidden" value="" class="input-val" />
 				<div class="left image">
 					<img
-						src="${pageContext.request.contextPath }/resources/images/github.png"
+						src="https://ibb.co/9wqd17X"
 						alt="" id="bigImg">
 					<p>
 						<mark>유지우</mark>
@@ -208,7 +208,7 @@
 
 				<div class="aboutdetail rightinner">
 					<img
-						src="${pageContext.request.contextPath }/resources/images/github.png"
+						src="https://ibb.co/9wqd17X"
 						alt="">
 					<button type="button" class="rightBtn" data-member="yjw">유지우</button>
 				</div>
