@@ -259,5 +259,11 @@ public class GroupServiceImpl implements GroupService {
 		// TODO Auto-generated method stub
 		return groupDao.deleteAuthoritiesRelatedGroup(groupNo);
 	}
+
+	@Override
+	public int insertGroupwareBanner(Map<String, Object> param) {
+		// TODO Auto-generated method stub
+		return groupDao.insertGroupwareBanner(param);
+	}
 	
 }

@@ -113,6 +113,18 @@ public class GroupwareDaoImpl implements GroupwareDao {
 		return session.selectList("gw.selectNewPostsListByParam", param);
 	}
 
+	@Override
+	public Attachment selectGropwareBannerByGroupNo(int groupNo) {
+		// TODO Auto-generated method stub
+		return session.selectOne("gw.selectGropwareBannerByGroupNo", groupNo);
+	}
+
+	@Override
+	public int updateGroupwareMainBanner(Attachment attach) {
+		// TODO Auto-generated method stub
+		return session.update("gw.updateGroupwareMainBanner", attach);
+	}
+
 	
 
 

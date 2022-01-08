@@ -112,6 +112,18 @@ public class GroupwareServiceImpl implements GroupwareService {
 		return gwDao.selectNewPostsListByParam(param);
 	}
 
+	@Override
+	public Attachment selectGropwareBannerByGroupNo(int groupNo) {
+		// TODO Auto-generated method stub
+		return gwDao.selectGropwareBannerByGroupNo(groupNo);
+	}
+
+	@Override
+	public int updateGroupwareMainBanner(Attachment attach) {
+		// TODO Auto-generated method stub
+		return gwDao.updateGroupwareMainBanner(attach);
+	}
+
 	
 
 

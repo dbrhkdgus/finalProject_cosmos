@@ -72,6 +72,7 @@
 		renamed_filename = #{renamedFilename} 
 	where 
 		member_id = #{memberId}
+		and img_flag = 'P'
 	</update>
 	
 	<update id="updateMemberProfileAsDefault">

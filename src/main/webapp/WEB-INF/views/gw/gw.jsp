@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>	
 <sec:authorize access="hasAnyRole('ROLE_GW${currGroupNo}MEMBER','ROLE_GW${currGroupNo}MANAGER','ROLE_GW${currGroupNo}MASTER', 'ROLE_ADMIN')">
 <fmt:requestEncoding value="utf-8"/> 
@@ -10,36 +11,71 @@
 	<jsp:param value="" name="title"/>
 </jsp:include>
 <style type="text/css">
+body{
+ background-color:#E5EAED;
+}
 a { color:black; text-decoration:none !important } a:hover { color : black; text-decoration:none !important }
 
+.gw-main-notice-title{
+	background-color: #5CC4EB;
+    transform: scale(1.1);
+    font-size: 15px;
+    color: white;
+    padding: 7px;
+    border-radius: 4px;
+}
+}
+.gw-main-banner-change:hover{
+	color:#F25E86;
+
+}
 </style>
 
 
-
+<!--  -->
 
 <div class="gw_main_workspace-box">
 	<div class="main-banner-notice-new-box">
-		<div class="groupware-main-title">
-			<c:forEach var="attach" items="${groupBannerAttachList }">
-				<c:if test="${myGroup.groupNo == attach.groupNo }">
-					<%-- <img src="${pageContext.request.contextPath }/resources/upFile/group/${attach.renamedFilename}" alt="" /> --%>
-					<img class="groupware-main-banner" src="${pageContext.request.contextPath }/resources/upFile/group/${attach.renamedFilename}" alt="" />
-					<hr style="margin-bottom: 30px"/>
-				</c:if>
-			</c:forEach>
-		</div>
+		<div class="groupware-main-title d-flex ">
 
+				<div class="gw-main-banner-img">
+					<c:if test="${myGroup.groupNo == groupwareMainBanner.groupNo }">
+					<sec:authorize access="hasAnyRole('ROLE_GW${currGroupNo}MASTER', 'ROLE_GW${currGroupNo}MANAGER','ROLE_ADMIN')">
+						<div class="gw-banner-controller" style=" cursor: pointer;">
+							<span class="gw-main-banner-change"style="float: right;">[배너 바꾸기]</span>
+						  <!--   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gear" viewBox="0 0 16 16">
+					  			<path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492zM5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0z"/>
+					  			<path d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52l-.094-.319zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115l.094-.319z"/>
+							</svg> -->
+						</div>
+					</sec:authorize>
+						<%-- <img src="${pageContext.request.contextPath }/resources/upFile/group/${attach.renamedFilename}" alt="" /> --%>
+						
+							<img class="groupware-main-banner" src="${pageContext.request.contextPath }/resources/upFile/group/${groupwareMainBanner.renamedFilename}" alt="" />
+						
+					<!-- 	<hr style="margin-bottom: 30px"/> -->
+					</c:if>
+				</div>
+				<div class="calendar-box">
+					<div id='main'>
+						<div id='app'></div>
+						<!-- <input type='text' name='calendar' id='app' style='padding:5px 10px; margin: 20px 20px; border:1px solid black'/> -->
+					</div>
+				</div>
+
+		</div>
+	<hr>
 		<div class="groupware-main-contents">
-			<div class="groupware-main-notice" >
-				<h3>공지사항</h3>
+			<div class="groupware-main-notice" style="background-color:white;" >
+				<p class="gw-main-notice-title">공지사항</p>
 				<ul>
 					<c:forEach var="notice" items="${noticePostList}">
 						<li><a href="${pageContext.request.contextPath }/gw/board/boardDetail.do?postNo=${notice.postNo}">${notice.postTitle }</a></li>
 					</c:forEach>
 				</ul>
 			</div>
-			<div class="groupware-main-notice" style="margin-left: 0px;" >
-				<h3>새로운 게시글</h3>
+			<div class="groupware-main-notice new" style="margin-left: 23px;background-color:white;" >
+				<p class="gw-main-notice-title">새로운 게시글</p>
 				<ul>
 					<c:forEach var="newPost" items="${newPostsList}">
 						<c:choose>
@@ -56,50 +92,125 @@ a { color:black; text-decoration:none !important } a:hover { color : black; text
 					</c:forEach>
 				</ul>
 			</div>
+			<div class="groupware-main-notice new" style="margin-left: 23px;background-color:white; margin-right: 35px;">
+					<p class="gw-main-notice-title">오늘의 그룹 일정</p>
+					<div class="groupware-main-today-schedule" >
+					<div class="groupware-main-today-schedule">
+						<c:if test="${not empty todayScheduleList}">
+							<c:forEach var="todaySchedule" items="${todayScheduleList }">
+								<div class="groupware-main-today-schedule-content">
+									<svg xmlns="http://www.w3.org/2000/svg" color="${todaySchedule.groupColor }" width="10" height="10" fill="currentColor" class="bi bi-circle-fill" viewBox="0 0 16 16">
+									  <circle cx="8" cy="8" r="8"/>
+									</svg> <span style="font-size: 13px; margin-left: 10px;">${todaySchedule.content }</span>
+								</div>
+		
+							</c:forEach>
+						</c:if>
+						<c:if test="${empty todayScheduleList}">
+								<div class="groupware-main-today-schedule-content">
+									<svg xmlns="http://www.w3.org/2000/svg" color="#aa00ff" width="10" height="10" fill="currentColor" class="bi bi-circle-fill" viewBox="0 0 16 16">
+									  <circle cx="8" cy="8" r="8"/>
+									</svg> <span style="font-size: 13px; margin-left: 10px;">등록된 일정이 없습니다.</span>
+								</div> 
+						</c:if>
+		
+					</div>
+					
+				 </div>
+			</div>
 		</div>
 			<!-- 메인페이지 달력-->
 	</div>
-	<div class="groupware-main-calendar-schedule-box">
-		<div class="calendar-box">
-			<div id='main'>
-				<div id='app'></div>
-				<!-- <input type='text' name='calendar' id='app' style='padding:5px 10px; margin: 20px 20px; border:1px solid black'/> -->
-				</div>
-
-		</div>
-		<div class="groupware-main-today-schedule">
-			<p>오늘의 그룹 일정</p>
-			<div class="groupware-main-today-schedule">
-				<c:if test="${not empty todayScheduleList}">
-					<c:forEach var="todaySchedule" items="${todayScheduleList }">
-						<div class="groupware-main-today-schedule-content">
-							<svg xmlns="http://www.w3.org/2000/svg" color="${todaySchedule.groupColor }" width="10" height="10" fill="currentColor" class="bi bi-circle-fill" viewBox="0 0 16 16">
-							  <circle cx="8" cy="8" r="8"/>
-							</svg> <span style="font-size: 13px; margin-left: 10px;">${todaySchedule.content }</span>
-						</div>
-
-					</c:forEach>
-				</c:if>
-				<c:if test="${empty todayScheduleList}">
-						<div class="groupware-main-today-schedule-content">
-							<svg xmlns="http://www.w3.org/2000/svg" color="#aa00ff" width="10" height="10" fill="currentColor" class="bi bi-circle-fill" viewBox="0 0 16 16">
-							  <circle cx="8" cy="8" r="8"/>
-							</svg> <span style="font-size: 13px; margin-left: 10px;">등록된 일정이 없습니다.</span>
-						</div> 
-				</c:if>
-
-			</div>
-			
-		</div>
-	</div>
+<!-- 	<div class="groupware-main-calendar-schedule-box"> -->
+	
+		
+<!-- 	</div> -->
 	
 </div>
-
+<!-- 배너 이미지 수정 모달창 -->
+<div class="modal fade" id="updateGWMainBanner" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">배너 이미지 변경하기</h4>
+        <button type="button" class="close close-modal" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form:form name="updateGropwareMainBannerFrm" id="updateGropwareMainBannerFrm" method="post" >
+	      <div class="modal-body mx-3">
+	        <div class="md-form mb-5">
+	          <div class="curr-gwMainBanner-preview">
+	          		<img id="preview" src="${pageContext.request.contextPath }/resources/upFile/group/${groupwareMainBanner.renamedFilename}" alt="" style="width: 400px; height: 200px;"/>
+	          </div>
+	          
+	          <div class="box-file-input">
+		          <label><input id="file" type="file" name="ev_display" class="file-input" accept="image/*"></label>
+		          <span class="filename">파일을 선택해주세요.</span>
+	          </div>
+	        </div>
+	      </div>
+	      <input type="hidden" name="groupNo" value="${currGroupNo }" />
+	      <input type="hidden" name="memberId" value="${loginMember.id }" />
+      </form:form>
+      <div class="modal-footer d-flex justify-content-center">
+        <button class="btn btn-updateGroupwareMainBanner">수정</button>
+        <button class="btn close-modal">취소</button>
+      </div>
+    </div>
+  </div>
+</div>
 <script>
-//document.oncontextmenu = function () {return false}
+// 배너 이미지 변경 
+$(".gw-banner-controller").click((e)=>{
+	$("#updateGWMainBanner").modal('show');
+});
 
+$(".close-modal").click((e)=>{
+	$("#updateGWMainBanner").modal('hide');
+});
+// 배너 이미지 변경 모달창
+  $(document).on("change", ".file-input", function(){
+   
+    $filename = $(this).val();
 
+    if($filename == "")
+      $filename = "파일을 선택해주세요.";
+    if (document.getElementById('file').files && document.getElementById('file').files[0]) {
+    	   var reader = new FileReader();
+    	   reader.onload = function (e) {
+    	    $("#preview").attr('src', e.target.result);
+    	 	};
+    	  reader.readAsDataURL(document.getElementById('file').files[0]);
+    	  	};
+    $(".filename").text($filename);
 
+  })
+// 그룹웨어 메인 배너 변경 ajax
+$(".btn-updateGroupwareMainBanner").click((e)=>{
+	var form = $('#updateGropwareMainBannerFrm')[0];
+    var formData = new FormData(form);
+     $.ajax({
+        url : "${pageContext.request.contextPath}/gw/updateGropwareMainBanner.do",
+        type : 'POST',
+        data : formData,
+        contentType : false,
+        processData : false,
+        headers: {
+			"${_csrf.headerName}" : "${_csrf.token}"
+	 	},
+	 	success(data){
+			if(data > 0){
+				alert("배너 이미지가 변경되었습니다.");
+				location.reload();
+			}
+	 	},
+	 	error : console.log
+    });  
+});
+
+//달력 script
 var _cal = (function (cal) {
 
  var layout, multiMemory = {pick0: [], pick1: []};

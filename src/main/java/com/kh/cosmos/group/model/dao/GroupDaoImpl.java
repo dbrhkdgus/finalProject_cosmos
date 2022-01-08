@@ -262,5 +262,11 @@ public class GroupDaoImpl implements GroupDao {
 		// TODO Auto-generated method stub
 		return session.delete("group.deleteAuthoritiesRelatedGroup", groupNo);
 	}
+
+	@Override
+	public int insertGroupwareBanner(Map<String, Object> param) {
+		// TODO Auto-generated method stub
+		return session.insert("group.insertGroupwareBanner", param);
+	}
 	
 }
