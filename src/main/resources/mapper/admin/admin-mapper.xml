@@ -260,7 +260,7 @@
   </select>
   
   <select id="EnrollMemberByMonth" resultType="EnrollMemberByMonth">
-	SELECT TO_CHAR(b.dt, 'YYYY-MM-DD') AS member_enroll_date
+	SELECT TO_DATE(b.dt, 'YYYY-MM-DD') AS member_enroll_date
 	     , NVL(SUM(a.cnt), 0) cnt
 	FROM 
 	        (           
