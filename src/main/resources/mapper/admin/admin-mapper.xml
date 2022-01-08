@@ -112,7 +112,7 @@
 	    left join studygroup_category1 sc
 	        on g.category_no = sc.category1_no
 	where
-	    g.group_no = #{groupNo} and ag.role='G'
+	    g.group_no = #{groupNo} and ag.role='G' and a.img_flag = 'Y'
   </select>
   
     <!-- 그룹 승인하기 -->
@@ -260,7 +260,7 @@
   </select>
   
   <select id="EnrollMemberByMonth" resultType="EnrollMemberByMonth">
-	SELECT TO_CHAR(b.dt, 'YYYY-MM-DD') AS member_enroll_date
+	SELECT TO_DATE(b.dt, 'YYYY-MM-DD') AS member_enroll_date
 	     , NVL(SUM(a.cnt), 0) cnt
 	FROM 
 	        (           
