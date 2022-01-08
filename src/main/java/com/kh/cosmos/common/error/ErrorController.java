@@ -1,8 +1,11 @@
 package com.kh.cosmos.common.error;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.servlet.NoHandlerFoundException;
 
 import lombok.extern.log4j.Log4j;
 
@@ -17,6 +20,13 @@ public class ErrorController {
 		log.error("Exception........" + e.getMessage());
 		model.addAttribute("exception", e);
 		log.error(model);
+		return "common/error";
+	}
+	
+	@ExceptionHandler(NoHandlerFoundException.class)
+	@ResponseStatus(HttpStatus.NOT_FOUND)
+	public String handle404(NoHandlerFoundException ex) {
+		
 		return "common/error";
 	}
 }
