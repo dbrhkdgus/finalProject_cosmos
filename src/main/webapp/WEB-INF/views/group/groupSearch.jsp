@@ -92,7 +92,7 @@
 		                                <c:forEach var="attach" items="${attachList }">
 			                                <c:if test="${group.groupNo == attach.groupNo }">
 			                                	<img class="card-img-top" 
-			                                	style = "width: 348px; height: 288px;"
+			                                	style = "width: 348px; height: 274px;"
 			                                	src="${pageContext.request.contextPath }/resources/upFile/group/${attach.renamedFilename}"
 			                                        alt="..." />
 			                                </c:if>
@@ -124,8 +124,8 @@
 			                                    </c:if>
 		                                    	<c:forEach var="cate" items="${caOneList}">
 		                                    		<c:if test="${group.categoryNo == cate.category1No}">
-		                                    			<div>
-		                                    				<p class="card-text">${cate.category1Name}</p>
+		                                    			<div class="border border-primary rounded">
+		                                    				<p class="card-text mx-2 my-1 text-primary">${cate.category1Name}</p>
 		                                    			</div>
 		                                    		</c:if>
 		                                    	</c:forEach>
@@ -138,12 +138,12 @@
 			                                </c:if>
 			                                </c:forEach>
 		                                    
-                                			<div>
+                                			<div class="pb-2">
 			                                    <c:forEach var="gcl" items="${groupCategoryList}">
 			                                    	<c:if test="${group.groupNo == gcl.groupNo}">
 				                                    		<c:forEach var="ctl" items ="${categoryTwoList}">
 				                                    			<c:if test="${gcl.category2No == ctl.category2No }">
-				                                    					<span>#${ctl.category2Name}</span>
+				                                    					<span class="card-text text-white border rounded p-1" style="margin-bottom: 5px; background-color: #b8b8b8;">#${ctl.category2Name}</span>
 				                                    			</c:if>
 				                                    		</c:forEach>
 			                                    	</c:if>
