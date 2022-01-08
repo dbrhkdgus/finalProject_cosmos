@@ -199,17 +199,32 @@
 <div class="subscribe">
 
 </div>
+<c:if test="${expend == 'Y' }">
+<script>
+	$(".test-member-list-small").hide();
+</script>
+</c:if>
+<c:if test="${expend == 'N' }">
+<script>
+	$(".test-member-list").hide();
+</script>
+</c:if>
 <!-- jquery.form.js  -->
 <!-- <script src="http://malsup.github.com/jquery.form.js"></script> -->
 <script>
 //그룹원 리스트 (확장/축소) 제어
-$(".test-member-list-small").hide();
-
 
 $(".memberList-size-controll-box").click((e)=>{
 	$(".test-member-list-small").toggle();
 	$(".test-member-list").toggle();
 	$(".chat-input-box").toggleClass('chat-input-box-sizing');
+	
+	$.ajax({
+		url: `${pageContext.request.contextPath}/gw/updateExpendCheck.do`,
+		success(data){
+		},
+		error: console.log
+	});
 });
 
 

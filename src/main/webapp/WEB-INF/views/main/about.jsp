@@ -106,7 +106,7 @@
 				<input type="hidden" value="" class="input-val" />
 				<div class="left image">
 					<img
-						src="https://i.ibb.co/vkrrfhm/Ke.jpg"
+						src="https://i.ibb.co/W0gmXdB/image.png"
 						alt="" id="bigImg">
 					<p>
 						<mark>김은희</mark>
@@ -198,7 +198,7 @@
 
 				<div class="aboutdetail rightinner">
 					<img
-						src="https://i.ibb.co/vkrrfhm/Ke.jpg"
+						src="https://i.ibb.co/W0gmXdB/image.png"
 						alt="">
 					<button type="button" class="rightBtn"data-member="keh">김은희</button>
 				</div>

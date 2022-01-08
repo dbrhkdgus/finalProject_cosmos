@@ -401,7 +401,20 @@ public class GwAdminController {
     Map<String,Object> param = new HashMap<>();
 	param.put("memberId", loginMember.getId());
 	param.put("groupNo", groupNo);
+    String expend = "";
+    try {
+    	expend = gwService.selectMemberExpendCheck(loginMember.getId());
+	} catch (Exception e) {
+		
+	}
+   if(expend==null) {
+		int result = gwService.insertDefaultExpendCheck(loginMember.getId());
+		if(result > 0) {
+			expend = gwService.selectMemberExpendCheck(loginMember.getId());
+		}
+   }
     
+    model.addAttribute("expend", expend);
     model.addAttribute("currGroupNo", groupNo);
     model.addAttribute("myGroup", myGroup);
     model.addAttribute("myGroupMemberList", myGroupMemberList);
