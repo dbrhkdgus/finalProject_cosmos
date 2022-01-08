@@ -51,11 +51,11 @@ a { color:black; text-decoration:none !important } a:hover { color : black; text
 				<div class="gw-main-banner-img" style="width: 40vw; height: 55vh;">
 					<c:if test="${myGroup.groupNo == groupwareMainBanner.groupNo }">
 						
-							<img class="groupware-main-banner" src="${pageContext.request.contextPath }/resources/upFile/group/${groupwareMainBanner.renamedFilename}" alt=""  style="width: 38vw;height: 55vh;"/>			
+							<img class="groupware-main-banner rounded" src="${pageContext.request.contextPath }/resources/upFile/group/${groupwareMainBanner.renamedFilename}" alt=""  style="width: 38vw;height: 55vh;"/>			
 					<!-- 	<hr style="margin-bottom: 30px"/> -->
 					</c:if>
 				</div>
-				<div class="calendar-box">
+				<div class="calendar-box rounded">
 					<div id='main'>
 						<div id='app'></div>
 						<!-- <input type='text' name='calendar' id='app' style='padding:5px 10px; margin: 20px 20px; border:1px solid black'/> -->
