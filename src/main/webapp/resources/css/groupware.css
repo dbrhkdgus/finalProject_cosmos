@@ -829,7 +829,8 @@ div.list-group1{
 }
 .groupware-main-notice{
 	display: flex;
-    width: 420px;
+    width: 21vw;
+    height: 19vh;
     flex-direction: column;
     align-items: flex-start;
     margin-left: 40px;
