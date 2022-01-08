@@ -380,6 +380,7 @@
 	display: flex;
     flex-direction: column;
     align-items: center;
+    margin-top: 101px;
 }
 #naver_id_login{
 	margin:20px 0  15px 0;
@@ -392,10 +393,12 @@
 }
 
 .box_login {
-    width: 420px;
+ 	width: 420px;
     margin: 0 auto;
     padding: 35px 20px;
     border: 1px solid #eee;
+    border-radius: 15px;
+    box-shadow: 6px 9px 10px #eee;
 }
 
 .login_main > img {
@@ -404,7 +407,7 @@
     margin-right: auto;
 }
 
-.box_login .box_btn .btn {
+.box_login  .btn {
     display: inline-block;
     position: relative;
     height: 20px;

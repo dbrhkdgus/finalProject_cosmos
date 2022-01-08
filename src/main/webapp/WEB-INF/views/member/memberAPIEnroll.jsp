@@ -11,19 +11,29 @@
 	<jsp:param value="" name="title" />
 </jsp:include>
 <script type = "text/javascript" src = "https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
+<style>
+@font-face {
+    font-family: 'NanumSquareRound';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumSquareRound.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+ 
+}
 
+</style>
 
 <body>
 	<div class="container">
 		<div class="box_login login_main">
-		<img src="https://t4.ftcdn.net/jpg/03/75/58/15/360_F_375581544_r5aDqkhnhrqy15AdaqKXUI30MMtL8IIq.jpg" width="41%" alt="welcome coupon">
-            <h3 class="tit text-center" >Cosmos 회원가입</h3>
+            <h3 class="tit text-center" style=" font-family: 'NanumSquareRound';font-weight:900; color:black; margin-bottom:40px;">회원가입</h3>
+		<img src="https://i.ibb.co/KxhQXF2/974-9742351-where-information-technology-vector.png" width="60%" alt="welcome coupon"> 
 			<div class="API-outer">
-			<div class="box_btn">
-				<a class="btn" href="${pageContext.request.contextPath}/member/memberEnroll.do">이메일 회원가입</a>
+			<div class="box_btn" style="background-color: #0583F2;  width: 300px;  height: 45px; border-radius: 6px;">
+				<a class="btn" href="${pageContext.request.contextPath}/member/memberEnroll.do" style="color:#f2f2f2; font-family: 'NanumSquareRound';    
+  					  margin-top: 11px;"><i class="fas fa-play"></i> <span style="margin-left: 75px;">코스모스로 시작하기</span></a>
 			</div>                
 			 <div id = "naver_id_login"></div>
-			 	<div class="kakao-login"><a href="javascript:kakaoLogin();"><img src="https://i.ibb.co/3Fkxghp/kakao-login-medium-narrow.png" alt="카카오계정 로그인" /></a></div>
+			 	<div class="kakao-login"><a href="javascript:kakaoLogin();"><img src="https://i.ibb.co/Fqnzf49/kakao-login-medium-wide.png" alt="카카오계정 로그인" /></a></div>
        	 	<div class="g-signin2" data-onsuccess="onSignIn"></div>
 		</div>
 				
