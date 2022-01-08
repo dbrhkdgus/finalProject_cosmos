@@ -31,8 +31,7 @@
 
 
 #calendar {
-	margin-left: 15px;
-	margin-right: 15px;
+	margin-left: 30px;
 	margin-top: 30px;
 	margin-bottom: 30px;
 }
@@ -75,10 +74,7 @@
 </style>
 
 <div class="workspace-box">
-
-		<div id='calendar'></div>
-
-	
+	<div id='calendar'></div>
 </div>
 <input type="hidden" id="_groupNo" value="${groupNo}" />
 
@@ -495,7 +491,7 @@ document.addEventListener('DOMContentLoaded', function() {
     						$("#changeColor").modal("show");
     					}
     				},
-    /* customButtons 버튼관련 */
+    /* customButtons 버튼관련 + 일정 추가 */
                     addEventButton: { // 추가한 버튼 설정
                         text : "일정 추가",  // 버튼 내용
                         click : function(){ // 버튼 클릭 시 이벤트 추가
@@ -509,19 +505,34 @@ document.addEventListener('DOMContentLoaded', function() {
 								var end_time = $("#end_time").val();
 								var allDay = $("#allDay").val();
 								
+								
+								console.log('start_date = ' + new Date(start_date));
+								console.log('start_time = '+start_time);
+								console.log('end_time = '+end_time);
+								console.log('end_time = '+typeof(end_time));
+								console.log('str start_time = '+ start_time.replace(':',''));
+								console.log('str end_time = '+ end_time.replace(':',''));
+								console.log('날짜 차이 = '+(new Date(end_date)-new Date(start_date)));
+								console.log('시간 차이 = '+(Number(end_time.replace(':','')) - Number(start_time.replace(':',''))) );
+								
                                 //내용 입력 여부 확인
                                 if($("#title").val() == null || $("#title").val() == ""){
                                     alert("제목을 입력하세요.");                                	
                                 }
                                 else if($("#content").val() == null || $("#content").val() == ""){
                                     alert("내용을 입력하세요.");
+                                    return false;
                                 }else if($("#start_date").val() == "" || $("#end_date").val() ==""){
                                     alert("날짜를 입력하세요.");
-                                }else if(end_date- start_date < 0){ // 시작날짜 종료날짜 올바른지 확인
+                                    return false;
+                                }else if((new Date(end_date)-new Date(start_date))< 0){ // 시작날짜 종료날짜 올바른지 확인
                                     alert("종료일이 시작일보다 먼저입니다.");
+                                	return false;
                                 }else if(end_date == start_date){ // 시작시간 종료시간 올바른지 확인
-                                	if(end_time - start_time < 0){
+                                	//시작 날짜와 종료날짜가 같을 때, 시간 대 유효성 검사- 시간(12:00) > 문자열에서':' 빼기'(1200) > Number() 변환 후 차이 구하기 
+                                	if((Number(end_time.replace(':','')) - Number(start_time.replace(':','')))<0){
                                 		alert("종료시간이 시작시간보다 먼저입니다.");
+                                		return false;
                                 	}                                
                         			$(insertSchedule).submit();
                                 }else{ // 정상적인 입력 시
