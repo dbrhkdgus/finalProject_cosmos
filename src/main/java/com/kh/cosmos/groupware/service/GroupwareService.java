@@ -46,5 +46,7 @@ public interface GroupwareService {
 	List<PostWithBoardName> selectNewPostsListByParam(Map<String, Object> param);
 
 	Attachment selectGropwareBannerByGroupNo(int groupNo);
+
+	int updateGroupwareMainBanner(Attachment attach);
 	
 }
