@@ -1,4 +1,4 @@
-﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
+﻿﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
@@ -82,7 +82,7 @@
 				</div>
 
 
-				<div class="aboutdetail leftbox" id="ggj">
+				<div class="aboutdetail leftbox" id="kgj">
 					<div class="left image">
 						<input type="hidden" value="" class="input-val" /> <img
 							src="https://i.ibb.co/Pj7sHTX/goo.gif"
@@ -189,7 +189,7 @@
 					<img
 						src="https://i.ibb.co/Pj7sHTX/goo.gif"
 						alt="">
-					<button type="button" class="rightBtn" data-member="ggj">강구진</button>
+					<button type="button" class="rightBtn" data-member="kgj">강구진</button>
 				</div>
 
 				<div class="aboutdetail rightinner">
