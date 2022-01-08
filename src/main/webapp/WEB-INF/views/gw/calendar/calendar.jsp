@@ -31,7 +31,8 @@
 
 
 #calendar {
-	margin-left: 30px;
+	margin-left: 15px;
+	margin-right: 15px;
 	margin-top: 30px;
 	margin-bottom: 30px;
 }
@@ -74,7 +75,10 @@
 </style>
 
 <div class="workspace-box">
-	<div id='calendar'></div>
+
+		<div id='calendar'></div>
+
+	
 </div>
 <input type="hidden" id="_groupNo" value="${groupNo}" />
 
