@@ -16,6 +16,8 @@
 </jsp:include>
 <!-- Page content-->
 <!-- Portfolio Start -->
+<script type="text/javascript" src="${pageContext.request.contextPath }/resources/js/sakura/jquery-sakura.js"></script>
+<link href="${pageContext.request.contextPath }/resources/css/jquery-sakura.css" rel="stylesheet" />
 <section id="portfolio" class="portfolio section-space-padding">
 	<div class="container">
 
@@ -91,11 +93,13 @@
 							<mark>강구진</mark>
 						</p>
 					</div>
-					<div class="left content about-detail-content">Lorem ipsum
-						dolor sit amet, consectetur adipisicing elit. Officia dignissimos
-						rem sequi amet necessitatibus nostrum enim. Incidunt iste
-						reprehenderit nostrum asperiores fugiat blanditiis delectus
-						voluptate qui sequi sed. Voluptatibus harum.</div>
+					<div class="left content about-detail-content">
+					<p>이번 프로젝트에선 수많은 API을 사용해볼 수 있는 좋은 기회였습니다.</p>
+					<p>다들 고생 많았고</p>
+					<p>마지막까지 화이팅!</p>
+					<p>모두들 좋은 직장에서 다시만나길</p>
+					<img src="https://i.ibb.co/5YGCJ39/99b983892094b5c6d2fc3736e15da7d1.gif" alt="" style="width: 100px;"/>
+					</div>
 				</div>
 
 			<div class="aboutdetail leftbox" id="keh">
@@ -235,9 +239,9 @@ $(".rightBtn").click((e)=>{
 	$(target).addClass("active").siblings().removeClass("active");
 
 });
-    	    
-                
-            
+window.addEventListener("load", function(){
+    $('body').sakura();
+});
 </script>
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
