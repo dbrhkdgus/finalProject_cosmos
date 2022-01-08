@@ -31,7 +31,7 @@
 			    <li><button class="dropdown-item" type="button">그룹 생성/휴먼 처리</button></li>
 			    <li><button class="dropdown-item" type="button">불량 그룹/사용자 신고</button></li>
 			    <li><button class="dropdown-item" type="button">그룹웨어 관련</button></li>
-			    <li><button class="dropdown-item" type="button">채팅 관련</button></li>
+			    <li><button class="dropdown-item" type="button">채팅관련</button></li>
 			    <li><button class="dropdown-item" type="button">기타 문의</button></li>
 			  </ul>
 			</div>
