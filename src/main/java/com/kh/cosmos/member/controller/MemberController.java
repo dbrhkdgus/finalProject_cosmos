@@ -355,14 +355,16 @@ public class MemberController {
 		principal.setMemberJob(updateMember.getMemberJob());
 		principal.setPassword(updateMember.getPassword());
 		principal.setMemberGender(updateMember.getMemberGender());
-		principal.setAuthorities(oldAuthentication.getAuthorities());
+		
+		
 		log.debug("member = {}", updateMember);
 		result = memberService.updateMember(updateMember);
 
 		Authentication newAuthentication = new UsernamePasswordAuthenticationToken(principal,
-				oldAuthentication.getCredentials(), updateMember.getAuthorities());
+				oldAuthentication.getCredentials(), oldAuthentication.getAuthorities());
 
 		SecurityContextHolder.getContext().setAuthentication(newAuthentication);
+		
 		Map<String, Object> map = new HashMap<>();
 		map.put("msg", "회원정보 수정 성공!");
 
