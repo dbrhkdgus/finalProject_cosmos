@@ -10,8 +10,15 @@
 	<jsp:param value="" name="title"/>
 </jsp:include>
 <style type="text/css">
+body{
+ background-color:#E5EAED;
+}
 a { color:black; text-decoration:none !important } a:hover { color : black; text-decoration:none !important }
 
+.gw-main-notice-title{
+	margin:5px;
+	font-size:20px;
+}
 </style>
 
 
@@ -19,7 +26,7 @@ a { color:black; text-decoration:none !important } a:hover { color : black; text
 
 <div class="gw_main_workspace-box">
 	<div class="main-banner-notice-new-box">
-		<div class="groupware-main-title d-flex">
+		<div class="groupware-main-title d-flex align-items-end">
 			<c:forEach var="attach" items="${groupBannerAttachList }">
 				<c:if test="${myGroup.groupNo == attach.groupNo }">
 					<%-- <img src="${pageContext.request.contextPath }/resources/upFile/group/${attach.renamedFilename}" alt="" /> --%>
@@ -37,16 +44,16 @@ a { color:black; text-decoration:none !important } a:hover { color : black; text
 		</div>
 	<hr>
 		<div class="groupware-main-contents">
-			<div class="groupware-main-notice" style="background-color:gray;" >
-				<h3>공지사항</h3>
+			<div class="groupware-main-notice" style="background-color:white;" >
+				<p class="gw-main-notice-title">공지사항</p>
 				<ul>
 					<c:forEach var="notice" items="${noticePostList}">
 						<li><a href="${pageContext.request.contextPath }/gw/board/boardDetail.do?postNo=${notice.postNo}">${notice.postTitle }</a></li>
 					</c:forEach>
 				</ul>
 			</div>
-			<div class="groupware-main-notice new" style="margin-left: 10px;background-color:gray;" >
-				<h3>새로운 게시글</h3>
+			<div class="groupware-main-notice new" style="margin-left: 10px;background-color:white;" >
+				<p class="gw-main-notice-title">새로운 게시글</p>
 				<ul>
 					<c:forEach var="newPost" items="${newPostsList}">
 						<c:choose>
@@ -63,9 +70,9 @@ a { color:black; text-decoration:none !important } a:hover { color : black; text
 					</c:forEach>
 				</ul>
 			</div>
-			<div class="groupware-main-notice new" style="margin-left: 10px;background-color:gray; margin-right: 35px;">
-					<div class="groupware-main-today-schedule" style="background-color:gray; margin-left:20px;" >
-					<p>오늘의 그룹 일정</p>
+			<div class="groupware-main-notice new" style="margin-left: 10px;background-color:white; margin-right: 35px;">
+					<div class="groupware-main-today-schedule" >
+					<p class="gw-main-notice-title">오늘의 그룹 일정</p>
 					<div class="groupware-main-today-schedule">
 						<c:if test="${not empty todayScheduleList}">
 							<c:forEach var="todaySchedule" items="${todayScheduleList }">

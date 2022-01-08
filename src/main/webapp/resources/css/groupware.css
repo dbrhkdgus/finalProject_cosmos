@@ -219,7 +219,7 @@ width:16px;height:10px;background:#36A2EB;}
  div.main-group3{
    margin: 30px;
    text-align: center;
-   widthh: 550px;
+   width: 550px;
    height: 300px;
    float:right;
    background-color: rgb(241, 248, 250);
@@ -366,7 +366,7 @@ div.list-group1{
   margin-bottom: 1rem;
 }
 .test-member-list{
-  width: 20%;
+  width: 15%;
 }
 .member-profile-img-box{
   width: 30px;
@@ -820,9 +820,8 @@ div.list-group1{
     align-items: center;
 }
 .groupware-main-banner{
-	width: 60%;
-    /* height: 200px; */
-    /* width: 451px; */
+	width: 805px;
+    height: 460px;
     border: 2px solid;
 }
  .groupware-main-today-schedule{
@@ -830,6 +829,8 @@ div.list-group1{
     overflow-y: auto;
 
 } 
+
+
 /* 그룹웨어 메인 달력 css */
 /* Nanum Gothic;  Jeju Gothic;*/
 
@@ -838,7 +839,7 @@ div.list-group1{
 
 }
 #app{
-	border: 1px solid;
+	/* border: 1px solid; */
     margin-top: 20px;
     margin-right: 5px;
 }
@@ -912,8 +913,9 @@ div.list-group1{
 
 .calendar-body {
     position: relative;
-    width:90%;
-    margin:0 auto;
+    width: 450px;
+    height: 460px;
+    margin: 0px 30px 0 45px;
     font-size: 17px;
     font-family: 'Nanum Gothic';
     /* font-family: Roboto,Noto,Helvetica,Arial,sans-serif; */
@@ -1000,9 +1002,9 @@ div.list-group1{
 
 .calendar-body .calendar-row {
  	pointer-events: none;
-    display:flex;
-    height: 30px;
-    border-bottom: 1px solid #ccc;   
+    display: flex;
+    height: 51px;
+    border-bottom: 1px solid #ccc;
 }
 
 .calendar-body .calendar-row:last-child {
@@ -1017,14 +1019,13 @@ div.list-group1{
 
 .calendar-body .calendar-row .calendar-day span{
     display: inline-block;
-    width: 35px;
-    height: 35px;
-    line-height: 35px;
-    border-radius: 50%;
-    font-weight: bold;
+    width: 42px;
+    height: 5px;
+    line-height: 50px;
+    /* border-radius: 50%; */
+    /*font-weight: bold; */
     cursor: pointer;
     font-size: 15px;
-
 }
 
 .calendar-body .calendar-row .calendar-day span:hover {
@@ -1042,8 +1043,8 @@ div.list-group1{
 }
 
 .calendar-body .active span {
-    background:#2196f3;
-    color:#ffffff
+   background: #2196f3;
+    color: #2196f3;
 }
 
 .calendar-body .active:not(.special-day) span::after {
