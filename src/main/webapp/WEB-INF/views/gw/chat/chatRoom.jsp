@@ -202,17 +202,20 @@
 <c:if test="${expend == 'Y' }">
 <script>
 	$(".test-member-list-small").hide();
+	$(".chat-input-box").removeClass('chat-input-box-sizing');
 </script>
 </c:if>
 <c:if test="${expend == 'N' }">
 <script>
 	$(".test-member-list").hide();
+	$(".chat-input-box").addClass('chat-input-box-sizing');
 </script>
 </c:if>
 <!-- jquery.form.js  -->
 <!-- <script src="http://malsup.github.com/jquery.form.js"></script> -->
 <script>
 //그룹원 리스트 (확장/축소) 제어
+
 
 $(".memberList-size-controll-box").click((e)=>{
 	$(".test-member-list-small").toggle();
