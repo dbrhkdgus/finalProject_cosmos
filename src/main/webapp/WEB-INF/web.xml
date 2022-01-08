@@ -36,6 +36,11 @@
 			/WEB-INF/spring/appServlet/aspect-context.xml
 			</param-value>
 		</init-param>
+		
+		<init-param>
+			<param-name>throwExceptionIfNoHandlerFound</param-name>
+			<param-value>true</param-value>
+		</init-param>
 		<load-on-startup>1</load-on-startup>
 		<!-- #16.1 비동기처리 설정 : 요청별 쓰레드 비동기처리 지원 -->
 		<async-supported>true</async-supported>
