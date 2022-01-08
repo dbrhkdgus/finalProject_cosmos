@@ -118,6 +118,12 @@ public class GroupwareServiceImpl implements GroupwareService {
 		return gwDao.selectGropwareBannerByGroupNo(groupNo);
 	}
 
+	@Override
+	public int updateGroupwareMainBanner(Attachment attach) {
+		// TODO Auto-generated method stub
+		return gwDao.updateGroupwareMainBanner(attach);
+	}
+
 	
 
 

@@ -115,11 +115,11 @@ a { color:black; text-decoration:none !important } a:hover { color : black; text
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form:form name="createBoardRoomFrm" method="post" action="${pageContext.request.contextPath }/gw/board/createBoardRoom.do">
+      <form:form name="updateGropwareMainBannerFrm" id="updateGropwareMainBannerFrm" method="post" >
 	      <div class="modal-body mx-3">
 	        <div class="md-form mb-5">
 	          <div class="curr-gwMainBanner-preview">
-	          		<img id="preview" src="" alt="" style="width: 400px; height: 200px;"/>
+	          		<img id="preview" src="${pageContext.request.contextPath }/resources/upFile/group/${groupwareMainBanner.renamedFilename}" alt="" style="width: 400px; height: 200px;"/>
 	          </div>
 	          
 	          <div class="box-file-input">
@@ -129,9 +129,10 @@ a { color:black; text-decoration:none !important } a:hover { color : black; text
 	        </div>
 	      </div>
 	      <input type="hidden" name="groupNo" value="${currGroupNo }" />
+	      <input type="hidden" name="memberId" value="${loginMember.id }" />
       </form:form>
       <div class="modal-footer d-flex justify-content-center">
-        <button class="btn btn-createBoardRoom">개설</button>
+        <button class="btn btn-updateGroupwareMainBanner">수정</button>
         <button class="btn close-modal">취소</button>
       </div>
     </div>
@@ -147,8 +148,6 @@ $(".close-modal").click((e)=>{
 	$("#updateGWMainBanner").modal('hide');
 });
 // 배너 이미지 변경 모달창
-
-
   $(document).on("change", ".file-input", function(){
    
     $filename = $(this).val();
@@ -165,7 +164,28 @@ $(".close-modal").click((e)=>{
     $(".filename").text($filename);
 
   })
-
+// 그룹웨어 메인 배너 변경 ajax
+$(".btn-updateGroupwareMainBanner").click((e)=>{
+	var form = $('#updateGropwareMainBannerFrm')[0];
+    var formData = new FormData(form);
+     $.ajax({
+        url : "${pageContext.request.contextPath}/gw/updateGropwareMainBanner.do",
+        type : 'POST',
+        data : formData,
+        contentType : false,
+        processData : false,
+        headers: {
+			"${_csrf.headerName}" : "${_csrf.token}"
+	 	},
+	 	success(data){
+			if(data > 0){
+				alert("배너 이미지가 변경되었습니다.");
+				location.reload();
+			}
+	 	},
+	 	error : console.log
+    });  
+});
 
 //달력 script
 var _cal = (function (cal) {
