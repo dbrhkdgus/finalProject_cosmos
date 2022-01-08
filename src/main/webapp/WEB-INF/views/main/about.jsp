@@ -136,7 +136,7 @@
 				<input type="hidden" value="" class="input-val" />
 				<div class="left image">
 					<img
-						src="https://ibb.co/9wqd17X"
+						src="https://i.ibb.co/TKHN7sX/2022-01-07-224948.png"
 						alt="" id="bigImg">
 					<p>
 						<mark>유지우</mark>
@@ -208,7 +208,7 @@
 
 				<div class="aboutdetail rightinner">
 					<img
-						src="https://ibb.co/9wqd17X"
+						src="https://i.ibb.co/TKHN7sX/2022-01-07-224948.png"
 						alt="">
 					<button type="button" class="rightBtn" data-member="yjw">유지우</button>
 				</div>
