@@ -91,7 +91,7 @@ private static final String HOST = "https://kapi.kakao.com";
         params.add("partner_order_id", "1001");
         params.add("partner_user_id", "cosmos");
         params.add("pg_token", pg_token);
-        params.add("total_amount", "1");
+        params.add("total_amount", "10000");
         
         HttpEntity<MultiValueMap<String, String>> body = new HttpEntity<MultiValueMap<String, String>>(params, headers);
         
