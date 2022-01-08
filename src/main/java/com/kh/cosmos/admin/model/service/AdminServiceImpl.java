@@ -252,6 +252,18 @@ public class AdminServiceImpl implements AdminService{
 	public int enrollLastMonthCount() {
 		return adminDao.enrollLastMonthCount();
 	}
+
+	@Override
+	public int disapproveGroup(int groupNo) {
+		// TODO Auto-generated method stub
+		return adminDao.disapproveGroup(groupNo);
+	}
+
+	@Override
+	public int sendDisapprveGroupDM(String memberId) {
+		// TODO Auto-generated method stub
+		return adminDao.sendDisapprveGroupDM(memberId);
+	}
 	
 	
 	
