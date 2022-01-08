@@ -186,28 +186,28 @@
 
 				<div class="aboutdetail rightinner">
 					<img
-						src="https://i.ibb.co/vkrrfhm/Ke.jpg"
+						src="https://i.ibb.co/tz8V6NY/image.png"
 						alt="">
 					<button type="button" class="rightBtn">멤버4</button>
 				</div>
 
 				<div class="aboutdetail rightinner">
 					<img
-						src="${pageContext.request.contextPath }/resources/images/facebook.png"
+						src="https://i.ibb.co/rv3VY9v/21.gif"
 						alt="">
 					<button type="button" class="rightBtn">멤버5</button>
 				</div>
 
 				<div class="aboutdetail rightinner">
 					<img
-						src="${pageContext.request.contextPath }/resources/images/github.png"
+						src="https://i.ibb.co/Jn4LPwc/gif-4.gif"
 						alt="">
 					<button type="button" class="rightBtn">멤버6</button>
 				</div>
 
 				<div class="aboutdetail rightinner">
 					<img
-						src="${pageContext.request.contextPath }/resources/images/facebook.png"
+						src="https://i.ibb.co/4sx44VB/image.gif"
 						alt="">
 					<button type="button" class="rightBtn">멤버7</button>
 				</div>
