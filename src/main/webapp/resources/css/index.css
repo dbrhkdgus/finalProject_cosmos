@@ -751,7 +751,7 @@ ul.tabs li.current{
 /* 회원정보 수정 css */
 .deleteProfile{
 	position: absolute;
-	left: 60%;
+	left: 33vw;
 }
 [data-tooltip-text]:hover {
 	position: relative;
