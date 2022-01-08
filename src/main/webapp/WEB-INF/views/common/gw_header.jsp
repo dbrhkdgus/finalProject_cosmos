@@ -141,11 +141,11 @@
     </div>
   </div>
 <form:form method="POST" action="${pageContext.request.contextPath}/member/memberLogout.do" id="memberLogoutFrm" class="d-inline"></form:form>
-  <div class="flex-shrink-0 p-3 bg-light" style="overflow-y: auto; width: 260px;background-color: #EBF0F3 !important;">
+  <div class="flex-shrink-0 p-3 bg-light" style="overflow-y: auto; width: 230px;background-color: #EBF0F3 !important;">
     <ul class="list-unstyled ps-0">
       <li class="mb-1">
       	<div class="d-flex justify-content-between align-items-center">
-	        <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" id="dropdownBoard" data-bs-target="#board-collapse" aria-expanded="" data-bs-placement="right">
+	      <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" id="dropdownBoard" data-bs-target="#board-collapse" aria-expanded="" data-bs-placement="right">
 	          게시판 채널
 	        </button>
 	        <!-- 게시판 채널 생성 버튼 -->
