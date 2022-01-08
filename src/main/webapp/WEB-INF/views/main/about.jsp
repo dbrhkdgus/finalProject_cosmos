@@ -42,11 +42,23 @@
 							<mark>유광현</mark>
 						</p>
 					</div>
-					<div class="left content about-detail-content">Lorem ipsum
-						dolor sit amet, consectetur adipisicing elit. Officia dignissimos
-						rem sequi amet necessitatibus nostrum enim. Incidunt iste
-						reprehenderit nostrum asperiores fugiat blanditiis delectus
-						voluptate qui sequi sed. Voluptatibus harum.</div>
+					<div class="left content about-detail-content">
+						<p>약 한달간의 파이널 프로젝트의 끝이 보이네요 😎 
+							<br />그동안 노는 시간, 밥먹는 시간 모든 시간을 할애해 코스모스에 매달렸습니다. 
+							<br />함께 달려온 개성공단팀 분들께 축하와 고생했다는 말을 해주고 싶습니다. 
+						</p>
+						<p>이제 취업을 위해 달려나가려고합니다! 
+						<br />문득, 하던 일을 그만두고 코딩에 입문하던 때가 떠오르네요.
+						<br />아직도 그때의 재미와 즐거움을 잘 지켜나가고 있습니다.
+						<br />첫 일터에서 보다 많은 지식과 경험을 쌓고 싶습니다.
+						</p>
+						
+						<p>고생 많이 한 우리 개성공단팀! 
+						<br />멋진 개발자가 되어 다시 만납시다! 
+						<br />고생 많았어요~!! 😀				
+						</p>
+					
+					</div>
 				</div>
 
 
@@ -107,7 +119,7 @@
 				<input type="hidden" value="" class="input-val" />
 				<div class="left image">
 					<img
-						src="${pageContext.request.contextPath }/resources/images/facebook.png"
+						src="https://i.ibb.co/pXFVSyV/22.png"
 						alt="" id="bigImg">
 					<p>
 						<mark>백지영</mark>
@@ -124,7 +136,7 @@
 				<input type="hidden" value="" class="input-val" />
 				<div class="left image">
 					<img
-						src="${pageContext.request.contextPath }/resources/images/github.png"
+						src="https://i.ibb.co/TKHN7sX/2022-01-07-224948.png"
 						alt="" id="bigImg">
 					<p>
 						<mark>유지우</mark>
@@ -141,7 +153,7 @@
 				<input type="hidden" value="" class="input-val" />
 				<div class="left image">
 					<img
-						src="${pageContext.request.contextPath }/resources/images/facebook.png"
+						src="https://i.ibb.co/zFPDML6/Kakao-Talk-20220108-115342250.jpg"
 						alt="" id="bigImg">
 					<p>
 						<mark>이윤희</mark>
@@ -189,21 +201,21 @@
 
 				<div class="aboutdetail rightinner">
 					<img
-						src="${pageContext.request.contextPath }/resources/images/facebook.png"
+						src="https://i.ibb.co/pXFVSyV/22.png"
 						alt="">
 					<button type="button" class="rightBtn" data-member="bjy">백지영</button>
 				</div>
 
 				<div class="aboutdetail rightinner">
 					<img
-						src="${pageContext.request.contextPath }/resources/images/github.png"
+						src="https://i.ibb.co/TKHN7sX/2022-01-07-224948.png"
 						alt="">
 					<button type="button" class="rightBtn" data-member="yjw">유지우</button>
 				</div>
 
 				<div class="aboutdetail rightinner">
 					<img
-						src="${pageContext.request.contextPath }/resources/images/facebook.png"
+						src="https://i.ibb.co/zFPDML6/Kakao-Talk-20220108-115342250.jpg"
 						alt="">
 					<button type="button" class="rightBtn" data-member="lyh">이윤희</button>
 				</div>
