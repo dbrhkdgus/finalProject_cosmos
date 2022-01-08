@@ -338,7 +338,6 @@ public class MemberController {
 				  defaultProfile.setOriginalFilename(application.getRealPath("defaultProfile.png"));
 				  result = memberService.insertAttach(defaultProfile);
 			  }
-			  
 			  result = memberService.updateAttach(oldProfile);
 		} catch (IllegalStateException | IOException e) {
 			// TODO Auto-generated catch block
@@ -355,7 +354,9 @@ public class MemberController {
 		principal.setPhone(updateMember.getPhone());
 		principal.setMemberJob(updateMember.getMemberJob());
 		principal.setPassword(updateMember.getPassword());
+		principal.setMemberGender(updateMember.getMemberGender());
 
+		log.debug("member = {}", updateMember);
 		result = memberService.updateMember(updateMember);
 
 		Authentication newAuthentication = new UsernamePasswordAuthenticationToken(principal,
