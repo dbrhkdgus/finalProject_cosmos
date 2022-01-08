@@ -349,6 +349,11 @@ div.list-group1{
   margin: 0px;
 }
 
+/*화상채널 관리*/
+.voiceChatEdit-title> h1{
+	margin-bottom: 1.5rem;
+}
+
 /* 그룹원 리스트 css */
 .on-off-text p{
   margin: 1rem 0rem 0.5rem 0rem;
