@@ -539,7 +539,7 @@
    
     display: flex;
     justify-content: space-between;
-
+	width: 70%;
   }
 
 
@@ -554,7 +554,7 @@
 .aboutdetail.rightouter{
     display: flex;
     flex-wrap: wrap;
-    width: 250px;
+    width: 30%;
     margin-left: 90px;
 }
 

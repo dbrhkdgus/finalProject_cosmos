@@ -259,6 +259,18 @@ public class AdminDaoImpl implements AdminDao {
 		return session.selectOne("admin.enrollThisMonthCount");
 	}
 
+	@Override
+	public int disapproveGroup(int groupNo) {
+		// TODO Auto-generated method stub
+		return session.delete("group.deleteGroup", groupNo);
+	}
+
+	@Override
+	public int sendDisapprveGroupDM(String memberId) {
+		// TODO Auto-generated method stub
+		return session.insert("admin.sendDisapprveGroupDM", memberId);
+	}
+
 	
 	
 }
