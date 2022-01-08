@@ -77,7 +77,7 @@
 </sec:authorize>
   <header class="bg-light">
     <div id="cosmos-groupwear-header"  style="background-color: #5288F2;">
-      <div class="groupwear-header-box"  style="height: 50px;">
+      <div class="groupwear-header-box"  style="height: 65px;">
         
         <div class="" style="width: 4.5rem;">
           <a href="#" class="d-block p-3 link-dark text-decoration-none" title="Home" data-bs-toggle="tooltip" data-bs-placement="right">
