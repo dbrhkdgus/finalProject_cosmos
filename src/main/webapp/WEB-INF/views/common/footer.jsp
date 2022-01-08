@@ -2,6 +2,11 @@
 	pageEncoding="UTF-8"%>
 
 <!-- Footer-->
+<style>
+	footer-list-content a:link {text-decoration: none;cursor: pointer; color: black;}
+	footer-list-content a:visited {color: black; text-decoration: none;}
+</style>
+
 <hr style="margin-top:50px;margin-bottom: 0;">
 <footer class="py-3" style="background-color: #eee !important; padding-top: 20px;">
 	<div class="footer-container" >

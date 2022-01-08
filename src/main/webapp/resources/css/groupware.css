@@ -834,6 +834,8 @@ div.list-group1{
     flex-direction: column;
     align-items: flex-start;
     margin-left: 40px;
+    border-radius:5px;
+    box-shadow: 0px 0px 10px -5px;
 }
 .groupware-main-calendar{
 	display: flex;
@@ -943,7 +945,9 @@ div.list-group1{
     letter-spacing: -1px;
     text-align: center;
     background: #fff;
-    z-index:2
+    z-index:2;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px -5px;
 }
 
 .calendar-body .calendar-title {
@@ -951,7 +955,8 @@ div.list-group1{
     height: 50px;
     font-size:20px;
     border-bottom: 1px solid #ccc;
-    background: #fff
+    background: #fff;
+    border-radius: 5px;
 }
 
 .calendar-body .calendar-title .title-y {
@@ -960,7 +965,8 @@ div.list-group1{
     outline: 0;
     padding: 0;
     font-size:25px;
-    color: #000
+    color: #000;
+   
 }
 
 .calendar-body .calendar-title .title-m {
