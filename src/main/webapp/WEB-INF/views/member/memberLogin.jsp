@@ -81,11 +81,7 @@ $(() => {
 					<input type="text" id="uid" class="form-control" placeholder="Your ID" required autofocus name="id"><BR>
 						<label for="inputPassword" class="sr-only">Password</label>
 						<input type="password" id="upw" class="form-control" placeholder="Password" name="password" required ><br>
-					<div class="checkbox">
-						<label> <input type="checkbox" value="remember-me">
-							기억하기
-						</label>
-					</div>
+
 					<div class="mx-auto d-block">
 						<button class="btn btn-lg btn-outline-warning btn-block" type="button" onclick="kakaoLogin();">카카오 login</button>
 						<button id="btn_Yes_Basic" class="btn btn-lg btn-outline-info btn-block" type="button" style=" font-weight: bold; background: linear-gradient(to right top, #000BA9, #52E3FF); color: transparent; -webkit-background-clip: text; margin-bottom: 3%;">COSMOS login</button>
