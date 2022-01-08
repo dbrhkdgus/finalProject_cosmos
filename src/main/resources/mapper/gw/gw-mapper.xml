@@ -76,4 +76,14 @@ select * from attachment where group_no = #{groupNo} and img_flag='M'
 <update id="updateGroupwareMainBanner">
 update attachment set original_filename = #{originalFilename}, renamed_filename = #{renamedFilename} where group_no = #{groupNo} and img_flag = 'M'
 </update>
+
+<select id="selectMemberExpendCheck" resultType="string">
+select expended from expend_check where member_id = #{id}
+</select>
+<insert id="insertDefaultExpendCheck">
+insert into expend_check values(#{id}, 'Y')
+</insert>
+<update id="updateMemberExpendCheck">
+update expend_check set expended = #{expend} where member_id = #{memberId}
+</update>
 </mapper>

@@ -358,8 +358,19 @@ public class GwFileBoardController {
 		 * ApplocationGroup applocationGroup = gwService.selectApplocationGroup(param);
 		 * model.addAttribute("role", applocationGroup.getRole());
 		 */
-        
-        
+	    String expend = "";
+	    try {
+	    	expend = gwService.selectMemberExpendCheck(loginMember.getId());
+		} catch (Exception e) {
+			
+		}
+	    if(expend==null) {
+			int result = gwService.insertDefaultExpendCheck(loginMember.getId());
+			if(result > 0) {
+				expend = gwService.selectMemberExpendCheck(loginMember.getId());
+			}
+	    }
+	    model.addAttribute("expend", expend);
 
         model.addAttribute("currGroupNo", groupNo);
         model.addAttribute("myGroup", myGroup);

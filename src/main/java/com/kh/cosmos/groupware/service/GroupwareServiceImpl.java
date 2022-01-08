@@ -124,6 +124,24 @@ public class GroupwareServiceImpl implements GroupwareService {
 		return gwDao.updateGroupwareMainBanner(attach);
 	}
 
+	@Override
+	public String selectMemberExpendCheck(String id) {
+		// TODO Auto-generated method stub
+		return gwDao.selectMemberExpendCheck(id);
+	}
+
+	@Override
+	public int insertDefaultExpendCheck(String id) {
+		// TODO Auto-generated method stub
+		return gwDao.insertDefaultExpendCheck(id);
+	}
+
+	@Override
+	public int updateMemberExpendCheck(Map<String, String> param) {
+		// TODO Auto-generated method stub
+		return gwDao.updateMemberExpendCheck(param);
+	}
+
 	
 
 

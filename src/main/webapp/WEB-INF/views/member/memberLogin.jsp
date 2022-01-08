@@ -82,9 +82,8 @@ $(() => {
 						<label for="inputPassword" class="sr-only">Password</label>
 						<input type="password" id="upw" class="form-control" placeholder="Password" name="password" required ><br>
 					<div class="checkbox">
-						<label> <input type="checkbox" value="remember-me">
-							기억하기
-						</label>
+						<input type="checkbox" name="remember-me" id="remember-me"/>
+							<label for="remember-me" class="form-check-label">기억하기</label>
 					</div>
 					<div class="mx-auto d-block">
 						<button class="btn btn-lg btn-outline-warning btn-block" type="button" onclick="kakaoLogin();">카카오 login</button>
