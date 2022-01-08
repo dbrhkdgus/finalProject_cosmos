@@ -105,7 +105,6 @@
 
 body {
   margin: 0;
-
    font-family: 'NanumBarunGothic'!important;
   font-family: var(--bs-body-font-family);
   font-size: var(--bs-body-font-size);
@@ -244,7 +243,7 @@ small, .small {
 
 mark, .mark {
   padding: 0.2em;
-  background-color: #fcf8e3;
+  background-color: #D7ECFB;
 }
 
 sub,
