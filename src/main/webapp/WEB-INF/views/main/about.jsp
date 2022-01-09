@@ -131,11 +131,18 @@
 						<mark>백지영</mark>
 					</p>
 				</div>
-				<div class="left content about-detail-content">Lorem ipsum
-					dolor sit amet, consectetur adipisicing elit. Officia dignissimos
-					rem sequi amet necessitatibus nostrum enim. Incidunt iste
-					reprehenderit nostrum asperiores fugiat blanditiis delectus
-					voluptate qui sequi sed. Voluptatibus harum.</div>
+				<div class="left content about-detail-content">
+					<p>2021년 초만해도
+					<br/>한 해의 끝과 시작을 코딩을 하며 보낼 줄 몰랐습니다.
+					<br/>2022년은 또 어떤 새로운 한 해가 될까요?
+					<br/>지금은 두려움이 크긴 하지만 동시에 조금 설레기도 하네요. 😳</p>
+					<p>7개월 동안 <br/>누군가에겐 배우는 기쁨과 성취에 즐겁고 뿌듯한 과정이었겠고,
+					<br/>또 누군가에겐 너무나 생소해 벅찼던 과정이었겠지만,
+					<br/>이 과정이 어떻게 느껴지셨는지와 상관없이
+					<br/>다들 너무 고생하셨습니다. 🎉</p>
+					<p>모두 좋은 곳에서 좋은 모습으로
+					<br/>다시 만날 수 있길 바래요 !🙆‍♀️‍</p>
+				</div>
 			</div>
 
 			<div class="aboutdetail leftbox" id="yjw">
