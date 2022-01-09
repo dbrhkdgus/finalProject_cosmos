@@ -164,10 +164,10 @@
 					</p>
 				</div>
 				<div class="left content about-detail-content">Lorem ipsum
-					dolor sit amet, consectetur adipisicing elit. Officia dignissimos
-					rem sequi amet necessitatibus nostrum enim. Incidunt iste
-					reprehenderit nostrum asperiores fugiat blanditiis delectus
-					voluptate qui sequi sed. Voluptatibus harum.</div>
+					<p>수강을 시작한게 얼마전인거같은데</p>
+					<p>벌써 파이널프로젝트를 끝낸다니 시간이 정말빠른거같군여</p>
+					<p>같이 일하면서 도와주신 팀원분들께 감사드려용~~</p>
+					<p>다들마지막까지화이팅하고 행복한 한해 되시길~~</p>
 			</div>
 
 			</div>
