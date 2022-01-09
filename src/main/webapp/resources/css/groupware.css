@@ -855,8 +855,8 @@ div.list-group1{
     align-items: center;
 }
 .groupware-main-banner{
-	width: 805px;
-    height: 460px;
+	width: 100%;
+
 
 }
  .groupware-main-today-schedule{
