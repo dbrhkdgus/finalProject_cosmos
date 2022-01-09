@@ -11,6 +11,8 @@
   		*
   	from
   		tb_member
+  	order by
+  		member_enroll_date desc
   </select>
   
   <select id="selectOneMember" resultType="MemberWithGroup">

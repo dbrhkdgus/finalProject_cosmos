@@ -76,11 +76,13 @@
 							<mark>이진표</mark>
 						</p>
 					</div>
-					<div class="left content about-detail-content">Lorem ipsum
-						dolor sit amet, consectetur adipisicing elit. Officia dignissimos
-						rem sequi amet necessitatibus nostrum enim. Incidunt iste
-						reprehenderit nostrum asperiores fugiat blanditiis delectus
-						voluptate qui sequi sed. Voluptatibus harum.</div>
+					<div class="left content about-detail-content">
+						<p>약 2달 간의 파이널 프로젝트 다들 너무 고생했습니다.
+이번 프로젝트하면서 각 개인이 다양한 기능들을 맡아보면서, 팀원들 전체가 성장할 수 있었던 시간이었던 것 같습니다.
+또한 워라벨을 어느 정도 확보해 나가면서도 작업을 해나갈 수 있었으며, 즐거운 분위기 속에서 프로젝트 함께 할 수 있어서 좋았습니다</p>
+
+						<p>마지막으로 다시 한 번 모두 고생하셨습니다~다 같이 취업까지 화이팅!</p>
+					</div>
 				</div>
 
 
