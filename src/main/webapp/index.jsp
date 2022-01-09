@@ -17,6 +17,7 @@
 <sec:authorize access="isAuthenticated()">
 	<sec:authentication property="principal" var="loginMember"/>
 </sec:authorize>
+
 		<!-- Page content-->
 <div id="main-box" class="container">
 	<div class="index-outer1">

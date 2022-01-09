@@ -108,5 +108,29 @@ public class MemberDaoImpl implements MemberDao {
 		// TODO Auto-generated method stub
 		return session.delete("member.deleteMember", id);
 	}
-	 
+
+	@Override
+	public int deleteMemberFromApplocationGroup(Map<String, Object> param) {
+		// TODO Auto-generated method stub
+		return session.delete("member.deleteMemberFromApplocationGroup",param);
+	}
+
+	@Override
+	public List<Integer> selectChatRoomNoList(int groupNo) {
+		// TODO Auto-generated method stub
+		return session.selectList("member.selectChatRoomNoList", groupNo);
+	}
+
+	@Override
+	public int deleteMemberFromChatuser(Map<String, Object> param) {
+		// TODO Auto-generated method stub
+		return session.delete("member.deleteMemberFromChatuser",param);
+	}
+
+	@Override
+	public int deleteMemberAuthorityAboutGroup(Map<String, Object> param) {
+		// TODO Auto-generated method stub
+		return session.delete("member.deleteMemberAuthorityAboutGroup", param);
+	}
+	
 }

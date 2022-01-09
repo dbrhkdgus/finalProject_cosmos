@@ -115,6 +115,30 @@ public class MemberServiceImpl implements MemberService {
 		// TODO Auto-generated method stub
 		return memberDao.deleteMember(id);
 	}
+
+	@Override
+	public int deleteMemberFromApplocationGroup(Map<String, Object> param) {
+		// TODO Auto-generated method stub
+		return memberDao.deleteMemberFromApplocationGroup(param);
+	}
+
+	@Override
+	public List<Integer> selectChatRoomNoList(int groupNo) {
+		// TODO Auto-generated method stub
+		return memberDao.selectChatRoomNoList(groupNo);
+	}
+
+	@Override
+	public int deleteMemberFromChatuser(Map<String, Object> param) {
+		// TODO Auto-generated method stub
+		return memberDao.deleteMemberFromChatuser(param);
+	}
+
+	@Override
+	public int deleteMemberAuthorityAboutGroup(Map<String, Object> param) {
+		// TODO Auto-generated method stub
+		return memberDao.deleteMemberAuthorityAboutGroup(param);
+	}
 	
 	
 	
