@@ -41,6 +41,14 @@ public interface MemberDao {
 	List<String> selectMemberAuthority(String id);
 
 	int deleteMember(String id);
+
+	int deleteMemberFromApplocationGroup(Map<String, Object> param);
+
+	List<Integer> selectChatRoomNoList(int groupNo);
+
+	int deleteMemberFromChatuser(Map<String, Object> param);
+
+	int deleteMemberAuthorityAboutGroup(Map<String, Object> param);
 	
 	
 

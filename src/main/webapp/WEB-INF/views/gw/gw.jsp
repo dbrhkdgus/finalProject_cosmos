@@ -54,7 +54,7 @@ a { color:black; text-decoration:none !important } a:hover { color : black; text
 				<div class="gw-main-banner-img" style="width: 53%; height: 110%;">
 					<c:if test="${myGroup.groupNo == groupwareMainBanner.groupNo }">
 						
-							<img class="groupware-main-banner rounded" src="${pageContext.request.contextPath }/resources/upFile/group/${groupwareMainBanner.renamedFilename}" alt=""  style="width: 38vw;height: 90%;"/>			
+							<img class="groupware-main-banner rounded" src="${pageContext.request.contextPath }/resources/upFile/group/${groupwareMainBanner.renamedFilename}" alt="" />			
 					<!-- 	<hr style="margin-bottom: 30px"/> -->
 					</c:if>
 				</div>

@@ -51,7 +51,6 @@ import com.kh.cosmos.member.model.service.MemberService;
 import com.kh.cosmos.member.model.vo.Member;
 
 import lombok.extern.slf4j.Slf4j;
-import oracle.jdbc.proxy.annotation.Post;
 
 @Controller
 @Slf4j
@@ -440,6 +439,53 @@ public class MemberController {
 		}
 
 		return result;
+	}
+	
+	@ResponseBody
+	@PostMapping("/groupWithdrawal.do")
+	public int groupWithdrawal(int groupNo, Authentication auth) {
+		Member loginMember = (Member) auth.getPrincipal();
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("memberId", loginMember.getId());
+		param.put("groupNo", groupNo);
+		
+		// 그룹 멤버리스트에서 날리기
+		int result = memberService.deleteMemberFromApplocationGroup(param);
+		if(result > 0) {
+			// 채팅방 참여인원 목록에서 지우기
+			List<Integer> chatRoomNoList = memberService.selectChatRoomNoList(groupNo);
+			for(int chatRoomNo : chatRoomNoList) {
+				param.put("chatRoomNo", chatRoomNo);
+				
+				try {
+					result = memberService.deleteMemberFromChatuser(param);
+				} catch (Exception e) {
+
+				}
+			}
+		}
+		// 권한 삭제하기
+		if(result > 0) {
+			result = memberService.deleteMemberAuthorityAboutGroup(param);
+		}
+		
+		// 권한 재부여
+		try {
+			auth.getAuthorities().remove("ROLE_"+groupNo+"MEMBER");
+		} catch (Exception e) {
+
+		}
+		try {
+			auth.getAuthorities().remove("ROLE_"+groupNo+"MANAGER");
+		} catch (Exception e) {
+
+		}
+		Authentication newAuthentication = new UsernamePasswordAuthenticationToken(loginMember,
+				auth.getCredentials(), auth.getAuthorities());
+
+		SecurityContextHolder.getContext().setAuthentication(newAuthentication);
+		
+		return groupNo;
 	}
 	
 }

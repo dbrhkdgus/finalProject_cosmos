@@ -73,9 +73,8 @@
 
 <sec:authorize access="isAuthenticated()">
 	<sec:authentication property="principal" var="loginMember"/>
-	
 </sec:authorize>
-  <header class="bg-light">
+   <header class="bg-light">
     <div id="cosmos-groupwear-header"  style="background-color: #5288F2;">
       <div class="groupwear-header-box"  style="height: 8vh;">
         
@@ -101,7 +100,7 @@
       </div>  
     </div>
   </header>
-  <section id="cosmos-groupwear-workspace">
+<section id="cosmos-groupwear-workspace">
 
   <div class="d-flex flex-column flex-shrink-0 bg-light" style="width: 4.5rem;background-color: #5288F2 !important;">
     <ul class="nav nav-pills nav-flush flex-column mb-auto text-center">
@@ -140,6 +139,7 @@
       </ul>
     </div>
   </div>
+ 
 <form:form method="POST" action="${pageContext.request.contextPath}/member/memberLogout.do" id="memberLogoutFrm" class="d-inline"></form:form>
   <div class="flex-shrink-0 p-3 bg-light" style="overflow-y: auto; width: 230px;background-color: #f8f9fa  !important;">
     <ul class="list-unstyled ps-0">
@@ -300,8 +300,17 @@
         </div>
       </li>
      </sec:authorize>
+     <sec:authorize access="hasAnyRole('ROLE_GW${currGroupNo}MEMBER', 'ROLE_GW${currGroupNo}MANAGER','ROLE_ADMIN')">
+      <li class="border-top my-3"></li>	
+      <li class="mb-1">
+        <button id="btn-withdrawal"class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" aria-expanded="false" data-bs-placement="right">
+          그룹탈퇴
+        </button>
+      </li>
+     </sec:authorize>
     </ul>
   </div>
+
  <!-- 게시판 개설하기 위한 모달창 --> 
 <div class="modal fade" id="createBoardRoomModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
   aria-hidden="true">
@@ -566,6 +575,7 @@
     </div>
   </div>
 </div>
+
  <script>
 
  $(".div_sub").click((e)=>{
@@ -575,7 +585,7 @@
  })
  
  
- 
+
 /* 채팅방 개설 modal 제어 */
 $(".modal-member-box").hide();
 
@@ -593,7 +603,7 @@ $(".btn-createChatRoom").click((e)=>{
 	 $("#updateChatRoomModal").modal('hide');
 	 $("#deleteGroupModal").modal('hide');
  });
-
+  
  $("input[name=chatRoomOpenType]").change((e)=>{
 	 var val = $("input[name=chatRoomOpenType]:checked").val();
 	 if(val == 'all'){
@@ -666,12 +676,12 @@ $(".btn-createChatRoom").click((e)=>{
 	 console.log(boardNo);
 	 $("#board-no-for-update-delete").val(boardNo);
  });
- 
+
  $(".btn-deleteBoardRoom").click((e)=>{
 	 $("#updateDeleteBoardFrm").attr("action", `${pageContext.request.contextPath }/gw/board/deleteBoardRoom.do`);
 	 $(document.updateBoardRoomFrm).submit();
  });
- 
+
  /* 채팅 채널 생성 변경 삭제 */
  $(".updateChatRoom").click((e)=> {
 	 $(".selected-chat-user-box").text('');
@@ -763,7 +773,7 @@ $(".btn-createChatRoom").click((e)=>{
 	 $("#updateChatRoomModal").modal('show');
  });
  
- 
+
  $(".btn-updateChatRoom").click((e)=>{
 		var form = $('#updateDeleteChatRoomFrm')[0];
 	    var formData = new FormData(form);
@@ -785,7 +795,7 @@ $(".btn-createChatRoom").click((e)=>{
 		 	error : console.log
 	    });  
 	});
- 
+
 	$(".btn-deleteChatRoom").click((e)=>{
 		var chatRoomNo = $("#chat-room-no-for-update-delete").val();
 		console.log(chatRoomNo);
@@ -810,7 +820,7 @@ $(".btn-createChatRoom").click((e)=>{
  
 	
 	
- 
+	 
  $(".btn-createVoiceChatRoom").click((e)=>{
 	 $(document.createVoiceChatRoomFrm).submit();
  });
@@ -848,6 +858,7 @@ $(".btn-createChatRoom").click((e)=>{
 			}
 		});
 	});
+ 
  /* 그룹삭제 */
  $("#btn-delte-group").click((e)=>{
 	$("#deleteGroupModal").modal('show');
@@ -879,6 +890,30 @@ $(".btn-createChatRoom").click((e)=>{
 		 alert("입력 정보가 일치하지 않습니다.");
 	 }
  });
- 
- </script>
+
+ /* 그룹 탈퇴 */
+ $("#btn-withdrawal").click((e)=>{
+	 if(confirm(`그룹 탈퇴 시, 그룹 내의 모든 정보가 사라집니다. 
+탈퇴를 진행하시겠습니까?`)){
+		var groupNo = ${currGroupNo};
+		$.ajax({
+			url : "${pageContext.request.contextPath}/member/groupWithdrawal.do",
+			method : "post",
+			headers: {
+				"${_csrf.headerName}" : "${_csrf.token}"
+			},
+			data : {
+				groupNo : groupNo
+			},
+			success(res){
+				alert("그룹탈퇴가 완료되었습니다.");
+				location.href="${pageContext.request.contextPath }/";
+			},
+			error : console.log
+		});
+		
+	 }
+ });
+
+ </script> 
  </sec:authorize>

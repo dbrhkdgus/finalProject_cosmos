@@ -93,4 +93,22 @@
 	<delete id="deleteMember">
 	delete tb_member where id = #{id}
 	</delete>
+	
+	<delete id="deleteMemberFromApplocationGroup">
+	delete applocation_group where member_id = #{memberId} and group_no=#{groupNo}
+	</delete>
+	
+	<select id="selectChatRoomNoList" resultType="_int">
+	select chat_room_no from chat_room where group_no = #{groupNo}
+	</select>
+	
+	<delete id="deleteMemberFromChatuser">
+	delete chat_user where chatRoomNo = #{chatRoomNo} and member_id = #{memberId}
+	</delete>
+	
+	<delete id="deleteMemberAuthorityAboutGroup">
+	delete authorities where member_id = #{memberId} and authority like '%'||#{groupNo}||'%'
+	</delete>
+	
+
 </mapper>

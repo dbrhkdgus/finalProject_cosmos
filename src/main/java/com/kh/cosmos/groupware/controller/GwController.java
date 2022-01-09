@@ -51,7 +51,6 @@ public class GwController {
 		Member loginMember = (Member) auth.getPrincipal();
 		Group myGroup = gwService.selectMyGroup(groupNo);
 		List<Member> myGroupMemberList = gwService.selectAllGroupMembers(groupNo);
-		log.debug("msg = {}", msg);
 		
 		
 		List<Group> myGroupList = gwService.selectAllMyGroup(loginMember.getId());
@@ -116,6 +115,7 @@ public class GwController {
 		model.addAttribute("msg",msg);
 		
 		model.addAttribute("title", "메인화면");
+		log.debug("==============================test===============================");
 		return "gw/gw";
 	}
 	@ResponseBody
