@@ -103,7 +103,7 @@
 	</select>
 	
 	<delete id="deleteMemberFromChatuser">
-	delete chat_user where chatRoomNo = #{chatRoomNo} and member_id = #{memberId}
+	delete chat_user where chat_room_no = #{chatRoomNo} and member_id = #{memberId}
 	</delete>
 	
 	<delete id="deleteMemberAuthorityAboutGroup">
