@@ -112,11 +112,11 @@
 						<mark>김은희</mark>
 					</p>
 				</div>
-				<div class="left content about-detail-content">Lorem ipsum
-					dolor sit amet, consectetur adipisicing elit. Officia dignissimos
-					rem sequi amet necessitatibus nostrum enim. Incidunt iste
-					reprehenderit nostrum asperiores fugiat blanditiis delectus
-					voluptate qui sequi sed. Voluptatibus harum.</div>
+				<div class="left content about-detail-content">
+				<p>벌써 파이널이라니 정말 믿기지 않는군요!</p>
+				<p>파이널 프로젝트를 하면서 스스로 헷갈렸던 내용을 다시 잡을 수 있었고, </p>
+				<p>팀원분들에게도 많은것을 배울 수 있었던 소중한 시간이었습니다.</p>
+				<p>한번도 못보고 헤어지기엔 아쉽지만 더 좋은 곳에서 다시만나요! :)</p></div>
 			</div>
 
 			<div class="aboutdetail leftbox" id="bjy">
