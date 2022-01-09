@@ -148,11 +148,16 @@
 						<mark>유지우</mark>
 					</p>
 				</div>
-				<div class="left content about-detail-content">Lorem ipsum
-					dolor sit amet, consectetur adipisicing elit. Officia dignissimos
-					rem sequi amet necessitatibus nostrum enim. Incidunt iste
-					reprehenderit nostrum asperiores fugiat blanditiis delectus
-					voluptate qui sequi sed. Voluptatibus harum.</div>
+				<div class="left content about-detail-content">
+				<p>파이널 프로젝트를 진행하면서 마음대로 되지 않아서</p> 
+				<p>힘들고 지칠때도 있었지만</p> 
+				<p>다들 열심히 하시는 모습에 많이 배웠던 것 같아요!!</p> 
+				<p>앞으로도 게을리 하지 않고 공부해서</p>
+				<p> 좋은 개발자로 성장해나가고 싶습니다.</p> 
+				<p>다들 주말, 공휴일 반납해가면서 프로젝트하느라 너무 수고하셨고</p> 
+				<p>좋은직장에 취직해서 만났으면 좋겠습니다.  화이팅🥰🥰</p> 
+				
+				</div>
 			</div>
 
 			<div class="aboutdetail leftbox" id="lyh">
