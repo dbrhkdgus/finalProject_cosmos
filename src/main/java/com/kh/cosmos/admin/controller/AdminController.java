@@ -638,6 +638,21 @@ public class AdminController {
 		}
 		model.addAttribute("categoryMap", categoryMap);
 		
+		log.debug("param.get(searchTpe)= {}", param.get("searchType"));
+		log.debug("param.get(searchKeyword)= {}", param.get("searchType"));
+		log.debug("param.get(searchRegDateStart)= {}", param.get("searchRegDateStart"));
+		log.debug("param.get(searchRegDateEnd)= {}", param.get("searchRegDateEnd"));
+		log.debug("param.get(categoryNo)= {}", param.get("categoryNo"));
+		log.debug("param.get(searchRegDateEnd)= {}", param.get("searchRegDateEnd"));
+		log.debug("param.get(groupClose)= {}", param.get("groupClose"));
+		
+		model.addAttribute("searchType", param.get("searchType"));
+		model.addAttribute("searchKeyword", param.get("searchKeyword"));
+		model.addAttribute("searchRegDateStart", param.get("searchRegDateStart"));
+		model.addAttribute("searchRegDateEnd", param.get("searchRegDateEnd"));
+		model.addAttribute("categoryNo", param.get("categoryNo"));
+		model.addAttribute("groupClose", param.get("groupClose"));
+		
 		return "admin/groups";
 	}
 	@GetMapping("/groups/selectOneGroup")

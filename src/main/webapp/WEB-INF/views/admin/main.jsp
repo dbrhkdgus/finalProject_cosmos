@@ -300,7 +300,7 @@ let date = now.getDate();
 				      labels: labels,
 				      datasets: [{
 				        label: "Population (millions)",
-				        backgroundColor: ["#EFC7D6","#BDE4D7", "#CCE2EE","#FACDCA","#F3E3AE","#D8DCEB","#E2D9E7"],
+				        backgroundColor: ["#EFC7D6","#BDE4D7", "#CCE2EE","#FACDCA","#F3E3AE","#D8DCEB","#E2D9E7","#FEF7DA"],
 				        data: counts
 				      }]
 				    },

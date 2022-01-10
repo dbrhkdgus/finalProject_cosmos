@@ -111,9 +111,9 @@
 		             	<tbody>
 		             	<c:forEach items="${countOfGroupLikeList }" var="likeGroup" varStatus="status">
 		             	<tr>
-		             		<td style="border-right: solid #4E6175 1px">${status.count }</td>
-		             		<td style="border-right: solid #4E6175 1px">${likeGroup.column}</td>
-		             		<td style="border-right: solid #4E6175 1px">${likeGroup.count}</td>
+		             		<td style="border-right: solid #4E6175 1px">${status.count }개</td>
+		             		<td style="border-right: solid #4E6175 1px">${likeGroup.column}개</td>
+		             		<td style="border-right: solid #4E6175 1px">${likeGroup.count}개</td>
 		             	</tr>
 		             	</c:forEach>
 		             	<c:if test="${fn:length(countOfGroupLikeList) < 5}">
@@ -255,57 +255,6 @@ let config = {
 })()
 
 //총 게시글 Tab 클릭시
-$("#secondTap").click((e)=>{
-	$.ajax({
-		url: `${pageContext.request.contextPath}/admin/statisticsCategory`,
-		dataType: "json",
-		success(data){
-			console.log(data);
-			console.log(data.list[0]["column"]);
-			console.log(data.list.length);
-			let labels = [];
-			let counts = [];
-			for(i = 0; i < data.list.length; i++){
-				labels.push(data.list[i]["column"]);
-				counts.push(data.list[i]["count"]);
-			}
-
-			config = {
-			    type: 'pie',
-			    data: {
-			      labels: labels,
-			      datasets: [{
-			        label: "Population (millions)",
-			        backgroundColor: ["#EFC7D6","#BDE4D7", "#CCE2EE","#FACDCA","#F3E3AE","#D8DCEB","#E2D9E7"],
-			        data: counts
-			      }]
-			    },
-			    options: {
-			      title: {
-			        display: true,
-			        text: '카테고리 별 모임 수',
-			        fontColor: 'white',
-			        fontSize: 13
-			      }, 
-			      legend: {
-			    	  labels: {
-			    		  fontColor: "white",
-			    		  fontSize: 12
-			    	  }
-			      },
-			    }
-			};
-			
-			$("#pie-chart").remove();
-			$("#div_chart").append('<canvas id="pie-chart" class="col-12"></canvas>');
-			new Chart(document.getElementById("pie-chart"),config);
-
-		},
-		error: console.log
-	})
-})
-
-//총 게시글 Tab 클릭시
 $("#firstTap").click((e)=>{
 	let totalCountOfPost_arr = [];
 	let labels_arr = [];
@@ -359,7 +308,7 @@ $("#firstTap").click((e)=>{
 	});
 })
 
-//
+//카테고리 별 모임 클릭 시 
 $("#secondTap").click((e)=>{
 	$.ajax({
 		url: `${pageContext.request.contextPath}/admin/statisticsCategory`,
@@ -383,7 +332,7 @@ $("#secondTap").click((e)=>{
 				      labels: labels,
 				      datasets: [{
 				        label: "Population (millions)",
-				        backgroundColor: ["#EFC7D6","#BDE4D7", "#CCE2EE","#FACDCA","#F3E3AE","#D8DCEB","#E2D9E7"],
+				        backgroundColor: ["#EFC7D6","#BDE4D7", "#CCE2EE","#FACDCA","#F3E3AE","#D8DCEB","#E2D9E7","#FEF7DA"],
 				        data: counts
 				      }]
 				    },
