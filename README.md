@@ -33,9 +33,9 @@ PW)1234
 
 
 ## 개발환경 및 사용언어
-* **OS** : <img src ="https://img.shields.io/badge/Windows-0078D6.svg?&style=for-the-badge&logo=Windows&logoColor=white"/>
+* **OS** : <img src ="https://img.shields.io/badge/Windows-blue?logo=Windows"/>
 * **IDE** : <img src ="https://img.shields.io/badge/spring-white?logo=spring"/>
-* **WAS** : <img src ="https://img.shields.io/badge/Apache Tomcat-F8DC75.svg?&style=for-the-badge&logo=Apache Tomcat&logoColor=white"/>
+* **WAS** : <img src ="https://img.shields.io/badge/Apache%20Tomcat-blue?logo=Apache%20Tomcat"/>
 * **DB** : <img src ="https://img.shields.io/badge/Oracle-F80000.svg?&style=for-the-badge&logo=Oracle&logoColor=white"/>
 * **PL** : 
 <img src ="https://img.shields.io/badge/Java-007396.svg?&style=for-the-badge&logo=Java&logoColor=white"/>
