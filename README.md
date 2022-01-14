@@ -37,7 +37,6 @@ PW)1234
 * **IDE** : <img src ="https://img.shields.io/badge/spring-white?logo=spring"/>
 * **WAS** : <img src ="https://img.shields.io/badge/Apache%20Tomcat-blue?logo=Apache%20Tomcat"/>
 * **DB** : <img src ="https://img.shields.io/badge/Oracle-red?logo=Oracle"/>
-* **PL** : 
 <img src ="https://img.shields.io/badge/Java-red?logo=Java"/>
 <img src ="https://img.shields.io/badge/HTML5-black?logo=HTML5"/>
 <img src ="https://img.shields.io/badge/CSS3-black?logo=CSS3"/>
