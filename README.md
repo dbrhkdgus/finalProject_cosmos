@@ -1,9 +1,31 @@
 # finalProject_cosmos
-코딩 스터디 모임 그룹웨어 코스모스 입니다.
-스터디 그룹을 찾고, 그룹원들과 별도의 프로그램없이 웹에서 협업이 가능합니다!
 
-유광현/이진표/강구진/김은희/백지영/유지우/이윤희
+-**COSMOS** Coding Study Meeting
 
-테스트 아이디 : honggd, admin
-비밀번호 : 1234, 1234
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## 💚 개발환경 및 사용언어
+* **OS** : <img src ="https://img.shields.io/badge/Windows-0078D6.svg?&style=for-the-badge&logo=Windows&logoColor=white"/>
+* **IDE** : 
+* **WAS** : <img src ="https://img.shields.io/badge/Apache Tomcat-F8DC75.svg?&style=for-the-badge&logo=Apache Tomcat&logoColor=white"/>
+* **DB** : <img src ="https://img.shields.io/badge/Oracle-F80000.svg?&style=for-the-badge&logo=Oracle&logoColor=white"/>
+* **PL** : 
+<img src ="https://img.shields.io/badge/Java-007396.svg?&style=for-the-badge&logo=Java&logoColor=white"/>
+<img src ="https://img.shields.io/badge/HTML5-E34F26.svg?&style=for-the-badge&logo=HTML5&logoColor=white"/>
+<img src ="https://img.shields.io/badge/CSS3-1572B6.svg?&style=for-the-badge&logo=CSS3&logoColor=white"/>
+<img src ="https://img.shields.io/badge/JavaScript-F7DF1E.svg?&style=for-the-badge&logo=JavaScript&logoColor=white"/>
+<img src ="https://img.shields.io/badge/jQuery-0769AD.svg?&style=for-the-badge&logo=jQuery&logoColor=white"/>
