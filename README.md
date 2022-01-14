@@ -36,10 +36,10 @@ PW)1234
 * **OS** : <img src ="https://img.shields.io/badge/Windows-blue?logo=Windows"/>
 * **IDE** : <img src ="https://img.shields.io/badge/spring-white?logo=spring"/>
 * **WAS** : <img src ="https://img.shields.io/badge/Apache%20Tomcat-blue?logo=Apache%20Tomcat"/>
-* **DB** : <img src ="https://img.shields.io/badge/Oracle-F80000.svg?&style=for-the-badge&logo=Oracle&logoColor=white"/>
+* **DB** : <img src ="https://img.shields.io/badge/Oracle-red?logo=Oracle"/>
 * **PL** : 
-<img src ="https://img.shields.io/badge/Java-007396.svg?&style=for-the-badge&logo=Java&logoColor=white"/>
-<img src ="https://img.shields.io/badge/HTML5-E34F26.svg?&style=for-the-badge&logo=HTML5&logoColor=white"/>
-<img src ="https://img.shields.io/badge/CSS3-1572B6.svg?&style=for-the-badge&logo=CSS3&logoColor=white"/>
-<img src ="https://img.shields.io/badge/JavaScript-F7DF1E.svg?&style=for-the-badge&logo=JavaScript&logoColor=white"/>
-<img src ="https://img.shields.io/badge/jQuery-0769AD.svg?&style=for-the-badge&logo=jQuery&logoColor=white"/>
+<img src ="https://img.shields.io/badge/Java-red?logo=Java"/>
+<img src ="https://img.shields.io/badge/HTML5-black?logo=HTML5"/>
+<img src ="https://img.shields.io/badge/CSS3-black?logo=CSS3"/>
+<img src ="https://img.shields.io/badge/JavaScript-blue?logo=JavaScript"/>
+<img src ="https://img.shields.io/badge/jQuery-blue?logo=jQuery"/>
