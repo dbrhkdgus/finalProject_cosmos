@@ -62,8 +62,16 @@
               				<th style="border-right: solid 1px #3e464f" class="col-1.5 text-center">검색어</th>
               				<td class="d-flex">
               					<select name="searchType" id="" class="mr-2">
-					                <option value="groupName">모임명</option>
-					                <option value="groupNo">모임 번호</option>  
+					                <option value="groupName"
+					                <c:if test="${searchType eq 'groupName'}">
+					                selected
+					                </c:if>
+					                >모임명</option>
+					                <option value="groupNo"
+					                <c:if test="${searchType eq 'groupNo'}">
+					                selected
+					                </c:if>					                
+					                >모임 번호</option>  
 					            </select>
 					        <input name="searchKeyword" id="searchKeyword" type="text"
 					        	<c:if test="${not empty searchKeyword}">value="${searchKeyword}"</c:if>
@@ -77,7 +85,6 @@
               					<input class="dateSize" type="date" name="searchRegDateStart" id="searchRegDateStart" 
               						<c:if test="${not empty searchRegDateStart}">value="${searchRegDateStart}"</c:if>
               					/>&nbsp~&nbsp
-              					
 	         					<input class="dateSize" type="date" name="searchRegDateEnd" id="searchRegDateEnd" 
               						<c:if test="${not empty searchRegDateEnd}">value="${searchRegDateEnd}"</c:if>	         					
 	         					/>
@@ -90,7 +97,11 @@
 	              					<select name="categoryNo" id="categoryNo">
 		              					<option value="">전체</option>
 		              					<c:forEach items="${CategoryOneList }" var="category">
-		              					<option value="${category.category1No}">${category.category1Name}</option>
+		              					<option value="${category.category1No}"
+										<c:if test="${categoryNo eq category.category1No}">
+										selected
+										</c:if>
+		              					>${category.category1Name}</option>
 		              					</c:forEach>
 
 	              					</select>              				

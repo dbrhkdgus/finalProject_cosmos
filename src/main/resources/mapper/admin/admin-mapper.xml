@@ -402,30 +402,27 @@
 	</select>
 	
 	<select id="countOfnewPostInThisWeekList" resultType="ColumnAndCount">
-		select
-		    group_name "column",
-		    count
-		from(
+		select 
+		    group_name "column", count            
+		from(            
 		    select
-		        a.*,rownum
-		    from
-		        (
+		        group_name
+		        , count
+		        , rownum
+		    from(
 		        select 
-		            distinct b1.group_no,
-		            group_name,
-		            (select count(*) from post p left join board b on p.board_no = b.board_no where post_reg_date between (sysdate-1) and sysdate and group_no = b1.group_no) count
+		            group_no
+		            , count(*) count
 		        from 
 		            post p 
-		                left join board b1 on p.board_no = b1.board_no
-		                left join tb_group tg on b1.group_no = tg.group_no
-		        where 
-		            post_reg_date between (sysdate-6) and sysdate
-		        order by
-		            count desc
-		        ) a
-		    where 
-		        rownum between 1 and 5
-		    )		
+		            left join board b on p.board_no = b.board_no
+		        group by
+		            group_no
+		        ) a left join tb_group tg on a.group_no = tg.group_no
+		    order by count desc
+		    )
+		where
+		    rownum between 1 and 5
 	</select>
 	
 	<select id="countOfGroupLikeList" resultType="ColumnAndCount">
@@ -503,7 +500,7 @@
 		<where>
 		group_accept='Y'
 		<if test="searchType == 'groupName' and searchKeyword != ''">
-  			and group_name like '%'||#{searchKeyword}||'%'
+  			and upper(group_name) like upper('%'||#{searchKeyword}||'%')
   		</if>
   		<if test="searchType =='groupNo' and searchKeyword != ''">
   			and tg.group_no = #{searchKeyword}
@@ -513,6 +510,9 @@
 		</if>
 		<if test="groupClose != ''">
 			and group_close = #{groupClose}
+		</if>
+		<if test="categoryNo != ''">
+			and category_No = #{categoryNo}
 		</if>
 		</where>		
 		order by
@@ -541,6 +541,9 @@
 			<if test="groupClose != ''">
 				and group_close = #{groupClose}
 			</if>
+			<if test="categoryNo != ''">
+				and category_no = #{categoryNo}
+			</if>			
 			</where>		
 			order by
 			    group_no desc	
