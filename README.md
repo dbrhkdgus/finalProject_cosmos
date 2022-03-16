@@ -18,6 +18,11 @@ PW)1234
 ID)admin
 PW)1234
 
+사용 API<br>
+카카오 로그인<br>
+카카오 페이<br>
+SummerNote<br>
+Zoom API<br>
 
 비고 <br>
 Oracle cloud 유료 체험판 기간 만료<br>
