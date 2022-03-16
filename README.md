@@ -20,7 +20,7 @@ PW)1234
 
 
 비고 <br>
-Oracle cloud 유료 체험판 기간 만료
+Oracle cloud 유료 체험판 기간 만료<br>
 (db 구동 필요시 homepagecontectmail@gmail.com 문의)
 
 
