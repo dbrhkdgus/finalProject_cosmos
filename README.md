@@ -1,6 +1,6 @@
-# finalProject_cosmos
+## finalProject_cosmos
 
--**COSMOS** Coding Study Meeting
+# -**COSMOS** Coding Study Meeting
 
 프로젝트명 : COSMOS
 
