@@ -23,6 +23,7 @@ PW)1234
 카카오 페이<br>
 SummerNote<br>
 Zoom API<br>
+Naver lucy(의존(필터링))<br>
 
 비고 <br>
 Oracle cloud 유료 체험판 기간 만료<br>
