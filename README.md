@@ -26,7 +26,7 @@ Zoom API<br>
 Naver lucy(의존(필터링))<br>
 
 비고 <br>
-Oracle cloud 유료 체험판 기간 만료<br>
+Oracle cloud 유료 기간 만료<br>
 (db 구동 필요시 homepagecontectmail@gmail.com 문의)
 
 
